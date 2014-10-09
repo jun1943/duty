@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
-
+ 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:context="http://www.springframework.org/schema/context"
@@ -29,21 +27,5 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
     </context:component-scan>
  
-	
-    <!-- 配置数据库连接 -->  
-    <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
-        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>  
-        <property name="url" value="jdbc:mysql://w.rdc.sae.sina.com.cn:3307/app_mybao88?autoReconnect=true"/>  
-        <property name="username" value="n0344jjnm0"/>  
-        <property name="password" value="m3h234h12hl20jk21hx115i31w3jxw53l0x4lm1w"/>  
-    </bean> -->
-    
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
-        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>  
-        <property name="url" value="jdbc:mysql://localhost:3306/drs?useUnicode=true&amp;characterEncoding=UTF-8"/>
-        <property name="username" value="root"/>  
-        <property name="password" value="5233750"/>  
-    </bean> 
-     
 
 </beans> 

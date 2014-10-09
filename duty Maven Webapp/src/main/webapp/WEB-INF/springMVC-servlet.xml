@@ -27,7 +27,7 @@
 	<mvc:annotation-driven/>
 	
 	<!-- 自动搜索@Controller标注的类 -->   
-  	<context:component-scan base-package="com.mybao66"/> 
+  	<context:component-scan base-package="com.tianyi.drs.duty.controller"/> 
   	
     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"></bean>  
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"></bean>  
