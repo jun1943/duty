@@ -1,7 +1,10 @@
 package com.tianyi.drs.duty.dao;
+ 
 
 import com.tianyi.drs.duty.model.PoliceMan;
 
+@MyBatisRepository
+//@Repository
 public interface PoliceManMapper {
     int deleteByPrimaryKey(Integer id);
 

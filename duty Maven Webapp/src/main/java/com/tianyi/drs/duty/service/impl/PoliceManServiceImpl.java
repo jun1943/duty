@@ -1,16 +1,17 @@
 package com.tianyi.drs.duty.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+ 
 import org.springframework.stereotype.Service;
 
 import com.tianyi.drs.duty.dao.PoliceManMapper;
 import com.tianyi.drs.duty.model.PoliceMan;
 import com.tianyi.drs.duty.service.PoliceManService;
 
-@Service
+@Service("policeManService")
 public class PoliceManServiceImpl implements PoliceManService{
 	
-    @Autowired
+    @Resource(name = "policeManMapper")
     private PoliceManMapper policeDao;
  
 	public int deleteByPrimaryKey(Integer id) {
