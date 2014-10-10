@@ -2,18 +2,21 @@ package com.tianyi.drs.duty.controller;
 
 import javax.annotation.Resource;
  
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tianyi.drs.duty.model.PoliceMan;
 import com.tianyi.drs.duty.service.PoliceManService; 
+import com.tianyi.drs.duty.utils.ServiceFactory;
 
+@Scope("prototype")
 @Controller
-@RequestMapping("/PoliceMan")
+@RequestMapping("/policeman")
 public class PoliceManController {
 	
-	@Resource(name = "policeManService")
-	private PoliceManService policeService;// = ServiceFactory.getPoliceServiceInit();
+	@Resource(name = "policemanService")
+	protected PoliceManService policeService;// = ServiceFactory.getPoliceServiceInit();
 
 	@RequestMapping("index")
 	public String index() {

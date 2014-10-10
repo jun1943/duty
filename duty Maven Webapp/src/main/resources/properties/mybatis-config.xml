@@ -5,10 +5,11 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
         <!-- 命名空间 -->
     <typeAliases>
-         <typeAlias alias="PoliceMan" type="com.mybatis.model.PoliceMan"/>
-    </typeAliases>
- 
+         <typeAlias alias="PoliceMan" type="com.tianyi.drs.duty.model.PoliceMan"/>
+    </typeAliases> 
+	
     <!-- 映射map -->
     <mappers>
+		<mapper resource="src/main/resources/mapper/PoliceManMapper.xml" /> 
     </mappers>
 </configuration>

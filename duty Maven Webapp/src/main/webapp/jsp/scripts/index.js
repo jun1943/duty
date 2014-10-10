@@ -5,7 +5,7 @@ function loadAction(){
         //url: "../Index/getPolice.do",
         //url: "../Index/selectPolice.do",
         //url: "../Index/updatePolice.do",
-		url:"../PoliceMan/savePolice.do",
+		url:"policeman/savePolice.do",
         type: "POST",
         dataType: "json",
         async:false,  

@@ -5,24 +5,19 @@
 	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 		http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+		 <description>duty</description>
+  <context-param>
+    <param-name>log4jConfigLocation</param-name>
+    <param-value>classpath:log4j.properties</param-value>
+  </context-param>
+  
+  
   	<display-name>duty</display-name> 
-    <!-- 读取spring配置文件 -->
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:properties/spring.xml;
-            classpath:properties/spring-mybatis.xml
-        </param-value>
-    </context-param> 
+    <!-- 读取spring配置文件 --> 
     <context-param>
   		<param-name>contextConfigLocation</param-name>
   		<param-value>/WEB-INF/applicationContext.xml</param-value>
  	</context-param>
-     <!-- 设计路径变量值 -->
-    <context-param>
-        <param-name>webAppRootKey</param-name>
-        <param-value>springmvc.root</param-value>
-    </context-param>
-     
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -63,7 +58,7 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath:properties/spring-mvc.xml</param-value>  
         </init-param>
-        <load-on-startup>2</load-on-startup>
+        <load-on-startup>1</load-on-startup> 
     </servlet>
     <servlet-mapping>
         <servlet-name>spring</servlet-name>

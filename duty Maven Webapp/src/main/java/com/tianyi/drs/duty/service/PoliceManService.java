@@ -4,15 +4,15 @@ import com.tianyi.drs.duty.model.PoliceMan;
 
 public interface PoliceManService {
 	
-	  	int deleteByPrimaryKey(Integer id);
+	public int deleteByPrimaryKey(Integer id);
 
-	    int insert(PoliceMan record);
+	public int insert(PoliceMan record);
 
-	    int insertSelective(PoliceMan record);
+	public int insertSelective(PoliceMan record);
 
-	    PoliceMan selectByPrimaryKey(Integer id);
+	public PoliceMan selectByPrimaryKey(Integer id);
 
-	    int updateByPrimaryKeySelective(PoliceMan record);
+	public int updateByPrimaryKeySelective(PoliceMan record);
 
-	    int updateByPrimaryKey(PoliceMan record);
+	public int updateByPrimaryKey(PoliceMan record);
 }

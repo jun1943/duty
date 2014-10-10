@@ -6,6 +6,7 @@ import com.tianyi.drs.duty.model.PoliceMan;
 @MyBatisRepository
 //@Repository
 public interface PoliceManMapper {
+	
     int deleteByPrimaryKey(Integer id);
 
     int insert(PoliceMan record);
