@@ -1,5 +1,5 @@
 package com.tianyi.drs.duty.controller;
-
+  
 import javax.annotation.Resource;
 
 import org.springframework.context.annotation.Scope;
@@ -42,4 +42,40 @@ public class policecontroller {
 			System.out.println("insert failed");
 		}
 	}
+
+	@RequestMapping(value = "updatePolice.do", produces = "application/json;charset=UTF-8")
+	public void updatePolice() throws Exception {
+		try {
+			Police police = new Police();
+			police.setId(1);
+			police.setName("张五");
+			police.setGpsId(5);
+			police.setGpsName("95手机定位");
+			police.setMobile("13568865179");
+			police.setIntercomGroup("mmmm");
+			police.setIntercomPerson("3333");
+			police.setIdcardno("512301198506234875");
+			police.setOrgId(2);
+			police.setMobileShort("6179");
+			police.setNumber("51007818");
+			police.setPoliceTypeId(3);
+			police.setTitle("副主任");
+			System.out.println(policeService.updateByPrimaryKey(police));
+		} catch (Exception ex) {
+			System.out.println("update failed");
+		}
+	}
+	@RequestMapping(value = "selectPolice.do", produces = "application/json;charset=UTF-8")
+	public void selectPolice() throws Exception {
+		try {
+			Police police = policeService.selectByPrimaryKey(2); 
+			String name = "list is empty!";
+			if (police!=null) { 
+				name = police.getName();
+			}
+			System.out.println("total count is :" + 1 + " , First is : " + name);
+		} catch (Exception ex) {
+			System.out.println("select failed");
+		}
+	} 
 }

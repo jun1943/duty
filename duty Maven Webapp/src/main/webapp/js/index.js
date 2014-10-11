@@ -1,11 +1,11 @@
 function loadAction(){   
 	alert("调用ajax成功");
 	$.ajax({
-        //url: "../Index/savePolice.do",
-        //url: "../Index/getPolice.do",
-        //url: "../Index/selectPolice.do",
-        //url: "../Index/updatePolice.do",
-		url:"policeman/savePolice.do",
+        //url: "../police/savePolice.do",
+        //url: "../police/getPolice.do",
+        url: "../police/selectPolice.do",
+        //url: "../police/updatePolice.do",
+		//url:"../police/savePolice.do",
         type: "POST",
         dataType: "json",
         async:false,  
