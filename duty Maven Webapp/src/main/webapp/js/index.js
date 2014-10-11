@@ -3,7 +3,8 @@ function loadAction(){
 	$.ajax({
         //url: "../police/savePolice.do",
         //url: "../police/getPolice.do",
-        url: "../police/selectPolice.do",
+        //url: "../police/selectPolice.do",
+        url: "../police/selectPoliceList.do",
         //url: "../police/updatePolice.do",
 		//url:"../police/savePolice.do",
         type: "POST",

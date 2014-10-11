@@ -1,5 +1,7 @@
 package com.tianyi.drs.duty.controller;
   
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.context.annotation.Scope;
@@ -74,6 +76,20 @@ public class policecontroller {
 				name = police.getName();
 			}
 			System.out.println("total count is :" + 1 + " , First is : " + name);
+		} catch (Exception ex) {
+			System.out.println("select failed");
+		}
+	} 
+	@RequestMapping(value = "selectPoliceList.do", produces = "application/json;charset=UTF-8")
+	public void selectPoliceList() throws Exception {
+		try {
+			List<Police> list = policeService.selectAll(); 
+			String name = "list is empty!";
+			int count = list.size();
+			if (count>0) { 
+				name = list.get(0).getName();
+			}
+			System.out.println("total count is :" + count + " , First is : " + name);
 		} catch (Exception ex) {
 			System.out.println("select failed");
 		}

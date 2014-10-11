@@ -185,5 +185,19 @@
       gps_name = #{gpsName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  
+           <select id="findBycode" parameterType="String" resultType="Police">  
+       		select * from t_police where number = #{code}  
+    	 </select> 
+    	 
+         <select id="findByname" parameterType="String" resultType="Police">  
+       		select * from t_police where name = #{name}  
+    	 </select> 
+    	 
+         <select id="login" resultType="Police" parameterType="java.util.Map">  
+       		select * from t_police where number = #{code} or number = #{password}
+    	 </select> 
+    	 
+    	 <select id="selectAll" resultType="Police">  
+       		 select * from t_police order by number asc
+    	 </select> 
 </mapper>
