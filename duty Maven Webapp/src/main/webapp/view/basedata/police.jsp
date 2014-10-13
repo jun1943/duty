@@ -13,7 +13,7 @@
 <!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	--> 
-	<script src="js/basedata/weapon.js"></script>
+	<script src="js/basedata/police.js"></script> 
 </head>
 
 <body>
@@ -21,9 +21,9 @@
           <div class="container-fluid my-nav-bg">
               <ul class="nav navbar-nav">
                 <li style="width:1px;"><a href="#">&nbsp;</a></li>
-                <li><a href="/duty/view/basedata/police.jsp" class="my-nav-btn">人员管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
+                <li class="active"><a href="/duty/view/basedata/police.jsp" class="my-nav-btn">人员管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
                 <li><a href="/duty/view/basedata/car.jsp" class="my-nav-btn">车辆管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
-                <li class="active"><a href="/duty/view/basedata/weapon.jsp" class="my-nav-btn">武器管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
+                <li><a href="/duty/view/basedata/weapon.jsp" class="my-nav-btn">武器管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
                 <li><a href="/duty/view/basedata/weapon4.jsp" class="my-nav-btn">卡口管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
               <ul>
           </div>
@@ -41,7 +41,7 @@
           	<div class="panel panel-default">
               <div class="panel-heading">
               	<div class="row">
-                  <div class="col-md-8"><img src="images/icon/user.png" width="16" height="16"> <strong>武器列表</strong></div>
+                  <div class="col-md-8"><img src="images/icon/user.png" width="16" height="16"> <strong>人员列表</strong></div>
                   <div class="col-md-4 my-title-btn" style="text-align:right">
                   	<ul>
                       <li class="my-hand"><img src="images/icon/printer.png" width="16" height="16"> 打印</li>
@@ -94,45 +94,74 @@
               	<thead class="my-table-title">
               	  <tr>
                     <td width="20"><input type="checkbox" id="my-check-all" value="1"></td>
-                    <td>武器类型</td>
-                    <td>编号</td>
-                    <td>所属机构</td> 
+                    <td>机构</td>
+                    <td>姓名</td>
+                    <td>职务</td>
+                    <td>身份证号</td>
+                    <td>警号</td>
+                    <td>人员类别</td>
+                    <td>勤务类别</td>
+                    <td>GPS设备ID</td>
                   </tr>
                 </thead>
-                <tbody id="tbweaponList"> 
-                 <tr>
-                  	<td><input type="checkbox" class="my-check" value="2"></td>
-                  	<td>64制自动步枪</td>
+                <tbody>
+                  <tr>
+                  	<td><input type="checkbox" class="my-check" value="option1"></td>
+                  	<td>青羊区分局太升南路派出所</td>
+                    <td>丁川</td>
+                    <td>刑侦副所长</td>
                     <td>510101198112130278</td>
-                    <td>青羊区分局太升南路派出所</td> 
+                    <td>007817</td>
+                    <td>警员</td>
+                    <td>接处警</td>
+                    <td>510158786264646</td>
                   </tr>
                   <tr>
-                  	<td><input type="checkbox" class="my-check" value="3"></td>
-                  	<td>64制自动步枪</td>
-                    <td>510101198112130278</td>
-                    <td>青羊区分局太升南路派出所</td> 
+                  	<td><input type="checkbox" class="my-check" value="option1"></td>
+                  	<td>青羊区分局太升南路派出所</td>
+                    <td>马瑞</td>
+                    <td>民警</td>
+                    <td>510101198109090278</td>
+                    <td>007816</td>
+                    <td>警员</td>
+                    <td>接处警</td>
+                    <td>510158786264646</td>
                   </tr>
                   <tr>
-                  	<td><input type="checkbox" class="my-check" value="4"></td>
-                  	<td>64制自动步枪</td>
-                    <td>510101198112130278</td>
-                    <td>青羊区分局太升南路派出所</td> 
+                  	<td><input type="checkbox" class="my-check" value="option1"></td>
+                  	<td>青羊区分局太升南路派出所</td>
+                    <td>马瑞</td>
+                    <td>民警</td>
+                    <td>510101198109090278</td>
+                    <td>007816</td>
+                    <td>警员</td>
+                    <td>接处警</td>
+                    <td>510158786264646</td>
                   </tr>
                   <tr>
-                  	<td><input type="checkbox" class="my-check" value="5"></td>
-                  	<td>64制自动步枪</td>
-                    <td>510101198112130278</td>
-                    <td>青羊区分局太升南路派出所</td> 
+                  	<td><input type="checkbox" class="my-check" value="option1"></td>
+                  	<td>青羊区分局太升南路派出所</td>
+                    <td>马瑞</td>
+                    <td>民警</td>
+                    <td>510101198109090278</td>
+                    <td>007816</td>
+                    <td>警员</td>
+                    <td>接处警</td>
+                    <td>510158786264646</td>
                   </tr>
                   <tr>
-                  	<td><input type="checkbox" class="my-check" value="6"></td>
-                  	<td>64制自动步枪</td>
-                    <td>510101198112130278</td>
-                    <td>青羊区分局太升南路派出所</td> 
+                  	<td><input type="checkbox" class="my-check" value="option1"></td>
+                  	<td>青羊区分局太升南路派出所</td>
+                    <td>马瑞</td>
+                    <td>民警</td>
+                    <td>510101198109090278</td>
+                    <td>007816</td>
+                    <td>警员</td>
+                    <td>接处警</td>
+                    <td>510158786264646</td>
                   </tr>
                 
                 </tbody>
-                
               </table>
             </div>
           </div>
@@ -159,36 +188,48 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">新增武器信息</h4>
+                <h4 class="modal-title" id="myModalLabel">新增人员</h4>
               </div>
               <div class="modal-body">
                 
                 <!--表单开始-->
                 <form class="form-horizontal" role="form">
                   <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 control-label">武器类别：</label>
+                    <label for="inputEmail3" class="col-sm-2 control-label">人员类别：</label>
                     <div class="col-sm-10">
-                        <select id="txttype"  class="form-control">
-                          <option value="1">64制自动步枪</option>
-                          <option value="2">AK47</option>
+                        <select class="form-control">
+                          <option>警员</option>
+                          <option>职工</option>
                         </select>
                     </div>
                   </div>
                   
                   <div class="form-group">
-                    <label for="input2" class="col-sm-2 control-label">武器编号</label>
+                    <label for="input2" class="col-sm-2 control-label">身份证号码</label>
                     <div class="col-sm-10">
-                      <input id="txtnumber" type="text" class="form-control" id="input2" placeholder="">
+                      <input type="text" class="form-control" id="input2" placeholder="">
                     </div>
                   </div>
-                   
+                  
                   <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 control-label">所属机构：</label>
-                    <div class="col-sm-10">
-                        <select id="txtorg" class="form-control">
-                          <option value="1">成都市公安局</option>
-                          <option value="2">成都市公安局青羊分局</option>
-                        </select>
+                    <label for="input2" class="col-sm-2 control-label">姓名：</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="input2" placeholder="">
+                    </div>
+                    <label for="input2" class="col-sm-2 control-label">职务：</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="input2" placeholder="">
+                    </div>
+                  </div>
+                                    
+                  <div class="form-group">
+                    <label for="input2" class="col-sm-2 control-label">手机号码：</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="input2" placeholder="">
+                    </div>
+                    <label for="input3" class="col-sm-2 control-label">公安短号：</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="input3" placeholder="">
                     </div>
                   </div>
                 </form>
@@ -197,10 +238,11 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button id="btnsaveweapon" onclick="saveweaponAction()" type="button" class="btn btn-primary">确定并新增</button>
+                 <button id="btnsaveweapon" onclick="savepoliceAction()" type="button" class="btn btn-primary">确定并新增</button>
               </div>
             </div>
           </div>
         </div>
-</body>
+        <!--新增结束-->
+    </body>
 </html>

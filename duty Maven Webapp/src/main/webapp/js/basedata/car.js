@@ -12,18 +12,12 @@ $(function(){
 	});
 });
 
-function saveweaponAction(){ 
+
+function savecarAction(){ 
 	var typeid = $("#txttype").val(); 
 	var number = $("#txtnumber").val();
 	var orgid = $("#txtorg").val();
 	alert(typeid+"-"+number+"-"+orgid);
 	 $("#txtnumber").val(""); 
-	$('#myModal').modal('hide');	
-	var html = "<tr>"
-				+"<td><input type=\"checkbox\" class=\"my-check\" value=\"7\"></td>"
-				+"<td>64制自动步枪</td>"
-				+"<td>510101198112130278</td>"
-				+"<td>青羊区分局太升南路派出所</td>"
-				+"</tr>";
-	$("#tbweaponList").append(html);
+	$('#myModal').modal('hide');  
 }

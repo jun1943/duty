@@ -12,8 +12,8 @@
 
 <!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
-	--> 
-	<script src="js/basedata/weapon.js"></script>
+	 --> 
+	<script src="js/basedata/car.js"></script>
 </head>
 
 <body>
@@ -22,8 +22,8 @@
               <ul class="nav navbar-nav">
                 <li style="width:1px;"><a href="#">&nbsp;</a></li>
                 <li><a href="/duty/view/basedata/police.jsp" class="my-nav-btn">人员管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
-                <li><a href="/duty/view/basedata/car.jsp" class="my-nav-btn">车辆管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
-                <li class="active"><a href="/duty/view/basedata/weapon.jsp" class="my-nav-btn">武器管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
+                <li class="active"><a href="/duty/view/basedata/car.jsp" class="my-nav-btn">车辆管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
+                <li><a href="/duty/view/basedata/weapon.jsp" class="my-nav-btn">武器管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
                 <li><a href="/duty/view/basedata/weapon4.jsp" class="my-nav-btn">卡口管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
               <ul>
           </div>
@@ -41,7 +41,7 @@
           	<div class="panel panel-default">
               <div class="panel-heading">
               	<div class="row">
-                  <div class="col-md-8"><img src="images/icon/user.png" width="16" height="16"> <strong>武器列表</strong></div>
+                  <div class="col-md-8"><img src="images/icon/user.png" width="16" height="16"> <strong>车辆列表</strong></div>
                   <div class="col-md-4 my-title-btn" style="text-align:right">
                   	<ul>
                       <li class="my-hand"><img src="images/icon/printer.png" width="16" height="16"> 打印</li>
@@ -90,45 +90,129 @@
                   <button type="submit" class="btn btn-info"><img src="images/icon/zoom.png" width="16" height="16"> 查询</button>
                 </form>
               </div>
-              <table class="table">
+              <table style="text-aligh:center" class="table">
               	<thead class="my-table-title">
               	  <tr>
                     <td width="20"><input type="checkbox" id="my-check-all" value="1"></td>
-                    <td>武器类型</td>
-                    <td>编号</td>
-                    <td>所属机构</td> 
+                    <td>机构</td>
+                    <td>车辆类型</td>
+                    <td>车牌号码</td> 
+                    <td>车上装备</td> 
+                    <td>车辆用途</td> 
+                    <td>车辆品牌</td> 
+                    <td>GPS设备ID</td> 
+                    <td>对讲机组呼号</td> 
+                    <td>对讲机个呼号</td> 
                   </tr>
                 </thead>
-                <tbody id="tbweaponList"> 
+                <tbody id="tbcarList"> 
                  <tr>
                   	<td><input type="checkbox" class="my-check" value="2"></td>
-                  	<td>64制自动步枪</td>
-                    <td>510101198112130278</td>
-                    <td>青羊区分局太升南路派出所</td> 
+                  	<td>成都市公安局青羊区分局</td>
+                    <td>制式警车</td>
+                    <td>川A·5849警</td> 
+                    <td> </td> 
+                    <td>巡逻用车</td> 
+                    <td>大众捷达</td> 
+                    <td>30888020</td> 
+                    <td>96.4</td> 
+                    <td>95.5</td> 
                   </tr>
                   <tr>
                   	<td><input type="checkbox" class="my-check" value="3"></td>
-                  	<td>64制自动步枪</td>
-                    <td>510101198112130278</td>
-                    <td>青羊区分局太升南路派出所</td> 
+                  	<td>成都市公安局青羊区分局</td>
+                    <td>制式警车</td>
+                    <td>川A·5849警</td> 
+                    <td> </td> 
+                    <td>巡逻用车</td> 
+                    <td>大众捷达</td> 
+                    <td>30888020</td> 
+                    <td>96.4</td> 
+                    <td>95.5</td> 
                   </tr>
                   <tr>
                   	<td><input type="checkbox" class="my-check" value="4"></td>
-                  	<td>64制自动步枪</td>
-                    <td>510101198112130278</td>
-                    <td>青羊区分局太升南路派出所</td> 
+                  	<td>成都市公安局青羊区分局</td>
+                    <td>制式警车</td>
+                    <td>川A·5849警</td> 
+                    <td> </td> 
+                    <td>巡逻用车</td> 
+                    <td>大众捷达</td> 
+                    <td>30888020</td> 
+                    <td>96.4</td> 
+                    <td>95.5</td> 
                   </tr>
                   <tr>
                   	<td><input type="checkbox" class="my-check" value="5"></td>
-                  	<td>64制自动步枪</td>
-                    <td>510101198112130278</td>
-                    <td>青羊区分局太升南路派出所</td> 
+                  	<td>成都市公安局青羊区分局</td>
+                    <td>制式警车</td>
+                    <td>川A·5849警</td> 
+                    <td> </td> 
+                    <td>巡逻用车</td> 
+                    <td>大众捷达</td> 
+                    <td>30888020</td> 
+                    <td>96.4</td> 
+                    <td>95.5</td> 
                   </tr>
                   <tr>
                   	<td><input type="checkbox" class="my-check" value="6"></td>
-                  	<td>64制自动步枪</td>
-                    <td>510101198112130278</td>
-                    <td>青羊区分局太升南路派出所</td> 
+                  	<td>成都市公安局青羊区分局</td>
+                    <td>制式警车</td>
+                    <td>川A·5849警</td> 
+                    <td> </td> 
+                    <td>巡逻用车</td> 
+                    <td>大众捷达</td> 
+                    <td>30888020</td> 
+                    <td>96.4</td> 
+                    <td>95.5</td> 
+                  </tr>
+                  <tr>
+                  	<td><input type="checkbox" class="my-check" value="6"></td>
+                  	<td>成都市公安局青羊区分局</td>
+                    <td>制式警车</td>
+                    <td>川A·5849警</td> 
+                    <td> </td> 
+                    <td>巡逻用车</td> 
+                    <td>大众捷达</td> 
+                    <td>30888020</td> 
+                    <td>96.4</td> 
+                    <td>95.5</td> 
+                  </tr>
+                  <tr>
+                  	<td><input type="checkbox" class="my-check" value="6"></td>
+                  	<td>成都市公安局青羊区分局</td>
+                    <td>制式警车</td>
+                    <td>川A·5849警</td> 
+                    <td> </td> 
+                    <td>巡逻用车</td> 
+                    <td>大众捷达</td> 
+                    <td>30888020</td> 
+                    <td>96.4</td> 
+                    <td>95.5</td> 
+                  </tr>
+                  <tr>
+                  	<td><input type="checkbox" class="my-check" value="6"></td>
+                  	<td>成都市公安局青羊区分局</td>
+                    <td>制式警车</td>
+                    <td>川A·5849警</td> 
+                    <td> </td> 
+                    <td>巡逻用车</td> 
+                    <td>大众捷达</td> 
+                    <td>30888020</td> 
+                    <td>96.4</td> 
+                    <td>95.5</td> 
+                  </tr>
+                  <tr>
+                  	<td><input type="checkbox" class="my-check" value="6"></td>
+                  	<td>成都市公安局青羊区分局</td>
+                    <td>制式警车</td>
+                    <td>川A·5849警</td> 
+                    <td> </td> 
+                    <td>巡逻用车</td> 
+                    <td>大众捷达</td> 
+                    <td>30888020</td> 
+                    <td>96.4</td> 
+                    <td>95.5</td> 
                   </tr>
                 
                 </tbody>
@@ -197,7 +281,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button id="btnsaveweapon" onclick="saveweaponAction()" type="button" class="btn btn-primary">确定并新增</button>
+                <button id="btnsaveweapon" onclick="savecarAction()" type="button" class="btn btn-primary">确定并新增</button>
               </div>
             </div>
           </div>
