@@ -24,15 +24,15 @@
                 <li class="active"><a href="/duty/view/basedata/police.jsp" class="my-nav-btn">人员管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
                 <li><a href="/duty/view/basedata/car.jsp" class="my-nav-btn">车辆管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
                 <li><a href="/duty/view/basedata/weapon.jsp" class="my-nav-btn">武器管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
-                <li><a href="/duty/view/basedata/weapon4.jsp" class="my-nav-btn">卡口管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
-              <ul>
+                <li><a href="/duty/view/basedata/weapon.jsp" class="my-nav-btn">卡口管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
+              </ul>
           </div>
         <!--导航结束-->
         <!--操作菜单开始-->
           <div class="my-menu-bg">
             <button id="addnew" type="button" class="btn btn-default my-menu-btn"><img src="images/icon/add.png" width="16" height="16"> 新增</button>
-            <button type="button" class="btn btn-default my-menu-btn"><img src="images/icon/edit.png" width="16" height="16"> 编辑</button>
-            <button type="button" class="btn btn-default my-menu-btn"><img src="images/icon/del.png" width="16" height="16"> 删除</button>
+            <button id="edit" type="button" class="btn btn-default my-menu-btn"><img src="images/icon/edit.png" width="16" height="16"> 编辑</button>
+            <button id="delete" type="button" class="btn btn-default my-menu-btn"><img src="images/icon/del.png" width="16" height="16"> 删除</button>
           </div>
         <!--操作菜单结束-->
         <div class="my-line-5"></div>
@@ -70,8 +70,45 @@
                         <div class="input-group">
                           <div class="input-group-addon">人员类别</div>
                           <select class="form-control">
-                            <option>姓名</option>
-                            <option>警号</option>
+                            <option>全部</option>
+                            <option>民警</option>
+                            <option>领导</option>
+                          </select>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon">勤务类别</div>
+                          <select class="form-control">
+                            <option>全部</option>
+                            <option>接处警</option>
+                            <option>领导值班</option>
+                          </select>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon">参加处警</div>
+                          <select class="form-control">
+                            <option>全部</option>
+                            <option>是</option>
+                            <option>否</option>
+                          </select>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon">对讲机组号</div>
+                          <select class="form-control">
+                            <option>全部</option>
+                            <option>350M</option>
+                            <option>800M</option>
                           </select>
                         </div>
                       </div>
@@ -81,6 +118,7 @@
                         <div class="input-group">
                           <div class="input-group-addon">人员状态</div>
                           <select class="form-control">
+                            <option>全部</option>
                             <option>在岗</option>
                             <option>离岗</option>
                           </select>
@@ -95,8 +133,10 @@
               	  <tr>
                     <td width="20"><input type="checkbox" id="my-check-all" value="1"></td>
                     <td>机构</td>
-                    <td>姓名</td>
-                    <td>职务</td>
+                    <td>姓名</td> 
+                    <td>职位</td>
+                    <td>手机号</td>
+                    <td>公安短号</td>
                     <td>身份证号</td>
                     <td>警号</td>
                     <td>人员类别</td>
@@ -110,6 +150,8 @@
                   	<td>青羊区分局太升南路派出所</td>
                     <td>丁川</td>
                     <td>刑侦副所长</td>
+                    <td>13566666666</td>
+                    <td>9001</td>
                     <td>510101198112130278</td>
                     <td>007817</td>
                     <td>警员</td>
@@ -121,6 +163,8 @@
                   	<td>青羊区分局太升南路派出所</td>
                     <td>马瑞</td>
                     <td>民警</td>
+                    <td>13566666666</td>
+                    <td>9001</td>
                     <td>510101198109090278</td>
                     <td>007816</td>
                     <td>警员</td>
@@ -132,6 +176,8 @@
                   	<td>青羊区分局太升南路派出所</td>
                     <td>马瑞</td>
                     <td>民警</td>
+                    <td>13566666666</td>
+                    <td>9001</td>
                     <td>510101198109090278</td>
                     <td>007816</td>
                     <td>警员</td>
@@ -143,6 +189,8 @@
                   	<td>青羊区分局太升南路派出所</td>
                     <td>马瑞</td>
                     <td>民警</td>
+                    <td>13566666666</td>
+                    <td>9001</td>
                     <td>510101198109090278</td>
                     <td>007816</td>
                     <td>警员</td>
@@ -154,6 +202,60 @@
                   	<td>青羊区分局太升南路派出所</td>
                     <td>马瑞</td>
                     <td>民警</td>
+                    <td>13566666666</td>
+                    <td>9001</td>
+                    <td>510101198109090278</td>
+                    <td>007816</td>
+                    <td>警员</td>
+                    <td>接处警</td>
+                    <td>510158786264646</td>
+                  </tr>
+                  <tr>
+                  	<td><input type="checkbox" class="my-check" value="option1"></td>
+                  	<td>青羊区分局太升南路派出所</td>
+                    <td>马瑞</td>
+                    <td>民警</td>
+                    <td>13566666666</td>
+                    <td>9001</td>
+                    <td>510101198109090278</td>
+                    <td>007816</td>
+                    <td>警员</td>
+                    <td>接处警</td>
+                    <td>510158786264646</td>
+                  </tr>
+                  <tr>
+                  	<td><input type="checkbox" class="my-check" value="option1"></td>
+                  	<td>青羊区分局太升南路派出所</td>
+                    <td>马瑞</td>
+                    <td>民警</td>
+                    <td>13566666666</td>
+                    <td>9001</td>
+                    <td>510101198109090278</td>
+                    <td>007816</td>
+                    <td>警员</td>
+                    <td>接处警</td>
+                    <td>510158786264646</td>
+                  </tr>
+                  <tr>
+                  	<td><input type="checkbox" class="my-check" value="option1"></td>
+                  	<td>青羊区分局太升南路派出所</td>
+                    <td>马瑞</td>
+                    <td>民警</td>
+                    <td>13566666666</td>
+                    <td>9001</td>
+                    <td>510101198109090278</td>
+                    <td>007816</td>
+                    <td>警员</td>
+                    <td>接处警</td>
+                    <td>510158786264646</td>
+                  </tr>
+                  <tr>
+                  	<td><input type="checkbox" class="my-check" value="option1"></td>
+                  	<td>青羊区分局太升南路派出所</td>
+                    <td>马瑞</td>
+                    <td>民警</td>
+                    <td>13566666666</td>
+                    <td>9001</td>
                     <td>510101198109090278</td>
                     <td>007816</td>
                     <td>警员</td>
@@ -188,22 +290,26 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">新增人员</h4>
+                <h4 class="modal-title" id="myModalLabel">新增警员信息</h4>
               </div>
               <div class="modal-body">
                 
                 <!--表单开始-->
                 <form class="form-horizontal" role="form">
                   <div class="form-group">
+                    <label for="input2" class="col-sm-2 control-label">姓名：</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="input2" placeholder="">
+                    </div>
                     <label for="inputEmail3" class="col-sm-2 control-label">人员类别：</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-4">
                         <select class="form-control">
                           <option>警员</option>
                           <option>职工</option>
                         </select>
-                    </div>
+                    </div> 
                   </div>
-                  
+                                    
                   <div class="form-group">
                     <label for="input2" class="col-sm-2 control-label">身份证号码</label>
                     <div class="col-sm-10">
@@ -212,7 +318,7 @@
                   </div>
                   
                   <div class="form-group">
-                    <label for="input2" class="col-sm-2 control-label">姓名：</label>
+                    <label for="input2" class="col-sm-2 control-label">警号：</label>
                     <div class="col-sm-4">
                       <input type="text" class="form-control" id="input2" placeholder="">
                     </div>
@@ -231,6 +337,47 @@
                     <div class="col-sm-4">
                       <input type="text" class="form-control" id="input3" placeholder="">
                     </div>
+                  </div>         
+                  <div class="form-group">
+                    <label for="input2" class="col-sm-2 control-label">组呼号：</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="input2" placeholder="">
+                    </div>
+                    <label for="input3" class="col-sm-2 control-label">个呼号：</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="input3" placeholder="">
+                    </div>
+                  </div>      
+                  <div class="form-group">
+                    <label for="input2" class="col-sm-2 control-label">勤务类型：</label>
+                    <div class="col-sm-4">
+                        <select class="form-control">
+                          <option>接处警</option>
+                          <option>办公室值班</option>
+                        </select>
+                    </div> 
+                    <label for="input3" class="col-sm-2 control-label">GPS_ID：</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="input3" placeholder="">
+                    </div>
+                  </div>   
+                  <div class="form-group"> 
+                    <label for="input3" class="col-sm-2 control-label">GPS备注：</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="input3" placeholder="">
+                    </div>
+                  </div>
+                  <div class="form-group"> 
+                    <label for="input3" class="col-sm-2 control-label">参加处警：</label>
+                    <div class="col-sm-1">
+                      <input type="checkbox" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group"> 
+                    <label for="input3" class="col-sm-2 control-label">图标：</label>
+                    <div class="col-sm-10">
+                      
+                    </div>
                   </div>
                 </form>
                 <!--表单结束-->
@@ -238,11 +385,36 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                 <button id="btnsaveweapon" onclick="savepoliceAction()" type="button" class="btn btn-primary">确定并新增</button>
+                 <button id="btnsaveweapon" onclick="savepoliceAction()" type="button" class="btn btn-primary">保存</button>
               </div>
             </div>
           </div>
         </div>
         <!--新增结束-->
+        
+        <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-lableledby="confirmModalLabel" aria-hidden="true">
+        	<div class="modal-dialog">
+        	<div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="confirmModalLabel">消息确认？</h4>
+              </div>
+              <div class="modal-body"> 
+                <!--表单开始-->
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <label class="col-sm-6 control-label">是否确认删除？</label> 
+                  </div> 
+                </form>
+                <!--表单结束-->
+                
+              </div>
+              <div class="modal-footer">
+                <button onclick="confirmAction()" type="button" class="btn btn-primary">确认</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+              </div>
+            </div>
+        	</div>
+        </div>
     </body>
 </html>

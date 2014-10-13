@@ -24,15 +24,15 @@
                 <li><a href="/duty/view/basedata/police.jsp" class="my-nav-btn">人员管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
                 <li class="active"><a href="/duty/view/basedata/car.jsp" class="my-nav-btn">车辆管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
                 <li><a href="/duty/view/basedata/weapon.jsp" class="my-nav-btn">武器管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
-                <li><a href="/duty/view/basedata/weapon4.jsp" class="my-nav-btn">卡口管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
-              <ul>
+                <li><a href="/duty/view/basedata/weapon.jsp" class="my-nav-btn">卡口管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
+              </ul>
           </div>
         <!--导航结束-->
         <!--操作菜单开始-->
           <div class="my-menu-bg">
             <button id="addnew" type="button" class="btn btn-default my-menu-btn"><img src="images/icon/add.png" width="16" height="16"> 新增</button>
-            <button type="button" class="btn btn-default my-menu-btn"><img src="images/icon/edit.png" width="16" height="16"> 编辑</button>
-            <button type="button" class="btn btn-default my-menu-btn"><img src="images/icon/del.png" width="16" height="16"> 删除</button>
+            <button id="edit" type="button" class="btn btn-default my-menu-btn"><img src="images/icon/edit.png" width="16" height="16"> 编辑</button>
+            <button id="delete" type="button" class="btn btn-default my-menu-btn"><img src="images/icon/del.png" width="16" height="16"> 删除</button>
           </div>
         <!--操作菜单结束-->
         <div class="my-line-5"></div>
@@ -53,25 +53,21 @@
                 </div>
               </div>
               <div id="my-search-box" class="panel-body" style="display:none">
-                <form class="form-inline" role="form">
-                  <div class="form-group">
-                    <select class="form-control">
-                      <option>姓名</option>
-                      <option>警号</option>
-                    </select>
-                  </div>
+                <form class="form-inline" role="form"> 
                   <div class="form-group">
                     <div class="input-group">
-                      <input class="form-control" type="text" placeholder="请输入关键字">
+                      <input class="form-control" type="text" placeholder="请输入车牌号码">
                     </div>
                   </div>
                   <div class="form-group">
                       <div class="form-group">
                         <div class="input-group">
-                          <div class="input-group-addon">人员类别</div>
+                          <div class="input-group-addon">车辆类型</div>
                           <select class="form-control">
-                            <option>姓名</option>
-                            <option>警号</option>
+                            <option>全部</option>
+                            <option>警车</option>
+                            <option>警摩</option>
+                            <option>自行车</option>
                           </select>
                         </div>
                       </div>
@@ -79,14 +75,15 @@
                   <div class="form-group">
                       <div class="form-group">
                         <div class="input-group">
-                          <div class="input-group-addon">人员状态</div>
+                          <div class="input-group-addon">对讲机组号</div>
                           <select class="form-control">
-                            <option>在岗</option>
-                            <option>离岗</option>
+                            <option>全部</option>
+                            <option>350M</option>
+                            <option>800M</option>
                           </select>
                         </div>
                       </div>
-                  </div>
+                  </div>  
                   <button type="submit" class="btn btn-info"><img src="images/icon/zoom.png" width="16" height="16"> 查询</button>
                 </form>
               </div>
@@ -243,48 +240,109 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">新增武器信息</h4>
+                <h4 class="modal-title" id="myModalLabel">新增车辆信息</h4>
               </div>
               <div class="modal-body">
                 
                 <!--表单开始-->
                 <form class="form-horizontal" role="form">
+                         
                   <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 control-label">武器类别：</label>
-                    <div class="col-sm-10">
+                    <label for="input2" class="col-sm-2 control-label">车辆品牌：</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="input2" placeholder="">
+                    </div>
+                    <label for="input3" class="col-sm-2 control-label">车辆类型：</label>
+                    <div class="col-sm-4">
                         <select id="txttype"  class="form-control">
-                          <option value="1">64制自动步枪</option>
-                          <option value="2">AK47</option>
+                          <option value="1">制式警车</option>
+                          <option value="2">摩托</option>
+                          <option value="3">自行车</option>
                         </select>
                     </div>
                   </div>
-                  
                   <div class="form-group">
-                    <label for="input2" class="col-sm-2 control-label">武器编号</label>
+                    <label for="input2" class="col-sm-2 control-label">车牌号码：</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="input2" placeholder="">
+                    </div>
+                    <label for="input3" class="col-sm-2 control-label">车辆用途：</label>
+                    <div class="col-sm-4">
+                        <select id="txttype"  class="form-control">
+                          <option value="1">巡逻用车</option>
+                          <option value="2">设卡用车</option>
+                          <option value="3">执勤用车</option>
+                        </select>
+                    </div>
+                  </div>
+                            
+                  <div class="form-group">
+                    <label for="input2" class="col-sm-2 control-label">车上装备：</label>
                     <div class="col-sm-10">
                       <input id="txtnumber" type="text" class="form-control" id="input2" placeholder="">
                     </div>
                   </div>
-                   
                   <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 control-label">所属机构：</label>
-                    <div class="col-sm-10">
-                        <select id="txtorg" class="form-control">
-                          <option value="1">成都市公安局</option>
-                          <option value="2">成都市公安局青羊分局</option>
-                        </select>
+                    <label for="input2" class="col-sm-2 control-label">组呼号：</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="input2" placeholder="">
+                    </div>
+                    <label for="input3" class="col-sm-2 control-label">个呼号：</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="input3" placeholder="">
                     </div>
                   </div>
+                            
+                  <div class="form-group">
+                    <label for="input2" class="col-sm-2 control-label">GPS_ID：</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="input2" placeholder="">
+                    </div>
+                    <label for="input3" class="col-sm-2 control-label">GPS备注：</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="input3" placeholder="">
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="input2" class="col-sm-2 control-label">图标：</label> 
+                  </div>
+                    
                 </form>
                 <!--表单结束-->
                 
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button id="btnsaveweapon" onclick="savecarAction()" type="button" class="btn btn-primary">确定并新增</button>
+                <button id="btnsaveweapon" onclick="savecarAction()" type="button" class="btn btn-primary">保存</button>
               </div>
             </div>
           </div>
+        </div>
+		
+        <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-lableledby="confirmModalLabel" aria-hidden="true">
+        	<div class="modal-dialog">
+        	<div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="confirmModalLabel">消息确认？</h4>
+              </div>
+              <div class="modal-body"> 
+                <!--表单开始-->
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <label class="col-sm-6 control-label">是否确认删除？</label> 
+                  </div> 
+                </form>
+                <!--表单结束-->
+                
+              </div>
+              <div class="modal-footer">
+                <button onclick="confirmAction()" type="button" class="btn btn-primary">确认</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+              </div>
+            </div>
+        	</div>
         </div>
 </body>
 </html>

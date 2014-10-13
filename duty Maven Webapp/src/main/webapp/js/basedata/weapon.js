@@ -10,6 +10,12 @@ $(function(){
 	$('#addnew').click(function(){
 		$('#myModal').modal('show');	
 	});
+	$('#edit').click(function(){
+		$('#myModal').modal('show');	
+	});
+	$('#delete').click(function(){
+		$('#confirmModal').modal('show');	
+	});
 });
 
 function saveweaponAction(){ 
@@ -26,4 +32,8 @@ function saveweaponAction(){
 				+"<td>青羊区分局太升南路派出所</td>"
 				+"</tr>";
 	$("#tbweaponList").append(html);
-}
+};
+
+function confirmAction(){
+	$('#confirmModal').modal('hide');	
+};

@@ -10,6 +10,12 @@ $(function(){
 	$('#addnew').click(function(){
 		$('#myModal').modal('show');	
 	});
+	$('#edit').click(function(){
+		$('#myModal').modal('show');	
+	});
+	$('#delete').click(function(){
+		$('#confirmModal').modal('show');	
+	});
 });
 
 
@@ -20,4 +26,7 @@ function savecarAction(){
 	alert(typeid+"-"+number+"-"+orgid);
 	 $("#txtnumber").val(""); 
 	$('#myModal').modal('hide');  
-}
+};
+function confirmAction(){
+	$('#confirmModal').modal('hide');	
+};

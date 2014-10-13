@@ -24,15 +24,15 @@
                 <li><a href="/duty/view/basedata/police.jsp" class="my-nav-btn">人员管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
                 <li><a href="/duty/view/basedata/car.jsp" class="my-nav-btn">车辆管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
                 <li class="active"><a href="/duty/view/basedata/weapon.jsp" class="my-nav-btn">武器管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
-                <li><a href="/duty/view/basedata/weapon4.jsp" class="my-nav-btn">卡口管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
-              <ul>
+                <li><a href="/duty/view/basedata/weapon.jsp" class="my-nav-btn">卡口管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
+              </ul>
           </div>
         <!--导航结束-->
         <!--操作菜单开始-->
           <div class="my-menu-bg">
             <button id="addnew" type="button" class="btn btn-default my-menu-btn"><img src="images/icon/add.png" width="16" height="16"> 新增</button>
-            <button type="button" class="btn btn-default my-menu-btn"><img src="images/icon/edit.png" width="16" height="16"> 编辑</button>
-            <button type="button" class="btn btn-default my-menu-btn"><img src="images/icon/del.png" width="16" height="16"> 删除</button>
+            <button id="edit" type="button" class="btn btn-default my-menu-btn"><img src="images/icon/edit.png" width="16" height="16"> 编辑</button>
+            <button id="delete" type="button" class="btn btn-default my-menu-btn"><img src="images/icon/del.png" width="16" height="16"> 删除</button>
           </div>
         <!--操作菜单结束-->
         <div class="my-line-5"></div>
@@ -53,40 +53,12 @@
                 </div>
               </div>
               <div id="my-search-box" class="panel-body" style="display:none">
-                <form class="form-inline" role="form">
-                  <div class="form-group">
-                    <select class="form-control">
-                      <option>姓名</option>
-                      <option>警号</option>
-                    </select>
-                  </div>
+                <form class="form-inline" role="form"> 
                   <div class="form-group">
                     <div class="input-group">
-                      <input class="form-control" type="text" placeholder="请输入关键字">
+                      <input class="form-control" type="text" placeholder="请输入武器编号">
                     </div>
-                  </div>
-                  <div class="form-group">
-                      <div class="form-group">
-                        <div class="input-group">
-                          <div class="input-group-addon">人员类别</div>
-                          <select class="form-control">
-                            <option>姓名</option>
-                            <option>警号</option>
-                          </select>
-                        </div>
-                      </div>
-                  </div>
-                  <div class="form-group">
-                      <div class="form-group">
-                        <div class="input-group">
-                          <div class="input-group-addon">人员状态</div>
-                          <select class="form-control">
-                            <option>在岗</option>
-                            <option>离岗</option>
-                          </select>
-                        </div>
-                      </div>
-                  </div>
+                  </div> 
                   <button type="submit" class="btn btn-info"><img src="images/icon/zoom.png" width="16" height="16"> 查询</button>
                 </form>
               </div>
@@ -197,10 +169,34 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button id="btnsaveweapon" onclick="saveweaponAction()" type="button" class="btn btn-primary">确定并新增</button>
+                <button id="btnsaveweapon" onclick="saveweaponAction()" type="button" class="btn btn-primary">保存</button>
               </div>
             </div>
           </div>
+        </div>
+        <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-lableledby="confirmModalLabel" aria-hidden="true">
+        	<div class="modal-dialog">
+        	<div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="confirmModalLabel">消息确认？</h4>
+              </div>
+              <div class="modal-body"> 
+                <!--表单开始-->
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <label class="col-sm-6 control-label">是否确认删除？</label> 
+                  </div> 
+                </form>
+                <!--表单结束-->
+                
+              </div>
+              <div class="modal-footer">
+                <button onclick="confirmAction()" type="button" class="btn btn-primary">确认</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+              </div>
+            </div>
+        	</div>
         </div>
 </body>
 </html>

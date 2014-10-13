@@ -10,9 +10,18 @@ $(function(){
 	$('#addnew').click(function(){
 		$('#myModal').modal('show');	
 	});
+	$('#edit').click(function(){
+		$('#myModal').modal('show');	
+	});
+	$('#delete').click(function(){
+		$('#confirmModal').modal('show');	
+	});
 });
 
 
 function savepoliceAction(){  
 	$('#myModal').modal('hide');	 
-}
+};
+function confirmAction(){
+	$('#confirmModal').modal('hide');	
+};
