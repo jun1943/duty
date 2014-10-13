@@ -42,6 +42,8 @@ public class policecontroller {
 			System.out.println(policeService.insert(police));
 		} catch (Exception ex) {
 			System.out.println("insert failed");
+			
+			
 		}
 	}
 
