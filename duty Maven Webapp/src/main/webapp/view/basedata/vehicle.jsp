@@ -106,7 +106,7 @@
 
             </div>
           </div>
-          <div class="my-page-fixed"></div>
+         <!-- <div class="my-page-fixed"></div-->
 		<!--列表结束-->
         
         <input type="hidden" id="pageCount" name="pageCount" value="${page.pageCount}" />
@@ -115,29 +115,29 @@
         
         <!-- Data Table -->
 			<div class='box-content box-no-padding'>
-				<div class='responsive-table'>
+				<div class='responsive-table' style="height:650px">
 					<div class='scrollable-area'>
 						<table class="table table-bordered table-hover table-striped "
 							style="margin-bottom:0;">
-							<thead>
+							<!-- table class="table"-->
+							<thead  class="my-table-title"> 
 								<th>类型</th>
 								<th>车牌号</th>
 								<th>用途</th>
 								<th>安装地址</th>
-								<th>IP地址</th>
-								<th>录入时间</th>
+								<th>IP地址</th> 
 							</thead>
 		
 							<tbody>
 								<c:forEach items="${page.rows}" var="vehicle">
-									<tr>
-										<td><input type="checkbox" name="checkedIds" id="checkedIds"
+									<tr> 
+										<td><input type="checkbox" name="checkedIds" id="checkedIds" class="my-check"
 											value="${vehicle.id}">
-										</td>
+										</td> 
+									<td></td>
 										<td class="table-font"><a href="camera/view.do?cameraId=${vehicle.id}">${vehicle.id}</a></td>
 										<td class="table-font">${vehicle.vehicleTypeId}</td>
-										<td class="table-font">${vehicle.number}</td>
-										<td class="table-font">${vehicle.purpose}</td>
+										<td class="table-font">${vehicle.number}</td> 
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -149,6 +149,7 @@
 				<div class="ui-pagelist">
 					<div style="float: right;" id="pager"></div>
 				</div>
+			</div>
         <!--新增开始-->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog">
