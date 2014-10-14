@@ -1,7 +1,8 @@
 package com.tianyi.drs.duty.dao;
 
+import com.tianyi.drs.duty.dao.core.MyBatisRepository;
 import com.tianyi.drs.duty.model.WeaponType;
-
+@MyBatisRepository
 public interface WeaponTypeMapper {
     int deleteByPrimaryKey(Integer id);
 

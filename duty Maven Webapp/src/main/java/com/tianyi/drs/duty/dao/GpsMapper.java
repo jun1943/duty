@@ -1,7 +1,8 @@
 package com.tianyi.drs.duty.dao;
 
+import com.tianyi.drs.duty.dao.core.MyBatisRepository;
 import com.tianyi.drs.duty.model.Gps;
-
+@MyBatisRepository
 public interface GpsMapper {
     int deleteByPrimaryKey(Long id);
 

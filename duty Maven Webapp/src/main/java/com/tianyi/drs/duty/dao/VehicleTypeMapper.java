@@ -1,7 +1,8 @@
 package com.tianyi.drs.duty.dao;
 
+import com.tianyi.drs.duty.dao.core.MyBatisRepository;
 import com.tianyi.drs.duty.model.VehicleType;
-
+@MyBatisRepository
 public interface VehicleTypeMapper {
     int deleteByPrimaryKey(Long id);
 
