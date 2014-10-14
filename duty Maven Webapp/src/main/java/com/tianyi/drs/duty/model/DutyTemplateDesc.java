@@ -1,9 +1,9 @@
 package com.tianyi.drs.duty.model;
 
 public class DutyTemplateDesc {
-    private Long id;
+    private Integer id;
 
-    private Long orgId;
+    private Integer orgId;
 
     private String name;
 
@@ -13,19 +13,19 @@ public class DutyTemplateDesc {
 
     private Integer platformId;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getOrgId() {
+    public Integer getOrgId() {
         return orgId;
     }
 
-    public void setOrgId(Long orgId) {
+    public void setOrgId(Integer orgId) {
         this.orgId = orgId;
     }
 

@@ -4,13 +4,13 @@ import com.tianyi.drs.duty.dao.core.MyBatisRepository;
 import com.tianyi.drs.duty.model.Weapon;
 @MyBatisRepository
 public interface WeaponMapper {
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(Weapon record);
 
     int insertSelective(Weapon record);
 
-    Weapon selectByPrimaryKey(Long id);
+    Weapon selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(Weapon record);
 

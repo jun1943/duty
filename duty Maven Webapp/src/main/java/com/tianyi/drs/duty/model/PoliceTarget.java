@@ -1,15 +1,15 @@
 package com.tianyi.drs.duty.model;
 
 public class PoliceTarget {
-    private Long id;
+    private Integer id;
 
-    private Long dutyId;
+    private Integer dutyId;
 
-    private Long policeId;
+    private Integer policeId;
 
-    private Long taskId;
+    private Integer taskId;
 
-    private Long targetId;
+    private Integer targetId;
 
     private Boolean isPass;
 
@@ -17,43 +17,43 @@ public class PoliceTarget {
 
     private Integer platformId;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getDutyId() {
+    public Integer getDutyId() {
         return dutyId;
     }
 
-    public void setDutyId(Long dutyId) {
+    public void setDutyId(Integer dutyId) {
         this.dutyId = dutyId;
     }
 
-    public Long getPoliceId() {
+    public Integer getPoliceId() {
         return policeId;
     }
 
-    public void setPoliceId(Long policeId) {
+    public void setPoliceId(Integer policeId) {
         this.policeId = policeId;
     }
 
-    public Long getTaskId() {
+    public Integer getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(Long taskId) {
+    public void setTaskId(Integer taskId) {
         this.taskId = taskId;
     }
 
-    public Long getTargetId() {
+    public Integer getTargetId() {
         return targetId;
     }
 
-    public void setTargetId(Long targetId) {
+    public void setTargetId(Integer targetId) {
         this.targetId = targetId;
     }
 

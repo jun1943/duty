@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tianyi.drs.duty.dao.VehicleMapper">
   <resultMap id="BaseResultMap" type="com.tianyi.drs.duty.model.Vehicle">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="vehicle_type_id" jdbcType="BIGINT" property="vehicleTypeId" />
-    <result column="org_id" jdbcType="BIGINT" property="orgId" />
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="vehicle_type_id" jdbcType="INTEGER" property="vehicleTypeId" />
+    <result column="org_id" jdbcType="INTEGER" property="orgId" />
     <result column="number" jdbcType="VARCHAR" property="number" />
     <result column="intercom_group" jdbcType="VARCHAR" property="intercomGroup" />
-    <result column="gps_id" jdbcType="BIGINT" property="gpsId" />
+    <result column="gps_id" jdbcType="INTEGER" property="gpsId" />
     <result column="gps_name" jdbcType="VARCHAR" property="gpsName" />
     <result column="purpose" jdbcType="VARCHAR" property="purpose" />
     <result column="brand" jdbcType="VARCHAR" property="brand" />
@@ -23,11 +23,11 @@
     select 
     <include refid="Base_Column_List" />
     from t_vehicle
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_vehicle
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.tianyi.drs.duty.model.Vehicle">
     insert into t_vehicle (id, vehicle_type_id, org_id, 
@@ -35,8 +35,8 @@
       gps_name, purpose, brand, 
       site_qty, sync_state, platform_id
       )
-    values (#{id,jdbcType=BIGINT}, #{vehicleTypeId,jdbcType=BIGINT}, #{orgId,jdbcType=BIGINT}, 
-      #{number,jdbcType=VARCHAR}, #{intercomGroup,jdbcType=VARCHAR}, #{gpsId,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=INTEGER}, #{vehicleTypeId,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, 
+      #{number,jdbcType=VARCHAR}, #{intercomGroup,jdbcType=VARCHAR}, #{gpsId,jdbcType=INTEGER}, 
       #{gpsName,jdbcType=VARCHAR}, #{purpose,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, 
       #{siteQty,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT}, #{platformId,jdbcType=VARCHAR}
       )
@@ -83,13 +83,13 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=BIGINT},
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="vehicleTypeId != null">
-        #{vehicleTypeId,jdbcType=BIGINT},
+        #{vehicleTypeId,jdbcType=INTEGER},
       </if>
       <if test="orgId != null">
-        #{orgId,jdbcType=BIGINT},
+        #{orgId,jdbcType=INTEGER},
       </if>
       <if test="number != null">
         #{number,jdbcType=VARCHAR},
@@ -98,7 +98,7 @@
         #{intercomGroup,jdbcType=VARCHAR},
       </if>
       <if test="gpsId != null">
-        #{gpsId,jdbcType=BIGINT},
+        #{gpsId,jdbcType=INTEGER},
       </if>
       <if test="gpsName != null">
         #{gpsName,jdbcType=VARCHAR},
@@ -124,10 +124,10 @@
     update t_vehicle
     <set>
       <if test="vehicleTypeId != null">
-        vehicle_type_id = #{vehicleTypeId,jdbcType=BIGINT},
+        vehicle_type_id = #{vehicleTypeId,jdbcType=INTEGER},
       </if>
       <if test="orgId != null">
-        org_id = #{orgId,jdbcType=BIGINT},
+        org_id = #{orgId,jdbcType=INTEGER},
       </if>
       <if test="number != null">
         number = #{number,jdbcType=VARCHAR},
@@ -136,7 +136,7 @@
         intercom_group = #{intercomGroup,jdbcType=VARCHAR},
       </if>
       <if test="gpsId != null">
-        gps_id = #{gpsId,jdbcType=BIGINT},
+        gps_id = #{gpsId,jdbcType=INTEGER},
       </if>
       <if test="gpsName != null">
         gps_name = #{gpsName,jdbcType=VARCHAR},
@@ -157,22 +157,22 @@
         platform_id = #{platformId,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.duty.model.Vehicle">
     update t_vehicle
-    set vehicle_type_id = #{vehicleTypeId,jdbcType=BIGINT},
-      org_id = #{orgId,jdbcType=BIGINT},
+    set vehicle_type_id = #{vehicleTypeId,jdbcType=INTEGER},
+      org_id = #{orgId,jdbcType=INTEGER},
       number = #{number,jdbcType=VARCHAR},
       intercom_group = #{intercomGroup,jdbcType=VARCHAR},
-      gps_id = #{gpsId,jdbcType=BIGINT},
+      gps_id = #{gpsId,jdbcType=INTEGER},
       gps_name = #{gpsName,jdbcType=VARCHAR},
       purpose = #{purpose,jdbcType=VARCHAR},
       brand = #{brand,jdbcType=VARCHAR},
       site_qty = #{siteQty,jdbcType=VARCHAR},
       sync_state = #{syncState,jdbcType=BIT},
       platform_id = #{platformId,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   
   

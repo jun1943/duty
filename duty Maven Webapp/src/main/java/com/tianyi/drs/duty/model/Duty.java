@@ -3,11 +3,11 @@ package com.tianyi.drs.duty.model;
 import java.util.Date;
 
 public class Duty {
-    private Long id;
+    private Integer id;
 
-    private Long orgId;
+    private Integer orgId;
 
-    private Long typeId;
+    private Integer typeId;
 
     private String name;
 
@@ -17,7 +17,7 @@ public class Duty {
 
     private Date endTime;
 
-    private Long submiterId;
+    private Integer submiterId;
 
     private Date submitDate;
 
@@ -25,27 +25,27 @@ public class Duty {
 
     private Integer platformId;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getOrgId() {
+    public Integer getOrgId() {
         return orgId;
     }
 
-    public void setOrgId(Long orgId) {
+    public void setOrgId(Integer orgId) {
         this.orgId = orgId;
     }
 
-    public Long getTypeId() {
+    public Integer getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(Long typeId) {
+    public void setTypeId(Integer typeId) {
         this.typeId = typeId;
     }
 
@@ -81,11 +81,11 @@ public class Duty {
         this.endTime = endTime;
     }
 
-    public Long getSubmiterId() {
+    public Integer getSubmiterId() {
         return submiterId;
     }
 
-    public void setSubmiterId(Long submiterId) {
+    public void setSubmiterId(Integer submiterId) {
         this.submiterId = submiterId;
     }
 

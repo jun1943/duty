@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tianyi.drs.duty.dao.PoliceTargetMapper" >
   <resultMap id="BaseResultMap" type="com.tianyi.drs.duty.model.PoliceTarget" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="duty_id" property="dutyId" jdbcType="BIGINT" />
-    <result column="police_id" property="policeId" jdbcType="BIGINT" />
-    <result column="task_id" property="taskId" jdbcType="BIGINT" />
-    <result column="target_id" property="targetId" jdbcType="BIGINT" />
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="duty_id" property="dutyId" jdbcType="INTEGER" />
+    <result column="police_id" property="policeId" jdbcType="INTEGER" />
+    <result column="task_id" property="taskId" jdbcType="INTEGER" />
+    <result column="target_id" property="targetId" jdbcType="INTEGER" />
     <result column="is_pass" property="isPass" jdbcType="BIT" />
     <result column="sync_state" property="syncState" jdbcType="BIT" />
     <result column="platform_id" property="platformId" jdbcType="INTEGER" />
@@ -14,22 +14,22 @@
   <sql id="Base_Column_List" >
     id, duty_id, police_id, task_id, target_id, is_pass, sync_state, platform_id
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from t_duty_police_target
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_duty_police_target
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.tianyi.drs.duty.model.PoliceTarget" >
     insert into t_duty_police_target (id, duty_id, police_id, 
       task_id, target_id, is_pass, 
       sync_state, platform_id)
-    values (#{id,jdbcType=BIGINT}, #{dutyId,jdbcType=BIGINT}, #{policeId,jdbcType=BIGINT}, 
-      #{taskId,jdbcType=BIGINT}, #{targetId,jdbcType=BIGINT}, #{isPass,jdbcType=BIT}, 
+    values (#{id,jdbcType=INTEGER}, #{dutyId,jdbcType=INTEGER}, #{policeId,jdbcType=INTEGER}, 
+      #{taskId,jdbcType=INTEGER}, #{targetId,jdbcType=INTEGER}, #{isPass,jdbcType=BIT}, 
       #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.PoliceTarget" >
@@ -62,19 +62,19 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=BIGINT},
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="dutyId != null" >
-        #{dutyId,jdbcType=BIGINT},
+        #{dutyId,jdbcType=INTEGER},
       </if>
       <if test="policeId != null" >
-        #{policeId,jdbcType=BIGINT},
+        #{policeId,jdbcType=INTEGER},
       </if>
       <if test="taskId != null" >
-        #{taskId,jdbcType=BIGINT},
+        #{taskId,jdbcType=INTEGER},
       </if>
       <if test="targetId != null" >
-        #{targetId,jdbcType=BIGINT},
+        #{targetId,jdbcType=INTEGER},
       </if>
       <if test="isPass != null" >
         #{isPass,jdbcType=BIT},
@@ -91,16 +91,16 @@
     update t_duty_police_target
     <set >
       <if test="dutyId != null" >
-        duty_id = #{dutyId,jdbcType=BIGINT},
+        duty_id = #{dutyId,jdbcType=INTEGER},
       </if>
       <if test="policeId != null" >
-        police_id = #{policeId,jdbcType=BIGINT},
+        police_id = #{policeId,jdbcType=INTEGER},
       </if>
       <if test="taskId != null" >
-        task_id = #{taskId,jdbcType=BIGINT},
+        task_id = #{taskId,jdbcType=INTEGER},
       </if>
       <if test="targetId != null" >
-        target_id = #{targetId,jdbcType=BIGINT},
+        target_id = #{targetId,jdbcType=INTEGER},
       </if>
       <if test="isPass != null" >
         is_pass = #{isPass,jdbcType=BIT},
@@ -112,17 +112,17 @@
         platform_id = #{platformId,jdbcType=INTEGER},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.duty.model.PoliceTarget" >
     update t_duty_police_target
-    set duty_id = #{dutyId,jdbcType=BIGINT},
-      police_id = #{policeId,jdbcType=BIGINT},
-      task_id = #{taskId,jdbcType=BIGINT},
-      target_id = #{targetId,jdbcType=BIGINT},
+    set duty_id = #{dutyId,jdbcType=INTEGER},
+      police_id = #{policeId,jdbcType=INTEGER},
+      task_id = #{taskId,jdbcType=INTEGER},
+      target_id = #{targetId,jdbcType=INTEGER},
       is_pass = #{isPass,jdbcType=BIT},
       sync_state = #{syncState,jdbcType=BIT},
       platform_id = #{platformId,jdbcType=INTEGER}
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -1,11 +1,11 @@
 package com.tianyi.drs.duty.model;
 
 public class Gps {
-    private Long id;
+    private Integer id;
 
-    private Long typeId;
+    private Integer typeId;
 
-    private Long orgId;
+    private Integer orgId;
 
     private String number;
 
@@ -15,27 +15,27 @@ public class Gps {
 
     private Integer platformId;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getTypeId() {
+    public Integer getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(Long typeId) {
+    public void setTypeId(Integer typeId) {
         this.typeId = typeId;
     }
 
-    public Long getOrgId() {
+    public Integer getOrgId() {
         return orgId;
     }
 
-    public void setOrgId(Long orgId) {
+    public void setOrgId(Integer orgId) {
         this.orgId = orgId;
     }
 

@@ -4,13 +4,13 @@ import com.tianyi.drs.duty.dao.core.MyBatisRepository;
 import com.tianyi.drs.duty.model.Gps;
 @MyBatisRepository
 public interface GpsMapper {
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(Gps record);
 
     int insertSelective(Gps record);
 
-    Gps selectByPrimaryKey(Long id);
+    Gps selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(Gps record);
 

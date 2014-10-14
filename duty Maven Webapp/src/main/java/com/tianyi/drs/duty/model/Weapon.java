@@ -1,25 +1,25 @@
 package com.tianyi.drs.duty.model;
 
 public class Weapon {
-    private Long id;
+    private Integer id;
 
     private String standard;
 
     private String number;
 
-    private Long typeId;
+    private Integer typeId;
 
-    private Long orgId;
+    private Integer orgId;
 
     private Boolean syncState;
 
     private Integer platformId;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -39,19 +39,19 @@ public class Weapon {
         this.number = number;
     }
 
-    public Long getTypeId() {
+    public Integer getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(Long typeId) {
+    public void setTypeId(Integer typeId) {
         this.typeId = typeId;
     }
 
-    public Long getOrgId() {
+    public Integer getOrgId() {
         return orgId;
     }
 
-    public void setOrgId(Long orgId) {
+    public void setOrgId(Integer orgId) {
         this.orgId = orgId;
     }
 

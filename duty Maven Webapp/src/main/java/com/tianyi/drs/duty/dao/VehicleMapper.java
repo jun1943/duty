@@ -8,13 +8,13 @@ import com.tianyi.drs.duty.model.Vehicle;
 
 @MyBatisRepository
 public interface VehicleMapper {
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(Vehicle record);
 
     int insertSelective(Vehicle record);
 
-    Vehicle selectByPrimaryKey(Long id);
+    Vehicle selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(Vehicle record);
 

@@ -4,13 +4,13 @@ import com.tianyi.drs.duty.dao.core.MyBatisRepository;
 import com.tianyi.drs.duty.model.DutyTemplate;
 @MyBatisRepository
 public interface DutyTemplateMapper {
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(DutyTemplate record);
 
     int insertSelective(DutyTemplate record);
 
-    DutyTemplate selectByPrimaryKey(Long id);
+    DutyTemplate selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(DutyTemplate record);
 

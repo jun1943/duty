@@ -28,16 +28,16 @@ public class PoliceController {
 		try {
 			Police police = new Police();
 			police.setName("王五");
-			police.setGpsId(5L);
+			police.setGpsId(5);
 			police.setGpsName("一号手机定位");
 			police.setMobile("13568865179");
 			police.setIntercomGroup("ssss");
 			police.setIntercomPerson("22222");
 			police.setIdcardno("512301198506234875");
-			police.setOrgId(100L);
+			police.setOrgId(100);
 			police.setMobileShort("6179");
 			police.setNumber("51007816");
-			police.setTypeId(3L);
+			police.setTypeId(3);
 			police.setTitle("科长");
 			System.out.println(policeService.insert(police));
 		} catch (Exception ex) {
@@ -51,18 +51,18 @@ public class PoliceController {
 	public void updatePolice() throws Exception {
 		try {
 			Police police = new Police();
-			police.setId(1L);
+			police.setId(1);
 			police.setName("张五");
-			police.setGpsId(5L);
+			police.setGpsId(5);
 			police.setGpsName("95手机定位");
 			police.setMobile("13568865179");
 			police.setIntercomGroup("mmmm");
 			police.setIntercomPerson("3333");
 			police.setIdcardno("512301198506234875");
-			police.setOrgId(2L);
+			police.setOrgId(2);
 			police.setMobileShort("6179");
 			police.setNumber("51007818");
-			police.setTypeId(3L);
+			police.setTypeId(3);
 			police.setTitle("副主任");
 			System.out.println(policeService.updateByPrimaryKey(police));
 		} catch (Exception ex) {
