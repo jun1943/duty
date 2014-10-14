@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianyi.drs.duty.dao.PoliceMapper" >
+  <resultMap id="BaseResultMap" type="com.tianyi.drs.duty.model.Police" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="police_type_id" property="policeTypeId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="INTEGER" />
+    <result column="idcardno" property="idcardno" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="mobile_short" property="mobileShort" jdbcType="VARCHAR" />
+    <result column="intercom_group" property="intercomGroup" jdbcType="VARCHAR" />
+    <result column="intercom_person" property="intercomPerson" jdbcType="VARCHAR" />
+    <result column="gps_id" property="gpsId" jdbcType="INTEGER" />
+    <result column="gps_name" property="gpsName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, police_type_id, name, org_id, idcardno, number, title, mobile, mobile_short, 
+    intercom_group, intercom_person, gps_id, gps_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_police
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_police
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tianyi.drs.duty.model.Police" >
+    insert into t_police (id, police_type_id, name, 
+      org_id, idcardno, number, 
+      title, mobile, mobile_short, 
+      intercom_group, intercom_person, gps_id, 
+      gps_name)
+    values (#{id,jdbcType=INTEGER}, #{policeTypeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{orgId,jdbcType=INTEGER}, #{idcardno,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{mobileShort,jdbcType=VARCHAR}, 
+      #{intercomGroup,jdbcType=VARCHAR}, #{intercomPerson,jdbcType=VARCHAR}, #{gpsId,jdbcType=INTEGER}, 
+      #{gpsName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.Police" >
+    insert into t_police
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="policeTypeId != null" >
+        police_type_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="idcardno != null" >
+        idcardno,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="mobileShort != null" >
+        mobile_short,
+      </if>
+      <if test="intercomGroup != null" >
+        intercom_group,
+      </if>
+      <if test="intercomPerson != null" >
+        intercom_person,
+      </if>
+      <if test="gpsId != null" >
+        gps_id,
+      </if>
+      <if test="gpsName != null" >
+        gps_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="policeTypeId != null" >
+        #{policeTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="idcardno != null" >
+        #{idcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileShort != null" >
+        #{mobileShort,jdbcType=VARCHAR},
+      </if>
+      <if test="intercomGroup != null" >
+        #{intercomGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="intercomPerson != null" >
+        #{intercomPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="gpsId != null" >
+        #{gpsId,jdbcType=INTEGER},
+      </if>
+      <if test="gpsName != null" >
+        #{gpsName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.duty.model.Police" >
+    update t_police
+    <set >
+      <if test="policeTypeId != null" >
+        police_type_id = #{policeTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="idcardno != null" >
+        idcardno = #{idcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileShort != null" >
+        mobile_short = #{mobileShort,jdbcType=VARCHAR},
+      </if>
+      <if test="intercomGroup != null" >
+        intercom_group = #{intercomGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="intercomPerson != null" >
+        intercom_person = #{intercomPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="gpsId != null" >
+        gps_id = #{gpsId,jdbcType=INTEGER},
+      </if>
+      <if test="gpsName != null" >
+        gps_name = #{gpsName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.duty.model.Police" >
+    update t_police
+    set police_type_id = #{policeTypeId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      org_id = #{orgId,jdbcType=INTEGER},
+      idcardno = #{idcardno,jdbcType=VARCHAR},
+      number = #{number,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      mobile_short = #{mobileShort,jdbcType=VARCHAR},
+      intercom_group = #{intercomGroup,jdbcType=VARCHAR},
+      intercom_person = #{intercomPerson,jdbcType=VARCHAR},
+      gps_id = #{gpsId,jdbcType=INTEGER},
+      gps_name = #{gpsName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+           <select id="findBycode" parameterType="String" resultType="Police">  
+       		select * from t_police where number = #{code}  
+    	 </select> 
+    	 
+         <select id="findByname" parameterType="String" resultType="Police">  
+       		select * from t_police where name = #{name}  
+    	 </select> 
+    	 
+         <select id="login" resultType="Police" parameterType="java.util.Map">  
+       		select * from t_police where number = #{code} or number = #{password}
+    	 </select> 
+    	 
+    	 <select id="selectAll" resultType="Police">  
+       		 select * from t_police order by number asc
+    	 </select> 
+</mapper>

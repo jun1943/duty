@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tianyi.drs.duty.dao.VehicleMapper">
+  <resultMap id="BaseResultMap" type="com.tianyi.drs.duty.model.Vehicle">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="vehicle_type_id" jdbcType="BIGINT" property="vehicleTypeId" />
+    <result column="org_id" jdbcType="BIGINT" property="orgId" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="intercom_group" jdbcType="VARCHAR" property="intercomGroup" />
+    <result column="gps_id" jdbcType="BIGINT" property="gpsId" />
+    <result column="gps_name" jdbcType="VARCHAR" property="gpsName" />
+    <result column="purpose" jdbcType="VARCHAR" property="purpose" />
+    <result column="brand" jdbcType="VARCHAR" property="brand" />
+    <result column="site_qty" jdbcType="VARCHAR" property="siteQty" />
+    <result column="sync_state" jdbcType="BIT" property="syncState" />
+    <result column="platform_id" jdbcType="VARCHAR" property="platformId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, vehicle_type_id, org_id, number, intercom_group, gps_id, gps_name, purpose, brand, 
+    site_qty, sync_state, platform_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_vehicle
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_vehicle
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.tianyi.drs.duty.model.Vehicle">
+    insert into t_vehicle (id, vehicle_type_id, org_id, 
+      number, intercom_group, gps_id, 
+      gps_name, purpose, brand, 
+      site_qty, sync_state, platform_id
+      )
+    values (#{id,jdbcType=BIGINT}, #{vehicleTypeId,jdbcType=BIGINT}, #{orgId,jdbcType=BIGINT}, 
+      #{number,jdbcType=VARCHAR}, #{intercomGroup,jdbcType=VARCHAR}, #{gpsId,jdbcType=BIGINT}, 
+      #{gpsName,jdbcType=VARCHAR}, #{purpose,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, 
+      #{siteQty,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT}, #{platformId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.Vehicle">
+    insert into t_vehicle
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="vehicleTypeId != null">
+        vehicle_type_id,
+      </if>
+      <if test="orgId != null">
+        org_id,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="intercomGroup != null">
+        intercom_group,
+      </if>
+      <if test="gpsId != null">
+        gps_id,
+      </if>
+      <if test="gpsName != null">
+        gps_name,
+      </if>
+      <if test="purpose != null">
+        purpose,
+      </if>
+      <if test="brand != null">
+        brand,
+      </if>
+      <if test="siteQty != null">
+        site_qty,
+      </if>
+      <if test="syncState != null">
+        sync_state,
+      </if>
+      <if test="platformId != null">
+        platform_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="vehicleTypeId != null">
+        #{vehicleTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="orgId != null">
+        #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="intercomGroup != null">
+        #{intercomGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="gpsId != null">
+        #{gpsId,jdbcType=BIGINT},
+      </if>
+      <if test="gpsName != null">
+        #{gpsName,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null">
+        #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null">
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="siteQty != null">
+        #{siteQty,jdbcType=VARCHAR},
+      </if>
+      <if test="syncState != null">
+        #{syncState,jdbcType=BIT},
+      </if>
+      <if test="platformId != null">
+        #{platformId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.duty.model.Vehicle">
+    update t_vehicle
+    <set>
+      <if test="vehicleTypeId != null">
+        vehicle_type_id = #{vehicleTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="orgId != null">
+        org_id = #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="number != null">
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="intercomGroup != null">
+        intercom_group = #{intercomGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="gpsId != null">
+        gps_id = #{gpsId,jdbcType=BIGINT},
+      </if>
+      <if test="gpsName != null">
+        gps_name = #{gpsName,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null">
+        purpose = #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null">
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="siteQty != null">
+        site_qty = #{siteQty,jdbcType=VARCHAR},
+      </if>
+      <if test="syncState != null">
+        sync_state = #{syncState,jdbcType=BIT},
+      </if>
+      <if test="platformId != null">
+        platform_id = #{platformId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.duty.model.Vehicle">
+    update t_vehicle
+    set vehicle_type_id = #{vehicleTypeId,jdbcType=BIGINT},
+      org_id = #{orgId,jdbcType=BIGINT},
+      number = #{number,jdbcType=VARCHAR},
+      intercom_group = #{intercomGroup,jdbcType=VARCHAR},
+      gps_id = #{gpsId,jdbcType=BIGINT},
+      gps_name = #{gpsName,jdbcType=VARCHAR},
+      purpose = #{purpose,jdbcType=VARCHAR},
+      brand = #{brand,jdbcType=VARCHAR},
+      site_qty = #{siteQty,jdbcType=VARCHAR},
+      sync_state = #{syncState,jdbcType=BIT},
+      platform_id = #{platformId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  
+ 
+  <sql id="Where_example">
+    <where>
+	   <if test="number != null">
+	        AND number like CONCAT( '%',#{number,jdbcType=VARCHAR},'%')  
+	   </if>
+    </where>
+  </sql>
+  
+  <select id="countByExample" parameterType="com.tianyi.drs.duty.model.Vehicle" resultType="java.lang.Integer">
+    select count(*) from t_vehicle
+    <if test="_parameter != null">
+      <include refid="Where_example" />
+    </if>
+  </select>
+  
+  <select id="selectByExample" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_vehicle
+    
+      <include refid="Where_example" />
+    
+      order by id
+      <if test="pageStart != null">
+	          limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	  </if>
+  </select>
+  
+  
+</mapper>
