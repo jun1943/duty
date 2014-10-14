@@ -3,8 +3,12 @@ $(function(){
 		$('#my-search-box').toggle();	
 	});	
 	$('#my-check-all').click(function(){
-		$(".my-check").each(function(){
-			$(this).attr('checked','checked');
+		$(".my-check").each(function() {
+			if($(this).attr('checked')=="checked"){ 
+				$(this).attr('checked', false);
+			}else{ 
+				$(this).attr('checked',true);
+			}
 		});
 	});
 	$('#addnew').click(function(){
@@ -15,6 +19,9 @@ $(function(){
 	});
 	$('#delete').click(function(){
 		$('#confirmModal').modal('show');	
+	});
+	$("table tr").click(function(){
+		trclick(this);
 	});
 });
 
@@ -29,4 +36,15 @@ function savecarAction(){
 };
 function confirmAction(){
 	$('#confirmModal').modal('hide');	
+};
+function trclick(obj) {
+	var trs = document.getElementById('tbcarList').getElementsByTagName('tr');
+	for ( var o = 0; o < trs.length; o++) {
+		if (trs[o] == obj) {
+			trs[o].style.backgroundColor = '#DFEBF2';  
+		} else {
+			trs[o].style.backgroundColor = ''; 
+			
+		}
+	}
 };

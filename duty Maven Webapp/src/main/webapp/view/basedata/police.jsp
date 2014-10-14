@@ -144,7 +144,7 @@
                     <td>GPS设备ID</td>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="tbpoliceList">
                   <tr>
                   	<td><input type="checkbox" class="my-check" value="option1"></td>
                   	<td>青羊区分局太升南路派出所</td>
@@ -297,13 +297,14 @@
                 <!--表单开始-->
                 <form class="form-horizontal" role="form">
                   <div class="form-group">
-                    <label for="input2" class="col-sm-2 control-label">姓名：</label>
+                    <label for="name" class="col-sm-2 control-label">姓名：</label>
                     <div class="col-sm-4">
-                      <input type="text" class="form-control" id="input2" placeholder="">
+                      <input type="text" class="form-control" id="name" placeholder="">
+                      <input type="hidden" id="policeid">
                     </div>
-                    <label for="inputEmail3" class="col-sm-2 control-label">人员类别：</label>
+                    <label for="policetype" class="col-sm-2 control-label">人员类别：</label>
                     <div class="col-sm-4">
-                        <select class="form-control">
+                        <select id="policetype" class="form-control">
                           <option>警员</option>
                           <option>职工</option>
                         </select>
@@ -311,70 +312,70 @@
                   </div>
                                     
                   <div class="form-group">
-                    <label for="input2" class="col-sm-2 control-label">身份证号码</label>
+                    <label for="idcardno" class="col-sm-2 control-label">身份证号码</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="input2" placeholder="">
+                      <input type="text" class="form-control" id="idcardno" placeholder="">
                     </div>
                   </div>
                   
                   <div class="form-group">
-                    <label for="input2" class="col-sm-2 control-label">警号：</label>
+                    <label for="code" class="col-sm-2 control-label">警号：</label>
                     <div class="col-sm-4">
-                      <input type="text" class="form-control" id="input2" placeholder="">
+                      <input type="text" class="form-control" id="code" placeholder="">
                     </div>
-                    <label for="input2" class="col-sm-2 control-label">职务：</label>
+                    <label for="duty" class="col-sm-2 control-label">职务：</label>
                     <div class="col-sm-4">
-                      <input type="text" class="form-control" id="input2" placeholder="">
+                      <input type="text" class="form-control" id="duty" placeholder="">
                     </div>
                   </div>
                                     
                   <div class="form-group">
-                    <label for="input2" class="col-sm-2 control-label">手机号码：</label>
+                    <label for="mobilephone" class="col-sm-2 control-label">手机号码：</label>
                     <div class="col-sm-4">
-                      <input type="text" class="form-control" id="input2" placeholder="">
+                      <input type="text" class="form-control" id="mobilephone" placeholder="">
                     </div>
-                    <label for="input3" class="col-sm-2 control-label">公安短号：</label>
+                    <label for="shortno" class="col-sm-2 control-label">公安短号：</label>
                     <div class="col-sm-4">
-                      <input type="text" class="form-control" id="input3" placeholder="">
+                      <input type="text" class="form-control" id="shortno" placeholder="">
                     </div>
                   </div>         
                   <div class="form-group">
-                    <label for="input2" class="col-sm-2 control-label">组呼号：</label>
+                    <label for="groupno" class="col-sm-2 control-label">组呼号：</label>
                     <div class="col-sm-4">
-                      <input type="text" class="form-control" id="input2" placeholder="">
+                      <input type="text" class="form-control" id="groupno" placeholder="">
                     </div>
-                    <label for="input3" class="col-sm-2 control-label">个呼号：</label>
+                    <label for="personno" class="col-sm-2 control-label">个呼号：</label>
                     <div class="col-sm-4">
-                      <input type="text" class="form-control" id="input3" placeholder="">
+                      <input type="text" class="form-control" id="personno" placeholder="">
                     </div>
                   </div>      
                   <div class="form-group">
-                    <label for="input2" class="col-sm-2 control-label">勤务类型：</label>
+                    <label for="dutytype" class="col-sm-2 control-label">勤务类型：</label>
                     <div class="col-sm-4">
-                        <select class="form-control">
+                        <select id="dutytype"  class="form-control">
                           <option>接处警</option>
                           <option>办公室值班</option>
                         </select>
                     </div> 
-                    <label for="input3" class="col-sm-2 control-label">GPS_ID：</label>
+                    <label for="gpsid" class="col-sm-2 control-label">GPS_ID：</label>
                     <div class="col-sm-4">
-                      <input type="text" class="form-control" id="input3" placeholder="">
+                      <input type="text" class="form-control" id="gpsid" placeholder="">
                     </div>
                   </div>   
                   <div class="form-group"> 
-                    <label for="input3" class="col-sm-2 control-label">GPS备注：</label>
+                    <label for="gpsdes" class="col-sm-2 control-label">GPS备注：</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="input3" placeholder="">
+                      <input type="text" class="form-control" id="gpsdes" placeholder="">
                     </div>
                   </div>
                   <div class="form-group"> 
-                    <label for="input3" class="col-sm-2 control-label">参加处警：</label>
+                    <label for="isalarm" class="col-sm-2 control-label">参加处警：</label>
                     <div class="col-sm-1">
-                      <input type="checkbox" class="form-control">
+                      <input id="isalarm" type="checkbox" class="form-control">
                     </div>
                   </div>
                   <div class="form-group"> 
-                    <label for="input3" class="col-sm-2 control-label">图标：</label>
+                    <label for="icons" class="col-sm-2 control-label">图标：</label>
                     <div class="col-sm-10">
                       
                     </div>
