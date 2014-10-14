@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianyi.drs.duty.dao.DutyTemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.tianyi.drs.duty.model.DutyTemplate" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="template_desc_id" property="templateDescId" jdbcType="BIGINT" />
+    <result column="type_id" property="typeId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="begin_minute" property="beginMinute" jdbcType="INTEGER" />
+    <result column="end_minute" property="endMinute" jdbcType="INTEGER" />
+    <result column="sync_state" property="syncState" jdbcType="BIT" />
+    <result column="platform_id" property="platformId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, template_desc_id, type_id, name, begin_minute, end_minute, sync_state, platform_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_duty_template
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_duty_template
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.tianyi.drs.duty.model.DutyTemplate" >
+    insert into t_duty_template (id, template_desc_id, type_id, 
+      name, begin_minute, end_minute, 
+      sync_state, platform_id)
+    values (#{id,jdbcType=BIGINT}, #{templateDescId,jdbcType=BIGINT}, #{typeId,jdbcType=BIGINT}, 
+      #{name,jdbcType=VARCHAR}, #{beginMinute,jdbcType=INTEGER}, #{endMinute,jdbcType=INTEGER}, 
+      #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.DutyTemplate" >
+    insert into t_duty_template
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="templateDescId != null" >
+        template_desc_id,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="beginMinute != null" >
+        begin_minute,
+      </if>
+      <if test="endMinute != null" >
+        end_minute,
+      </if>
+      <if test="syncState != null" >
+        sync_state,
+      </if>
+      <if test="platformId != null" >
+        platform_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="templateDescId != null" >
+        #{templateDescId,jdbcType=BIGINT},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="beginMinute != null" >
+        #{beginMinute,jdbcType=INTEGER},
+      </if>
+      <if test="endMinute != null" >
+        #{endMinute,jdbcType=INTEGER},
+      </if>
+      <if test="syncState != null" >
+        #{syncState,jdbcType=BIT},
+      </if>
+      <if test="platformId != null" >
+        #{platformId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.duty.model.DutyTemplate" >
+    update t_duty_template
+    <set >
+      <if test="templateDescId != null" >
+        template_desc_id = #{templateDescId,jdbcType=BIGINT},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="beginMinute != null" >
+        begin_minute = #{beginMinute,jdbcType=INTEGER},
+      </if>
+      <if test="endMinute != null" >
+        end_minute = #{endMinute,jdbcType=INTEGER},
+      </if>
+      <if test="syncState != null" >
+        sync_state = #{syncState,jdbcType=BIT},
+      </if>
+      <if test="platformId != null" >
+        platform_id = #{platformId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.duty.model.DutyTemplate" >
+    update t_duty_template
+    set template_desc_id = #{templateDescId,jdbcType=BIGINT},
+      type_id = #{typeId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      begin_minute = #{beginMinute,jdbcType=INTEGER},
+      end_minute = #{endMinute,jdbcType=INTEGER},
+      sync_state = #{syncState,jdbcType=BIT},
+      platform_id = #{platformId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
