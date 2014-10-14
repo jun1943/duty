@@ -11,5 +11,6 @@
 <body>
 <h2>Hello World!</h2>
 <input type="button" value="测试controller方式是否成功" onclick="loadAction()" /> 
+<a href="/vehicle/list.do">List测试</a>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.tianyi.drs.duty.model;
 
+
 public class Police {
     private Integer id;
 

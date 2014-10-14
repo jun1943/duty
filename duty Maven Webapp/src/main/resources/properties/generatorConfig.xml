@@ -35,7 +35,8 @@
             <property name="enableSubPackages" value="true"/>  
         </javaClientGenerator>  
         
-        <table tableName="t_police" domainObjectName="Police"
+	       
+	   <table tableName="t_vehicle" domainObjectName="Vehicle"
            enableSelectByExample="false"
 	       enableDeleteByExample="false"
 	       enableCountByExample="false"

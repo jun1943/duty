@@ -2,10 +2,10 @@ body { font-size:12px;}
 .my-line-5 { clear:both; height:5px;}
 .my-hand { cursor:pointer;}
 /**policeman**/
-.my-nav-bg { height:54px; background:url(images/nav-bg.jpg) repeat-x;}
+.my-nav-bg { height:54px; background:url(../../images/nav-bg.jpg) repeat-x;}
 .my-nav-btn { color:#FFF;}
-.nav li { background:url(images/nav-btn-li.jpg) right no-repeat;}
-.active { background:url(images/nav-bg-ac.jpg) repeat-x !important;}
+.nav li { background:url(../../images/nav-btn-li.jpg) right no-repeat;}
+.active { background:url(../../images/nav-bg-ac.jpg) repeat-x !important;}
 .my-menu-bg { height:40px; background-color:#24557d; margin:0px; padding-left:15px; padding-top:3px;}
 .my-menu-btn { font-size:12px;}
 .panel-heading li { float:left;list-style:none; height:30px; }

@@ -5,10 +5,9 @@ PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN"
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.tianyi.drs.duty.model.Police" alias="Police"/>
+		<typeAlias type="com.tianyi.drs.duty.model.Vehicle" alias="Vehicle"/>
 	</typeAliases> 
 	<!-- mapper文件的装载通过spring的mapperLocations指定 --> 
-	<mappers>
-		<mapper resource="classpath:mapper/PoliceMapper.xml"/> 
-	</mappers>
+	
 	
 </configuration>
