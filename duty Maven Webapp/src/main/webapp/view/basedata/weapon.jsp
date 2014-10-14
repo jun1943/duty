@@ -165,7 +165,7 @@
 					<form class="form-horizontal" role="form">
 						<div class="form-group">
 							<label for="inputEmail3" class="col-sm-2 control-label">武器类别：</label>
-							<div class="col-sm-10">
+							<div class="col-sm-4">
 								<select id="txttype" class="form-control">
 									<option value="1">64制自动步枪</option>
 									<option value="2">AK47</option>
@@ -175,7 +175,7 @@
 
 						<div class="form-group">
 							<label for="input2" class="col-sm-2 control-label">武器编号</label>
-							<div class="col-sm-10">
+							<div class="col-sm-4">
 								<input id="txtnumber" type="text" class="form-control"
 									id="input2" placeholder="">
 							</div>
@@ -183,7 +183,7 @@
 
 						<div class="form-group">
 							<label for="inputEmail3" class="col-sm-2 control-label">所属机构：</label>
-							<div class="col-sm-10">
+							<div class="col-sm-4">
 								<select id="txtorg" class="form-control">
 									<option value="1">成都市公安局</option>
 									<option value="2">成都市公安局青羊分局</option>

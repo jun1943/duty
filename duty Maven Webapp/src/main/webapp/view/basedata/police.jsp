@@ -302,6 +302,9 @@
                       <input type="text" class="form-control" id="name" placeholder="">
                       <input type="hidden" id="policeid">
                     </div>
+                  </div>
+                  
+                  <div class="form-group">
                     <label for="policetype" class="col-sm-2 control-label">人员类别：</label>
                     <div class="col-sm-4">
                         <select id="policetype" class="form-control">
@@ -313,7 +316,7 @@
                                     
                   <div class="form-group">
                     <label for="idcardno" class="col-sm-2 control-label">身份证号码</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-4">
                       <input type="text" class="form-control" id="idcardno" placeholder="">
                     </div>
                   </div>
@@ -323,6 +326,9 @@
                     <div class="col-sm-4">
                       <input type="text" class="form-control" id="code" placeholder="">
                     </div>
+                  </div>
+                  
+                  <div class="form-group">
                     <label for="duty" class="col-sm-2 control-label">职务：</label>
                     <div class="col-sm-4">
                       <input type="text" class="form-control" id="duty" placeholder="">
@@ -334,6 +340,9 @@
                     <div class="col-sm-4">
                       <input type="text" class="form-control" id="mobilephone" placeholder="">
                     </div>
+                  </div>
+                  
+                  <div class="form-group">
                     <label for="shortno" class="col-sm-2 control-label">公安短号：</label>
                     <div class="col-sm-4">
                       <input type="text" class="form-control" id="shortno" placeholder="">
@@ -344,6 +353,9 @@
                     <div class="col-sm-4">
                       <input type="text" class="form-control" id="groupno" placeholder="">
                     </div>
+                  </div>
+                  
+                  <div class="form-group">
                     <label for="personno" class="col-sm-2 control-label">个呼号：</label>
                     <div class="col-sm-4">
                       <input type="text" class="form-control" id="personno" placeholder="">
@@ -357,6 +369,9 @@
                           <option>办公室值班</option>
                         </select>
                     </div> 
+                  </div>
+                  
+                  <div class="form-group">
                     <label for="gpsid" class="col-sm-2 control-label">GPS_ID：</label>
                     <div class="col-sm-4">
                       <input type="text" class="form-control" id="gpsid" placeholder="">
@@ -364,16 +379,10 @@
                   </div>   
                   <div class="form-group"> 
                     <label for="gpsdes" class="col-sm-2 control-label">GPS备注：</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-4">
                       <input type="text" class="form-control" id="gpsdes" placeholder="">
                     </div>
-                  </div>
-                  <div class="form-group"> 
-                    <label for="isalarm" class="col-sm-2 control-label">参加处警：</label>
-                    <div class="col-sm-1">
-                      <input id="isalarm" type="checkbox" class="form-control">
-                    </div>
-                  </div>
+                  </div> 
                   <div class="form-group"> 
                     <label for="icons" class="col-sm-2 control-label">图标：</label>
                     <div class="col-sm-10">

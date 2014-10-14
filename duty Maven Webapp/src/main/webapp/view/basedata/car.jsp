@@ -252,6 +252,9 @@
                     <div class="col-sm-4">
                       <input type="text" class="form-control" id="input2" placeholder="">
                     </div>
+                  </div>
+                  
+                  <div class="form-group">
                     <label for="input3" class="col-sm-2 control-label">车辆类型：</label>
                     <div class="col-sm-4">
                         <select id="txttype"  class="form-control">
@@ -266,6 +269,9 @@
                     <div class="col-sm-4">
                       <input type="text" class="form-control" id="input2" placeholder="">
                     </div>
+                  </div>
+                  
+                  <div class="form-group">
                     <label for="input3" class="col-sm-2 control-label">车辆用途：</label>
                     <div class="col-sm-4">
                         <select id="txttype"  class="form-control">
@@ -278,7 +284,7 @@
                             
                   <div class="form-group">
                     <label for="input2" class="col-sm-2 control-label">车上装备：</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-4">
                       <input id="txtnumber" type="text" class="form-control" id="input2" placeholder="">
                     </div>
                   </div>
@@ -287,6 +293,9 @@
                     <div class="col-sm-4">
                       <input type="text" class="form-control" id="input2" placeholder="">
                     </div>
+                  </div>
+                  
+                  <div class="form-group">
                     <label for="input3" class="col-sm-2 control-label">个呼号：</label>
                     <div class="col-sm-4">
                       <input type="text" class="form-control" id="input3" placeholder="">
@@ -298,6 +307,9 @@
                     <div class="col-sm-4">
                       <input type="text" class="form-control" id="input2" placeholder="">
                     </div>
+                  </div>
+                  
+                  <div class="form-group">
                     <label for="input3" class="col-sm-2 control-label">GPS备注：</label>
                     <div class="col-sm-4">
                       <input type="text" class="form-control" id="input3" placeholder="">
