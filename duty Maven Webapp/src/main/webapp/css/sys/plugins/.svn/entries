@@ -1,86 +1,0 @@
-10
-
-dir
-2011
-http://25.30.5.64:8888/Subversion/platform/AbilityPlatform/branches/web/mvplatform/src/main/webapp/assets/stylesheets/plugins
-http://25.30.5.64:8888/Subversion/platform
-
-
-
-2014-08-25T14:04:45.689655Z
-1831
-goulin
-
-
-svn:special svn:externals svn:needs-lock
-
-
-
-
-
-
-
-
-
-
-
-557fa46b-d426-f840-baad-0585bf24b598
-
-
-
-
-
-
-0
-
-bootstrap_colorpicker
-dir
-
-bootstrap_daterangepicker
-dir
-
-bootstrap_datetimepicker
-dir
-
-bootstrap_switch
-dir
-
-common
-dir
-
-datatables
-dir
-
-dynatree
-dir
-
-flags
-dir
-
-fuelux
-dir
-
-fullcalendar
-dir
-
-jgrowl
-dir
-
-jquery_fileupload
-dir
-
-mention
-dir
-
-select2
-dir
-
-slider_nav
-dir
-
-tabdrop
-dir
-
-xeditable
-dir
-
