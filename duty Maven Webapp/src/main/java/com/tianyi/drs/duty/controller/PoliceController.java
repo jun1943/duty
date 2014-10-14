@@ -14,7 +14,7 @@ import com.tianyi.drs.duty.service.PoliceService;
 @Scope("prototype")
 @Controller
 @RequestMapping("/police")
-public class policecontroller {
+public class PoliceController {
 	@Resource(name = "policeService")
 	protected PoliceService policeService;// = ServiceFactory.getPoliceServiceInit();
 
