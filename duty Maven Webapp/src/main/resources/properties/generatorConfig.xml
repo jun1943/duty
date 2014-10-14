@@ -36,10 +36,115 @@
         </javaClientGenerator>  
         
 	       
-	   <table tableName="t_vehicle" domainObjectName="Vehicle"
+	   <table tableName="t_duty" domainObjectName="Duty"
            enableSelectByExample="false"
 	       enableDeleteByExample="false"
 	       enableCountByExample="false"
 	       enableUpdateByExample="false"/>   
+	       
+	       
+	   <table tableName="t_duty_association" domainObjectName="DutyAssociation"
+           enableSelectByExample="false"
+	       enableDeleteByExample="false"
+	       enableCountByExample="false"
+	       enableUpdateByExample="false"/>   
+	       
+	   <table tableName="t_duty_detail" domainObjectName="DutyDetail"
+           enableSelectByExample="false"
+	       enableDeleteByExample="false"
+	       enableCountByExample="false"
+	       enableUpdateByExample="false"/>   
+	   
+	   <table tableName="t_duty_police_group" domainObjectName="PoliceGroup"
+           enableSelectByExample="false"
+	       enableDeleteByExample="false"
+	       enableCountByExample="false"
+	       enableUpdateByExample="false"/>   
+	       
+	   <table tableName="t_duty_police_group_memeber" domainObjectName="PoliceGroupMember"
+           enableSelectByExample="false"
+	       enableDeleteByExample="false"
+	       enableCountByExample="false"
+	       enableUpdateByExample="false"/>  
+	       
+	  <table tableName="t_duty_police_target" domainObjectName="PoliceTarget"
+           enableSelectByExample="false"
+	       enableDeleteByExample="false"
+	       enableCountByExample="false"
+	       enableUpdateByExample="false"/>   
+	       
+	       
+	  <table tableName="t_duty_task" domainObjectName="DutyTask"
+           enableSelectByExample="false"
+	       enableDeleteByExample="false"
+	       enableCountByExample="false"
+	       enableUpdateByExample="false"/>   
+	       
+	 <table tableName="t_duty_template" domainObjectName="DutyTemplate"
+           enableSelectByExample="false"
+	       enableDeleteByExample="false"
+	       enableCountByExample="false"
+	       enableUpdateByExample="false"/>   
+	       
+	       
+	 <table tableName="t_duty_template_desc" domainObjectName="DutyTemplateDesc"
+           enableSelectByExample="false"
+	       enableDeleteByExample="false"
+	       enableCountByExample="false"
+	       enableUpdateByExample="false"/>   
+	       
+	       
+	 <table tableName="t_duty_type" domainObjectName="DutyType"
+           enableSelectByExample="false"
+	       enableDeleteByExample="false"
+	       enableCountByExample="false"
+	       enableUpdateByExample="false"/>  
+	       
+	 <table tableName="t_duty_type_task" domainObjectName="DutyTypeTask"
+           enableSelectByExample="false"
+	       enableDeleteByExample="false"
+	       enableCountByExample="false"
+	       enableUpdateByExample="false"/> 
+	       
+	 <table tableName="t_gps" domainObjectName="Gps"
+           enableSelectByExample="false"
+	       enableDeleteByExample="false"
+	       enableCountByExample="false"
+	       enableUpdateByExample="false"/>    
+	 <table tableName="t_gpstype" domainObjectName="GpsType"
+           enableSelectByExample="false"
+	       enableDeleteByExample="false"
+	       enableCountByExample="false"
+	       enableUpdateByExample="false"/>  
+	       
+	 <table tableName="t_police" domainObjectName="Police"
+           enableSelectByExample="false"
+	       enableDeleteByExample="false"
+	       enableCountByExample="false"
+	       enableUpdateByExample="false"/>  
+	       
+	 <table tableName="t_policetype" domainObjectName="PoliceType"
+           enableSelectByExample="false"
+	       enableDeleteByExample="false"
+	       enableCountByExample="false"
+	       enableUpdateByExample="false"/>  
+	       
+	 <table tableName="t_vehicletype" domainObjectName="VehicleType"
+           enableSelectByExample="false"
+	       enableDeleteByExample="false"
+	       enableCountByExample="false"
+	       enableUpdateByExample="false"/>  
+	       
+	 <table tableName="t_weapon" domainObjectName="Weapon"
+           enableSelectByExample="false"
+	       enableDeleteByExample="false"
+	       enableCountByExample="false"
+	       enableUpdateByExample="false"/> 
+	       
+	 <table tableName="t_weapontype" domainObjectName="WeaponType"
+           enableSelectByExample="false"
+	       enableDeleteByExample="false"
+	       enableCountByExample="false"
+	       enableUpdateByExample="false"/> 
     </context>  
 </generatorConfiguration>  

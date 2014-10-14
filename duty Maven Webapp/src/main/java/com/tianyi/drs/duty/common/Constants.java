@@ -33,5 +33,6 @@ public class Constants {
 	 */
 	public static final Integer TRANSFORM_SUCCESS = 1;
 	public static final Integer TRANSFORM_FAIL = 0;
+	
 }
 

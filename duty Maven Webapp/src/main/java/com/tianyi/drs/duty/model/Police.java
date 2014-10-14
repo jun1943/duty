@@ -1,14 +1,13 @@
 package com.tianyi.drs.duty.model;
 
-
 public class Police {
-    private Integer id;
+    private Long id;
 
-    private Integer policeTypeId;
+    private Long typeId;
 
     private String name;
 
-    private Integer orgId;
+    private Long orgId;
 
     private String idcardno;
 
@@ -24,24 +23,28 @@ public class Police {
 
     private String intercomPerson;
 
-    private Integer gpsId;
+    private Long gpsId;
 
     private String gpsName;
 
-    public Integer getId() {
+    private Boolean syncState;
+
+    private Integer platformId;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getPoliceTypeId() {
-        return policeTypeId;
+    public Long getTypeId() {
+        return typeId;
     }
 
-    public void setPoliceTypeId(Integer policeTypeId) {
-        this.policeTypeId = policeTypeId;
+    public void setTypeId(Long typeId) {
+        this.typeId = typeId;
     }
 
     public String getName() {
@@ -52,11 +55,11 @@ public class Police {
         this.name = name;
     }
 
-    public Integer getOrgId() {
+    public Long getOrgId() {
         return orgId;
     }
 
-    public void setOrgId(Integer orgId) {
+    public void setOrgId(Long orgId) {
         this.orgId = orgId;
     }
 
@@ -116,11 +119,11 @@ public class Police {
         this.intercomPerson = intercomPerson;
     }
 
-    public Integer getGpsId() {
+    public Long getGpsId() {
         return gpsId;
     }
 
-    public void setGpsId(Integer gpsId) {
+    public void setGpsId(Long gpsId) {
         this.gpsId = gpsId;
     }
 
@@ -130,5 +133,21 @@ public class Police {
 
     public void setGpsName(String gpsName) {
         this.gpsName = gpsName;
+    }
+
+    public Boolean getSyncState() {
+        return syncState;
+    }
+
+    public void setSyncState(Boolean syncState) {
+        this.syncState = syncState;
+    }
+
+    public Integer getPlatformId() {
+        return platformId;
+    }
+
+    public void setPlatformId(Integer platformId) {
+        this.platformId = platformId;
     }
 }
