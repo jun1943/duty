@@ -1,7 +1,7 @@
 package com.tianyi.drs.duty.model;
 
 public class VehicleType {
-    private Long id;
+    private Integer id;
 
     private String name;
 
@@ -9,11 +9,11 @@ public class VehicleType {
 
     private Integer platformId;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

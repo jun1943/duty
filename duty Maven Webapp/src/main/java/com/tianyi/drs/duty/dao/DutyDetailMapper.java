@@ -4,13 +4,13 @@ import com.tianyi.drs.duty.dao.core.MyBatisRepository;
 import com.tianyi.drs.duty.model.DutyDetail;
 @MyBatisRepository
 public interface DutyDetailMapper {
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(DutyDetail record);
 
     int insertSelective(DutyDetail record);
 
-    DutyDetail selectByPrimaryKey(Long id);
+    DutyDetail selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(DutyDetail record);
 

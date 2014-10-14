@@ -4,13 +4,13 @@ import com.tianyi.drs.duty.dao.core.MyBatisRepository;
 import com.tianyi.drs.duty.model.PoliceGroup;
 @MyBatisRepository
 public interface PoliceGroupMapper {
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(PoliceGroup record);
 
     int insertSelective(PoliceGroup record);
 
-    PoliceGroup selectByPrimaryKey(Long id);
+    PoliceGroup selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(PoliceGroup record);
 

@@ -1,11 +1,11 @@
 package com.tianyi.drs.duty.model;
 
 public class DutyType {
-    private Long id;
+    private Integer id;
 
     private String name;
 
-    private Long parentId;
+    private Integer parentId;
 
     private Integer level;
 
@@ -21,11 +21,11 @@ public class DutyType {
 
     private Integer platformId;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -37,11 +37,11 @@ public class DutyType {
         this.name = name;
     }
 
-    public Long getParentId() {
+    public Integer getParentId() {
         return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
 

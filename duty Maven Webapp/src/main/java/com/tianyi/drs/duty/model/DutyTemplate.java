@@ -1,11 +1,11 @@
 package com.tianyi.drs.duty.model;
 
 public class DutyTemplate {
-    private Long id;
+    private Integer id;
 
-    private Long templateDescId;
+    private Integer templateDescId;
 
-    private Long typeId;
+    private Integer typeId;
 
     private String name;
 
@@ -17,27 +17,27 @@ public class DutyTemplate {
 
     private Integer platformId;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getTemplateDescId() {
+    public Integer getTemplateDescId() {
         return templateDescId;
     }
 
-    public void setTemplateDescId(Long templateDescId) {
+    public void setTemplateDescId(Integer templateDescId) {
         this.templateDescId = templateDescId;
     }
 
-    public Long getTypeId() {
+    public Integer getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(Long typeId) {
+    public void setTypeId(Integer typeId) {
         this.typeId = typeId;
     }
 

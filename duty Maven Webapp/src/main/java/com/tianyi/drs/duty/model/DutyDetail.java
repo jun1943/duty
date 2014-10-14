@@ -1,47 +1,47 @@
 package com.tianyi.drs.duty.model;
 
 public class DutyDetail {
-    private Long id;
+    private Integer id;
 
-    private Long dutyId;
+    private Integer dutyId;
 
-    private Long itemType;
+    private Integer itemType;
 
-    private Long itemId;
+    private Integer itemId;
 
     private Boolean syncState;
 
     private Integer platformId;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getDutyId() {
+    public Integer getDutyId() {
         return dutyId;
     }
 
-    public void setDutyId(Long dutyId) {
+    public void setDutyId(Integer dutyId) {
         this.dutyId = dutyId;
     }
 
-    public Long getItemType() {
+    public Integer getItemType() {
         return itemType;
     }
 
-    public void setItemType(Long itemType) {
+    public void setItemType(Integer itemType) {
         this.itemType = itemType;
     }
 
-    public Long getItemId() {
+    public Integer getItemId() {
         return itemId;
     }
 
-    public void setItemId(Long itemId) {
+    public void setItemId(Integer itemId) {
         this.itemId = itemId;
     }
 

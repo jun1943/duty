@@ -1,35 +1,35 @@
 package com.tianyi.drs.duty.model;
 
 public class DutyAssociation {
-    private Long id;
+    private Integer id;
 
-    private Long dutyId;
+    private Integer dutyId;
 
     private Integer item1Type;
 
-    private Long itme1Id;
+    private Integer itme1Id;
 
     private Integer item2Type;
 
-    private Long itme2Id;
+    private Integer itme2Id;
 
     private Boolean syncState;
 
     private Integer platformId;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getDutyId() {
+    public Integer getDutyId() {
         return dutyId;
     }
 
-    public void setDutyId(Long dutyId) {
+    public void setDutyId(Integer dutyId) {
         this.dutyId = dutyId;
     }
 
@@ -41,11 +41,11 @@ public class DutyAssociation {
         this.item1Type = item1Type;
     }
 
-    public Long getItme1Id() {
+    public Integer getItme1Id() {
         return itme1Id;
     }
 
-    public void setItme1Id(Long itme1Id) {
+    public void setItme1Id(Integer itme1Id) {
         this.itme1Id = itme1Id;
     }
 
@@ -57,11 +57,11 @@ public class DutyAssociation {
         this.item2Type = item2Type;
     }
 
-    public Long getItme2Id() {
+    public Integer getItme2Id() {
         return itme2Id;
     }
 
-    public void setItme2Id(Long itme2Id) {
+    public void setItme2Id(Integer itme2Id) {
         this.itme2Id = itme2Id;
     }
 
