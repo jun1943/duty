@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.tianyi.drs.duty.dao.core.MyBatisRepository;
 import com.tianyi.drs.duty.model.Police;
+import com.tianyi.drs.duty.viewmodel.PoliceViewModel;
+import com.tianyi.util.PaginationData;
+
 import java.util.Map;
 
 @MyBatisRepository
@@ -30,4 +33,13 @@ public interface PoliceMapper {
 	int updatePolice(Police police);
 	  
 	Police login(Map<String, Object> params);
+
+	int findCount(Police police);
+
+	List<Police> findPageList(Police police, PaginationData page);
+
+	int countByExample(PoliceViewModel police);
+
+	List<PoliceViewModel> selectWithPage(Map<String, Object> map);
+	 
 }

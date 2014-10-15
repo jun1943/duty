@@ -1,5 +1,6 @@
 package com.tianyi.drs.duty.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,8 +9,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.tianyi.drs.duty.dao.PoliceMapper;
-import com.tianyi.drs.duty.model.Police;
+import com.tianyi.drs.duty.model.Police; 
 import com.tianyi.drs.duty.service.PoliceService;
+import com.tianyi.drs.duty.viewmodel.PoliceViewModel;
+import com.tianyi.util.PaginationData;
 
 @Service("policeService")
 public class PoliceServiceImpl implements PoliceService {
@@ -71,6 +74,25 @@ public class PoliceServiceImpl implements PoliceService {
 		// TODO Auto-generated method stub
 		return policeMapper.login(params);
 	}
- 
+
+	public int findCount(PoliceViewModel police) {
+		int count = policeMapper.countByExample(police);
+		return count;
+	}
+
+	public List<PoliceViewModel> findPageList(PoliceViewModel police, PaginationData page) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(!(police.getNumber() == null || police.getNumber().length() ==0) )
+			map.put("number", police.getNumber());
+		
+		map.put("pageStart", page.getStartIndex());
+		map.put("pageSize", page.getPageSize());
+		List<PoliceViewModel> list = policeMapper.selectWithPage(map);
+		
+
+		
+		
+		return list;
+	} 
 	
 }

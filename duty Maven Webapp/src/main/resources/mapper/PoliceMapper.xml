@@ -3,7 +3,7 @@
 <mapper namespace="com.tianyi.drs.duty.dao.PoliceMapper" >
   <resultMap id="BaseResultMap" type="com.tianyi.drs.duty.model.Police" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="police_type_id" property="policeTypeId" jdbcType="INTEGER" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="org_id" property="orgId" jdbcType="INTEGER" />
     <result column="idcardno" property="idcardno" jdbcType="VARCHAR" />
@@ -16,9 +16,31 @@
     <result column="gps_id" property="gpsId" jdbcType="INTEGER" />
     <result column="gps_name" property="gpsName" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap id="BaseModelMap" type="com.tianyi.drs.duty.viewmodel.PoliceViewModel" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="typeName" property="typeName" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="org_id" property="orgId" jdbcType="INTEGER" />
+    <result column="orgName" property="orgName" jdbcType="VARCHAR" />
+    <result column="idcardno" property="idcardno" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="mobile_short" property="mobileShort" jdbcType="VARCHAR" />
+    <result column="intercom_group" property="intercomGroup" jdbcType="VARCHAR" />
+    <result column="intercom_person" property="intercomPerson" jdbcType="VARCHAR" />
+    <result column="gps_id" property="gpsId" jdbcType="INTEGER" />
+    <result column="gps_name" property="gpsName" jdbcType="VARCHAR" />
+  </resultMap>
+  
   <sql id="Base_Column_List" >
-    id, police_type_id, name, org_id, idcardno, number, title, mobile, mobile_short, 
+    id, type_id, name, org_id, idcardno, number, title, mobile, mobile_short, 
     intercom_group, intercom_person, gps_id, gps_name
+  </sql>
+  <sql id="Base_Model_Column_List" >
+    p.id, p.type_id as typeId,pt.name as typeName, p.name, p.org_id as orgId,'' as orgName,p.idcardno, p.number, p.title, p.mobile, p.mobile_short as mobileshort, 
+    p.intercom_group, p.intercom_person, p.gps_id as gpsId, p.gps_name as gpsName
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -200,4 +222,52 @@
     	 <select id="selectAll" resultType="Police">  
        		 select * from t_police order by number asc
     	 </select> 
+    	 
+    	 
+    	 
+ 
+  <sql id="Where_example">
+    <where>
+	   <if test="name != null">
+	        AND number like CONCAT( '%',#{name,jdbcType=VARCHAR},'%')  
+	   </if>
+	   <if test="number != null">
+	        AND number like CONCAT( '%',#{number,jdbcType=VARCHAR},'%')  
+	   </if> 
+    </where>
+  </sql>
+  
+  <select id="countByExample" parameterType="com.tianyi.drs.duty.viewmodel.PoliceViewModel" resultType="java.lang.Integer">
+    select count(*) from t_police
+    <if test="_parameter != null">
+      <include refid="Where_example" />
+    </if>
+  </select>
+  
+  <select id="selectByExample" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_police
+    
+      <include refid="Where_example" />
+    
+      order by id
+      <if test="pageStart != null">
+	          limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	  </if>
+  </select>
+  
+  <select id="selectWithPage" parameterType="java.util.Map" resultMap="BaseModelMap">
+  	select 
+  		<include refid="Base_Model_Column_List" />
+  	from t_police p 
+  	left join t_policetype pt on pt.id = p.type_id 
+  		<include refid="Where_Sql" />
+  		
+  		order by id
+  		<if test="pageStart !=null">
+  			limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+  		</if>
+  </select>
+  
 </mapper>

@@ -23,19 +23,11 @@
 	<div class="container-fluid my-nav-bg">
 		<ul class="nav navbar-nav">
 			<li style="width:1px;"><a href="#">&nbsp;</a></li>
-			<li><a href="/duty/view/basedata/police.jsp" class="my-nav-btn">人员管理
-					<img src="images/nav-btn-icon.png" width="22" height="22">
-			</a></li>
-			<li><a href="/duty/view/basedata/car.jsp" class="my-nav-btn">车辆管理
-					<img src="images/nav-btn-icon.png" width="22" height="22">
-			</a></li>
-			<li class="active"><a href="/duty/view/basedata/weapon.jsp"
-				class="my-nav-btn">武器管理 <img src="images/nav-btn-icon.png"
-					width="22" height="22"></a></li>
-			<li><a href="/duty/view/basedata/weapon.jsp" class="my-nav-btn">卡口管理
-					<img src="images/nav-btn-icon.png" width="22" height="22">
-			</a></li>
-		</ul>
+			  <li><a href="/duty/view/basedata/police.jsp" class="my-nav-btn">人员管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
+                <li><a href="/duty/view/basedata/vehicle.jsp" class="my-nav-btn">车辆管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
+                <li class="active"><a href="/duty/view/basedata/weapon.jsp" class="my-nav-btn">武器管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
+                <li><a href="/duty/view/basedata/police.jsp" class="my-nav-btn">卡口管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
+              </ul>
 	</div>
 	<!--导航结束-->
 	<!--操作菜单开始-->

@@ -3,6 +3,7 @@ package com.tianyi.drs.duty.service;
 import java.util.List; 
 
 import com.tianyi.drs.duty.model.Weapon;
+import com.tianyi.util.PaginationData;
  
 
 public interface WeaponService {
@@ -18,13 +19,10 @@ public interface WeaponService {
     int updateByPrimaryKeySelective(Weapon record);
 
     int updateByPrimaryKey(Weapon record);
-
-    Weapon findBycode(String code);
-    
-    Weapon findByname(String name);
-    
+ 
      List<Weapon> selectAll();
-    
-     int updatePolice(Weapon weapon);
-   
+
+	int findCount(Weapon query);
+
+	List<?> findPageList(Weapon query, PaginationData page); 
 }

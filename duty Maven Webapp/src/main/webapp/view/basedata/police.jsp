@@ -1,6 +1,5 @@
 <%@ page language="java" pageEncoding="utf-8"%>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
 <%@ include file="/view/lib.jsp"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -8,12 +7,26 @@
 <head>
 <base href="<%=basePath%>">
 
-<title>My JSP 'weapon.jsp' starting page</title>
+<title>My JSP 'police.jsp' starting page</title>
 
 <!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
-	--> 
-	<script src="js/basedata/police.js"></script> 
+	-->
+	<script>
+        	$(function(){
+				$('#my-search').click(function(){
+					$('#my-search-box').toggle();	
+				});	
+				$('#my-check-all').click(function(){
+					$(".my-check").each(function(){
+						$(this).attr('checked','checked');
+					});
+				});
+				$('#addnew').click(function(){
+					$('#myModal').modal('show');	
+				});
+			});
+        </script>
 </head>
 
 <body>
@@ -22,17 +35,17 @@
               <ul class="nav navbar-nav">
                 <li style="width:1px;"><a href="#">&nbsp;</a></li>
                 <li class="active"><a href="/duty/view/basedata/police.jsp" class="my-nav-btn">人员管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
-                <li><a href="/duty/view/basedata/car.jsp" class="my-nav-btn">车辆管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
+                <li><a href="/duty/view/basedata/vehicle.jsp" class="my-nav-btn">车辆管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
                 <li><a href="/duty/view/basedata/weapon.jsp" class="my-nav-btn">武器管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
-                <li><a href="/duty/view/basedata/weapon.jsp" class="my-nav-btn">卡口管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
-              </ul>
+                <li><a href="/duty/view/basedata/police.jsp" class="my-nav-btn">卡口管理 <img src="images/nav-btn-icon.png" width="22" height="22"></a></li>
+              <ul>
           </div>
         <!--导航结束-->
         <!--操作菜单开始-->
           <div class="my-menu-bg">
             <button id="addnew" type="button" class="btn btn-default my-menu-btn"><img src="images/icon/add.png" width="16" height="16"> 新增</button>
-            <button id="edit" type="button" class="btn btn-default my-menu-btn"><img src="images/icon/edit.png" width="16" height="16"> 编辑</button>
-            <button id="delete" type="button" class="btn btn-default my-menu-btn"><img src="images/icon/del.png" width="16" height="16"> 删除</button>
+            <button type="button" class="btn btn-default my-menu-btn"><img src="images/icon/edit.png" width="16" height="16"> 编辑</button>
+            <button type="button" class="btn btn-default my-menu-btn"><img src="images/icon/del.png" width="16" height="16"> 删除</button>
           </div>
         <!--操作菜单结束-->
         <div class="my-line-5"></div>
@@ -72,6 +85,7 @@
                           <select class="form-control">
                             <option>全部</option>
                             <option>民警</option>
+                            <option>巡警</option>
                             <option>领导</option>
                           </select>
                         </div>
@@ -83,28 +97,16 @@
                           <div class="input-group-addon">勤务类别</div>
                           <select class="form-control">
                             <option>全部</option>
-                            <option>接处警</option>
+                            <option>接警处</option>
                             <option>领导值班</option>
                           </select>
                         </div>
                       </div>
-                  </div>
+                  </div> 
                   <div class="form-group">
                       <div class="form-group">
                         <div class="input-group">
-                          <div class="input-group-addon">参加处警</div>
-                          <select class="form-control">
-                            <option>全部</option>
-                            <option>是</option>
-                            <option>否</option>
-                          </select>
-                        </div>
-                      </div>
-                  </div>
-                  <div class="form-group">
-                      <div class="form-group">
-                        <div class="input-group">
-                          <div class="input-group-addon">对讲机组号</div>
+                          <div class="input-group-addon">组呼号</div>
                           <select class="form-control">
                             <option>全部</option>
                             <option>350M</option>
@@ -128,161 +130,66 @@
                   <button type="submit" class="btn btn-info"><img src="images/icon/zoom.png" width="16" height="16"> 查询</button>
                 </form>
               </div>
-              <table class="table">
-              	<thead class="my-table-title">
-              	  <tr>
-                    <td width="20"><input type="checkbox" id="my-check-all" value="1"></td>
-                    <td>机构</td>
-                    <td>姓名</td> 
-                    <td>职位</td>
-                    <td>手机号</td>
-                    <td>公安短号</td>
-                    <td>身份证号</td>
-                    <td>警号</td>
-                    <td>人员类别</td>
-                    <td>勤务类别</td>
-                    <td>GPS设备ID</td>
-                  </tr>
-                </thead>
-                <tbody id="tbpoliceList">
-                  <tr>
-                  	<td><input type="checkbox" class="my-check" value="option1"></td>
-                  	<td>青羊区分局太升南路派出所</td>
-                    <td>丁川</td>
-                    <td>刑侦副所长</td>
-                    <td>13566666666</td>
-                    <td>9001</td>
-                    <td>510101198112130278</td>
-                    <td>007817</td>
-                    <td>警员</td>
-                    <td>接处警</td>
-                    <td>510158786264646</td>
-                  </tr>
-                  <tr>
-                  	<td><input type="checkbox" class="my-check" value="option1"></td>
-                  	<td>青羊区分局太升南路派出所</td>
-                    <td>马瑞</td>
-                    <td>民警</td>
-                    <td>13566666666</td>
-                    <td>9001</td>
-                    <td>510101198109090278</td>
-                    <td>007816</td>
-                    <td>警员</td>
-                    <td>接处警</td>
-                    <td>510158786264646</td>
-                  </tr>
-                  <tr>
-                  	<td><input type="checkbox" class="my-check" value="option1"></td>
-                  	<td>青羊区分局太升南路派出所</td>
-                    <td>马瑞</td>
-                    <td>民警</td>
-                    <td>13566666666</td>
-                    <td>9001</td>
-                    <td>510101198109090278</td>
-                    <td>007816</td>
-                    <td>警员</td>
-                    <td>接处警</td>
-                    <td>510158786264646</td>
-                  </tr>
-                  <tr>
-                  	<td><input type="checkbox" class="my-check" value="option1"></td>
-                  	<td>青羊区分局太升南路派出所</td>
-                    <td>马瑞</td>
-                    <td>民警</td>
-                    <td>13566666666</td>
-                    <td>9001</td>
-                    <td>510101198109090278</td>
-                    <td>007816</td>
-                    <td>警员</td>
-                    <td>接处警</td>
-                    <td>510158786264646</td>
-                  </tr>
-                  <tr>
-                  	<td><input type="checkbox" class="my-check" value="option1"></td>
-                  	<td>青羊区分局太升南路派出所</td>
-                    <td>马瑞</td>
-                    <td>民警</td>
-                    <td>13566666666</td>
-                    <td>9001</td>
-                    <td>510101198109090278</td>
-                    <td>007816</td>
-                    <td>警员</td>
-                    <td>接处警</td>
-                    <td>510158786264646</td>
-                  </tr>
-                  <tr>
-                  	<td><input type="checkbox" class="my-check" value="option1"></td>
-                  	<td>青羊区分局太升南路派出所</td>
-                    <td>马瑞</td>
-                    <td>民警</td>
-                    <td>13566666666</td>
-                    <td>9001</td>
-                    <td>510101198109090278</td>
-                    <td>007816</td>
-                    <td>警员</td>
-                    <td>接处警</td>
-                    <td>510158786264646</td>
-                  </tr>
-                  <tr>
-                  	<td><input type="checkbox" class="my-check" value="option1"></td>
-                  	<td>青羊区分局太升南路派出所</td>
-                    <td>马瑞</td>
-                    <td>民警</td>
-                    <td>13566666666</td>
-                    <td>9001</td>
-                    <td>510101198109090278</td>
-                    <td>007816</td>
-                    <td>警员</td>
-                    <td>接处警</td>
-                    <td>510158786264646</td>
-                  </tr>
-                  <tr>
-                  	<td><input type="checkbox" class="my-check" value="option1"></td>
-                  	<td>青羊区分局太升南路派出所</td>
-                    <td>马瑞</td>
-                    <td>民警</td>
-                    <td>13566666666</td>
-                    <td>9001</td>
-                    <td>510101198109090278</td>
-                    <td>007816</td>
-                    <td>警员</td>
-                    <td>接处警</td>
-                    <td>510158786264646</td>
-                  </tr>
-                  <tr>
-                  	<td><input type="checkbox" class="my-check" value="option1"></td>
-                  	<td>青羊区分局太升南路派出所</td>
-                    <td>马瑞</td>
-                    <td>民警</td>
-                    <td>13566666666</td>
-                    <td>9001</td>
-                    <td>510101198109090278</td>
-                    <td>007816</td>
-                    <td>警员</td>
-                    <td>接处警</td>
-                    <td>510158786264646</td>
-                  </tr>
-                
-                </tbody>
-              </table>
+
             </div>
           </div>
-          <div class="my-page-fixed"></div>
+         <!-- <div class="my-page-fixed"></div-->
 		<!--列表结束-->
-        <!--翻页开始-->
-          <div class="my-page-btn">
-            <ul class="pagination">
-              <li><a href="#">&laquo;</a></li>
-              <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li><a href="#">&raquo;</a></li>
-            </ul>
-            
-          </div>
-        <!--翻页结束-->
+        
+        <input type="hidden" id="pageCount" name="pageCount" value="${page.pageCount}" />
+		<input type="hidden" id="pageNumber" name="pageNumber" value="${page.pageNo}" />
+		<input type="hidden" id="totalCount" name="totalCount" value="${page.total}" />
+        
+        <!-- Data Table -->
+			<div class='box-content box-no-padding'>
+				<div class='responsive-table' style="height:650px">
+					<div class='scrollable-area'>
+						<table class="table table-bordered table-hover table-striped "
+							style="margin-bottom:0;">
+							<!-- table class="table"-->
+							<thead  class="my-table-title"> 
+                    			<th width="20"><input type="checkbox" id="my-check-all" value="1"></th>
+								<th>机构</th>
+								<th>姓名</th>
+								<th>身份证号</th>
+								<th>警号</th>
+								<th>人员类别</th>
+								<th>职位</th>
+								<th>勤务类别</th>
+								<th>手机号</th>
+								<th>公安短号</th> 
+								<th>GPS设备ID</th> 
+								<th>GPS名称</th> 
+							</thead>
+		
+							<tbody>
+								<c:forEach items="${page.rows}" var="vehicle">
+									<tr> 
+										<td><input type="checkbox" name="checkedIds" id="checkedIds" class="my-check"
+											value="${police.id}">
+										</td> 
+										<td class="table-font">${policeModel.orgName}</td>
+										<td class="table-font">${policeModel.name}</td>
+										<td class="table-font">${policeModel.idcardno}</td>
+										<td class="table-font">${policeModel.number}</td>
+										<td class="table-font">${policeModel.typeName}</td> 
+										<td class="table-font">${policeModel.duty}</td>
+										<td class="table-font">${policeModel.mobile}</td>
+										<td class="table-font">${policeModel.mobileshort}</td>
+										<td class="table-font">${policeModel.gpsId}</td>
+										<td class="table-font">${policeModel.gpsName}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+				<!--  Page show -->
+				<div class="ui-pagelist">
+					<div style="float: right;" id="pager"></div>
+				</div>
+			</div>
         
         <!--新增开始-->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

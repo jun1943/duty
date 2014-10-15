@@ -1,15 +1,17 @@
 package com.tianyi.drs.duty.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
-
-import com.tianyi.drs.duty.dao.PoliceMapper;
-import com.tianyi.drs.duty.dao.WeaponMapper;
+ 
+import com.tianyi.drs.duty.dao.WeaponMapper; 
 import com.tianyi.drs.duty.model.Weapon;
 import com.tianyi.drs.duty.service.WeaponService;
+import com.tianyi.util.PaginationData;
  
 @Service("weaponService")
 public class WeaponServiceImpl implements WeaponService {
@@ -24,47 +26,49 @@ public class WeaponServiceImpl implements WeaponService {
 
 	public int insert(Weapon record) {
 		// TODO Auto-generated method stub
-		return 0;
+		return weaponMapper.insert(record);
 	}
 
 	public int insertSelective(Weapon record) {
 		// TODO Auto-generated method stub
-		return 0;
+		return weaponMapper.insertSelective(record);
 	}
 
 	public Weapon selectByPrimaryKey(Integer id) {
 		// TODO Auto-generated method stub
-		return null;
+		return weaponMapper.selectByPrimaryKey(id);
 	}
 
 	public int updateByPrimaryKeySelective(Weapon record) {
 		// TODO Auto-generated method stub
-		return 0;
+		return weaponMapper.updateByPrimaryKeySelective(record);
 	}
 
 	public int updateByPrimaryKey(Weapon record) {
 		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public Weapon findBycode(String code) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Weapon findByname(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return weaponMapper.updateByPrimaryKey(record);
+	} 
 
 	public List<Weapon> selectAll() {
 		// TODO Auto-generated method stub
-		return null;
+		return weaponMapper.selectAll();
 	}
 
-	public int updatePolice(Weapon weapon) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int findCount(Weapon weapon) {
+		int count = weaponMapper.countByExample(weapon);
+		return count;
 	}
 
+	public List<Weapon> findPageList(Weapon query, PaginationData page) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(!(query.getNumber() == null || query.getNumber().length() ==0) )
+			map.put("number", query.getNumber());
+		
+		map.put("pageStart", page.getStartIndex());
+		map.put("pageSize", page.getPageSize());
+		List<Weapon> list = weaponMapper.selectByExample(map);
+		
+		return list;
+	}
+ 
 }
