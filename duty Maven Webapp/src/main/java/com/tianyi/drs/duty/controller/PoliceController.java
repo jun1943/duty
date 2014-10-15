@@ -38,7 +38,7 @@ public class PoliceController {
 			@RequestParam(value = "pageNumber", required = false) Integer pageNo,
 			@RequestParam(value = "totalCount", required = false) Integer totalCount,
 			HttpServletRequest request){
-	
+		
 		
 		ModelAndView mv = new ModelAndView("/basedata/police");
 		
@@ -55,7 +55,7 @@ public class PoliceController {
 		
 		page.setRows(policeService.findPageList(query, page));
 		mv.addObject("page", page);
-
+		
 		return mv;
 	}
 	

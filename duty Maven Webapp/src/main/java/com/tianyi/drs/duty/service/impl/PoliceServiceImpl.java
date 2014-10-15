@@ -88,10 +88,7 @@ public class PoliceServiceImpl implements PoliceService {
 		map.put("pageStart", page.getStartIndex());
 		map.put("pageSize", page.getPageSize());
 		List<PoliceViewModel> list = policeMapper.selectWithPage(map);
-		
-
-		
-		
+		 
 		return list;
 	} 
 	

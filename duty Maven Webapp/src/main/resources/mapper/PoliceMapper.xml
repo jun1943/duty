@@ -39,8 +39,8 @@
     intercom_group, intercom_person, gps_id, gps_name
   </sql>
   <sql id="Base_Model_Column_List" >
-    p.id, p.type_id as typeId,pt.name as typeName, p.name, p.org_id as orgId,'' as orgName,p.idcardno, p.number, p.title, p.mobile, p.mobile_short as mobileshort, 
-    p.intercom_group, p.intercom_person, p.gps_id as gpsId, p.gps_name as gpsName
+    p.id, p.type_id as typeId,pt.name as typeName, p.name, p.org_id as orgId,o.short_name as orgName,p.idcardno, p.number, p.title, p.mobile, p.mobile_short as mobileShort, 
+    p.intercom_group as intercomGroup, p.intercom_person, p.gps_id as gpsId, p.gps_name as gpsName
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -226,7 +226,7 @@
     	 
     	 
  
-  <sql id="Where_example">
+  <sql id="Where_Sql">
     <where>
 	   <if test="name != null">
 	        AND number like CONCAT( '%',#{name,jdbcType=VARCHAR},'%')  
@@ -240,7 +240,7 @@
   <select id="countByExample" parameterType="com.tianyi.drs.duty.viewmodel.PoliceViewModel" resultType="java.lang.Integer">
     select count(*) from t_police
     <if test="_parameter != null">
-      <include refid="Where_example" />
+      <include refid="Where_Sql" />
     </if>
   </select>
   
@@ -249,7 +249,7 @@
     <include refid="Base_Column_List" />
     from t_police
     
-      <include refid="Where_example" />
+      <include refid="Where_Sql" />
     
       order by id
       <if test="pageStart != null">
@@ -262,6 +262,7 @@
   		<include refid="Base_Model_Column_List" />
   	from t_police p 
   	left join t_policetype pt on pt.id = p.type_id 
+  	left join organ o on o.id = p.org_id
   		<include refid="Where_Sql" />
   		
   		order by id
