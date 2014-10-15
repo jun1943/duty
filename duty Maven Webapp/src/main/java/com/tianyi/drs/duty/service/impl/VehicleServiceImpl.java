@@ -6,11 +6,13 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
 import com.tianyi.drs.duty.dao.VehicleMapper;
 import com.tianyi.drs.duty.model.Vehicle;
 import com.tianyi.drs.duty.service.VehicleService;
+import com.tianyi.drs.duty.viewmodel.VehicleVM;
 import com.tianyi.util.PaginationData;
 
 @Service("vehicleService")
@@ -36,6 +38,35 @@ public class VehicleServiceImpl implements VehicleService{
 		List<Vehicle> list = vehicleMapper.selectByExample(map);
 		
 		return list;
+	}
+
+
+	public List<VehicleVM> loadVMList(Map<String,Object> query) {
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		if(!(query.getNumber() == null || query.getNumber().length() ==0) )
+//			map.put("number", query.getNumber());
+//		
+//		if(!(query.getOrgPath() == null || query.getOrgPath().length() ==0) )
+//			map.put("orgPath", query.getOrgPath());
+//		
+//		if(inSubOrg)
+//		{
+//			map.put("inSubOrg", true);
+//		}
+//		
+//		map.put("pageStart", page.getStartIndex());
+//		map.put("pageSize", page.getPageSize());
+
+		
+		List<VehicleVM> list = vehicleMapper.loadVMList(query);
+		
+		return list;
+	}
+
+
+	public int loadVMCount(Map<String,Object> query) {
+		int count= vehicleMapper.countByVM(query);
+		return count;
 	}
 	
 }

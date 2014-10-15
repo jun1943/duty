@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.tianyi.drs.duty.dao.core.MyBatisRepository;
 import com.tianyi.drs.duty.model.Vehicle;
+import com.tianyi.drs.duty.viewmodel.VehicleVM;
 
 @MyBatisRepository
 public interface VehicleMapper {
@@ -23,4 +24,9 @@ public interface VehicleMapper {
     int countByExample(Vehicle vehicle);
     
     List<Vehicle> selectByExample(Map<String, Object> map);
+    
+    int countByVM(Map<String, Object> map);
+    
+    List<VehicleVM> loadVMList(Map<String, Object> map);
+    
 }
