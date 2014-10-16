@@ -12,25 +12,7 @@
 <!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-<script>
-	$(function() {
-		$('#my-search').click(function() {
-			$('#my-search-box').toggle();
-		});
-		$('#my-check-all').click(function() {
-			$(".my-check").each(function() {
-				if ($(this).attr('checked') == "checked") {
-					$(this).attr('checked', false);
-				} else {
-					$(this).attr('checked', true);
-				}
-			});
-		});
-		$('#addnew').click(function() {
-			$('#myModal').modal('show');
-		});
-	});
-</script>
+		<script src="js/basedata/police.js"></script> 
 </head>
 
 <body>
@@ -192,11 +174,11 @@
 						<th>GPS名称</th>
 					</thead>
 
-					<tbody>
+					<tbody id="tbpoliceList">
 						<c:forEach items="${page.rows}" var="policevm">
-							<tr>
+							<tr id="tr_${policevm.id}" ondblclick="dbclickList(${policevm})" onclick="clickList(${policevm.id})">
 								<td><input type="checkbox" name="checkedIds"
-									id="checkedIds" class="my-check" value="${policevm.id}">
+									id="ck_${policevm.id}" class="my-check" value="${policevm.id}">
 								</td>
 								<td class="table-font">${policevm.orgName}</td>
 								<td class="table-font">${policevm.name}</td>

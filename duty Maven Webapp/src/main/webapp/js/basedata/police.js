@@ -1,21 +1,39 @@
 $(function(){
 	
-	$('#my-search').click(function(){
-		$('#my-search-box').toggle();	
-	});	
-	$('#my-check-all').click(function(){
+	$('#my-search').click(function() {
+		$('#my-search-box').toggle();
+	});
+	$('#my-check-all').click(function() {
 		$(".my-check").each(function() {
-			if($(this).attr('checked')=="checked"){ 
+			if ($(this).attr('checked') == "checked") {
 				$(this).attr('checked', false);
-			}else{ 
-				$(this).attr('checked',true);
+			} else {
+				$(this).attr('checked', true);
 			}
 		});
 	});
-	$('#addnew').click(function(){
-		$('#myModal').modal('show');	
+	$('#addnew').click(function() {
+		$('#myModal').modal('show');
 	});
 	$('#edit').click(function(){
+		var obj = {};
+		if($(":checkbox:checked").length==0)
+			{
+			alert("请选择要编辑的数据！");
+			return;
+			}else if($(":checkbox:checked").length>1){ 
+				alert("只能对单行数据进行编辑！");
+				return;
+			}else{
+				$(":checkbox:checked").each(function(){
+					  var tablerow = $(this).parent("tr");
+					  obj.id=tablerow.find("[name='p_code']").val();
+					  var code = tablerow.find("[name='p_code']").val();
+					  var name= tablerow.find("[name='p_name']").val();
+					  var price= tablerow.find("[name='p_price']").val();
+					  obj.push({Code:code,Name:name,Price:price});
+					});
+			}
 		$('#myModal').modal('show');	
 	});
 	$('#delete').click(function(){
@@ -77,3 +95,26 @@ function trclick(obj) {
 		}
 	}
 };
+var rowNo;
+function clickList(id){
+	rowNo=null;
+	alert(id);
+	if($("#ck_"+id).attr("checked")=="checked"){ 
+		$("#ck_"+id).attr("checked",false);
+		//$("#tr_"+id).style.backgroundColor = ''; 
+	}else{
+		$("#ck_"+id).attr("checked",true);
+		//$("#tr_"+id).style.backgroundColor = '#DFEBF2'; 
+	}
+	rowNo= id;
+}
+function dbclickList(obj){
+	rowNo=null;
+	alert(obj.id);
+	if($("#ck_"+obj.id).attr("checked")=="checked"){ 
+		$("#ck_"+obj.id).attr("checked",false);  
+	}else{
+		$("#ck_"+obj.id).attr("checked",true);  
+	}
+	rowNo= obj.id;
+}
