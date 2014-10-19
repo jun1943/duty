@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
  
 import com.tianyi.drs.duty.dao.WeaponMapper; 
 import com.tianyi.drs.duty.model.Weapon;
-import com.tianyi.drs.duty.service.WeaponService;
+import com.tianyi.drs.duty.service.WeaponService; 
+import com.tianyi.drs.duty.viewmodel.WeaponVM;
 import com.tianyi.util.PaginationData;
  
 @Service("weaponService")
@@ -71,4 +72,18 @@ public class WeaponServiceImpl implements WeaponService {
 		return list;
 	}
  
+	  
+
+	public int loadVMCount(Map<String, Object> map) {
+		int count= weaponMapper.countByVM(map);
+		return count;
+	}
+
+	public List<WeaponVM> loadVMList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		List<WeaponVM> list = weaponMapper.loadVMList(map);
+		
+		return list;
+	} 
+	
 }

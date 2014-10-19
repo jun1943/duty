@@ -1,6 +1,8 @@
 package com.tianyi.drs.duty.controller;
   
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tianyi.drs.duty.model.Police; 
-import com.tianyi.drs.duty.service.PoliceService;
-import com.tianyi.drs.duty.viewmodel.PoliceViewModel;
+import com.tianyi.drs.duty.service.PoliceService; 
 import com.tianyi.util.PaginationData;
 
 @Scope("prototype")
@@ -33,7 +34,12 @@ public class PoliceController {
 	@RequestMapping(value="list.do")
 	public ModelAndView list(
 			@RequestParam(value = "orgId", required = false) String orgId,
+			@RequestParam(value = "orgCode", required = false) String orgCode,
+			@RequestParam(value = "orgPath", required = false) String orgPath,
+			@RequestParam(value = "inSubOrg", required = false) Integer inSubOrg,
+			@RequestParam(value = "name", required = false) String name,
 			@RequestParam(value = "number", required = false) String number,
+			@RequestParam(value = "typeid", required = false) String typeid, 
 			@RequestParam(value = "pageCount", required = false) Integer pageCount,
 			@RequestParam(value = "pageNumber", required = false) Integer pageNo,
 			@RequestParam(value = "totalCount", required = false) Integer totalCount,
@@ -42,20 +48,42 @@ public class PoliceController {
 		
 		ModelAndView mv = new ModelAndView("/basedata/police");
 		
-		PoliceViewModel query =new PoliceViewModel();
+		Map<String,Object> map = new HashMap<String,Object>();
 		
-		if(number != null && number.length() > 0){
-			query.setNumber(number);
-		}
+		map.put("orgCode", orgCode);
+		map.put("orgPath", orgPath);
+		map.put("inSubOrg", inSubOrg);
+
+		map.put("number", number);
+		map.put("name", name);
 		
+//		PoliceViewModel query =new PoliceViewModel();
+		
+//		if(number != null && number.length() > 0){
+//			query.setNumber(number);
+//		}
+//		
 		PaginationData page = new PaginationData();
 		
-		page.setTotal(policeService.findCount(query));
-		page.setPageNo(pageNo==null?1:pageNo.intValue());
+		page.setTotal(policeService.loadVMCount(map));
+		page.setPageNo(pageNo == null ? 1 : pageNo.intValue());
 		
-		page.setRows(policeService.findPageList(query, page));
+		map.put("pageStart", page.getStartIndex());
+		map.put("pageSize", page.getPageSize());
+		
+//		page.setTotal(policeService.findCount(query));
+//		page.setPageNo(pageNo==null?1:pageNo.intValue());
+//		
+//		page.setRows(policeService.findPageList(query, page));
+//		mv.addObject("page", page);
+		page.setRows(policeService.loadVMList(map));
 		mv.addObject("page", page);
-		
+		mv.addObject("orgId", orgId);
+		mv.addObject("orgCode", orgCode);
+		mv.addObject("orgPath", orgPath);
+		mv.addObject("inSubOrg", inSubOrg);
+		mv.addObject("number", number);
+		mv.addObject("name", name);
 		return mv;
 	}
 	
@@ -79,9 +107,7 @@ public class PoliceController {
 			police.setTitle("科长");
 			System.out.println(policeService.insert(police));
 		} catch (Exception ex) {
-			System.out.println("insert failed");
-			
-			
+			System.out.println("insert failed"); 
 		}
 	}
 

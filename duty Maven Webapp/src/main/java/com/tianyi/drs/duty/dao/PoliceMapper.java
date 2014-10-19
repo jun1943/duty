@@ -41,5 +41,9 @@ public interface PoliceMapper {
 	int countByExample(PoliceViewModel police);
 
 	List<PoliceViewModel> selectWithPage(Map<String, Object> map);
+
+	List<PoliceViewModel> loadVMList(Map<String, Object> map);
+
+	int countByVM(Map<String, Object> map);
 	 
 }

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.tianyi.drs.duty.dao.PoliceMapper;
 import com.tianyi.drs.duty.model.Police; 
 import com.tianyi.drs.duty.service.PoliceService;
-import com.tianyi.drs.duty.viewmodel.PoliceViewModel;
+import com.tianyi.drs.duty.viewmodel.PoliceViewModel; 
 import com.tianyi.util.PaginationData;
 
 @Service("policeService")
@@ -89,6 +89,18 @@ public class PoliceServiceImpl implements PoliceService {
 		map.put("pageSize", page.getPageSize());
 		List<PoliceViewModel> list = policeMapper.selectWithPage(map);
 		 
+		return list;
+	}
+
+	public int loadVMCount(Map<String, Object> map) {
+		int count= policeMapper.countByVM(map);
+		return count;
+	}
+
+	public List<PoliceViewModel> loadVMList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		List<PoliceViewModel> list = policeMapper.loadVMList(map);
+		
 		return list;
 	} 
 	

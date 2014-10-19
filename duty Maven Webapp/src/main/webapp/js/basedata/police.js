@@ -24,15 +24,21 @@ $(function(){
 			}else if($(":checkbox:checked").length>1){ 
 				alert("只能对单行数据进行编辑！");
 				return;
-			}else{
-				$(":checkbox:checked").each(function(){
-					  var tablerow = $(this).parent("tr");
-					  obj.id=tablerow.find("[name='p_code']").val();
-					  var code = tablerow.find("[name='p_code']").val();
-					  var name= tablerow.find("[name='p_name']").val();
-					  var price= tablerow.find("[name='p_price']").val();
-					  obj.push({Code:code,Name:name,Price:price});
-					});
+			}else{ 
+					  obj.id=rowNo;
+					  obj.orgName=$("#td1_"+rowNo).text();
+					  obj.name=$("#td2_"+rowNo).text();
+					  obj.idcardno=$("#td3_"+rowNo).text();
+					  obj.number=$("#td4_"+rowNo).text();
+					  obj.typeName=$("#td5_"+rowNo).text();
+					  obj.intercomGroup=$("#td6_"+rowNo).text();
+					  obj.title=$("#td7_"+rowNo).text();
+					  obj.mobile=$("#td8_"+rowNo).text();
+					  obj.mobileShort=$("#td9_"+rowNo).text();
+					  obj.gpsId=$("#td10_"+rowNo).text();
+					  obj.gpsName=$("#td11_"+rowNo).text();
+					 
+				alert(obj.typeName);
 			}
 		$('#myModal').modal('show');	
 	});

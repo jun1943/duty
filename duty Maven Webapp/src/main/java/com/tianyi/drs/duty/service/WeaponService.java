@@ -1,8 +1,10 @@
 package com.tianyi.drs.duty.service;
 
 import java.util.List; 
+import java.util.Map;
 
 import com.tianyi.drs.duty.model.Weapon;
+import com.tianyi.drs.duty.viewmodel.WeaponVM;
 import com.tianyi.util.PaginationData;
  
 
@@ -24,5 +26,9 @@ public interface WeaponService {
 
 	int findCount(Weapon query);
 
-	List<?> findPageList(Weapon query, PaginationData page); 
+	List<Weapon> findPageList(Weapon query, PaginationData page);
+
+	int loadVMCount(Map<String, Object> map);
+
+	List<WeaponVM> loadVMList(Map<String, Object> map); 
 }

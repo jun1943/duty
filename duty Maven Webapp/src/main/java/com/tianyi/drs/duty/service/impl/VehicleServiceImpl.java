@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-
-import org.apache.ibatis.session.SqlSession;
+ 
 import org.springframework.stereotype.Service;
 
 import com.tianyi.drs.duty.dao.VehicleMapper;

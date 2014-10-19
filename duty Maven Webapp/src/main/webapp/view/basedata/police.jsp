@@ -40,10 +40,10 @@
 		<button id="addnew" type="button" class="btn btn-default my-menu-btn">
 			<img src="images/icon/add.png" width="16" height="16"> 新增
 		</button>
-		<button type="button" class="btn btn-default my-menu-btn">
+		<button id="edit" type="button" class="btn btn-default my-menu-btn">
 			<img src="images/icon/edit.png" width="16" height="16"> 编辑
 		</button>
-		<button type="button" class="btn btn-default my-menu-btn">
+		<button id="delete" type="button" class="btn btn-default my-menu-btn">
 			<img src="images/icon/del.png" width="16" height="16"> 删除
 		</button>
 	</div>
@@ -72,27 +72,46 @@
 				</div>
 			</div>
 			<div id="my-search-box" class="panel-body" style="display:none">
-				<form class="form-inline" role="form">
-					<div class="form-group">
-						<select class="form-control">
-							<option>姓名</option>
-							<option>警号</option>
+				<form class="form-inline" role="form"  id="searchForm" name="searchForm" action=police/list.do	method="post">
+					<div class="input-group">
+						<div class="input-group-addon">查询范围选择:</div>
+						<select id="inSubOrg" name="inSubOrg" class="form-control"
+								value="${inSubOrg}">
+							<option value=0>本级机构</option>
+							<option value=1>本级及下级机构</option>
 						</select>
 					</div>
+					
 					<div class="form-group">
-						<div class="input-group">
-							<input class="form-control" type="text" placeholder="请输入关键字">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">姓名</div>
+								<div class="input-group">
+							<input class="form-control" id="number" name="number"  type="text" placeholder="请输入关键字" value="${name}">
+						</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">警号</div>
+								<div class="input-group">
+							<input class="form-control" id="number" name="number"  type="text" placeholder="请输入关键字" value="${number}">
+						</div>
+							</div>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="form-group">
 							<div class="input-group">
 								<div class="input-group-addon">人员类别</div>
-								<select class="form-control">
+								<select id="typeid" name="typeid" class="form-control" value="${typeid}">
 									<option>全部</option>
-									<option>民警</option>
-									<option>巡警</option>
-									<option>领导</option>
+									<option value="0">民警</option>
+									<option value="1">巡警</option>
+									<option value="2">领导</option>
 								</select>
 							</div>
 						</div>
@@ -103,8 +122,8 @@
 								<div class="input-group-addon">勤务类别</div>
 								<select class="form-control">
 									<option>全部</option>
-									<option>接警处</option>
-									<option>领导值班</option>
+									<option value="0">接警处</option>
+									<option value="1">领导值班</option>
 								</select>
 							</div>
 						</div>
@@ -150,6 +169,10 @@
 		value="${page.pageNo}" />
 	<input type="hidden" id="totalCount" name="totalCount"
 		value="${page.total}" />
+		<input
+			type="hidden" id="orgId" name="orgId" value="${orgId}" /> <input
+			type="hidden" id="orgCode" name="orgCode" value="${orgCode}" /> <input
+			type="hidden" id="orgPath" name="orgPath" value="${orgPath}" />
 
 	<!-- Data Table -->
 	<div class='box-content box-no-padding'>
@@ -180,17 +203,17 @@
 								<td><input type="checkbox" name="checkedIds"
 									id="ck_${policevm.id}" class="my-check" value="${policevm.id}">
 								</td>
-								<td class="table-font">${policevm.orgName}</td>
-								<td class="table-font">${policevm.name}</td>
-								<td class="table-font">${policevm.idcardno}</td>
-								<td class="table-font">${policevm.number}</td>
-								<td class="table-font">${policevm.typeName}</td>
-								<td class="table-font">${policevm.intercomGroup}</td>
-								<td class="table-font">${policevm.title}</td>
-								<td class="table-font">${policevm.mobile}</td>
-								<td class="table-font">${policevm.mobileShort}</td>
-								<td class="table-font">${policevm.gpsId}</td>
-								<td class="table-font">${policevm.gpsName}</td>
+								<td id="td1_${policevm.id}" class="table-font">${policevm.orgName}</td>
+								<td id="td2_${policevm.id}" class="table-font">${policevm.name}</td>
+								<td id="td3_${policevm.id}" class="table-font">${policevm.idcardno}</td>
+								<td id="td4_${policevm.id}" class="table-font">${policevm.number}</td>
+								<td id="td5_${policevm.id}" class="table-font">${policevm.typeName}</td>
+								<td id="td6_${policevm.id}" class="table-font">${policevm.intercomGroup}</td>
+								<td id="td7_${policevm.id}" class="table-font">${policevm.title}</td>
+								<td id="td8_${policevm.id}" class="table-font">${policevm.mobile}</td>
+								<td id="td9_${policevm.id}" class="table-font">${policevm.mobileShort}</td>
+								<td id="td10_${policevm.id}" class="table-font">${policevm.gpsId}</td>
+								<td id="td11_${policevm.id}" class="table-font">${policevm.gpsName}</td>
 							</tr>
 						</c:forEach>
 					</tbody>

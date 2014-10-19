@@ -32,6 +32,8 @@
     <result column="intercom_person" property="intercomPerson" jdbcType="VARCHAR" />
     <result column="gps_id" property="gpsId" jdbcType="INTEGER" />
     <result column="gps_name" property="gpsName" jdbcType="VARCHAR" />
+    <result column="orgcode" jdbcType="VARCHAR" property="orgCode" />
+    <result column="orgpath" jdbcType="VARCHAR" property="orgPath" />
   </resultMap>
   
   <sql id="Base_Column_List" >
@@ -268,6 +270,70 @@
   		order by id
   		<if test="pageStart !=null">
   			limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+  		</if>
+  </select>
+  
+  <select id="loadVMList" parameterType="java.util.Map" resultMap="BaseModelMap">
+  		select 
+ 
+  			v.id, 
+  			v.type_id              as  typeId, 
+  			v.org_id               as  orgId, 
+  			org.short_name           as  orgName,
+  			v.idcardno,
+  			v.title,
+  			v.mobile, 
+  			v.intercom_person,
+  			v.mobile_short         as  mobileShort,
+  			v.number, 
+  			v.intercom_group       as  intercomgroup, 
+  			v.gps_id               as  gpsId,  
+  			v.gps_name             as  gpsName,  
+  			v.sync_state, 
+  			v.platform_id , 
+			org.code 				as 	orgcode,
+			org.path 				as 	orgPath,
+			gps.number 				as 	gpsnumber,
+			vt.name 				as 	typeName 
+		from t_police as v
+			left join organ as org on v.org_id=org.id 
+			left join t_gps as gps on v.gps_id=gps.id 
+			left join t_policetype as vt on v.type_id=vt.id
+		where 
+  			(
+  			org.code =#{orgCode,jdbcType=VARCHAR}
+  	
+  			<if test ="inSubOrg ==1">
+  				or org.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
+  			</if>
+  			)
+  	
+  			<if test="number != null ">
+  				and v.number  like CONCAT("%",#{number,jdbcType=VARCHAR},"%")
+  			</if>
+  			order by id
+  			<if test="pageStart != null">
+	          	limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	  		</if>
+  </select>
+  
+  <select id ="countByVM" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	select 
+  		count(*) 
+  	from 
+  		t_police as v
+  	left join organ as org on v.org_id=org.id
+  	where
+  		(
+  		org.code =#{orgCode,jdbcType=VARCHAR}
+  	
+  		<if test ="inSubOrg ==1">
+  			or org.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
+  		</if>
+  		)
+  	
+  		<if test="number != null ">
+  			and v.number  like CONCAT("%",#{number,jdbcType=VARCHAR},"%")
   		</if>
   </select>
   

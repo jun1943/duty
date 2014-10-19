@@ -34,4 +34,8 @@ public interface PoliceService {
 	int findCount(PoliceViewModel query);
 
 	List<PoliceViewModel> findPageList(PoliceViewModel query, PaginationData page);
+
+	int loadVMCount(Map<String, Object> map);
+
+	List<?> loadVMList(Map<String, Object> map);
 }

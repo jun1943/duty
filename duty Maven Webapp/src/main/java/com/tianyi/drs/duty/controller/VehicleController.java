@@ -1,25 +1,19 @@
 package com.tianyi.drs.duty.controller;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
+ 
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
+ 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import com.tianyi.drs.duty.model.Vehicle;
-import com.tianyi.drs.duty.service.VehicleService;
-import com.tianyi.drs.duty.util.SqlHelper;
+import com.alibaba.druid.pool.DruidDataSource; 
+import com.tianyi.drs.duty.service.VehicleService; 
 import com.tianyi.util.PaginationData;
 
 @Scope("prototype")
