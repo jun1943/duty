@@ -12,7 +12,6 @@ public class DutyItemVM extends DutyItem{
 	private String itemName;
 	private String itemInnerTypeName;
 	private Integer taskType;
-	
 	private List<DutyItemVM> children;
 
 	private List<PoliceTarget> targets;
@@ -80,5 +79,6 @@ public class DutyItemVM extends DutyItem{
 	public void setTargets(List<PoliceTarget> targets) {
 		this.targets = targets;
 	}
-
+	
+	
 }

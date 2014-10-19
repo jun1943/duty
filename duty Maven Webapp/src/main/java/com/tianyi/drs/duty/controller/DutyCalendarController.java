@@ -258,9 +258,13 @@ public class DutyCalendarController {
 				return "{\"isSuccess\":false,\"Message\":\"数据查询失败\",\"Data\":\"\"}";
 			} else {
 				List<DutyItemVM> list = dvm.getItems();
+				// List<DutyExportVM> sublist = new ArrayList<DutyExportVM>();
+
+				// getXXX(list,sublist);
+
 				if (list.size() > 0) {
 					List<DutyExportVM> sublist = new ArrayList<DutyExportVM>();
-					sublist = getSubList(sublist, list);
+					sublist = getSubList(sublist, list, 0, 0, 0, 0);
 					isSuccess = initExcelData(sublist, realPath);
 					if (isSuccess) {
 						return "{\"isSuccess\":false,\"Message\":\"" + exlPath
@@ -277,9 +281,10 @@ public class DutyCalendarController {
 					+ "\",\"Data\":\"\"}";
 		}
 	}
-
+ 
 	private List<DutyExportVM> getSubList(List<DutyExportVM> sList,
-			List<DutyItemVM> list) {
+			List<DutyItemVM> list, int vechilecount, int policecount,
+			int weaponcount, int gpsdeviceCount) {
 		for (int i = 0; i < list.size(); i++) {
 			DutyExportVM dwm = new DutyExportVM();
 			DutyItemVM dim = list.get(i);
@@ -297,90 +302,79 @@ public class DutyCalendarController {
 			dwm.setTimeArea(date);
 
 			if (dim.getChildren() != null && dim.getChildren().size() > 0) {
-				int vechilecount = getVehicleCount(dim.getChildren());
-				int policecount = getPoliceCount(dim.getChildren());
-				int weaponcount = getWeaponCount(dim.getChildren());
-				int gpsdeviceCount = getGpsdeviceCount(dim.getChildren());
 
-				dwm.setVehicleCount(vechilecount);
-
-				dwm.setPoliceCount(policecount);
-
-				dwm.setWeaponCount(weaponcount);
-
-				dwm.setGpsdeviceCount(gpsdeviceCount);
 				sList.add(dwm);
-				getSubList(sList, dim.getChildren());
-//				if (dim.getChildren().get(i).getChildren() != null
-//						&& dim.getChildren().get(i).getChildren().size() > 0) {
-//					if(i>0){i--;}
-//					for (int m = 0; m < dim.getChildren().get(i).getChildren()
-//							.size(); m++) {
-//						getSubList(sList, dim.getChildren().get(i)
-//								.getChildren());
-//					}
-//				}
+				getSubList(sList, dim.getChildren(), vechilecount, policecount,
+						weaponcount, gpsdeviceCount);
+				
 
+			} else {
+			
+				sList.add(dwm);
 			}
+			vechilecount = getVehicleCount(dim);
+			policecount = getPoliceCount(dim);
+			weaponcount = getWeaponCount(dim);
+			gpsdeviceCount = getGpsdeviceCount(dim);
+
+			dwm.setVehicleCount(vechilecount);
+
+			dwm.setPoliceCount(policecount);
+
+			dwm.setWeaponCount(weaponcount);
+
+			dwm.setGpsdeviceCount(gpsdeviceCount);
 		}
 		return sList;
 	}
 
-	private int getGpsdeviceCount(List<DutyItemVM> list) {
+	private int getGpsdeviceCount(DutyItemVM dim) {
 		int gpsCount = 0;
-		for (int i = 0; i < list.size(); i++) {
-			int typeId = list.get(i).getItemTypeId();
-			if (typeId == 4) {
-				gpsCount++;
-			}
-			if (list.get(i).getChildren() != null
-					&& list.get(i).getChildren().size() > 0) {
-				gpsCount += getGpsdeviceCount(list.get(i).getChildren());
+		if (dim.getItemTypeId() == 4) {
+			gpsCount++;
+		}
+		if (dim.getChildren() != null && dim.getChildren().size() > 0) {
+			for (int i = 0; i < dim.getChildren().size(); i++) { 
+					gpsCount += getGpsdeviceCount(dim.getChildren().get(i)); 
 			}
 		}
 		return gpsCount;
 	}
 
-	private int getWeaponCount(List<DutyItemVM> list) {
+	private int getWeaponCount(DutyItemVM dim) {
 		int weaponCount = 0;
-		for (int i = 0; i < list.size(); i++) {
-			int typeId = list.get(i).getItemTypeId();
-			if (typeId == 3) {
-				weaponCount++;
-			}
-			if (list.get(i).getChildren() != null
-					&& list.get(i).getChildren().size() > 0) {
-				weaponCount += getWeaponCount(list.get(i).getChildren());
+		if (dim.getItemTypeId() == 3) {
+			weaponCount++;
+		}
+		if (dim.getChildren() != null && dim.getChildren().size() > 0) {
+			for (int i = 0; i < dim.getChildren().size(); i++) { 
+					weaponCount += getWeaponCount(dim.getChildren().get(i)); 
 			}
 		}
 		return weaponCount;
 	}
 
-	private int getPoliceCount(List<DutyItemVM> list) {
+	private int getPoliceCount(DutyItemVM dim) {
 		int policeCount = 0;
-		for (int i = 0; i < list.size(); i++) {
-			int typeId = list.get(i).getItemTypeId();
-			if (typeId == 2) {
-				policeCount++;
-			}
-			if (list.get(i).getChildren() != null
-					&& list.get(i).getChildren().size() > 0) {
-				policeCount += getPoliceCount(list.get(i).getChildren());
+		if (dim.getItemTypeId() == 2) {
+			policeCount++;
+		}
+		if (dim.getChildren() != null && dim.getChildren().size() > 0) {
+			for (int i = 0; i < dim.getChildren().size(); i++) { 
+					policeCount += getPoliceCount(dim.getChildren().get(i)); 
 			}
 		}
 		return policeCount;
 	}
 
-	private int getVehicleCount(List<DutyItemVM> list) {
+	private int getVehicleCount(DutyItemVM dim) {
 		int vehicleCount = 0;
-		for (int i = 0; i < list.size(); i++) {
-			int typeId = list.get(i).getItemTypeId();
-			if (typeId == 1) {
-				vehicleCount++;
-			}
-			if (list.get(i).getChildren() != null
-					&& list.get(i).getChildren().size() > 0) {
-				vehicleCount += getVehicleCount(list.get(i).getChildren());
+		if (dim.getItemTypeId() == 1) {
+			vehicleCount++;
+		}
+		if (dim.getChildren() != null && dim.getChildren().size() > 0) {
+			for (int i = 0; i < dim.getChildren().size(); i++) { 
+					vehicleCount += getVehicleCount(dim.getChildren().get(i)); 
 			}
 		}
 		return vehicleCount;
