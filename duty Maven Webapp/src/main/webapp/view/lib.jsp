@@ -17,7 +17,13 @@
 
 <link href='<%=basePath%>asset/css/bootstrap.min.css' media='all'
 	rel='stylesheet' type='text/css' />
+<link href='<%=basePath%>asset/css/easyui/icon.css'
+	media='all' rel='stylesheet' type='text/css' />
+<link href='<%=basePath%>asset/css/jquery.loadmask/jquery.loadmask.css'
+	media='all' rel='stylesheet' type='text/css' />
 <link href='<%=basePath%>asset/css/easyui/bootstrap/easyui.css'
+	media='all' rel='stylesheet' type='text/css' />
+<link href='<%=basePath%>asset/css/fontawesome/css/font-awesome.min.css'
 	media='all' rel='stylesheet' type='text/css' />
 <script src='<%=basePath%>asset/script/jquery-1.11.1.min.js'
 	type='text/javascript'></script>
