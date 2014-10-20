@@ -5,12 +5,25 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="org_id" property="orgId" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="is_share" property="isShare" jdbcType="BIT" />
+    <result column="share_type" property="shareType" jdbcType="INTEGER" />
     <result column="sync_state" property="syncState" jdbcType="BIT" />
     <result column="platform_id" property="platformId" jdbcType="INTEGER" />
   </resultMap>
+  
+  <resultMap id="ViewResultMap" type="com.tianyi.drs.duty.viewmodel.PoliceGroupVM" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="org_id" property="orgId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="share_type" property="shareType" jdbcType="INTEGER" />
+    <result column="sync_state" property="syncState" jdbcType="BIT" />
+    <result column="platform_id" property="platformId" jdbcType="INTEGER" />
+    <result column="orgname" jdbcType="VARCHAR" property="orgName" />
+    <result column="orgcode" jdbcType="VARCHAR" property="orgCode" />
+    <result column="orgpath" jdbcType="VARCHAR" property="orgPath" />
+  </resultMap>
+  
   <sql id="Base_Column_List" >
-    id, org_id, name, is_share, sync_state, platform_id
+    id, org_id, name, share_type, sync_state, platform_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,10 +37,10 @@
   </delete>
   <insert id="insert" parameterType="com.tianyi.drs.duty.model.PoliceGroup" >
     insert into t_duty_police_group (id, org_id, name, 
-      is_share, sync_state, platform_id
+      share_type, sync_state, platform_id
       )
     values (#{id,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{isShare,jdbcType=BIT}, #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER}
+      #{shareType,jdbcType=INTEGER}, #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.PoliceGroup" >
@@ -42,8 +55,8 @@
       <if test="name != null" >
         name,
       </if>
-      <if test="isShare != null" >
-        is_share,
+      <if test="shareType != null" >
+        share_type,
       </if>
       <if test="syncState != null" >
         sync_state,
@@ -62,8 +75,8 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="isShare != null" >
-        #{isShare,jdbcType=BIT},
+      <if test="shareType != null" >
+        #{shareType,jdbcType=INTEGER},
       </if>
       <if test="syncState != null" >
         #{syncState,jdbcType=BIT},
@@ -82,8 +95,8 @@
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="isShare != null" >
-        is_share = #{isShare,jdbcType=BIT},
+      <if test="shareType != null" >
+        share_type = #{shareType,jdbcType=INTEGER},
       </if>
       <if test="syncState != null" >
         sync_state = #{syncState,jdbcType=BIT},
@@ -98,9 +111,64 @@
     update t_duty_police_group
     set org_id = #{orgId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
-      is_share = #{isShare,jdbcType=BIT},
+      share_type = #{shareType,jdbcType=INTEGER},
       sync_state = #{syncState,jdbcType=BIT},
       platform_id = #{platformId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+  <select id ="countByVM" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	select 
+  		count(*) 
+  	from 
+  		t_duty_police_group as g
+  	left join organ as org on g.org_id=org.id
+  	where
+  		(
+  		org.code =#{orgCode,jdbcType=VARCHAR}
+  	
+  		<if test ="inSubOrg ==1">
+  			or org.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
+  		</if>
+  		)
+  	
+  		<if test="groupName != null ">
+  			and g.name  like CONCAT("%",#{groupName,jdbcType=VARCHAR},"%")
+  		</if>
+  </select>
+  
+  <select id="loadVMList" parameterType="java.util.Map" resultMap="ViewResultMap">
+  	select 
+  		g.id,
+  		g.org_id,
+  		g.name,
+  		g.share_type,
+  		g.sync_state,
+  		g.platform_id,
+  		org.name			as	orgname,
+		org.code 			as 	orgcode,
+		org.path 			as 	orgPath
+  	from 
+  		t_duty_police_group as g
+  		left join organ as org on g.org_id=org.id
+  	where
+  		(
+  		org.code =#{orgCode,jdbcType=VARCHAR}
+  	
+  		<if test ="inSubOrg ==1">
+  			or org.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
+  		</if>
+  		)
+  	
+  		<if test="groupName != null ">
+  			and g.name  like CONCAT("%",#{groupName,jdbcType=VARCHAR},"%")
+  		</if>
+  	order by id
+  		<if test="pageStart != null">
+	    	limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	  	</if>
+  
+  </select>
+  
 </mapper>

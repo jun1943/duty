@@ -7,7 +7,7 @@ public class PoliceGroup {
 
     private String name;
 
-    private Boolean isShare;
+    private Integer shareType;
 
     private Boolean syncState;
 
@@ -37,12 +37,12 @@ public class PoliceGroup {
         this.name = name;
     }
 
-    public Boolean getIsShare() {
-        return isShare;
+    public Integer getShareType() {
+        return shareType;
     }
 
-    public void setIsShare(Boolean isShare) {
-        this.isShare = isShare;
+    public void setShareType(Integer shareType) {
+        this.shareType = shareType;
     }
 
     public Boolean getSyncState() {

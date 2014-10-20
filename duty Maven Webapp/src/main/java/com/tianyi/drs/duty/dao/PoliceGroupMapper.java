@@ -1,7 +1,11 @@
 package com.tianyi.drs.duty.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import com.tianyi.drs.duty.dao.core.MyBatisRepository;
 import com.tianyi.drs.duty.model.PoliceGroup;
+import com.tianyi.drs.duty.viewmodel.PoliceGroupVM;
 @MyBatisRepository
 public interface PoliceGroupMapper {
     int deleteByPrimaryKey(Integer id);
@@ -15,4 +19,8 @@ public interface PoliceGroupMapper {
     int updateByPrimaryKeySelective(PoliceGroup record);
 
     int updateByPrimaryKey(PoliceGroup record);
+    
+    int countByVM(Map<String, Object> map);
+    
+    List<PoliceGroupVM> loadVMList(Map<String, Object> map);
 }
