@@ -1,16 +1,13 @@
 package com.tianyi.drs.duty.controller;
-
-import java.util.ArrayList;
+ 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import net.sf.json.util.JSONUtils;
+ 
+import net.sf.json.JSONObject; 
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -18,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.tianyi.drs.duty.service.PoliceGroupService;
-import com.tianyi.drs.duty.viewmodel.DbTableResult;
-import com.tianyi.drs.duty.viewmodel.PGVM;
-import com.tianyi.drs.duty.viewmodel.PoliceGroupVM;
-import com.tianyi.util.PaginationData;
+import com.tianyi.drs.duty.viewmodel.DbTableResult; 
+import com.tianyi.drs.duty.viewmodel.PoliceGroupVM; 
 
 @Scope("prototype")
 @Controller
