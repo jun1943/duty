@@ -47,7 +47,7 @@ public class PoliceGroupController {
 		 */
 		//{"sEcho":1,"iDisplayStart":0,"iDisplayLength":10}
 
-		JSONObject o =JSONObject.fromObject(orgId);
+		 
 		
 		JSONObject dtParObj=JSONObject.fromObject(dtPar);
 
