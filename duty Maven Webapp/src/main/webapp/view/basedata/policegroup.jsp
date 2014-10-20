@@ -16,27 +16,30 @@
 
 </head>
 
-<body >
-	
-
+<body>
 	<div class="easyui-layout" style="width:100%;height:100%;">
-        <div data-options="region:'west',split:true" title="West" style="width:40%;"></div>
-        <div data-options="region:'center',title:'Main Title',iconCls:'icon-ok'">
-            <table class="easyui-datagrid"
-                    data-options="url:'datagrid_data1.json',method:'get',border:false,singleSelect:true,fit:true,fitColumns:true">
-                <thead>
-                    <tr>
-                        <th data-options="field:'itemid'" width="80">Item ID</th>
-                        <th data-options="field:'productid'" width="100">Product ID</th>
-                        <th data-options="field:'listprice',align:'right'" width="80">List Price</th>
-                        <th data-options="field:'unitcost',align:'right'" width="80">Unit Cost</th>
-                        <th data-options="field:'attr1'" width="150">Attribute</th>
-                        <th data-options="field:'status',align:'center'" width="60">Status</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
-    </div>
-	
+		<div data-options="region:'west',split:true" title="组"
+			style="width:40%;">
+			<div id="tbGroup" class="btn-toolbar">
+  				<div class="btn-group">
+  					<a id="btnAddEvidenceBill" href="javascript:void(0);" class="easyui-linkbutton icon-camera-retro"  plain="true" onclick="btnAddGroup()">创建</a>
+                	<a id="btnEditEvidenceBill" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="btnEditGroup()">修改</a>
+                	<a id="btnDelEvidenceBill" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel" plain="true" onclick="btnDelGroup()">删除</a>
+  				</div>
+  			</div>
+  			<div id="dtGroup" ></div>
+  			
+		</div>
+		<div data-options="region:'center',title:'警员'">
+			<div id="tbGroup" class="btn-toolbar">
+  				<div class="btn-group">
+  					<a id="btnAddEvidenceBill" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="btnAddGroupMember()">添加</a>
+                	<a id="btnEditEvidenceBill" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="btnDelGroupMember()">删除</a>
+                	<a id="btnDelEvidenceBill" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel" plain="true" onclick="btnCleanGroupMember()">清空</a>
+  				</div>
+  			</div>
+			<div id="dtGroupMember"></div>
+		</div>
+	</div>
 </body>
 </html>
