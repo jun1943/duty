@@ -14,8 +14,6 @@
 <!--[if lt IE 9]>
     <script src='<%=basePath%>js/sys/html5shiv.js' type='text/javascript'></script>
     <![endif]-->
-<link rel="stylesheet" type="text/css"
-	href="<%=basePath%>css/sys/base.css"></link>
 
 <link href='<%=basePath%>asset/css/bootstrap.min.css' media='all'
 	rel='stylesheet' type='text/css' />
@@ -25,10 +23,10 @@
 	type='text/javascript'></script>
 <script src='<%=basePath%>asset/script/bootstrap.min.js'
 	type='text/javascript'></script>
-<script src='<%=basePath%>asset/script/jquery.easyui.min.js'
+<script src='<%=basePath%>asset/script/easyui/jquery.easyui.min.js'
 	type='text/javascript'></script>
 <script
-	src='<%=basePath%>asset/script/jquery.loadmask/jquery.easyui.min.js'
+	src='<%=basePath%>asset/script/jquery.loadmask/jquery.loadmask.min.js'
 	type='text/javascript'></script>
 
 <script src='<%=basePath%>asset/script/json2.js' type='text/javascript'></script>
