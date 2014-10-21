@@ -22,7 +22,7 @@
 			style="width:40%;">
 			<div id="tbGroup" class="btn-toolbar">
   				<div class="btn-group">
-  					<a id="btnAddEvidenceBill" href="javascript:void(0);" class="easyui-linkbutton icon-camera-retro"  plain="true" onclick="btnAddGroup()">创建</a>
+  					<a id="btnAddEvidenceBill" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-add"  plain="true" onclick="btnAddGroup()">创建</a>
                 	<a id="btnEditEvidenceBill" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="btnEditGroup()">修改</a>
                 	<a id="btnDelEvidenceBill" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel" plain="true" onclick="btnDelGroup()">删除</a>
   				</div>

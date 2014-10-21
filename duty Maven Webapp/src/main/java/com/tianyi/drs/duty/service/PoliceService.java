@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.tianyi.drs.duty.model.Police;
-import com.tianyi.drs.duty.viewmodel.PoliceViewModel;
+import com.tianyi.drs.duty.viewmodel.PoliceVM;
 import com.tianyi.util.PaginationData;
 
 public interface PoliceService {
@@ -31,11 +31,11 @@ public interface PoliceService {
   
 	 Police login(Map<String, Object> params);
 
-	int findCount(PoliceViewModel query);
+	int findCount(PoliceVM query);
 
-	List<PoliceViewModel> findPageList(PoliceViewModel query, PaginationData page);
+	List<PoliceVM> findPageList(PoliceVM query, PaginationData page);
 
 	int loadVMCount(Map<String, Object> map);
 
-	List<?> loadVMList(Map<String, Object> map);
+	List<PoliceVM> loadVMList(Map<String, Object> map);
 }

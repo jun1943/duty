@@ -2,7 +2,7 @@ package com.tianyi.drs.duty.viewmodel;
 
 import com.tianyi.drs.duty.model.Police;
 
-public class PoliceViewModel extends Police {
+public class PoliceVM extends Police {
 	 
     private String typeName;
   
