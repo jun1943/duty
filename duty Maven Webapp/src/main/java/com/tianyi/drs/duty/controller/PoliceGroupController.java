@@ -17,8 +17,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.tianyi.drs.duty.service.OrgService;
 import com.tianyi.drs.duty.service.PoliceGroupService;
-import com.tianyi.drs.duty.viewmodel.DbTableResult;
+import com.tianyi.drs.duty.viewmodel.ListResult;
+import com.tianyi.drs.duty.viewmodel.OrgVM;
 import com.tianyi.drs.duty.viewmodel.PGVM;
 import com.tianyi.drs.duty.viewmodel.PoliceGroupVM;
 import com.tianyi.util.PaginationData;
@@ -30,55 +33,47 @@ public class PoliceGroupController {
 
 	@Resource(name = "policeGroupService")
 	protected PoliceGroupService policeGroupService;
+	@Resource(name = "orgService")
+	protected OrgService orgService;
+	
 	
 	@RequestMapping(value = "list.do")
 	public @ResponseBody String List(
-			@RequestParam(value = "dtPar", required = false) String dtPar,
-			@RequestParam(value = "orgId", required = false) String orgId,
-			@RequestParam(value = "orgCode", required = false) String orgCode,
-			@RequestParam(value = "orgPath", required = false) String orgPath,
-			@RequestParam(value = "inSubOrg", required = false) Integer inSubOrg,
-			@RequestParam(value = "groupName", required = false) String groupName,
-			@RequestParam(value = "pageIndex", required = false) Integer pageCount,
-			@RequestParam(value = "pageNumber", required = false) Integer pageNo,
-			@RequestParam(value = "totalCount", required = false) Integer totalCount,
+			@RequestParam(value = "policeGroup_Query", required = false) String query,
+			@RequestParam(value = "page", required = false) Integer page,
+			@RequestParam(value = "rows", required = false) Integer rows,
 			HttpServletRequest request) {
 	
-		/*
-		 * 
-		 * @RequestParam(value = "iDisplayStart") int start, 
-           @RequestParam(value = "iDisplayLength") int pageSize, 
-           @RequestParam(value = "sEcho") int sEcho) throws Exception { 
-		 */
-		//{"sEcho":1,"iDisplayStart":0,"iDisplayLength":10}
-
-		JSONObject o =JSONObject.fromObject(orgId);
 		
-		JSONObject dtParObj=JSONObject.fromObject(dtPar);
+		
+		
 
+		JSONObject joQuery =JSONObject.fromObject(query);
+		
+		
+		List<OrgVM> os=orgService.loadSubOrgVMList("510106000000", "");
+		
+		String orgCode=joQuery.getString("orgCode");
+		
 		Map<String, Object> map = new HashMap<String, Object>();
-		
+		map.put("pageStart", (page-1) * rows);
+		map.put("pageSize", rows);
 		map.put("orgCode", orgCode);
-		map.put("orgPath", orgPath);
-		map.put("inSubOrg", inSubOrg);
-		map.put("groupName", groupName);
+		map.put("inSubOrg", 0);
 		
 		int total=policeGroupService.loadVMCount(map);
 
-
-		map.put("pageStart", dtParObj.getInt("iDisplayStart"));
-		map.put("pageSize", dtParObj.getInt("iDisplayLength"));
-
-		
 		List<PoliceGroupVM> pgvms=policeGroupService.loadVMList(map);
 		
-		DbTableResult<PoliceGroupVM> rs=new DbTableResult<PoliceGroupVM>();
-		
-		rs.setiTotalDisplayRecords(total);
-		rs.setiTotalRecords(pgvms.size());
-		rs.setAaData(pgvms);
-		rs.setsEcho(dtParObj.getInt("sEcho"));
+//		DbTableResult<PoliceGroupVM> rs=new DbTableResult<PoliceGroupVM>();
+//		
+//		rs.setiTotalDisplayRecords(total);
+//		rs.setiTotalRecords(pgvms.size());
+//		rs.setAaData(pgvms);
+//		rs.setsEcho(dtParObj.getInt("sEcho"));
 
+		ListResult<PoliceGroupVM> rs=new ListResult<PoliceGroupVM>(total,pgvms);
+		
 		String ss=JSONObject.fromObject(rs).toString();
 		
 		return ss;
