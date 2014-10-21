@@ -15,6 +15,7 @@ import org.apache.commons.fileupload.servlet.ServletRequestContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianyi.drs.duty.model.Police;
 import com.tianyi.drs.duty.service.PoliceService;
@@ -34,7 +35,7 @@ public class PoliceController {
 	}
 
 	@RequestMapping(value = "getPoliceList.do", produces = "application/json;charset=UTF-8")
-	public String getPoliceList(HttpServletRequest request,
+	public @ResponseBody  String getPoliceList(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		int page = 1;
 		int pageSize = 10;

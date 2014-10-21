@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianyi.drs.duty.dao.OrgMapper" >
+  <resultMap id="BaseResultMap" type="com.tianyi.drs.duty.model.Org" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="short_name" property="shortName" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+  </resultMap>
+    
+    
+  <resultMap id="TreeResultMap" type="com.tianyi.drs.duty.viewmodel.OrgVM" >
+ 	<id column="id" property="id" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="short_name" property="shortName" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <association property="children"  column="parent_id"  javaType="com.tianyi.drs.duty.model.Org" resultMap="TreeResultMap"/> 
+  </resultMap>
+    
+  <sql id="Base_Column_List" >
+    id, parent_id, name, short_name, code,path
+  </sql>
+  
+  
+  <select id="loadSubOrgVMList" parameterType="java.util.Map" resultMap="TreeResultMap">
+  	select 
+  		org1.id,org1.parent_id,org1.name,org1.short_name,org1.code,org1.path
+  	from 
+  		organ as org1 left outer join organ as org2 on org1.id=org2.parent_id 
+  	where
+  		org1.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
+  	order by id
+  		
+  </select>
+  
+</mapper>
