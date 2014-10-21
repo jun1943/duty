@@ -9,5 +9,5 @@ public interface OrgService {
 
 	List<Org> loadSubOrgList(String code,String path);
 	
-	List<OrgVM> loadSubOrgVMList(String code,String path);
+
 }

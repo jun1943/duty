@@ -39,3 +39,9 @@
 <script src='<%=basePath%>asset/script/easyui/easyui-lang-zh_CN.js' type='text/javascript'></script>
 <script src='<%=basePath%>script/common.js' type='text/javascript'></script>
 
+<script src='<%=basePath%>asset/script/jquery.artDialog.js'></script> 
+<!--
+<script src='<%=basePath%>asset/script/jquery.bootstrap.min.js'></script> 
+ -->
+
+

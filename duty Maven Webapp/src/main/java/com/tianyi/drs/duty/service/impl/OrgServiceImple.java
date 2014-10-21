@@ -31,16 +31,6 @@ public class OrgServiceImple implements OrgService {
 		return ls;
 	}
 
-	public List<OrgVM> loadSubOrgVMList(String code, String path) {
-		
-		Map<String, Object> map = new HashMap<String, Object>();
 
-		map.put("orgCode", code);
-		map.put("orgPath", path);
-
-		List<OrgVM> ls = orgMapper.loadSubOrgVMList(map);
-
-		return ls;
-	}
 
 }

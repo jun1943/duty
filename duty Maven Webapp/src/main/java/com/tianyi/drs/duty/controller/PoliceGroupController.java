@@ -51,7 +51,7 @@ public class PoliceGroupController {
 		JSONObject joQuery =JSONObject.fromObject(query);
 		
 		
-		List<OrgVM> os=orgService.loadSubOrgVMList("510106000000", "");
+		//List<OrgVM> os=orgService.loadSubOrgVMList("510106000000", "");
 		
 		String orgCode=joQuery.getString("orgCode");
 		
