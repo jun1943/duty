@@ -79,50 +79,39 @@
   					<a id="btnAddWeapon" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-add"  plain="true" onclick="btnAddWeapon()">创建</a>
                 	<a id="btnEditWeapon" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="btnEditWeapon()">修改</a>
                 	<a id="btnDelWeapon" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel" plain="true" onclick="btnDelWeapon()">删除</a>
-                	<a id="btnDelWeapon" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel" plain="true" onclick="btnDelWeapon()">删除</a>
+                	
   				</div>  				
   				<div class="btn-group" style="float:right">
   					<a id="btnSearchWeapon" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"  plain="true" onclick="btnSearchWeapon()">查询</a>
-                	<a id="btnPrintList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-print" plain="true" onclick="btnPrintList()">打印</a>
-                	<a id="btnExportList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-export" plain="true" onclick="btnExportList()">导出</a>
+                	<!-- a id="btnPrintList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-print" plain="true" onclick="btnPrintList()">打印</a>
+                	<a id="btnExportList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-export" plain="true" onclick="btnExportList()">导出</a> -->
                	</div>
   			</div>
   			<div id="my-search-box" class="panel-body" style="display:none">
-  			 <form class="form-inline" role="form">
-				<div class="form-group">
-                    <select class="form-control">
-                      <option>姓名</option>
-                      <option>警号</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <div class="input-group">
-                      <input class="form-control" type="text" placeholder="请输入关键字">
-                    </div>
-                  </div>
+  			 <form class="form-inline"> 
                   <div class="form-group">
                       <div class="form-group">
                         <div class="input-group">
-                          <div class="input-group-addon">人员类别</div>
-                          <select class="form-control">
-                            <option>姓名</option>
-                            <option>警号</option>
+                          <div class="input-group-addon">查询范围选择</div>
+                          <select id="isSubOrg" class="form-control"> 
+                            <option value="0">本级机构</option>
+                            <option value="1">下级机构</option>
                           </select>
                         </div>
                       </div>
                   </div>
+                  
                   <div class="form-group">
                       <div class="form-group">
                         <div class="input-group">
-                          <div class="input-group-addon">人员状态</div>
-                          <select class="form-control">
-                            <option>在岗</option>
-                            <option>离岗</option>
-                          </select>
+                          <div class="input-group-addon">武器编号:</div>
+                           <input id="txtsearchnumber" class="form-control" type="text" placeholder="请输入关键字">
                         </div>
                       </div>
-                  </div>
-				<button type="submit" class="btn btn-info">查询</button>
+                  </div> 
+                  
+                 <a id="btnSearchAction" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"  plain="true" onclick="btnSearchAction()">查询</a>
+				<!-- button type="submit" class="btn btn-info">查询</button -->
 				</form>
 			</div>	
   			<div id="dtWeapon" >
@@ -144,40 +133,41 @@
 					<!--表单开始-->
 					<form class="form-horizontal" role="form">
 						<div class="form-group">
-							<label for="inputEmail3" class="col-sm-2 control-label">武器类别：</label>
+							<label for="txttype" class="col-sm-2 control-label">武器类别：</label>
 							<div class="col-sm-4">
 								<select id="txttype" class="form-control">
-									<option value="1">64制自动步枪</option>
-									<option value="2">AK47</option>
+									<option value="0">请选择武器类型</option>
+									<option value="1">64制半自动步枪</option>
+									<option value="2">64制自动步枪</option>
+									<option value="3">AK47</option>
 								</select>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label for="input2" class="col-sm-2 control-label">武器编号</label>
+							<label for="txtnumber" class="col-sm-2 control-label">武器编号</label>
 							<div class="col-sm-4">
+								<input type="hidden" id="weaponId">
 								<input id="txtnumber" type="text" class="form-control"
-									id="input2" placeholder="">
+									placeholder="">
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label for="inputEmail3" class="col-sm-2 control-label">所属机构：</label>
+							<label for="txtstandard" class="col-sm-2 control-label">规格标准</label>
 							<div class="col-sm-4">
-								<select id="txtorg" class="form-control">
-									<option value="1">成都市公安局</option>
-									<option value="2">成都市公安局青羊分局</option>
-								</select>
+								<input id="txtstandard" type="text" class="form-control"
+								placeholder="">
 							</div>
-						</div>
+						</div> 
 					</form>
 					<!--表单结束-->
 
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-					<button id="btnsaveweapon" onclick="saveweaponAction()"
+					<button id="btnsaveweapon" onclick="saveWeaponAction()"
 						type="button" class="btn btn-primary">保存</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 				</div>
 			</div>
 		</div>

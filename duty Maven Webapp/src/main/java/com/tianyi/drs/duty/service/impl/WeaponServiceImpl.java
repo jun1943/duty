@@ -75,7 +75,7 @@ public class WeaponServiceImpl implements WeaponService {
 	  
 
 	public int loadVMCount(Map<String, Object> map) {
-		int count= weaponMapper.countByVM(map);
+		int count= weaponMapper.loadVMCount(map);
 		return count;
 	}
 

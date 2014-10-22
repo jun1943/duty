@@ -55,16 +55,16 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.tianyi.drs.duty.model.Police" >
-    insert into t_police (id, police_type_id, name, 
+    insert into t_police (id, type_id, name, 
       org_id, idcardno, number, 
       title, mobile, mobile_short, 
       intercom_group, intercom_person, gps_id, 
-      gps_name)
-    values (#{id,jdbcType=INTEGER}, #{policeTypeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      gps_name,platform_id,sync_state)
+    values (#{id,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{orgId,jdbcType=INTEGER}, #{idcardno,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, 
       #{title,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{mobileShort,jdbcType=VARCHAR}, 
       #{intercomGroup,jdbcType=VARCHAR}, #{intercomPerson,jdbcType=VARCHAR}, #{gpsId,jdbcType=INTEGER}, 
-      #{gpsName,jdbcType=VARCHAR})
+      #{gpsName,jdbcType=VARCHAR},#{platformId,jdbcType=INTEGER},#{syncState,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.Police" >
     insert into t_police
@@ -72,8 +72,8 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="policeTypeId != null" >
-        police_type_id,
+      <if test="typeId != null" >
+        type_id,
       </if>
       <if test="name != null" >
         name,
@@ -113,8 +113,8 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="policeTypeId != null" >
-        #{policeTypeId,jdbcType=INTEGER},
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
@@ -154,8 +154,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.duty.model.Police" >
     update t_police
     <set >
-      <if test="policeTypeId != null" >
-        police_type_id = #{policeTypeId,jdbcType=INTEGER},
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
       </if>
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
@@ -195,7 +195,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.duty.model.Police" >
     update t_police
-    set police_type_id = #{policeTypeId,jdbcType=INTEGER},
+    set type_id = #{typeId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
       org_id = #{orgId,jdbcType=INTEGER},
       idcardno = #{idcardno,jdbcType=VARCHAR},
@@ -282,6 +282,22 @@
   		 from t_police p 
   		 left join t_policetype pt on pt.id = p.type_id
   		 left join organ o on o.id  = p.org_id
+  		 where 
+  		 (
+  		 o.id = #{orgId,jdbcType=INTEGER}
+  		  or 
+  		  o.code =#{orgCode,jdbcType=VARCHAR}
+  		<if test ="inSubOrg ==1">
+  			or o.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
+  		</if>
+  		)
+  		<if test ="name !=null">
+  			and p.name like CONCAT('%','${name}','%' )  
+  		</if>
+  		<if test ="typeid >0">
+  			and pt.id = #{typeid,jdbcType=INTEGER}
+  		</if>
+  		 
   		 <if test="pageStart !=null">
   			limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
   		</if>
@@ -291,10 +307,26 @@
   	select 
   		count(*) 
   	from 
-  		t_police as v
-  	left join organ as org on v.org_id=org.id
+  		t_police as p
+  	left join organ as org on p.org_id=org.id
+  	left join t_policetype as pt on p.type_id = pt.id
   	where
+  		(
   		 org.id = #{orgId,jdbcType=INTEGER}
+  		   or
+  		   org.code =#{orgCode,jdbcType=VARCHAR}
+  		<if test ="inSubOrg ==1">
+  			or org.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
+  		</if>
+  		)
+  		<if test ="name !=null">
+  			and p.name like CONCAT('%','${name}','%' )  
+  		</if>
+  		<if test ="typeid >0">
+  			and pt.id = #{typeid,jdbcType=INTEGER}
+  		</if>
+  		 
+  	 
   </select>
   
 </mapper>

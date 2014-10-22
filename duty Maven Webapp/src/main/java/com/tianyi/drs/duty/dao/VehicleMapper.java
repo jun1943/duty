@@ -28,5 +28,7 @@ public interface VehicleMapper {
     int countByVM(Map<String, Object> map);
     
     List<VehicleVM> loadVMList(Map<String, Object> map);
+
+	int loadVMCount(Map<String, Object> query);
     
 }

@@ -9,9 +9,28 @@
     <result column="org_id" property="orgId" jdbcType="INTEGER" />
     <result column="sync_state" property="syncState" jdbcType="BIT" />
     <result column="platform_id" property="platformId" jdbcType="INTEGER" />
+  </resultMap> 
+  
+  
+   <resultMap id="BaseModelMap" type="com.tianyi.drs.duty.viewmodel.WeaponVM" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="standard" property="standard" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="typeName" property="typeName" jdbcType="VARCHAR" />
+    <result column="orgName" property="orgName" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="INTEGER" />
+    <result column="sync_state" property="syncState" jdbcType="BIT" />
+    <result column="platform_id" property="platformId" jdbcType="INTEGER" />
+    <result column="orgcode" jdbcType="VARCHAR" property="orgCode" />
+    <result column="orgpath" jdbcType="VARCHAR" property="orgPath" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, standard, number, type_id, org_id, sync_state, platform_id
+  </sql>
+   <sql id="Base_Model_Column_List" >
+    w.id, w.type_id as typeId,wt.name as typeName, w.number, w.org_id as orgId,o.short_name as orgName, 
+    o.code as orgCode,o.path as orgPath,w.standard
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -149,5 +168,50 @@
       <if test="pageStart != null">
 	          limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
 	  </if>
+  </select>
+  
+  
+  <select id="loadVMList" parameterType="java.util.Map" resultMap="BaseModelMap">
+  		 select <include refid ="Base_Model_Column_List" />
+  		 from t_weapon w 
+  		 left join t_weapontype wt on wt.id = w.type_id
+  		 left join organ o on o.id  = w.org_id
+  		 where 
+  		 (
+  		 o.id = #{orgId,jdbcType=INTEGER}
+  		  or 
+  		  o.code =#{orgCode,jdbcType=VARCHAR}
+  		<if test ="inSubOrg ==1">
+  			or o.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
+  		</if>
+  		)
+  		<if test ="number !=null">
+  			and w.number like CONCAT('%','${number}','%' )  
+  		</if>
+  		  
+  		 <if test="pageStart !=null">
+  			limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+  		</if>
+  </select>
+  
+  <select id ="loadVMCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	select 
+  		count(*) 
+  	from 
+  		t_weapon as w
+  	left join organ as org on w.org_id=org.id
+  	left join t_weapontype as wt on w.type_id = wt.id
+  	where
+  		(
+  		 org.id = #{orgId,jdbcType=INTEGER}
+  		   or
+  		   org.code =#{orgCode,jdbcType=VARCHAR}
+  		<if test ="inSubOrg ==1">
+  			or org.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
+  		</if>
+  		)
+  		<if test ="number !=null">
+  			and w.number like CONCAT('%','${number}','%' )  
+  		</if> 
   </select>
 </mapper>

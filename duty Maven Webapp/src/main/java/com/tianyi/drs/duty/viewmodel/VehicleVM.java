@@ -6,8 +6,7 @@ public class VehicleVM extends Vehicle {
 
 	private String typeName;
 	private String orgName;
-
-
+ 
 	private String orgCode;
 	private String orgPath;
 	private String gpsNumber;

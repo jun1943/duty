@@ -64,8 +64,26 @@ public class VehicleServiceImpl implements VehicleService{
 
 
 	public int loadVMCount(Map<String,Object> query) {
-		int count= vehicleMapper.countByVM(query);
+		int count= vehicleMapper.loadVMCount(query);
 		return count;
+	}
+
+
+	public int updateByPrimaryKey(Vehicle vehicle) {
+		// TODO Auto-generated method stub
+		return vehicleMapper.updateByPrimaryKey(vehicle);
+	}
+
+
+	public int insert(Vehicle vehicle) {
+		// TODO Auto-generated method stub
+		return vehicleMapper.insert(vehicle);
+	}
+
+
+	public int deleteByPrimaryKey(int id) {
+		// TODO Auto-generated method stub
+		return vehicleMapper.deleteByPrimaryKey(id);
 	}
 	
 }

@@ -18,4 +18,10 @@ public interface VehicleService {
 	public int loadVMCount(Map<String,Object> query);
 	
 	public List<VehicleVM> loadVMList(Map<String,Object> query);
+
+	public int updateByPrimaryKey(Vehicle vehicle);
+
+	public int insert(Vehicle vehicle);
+
+	public int deleteByPrimaryKey(int id);
 }

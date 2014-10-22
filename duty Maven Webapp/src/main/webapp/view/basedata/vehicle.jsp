@@ -79,33 +79,41 @@
   					<a id="btnAddVehicle" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-add"  plain="true" onclick="btnAddVehicle()">创建</a>
                 	<a id="btnEditVehicle" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="btnEditVehicle()">修改</a>
                 	<a id="btnDelVehicle" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel" plain="true" onclick="btnDelVehicle()">删除</a>
-                	<a id="btnDelVehicle" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel" plain="true" onclick="btnDelVehicle()">删除</a>
+                	
   				</div>  				
   				<div class="btn-group" style="float:right">
   					<a id="btnSearchVehicle" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"  plain="true" onclick="btnSearchVehicle()">查询</a>
-                	<a id="btnPrintList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-print" plain="true" onclick="btnPrintList()">打印</a>
-                	<a id="btnExportList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-export" plain="true" onclick="btnExportList()">导出</a>
+                	<!-- a id="btnPrintList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-print" plain="true" onclick="btnPrintList()">打印</a>
+                	<a id="btnExportList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-export" plain="true" onclick="btnExportList()">导出</a> -->
                	</div>
   			</div>
   			<div id="my-search-box" class="panel-body" style="display:none">
-					<div class="input-group">
-						<div class="input-group-addon">查询范围选择:</div>
-						<select id="inSubOrg" name="inSubOrg" class="form-control"
-								value="${inSubOrg}">
-							<option value=0>本级机构</option>
-							<option value=1>本级及下级机构</option>
-						</select>
-					</div>
-					<div class="input-group">
-						<div class="input-group-addon">车牌号:</div>
-						<input id="number" name="number" class="form-control" type="text"
-								placeholder="请输入车牌号" value="${number}">
-					</div>
-
-					<button type="submit" class="btn btn-info">
-						<img src="images/icon/zoom.png" width="16" height="16"> 查询
-					</button>
-			</div>
+  			 <form class="form-inline"> 
+                  <div class="form-group">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon">查询范围选择</div>
+                          <select id="isSubOrg" class="form-control"> 
+                            <option value="0">本级机构</option>
+                            <option value="1">下级机构</option>
+                          </select>
+                        </div>
+                      </div>
+                  </div>
+                  
+                  <div class="form-group">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon">车牌号码:</div>
+                           <input id="txtsearchnumber" class="form-control" type="text" placeholder="请输入关键字">
+                        </div>
+                      </div>
+                  </div> 
+                  
+                 <a id="btnSearchAction" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"  plain="true" onclick="btnSearchAction()">查询</a>
+				<!-- button type="submit" class="btn btn-info">查询</button -->
+				</form>
+			</div>	
   			<div id="dtVehicle" >
   			</div> 
 	</div>   
@@ -119,52 +127,90 @@
 					<button type="button" class="close" data-dismiss="modal">
 						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 					</button>
-					<h4 class="modal-title" id="myModalLabel">新增人员</h4>
+					<h4 class="modal-title" id="myModalLabel">新增车辆信息</h4>
 				</div>
 				<div class="modal-body">
 
 					<!--表单开始-->
 					<form class="form-horizontal" role="form">
 						<div class="form-group">
-							<label for="inputEmail3" class="col-sm-2 control-label">人员类别：</label>
-							<div class="col-sm-10">
-								<select class="form-control">
-									<option>警员</option>
-									<option>职工</option>
+							<label for="txtbrand" class="col-sm-2 control-label">车辆品牌</label>
+							<div class="col-sm-4">
+								<input type="hidden" id="vehicleId"> 
+								<input type="text" class="form-control" id="txtbrand"
+									placeholder="">
+							</div>
+						</div> 
+						<div class="form-group">
+							<label for="txttype" class="col-sm-2 control-label">车辆类型:</label>
+							<div class="col-sm-4">
+								<select id="txttype" class="form-control">
+									<option value="0">请选择车辆类别</option>
+									<option value="1">制式警车</option>
+									<option value="2">制式警摩</option>
+									<option value="3">制式车辆</option>
 								</select>
 							</div>
 						</div>
-
 						<div class="form-group">
-							<label for="input2" class="col-sm-2 control-label">身份证号码</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="input2"
+							<label for="txtsiteqty" class="col-sm-2 control-label">座位数:</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="txtsiteqty"
 									placeholder="">
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label for="input2" class="col-sm-2 control-label">姓名：</label>
+							<label for="txtnumber" class="col-sm-2 control-label">车牌号码:</label>
 							<div class="col-sm-4">
-								<input type="text" class="form-control" id="input2"
-									placeholder="">
-							</div>
-							<label for="input2" class="col-sm-2 control-label">职务：</label>
-							<div class="col-sm-4">
-								<input type="text" class="form-control" id="input2"
+								<input type="text" class="form-control" id="txtnumber"
 									placeholder="">
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label for="input2" class="col-sm-2 control-label">手机号码：</label>
+							<label for="txtpurpose" class="col-sm-2 control-label">车辆用途:</label>
 							<div class="col-sm-4">
-								<input type="text" class="form-control" id="input2"
+								<input type="text" class="form-control" id="txtpurpose"
 									placeholder="">
 							</div>
-							<label for="input3" class="col-sm-2 control-label">公安短号：</label>
+						</div>
+ 
+						<div class="form-group">
+							<label for="txtgroupno" class="col-sm-2 control-label">组呼号:</label>
 							<div class="col-sm-4">
-								<input type="text" class="form-control" id="input3"
+								<select id="txtgroupno" class="form-control">
+									<option value="0">请选择组呼号</option>
+									<option value="1">350M</option>
+									<option value="2">800M</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="txtpersonalno" class="col-sm-2 control-label">个呼号:</label>
+							<div class="col-sm-4">
+								<select id="txtpersonalno" class="form-control">
+									<option value="0">请选择个呼号</option>
+									<option value="1">123M</option>
+									<option value="2">456M</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="txtgpsid" class="col-sm-2 control-label">GPS_ID:</label>
+							<div class="col-sm-4">
+								<select id="txtgpsid" class="form-control">
+									<option value="0">请选择GPS设备</option>
+									<option value="1">手机设备</option>
+									<option value="2">平板设备</option>
+								</select>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="txtgpsname" class="col-sm-2 control-label">GPS名称:</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="txtgpsname"
 									placeholder="">
 							</div>
 						</div>
@@ -173,8 +219,9 @@
 
 				</div>
 				<div class="modal-footer">
+					<button id="btnsaveweapon" onclick="savePoliceAction()"
+						type="button" class="btn btn-primary">保存</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-					<button type="button" class="btn btn-primary">确定并新增</button>
 				</div>
 			</div>
 		</div>

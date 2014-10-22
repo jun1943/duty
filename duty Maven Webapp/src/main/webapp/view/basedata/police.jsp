@@ -74,37 +74,46 @@
 	<div data-options="region:'center',title:'人员列表'"style="padding:10px;"> 
 			<div id="tbPolice" class="btn-toolbar">
   				<div class="btn-group">
-  					<a id="btnAddPolice" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-add"  plain="true" onclick="btnAddPolice()">创建</a>
+  					<a id="btnAddPolice" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-add"  plain="true" onclick="btnAddPolice()">新增</a>
                 	<a id="btnEditPolice" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="btnEditPolice()">修改</a>
-                	<a id="btnDelPolice" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel" plain="true" onclick="btnDelPolice()">删除</a>
-                	<a id="btnDelPolice" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel" plain="true" onclick="btnDelPolice()">删除</a>
+                	<a id="btnDelPolice" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel" plain="true" onclick="btnDelPolice()">删除</a> 
   				</div>  				
-  				<div class="btn-group" style="float:right">
+  				<div class="btn-group" style="float:right; margin-right:20px">
   					<a id="btnSearchPolice" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"  plain="true" onclick="btnSearchPolice()">查询</a>
-                	<a id="btnPrintList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-print" plain="true" onclick="btnPrintList()">打印</a>
-                	<a id="btnExportList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-export" plain="true" onclick="btnExportList()">导出</a>
+                	<!--a id="btnPrintList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-print" plain="true" onclick="btnPrintList()">打印</a>
+                	<a id="btnExportList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-export" plain="true" onclick="btnExportList()">导出</a-->
                	</div>
   			</div>
   			<div id="my-search-box" class="panel-body" style="display:none">
-  			 <form class="form-inline" role="form">
-				<div class="form-group">
-                    <select class="form-control">
-                      <option>姓名</option>
-                      <option>警号</option>
-                    </select>
-                  </div>
+  			 <form class="form-inline"> 
                   <div class="form-group">
-                    <div class="input-group">
-                      <input class="form-control" type="text" placeholder="请输入关键字">
-                    </div>
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon">查询范围选择</div>
+                          <select id="isSubOrg" class="form-control"> 
+                            <option value="0">本级机构</option>
+                            <option value="1">下级机构</option>
+                          </select>
+                        </div>
+                      </div>
                   </div>
+                  
+                  <div class="form-group">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon">姓名</div>
+                           <input id="txtsearchName" class="form-control" type="text" placeholder="请输入关键字">
+                        </div>
+                      </div>
+                  </div> 
                   <div class="form-group">
                       <div class="form-group">
                         <div class="input-group">
                           <div class="input-group-addon">人员类别</div>
-                          <select class="form-control">
-                            <option>姓名</option>
-                            <option>警号</option>
+                          <select id="sltType" class="form-control">
+                            <option value="0">全部</option>
+                            <option value="1">巡警</option>
+                            <option value="2">民警</option>
                           </select>
                         </div>
                       </div>
@@ -114,13 +123,15 @@
                         <div class="input-group">
                           <div class="input-group-addon">人员状态</div>
                           <select class="form-control">
-                            <option>在岗</option>
-                            <option>离岗</option>
+                            <option value="0">全部</option>
+                            <option value="1">在岗</option>
+                            <option value="2">离岗</option>
                           </select>
                         </div>
                       </div>
                   </div>
-				<button type="submit" class="btn btn-info">查询</button>
+                 <a id="btnSearchAction" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"  plain="true" onclick="btnSearchAction()">查询</a>
+				<!-- button type="submit" class="btn btn-info">查询</button -->
 				</form>
 			</div>	
   			<div id="dtPolice" >
@@ -136,37 +147,82 @@
 					<button type="button" class="close" data-dismiss="modal">
 						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 					</button>
-					<h4 class="modal-title" id="myModalLabel">新增武器信息</h4>
+					<h4 class="modal-title" id="myModalLabel">新增警员信息</h4>
 				</div>
 				<div class="modal-body">
 
 					<!--表单开始-->
 					<form class="form-horizontal" role="form">
 						<div class="form-group">
-							<label for="inputEmail3" class="col-sm-3 control-label">武器类别:</label>
+							<label for="txttype" class="col-sm-3 control-label">人员类别:</label>
 							<div class="col-sm-4">
 								<select id="txttype" class="form-control">
-									<option value="1">64制自动步枪</option>
-									<option value="2">AK47</option>
+									<option value="1">民警</option>
+									<option value="2">巡警</option>
 								</select>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label for="input2" class="col-sm-3 control-label">武器编号:</label>
+							<label for="txtname" class="col-sm-3 control-label">姓名:</label>
 							<div class="col-sm-4">
-								<input id="txtnumber" type="text" class="form-control"
-									id="input2" placeholder="">
+								<input type="hidden" id="policeId" >
+								<input id="txtname" type="text" class="form-control"  placeholder="">
 							</div>
 						</div>
-
 						<div class="form-group">
-							<label for="inputEmail3" class="col-sm-3 control-label">所属机构:</label>
+							<label for="txtidcardno" class="col-sm-3 control-label">身份证号码:</label>
 							<div class="col-sm-4">
-								<select id="txtorg" class="form-control">
-									<option value="1">成都市公安局</option>
-									<option value="2">成都市公安局青羊分局</option>
-								</select>
+								<input id="txtidcardno" type="text" class="form-control" placeholder="">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="txtnumber" class="col-sm-3 control-label">警号:</label>
+							<div class="col-sm-4">
+								<input id="txtnumber" type="text" class="form-control" placeholder="">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="txttitle" class="col-sm-3 control-label">职务:</label>
+							<div class="col-sm-4">
+								<input id="txttitle" type="text" class="form-control" placeholder="">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="txtmobile" class="col-sm-3 control-label">手机号码:</label>
+							<div class="col-sm-4">
+								<input id="txtmobile" type="text" class="form-control" placeholder="">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="txtmobileshort" class="col-sm-3 control-label">公安短号:</label>
+							<div class="col-sm-4">
+								<input id="txtmobileshort" type="text" class="form-control" placeholder="">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="txtgroupno" class="col-sm-3 control-label">组呼号:</label>
+							<div class="col-sm-4">
+								<input id="txtgroupno" type="text" class="form-control" placeholder="">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="txtpersonalno" class="col-sm-3 control-label">个呼号:</label>
+							<div class="col-sm-4">
+								<input id="txtpersonalno" type="text" class="form-control" placeholder="">
+							</div>
+						</div>
+ 
+						<div class="form-group">
+							<label for="txtgpsid" class="col-sm-3 control-label">GPS_ID:</label>
+							<div class="col-sm-4">
+								<input id="txtgpsid" type="text" class="form-control" placeholder="">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="txtgpsdes" class="col-sm-3 control-label">GPS备注:</label>
+							<div class="col-sm-4">
+								<input id="txtgpsdes" type="text" class="form-control" placeholder="">
 							</div>
 						</div>
 					</form>
@@ -174,9 +230,9 @@
 
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-					<button id="btnsaveweapon" onclick="saveweaponAction()"
+					<button id="btnsaveweapon" onclick="savePoliceAction()"
 						type="button" class="btn btn-primary">保存</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 				</div>
 			</div>
 		</div>

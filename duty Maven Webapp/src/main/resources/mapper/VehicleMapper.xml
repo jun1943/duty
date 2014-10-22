@@ -253,6 +253,8 @@
 			left join t_vehicletype as vt on v.vehicle_type_id=vt.id
 		where 
   			(
+  		 org.id = #{orgId,jdbcType=INTEGER}
+  		  or 
   			org.code =#{orgCode,jdbcType=VARCHAR}
   	
   			<if test ="inSubOrg ==1">
@@ -269,7 +271,7 @@
 	  		</if>
   </select>
   
-  <select id ="countByVM" parameterType="java.util.Map" resultType="java.lang.Integer">
+  <select id ="loadVMCount" parameterType="java.util.Map" resultType="java.lang.Integer">
   	select 
   		count(*) 
   	from 
@@ -277,6 +279,8 @@
   	left join organ as org on v.org_id=org.id
   	where
   		(
+  		 org.id = #{orgId,jdbcType=INTEGER}
+  		 or
   		org.code =#{orgCode,jdbcType=VARCHAR}
   	
   		<if test ="inSubOrg ==1">

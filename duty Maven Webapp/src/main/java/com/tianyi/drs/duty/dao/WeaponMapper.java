@@ -29,4 +29,6 @@ public interface WeaponMapper {
 	List<WeaponVM> loadVMList(Map<String, Object> map);
 
 	int countByVM(Map<String, Object> map);
+
+	int loadVMCount(Map<String, Object> map);
 }

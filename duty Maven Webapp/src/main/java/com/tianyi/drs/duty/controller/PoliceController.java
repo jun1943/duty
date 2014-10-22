@@ -6,19 +6,19 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest; 
+ 
+import net.sf.json.JSONObject;
 
-import net.sf.json.JSONArray;
-
-import org.apache.commons.fileupload.servlet.ServletRequestContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianyi.drs.duty.model.Police;
 import com.tianyi.drs.duty.service.PoliceService;
+import com.tianyi.drs.duty.viewmodel.ListResult;
 import com.tianyi.drs.duty.viewmodel.PoliceVM;
 
 @Scope("prototype")
@@ -35,57 +35,81 @@ public class PoliceController {
 	}
 
 	@RequestMapping(value = "getPoliceList.do", produces = "application/json;charset=UTF-8")
-	public @ResponseBody  String getPoliceList(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		int page = 1;
-		int pageSize = 10;
-		int _page = Integer.parseInt(request.getParameter("page"));
-		int _pageSize = Integer.parseInt(request.getParameter("rows"));
-		if(_page>0){
-			page= _page;
-		}
-		if(_pageSize>0){
-			pageSize= _pageSize;
-		}
-		
-		List<PoliceVM> list = new ArrayList<PoliceVM>();
-		Map<String, Object> map = new HashMap<String, Object>();
-		
+	public @ResponseBody
+	String getPoliceList(
+			@RequestParam(value = "police_Query", required = false) String query,
+			@RequestParam(value = "page", required = false) Integer page,
+			@RequestParam(value = "rows", required = false) Integer rows,
+			HttpServletRequest request) throws Exception {
+		try {
+			JSONObject joQuery = JSONObject.fromObject(query);
+			int orgId = Integer.parseInt(joQuery.getString("orgId"));
+			int isSubOrg = Integer.parseInt(joQuery.getString("isSubOrg"));
+			String name = joQuery.getString("name");
+			int typeid = Integer.parseInt(joQuery.getString("typeid"));
 
-		map.put("pageStart", page);
-		map.put("pageSize", pageSize); 
-		map.put("orgId", 2); 
-		
-		
-		int total = policeService.loadVMCount(map);
-		list = policeService.loadVMList(map);
-		
-		JSONArray jsonarray = JSONArray.fromObject(list);  
-		
-		String result = "{\"total\":"+total+",\"rows\":"+jsonarray.toString()+"}";
-		
-		return result;
+			String orgCode = joQuery.getString("orgCode");
+			String orgPath = joQuery.getString("orgPath");
+
+			List<PoliceVM> list = new ArrayList<PoliceVM>();
+			Map<String, Object> map = new HashMap<String, Object>();
+
+			map.put("pageStart", (page - 1) * rows);
+			map.put("pageSize", rows);
+			map.put("orgId", orgId);
+			map.put("isSubOrg", isSubOrg);
+			map.put("orgCode", orgCode);
+			map.put("orgPath", orgPath);
+			map.put("name", name);
+			map.put("typeid", typeid);
+
+			int total = policeService.loadVMCount(map);
+			list = policeService.loadVMList(map);
+
+			ListResult<PoliceVM> rs = new ListResult<PoliceVM>(total, list);
+
+			String result = JSONObject.fromObject(rs).toString();
+
+			return result;
+		} catch (Exception ex) {
+			return "{\"total\":0,\"rows\":[]}";
+		}
 	}
 
 	@RequestMapping(value = "savePolice.do", produces = "application/json;charset=UTF-8")
-	public void savePolice() throws Exception {
+	public @ResponseBody
+	String savePolice(Police police) throws Exception {
 		try {
-			Police police = new Police();
-			police.setName("王五");
-			police.setGpsId(5);
-			police.setGpsName("一号手机定位");
-			police.setMobile("13568865179");
-			police.setIntercomGroup("ssss");
-			police.setIntercomPerson("22222");
-			police.setIdcardno("512301198506234875");
-			police.setOrgId(100);
-			police.setMobileShort("6179");
-			police.setNumber("51007816");
-			police.setTypeId(3);
-			police.setTitle("科长");
-			System.out.println(policeService.insert(police));
+			police.setPlatformId(1);
+			police.setSyncState(true);
+			int result = 0;
+			if (police.getId() > 0) {
+				int pid = police.getId();
+				police.setId(pid);
+				result = policeService.updateByPrimaryKey(police);
+			} else {
+				result = policeService.insert(police);
+			}
+			return "{\"success\":true,\"Message\":\"保存成功,result is " + result
+					+ "\"}";
 		} catch (Exception ex) {
-			System.out.println("insert failed");
+			return "{\"success\":false,\"Message\":\"保存失败，原因："
+					+ ex.getMessage() + "\"}";
+		}
+	}
+	
+
+	@RequestMapping(value = "deletePolice.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String deletePolice(int id) throws Exception {
+		try {
+			int result =0;
+			if(id>0){
+				result = policeService.deleteByPrimaryKey(id);
+			}
+			return "{\"success\":true,\"Message\":\"删除成功,result is " + result + "\"}";
+		} catch (Exception ex) {
+			return "{\"success\":false,\"Message\":\"删除失败，原因：" + ex.getMessage() + "\"}";
 		}
 	}
 

@@ -1,17 +1,17 @@
 package com.tianyi.drs.duty.model;
 
 public class Vehicle {
-    private Long id;
+    private int id;
 
-    private Long vehicleTypeId;
+    private int vehicleTypeId;
 
-    private Long orgId;
+    private int orgId;
 
     private String number;
 
     private String intercomGroup;
 
-    private Long gpsId;
+    private int gpsId;
 
     private String gpsName;
 
@@ -23,29 +23,29 @@ public class Vehicle {
 
     private Boolean syncState;
 
-    private String platformId;
+    private int platformId;
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Long getVehicleTypeId() {
+    public int getVehicleTypeId() {
         return vehicleTypeId;
     }
 
-    public void setVehicleTypeId(Long vehicleTypeId) {
+    public void setVehicleTypeId(int vehicleTypeId) {
         this.vehicleTypeId = vehicleTypeId;
     }
 
-    public Long getOrgId() {
+    public int getOrgId() {
         return orgId;
     }
 
-    public void setOrgId(Long orgId) {
+    public void setOrgId(int orgId) {
         this.orgId = orgId;
     }
 
@@ -65,11 +65,11 @@ public class Vehicle {
         this.intercomGroup = intercomGroup;
     }
 
-    public Long getGpsId() {
+    public int getGpsId() {
         return gpsId;
     }
 
-    public void setGpsId(Long gpsId) {
+    public void setGpsId(int gpsId) {
         this.gpsId = gpsId;
     }
 
@@ -113,11 +113,11 @@ public class Vehicle {
         this.syncState = syncState;
     }
 
-    public String getPlatformId() {
+    public int getPlatformId() {
         return platformId;
     }
 
-    public void setPlatformId(String platformId) {
+    public void setPlatformId(int platformId) {
         this.platformId = platformId;
     }
 }
