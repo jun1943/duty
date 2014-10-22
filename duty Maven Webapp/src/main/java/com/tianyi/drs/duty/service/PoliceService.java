@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.tianyi.drs.duty.model.Police;
+import com.tianyi.drs.duty.model.PoliceType;
 import com.tianyi.drs.duty.viewmodel.PoliceVM;
 import com.tianyi.util.PaginationData;
 
@@ -38,4 +39,6 @@ public interface PoliceService {
 	int loadVMCount(Map<String, Object> map);
 
 	List<PoliceVM> loadVMList(Map<String, Object> map);
+
+	List<PoliceType> selectPoliceType();
 }

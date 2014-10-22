@@ -30,7 +30,7 @@
 				<li><a href="/duty/view/basedata/weapon.jsp" class="my-nav-btn">武器管理
 						<img src="asset/css/images/nav-btn-icon.png" width="22" height="22">
 				</a></li>
-				<li><a href="/duty/view/basedata/police.jsp" class="my-nav-btn">定位设备
+				<li><a href="/duty/view/basedata/gpsdevice.jsp" class="my-nav-btn">定位设备
 						<img src="asset/css/images/nav-btn-icon.png" width="22" height="22">
 				</a></li>
 			</ul>
@@ -156,9 +156,7 @@
 						<div class="form-group">
 							<label for="txttype" class="col-sm-3 control-label">人员类别:</label>
 							<div class="col-sm-4">
-								<select id="txttype" class="form-control">
-									<option value="1">民警</option>
-									<option value="2">巡警</option>
+								<select id="txttype" class="form-control"> 
 								</select>
 							</div>
 						</div>
@@ -200,12 +198,17 @@
 								<input id="txtmobileshort" type="text" class="form-control" placeholder="">
 							</div>
 						</div>
+						
 						<div class="form-group">
 							<label for="txtgroupno" class="col-sm-3 control-label">组呼号:</label>
 							<div class="col-sm-4">
-								<input id="txtgroupno" type="text" class="form-control" placeholder="">
+								<select id="txtgroupno" class="form-control"> 
+		                            <option value="0">请选择对讲机组呼号</option>
+		                            <option value="1">350M</option>
+		                            <option value="2">800M</option>
+								</select>
 							</div>
-						</div>
+						</div> 
 						<div class="form-group">
 							<label for="txtpersonalno" class="col-sm-3 control-label">个呼号:</label>
 							<div class="col-sm-4">

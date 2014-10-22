@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;  
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.springframework.context.annotation.Scope;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody; 
    
+import com.tianyi.drs.duty.model.PoliceType;
 import com.tianyi.drs.duty.model.Vehicle;
+import com.tianyi.drs.duty.model.VehicleType;
 import com.tianyi.drs.duty.service.VehicleService;   
 import com.tianyi.drs.duty.viewmodel.ListResult; 
 import com.tianyi.drs.duty.viewmodel.VehicleVM; 
@@ -105,4 +108,19 @@ public class VehicleController {
 			return "{\"success\":false,\"Message\":\"删除失败，原因：" + ex.getMessage() + "\"}";
 		}
 	}
+	
+
+	@RequestMapping(value="getVehicleType.do",produces="application/json;charset=UTF-8")
+	public @ResponseBody String getVehicleType() throws Exception {
+		try
+		{ 
+			List<VehicleType> list = vehicleService.selectVehicleType();
+			JSONArray result = JSONArray.fromObject(list);
+			return result.toString();
+		}
+		catch(Exception ex){
+			return "";
+		}
+	} 
+
 }

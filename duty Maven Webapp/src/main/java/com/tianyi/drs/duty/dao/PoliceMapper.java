@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.tianyi.drs.duty.dao.core.MyBatisRepository;
 import com.tianyi.drs.duty.model.Police;
+import com.tianyi.drs.duty.model.PoliceType;
 import com.tianyi.drs.duty.viewmodel.PoliceVM;
 import com.tianyi.util.PaginationData;
 
@@ -47,5 +48,7 @@ public interface PoliceMapper {
 	int countByVM(Map<String, Object> map);
 
 	int loadVMCount(Map<String, Object> map);
+
+	List<PoliceType> selectPoliceType();
 	 
 }

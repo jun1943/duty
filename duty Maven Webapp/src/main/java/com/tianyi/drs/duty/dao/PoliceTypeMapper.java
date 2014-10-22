@@ -15,4 +15,6 @@ public interface PoliceTypeMapper {
     int updateByPrimaryKeySelective(PoliceType record);
 
     int updateByPrimaryKey(PoliceType record);
+    
+    
 }

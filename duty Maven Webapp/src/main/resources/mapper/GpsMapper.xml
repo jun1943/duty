@@ -10,6 +10,23 @@
     <result column="sync_state" property="syncState" jdbcType="BIT" />
     <result column="platform_id" property="platformId" jdbcType="INTEGER" />
   </resultMap>
+  
+  
+  <resultMap id="ViewResultMap" type="com.tianyi.drs.duty.viewmodel.GpsVM">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="type_id" jdbcType="INTEGER" property="typeId" />
+    <result column="org_id" jdbcType="INTEGER" property="orgId" />
+    <result column="number" jdbcType="VARCHAR" property="number" />  
+    <result column="gps_name" jdbcType="VARCHAR" property="gpsName" />  
+    <result column="sync_state" jdbcType="BIT" property="syncState" />
+    <result column="platform_id" jdbcType="VARCHAR" property="platformId" />
+    <result column="typename" jdbcType="VARCHAR" property="typeName" />
+    <result column="orgname" jdbcType="VARCHAR" property="orgName" />
+    <result column="orgcode" jdbcType="VARCHAR" property="orgCode" />
+    <result column="orgpath" jdbcType="VARCHAR" property="orgPath" /> 
+  </resultMap>
+  
+  
   <sql id="Base_Column_List" >
     id, type_id, org_id, number, gps_name, sync_state, platform_id
   </sql>
@@ -114,4 +131,64 @@
       platform_id = #{platformId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+  <select id="loadVMList" parameterType="java.util.Map" resultMap="ViewResultMap">
+  		select 
+  			g.id, 
+  			g.type_id, 
+  			g.org_id,   
+  			g.gps_name              as  gpsName, 
+			g.number 				as 	number,  
+  			g.sync_state, 
+  			g.platform_id ,
+			org.name				as	orgName,
+			org.code 				as 	orgCode,
+			org.path 				as 	orgPath,
+			gt.name 				as 	typeName 
+		from t_gps as g
+			left join organ as org on g.org_id=org.id  
+			left join t_gpstype as gt on g.type_id=gt.id
+		where 
+  			(
+  		 org.id = #{orgId,jdbcType=INTEGER}
+  		  or 
+  			org.code =#{orgCode,jdbcType=VARCHAR}
+  	
+  			<if test ="inSubOrg ==1">
+  				or org.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
+  			</if>
+  			)
+  	
+  			<if test="gpsname != null ">
+  				and g.gps_name  like CONCAT("%",#{gpsname,jdbcType=VARCHAR},"%")
+  			</if>
+  			order by id
+  			<if test="pageStart != null">
+	          	limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	  		</if>
+  </select>
+  
+  <select id ="loadVMCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	select 
+  		count(*) 
+  	from 
+  		t_gps as g
+  	left join organ as org on g.org_id=org.id
+  	where
+  		(
+  		 org.id = #{orgId,jdbcType=INTEGER}
+  		 or
+  		org.code =#{orgCode,jdbcType=VARCHAR}
+  	
+  		<if test ="inSubOrg ==1">
+  			or org.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
+  		</if>
+  		)
+  	
+  		<if test="gpsname != null ">
+  			and g.gps_name  like CONCAT("%",#{gpsname,jdbcType=VARCHAR},"%")
+  		</if>
+  </select>
+  
 </mapper>

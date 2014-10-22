@@ -1,24 +1,24 @@
-var m_Weapon_OrgId;
-var m_Weapon_OrgCode;
-var m_Weapon_OrgPath;
-var m_Weapon_Query = {};
+var m_Gpsdevice_OrgId;
+var m_Gpsdevice_OrgCode;
+var m_Gpsdevice_OrgPath;
+var m_Gpsdevice_Query = {};
 
 $(function() {
 
 	var args = getUrlArgs();
-	m_Weapon_OrgId = 2; // args["orgId"];
-	m_Weapon_OrgCode = '510106992500';// args["orgCode"];
-	m_Weapon_OrgPath = '/510106000000';// args["orgPath"];
-	pack_Weapon_Query();
+	m_Gpsdevice_OrgId = 2; // args["orgId"];
+	m_Gpsdevice_OrgCode = '510106992500';// args["orgCode"];
+	m_Gpsdevice_OrgPath = '/510106000000';// args["orgPath"];
+	pack_Gpsdevice_Query();
 
 	$("#orgtree").tree({
 	// url: '/TreeData/GetFunTree'
 	});
 
-	$('#dtWeapon').datagrid({
-		url : "weapon/getWeaponList.do",
+	$('#dtGpsdevice').datagrid({
+		url : "gpsdevice/getGpsdeviceList.do",
 		queryParams : {
-			'weapon_Query' : JSON.stringify(m_Weapon_Query)
+			'gpsdevice_Query' : JSON.stringify(m_Gpsdevice_Query)
 		},
 		pagination : true,
 		fitColumns : true,
@@ -31,7 +31,7 @@ $(function() {
 			checkbox : true
 		}, {
 			title : 'Id',
-			field : 'Id',
+			field : 'id',
 			align : 'center',
 			width : 10,
 			hidden : true
@@ -41,50 +41,55 @@ $(function() {
 			align : 'center',
 			width : 100
 		}, {
-			title : '武器类型',
+			title : 'GPS类型',
 			field : 'typeName',
 			align : 'center',
 			width : 100
 		}, {
-			title : '武器编号',
+			title : 'GPS显示名称',
+			field : 'gpsName',
+			align : 'center',
+			width : 100
+		}, {
+			title : 'GPS设备编号',
 			field : 'number',
 			align : 'center',
 			width : 100
 		}, {
-			title : '标准规格',
-			field : 'standard',
+			title : 'GPS图标',
+			field : 'gpsIcon',
 			align : 'center',
-			width : 100
+			width : 150
 		} ] ]
 	});
-	$("#btnSearchWeapon").bind("click", function() {
+	$("#btnSearchGpsdevice").bind("click", function() {
 		$('#my-search-box').toggle();
 	});
 	InitData();
 });
 
 function btnSearchAction() {
-	pack_Weapon_Query();
-	$('#dtWeapon').datagrid("reload", {
-		'weapon_Query' : JSON.stringify(m_Weapon_Query)
+	pack_Gpsdevice_Query();
+	$('#dtGpsdevice').datagrid("reload", {
+		'gpsdevice_Query' : JSON.stringify(m_Gpsdevice_Query)
 	});
 	$("#isSubOrg").val(0);
-	$("#txtsearchnumber").val("");
+	$("#txtsearchname").val("");
 };
 function InitData() {
 
 };
-function btnAddWeapon() {
+function btnAddGpsdevice() {
 	clearForm();
 	$('#myModal').modal('show');
 };
-function btnEditWeapon() {
-	var hasRows = $('#dtWeapon').datagrid('getRows');
+function btnEditGpsdevice() {
+	var hasRows = $('#dtGpsdevice').datagrid('getRows');
 	if (hasRows.length == 0) {
 		$.messager.alert('操作提示', "没有可操作数据", "warning");
 		return;
 	}
-	var rows = $("#dtWeapon").datagrid("getChecked");
+	var rows = $("#dtGpsdevice").datagrid("getChecked");
 	if (!rows || rows.length == 0) {
 		$.messager.alert('操作提示', "请选择操作项!", "warning");
 		return;
@@ -94,34 +99,33 @@ function btnEditWeapon() {
 		return;
 	}
 	clearForm();
-	$("#weaponId").val(rows[0].id);
+	$("#gpsdeviceId").val(rows[0].id);
 	$("#txttype").val(rows[0].typeId);
-	$("#txtnumber").val(rows[0].number);
-	$("#txtstandard").val(rows[0].standard);
-
+	$("#txtgpsname").val(rows[0].gpsName);
+	$("#txtgpsnumber").val(rows[0].number);
 	$('#myModal').modal('show');
 };
 function clearForm() {
-	$("#weaponId").val(0);
+	$("#gpsdeviceId").val(0);
 	$("#txttype").val(0);
-	$("#txtnumber").val("");
-	$("#txtstandard").val("");
+	$("#txtgpsname").val("");
+	$("#txtgpsnumber").val("");
 }
-function pack_Weapon_Query() {
-	m_Weapon_Query.orgId = m_Weapon_OrgId;
-	m_Weapon_Query.orgCode = m_Weapon_OrgCode;
-	m_Weapon_Query.orgPath = m_Weapon_OrgPath;
-	m_Weapon_Query.isSubOrg = $("#isSubOrg").val();
-	m_Weapon_Query.number = $("#txtsearchnumber").val();
+function pack_Gpsdevice_Query() {
+	m_Gpsdevice_Query.orgId = m_Gpsdevice_OrgId;
+	m_Gpsdevice_Query.orgCode = m_Gpsdevice_OrgCode;
+	m_Gpsdevice_Query.orgPath = m_Gpsdevice_OrgPath;
+	m_Gpsdevice_Query.isSubOrg = $("#isSubOrg").val();
+	m_Gpsdevice_Query.gpsname = $("#txtsearchname").val();
 };
 
-function btnDelWeapon() {
-	var hasRows = $('#dtWeapon').datagrid('getRows');
+function btnDelGpsdevice() {
+	var hasRows = $('#dtGpsdevice').datagrid('getRows');
 	if (hasRows.length == 0) {
 		$.messager.alert('操作提示', "没有可操作数据", "warning");
 		return;
 	}
-	var rows = $("#dtWeapon").datagrid("getChecked");
+	var rows = $("#dtGpsdevice").datagrid("getChecked");
 	if (!rows || rows.length == 0) {
 		$.messager.alert('操作提示', "请选择操作项!", "warning");
 		return;
@@ -130,18 +134,18 @@ function btnDelWeapon() {
 		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
 		return;
 	}
-	var number = rows[0].number;
+	var gpsName = rows[0].gpsName;
 	var id = rows[0].id;
-	$.messager.confirm("系统提示", "确认删除编号为    " + number + " 的数据信息吗？",
-			function(r) {
-				if (r) {
-					deleteWeapon(id);
-				}
-			});
+	$.messager.confirm("系统提示", "确认删除名称号为    " + gpsName + " 的数据信息吗？", function(
+			r) {
+		if (r) {
+			deleteGpsdevice(id);
+		}
+	});
 };
-function deleteWeapon(id) {
+function deleteGpsdevice(id) {
 	$.ajax({
-		url : "weapon/deleteWeapon.do",
+		url : "gpsdevice/deleteGpsdevice.do",
 		type : "POST",
 		dataType : "json",
 		async : false,
@@ -160,34 +164,33 @@ function deleteWeapon(id) {
 		}
 	});
 };
-function saveWeaponAction() {
-	var weapon = {};
-
-	weapon.id = $("#weaponId").val();
+function saveGpsdeviceAction() {
+	var gpsdevice = {};
+	gpsdevice.id = $("#gpsdeviceId").val();
 
 	if ($("#txttype").val() > 0) {
-		weapon.typeId = $("#txttype").val();
+		gpsdevice.typeId = $("#txttype").val();
 	} else {
-		$.messager.alert("错误提示", "请选择武器类别", "error");
+		$.messager.alert("错误提示", "请选择GPS类型", "error");
 		return;
 	}
-	if ($("#txtnumber").val() == "") {
-		$.messager.alert("错误提示", "请输入武器编号", "error");
+	if ($("#txtgpsname").val() == "") {
+		$.messager.alert("错误提示", "请输入GPS设备名称", "error");
 		return;
 	}
-	weapon.number = $("#txtnumber").val();
-	if ($("#txtstandard").val() == "") {
-		$.messager.alert("错误提示", "请输入武器规格型号", "error");
+	gpsdevice.gpsName = $("#txtgpsname").val();
+	if ($("#txtgpsnumber").val() == "") {
+		$.messager.alert("错误提示", "请输入GPS设别编号", "error");
 		return;
 	}
-	weapon.standard = $("#txtstandard").val();
-	weapon.orgId = m_Weapon_OrgId;
+	gpsdevice.number = $("#txtgpsnumber").val();
+	gpsdevice.orgId = m_Gpsdevice_OrgId;
 	$.ajax({
-		url : "weapon/saveWeapon.do",
+		url : "gpsdevice/saveGpsdevice.do",
 		type : "POST",
 		dataType : "json",
 		async : false,
-		data : weapon,
+		data : gpsdevice,
 		success : function(req) {
 			$.messager.alert("消息提示", req.Message, "info");
 			$('#myModal').modal('hide');

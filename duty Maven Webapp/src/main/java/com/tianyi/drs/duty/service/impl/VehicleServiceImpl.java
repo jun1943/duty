@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.tianyi.drs.duty.dao.VehicleMapper;
 import com.tianyi.drs.duty.model.Vehicle;
+import com.tianyi.drs.duty.model.VehicleType;
 import com.tianyi.drs.duty.service.VehicleService;
 import com.tianyi.drs.duty.viewmodel.VehicleVM;
 import com.tianyi.util.PaginationData;
@@ -84,6 +85,12 @@ public class VehicleServiceImpl implements VehicleService{
 	public int deleteByPrimaryKey(int id) {
 		// TODO Auto-generated method stub
 		return vehicleMapper.deleteByPrimaryKey(id);
+	}
+
+
+	public List<VehicleType> selectVehicleType() {
+		// TODO Auto-generated method stub
+		return vehicleMapper.selectVehicleType();
 	}
 	
 }

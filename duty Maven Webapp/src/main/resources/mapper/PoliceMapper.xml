@@ -221,8 +221,8 @@
        		select * from t_police where number = #{code} or number = #{password}
     	 </select> 
     	 
-    	 <select id="selectAll" resultType="Police">  
-       		 select * from t_police order by number asc
+    	 <select id="selectPoliceType" resultType="PoliceType">  
+       		 select * from t_policetype order by id asc
     	 </select> 
     	 
     	 

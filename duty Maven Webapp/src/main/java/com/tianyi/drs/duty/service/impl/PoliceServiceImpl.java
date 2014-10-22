@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.tianyi.drs.duty.dao.PoliceMapper;
 import com.tianyi.drs.duty.model.Police; 
+import com.tianyi.drs.duty.model.PoliceType;
 import com.tianyi.drs.duty.service.PoliceService;
 import com.tianyi.drs.duty.viewmodel.PoliceVM; 
 import com.tianyi.util.PaginationData;
@@ -102,6 +103,11 @@ public class PoliceServiceImpl implements PoliceService {
 		List<PoliceVM> list = policeMapper.loadVMList(map);
 		
 		return list;
+	}
+
+	public List<PoliceType> selectPoliceType() {
+		// TODO Auto-generated method stub
+		return policeMapper.selectPoliceType();
 	} 
 	
 }

@@ -30,7 +30,7 @@
 				<li class="active"><a href="/duty/view/basedata/weapon.jsp" class="my-nav-btn">武器管理
 						<img src="asset/css/images/nav-btn-icon.png" width="22" height="22">
 				</a></li>
-				<li><a href="/duty/view/basedata/police.jsp" class="my-nav-btn">定位设备
+				<li><a href="/duty/view/basedata/gpsdevice.jsp" class="my-nav-btn">定位设备
 						<img src="asset/css/images/nav-btn-icon.png" width="22" height="22">
 				</a></li>
 			</ul>

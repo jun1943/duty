@@ -198,7 +198,9 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   
-  
+      	 <select id="selectVehicleType" resultType="VehicleType">  
+       		 select * from t_vehicletype order by id asc
+    	 </select> 
   
   <sql id="Where_example">
     <where>

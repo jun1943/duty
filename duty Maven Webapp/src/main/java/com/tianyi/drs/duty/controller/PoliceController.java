@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest; 
  
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.springframework.context.annotation.Scope;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianyi.drs.duty.model.Police;
+import com.tianyi.drs.duty.model.PoliceType;
 import com.tianyi.drs.duty.service.PoliceService;
 import com.tianyi.drs.duty.viewmodel.ListResult;
 import com.tianyi.drs.duty.viewmodel.PoliceVM;
@@ -113,6 +115,33 @@ public class PoliceController {
 		}
 	}
 
+	@RequestMapping(value="getPoliceType.do",produces="application/json;charset=UTF-8")
+	public @ResponseBody String getPoliceType() throws Exception {
+		try
+		{ 
+			List<PoliceType> list = policeService.selectPoliceType();
+			JSONArray result = JSONArray.fromObject(list);
+			return result.toString();
+		}
+		catch(Exception ex){
+			return "";
+		}
+	}
+
+//
+//	@RequestMapping(value="getGroupNumber.do",produces="application/json;charset=UTF-8")
+//	public @ResponseBody String getGroupNumber() throws Exception {
+//		try
+//		{ 
+//			List<GroupNumber> list = policeService.selectGroupNumber();
+//			JSONArray result = JSONArray.fromObject(list);
+//			return result.toString();
+//		}
+//		catch(Exception ex){
+//			return "";
+//		}
+//	}
+	
 	@RequestMapping(value = "updatePolice.do", produces = "application/json;charset=UTF-8")
 	public void updatePolice() throws Exception {
 		try {

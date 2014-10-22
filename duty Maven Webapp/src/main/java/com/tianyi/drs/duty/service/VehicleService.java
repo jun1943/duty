@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.tianyi.drs.duty.model.Vehicle;
+import com.tianyi.drs.duty.model.VehicleType;
 import com.tianyi.drs.duty.viewmodel.VehicleVM;
 import com.tianyi.util.PaginationData;
 
@@ -24,4 +25,6 @@ public interface VehicleService {
 	public int insert(Vehicle vehicle);
 
 	public int deleteByPrimaryKey(int id);
+
+	public List<VehicleType> selectVehicleType();
 }
