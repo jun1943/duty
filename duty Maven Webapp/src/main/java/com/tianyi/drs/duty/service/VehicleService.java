@@ -3,6 +3,7 @@ package com.tianyi.drs.duty.service;
 import java.util.List;
 import java.util.Map;
 
+import com.tianyi.drs.duty.model.IntercomGroup;
 import com.tianyi.drs.duty.model.Vehicle;
 import com.tianyi.drs.duty.model.VehicleType;
 import com.tianyi.drs.duty.viewmodel.VehicleVM;
@@ -27,4 +28,6 @@ public interface VehicleService {
 	public int deleteByPrimaryKey(int id);
 
 	public List<VehicleType> selectVehicleType();
+
+	public List<IntercomGroup> selectIntercomGroup();
 }

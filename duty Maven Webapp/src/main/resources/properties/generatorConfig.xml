@@ -36,7 +36,7 @@
         </javaClientGenerator>  
         
 	       
-	   	   <table tableName="t_duty_police_group_memeber" domainObjectName="PoliceGroupMember"
+	   	   <table tableName="t_intercom_group" domainObjectName="IntercomGroup"
            enableSelectByExample="false"
 	       enableDeleteByExample="false"
 	       enableCountByExample="false"

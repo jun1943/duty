@@ -201,7 +201,11 @@
       	 <select id="selectVehicleType" resultType="VehicleType">  
        		 select * from t_vehicletype order by id asc
     	 </select> 
-  
+      	 
+      	 <select id="selectIntercomGroup" resultType="IntercomGroup">  
+       		 select * from t_intercom_group order by id asc
+    	 </select> 
+    	 
   <sql id="Where_example">
     <where>
 	   <if test="number != null">

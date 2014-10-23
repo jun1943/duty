@@ -175,10 +175,7 @@
 						<div class="form-group">
 							<label for="txtgroupno" class="col-sm-2 control-label">组呼号:</label>
 							<div class="col-sm-4">
-								<select id="txtgroupno" class="form-control">
-									<option value="0">请选择组呼号</option>
-									<option value="1">350M</option>
-									<option value="2">800M</option>
+								<select id="txtgroupno" class="form-control"> 
 								</select>
 							</div>
 						</div>
@@ -193,10 +190,7 @@
 						<div class="form-group">
 							<label for="txtgpsid" class="col-sm-2 control-label">GPS_ID:</label>
 							<div class="col-sm-4">
-								<select id="txtgpsid" class="form-control">
-									<option value="0">请选择GPS设备</option>
-									<option value="1">手机设备</option>
-									<option value="2">平板设备</option>
+								<select id="txtgpsid" class="form-control"> 
 								</select>
 							</div>
 						</div>

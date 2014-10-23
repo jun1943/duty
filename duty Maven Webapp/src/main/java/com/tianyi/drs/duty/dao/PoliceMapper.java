@@ -3,8 +3,10 @@ package com.tianyi.drs.duty.dao;
 import java.util.List;
 
 import com.tianyi.drs.duty.dao.core.MyBatisRepository;
+import com.tianyi.drs.duty.model.IntercomGroup;
 import com.tianyi.drs.duty.model.Police;
 import com.tianyi.drs.duty.model.PoliceType;
+import com.tianyi.drs.duty.viewmodel.GpsBaseVM;
 import com.tianyi.drs.duty.viewmodel.PoliceVM;
 import com.tianyi.util.PaginationData;
 
@@ -50,5 +52,9 @@ public interface PoliceMapper {
 	int loadVMCount(Map<String, Object> map);
 
 	List<PoliceType> selectPoliceType();
+
+	List<IntercomGroup> selectIntercomGroup();
+
+	List<GpsBaseVM> selectGpsId(int orgId);
 	 
 }

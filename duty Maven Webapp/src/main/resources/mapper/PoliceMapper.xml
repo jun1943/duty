@@ -226,7 +226,13 @@
     	 </select> 
     	 
     	 
-    	 
+      	 <select id="selectIntercomGroup" resultType="IntercomGroup">  
+       		 select * from t_intercom_group order by id asc
+    	 </select> 
+    	     	 
+      	 <select id="selectGpsId" resultType="com.tianyi.drs.duty.viewmodel.GpsBaseVM">  
+       		 select id, number as name  from t_gps where org_id = #{orgId,jdbcType=INTEGER} order by id asc
+    	 </select> 
   
   <select id="countByExample" parameterType="com.tianyi.drs.duty.viewmodel.PoliceVM" resultType="java.lang.Integer">
     select count(*) from t_police

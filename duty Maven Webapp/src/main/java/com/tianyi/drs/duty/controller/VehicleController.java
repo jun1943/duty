@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody; 
    
+import com.tianyi.drs.duty.model.IntercomGroup;
 import com.tianyi.drs.duty.model.PoliceType;
 import com.tianyi.drs.duty.model.Vehicle;
 import com.tianyi.drs.duty.model.VehicleType;
@@ -123,4 +124,16 @@ public class VehicleController {
 		}
 	} 
 
+	@RequestMapping(value="getintercomGroup.do",produces="application/json;charset=UTF-8")
+	public @ResponseBody String getintercomGroup() throws Exception {
+		try
+		{ 
+			List<IntercomGroup> list = vehicleService.selectIntercomGroup();
+			JSONArray result = JSONArray.fromObject(list);
+			return result.toString();
+		}
+		catch(Exception ex){
+			return "";
+		}
+	}
 }

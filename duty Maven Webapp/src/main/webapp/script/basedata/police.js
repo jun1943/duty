@@ -98,18 +98,18 @@ function pack_police_Query() {
 //初始化下拉列表数据
 function InitData() {
 	getPoliceType();
-	//getGroupNumber();
-	//getGpsID(m_Police_OrgId);
+	getGroupNumber();
+	getGpsID(m_Police_OrgId);
 };
 
 function getPoliceType(){
 	getBaseData( "police/getPoliceType.do","警员类型","txttype");  
 };
 function getGroupNumber(){
-	getBaseData( "police/getGroupNumber.do","对讲机组呼号","txtgroupno");   
+	getBaseData( "police/getintercomGroup.do","对讲机组呼号","txtgroupno");   
 };
 function getGpsID(orgId){
-	getBaseData( "police/getGpsID.do?orgId="+orgId,"GPS_ID","txtgroupno");   
+	getBaseData( "police/getGpsId.do?orgId="+orgId,"GPS_ID","txtgpsid");   
 }
 //查询按钮事件
 function btnSearchAction() {

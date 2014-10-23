@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.tianyi.drs.duty.dao.VehicleMapper;
+import com.tianyi.drs.duty.model.IntercomGroup;
 import com.tianyi.drs.duty.model.Vehicle;
 import com.tianyi.drs.duty.model.VehicleType;
 import com.tianyi.drs.duty.service.VehicleService;
@@ -91,6 +92,12 @@ public class VehicleServiceImpl implements VehicleService{
 	public List<VehicleType> selectVehicleType() {
 		// TODO Auto-generated method stub
 		return vehicleMapper.selectVehicleType();
+	}
+
+
+	public List<IntercomGroup> selectIntercomGroup() {
+		// TODO Auto-generated method stub
+		return vehicleMapper.selectIntercomGroup();
 	}
 	
 }

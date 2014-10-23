@@ -3,8 +3,10 @@ package com.tianyi.drs.duty.service;
 import java.util.List;
 import java.util.Map;
 
+import com.tianyi.drs.duty.model.IntercomGroup;
 import com.tianyi.drs.duty.model.Police;
 import com.tianyi.drs.duty.model.PoliceType;
+import com.tianyi.drs.duty.viewmodel.GpsBaseVM;
 import com.tianyi.drs.duty.viewmodel.PoliceVM;
 import com.tianyi.util.PaginationData;
 
@@ -41,4 +43,8 @@ public interface PoliceService {
 	List<PoliceVM> loadVMList(Map<String, Object> map);
 
 	List<PoliceType> selectPoliceType();
+
+	List<IntercomGroup> selectIntercomGroup();
+
+	List<GpsBaseVM> selectGpsId(int orgId);
 }

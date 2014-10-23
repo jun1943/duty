@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.tianyi.drs.duty.dao.core.MyBatisRepository;
+import com.tianyi.drs.duty.model.IntercomGroup;
 import com.tianyi.drs.duty.model.Vehicle;
 import com.tianyi.drs.duty.model.VehicleType;
 import com.tianyi.drs.duty.viewmodel.VehicleVM;
@@ -33,5 +34,7 @@ public interface VehicleMapper {
 	int loadVMCount(Map<String, Object> query);
 
 	List<VehicleType> selectVehicleType();
+
+	List<IntercomGroup> selectIntercomGroup();
     
 }

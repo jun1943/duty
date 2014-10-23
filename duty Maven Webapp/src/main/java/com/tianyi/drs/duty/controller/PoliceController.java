@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tianyi.drs.duty.model.IntercomGroup;
 import com.tianyi.drs.duty.model.Police;
 import com.tianyi.drs.duty.model.PoliceType;
 import com.tianyi.drs.duty.service.PoliceService;
+import com.tianyi.drs.duty.viewmodel.GpsBaseVM;
 import com.tianyi.drs.duty.viewmodel.ListResult;
 import com.tianyi.drs.duty.viewmodel.PoliceVM;
 
@@ -128,34 +130,34 @@ public class PoliceController {
 		}
 	}
 
-//
-//	@RequestMapping(value="getGroupNumber.do",produces="application/json;charset=UTF-8")
-//	public @ResponseBody String getGroupNumber() throws Exception {
-//		try
-//		{ 
-//			List<GroupNumber> list = policeService.selectGroupNumber();
-//			JSONArray result = JSONArray.fromObject(list);
-//			return result.toString();
-//		}
-//		catch(Exception ex){
-//			return "";
-//		}
-//	}
+
+	@RequestMapping(value="getintercomGroup.do",produces="application/json;charset=UTF-8")
+	public @ResponseBody String getintercomGroup() throws Exception {
+		try
+		{ 
+			List<IntercomGroup> list = policeService.selectIntercomGroup();
+			JSONArray result = JSONArray.fromObject(list);
+			return result.toString();
+		}
+		catch(Exception ex){
+			return "";
+		}
+	}
 	
 
-//
-//	@RequestMapping(value="getGroupNumber.do",produces="application/json;charset=UTF-8")
-//	public @ResponseBody String getGroupNumber() throws Exception {
-//		try
-//		{ 
-//			List<GroupNumber> list = policeService.selectGroupNumber();
-//			JSONArray result = JSONArray.fromObject(list);
-//			return result.toString();
-//		}
-//		catch(Exception ex){
-//			return "";
-//		}
-//	}
+
+	@RequestMapping(value="getGpsId.do",produces="application/json;charset=UTF-8")
+	public @ResponseBody String getGpsId(int orgId) throws Exception {
+		try
+		{ 
+			List<GpsBaseVM> list = policeService.selectGpsId(orgId);
+			JSONArray result = JSONArray.fromObject(list);
+			return result.toString();
+		}
+		catch(Exception ex){
+			return "";
+		}
+	}
 	
 	@RequestMapping(value = "updatePolice.do", produces = "application/json;charset=UTF-8")
 	public void updatePolice() throws Exception {
