@@ -16,8 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody; 
-    
-import com.tianyi.drs.basedata.model.PoliceType;
+     
 import com.tianyi.drs.basedata.model.Weapon;
 import com.tianyi.drs.basedata.model.WeaponType;
 import com.tianyi.drs.basedata.service.WeaponService;
