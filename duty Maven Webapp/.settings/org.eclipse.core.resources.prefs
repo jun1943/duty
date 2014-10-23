@@ -1,0 +1,12 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=branch 'master' of https\://github.com/duty-dev/duty.git
+eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/resources=UTF-8
+encoding//src/main/resources/properties/jdbc.properties=UTF-8
+encoding//src/main/webapp/index.jsp=UTF-8
+encoding//src/main/webapp/view/basedata/vehicle.jsp=UTF-8
+encoding//src/main/webapp/view/lib.jsp=UTF-8
+encoding//src/test/java=UTF-8
+encoding/<project>=UTF-8

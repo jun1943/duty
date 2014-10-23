@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianyi.drs.duty.dao.GpsMapper" >
+  <resultMap id="BaseResultMap" type="com.tianyi.drs.duty.model.Gps" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="org_id" property="orgId" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="gps_name" property="gpsName" jdbcType="VARCHAR" />
+    <result column="sync_state" property="syncState" jdbcType="BIT" />
+    <result column="platform_id" property="platformId" jdbcType="INTEGER" />
+  </resultMap>
+  
+  
+  <resultMap id="ViewResultMap" type="com.tianyi.drs.duty.viewmodel.GpsVM">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="type_id" jdbcType="INTEGER" property="typeId" />
+    <result column="org_id" jdbcType="INTEGER" property="orgId" />
+    <result column="number" jdbcType="VARCHAR" property="number" />  
+    <result column="gps_name" jdbcType="VARCHAR" property="gpsName" />  
+    <result column="sync_state" jdbcType="BIT" property="syncState" />
+    <result column="platform_id" jdbcType="VARCHAR" property="platformId" />
+    <result column="typename" jdbcType="VARCHAR" property="typeName" />
+    <result column="orgname" jdbcType="VARCHAR" property="orgName" />
+    <result column="orgcode" jdbcType="VARCHAR" property="orgCode" />
+    <result column="orgpath" jdbcType="VARCHAR" property="orgPath" /> 
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+    id, type_id, org_id, number, gps_name, sync_state, platform_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_gps
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_gps
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tianyi.drs.duty.model.Gps" >
+    insert into t_gps (id, type_id, org_id, 
+      number, gps_name, sync_state, 
+      platform_id)
+    values (#{id,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, 
+      #{number,jdbcType=VARCHAR}, #{gpsName,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT}, 
+      #{platformId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.Gps" >
+    insert into t_gps
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="gpsName != null" >
+        gps_name,
+      </if>
+      <if test="syncState != null" >
+        sync_state,
+      </if>
+      <if test="platformId != null" >
+        platform_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="gpsName != null" >
+        #{gpsName,jdbcType=VARCHAR},
+      </if>
+      <if test="syncState != null" >
+        #{syncState,jdbcType=BIT},
+      </if>
+      <if test="platformId != null" >
+        #{platformId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.duty.model.Gps" >
+    update t_gps
+    <set >
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="gpsName != null" >
+        gps_name = #{gpsName,jdbcType=VARCHAR},
+      </if>
+      <if test="syncState != null" >
+        sync_state = #{syncState,jdbcType=BIT},
+      </if>
+      <if test="platformId != null" >
+        platform_id = #{platformId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.duty.model.Gps" >
+    update t_gps
+    set type_id = #{typeId,jdbcType=INTEGER},
+      org_id = #{orgId,jdbcType=INTEGER},
+      number = #{number,jdbcType=VARCHAR},
+      gps_name = #{gpsName,jdbcType=VARCHAR},
+      sync_state = #{syncState,jdbcType=BIT},
+      platform_id = #{platformId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+      	 <select id="selectGpsType" resultType="GpsType">  
+       		 select * from t_gpstype order by id asc
+    	 </select> 
+  
+  <select id="loadVMList" parameterType="java.util.Map" resultMap="ViewResultMap">
+  		select 
+  			g.id, 
+  			g.type_id, 
+  			g.org_id,   
+  			g.gps_name              as  gpsName, 
+			g.number 				as 	number,  
+  			g.sync_state, 
+  			g.platform_id ,
+			org.name				as	orgName,
+			org.code 				as 	orgCode,
+			org.path 				as 	orgPath,
+			gt.name 				as 	typeName 
+		from t_gps as g
+			left join organ as org on g.org_id=org.id  
+			left join t_gpstype as gt on g.type_id=gt.id
+		where 
+  			(
+  		 org.id = #{orgId,jdbcType=INTEGER}
+  		  or 
+  			org.code =#{orgCode,jdbcType=VARCHAR}
+  	
+  			<if test ="inSubOrg ==1">
+  				or org.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
+  			</if>
+  			)
+  	
+  			<if test="gpsname != null ">
+  				and g.gps_name  like CONCAT("%",#{gpsname,jdbcType=VARCHAR},"%")
+  			</if>
+  			order by id
+  			<if test="pageStart != null">
+	          	limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	  		</if>
+  </select>
+  
+  <select id ="loadVMCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	select 
+  		count(*) 
+  	from 
+  		t_gps as g
+  	left join organ as org on g.org_id=org.id
+  	where
+  		(
+  		 org.id = #{orgId,jdbcType=INTEGER}
+  		 or
+  		org.code =#{orgCode,jdbcType=VARCHAR}
+  	
+  		<if test ="inSubOrg ==1">
+  			or org.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
+  		</if>
+  		)
+  	
+  		<if test="gpsname != null ">
+  			and g.gps_name  like CONCAT("%",#{gpsname,jdbcType=VARCHAR},"%")
+  		</if>
+  </select>
+  
+</mapper>
