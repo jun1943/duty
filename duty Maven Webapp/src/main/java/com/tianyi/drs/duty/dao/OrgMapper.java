@@ -12,6 +12,4 @@ public interface OrgMapper {
 
 	List<Org> loadSubOrgList(Map<String,Object> map);
 	
-	List<OrgVM> loadSubOrgVMList(Map<String,Object> map);
-	
 }

@@ -19,6 +19,42 @@ function getUrlArgs() {
     }
     return theRequest;
 }
+/**
+ * 将后台的org列表转换成tree格式
+ * @param orgs
+ */
+function buildOrgTree(orgs){
+	var ss = [];
+	
+	if(orgs == null || orgs.length==0){
+		return ss;
+	}
+    var count = orgs.length;    
+    /**
+     * 如果已经排过序的话，第一个肯定在根节点上
+     * 以这个parentid作为后续rog是否在根节点上的依据。
+     */
+    var rootParent=orgs[0].parentId;
+    
+    for (var i = 0; i < count; i++) {
+    	var node = orgs[i];
+    	node.text = node.shortName;
+        node.children=[];
+        
+        for (var j = 0; j < count; j++) {
+        	var tmp = orgs[j];
+        	if (tmp.parentId == node.id){
+        		node.children.push(tmp);
+        	}
+        }
+        if(node.parentId==rootParent){
+        	ss.push(node);
+        }
+    }
+    
+    return ss;
+}
+
 function getBaseData(urlStr, name, id) {
 	$.ajax({
 		url : urlStr,

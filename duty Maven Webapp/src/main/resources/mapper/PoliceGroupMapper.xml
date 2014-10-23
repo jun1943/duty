@@ -35,7 +35,7 @@
     delete from t_duty_police_group
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tianyi.drs.duty.model.PoliceGroup" >
+  <insert id="insert" parameterType="com.tianyi.drs.duty.model.PoliceGroup" useGeneratedKeys="true" keyProperty="id">
     insert into t_duty_police_group (id, org_id, name, 
       share_type, sync_state, platform_id
       )
@@ -118,27 +118,20 @@
   </update>
   
   
-  <select id ="countByVM" parameterType="java.util.Map" resultType="java.lang.Integer">
+  <select id ="countByOrgId" parameterType="java.util.Map" resultType="java.lang.Integer">
   	select 
   		count(*) 
   	from 
   		t_duty_police_group as g
-  	left join organ as org on g.org_id=org.id
   	where
-  		(
-  		org.code =#{orgCode,jdbcType=VARCHAR}
-  	
-  		<if test ="inSubOrg ==1">
-  			or org.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
-  		</if>
-  		)
-  	
+  		g.org_id =#{orgId,jdbcType=INTEGER}
+
   		<if test="groupName != null ">
   			and g.name  like CONCAT("%",#{groupName,jdbcType=VARCHAR},"%")
   		</if>
   </select>
   
-  <select id="loadVMList" parameterType="java.util.Map" resultMap="ViewResultMap">
+  <select id="loadVMListByOrgId" parameterType="java.util.Map" resultMap="ViewResultMap">
   	select 
   		g.id,
   		g.org_id,
@@ -153,18 +146,12 @@
   		t_duty_police_group as g
   		left join organ as org on g.org_id=org.id
   	where
-  		(
-  		org.code =#{orgCode,jdbcType=VARCHAR}
-  	
-  		<if test ="inSubOrg ==1">
-  			or org.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
-  		</if>
-  		)
+		g.org_id=#{orgId,jdbcType=INTEGER}
   	
   		<if test="groupName != null ">
   			and g.name  like CONCAT("%",#{groupName,jdbcType=VARCHAR},"%")
   		</if>
-  	order by id
+  	order by g.id
   		<if test="pageStart != null">
 	    	limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
 	  	</if>

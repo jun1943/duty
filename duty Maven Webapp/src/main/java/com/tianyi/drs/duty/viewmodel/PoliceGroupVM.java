@@ -34,12 +34,8 @@ public class PoliceGroupVM extends PoliceGroup{
 			this.shareTypeDesc="不共享";
 			break;
 		case 1:
-			this.shareTypeDesc="全部共享";
+			this.shareTypeDesc="共享到下级";
 			break;
-		case 2:
-			this.shareTypeDesc="部分共享";
-			break;
-		
 		}
 
 		return shareTypeDesc;

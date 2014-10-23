@@ -10,30 +10,20 @@
     <result column="path" property="path" jdbcType="VARCHAR" />
   </resultMap>
     
-    
-  <resultMap id="TreeResultMap" type="com.tianyi.drs.duty.viewmodel.OrgVM" >
- 	<id column="id" property="id" jdbcType="INTEGER" />
-    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="short_name" property="shortName" jdbcType="VARCHAR" />
-    <result column="code" property="code" jdbcType="VARCHAR" />
-    <result column="path" property="path" jdbcType="VARCHAR" />
-    <association property="children"  column="parent_id"  javaType="com.tianyi.drs.duty.model.Org" resultMap="TreeResultMap"/> 
-  </resultMap>
-    
+   
+   
   <sql id="Base_Column_List" >
     id, parent_id, name, short_name, code,path
   </sql>
   
-  
-  <select id="loadSubOrgVMList" parameterType="java.util.Map" resultMap="TreeResultMap">
+    <select id="loadSubOrgList" parameterType="java.util.Map" resultMap="BaseResultMap">
   	select 
-  		org1.id,org1.parent_id,org1.name,org1.short_name,org1.code,org1.path
-  	from 
-  		organ as org1 left outer join organ as org2 on org1.id=org2.parent_id 
+		id, parent_id, name, short_name, code,path
+		
+	from organ as org
   	where
-  		org1.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
-  	order by id
+  		org.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
+  	order by org.id
   		
   </select>
   

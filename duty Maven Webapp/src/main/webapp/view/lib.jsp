@@ -27,11 +27,14 @@
 	media='all' rel='stylesheet' type='text/css' />
 <link href='<%=basePath%>asset/css/fontawesome/css/font-awesome.min.css'
 	media='all' rel='stylesheet' type='text/css' />
+<link href='<%=basePath%>asset/css/Dialogdefault.css'
+	media='all' rel='stylesheet' type='text/css' />
+	
 <script src='<%=basePath%>asset/script/jquery-1.11.1.min.js'
 	type='text/javascript'></script>
 <script src='<%=basePath%>asset/script/bootstrap.min.js'
 	type='text/javascript'></script>
-<script src='<%=basePath%>asset/script/easyui/jquery.easyui.min.js'
+<script src='<%=basePath%>asset/script/easyui/jquery.easyui.1.4.min.js'
 	type='text/javascript'></script>
 <script
 	src='<%=basePath%>asset/script/jquery.loadmask/jquery.loadmask.min.js'
@@ -40,4 +43,10 @@
 <script src='<%=basePath%>asset/script/json2.js' type='text/javascript'></script>
 <script src='<%=basePath%>asset/script/easyui/easyui-lang-zh_CN.js' type='text/javascript'></script>
 <script src='<%=basePath%>script/common.js' type='text/javascript'></script>
+
+<script src='<%=basePath%>asset/script/jquery.artDialog.js'></script> 
+<!--
+<script src='<%=basePath%>asset/script/jquery.bootstrap.min.js'></script> 
+ -->
+
 
