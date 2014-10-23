@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tianyi.drs.duty.dao.IntercomGroupMapper">
-  <resultMap id="BaseResultMap" type="com.tianyi.drs.duty.model.IntercomGroup">
+<mapper namespace="com.tianyi.drs.basedata.dao.IntercomGroupMapper">
+  <resultMap id="BaseResultMap" type="com.tianyi.drs.basedata.model.IntercomGroup">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="sync_state" jdbcType="BIT" property="syncState" />
@@ -20,13 +20,13 @@
     delete from t_intercomgroup
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tianyi.drs.duty.model.IntercomGroup">
+  <insert id="insert" parameterType="com.tianyi.drs.basedata.model.IntercomGroup">
     insert into t_intercomgroup (id, name, sync_state, 
       platform_id)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT}, 
       #{platformId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.IntercomGroup">
+  <insert id="insertSelective" parameterType="com.tianyi.drs.basedata.model.IntercomGroup">
     insert into t_intercomgroup
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -57,7 +57,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.duty.model.IntercomGroup">
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.basedata.model.IntercomGroup">
     update t_intercomgroup
     <set>
       <if test="name != null">
@@ -72,7 +72,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.duty.model.IntercomGroup">
+  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.basedata.model.IntercomGroup">
     update t_intercomgroup
     set name = #{name,jdbcType=VARCHAR},
       sync_state = #{syncState,jdbcType=BIT},
@@ -81,7 +81,7 @@
   </update>
    
   
-      	 <select id="selectIntercomGroup" resultType="IntercomGroup">  
+      	 <select id="selectIntercomGroup" resultType="com.tianyi.drs.basedata.model.IntercomGroup">  
        		 select * from t_intercomGroup order by id asc
     	 </select> 
 </mapper>

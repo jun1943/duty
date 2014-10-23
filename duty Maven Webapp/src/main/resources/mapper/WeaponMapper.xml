@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tianyi.drs.duty.dao.WeaponMapper" >
-  <resultMap id="BaseResultMap" type="com.tianyi.drs.duty.model.Weapon" >
+<mapper namespace="com.tianyi.drs.basedata.dao.WeaponMapper" >
+  <resultMap id="BaseResultMap" type="com.tianyi.drs.basedata.model.Weapon" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="standard" property="standard" jdbcType="VARCHAR" />
     <result column="number" property="number" jdbcType="VARCHAR" />
@@ -12,7 +12,7 @@
   </resultMap> 
   
   
-   <resultMap id="BaseModelMap" type="com.tianyi.drs.duty.viewmodel.WeaponVM" >
+   <resultMap id="BaseModelMap" type="com.tianyi.drs.basedata.viewmodel.WeaponVM" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="standard" property="standard" jdbcType="VARCHAR" />
     <result column="number" property="number" jdbcType="VARCHAR" />
@@ -42,7 +42,7 @@
     delete from t_weapon
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tianyi.drs.duty.model.Weapon" >
+  <insert id="insert" parameterType="com.tianyi.drs.basedata.model.Weapon" >
     insert into t_weapon (id, standard, number, 
       type_id, org_id, sync_state, 
       platform_id)
@@ -50,7 +50,7 @@
       #{typeId,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, #{syncState,jdbcType=BIT}, 
       #{platformId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.Weapon" >
+  <insert id="insertSelective" parameterType="com.tianyi.drs.basedata.model.Weapon" >
     insert into t_weapon
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -99,7 +99,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.duty.model.Weapon" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.basedata.model.Weapon" >
     update t_weapon
     <set >
       <if test="standard != null" >
@@ -123,7 +123,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.duty.model.Weapon" >
+  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.basedata.model.Weapon" >
     update t_weapon
     set standard = #{standard,jdbcType=VARCHAR},
       number = #{number,jdbcType=VARCHAR},
@@ -135,7 +135,7 @@
   </update>
   
   
-    	 <select id="selectAll" resultType="Weapon">  
+    	 <select id="selectAll" resultType="com.tianyi.drs.basedata.model.Weapon">  
        		 select * from t_weapon order by number asc
     	 </select> 
     	 
@@ -150,7 +150,7 @@
   </sql>
     	
     	 
-  <select id="countByExample" parameterType="com.tianyi.drs.duty.model.Weapon" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.tianyi.drs.basedata.model.Weapon" resultType="java.lang.Integer">
     select count(*) from t_weapon
     <if test="_parameter != null">
       <include refid="Where_example" />
@@ -170,7 +170,7 @@
 	  </if>
   </select>
       	 
-    	 <select id="selectWeaponType" resultType="WeaponType">  
+    	 <select id="selectWeaponType" resultType="com.tianyi.drs.basedata.model.WeaponType">  
        		 select * from t_weaponType order by id asc
     	 </select> 
     	 

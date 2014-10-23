@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tianyi.drs.duty.dao.VehicleMapper">
-  <resultMap id="BaseResultMap" type="com.tianyi.drs.duty.model.Vehicle">
+<mapper namespace="com.tianyi.drs.basedata.dao.VehicleMapper">
+  <resultMap id="BaseResultMap" type="com.tianyi.drs.basedata.model.Vehicle">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="vehicle_type_id" jdbcType="INTEGER" property="vehicleTypeId" />
     <result column="org_id" jdbcType="INTEGER" property="orgId" />
@@ -16,7 +16,7 @@
     <result column="platform_id" jdbcType="VARCHAR" property="platformId" />
   </resultMap>
   
-  <resultMap id="ViewResultMap" type="com.tianyi.drs.duty.viewmodel.VehicleVM">
+  <resultMap id="ViewResultMap" type="com.tianyi.drs.basedata.viewmodel.VehicleVM">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="vehicle_type_id" jdbcType="INTEGER" property="vehicleTypeId" />
     <result column="org_id" jdbcType="INTEGER" property="orgId" />
@@ -52,7 +52,7 @@
     delete from t_vehicle
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tianyi.drs.duty.model.Vehicle">
+  <insert id="insert" parameterType="com.tianyi.drs.basedata.model.Vehicle">
     insert into t_vehicle (id, vehicle_type_id, org_id, 
       number, intercom_group, gps_id, 
       gps_name, purpose, brand, 
@@ -64,7 +64,7 @@
       #{siteQty,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT}, #{platformId,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.Vehicle">
+  <insert id="insertSelective" parameterType="com.tianyi.drs.basedata.model.Vehicle">
     insert into t_vehicle
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -143,7 +143,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.duty.model.Vehicle">
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.basedata.model.Vehicle">
     update t_vehicle
     <set>
       <if test="vehicleTypeId != null">
@@ -182,7 +182,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.duty.model.Vehicle">
+  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.basedata.model.Vehicle">
     update t_vehicle
     set vehicle_type_id = #{vehicleTypeId,jdbcType=INTEGER},
       org_id = #{orgId,jdbcType=INTEGER},
@@ -198,11 +198,11 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   
-      	 <select id="selectVehicleType" resultType="VehicleType">  
+      	 <select id="selectVehicleType" resultType="com.tianyi.drs.basedata.model.VehicleType">  
        		 select * from t_vehicletype order by id asc
     	 </select> 
       	 
-      	 <select id="selectIntercomGroup" resultType="IntercomGroup">  
+      	 <select id="selectIntercomGroup" resultType="com.tianyi.drs.basedata.model.IntercomGroup">  
        		 select * from t_intercom_group order by id asc
     	 </select> 
     	 
@@ -214,7 +214,7 @@
     </where>
   </sql>
   
-  <select id="countByExample" parameterType="com.tianyi.drs.duty.model.Vehicle" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.tianyi.drs.basedata.model.Vehicle" resultType="java.lang.Integer">
     select count(*) from t_vehicle
     <if test="_parameter != null">
       <include refid="Where_example" />
