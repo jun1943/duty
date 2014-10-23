@@ -45,7 +45,7 @@ public class PoliceController {
 			@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "rows", required = false) Integer rows,
 			HttpServletRequest request) throws Exception {
-		try {
+		try {  
 			JSONObject joQuery = JSONObject.fromObject(query);
 			int orgId = Integer.parseInt(joQuery.getString("orgId"));
 			int isSubOrg = Integer.parseInt(joQuery.getString("isSubOrg"));

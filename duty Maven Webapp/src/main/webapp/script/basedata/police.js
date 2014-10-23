@@ -15,7 +15,7 @@ $(function() {
 	});
 
 	$('#dtPolice').datagrid({
-		url : "/basedata/police/getPoliceList.do",
+		url : "police/getPoliceList.do",
 		queryParams : {
 			'police_Query' : JSON.stringify(m_police_Query)
 		},
