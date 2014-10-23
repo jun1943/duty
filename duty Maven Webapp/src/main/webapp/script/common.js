@@ -35,13 +35,12 @@ function buildOrgTree(orgs){
      * 如果已经排过序的话，第一个肯定在根节点上
      * 以这个parentid作为后续rog是否在根节点上的依据。
      */
-    var rootParent=orgs[0];
+    var rootParent=orgs[0].parentId;
     
     for (var i = 0; i < count; i++) {
     	var node = orgs[i];
-    	
-    	node.id = seq.id;
-    	node.text = seq.shortName;
+    	node.text = node.shortName;
+        node.children=[];
         
         for (var j = 0; j < count; j++) {
         	var tmp = orgs[j];

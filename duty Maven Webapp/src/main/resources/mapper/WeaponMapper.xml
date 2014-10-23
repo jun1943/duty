@@ -114,4 +114,40 @@
       platform_id = #{platformId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+    	 <select id="selectAll" resultType="Weapon">  
+       		 select * from t_weapon order by number asc
+    	 </select> 
+    	 
+   
+ 
+  <sql id="Where_example">
+    <where>
+	   <if test="number != null">
+	        AND number like CONCAT( '%',#{number,jdbcType=VARCHAR},'%')  
+	   </if>
+    </where>
+  </sql>
+    	
+    	 
+  <select id="countByExample" parameterType="com.tianyi.drs.duty.model.Weapon" resultType="java.lang.Integer">
+    select count(*) from t_weapon
+    <if test="_parameter != null">
+      <include refid="Where_example" />
+    </if>
+  </select>
+  
+  <select id="selectByExample" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_weapon
+    
+      <include refid="Where_example" />
+    
+      order by id
+      <if test="pageStart != null">
+	          limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	  </if>
+  </select>
 </mapper>

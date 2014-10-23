@@ -1,76 +1,93 @@
 <%@ page language="java" pageEncoding="utf-8"%>
-
 <%@ include file="/view/lib.jsp"%>
+
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
 <base href="<%=basePath%>">
+<!--  
+<link href='//cdn.datatables.net/plug-ins/a5734b29083/integration/jqueryui/dataTables.jqueryui.css' type='text/css' />
+-->
+<script src='<%=basePath%>script/basedata/vehicle.js'
+	type='text/javascript'></script>
+<title>车辆管理</title>
 
-<title>My JSP 'weapon.jsp' starting page</title>
 
-<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
 </head>
 
-<body>
-	<!--导航开始-->
-	<div class="container-fluid my-nav-bg">
-		<ul class="nav navbar-nav">
-			<li style="width:1px;"><a href="#">&nbsp;</a></li>
-			<li class="active"><a href="#" class="my-nav-btn">人员管理 <img
-					src="images/nav-btn-icon.png" width="22" height="22"></a></li>
-			<li><a href="#" class="my-nav-btn">车辆管理 <img
-					src="images/nav-btn-icon.png" width="22" height="22"></a></li>
-			<li><a href="#" class="my-nav-btn">武器管理 <img
-					src="images/nav-btn-icon.png" width="22" height="22"></a></li>
-			<li><a href="#" class="my-nav-btn">卡口管理 <img
-					src="images/nav-btn-icon.png" width="22" height="22"></a></li>
+<body class="easyui-layout">
+	<div data-options="region:'north',border:false">
+		<div class="container-fluid my-nav-bg">
+				<ul class="nav navbar-nav">
+				<li style="width:1px;"><a href="#">&nbsp;</a></li>
+				<li><a href="/duty/view/basedata/police.jsp"
+					class="my-nav-btn">人员管理 <img src="asset/css/images/nav-btn-icon.png"
+						width="22" height="22"></a></li>
+				<li class="active"><a href="/duty/view/basedata/vehicle.jsp" class="my-nav-btn">车辆管理
+						<img src="asset/css/images/nav-btn-icon.png" width="22" height="22">
+				</a></li>
+				<li><a href="/duty/view/basedata/weapon.jsp" class="my-nav-btn">武器管理
+						<img src="asset/css/images/nav-btn-icon.png" width="22" height="22">
+				</a></li>
+				<li><a href="/duty/view/basedata/police.jsp" class="my-nav-btn">定位设备
+						<img src="asset/css/images/nav-btn-icon.png" width="22" height="22">
+				</a></li>
+			</ul>
+		</div>
+	</div>
+	
+	<div data-options="region:'west',split:true,title:'组织机构导航树'" style="width:150px;padding:10px;">
+		<div>
+			<input type="text">
+		</div>
+		<ul id="tt" class="easyui-tree">    
+		    <li>    
+		        <span>Folder</span>    
+		        <ul>    
+		            <li>    
+		                <span>Sub Folder 1</span>    
+		                <ul>    
+		                    <li>    
+		                        <span><a href="#">File 11</a></span>    
+		                    </li>    
+		                    <li>    
+		                        <span>File 12</span>    
+		                    </li>    
+		                    <li>    
+		                        <span>File 13</span>    
+		                    </li>    
+		                </ul>    
+		            </li>    
+		            <li>    
+		                <span>File 2</span>    
+		            </li>    
+		            <li>    
+		                <span>File 3</span>    
+		            </li>    
+		        </ul>    
+		    </li>    
+		    <li>    
+		        <span>File21</span>    
+		    </li>    
 		</ul>
-	</div>
-	<!--导航结束-->
-	<!--操作菜单开始-->
-	<div class="my-menu-bg">
-		<button id="addnew" type="button" class="btn btn-default my-menu-btn">
-			<img src="images/icon/add.png" width="16" height="16"> 新增
-		</button>
-		<button type="button" class="btn btn-default my-menu-btn">
-			<img src="images/icon/edit.png" width="16" height="16"> 编辑
-		</button>
-		<button type="button" class="btn btn-default my-menu-btn">
-			<img src="images/icon/del.png" width="16" height="16"> 删除
-		</button>
-	</div>
-	<!--操作菜单结束-->
-	<div class="my-line-5"></div>
-	<form class='form' style='margin-bottom: 0;' accept-charset="UTF-8" id="searchForm" name="searchForm"
-		action=vehicle/list.do	method="post">
-
-		<!--列表开始-->
-		<div class="container-fluid">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<div class="row">
-						<div class="col-md-8">
-							<img src="images/icon/user.png" width="16" height="16"> <strong>车辆列表</strong>
-						</div>
-						<div class="col-md-4 my-title-btn" style="text-align:right">
-							<ul>
-								<li class="my-hand"><img src="images/icon/printer.png"
-									width="16" height="16"> 打印</li>
-								<li class="my-hand"><img src="images/icon/dark.png"
-									width="16" height="16"> 打印设置</li>
-								<li class="my-hand"><img src="images/icon/out.png"
-									width="16" height="16"> 导出</li>
-								<li class="my-hand" id="my-search"><img
-									src="images/icon/zoom.png" width="16" height="16"> 查询</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-
-				<div id="my-search-box" class="panel-body" style="display:none">
+	</div>  
+	
+	<div data-options="region:'center',title:'车辆列表'"style="padding:10px;"> 
+			<div id="tbVehicle" class="btn-toolbar">
+  				<div class="btn-group">
+  					<a id="btnAddVehicle" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-add"  plain="true" onclick="btnAddVehicle()">创建</a>
+                	<a id="btnEditVehicle" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="btnEditVehicle()">修改</a>
+                	<a id="btnDelVehicle" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel" plain="true" onclick="btnDelVehicle()">删除</a>
+                	<a id="btnDelVehicle" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel" plain="true" onclick="btnDelVehicle()">删除</a>
+  				</div>  				
+  				<div class="btn-group" style="float:right">
+  					<a id="btnSearchVehicle" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"  plain="true" onclick="btnSearchVehicle()">查询</a>
+                	<a id="btnPrintList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-print" plain="true" onclick="btnPrintList()">打印</a>
+                	<a id="btnExportList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-export" plain="true" onclick="btnExportList()">导出</a>
+               	</div>
+  			</div>
+  			<div id="my-search-box" class="panel-body" style="display:none">
 					<div class="input-group">
 						<div class="input-group-addon">查询范围选择:</div>
 						<select id="inSubOrg" name="inSubOrg" class="form-control"
@@ -88,63 +105,11 @@
 					<button type="submit" class="btn btn-info">
 						<img src="images/icon/zoom.png" width="16" height="16"> 查询
 					</button>
-				</div>
 			</div>
-		</div>
-		<!-- <div class="my-page-fixed"></div-->
-		<!--列表结束-->
-
-		<input type="hidden" id="pageCount" name="pageCount"
-			value="${page.pageCount}" /> <input type="hidden" id="pageNumber"
-			name="pageNumber" value="${page.pageNo}" /> <input type="hidden"
-			id="totalCount" name="totalCount" value="${page.total}" /> <input
-			type="hidden" id="orgId" name="orgId" value="${orgId}" /> <input
-			type="hidden" id="orgCode" name="orgCode" value="${orgCode}" /> <input
-			type="hidden" id="orgPath" name="orgPath" value="${orgPath}" />
-		<!-- Data Table -->
-		<div class='box-content box-no-padding'>
-			<div class='responsive-table' style="height:650px">
-				<div class='scrollable-area'>
-					<table class="table table-bordered table-hover table-striped "
-						style="margin-bottom:0;">
-						<!-- table class="table"-->
-						<thead class="my-table-title">
-							<th>选择</th>
-							<th>机构</th>
-							<th>类型</th>
-							<th>车牌号</th>
-							<th>用途</th>
-						</thead>
-
-						<tbody>
-							<c:forEach items="${page.rows}" var="vehicleVM">
-								<tr>
-									<td><input type="checkbox" name="checkedIds"
-										id="checkedIds" class="my-check" value="${vehicle.id}">
-									</td>
-									<td class="table-font">${vehicleVM.orgName}</td>
-									<td class="table-font">${vehicleVM.typeName}</td>
-									<td class="table-font"><a
-										href="javascript:void(0) onclick="vehicleDlg()">${vehicleVM.number}</a>
-									</td>
-									<td class="table-font">${vehicleVM.purpose}</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</div>
-			</div>
-
-			<!--  Page show -->
-			<div class="ui-pagelist">
-				<div style="float: right;" id="pager"></div>
-			</div>
-
-		</div>
-
-	</form>
-
-
+  			<div id="dtVehicle" >
+  			</div> 
+	</div>   
+  
 	<!--新增开始-->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">

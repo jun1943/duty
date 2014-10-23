@@ -1,19 +1,16 @@
-package com.tianyi.drs.duty.controller;
-
+package com.tianyi.drs.duty.controller; 
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.ibatis.session.SqlSession;
+import javax.servlet.http.HttpServletRequest;  
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.tianyi.drs.duty.service.VehicleService;
+  
+import com.tianyi.drs.duty.service.VehicleService;   
 import com.tianyi.util.PaginationData;
 
 @Scope("prototype")

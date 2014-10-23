@@ -1,5 +1,6 @@
 package com.tianyi.drs.duty.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,8 +9,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.tianyi.drs.duty.dao.PoliceMapper;
-import com.tianyi.drs.duty.model.Police;
+import com.tianyi.drs.duty.model.Police; 
 import com.tianyi.drs.duty.service.PoliceService;
+import com.tianyi.drs.duty.viewmodel.PoliceVM; 
+import com.tianyi.util.PaginationData;
 
 @Service("policeService")
 public class PoliceServiceImpl implements PoliceService {
@@ -71,6 +74,34 @@ public class PoliceServiceImpl implements PoliceService {
 		// TODO Auto-generated method stub
 		return policeMapper.login(params);
 	}
- 
+
+	public int findCount(PoliceVM police) {
+		int count = policeMapper.countByExample(police);
+		return count;
+	}
+
+	public List<PoliceVM> findPageList(PoliceVM police, PaginationData page) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(!(police.getNumber() == null || police.getNumber().length() ==0) )
+			map.put("number", police.getNumber());
+		
+		map.put("pageStart", page.getStartIndex());
+		map.put("pageSize", page.getPageSize());
+		List<PoliceVM> list = policeMapper.selectWithPage(map);
+		 
+		return list;
+	}
+
+	public int loadVMCount(Map<String, Object> map) {
+		int count= policeMapper.loadVMCount(map);
+		return count;
+	}
+
+	public List<PoliceVM> loadVMList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		List<PoliceVM> list = policeMapper.loadVMList(map);
+		
+		return list;
+	} 
 	
 }
