@@ -71,8 +71,11 @@ function btnSearchAction() {
 	$("#isSubOrg").val(0);
 	$("#txtsearchnumber").val("");
 };
-function InitData() {
-
+function InitData() { 
+	getWeaponType();
+};
+function getWeaponType(){
+	getBaseData( "weapon/getWeaponType.do","武器类型","txttype");  
 };
 function btnAddWeapon() {
 	clearForm();

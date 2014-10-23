@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.tianyi.drs.duty.dao.core.MyBatisRepository;
 import com.tianyi.drs.duty.model.Gps;
+import com.tianyi.drs.duty.model.GpsType;
 import com.tianyi.drs.duty.viewmodel.GpsVM;
 import com.tianyi.util.PaginationData;
 @MyBatisRepository
@@ -28,4 +29,6 @@ public interface GpsMapper {
 	int loadVMCount(Map<String, Object> map);
 
 	List<GpsVM> loadVMList(Map<String, Object> map);
+
+	List<GpsType> selectGpsType();
 }

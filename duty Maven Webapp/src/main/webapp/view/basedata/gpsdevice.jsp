@@ -137,12 +137,7 @@
 						<div class="form-group">
 							<label for="txttype" class="col-sm-2 control-label">GPS类型:</label>
 							<div class="col-sm-4">
-								<select id="txttype" class="form-control">
-									<option value="0">请选择GPS类型</option>
-									<option value="1">350M</option>
-									<option value="2">800M</option>
-									<option value="3">Qchat</option>
-									<option value="4">其他</option>
+								<select id="txttype" class="form-control"> 
 								</select>
 							</div>
 						</div> 

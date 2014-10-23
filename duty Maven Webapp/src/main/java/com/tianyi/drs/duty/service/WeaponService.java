@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.tianyi.drs.duty.model.Weapon;
+import com.tianyi.drs.duty.model.WeaponType;
 import com.tianyi.drs.duty.viewmodel.WeaponVM;
 import com.tianyi.util.PaginationData;
  
@@ -30,5 +31,7 @@ public interface WeaponService {
 
 	int loadVMCount(Map<String, Object> map);
 
-	List<WeaponVM> loadVMList(Map<String, Object> map); 
+	List<WeaponVM> loadVMList(Map<String, Object> map);
+
+	List<WeaponType> selectWeaponType(); 
 }

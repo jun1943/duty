@@ -98,11 +98,19 @@ function btnSearchAction() {
 };
 function InitData() { 
 	getVehicleType();
+	//getGroupNumber();
+	//getGpsID(m_Vehicle_OrgId); 
 };
 
 function getVehicleType(){
 	getBaseData("vehicle/getVehicleType.do","车辆类型","txttype"); 
 };
+function getGroupNumber(){
+	getBaseData( "police/getGroupNumber.do","对讲机组呼号","txtgroupno");   
+};
+function getGpsID(orgId){
+	getBaseData( "police/getGpsID.do?orgId="+orgId,"GPS_ID","txtgpsid");   
+}
 function btnAddVehicle() {
 	clearForm();
 	$('#myModal').modal('show');

@@ -135,11 +135,7 @@
 						<div class="form-group">
 							<label for="txttype" class="col-sm-2 control-label">武器类别：</label>
 							<div class="col-sm-4">
-								<select id="txttype" class="form-control">
-									<option value="0">请选择武器类型</option>
-									<option value="1">64制半自动步枪</option>
-									<option value="2">64制自动步枪</option>
-									<option value="3">AK47</option>
+								<select id="txttype" class="form-control"> 
 								</select>
 							</div>
 						</div>

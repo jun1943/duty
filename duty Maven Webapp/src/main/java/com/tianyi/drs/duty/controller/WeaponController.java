@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.springframework.context.annotation.Scope;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody; 
     
+import com.tianyi.drs.duty.model.PoliceType;
 import com.tianyi.drs.duty.model.Weapon;
+import com.tianyi.drs.duty.model.WeaponType;
 import com.tianyi.drs.duty.service.WeaponService;
 import com.tianyi.drs.duty.viewmodel.ListResult; 
 import com.tianyi.drs.duty.viewmodel.WeaponVM; 
@@ -105,6 +108,19 @@ public class WeaponController {
 			return "{\"success\":true,\"Message\":\"删除成功,result is " + result + "\"}";
 		} catch (Exception ex) {
 			return "{\"success\":false,\"Message\":\"删除失败，原因：" + ex.getMessage() + "\"}";
+		}
+	}
+
+	@RequestMapping(value="getWeaponType.do",produces="application/json;charset=UTF-8")
+	public @ResponseBody String getWeaponType() throws Exception {
+		try
+		{ 
+			List<WeaponType> list = weaponService.selectWeaponType();
+			JSONArray result = JSONArray.fromObject(list);
+			return result.toString();
+		}
+		catch(Exception ex){
+			return "";
 		}
 	}
 }

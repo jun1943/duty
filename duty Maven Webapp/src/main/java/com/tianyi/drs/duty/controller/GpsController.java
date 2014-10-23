@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.springframework.context.annotation.Scope;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianyi.drs.duty.model.Gps; 
+import com.tianyi.drs.duty.model.GpsType;
+import com.tianyi.drs.duty.model.PoliceType;
 import com.tianyi.drs.duty.service.GpsService; 
 import com.tianyi.drs.duty.viewmodel.GpsVM;
 import com.tianyi.drs.duty.viewmodel.ListResult; 
@@ -103,6 +106,19 @@ public class GpsController {
 			return "{\"success\":true,\"Message\":\"删除成功,result is " + result + "\"}";
 		} catch (Exception ex) {
 			return "{\"success\":false,\"Message\":\"删除失败，原因：" + ex.getMessage() + "\"}";
+		}
+	}
+
+	@RequestMapping(value="getGpsType.do",produces="application/json;charset=UTF-8")
+	public @ResponseBody String getGpsType() throws Exception {
+		try
+		{ 
+			List<GpsType> list = gpsService.selectGpsType();
+			JSONArray result = JSONArray.fromObject(list);
+			return result.toString();
+		}
+		catch(Exception ex){
+			return "";
 		}
 	}
 }

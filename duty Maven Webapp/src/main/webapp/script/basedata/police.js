@@ -86,6 +86,7 @@ $(function() {
 	});
 	InitData();
 });
+//打包查询条件
 function pack_police_Query() {
 	m_police_Query.orgId = m_Police_OrgId;
 	m_police_Query.orgCode = m_Police_OrgCode;
@@ -94,9 +95,11 @@ function pack_police_Query() {
 	m_police_Query.name = $("#txtsearchName").val();
 	m_police_Query.typeid = $("#sltType").val();
 }
+//初始化下拉列表数据
 function InitData() {
 	getPoliceType();
 	//getGroupNumber();
+	//getGpsID(m_Police_OrgId);
 };
 
 function getPoliceType(){
@@ -105,6 +108,10 @@ function getPoliceType(){
 function getGroupNumber(){
 	getBaseData( "police/getGroupNumber.do","对讲机组呼号","txtgroupno");   
 };
+function getGpsID(orgId){
+	getBaseData( "police/getGpsID.do?orgId="+orgId,"GPS_ID","txtgroupno");   
+}
+//查询按钮事件
 function btnSearchAction() {
 	pack_police_Query();
 	$('#dtPolice').datagrid("reload", {
@@ -114,10 +121,12 @@ function btnSearchAction() {
 	$("#txtsearchName").val("");
 	$("#sltType").val(0);
 };
+//新增开始
 function btnAddPolice() {
 	clearForm();
 	$('#myModal').modal('show');
 };
+//删除按钮事件
 function btnDelPolice() {
 	var hasRows = $('#dtPolice').datagrid('getRows');
 	if (hasRows.length == 0) {
@@ -141,6 +150,7 @@ function btnDelPolice() {
 		}
 	});
 };
+//删除开始
 function deletePolice(id) {
 	$.ajax({
 		url : "police/deletePolice.do",
@@ -162,6 +172,7 @@ function deletePolice(id) {
 		}
 	});
 }
+//编辑开始
 function btnEditPolice() {
 	var hasRows = $('#dtPolice').datagrid('getRows');
 	if (hasRows.length == 0) {
@@ -192,6 +203,7 @@ function btnEditPolice() {
 	$("#txtpersonalno").val(rows[0].intercomPerson);
 	$('#myModal').modal('show');
 }
+//清空form表单
 function clearForm() {
 	$("#policeId").val(0);
 	$("#txtname").val("");
@@ -201,11 +213,12 @@ function clearForm() {
 	$("#txtidcardno").val("");
 	$("#txtnumber").val("");
 	$("#txtgpsdes").val("");
-	$("#txtgpsid").val("");
+	$("#txtgpsid").val(0);
 	$("#txttype").val(0);
 	$("#txtgroupno").val(0);
 	$("#txtpersonalno").val("");
 }
+//保存新增或者编辑的数据
 function savePoliceAction() {
 	var police = {};
 
@@ -259,11 +272,13 @@ function savePoliceAction() {
 		return;
 	}
 	police.intercomPerson = $("#txtpersonalno").val();
-	if ($("#txtgpsid").val() == "") {
-		$.messager.alert("错误提示", "请输入警员对讲机个呼号", "error");
+	if ($("#txtgpsid").val() > 0) {
+		police.gpsId = $("#txtgpsid").val();
+	} else {
+		$.messager.alert("错误提示", "请选择GPS_ID", "error");
 		return;
-	}
-	police.gpsId = $("#txtgpsid").val();
+	} 
+	 
 	if ($("#txtgpsdes").val() == "") {
 		$.messager.alert("错误提示", "请输入警员对讲机个呼号", "error");
 		return;

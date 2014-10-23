@@ -131,7 +131,9 @@
       platform_id = #{platformId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  
+      	 <select id="selectGpsType" resultType="GpsType">  
+       		 select * from t_gpstype order by id asc
+    	 </select> 
   
   <select id="loadVMList" parameterType="java.util.Map" resultMap="ViewResultMap">
   		select 

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.tianyi.drs.duty.dao.core.MyBatisRepository;
 import com.tianyi.drs.duty.model.Weapon;
+import com.tianyi.drs.duty.model.WeaponType;
 import com.tianyi.drs.duty.viewmodel.WeaponVM;
 @MyBatisRepository
 public interface WeaponMapper {
@@ -31,4 +32,6 @@ public interface WeaponMapper {
 	int countByVM(Map<String, Object> map);
 
 	int loadVMCount(Map<String, Object> map);
+
+	List<WeaponType> selectWeaponType();
 }

@@ -142,6 +142,21 @@ public class PoliceController {
 //		}
 //	}
 	
+
+//
+//	@RequestMapping(value="getGroupNumber.do",produces="application/json;charset=UTF-8")
+//	public @ResponseBody String getGroupNumber() throws Exception {
+//		try
+//		{ 
+//			List<GroupNumber> list = policeService.selectGroupNumber();
+//			JSONArray result = JSONArray.fromObject(list);
+//			return result.toString();
+//		}
+//		catch(Exception ex){
+//			return "";
+//		}
+//	}
+	
 	@RequestMapping(value = "updatePolice.do", produces = "application/json;charset=UTF-8")
 	public void updatePolice() throws Exception {
 		try {

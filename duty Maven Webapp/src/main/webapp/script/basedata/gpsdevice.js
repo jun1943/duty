@@ -77,7 +77,10 @@ function btnSearchAction() {
 	$("#txtsearchname").val("");
 };
 function InitData() {
-
+	getGpsType();
+};
+function getGpsType(){
+	getBaseData("gpsdevice/getGpsType.do","GPS类型","txttype"); 
 };
 function btnAddGpsdevice() {
 	clearForm();

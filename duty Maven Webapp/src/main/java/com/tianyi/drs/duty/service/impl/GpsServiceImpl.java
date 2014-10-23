@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.tianyi.drs.duty.dao.GpsMapper;
 import com.tianyi.drs.duty.model.Gps;
+import com.tianyi.drs.duty.model.GpsType;
 import com.tianyi.drs.duty.service.GpsService;
 import com.tianyi.drs.duty.viewmodel.GpsVM;
 import com.tianyi.util.PaginationData;
@@ -52,5 +53,10 @@ public class GpsServiceImpl implements GpsService{
 	public int deleteByPrimaryKey(int id) {
 		// TODO Auto-generated method stub
 		return gpsMapper.deleteByPrimaryKey(id);
+	}
+
+	public List<GpsType> selectGpsType() {
+		// TODO Auto-generated method stub
+		return gpsMapper.selectGpsType();
 	}
 }

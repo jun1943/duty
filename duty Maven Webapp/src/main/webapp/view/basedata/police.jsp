@@ -218,8 +218,12 @@
  
 						<div class="form-group">
 							<label for="txtgpsid" class="col-sm-3 control-label">GPS_ID:</label>
-							<div class="col-sm-4">
-								<input id="txtgpsid" type="text" class="form-control" placeholder="">
+							<div class="col-sm-4"> 
+								<select id="txtgpsid" class="form-control"> 
+		                            <option value="0">请选择对讲机组呼号</option>
+		                            <option value="1">350M</option>
+		                            <option value="2">800M</option>
+								</select>
 							</div>
 						</div>
 						<div class="form-group">
