@@ -7,8 +7,9 @@ var m_policeGroup_Org = {};
 
 var m_policeGroup_Query = {};
 
-$(function() {
+var m_member_Query ={groupId:-1};
 
+$(document).ready(function() {
 	var args = getUrlArgs();
 	m_policeGroup_Org.id = args["orgId"];
 	m_policeGroup_Org.code = args["orgCode"];
@@ -26,47 +27,31 @@ $(function() {
 		resizable : true,
 		fitColumns : true,
 		width : 'auto',
-		columns : [ [ {
-			title : 'Id',
-			field : 'id',
-			align : 'left',
-			width : 10,
-			hidden : true
-		}, {
-			title : '组名称',
-			field : 'name',
-			align : 'left',
-			width : 150
-		}, {
-			title : '共享类型',
-			field : 'shareTypeDesc',
-			align : 'left',
-			width : 200
-		} ] ]
+		onSelect:onSelectGroup,
+		columns : [ [ 
+		              {	title : 'Id',field : 'id',align : 'left',width : 10,hidden : true}, 
+		              {	title : '组名称',field : 'name',align : 'left',width : 150	}, 
+		              {	title : '共享类型',	field : 'shareTypeDesc',	align : 'left',width : 200} 
+		              ] ]
 	});
 
 	$('#dtGroupMember').datagrid({
+		url:'policeGroup/loadMemberByGroupId.do',
+		queryParams : {
+			'member_Query' : JSON.stringify(m_member_Query)
+		},
 		pagination : true,
-		pageNumber : 1,
-		pageSize : 10,
-		columns : [ [ {
-			title : 'Id',
-			field : 'Id',
-			align : 'left',
-			width : 10,
-			hidden : true
-		}, {
-			title : '组名称',
-			field : 'name',
-			align : 'left',
-			width : 100
-		}, {
-			title : '共享类型',
-			field : 'shareTypeDesc',
-			align : 'left',
-			width : 100
-		}
-
+		singleSelect : true,
+		idField : 'id',
+		resizable : true,
+		fitColumns : true,
+		width : 'auto',
+		columns : [ [ 
+		              {title : 'Id',field : 'Id',align : 'left',width : 10,hidden : true	}, 
+		              {	title : '所属单位',field : 'orgName',align : 'left',width : 110	}, 
+		              {	title : '姓名',	field : 'name',	align : 'left',width : 100	},
+		              {	title : '警号',	field : 'code',	align : 'left',width : 100	},
+		              {	title : '职务',	field : 'title',	align : 'left',width : 100	},
 		] ]
 	});
 
@@ -81,8 +66,23 @@ $(function() {
 				}
 			});
 
-	$('#divPG').resize(function() {
-		$('#dtPoliceGroup').datagrid("resize");
+	$('#treeOrgWithPolice').tree(
+			{
+				url : "org/listWithPolice.do?rootId="+m_policeGroup_Org.id,
+				checkbox : false,
+				cascadeCheck : false
+			});
+	
+	$('#dtSelGroupMember').datagrid({
+		idField : 'id',
+		singleSelect : true,
+		resizable : true,
+		fitColumns : true,
+		columns : [ [
+		            {title : 'id',field : 'id',align : 'left',width : 10,hidden : true}, 
+		            {title : '姓名',field : 'name',align : 'left',	width : 100},
+		            {title : '警号',field : 'code',align : 'left',width : 100}
+		] ]
 	});
 });
 
@@ -112,7 +112,6 @@ function addPoliceGroup() {
 	cleanShareOrgs();
 
 	showPoliceGroupDlg();
-
 }
 
 function editPoliceGroup() {
@@ -187,7 +186,7 @@ function delPoliceGroup() {
 											$.messager.alert('提示', '删除成功!');
 											$('#dtPoliceGroup').datagrid('reload');
 										} else {
-											$.messager.alert('提示', req.Data,"warning");
+											$.messager.alert('提示', req.msg,"warning");
 										}
 									}
 								});
@@ -238,6 +237,15 @@ function loadPoliceGroup(id, callback) {
 	});
 }
 /**
+ * if (req.isSuccess) {
+				$.messager.alert('提示', '保存成功!');
+				$('#dtGroupMember').datagrid('reload');
+			} else {
+				$.messager.alert('提示', req.msg,"warning");
+			}
+ */
+
+/**
  * 显示警员组信息
  * 
  * @param pg
@@ -261,3 +269,108 @@ function displayPoliceGroup(pg) {
 		$('#treeOrg').tree('check', node.target);
 	}
 }
+
+function onSelectGroup(rowIndex,rowData){
+	m_member_Query.groupId=rowData.id;
+	$('#dtGroupMember').datagrid('reload',{ 'member_Query': JSON.stringify(m_member_Query) });
+	//var x=$('#dtGroupMember').datagrid('queryParams');
+}
+
+/**
+ * 添加成员 -------------------------------------------------------------------------------------
+ */
+function addPoliceGroupMember(){
+	var row=$('#dtPoliceGroup').datagrid("getSelected");
+	if(row!=null){
+		$('#txtPoliceGroupId').val(row.id);
+		showGroupMemberDlg();
+		$('#dtSelGroupMember').datagrid('loadData',{total:0,rows:[]});
+	}else{
+		$.messager.alert('提示', '请先选择组!');
+	}
+}
+
+function appendMember(){
+	var members=[];
+	var groupid=$('#txtPoliceGroupId').val();
+
+	
+	var rows=$('#dtSelGroupMember').datagrid('getRows');
+	var count=rows.length;
+	
+	for(var i=0;i<count;i++){
+		var row=rows[i];
+		var member ={};
+		member.id=0;
+		member.groupId=groupid;
+		member.policeId=row.id;
+		members.push(member);
+	}
+	
+	$.ajax({
+		url : "policeGroup/appendMember.do",
+		type : "POST",
+		dataType : "json",
+		data : {
+			'members' : JSON.stringify(members)
+		},
+		async : false,
+		success : function(req) {
+				if (req.isSuccess) {
+						$.messager.alert('提示', '保存成功!');
+							$('#dtGroupMember').datagrid('reload');
+						} else {
+							$.messager.alert('提示', req.msg,"warning");
+						}
+		}
+	});
+		
+
+}
+
+function selectMember(){
+	var node=$('#treeOrgWithPolice').tree('getSelected');
+	if(node !=null && node.dataType==2){
+		
+		var datas=$('#dtSelGroupMember').datagrid('getData');
+		
+		var count=datas.rows.length;
+		
+		var exists=false;
+		
+		for(var i=0;i<count;i++){
+			var row=datas.rows[i];
+			if(row.id==node.rid){
+				exists=true;
+				break;
+			}
+		}
+		
+		if(!exists){
+			$('#dtSelGroupMember').datagrid('appendRow',{
+				id:node.rid,
+				name: node.name,
+				code: node.code
+			});
+		}
+	}
+}
+
+function unselectMember(){
+	var row=$('#dtSelGroupMember').datagrid('getSelected');
+	
+	if(row !=null){
+		var index=$('#dtSelGroupMember').datagrid('getRowIndex',row);
+		$('#dtSelGroupMember').datagrid('deleteRow',index);
+	}
+}
+
+function showGroupMemberDlg(){
+	
+	$('#winPGMember').window('open'); 
+}
+
+function displayGroupMember(member){
+	
+}
+

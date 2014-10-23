@@ -12,6 +12,7 @@ import com.tianyi.drs.duty.dao.OrgMapper;
 import com.tianyi.drs.duty.model.Org;
 import com.tianyi.drs.duty.service.OrgService;
 import com.tianyi.drs.duty.viewmodel.OrgVM;
+import com.tianyi.drs.duty.viewmodel.OrgWithPoliceVM;
 
 @Service("orgService")
 public class OrgServiceImple implements OrgService {
@@ -28,6 +29,11 @@ public class OrgServiceImple implements OrgService {
 
 		List<Org> ls = orgMapper.loadSubOrgList(map);
 
+		return ls;
+	}
+
+	public List<OrgWithPoliceVM> loadOrgWithPoliceVMList(Integer id) {
+		List<OrgWithPoliceVM> ls = orgMapper.loadOrgWithPoliceVMList(id);
 		return ls;
 	}
 

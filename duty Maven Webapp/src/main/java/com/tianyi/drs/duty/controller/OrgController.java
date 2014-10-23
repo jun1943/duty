@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianyi.drs.duty.model.Org;
 import com.tianyi.drs.duty.service.OrgService;
+import com.tianyi.drs.duty.viewmodel.OrgWithPoliceVM;
 
 @Scope("prototype")
 @Controller
@@ -44,6 +45,38 @@ public class OrgController {
 			String rs=JSONArray.fromObject(ls).toString();
 			return rs;
 		
+	}
+	/**
+	 * 返回组织机构和下属警员信息
+	 * @param orgCode
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "listWithPolice.do")
+	public @ResponseBody String listWithPolice(
+			@RequestParam(value = "rootId", required = false) Integer rootId,
+			@RequestParam(value = "id", required = false) String hybrid_id,
+			HttpServletRequest request
+			){
+
+		Integer qid=null;
+		
+		if(hybrid_id!=null && hybrid_id!=""){
+			if(hybrid_id.indexOf("org")>=0){
+				qid=new Integer(hybrid_id.split("_")[1]);
+			}
+		}else{
+			qid=rootId;
+		}
+		
+		if(qid!=null){
+			List<OrgWithPoliceVM> ls=orgService.loadOrgWithPoliceVMList(qid);
+			JSONArray rs=JSONArray.fromObject(ls);
+			
+			return rs.toString();
+		}else{
+			return null;
+		}		
 	}
 	
 }

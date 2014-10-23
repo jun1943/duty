@@ -14,14 +14,16 @@
 <!--[if lt IE 9]>
     <script src='<%=basePath%>js/sys/html5shiv.js' type='text/javascript'></script>
     <![endif]-->
-
+<!-- 
 <link href='<%=basePath%>asset/css/bootstrap.min.css' media='all'
 	rel='stylesheet' type='text/css' />
+ -->
+
 <link href='<%=basePath%>asset/css/easyui/icon.css'
 	media='all' rel='stylesheet' type='text/css' />
 <link href='<%=basePath%>asset/css/jquery.loadmask/jquery.loadmask.css'
 	media='all' rel='stylesheet' type='text/css' />
-<link href='<%=basePath%>asset/css/easyui/default/easyui.css'
+<link href='<%=basePath%>asset/css/easyui/metro/easyui.css'
 	media='all' rel='stylesheet' type='text/css' />
 <link href='<%=basePath%>asset/css/images/main.css'
 	media='all' rel='stylesheet' type='text/css' />
@@ -32,8 +34,11 @@
 	
 <script src='<%=basePath%>asset/script/jquery-1.11.1.min.js'
 	type='text/javascript'></script>
+<!-- 
 <script src='<%=basePath%>asset/script/bootstrap.min.js'
 	type='text/javascript'></script>
+ -->
+
 <script src='<%=basePath%>asset/script/easyui/jquery.easyui.1.4.min.js'
 	type='text/javascript'></script>
 <script

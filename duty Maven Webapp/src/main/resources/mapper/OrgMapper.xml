@@ -10,6 +10,13 @@
     <result column="path" property="path" jdbcType="VARCHAR" />
   </resultMap>
     
+    <resultMap id="OrgWithPoliceResultMap" type="com.tianyi.drs.duty.viewmodel.OrgWithPoliceVM" >
+    	<id column="rid" property="rid" jdbcType="INTEGER" />
+    	<id column="id" property="id" jdbcType="VARCHAR" />
+    	<result column="data_type" property="dataType" jdbcType="INTEGER" />
+    	<result column="name" property="name" jdbcType="VARCHAR" />
+    	<result column="code" property="code" jdbcType="VARCHAR" />
+  </resultMap>
    
    
   <sql id="Base_Column_List" >
@@ -26,5 +33,17 @@
   	order by org.id
   		
   </select>
+  
+  <select id="loadOrgWithPoliceVMList" parameterType="java.util.Map" resultMap="OrgWithPoliceResultMap">
+	select      rid,     name,     data_type,id,code     
+	from 
+	 (    
+		select    id as rid,short_name as name,  1 as data_type,CONCAT("org_",id) as id,code  from organ as org    where     org.parent_id= #{id,jdbcType=INTEGER}  
+		union    
+		select     id as rid,name, 2 as data_type,CONCAT("pol_",id) as id,number as code    from t_police as p    where p.org_id=#{id,jdbcType=INTEGER}  
+	 ) as t    
+	order by t.data_type desc,t.rid
+  </select>
+  
   
 </mapper>
