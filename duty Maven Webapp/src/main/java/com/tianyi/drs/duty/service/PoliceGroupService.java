@@ -28,4 +28,9 @@ public interface PoliceGroupService {
 	List<PoliceGroupMemberVM> loadMemberByGroupId(Map<String,Object> map);
 	
 	void appendMemeber(List<PoliceGroupMember> ls);
+	
+	void delMemberById(Integer id);
+	
+	void cleanMember(Integer groupId);
+
 }

@@ -26,4 +26,6 @@ public interface PoliceGroupMemberMapper {
     List<PoliceGroupMemberVM> loadMemberByGroupId(Map<String, Object> map);
     
     int existsByMemberId(Map<String, Object> map);
+    
+    void deleteByGroupId(Integer groupId);
 }

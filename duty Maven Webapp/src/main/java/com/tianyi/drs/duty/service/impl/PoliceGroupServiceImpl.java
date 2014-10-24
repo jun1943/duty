@@ -110,7 +110,13 @@ public class PoliceGroupServiceImpl implements PoliceGroupService{
 		}
 		
 	}
-	
 
-	
+	public void delMemberById(Integer id) {
+		policeGroupMemberMapper.deleteByPrimaryKey(id);
+	}
+
+	public void cleanMember(Integer groupId) {
+		policeGroupMemberMapper.deleteByGroupId(groupId);
+	}
+
 }

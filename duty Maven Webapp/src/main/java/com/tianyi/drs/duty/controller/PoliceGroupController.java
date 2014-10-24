@@ -24,6 +24,7 @@ import com.tianyi.drs.duty.model.PoliceGroupMember;
 import com.tianyi.drs.duty.model.PoliceGroupOrg;
 import com.tianyi.drs.duty.service.OrgService;
 import com.tianyi.drs.duty.service.PoliceGroupService;  
+import com.tianyi.drs.duty.viewmodel.ObjResult;
 import com.tianyi.drs.duty.viewmodel.PoliceGroupMemberVM;
 import com.tianyi.drs.duty.viewmodel.PoliceGroupVM;  
 import com.tianyi.drs.duty.viewmodel.ListResult;
@@ -172,7 +173,7 @@ public class PoliceGroupController {
 		int total=policeGroupService.countMemberByGroupId(groupId);
 
 		List<PoliceGroupMemberVM> ms=policeGroupService.loadMemberByGroupId(map);
-		
+	
 		ListResult<PoliceGroupMemberVM> rs=new ListResult<PoliceGroupMemberVM>(total,ms);
 		
 		String ss=JSONObject.fromObject(rs).toString();
@@ -203,10 +204,38 @@ public class PoliceGroupController {
 
 		JSONObject rs=new JSONObject();
 		rs.accumulate("isSuccess", true);
-		rs.accumulate("msg", "");
 		
 		return rs.toString();
 	}
+	
+	
+	@RequestMapping(value = "delMemberById.do")
+	public @ResponseBody String delMemberById(
+			@RequestParam(value = "memberId", required = false) Integer memberId,
+			HttpServletRequest request
+			){
+		
+		policeGroupService.delMemberById(memberId);
+		
+		JSONObject rs=new JSONObject();
+		rs.accumulate("isSuccess", true);
+		
+		return rs.toString();
+	}
+	
+	@RequestMapping(value = "cleanMemberByGroupId.do")
+	public @ResponseBody String cleanMemberByGroupId(
+			@RequestParam(value = "policeGroupId", required = false) Integer policeGroupId,
+			HttpServletRequest request
+			){
+		
+		policeGroupService.cleanMember(policeGroupId);
+
+		ObjResult<Object> rs=new ObjResult<Object>(true,null,null);
+		
+		return rs.toJson();
+	}
+	
 }
 
 

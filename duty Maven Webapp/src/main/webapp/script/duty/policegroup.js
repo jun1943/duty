@@ -47,10 +47,10 @@ $(document).ready(function() {
 		fitColumns : true,
 		width : 'auto',
 		columns : [ [ 
-		              {title : 'Id',field : 'Id',align : 'left',width : 10,hidden : true	}, 
-		              {	title : '所属单位',field : 'orgName',align : 'left',width : 110	}, 
+		              {title : 'id',field : 'id',align : 'left',width : 0,hidden : true	}, 
+		              {	title : '所属单位',field : 'orgShortName',align : 'left',width : 110	}, 
 		              {	title : '姓名',	field : 'name',	align : 'left',width : 100	},
-		              {	title : '警号',	field : 'code',	align : 'left',width : 100	},
+		              {	title : '警号',	field : 'number',	align : 'left',width : 100	},
 		              {	title : '职务',	field : 'title',	align : 'left',width : 100	},
 		] ]
 	});
@@ -93,14 +93,7 @@ function pack_policeGroup_Query() {
 }
 
 function showPoliceGroupDlg() {
-	art.dialog({
-		id : "dlgPoliceGroup",
-		title : '警员组',
-		content : document.getElementById("dlgPoliceGroup"),
-		lock : true,
-		initFn : function() {
-		}
-	});
+	$('#winPG').window('open'); 
 }
 
 function addPoliceGroup() {
@@ -155,11 +148,9 @@ function savePoliceGroup() {
 			if (req.isSuccess) {
 				$('#dtPoliceGroup').datagrid('reload');
 				$.messager.alert('提示', '保存成功!');
-
 			} else {
 				$.messager.alert('提示', req.msg, "warning");
 			}
-			$('#evidenceDiv').unmask();
 		},
 	});
 
@@ -195,8 +186,8 @@ function delPoliceGroup() {
 	}
 }
 
-function closePoliceGroupDlg() {
-	art.dialog.list['dlgPoliceGroup'].close();
+function closeWinPG() {
+	$('#winPG').window('close'); 
 }
 
 function cleanShareOrgs() {
@@ -290,6 +281,58 @@ function addPoliceGroupMember(){
 	}
 }
 
+function delPoliceGroupMemeber(){
+	var row=$('#dtGroupMember').datagrid("getSelected");
+	if(row!=null){
+		$.ajax({
+			url : "policeGroup/delMemberById.do",
+			type : "POST",
+			dataType : "json",
+			data : {
+				'memberId' : row.id
+			},
+			async : false,
+			success : function(req) {
+				if (req.isSuccess) {
+					$('#dtGroupMember').datagrid('reload');
+				} 
+			}
+		});
+	}else{
+		$.messager.alert('提示', '请先选择警员!!');
+	}
+}
+
+function cleanPGMember(){
+	
+	var row=$('#dtPoliceGroup').datagrid("getSelected");
+	
+	if(row!=null){
+		$.messager.confirm('操作提示', "确定要清空[ " + row.name + " ]下面所有的成员?",
+				function(r) {
+					if (r) {
+						$.ajax({
+									url : "policeGroup/cleanMemberByGroupId.do",
+									type : "POST",
+									dataType : "json",
+									data : {
+										"policeGroupId" :row.id
+									},
+									async : false,
+									success : function(req) {
+										if (req.isSuccess) {
+											$('#dtGroupMember').datagrid('reload');
+										} 
+									}
+								});
+					}
+				});
+	}else{
+		$.messager.alert('提示', '请先选择警员组!!');
+	}
+}
+
+
 function appendMember(){
 	var members=[];
 	var groupid=$('#txtPoliceGroupId').val();
@@ -319,13 +362,16 @@ function appendMember(){
 				if (req.isSuccess) {
 						$.messager.alert('提示', '保存成功!');
 							$('#dtGroupMember').datagrid('reload');
+							$('#winPGMember').window("close");
 						} else {
 							$.messager.alert('提示', req.msg,"warning");
 						}
 		}
 	});
-		
+}
 
+function closeWinPGMember(){
+	$('#winPGMember').window("close");
 }
 
 function selectMember(){
