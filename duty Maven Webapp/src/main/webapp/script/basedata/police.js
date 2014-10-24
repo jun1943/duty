@@ -4,6 +4,8 @@ var m_Police_OrgPath;
 var m_police_Query = {};
 $(function() {
 
+	$("#policeinfowindow").window("close");
+
 	var args = getUrlArgs();
 	m_Police_OrgId = 2; // args["orgId"];
 	m_Police_OrgCode = '510106992500';// args["orgCode"];
@@ -23,7 +25,7 @@ $(function() {
 		fitColumns : true,
 		pageNumber : 1,
 		pageSize : 10,
-		// title:"s",
+	    title:"人员列表",
 		// singleSelect: true,
 		columns : [ [ {
 			field : 'ck',
@@ -86,47 +88,49 @@ $(function() {
 	});
 	InitData();
 });
-//打包查询条件
+// 打包查询条件
 function pack_police_Query() {
 	m_police_Query.orgId = m_Police_OrgId;
 	m_police_Query.orgCode = m_Police_OrgCode;
 	m_police_Query.orgPath = m_Police_OrgPath;
-	m_police_Query.isSubOrg = $("#isSubOrg").val();
+	m_police_Query.isSubOrg = $("#isSubOrg").combobox("getValue");
 	m_police_Query.name = $("#txtsearchName").val();
-	m_police_Query.typeid = $("#sltType").val();
+	m_police_Query.typeid = $("#sltType").combobox("getValue");
 }
-//初始化下拉列表数据
+// 初始化下拉列表数据
 function InitData() {
 	getPoliceType();
 	getGroupNumber();
 	getGpsID(m_Police_OrgId);
 };
 
-function getPoliceType(){
-	getBaseData( "police/getPoliceType.do","警员类型","txttype");  
+function getPoliceType() {
+	getBaseDataCombobox("police/getPoliceType.do", "txttype");
+	getBaseDataCombobox("police/getPoliceType.do", "sltType");
 };
-function getGroupNumber(){
-	getBaseData( "police/getintercomGroup.do","对讲机组呼号","txtgroupno");   
+function getGroupNumber() {
+	getBaseDataCombobox("police/getintercomGroup.do", "txtgroupno");
 };
-function getGpsID(orgId){
-	getBaseData( "police/getGpsId.do?orgId="+orgId,"GPS_ID","txtgpsid");   
+function getGpsID(orgId) {
+	getBaseDataCombobox("police/getGpsId.do?orgId=" + orgId, "txtgpsid");
 }
-//查询按钮事件
+// 查询按钮事件
 function btnSearchAction() {
 	pack_police_Query();
 	$('#dtPolice').datagrid("reload", {
 		'police_Query' : JSON.stringify(m_police_Query)
 	});
 	$("#isSubOrg").val(0);
-	$("#txtsearchName").val("");
-	$("#sltType").val(0);
+	$("#txtsearchName").combobox("setValue", 0);
+	$("#sltType").combobox("setValue", "");
 };
-//新增开始
+// 新增开始
 function btnAddPolice() {
+	$("#policeinfowindow").window("open");
 	clearForm();
-	$('#myModal').modal('show');
+	// $('#myModal').modal('show');
 };
-//删除按钮事件
+// 删除按钮事件
 function btnDelPolice() {
 	var hasRows = $('#dtPolice').datagrid('getRows');
 	if (hasRows.length == 0) {
@@ -150,7 +154,7 @@ function btnDelPolice() {
 		}
 	});
 };
-//删除开始
+// 删除开始
 function deletePolice(id) {
 	$.ajax({
 		url : "police/deletePolice.do",
@@ -172,7 +176,7 @@ function deletePolice(id) {
 		}
 	});
 }
-//编辑开始
+// 编辑开始
 function btnEditPolice() {
 	var hasRows = $('#dtPolice').datagrid('getRows');
 	if (hasRows.length == 0) {
@@ -197,13 +201,13 @@ function btnEditPolice() {
 	$("#txtidcardno").val(rows[0].idcardno);
 	$("#txtnumber").val(rows[0].number);
 	$("#txtgpsdes").val(rows[0].gpsName);
-	$("#txtgpsid").val(rows[0].gpsId);
-	$("#txttype").val(rows[0].typeId);
-	$("#txtgroupno").val(rows[0].intercomGroup);
+	$("#txtgpsid").combobox("setValue", rows[0].gpsId);
+	$("#txttype").combobox("setValue", rows[0].typeId);
+	$("#txtgroupno").combobox("setValue", rows[0].intercomGroup);
 	$("#txtpersonalno").val(rows[0].intercomPerson);
 	$('#myModal').modal('show');
 }
-//清空form表单
+// 清空form表单
 function clearForm() {
 	$("#policeId").val(0);
 	$("#txtname").val("");
@@ -213,18 +217,19 @@ function clearForm() {
 	$("#txtidcardno").val("");
 	$("#txtnumber").val("");
 	$("#txtgpsdes").val("");
-	$("#txtgpsid").val(0);
-	$("#txttype").val(0);
-	$("#txtgroupno").val(0);
+	$("#txtgpsid").combobox("setValue", "");
+	$("#txttype").combobox("setValue", "");
+	$("#txtgroupno").combobox("setValue", "");
 	$("#txtpersonalno").val("");
 }
-//保存新增或者编辑的数据
+// 保存新增或者编辑的数据
 function savePoliceAction() {
 	var police = {};
 
 	police.id = $("#policeId").val();
-	if ($("#txttype").val() > 0) {
-		police.typeId = $("#txttype").val();
+	if ($("#txttype").combobox("getValue") > 0
+			&& $("#txttype").combobox("getValue") != "") {
+		police.typeId = $("#txttype").combobox("getValue");
 	} else {
 		$.messager.alert("错误提示", "请选择人员类别", "error");
 		return;
@@ -260,25 +265,27 @@ function savePoliceAction() {
 		return;
 	}
 	police.mobileShort = $("#txtmobileshort").val();
-	
-	if ($("#txtgroupno").val() > 0) {
+
+	if ($("#txtgroupno").combobox("getValue") > 0
+			&& $("#txtgroupno").combobox("getValue") != "") {
 		police.intercomGroup = $("#txtgroupno").val();
 	} else {
 		$.messager.alert("错误提示", "请选择对讲机组呼号", "error");
 		return;
-	} 
+	}
 	if ($("#txtpersonalno").val() == "") {
 		$.messager.alert("错误提示", "请输入警员对讲机个呼号", "error");
 		return;
 	}
 	police.intercomPerson = $("#txtpersonalno").val();
-	if ($("#txtgpsid").val() > 0) {
+	if ($("#txtgpsid").combobox("getValue") > 0
+			&& $("#txtgpsid").combobox("getValue") != "") {
 		police.gpsId = $("#txtgpsid").val();
 	} else {
 		$.messager.alert("错误提示", "请选择GPS_ID", "error");
 		return;
-	} 
-	 
+	}
+
 	if ($("#txtgpsdes").val() == "") {
 		$.messager.alert("错误提示", "请输入警员对讲机个呼号", "error");
 		return;
