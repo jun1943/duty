@@ -130,7 +130,7 @@ public class PoliceGroupController {
 		JSONObject rs=new JSONObject();
 		rs.accumulate("isSuccess", true);
 		rs.accumulate("msg", "");
-		
+		rs.accumulate("id", pg.getId());
 		return rs.toString();
 	}
 	/**
@@ -231,7 +231,7 @@ public class PoliceGroupController {
 		
 		policeGroupService.cleanMember(policeGroupId);
 
-		ObjResult<Object> rs=new ObjResult<Object>(true,null,null);
+		ObjResult<Object> rs=new ObjResult<Object>(true,null,0,null);
 		
 		return rs.toJson();
 	}

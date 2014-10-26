@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tianyi.drs.duty.dao.VehicleTypeMapper" >
-  <resultMap id="BaseResultMap" type="com.tianyi.drs.duty.model.VehicleType" >
+<mapper namespace="com.tianyi.drs.basedata.dao.VehicleTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.tianyi.drs.basedata.model.VehicleType" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="sync_state" property="syncState" jdbcType="BIT" />
@@ -20,13 +20,13 @@
     delete from t_vehicletype
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tianyi.drs.duty.model.VehicleType" >
+  <insert id="insert" parameterType="com.tianyi.drs.basedata.model.VehicleType" >
     insert into t_vehicletype (id, name, sync_state, 
       platform_id)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT}, 
       #{platformId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.VehicleType" >
+  <insert id="insertSelective" parameterType="com.tianyi.drs.basedata.model.VehicleType" >
     insert into t_vehicletype
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -57,7 +57,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.duty.model.VehicleType" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.basedata.model.VehicleType" >
     update t_vehicletype
     <set >
       <if test="name != null" >
@@ -72,7 +72,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.duty.model.VehicleType" >
+  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.basedata.model.VehicleType" >
     update t_vehicletype
     set name = #{name,jdbcType=VARCHAR},
       sync_state = #{syncState,jdbcType=BIT},

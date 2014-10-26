@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tianyi.drs.duty.dao.PoliceMapper" >
-  <resultMap id="BaseResultMap" type="com.tianyi.drs.duty.model.Police" >
+<mapper namespace="com.tianyi.drs.basedata.dao.PoliceMapper" >
+  <resultMap id="BaseResultMap" type="com.tianyi.drs.basedata.model.Police" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="type_id" property="typeId" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
@@ -16,7 +16,7 @@
     <result column="gps_id" property="gpsId" jdbcType="INTEGER" />
     <result column="gps_name" property="gpsName" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="BaseModelMap" type="com.tianyi.drs.duty.viewmodel.PoliceVM" >
+  <resultMap id="BaseModelMap" type="com.tianyi.drs.basedata.viewmodel.PoliceVM" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="typeName" property="typeName" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
@@ -54,7 +54,7 @@
     delete from t_police
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tianyi.drs.duty.model.Police" >
+  <insert id="insert" parameterType="com.tianyi.drs.basedata.model.Police" >
     insert into t_police (id, type_id, name, 
       org_id, idcardno, number, 
       title, mobile, mobile_short, 
@@ -66,7 +66,7 @@
       #{intercomGroup,jdbcType=VARCHAR}, #{intercomPerson,jdbcType=VARCHAR}, #{gpsId,jdbcType=INTEGER}, 
       #{gpsName,jdbcType=VARCHAR},#{platformId,jdbcType=INTEGER},#{syncState,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.Police" >
+  <insert id="insertSelective" parameterType="com.tianyi.drs.basedata.model.Police" >
     insert into t_police
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -151,7 +151,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.duty.model.Police" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.basedata.model.Police" >
     update t_police
     <set >
       <if test="typeId != null" >
@@ -193,7 +193,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.duty.model.Police" >
+  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.basedata.model.Police" >
     update t_police
     set type_id = #{typeId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
@@ -209,26 +209,32 @@
       gps_name = #{gpsName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-           <select id="findBycode" parameterType="String" resultType="Police">  
+           <select id="findBycode" parameterType="String" resultType="com.tianyi.drs.basedata.model.Police">  
        		select * from t_police where number = #{code}  
     	 </select> 
     	 
-         <select id="findByname" parameterType="String" resultType="Police">  
+         <select id="findByname" parameterType="String" resultType="com.tianyi.drs.basedata.model.Police">  
        		select * from t_police where name = #{name}  
     	 </select> 
     	 
-         <select id="login" resultType="Police" parameterType="java.util.Map">  
+         <select id="login" resultType="com.tianyi.drs.basedata.model.Police" parameterType="java.util.Map">  
        		select * from t_police where number = #{code} or number = #{password}
     	 </select> 
     	 
-    	 <select id="selectPoliceType" resultType="PoliceType">  
+    	 <select id="selectPoliceType" resultType="com.tianyi.drs.basedata.model.PoliceType">  
        		 select * from t_policetype order by id asc
     	 </select> 
     	 
     	 
-    	 
+      	 <select id="selectIntercomGroup" resultType="com.tianyi.drs.basedata.model.IntercomGroup">  
+       		 select * from t_intercom_group order by id asc
+    	 </select> 
+    	     	 
+      	 <select id="selectGpsId" parameterType="Integer"  resultType="com.tianyi.drs.basedata.viewmodel.GpsBaseVM">  
+       		 select id, number as name  from t_gps where org_id = #{orgId,jdbcType=INTEGER} order by id asc
+    	 </select> 
   
-  <select id="countByExample" parameterType="com.tianyi.drs.duty.viewmodel.PoliceVM" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.tianyi.drs.basedata.viewmodel.PoliceVM" resultType="java.lang.Integer">
     select count(*) from t_police
     <if test="_parameter != null">
       <include refid="Where_Sql" />

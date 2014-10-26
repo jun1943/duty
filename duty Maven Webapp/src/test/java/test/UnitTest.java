@@ -17,7 +17,11 @@ import org.mybatis.generator.internal.DefaultShellCallback;
 public class UnitTest {
 	@Test
 	public  void main()  {
-        List<String> warnings = new ArrayList<String>();
+        //genCfg();
+    }
+	
+	public void genCfg(){
+		List<String> warnings = new ArrayList<String>();
         boolean overwrite = true;
         String genCfg = "src/main/resources/properties/generatorConfig.xml";
         File configFile = new File(genCfg);
@@ -46,5 +50,5 @@ public class UnitTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
+	}
 }

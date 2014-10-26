@@ -33,6 +33,9 @@
 				<li><a href="/duty/view/basedata/gpsdevice.jsp" class="my-nav-btn">定位设备
 						<img src="asset/css/images/nav-btn-icon.png" width="22" height="22">
 				</a></li>
+				<li><a href="/duty/view/basedata/icons.jsp" class="my-nav-btn">图标管理
+						<img src="asset/css/images/nav-btn-icon.png" width="22" height="22">
+				</a></li>
 			</ul>
 		</div>
 	</div>
@@ -202,10 +205,7 @@
 						<div class="form-group">
 							<label for="txtgroupno" class="col-sm-3 control-label">组呼号:</label>
 							<div class="col-sm-4">
-								<select id="txtgroupno" class="form-control"> 
-		                            <option value="0">请选择对讲机组呼号</option>
-		                            <option value="1">350M</option>
-		                            <option value="2">800M</option>
+								<select id="txtgroupno" class="form-control">  
 								</select>
 							</div>
 						</div> 
@@ -219,10 +219,7 @@
 						<div class="form-group">
 							<label for="txtgpsid" class="col-sm-3 control-label">GPS_ID:</label>
 							<div class="col-sm-4"> 
-								<select id="txtgpsid" class="form-control"> 
-		                            <option value="0">请选择对讲机组呼号</option>
-		                            <option value="1">350M</option>
-		                            <option value="2">800M</option>
+								<select id="txtgpsid" class="form-control">  
 								</select>
 							</div>
 						</div>

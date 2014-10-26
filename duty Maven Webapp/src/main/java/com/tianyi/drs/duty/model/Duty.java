@@ -5,7 +5,7 @@ import java.util.Date;
 public class Duty {
     private Integer id;
 
-    private Integer orgId;
+    private Integer dutyDescId;
 
     private Integer typeId;
 
@@ -33,12 +33,12 @@ public class Duty {
         this.id = id;
     }
 
-    public Integer getOrgId() {
-        return orgId;
+    public Integer getDutyDescId() {
+        return dutyDescId;
     }
 
-    public void setOrgId(Integer orgId) {
-        this.orgId = orgId;
+    public void setDutyDescId(Integer dutyDescId) {
+        this.dutyDescId = dutyDescId;
     }
 
     public Integer getTypeId() {

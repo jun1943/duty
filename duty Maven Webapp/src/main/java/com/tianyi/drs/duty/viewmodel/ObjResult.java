@@ -7,14 +7,16 @@ public class ObjResult<T> {
 	private boolean isSuccess;
 	private String msg;
 	private T obj;
+	private int id;
 	
 	public ObjResult(){
 		
 	}
 	
-	public ObjResult(boolean isSuccess,String msg,T obj){
+	public ObjResult(boolean isSuccess,String msg,int id,T obj){
 		this.isSuccess=isSuccess;
 		this.msg=msg;
+		this.id=id;
 		this.obj=obj;
 	}
 	
@@ -24,12 +26,12 @@ public class ObjResult<T> {
 		return rs.toString();
 	}
 	
-	public boolean isSuccess() {
+	public boolean getIsSuccess() {
 		return isSuccess;
 	}
 
 
-	public void setSuccess(boolean isSuccess) {
+	public void setIsSuccess(boolean isSuccess) {
 		this.isSuccess = isSuccess;
 	}
 
@@ -50,6 +52,14 @@ public class ObjResult<T> {
 
 	public void setObj(T obj) {
 		this.obj = obj;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	

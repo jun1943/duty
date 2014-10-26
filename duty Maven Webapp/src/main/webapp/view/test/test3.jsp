@@ -1,115 +1,142 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Fuel UX Basic Template (Globals)</title>
-    <!-- CSS -->
-    <link href="../css/sys/bootstrap.min.css" rel="stylesheet">
-    <link href="../fuelux/css/fuelux.min.css" rel="stylesheet">
-  </head>
-  <body class="fuelux">
-    <div class="repeater" id="myRepeater">
-    <div class="repeater-header">
-      <div class="repeater-header-left">
-        <span class="repeater-title">Awesome Repeater</span>
-        <div class="repeater-search">
-          <div class="search input-group">
-            <input type="search" class="form-control" placeholder="Search"/>
-            <span class="input-group-btn">
-              <button class="btn btn-default" type="button">
-                <span class="glyphicon glyphicon-search"></span>
-                <span class="sr-only">Search</span>
-              </button>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="repeater-header-right">
-        <div class="btn-group selectlist repeater-filters" data-resize="auto">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-            <span class="selected-label">&nbsp;</span>
-            <span class="caret"></span>
-            <span class="sr-only">Toggle Filters</span>
-          </button>
-          <ul class="dropdown-menu" role="menu">
-            <li data-value="all" data-selected="true"><a href="#">all</a></li>
-            <li data-value="some"><a href="#">some</a></li>
-            <li data-value="others"><a href="#">others</a></li>
-          </ul>
-          <input class="hidden hidden-field" name="filterSelection" readonly="readonly" aria-hidden="true" type="text"/>
-        </div>
-        <div class="btn-group repeater-views" data-toggle="buttons">
-          <label class="btn btn-default active">
-            <input name="repeaterViews" type="radio" value="list"><span class="glyphicon glyphicon-list"></span>
-          </label>
-          <label class="btn btn-default">
-            <input name="repeaterViews" type="radio" value="thumbnail"><span class="glyphicon glyphicon-th"></span>
-          </label>
-        </div>
-      </div>
-    </div>
-    <div class="repeater-viewport">
-      <div class="repeater-canvas"></div>
-      <div class="loader repeater-loader"></div>
-    </div>
-    <div class="repeater-footer">
-      <div class="repeater-footer-left">
-        <div class="repeater-itemization">
-          <span><span class="repeater-start"></span> - <span class="repeater-end"></span> of <span class="repeater-count"></span> items</span>
-          <div class="btn-group selectlist" data-resize="auto">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              <span class="selected-label">&nbsp;</span>
-              <span class="caret"></span>
-              <span class="sr-only">Toggle Dropdown</span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li data-value="5"><a href="#">5</a></li>
-              <li data-value="10" data-selected="true"><a href="#">10</a></li>
-              <li data-value="20"><a href="#">20</a></li>
-              <li data-value="50" data-foo="bar" data-fizz="buzz"><a href="#">50</a></li>
-              <li data-value="100"><a href="#">100</a></li>
-            </ul>
-            <input class="hidden hidden-field" name="itemsPerPage" readonly="readonly" aria-hidden="true" type="text"/>
-          </div>
-          <span>Per Page</span>
-        </div>
-      </div>
-      <div class="repeater-footer-right">
-        <div class="repeater-pagination">
-          <button type="button" class="btn btn-default btn-sm repeater-prev">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-            <span class="sr-only">Previous Page</span>
-          </button>
-          <label class="page-label" id="myPageLabel">Page</label>
-          <div class="repeater-primaryPaging active">
-            <div class="input-group input-append dropdown combobox">
-              <input type="text" class="form-control" aria-labelledby="myPageLabel">
-              <div class="input-group-btn">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                  <span class="caret"></span>
-                  <span class="sr-only">Toggle Dropdown</span>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-right"></ul>
-              </div>
-            </div>
-          </div>
-          <input type="text" class="form-control repeater-secondaryPaging" aria-labelledby="myPageLabel">
-          <span>of <span class="repeater-pages"></span></span>
-          <button type="button" class="btn btn-default btn-sm repeater-next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-            <span class="sr-only">Next Page</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+<%@ page language="java" pageEncoding="utf-8"%>
+<%@ include file="/view/lib.jsp"%>
 
-    <!-- jQuery -->
-    <script src="../js/sys/jquery-1.11.1.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../js/sys/bootstrap.min.js"></script>
-    <script src="../fuelux/js/fuelux.min.js"></script>
-  </body>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<base href="<%=basePath%>">
+<!--  
+<link href='//cdn.datatables.net/plug-ins/a5734b29083/integration/jqueryui/dataTables.jqueryui.css' type='text/css' />
+-->  
+<title>人员分组</title>
+
+<script type="text/javascript">
+	$(function() {
+		$('#win').dialog('close');
+	});
+	function btnAddPolice(){
+		$('#win').dialog('open');	
+		$('#dtPolice').datagrid({
+		url : "police/getPoliceList.do", 
+		pagination : true,
+		fitColumns : true,
+		pageNumber : 1,
+		pageSize : 10,
+		// title:"s",
+		// singleSelect: true,
+		columns : [ [ {
+			field : 'ck',
+			checkbox : true
+		}, {
+			title : 'Id',
+			field : 'id',
+			align : 'center',
+			width : 10,
+			hidden : true
+		}, {
+			title : '机构',
+			field : 'orgName',
+			align : 'center',
+			width : 100
+		}, {
+			title : '姓名',
+			field : 'name',
+			align : 'center',
+			width : 100
+		}, {
+			title : '警员类别',
+			field : 'typeName',
+			align : 'center',
+			width : 100
+		}, {
+			title : '职务',
+			field : 'title',
+			align : 'center',
+			width : 100
+		}, {
+			title : '手机号',
+			field : 'mobile',
+			align : 'center',
+			width : 100
+		}, {
+			title : '公安短号',
+			field : 'mobileShort',
+			align : 'center',
+			width : 150
+		}, {
+			title : '身份证号码',
+			field : 'idcardno',
+			align : 'center',
+			width : 80
+		}, {
+			title : '警号',
+			field : 'number',
+			align : 'center',
+			width : 80
+		}, {
+			title : 'GPS名称',
+			field : 'gpsName',
+			align : 'center',
+			width : 200
+		} ] ]
+	});
+	}
+</script>
+</head>
+
+<body class="easyui-layout">
+
+	<div data-options="region:'center',title:'人员列表'" style="padding:10px;">
+
+		<a id="btnAddPolice" href="javascript:void(0);"
+			class="easyui-linkbutton" iconcls="icon-add" plain="true"
+			onclick="btnAddPolice()">新增</a>
+	</div>
+	<div id="win" class="easyui-dialog" title="新增/编辑排班信息"
+		data-options="iconCls:'icon-save'"
+		style="width: 600px; height: 400px; padding: 10px;">
+		<div class="easyui-layout" data-options="fit:true">
+			<div data-options="region:'north'"
+				style="padding: 2px; height: 30px;">
+				<a href="javascript:void(0)" class="easyui-linkbutton"
+					data-options="iconCls:'icon-save',plain:true" onclick="saveForm()">保存</a>
+			</div>
+			<div data-options="region:'west'" style="padding: 5px; width: 430px;">
+				<ul id="tt" class="easyui-tree">
+					<li><span>Folder</span>
+						<ul>
+							<li><span>Sub Folder 1</span>
+								<ul>
+									<li><span><a href="#">File 11</a></span></li>
+									<li><span>File 12</span></li>
+									<li><span>File 13</span></li>
+								</ul></li>
+							<li><span>File 2</span></li>
+							<li><span>File 3</span></li>
+						</ul></li>
+					<li><span>File21</span></li>
+				</ul>
+			</div>
+			<div data-options="region:'center',border:false"
+				style="text-align: right; margin-left: 5px;
+            padding: 5px 0 0;">
+				<div id="tt" style="height: auto">
+					<a href="javascript:void(0)" class="easyui-linkbutton"
+						data-options="iconCls:'icon-add',plain:true" onclick="append()">添加</a>
+					<a href="javascript:void(0)" class="easyui-linkbutton"
+						data-options="iconCls:'icon-remove',plain:true" onclick="remove()">删除</a>
+					 
+				</div>
+
+			</div>
+			<div data-options="region:'east'" style="padding: 5px; width: 430px;">
+				 
+	  			<div id="dtPolice" >
+	  			</div> 
+			</div>
+		</div>
+	</div>
+
+</body>
 </html>

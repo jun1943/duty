@@ -1,5 +1,7 @@
 package com.tianyi.drs.duty.viewmodel;
 
+import com.tianyi.drs.basedata.viewmodel.PoliceVM;
+
 public class PoliceGroupMemberVM extends PoliceVM{
 	private int groupId;
 	private int policeId;

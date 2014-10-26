@@ -33,6 +33,9 @@
 				<li><a href="/duty/view/basedata/gpsdevice.jsp" class="my-nav-btn">定位设备
 						<img src="asset/css/images/nav-btn-icon.png" width="22" height="22">
 				</a></li>
+				<li><a href="/duty/view/basedata/icons.jsp" class="my-nav-btn">图标管理
+						<img src="asset/css/images/nav-btn-icon.png" width="22" height="22">
+				</a></li>
 			</ul>
 		</div>
 	</div>

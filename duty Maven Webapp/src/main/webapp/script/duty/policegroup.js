@@ -147,6 +147,7 @@ function savePoliceGroup() {
 		success : function(req) {
 			if (req.isSuccess) {
 				$('#dtPoliceGroup').datagrid('reload');
+				$('#txtPoliceGroupId').val(req.id);//回写保存后的id
 				$.messager.alert('提示', '保存成功!');
 			} else {
 				$.messager.alert('提示', req.msg, "warning");
