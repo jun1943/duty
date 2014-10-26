@@ -205,7 +205,8 @@ function btnEditPolice() {
 	$("#txttype").combobox("setValue", rows[0].typeId);
 	$("#txtgroupno").combobox("setValue", rows[0].intercomGroup);
 	$("#txtpersonalno").val(rows[0].intercomPerson);
-	$('#myModal').modal('show');
+	$("#policeinfowindow").window("open");
+	//$('#myModal').modal('show');
 }
 // 清空form表单
 function clearForm() {

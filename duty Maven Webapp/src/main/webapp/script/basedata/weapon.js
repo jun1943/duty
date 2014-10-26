@@ -5,6 +5,9 @@ var m_Weapon_Query = {};
 
 $(function() {
 
+
+	$("#weaponinfowindow").window("close");
+	
 	var args = getUrlArgs();
 	m_Weapon_OrgId = 2; // args["orgId"];
 	m_Weapon_OrgCode = '510106992500';// args["orgCode"];
@@ -24,7 +27,7 @@ $(function() {
 		fitColumns : true,
 		pageNumber : 1,
 		pageSize : 10,
-		// title:"s",
+		title:'武器列表',
 		// singleSelect: true,
 		columns : [ [ {
 			field : 'ck',
@@ -68,18 +71,19 @@ function btnSearchAction() {
 	$('#dtWeapon').datagrid("reload", {
 		'weapon_Query' : JSON.stringify(m_Weapon_Query)
 	});
-	$("#isSubOrg").val(0);
+	$("#isSubOrg").combobox("setValue","");
 	$("#txtsearchnumber").val("");
 };
 function InitData() { 
 	getWeaponType();
 };
 function getWeaponType(){
-	getBaseData( "weapon/getWeaponType.do","武器类型","txttype");  
+	getBaseDataCombobox( "weapon/getWeaponType.do","txttype");  
 };
 function btnAddWeapon() {
 	clearForm();
-	$('#myModal').modal('show');
+	$("#weaponinfowindow").window("open");
+	//$('#myModal').modal('show');
 };
 function btnEditWeapon() {
 	var hasRows = $('#dtWeapon').datagrid('getRows');
@@ -98,15 +102,16 @@ function btnEditWeapon() {
 	}
 	clearForm();
 	$("#weaponId").val(rows[0].id);
-	$("#txttype").val(rows[0].typeId);
+	$("#txttype").combobox("setValue",rows[0].typeId);
 	$("#txtnumber").val(rows[0].number);
 	$("#txtstandard").val(rows[0].standard);
 
-	$('#myModal').modal('show');
+	//$('#myModal').modal('show');
+	$("#weaponinfowindow").window("open");
 };
 function clearForm() {
 	$("#weaponId").val(0);
-	$("#txttype").val(0);
+	$("#txttype").combobox("setValue","");
 	$("#txtnumber").val("");
 	$("#txtstandard").val("");
 }
@@ -114,7 +119,7 @@ function pack_Weapon_Query() {
 	m_Weapon_Query.orgId = m_Weapon_OrgId;
 	m_Weapon_Query.orgCode = m_Weapon_OrgCode;
 	m_Weapon_Query.orgPath = m_Weapon_OrgPath;
-	m_Weapon_Query.isSubOrg = $("#isSubOrg").val();
+	m_Weapon_Query.isSubOrg = $("#isSubOrg").combobox("getValue");
 	m_Weapon_Query.number = $("#txtsearchnumber").val();
 };
 
@@ -168,8 +173,8 @@ function saveWeaponAction() {
 
 	weapon.id = $("#weaponId").val();
 
-	if ($("#txttype").val() > 0) {
-		weapon.typeId = $("#txttype").val();
+	if ($("#txttype").combobox("getValue") > 0&&$("#txttype").combobox("getValue")!=null) {
+		weapon.typeId = $("#txttype").combobox("getValue");
 	} else {
 		$.messager.alert("错误提示", "请选择武器类别", "error");
 		return;

@@ -1,5 +1,8 @@
 package com.tianyi.drs.basedata.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import com.tianyi.drs.basedata.model.Icons;
 import com.tianyi.drs.duty.dao.core.MyBatisRepository;
 @MyBatisRepository
@@ -17,4 +20,8 @@ public interface IconsMapper {
     int updateByPrimaryKeyWithBLOBs(Icons record);
 
     int updateByPrimaryKey(Icons record);
+
+	int loadVMCount(Map<String, Object> map);
+
+	List<Icons> loadVMList(Map<String, Object> map);
 }

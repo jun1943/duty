@@ -11,7 +11,7 @@
 -->
 <script src='<%=basePath%>script/basedata/police.js'
 	type='text/javascript'></script>
-<title>人员分组</title>
+<title>警员管理</title>
 
 
 </head>

@@ -4,6 +4,10 @@ var m_Icons_OrgPath;
 var m_Icons_Query = {};
 $(function() {
 
+
+	$("#iconsinfowindow").window("close");
+
+	
 	var args = getUrlArgs();
 	m_Icons_OrgId = 2; // args["orgId"];
 	m_Icons_OrgCode = '510106992500';// args["orgCode"];
@@ -23,7 +27,7 @@ $(function() {
 		fitColumns : true,
 		pageNumber : 1,
 		pageSize : 10,
-		// title:"s",
+		title:'图标列表',
 		// singleSelect: true,
 		columns : [ [ {
 			field : 'ck',
@@ -60,9 +64,9 @@ function pack_Icons_Query() {
 	m_Icons_Query.orgId = m_Icons_OrgId;
 	m_Icons_Query.orgCode = m_Icons_OrgCode;
 	m_Icons_Query.orgPath = m_Icons_OrgPath;
-	m_Icons_Query.isSubOrg = $("#isSubOrg").val();
+	m_Icons_Query.isSubOrg = $("#isSubOrg").combobox("getValue");
 	m_Icons_Query.name = $("#txtsearchName").val();
-	m_Icons_Query.typeid = $("#sltType").val();
+	m_Icons_Query.typeid = $("#sltType").combobox("getValue");
 };
 
 //查询按钮事件
@@ -71,18 +75,19 @@ function btnSearchAction() {
 	$('#dtIcons').datagrid("reload", {
 		'icons_Query' : JSON.stringify(m_Icons_Query)
 	});
-	$("#isSubOrg").val(0);
+	$("#isSubOrg").combobox("setValue",0);
 	$("#txtsearchName").val("");
-	$("#sltType").val(0);
+	$("#sltType").combobox("setValue",0);
 };
 //新增开始
 function btnAddIcons() {
 	clearForm();
-	$('#myModal').modal('show');
+	//$('#myModal').modal('show');
+	$("#iconsinfowindow").window("open");
 };//清空form表单
 function clearForm() {
 	$("#iconsId").val(0);
-	$("#txttype").val(0);
+	$("#txttype").combobox("setValue",0);
 	$("#txtname").val("");
 	$("#txticons").val(""); 
 };

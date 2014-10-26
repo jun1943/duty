@@ -5,6 +5,9 @@ var m_Vehicle_Query = {};
 
 $(function() {
 
+
+	$("#vehicleinfowindow").window("close");
+	
 	var args = getUrlArgs();
 	m_Vehicle_OrgId = 2; // args["orgId"];
 	m_Vehicle_OrgCode = '510106992500';// args["orgCode"];
@@ -24,7 +27,7 @@ $(function() {
 		fitColumns : true,
 		pageNumber : 1,
 		pageSize : 10,
-		// title:"s",
+		title:'车辆列表',
 		// singleSelect: true,
 		columns : [ [ {
 			field : 'ck',
@@ -93,7 +96,7 @@ function btnSearchAction() {
 	$('#dtVehicle').datagrid("reload", {
 		'vehicle_Query' : JSON.stringify(m_Vehicle_Query)
 	});
-	$("#isSubOrg").val(0);
+	$("#isSubOrg").combobox("setValue",0);
 	$("#txtsearchnumber").val("");
 };
 function InitData() { 
@@ -103,17 +106,18 @@ function InitData() {
 };
 
 function getVehicleType(){
-	getBaseData("vehicle/getVehicleType.do","车辆类型","txttype"); 
+	getBaseDataCombobox("vehicle/getVehicleType.do","txttype"); 
 };
 function getGroupNumber(){
-	getBaseData( "vehicle/getintercomGroup.do","对讲机组呼号","txtgroupno");   
+	getBaseDataCombobox( "vehicle/getintercomGroup.do","txtgroupno");   
 };
 function getGpsID(orgId){
-	getBaseData( "police/getGpsId.do?orgId="+orgId,"GPS_ID","txtgpsid");   
+	getBaseDataCombobox( "police/getGpsId.do?orgId="+orgId,"txtgpsid");   
 }
 function btnAddVehicle() {
 	clearForm();
-	$('#myModal').modal('show');
+	$("#vehicleinfowindow").window("open");
+	//$('#myModal').modal('show');
 };
 function btnEditVehicle() {
 	var hasRows = $('#dtVehicle').datagrid('getRows');
@@ -133,33 +137,34 @@ function btnEditVehicle() {
 	clearForm();
 	$("#vehicleId").val(rows[0].id);
 	$("#txtbrand").val(rows[0].brand);
-	$("#txttype").val(rows[0].vehicleTypeId);
+	$("#txttype").combobox("setValue",rows[0].vehicleTypeId);
 	$("#txtsiteqty").val(rows[0].siteQty);
 	$("#txtnumber").val(rows[0].number);
 	$("#txtpurpose").val(rows[0].purpose);
-	$("#txtgroupno").val(rows[0].intercomGroup);
+	$("#txtgroupno").combobox("setValue",rows[0].intercomGroup);
 	$("#txtpersonalno").val(rows[0].intercomGroup);
-	$("#txtgpsid").val(rows[0].gpsId);
+	$("#txtgpsid").combobox("setValue",rows[0].gpsId);
 	$("#txtgpsname").val(rows[0].gpsName);
-	$('#myModal').modal('show');
+	$("#vehicleinfowindow").window("close");
+	//$('#myModal').modal('show');
 };
 function clearForm() {
 	$("#vehicleId").val(0);
 	$("#txtbrand").val("");
-	$("#txttype").val(0);
+	$("#txttype").combobox("setValue","");
 	$("#txtsiteqty").val("");
 	$("#txtnumber").val("");
 	$("#txtpurpose").val("");
-	$("#txtgroupno").val(0);
+	$("#txtgroupno").combobox("setValue","");
 	$("#txtpersonalno").val("");
-	$("#txtgpsid").val(0);
+	$("#txtgpsid").combobox("setValue","");
 	$("#txtgpsname").val("");
 }
 function pack_Vehicle_Query() {
 	m_Vehicle_Query.orgId = m_Vehicle_OrgId;
 	m_Vehicle_Query.orgCode = m_Vehicle_OrgCode;
 	m_Vehicle_Query.orgPath = m_Vehicle_OrgPath;
-	m_Vehicle_Query.isSubOrg = $("#isSubOrg").val();
+	m_Vehicle_Query.isSubOrg = $("#isSubOrg").combobox("getValue");
 	m_Vehicle_Query.number = $("#txtsearchnumber").val();
 };
 
@@ -213,8 +218,8 @@ function saveVehicleAction() {
 
 	vehicle.id = $("#vehicleId").val();
 
-	if ($("#txttype").val() > 0) {
-		vehicle.vehicleTypeId = $("#txttype").val();
+	if ($("#txttype").combobox("getValue") > 0&&$("#txttype").combobox("getValue")!="") {
+		vehicle.vehicleTypeId = $("#txttype").combobox("getValue");
 	} else {
 		$.messager.alert("错误提示", "请选择车辆类型", "error");
 		return;
@@ -240,13 +245,16 @@ function saveVehicleAction() {
 		return;
 	}
 	vehicle.purpose = $("#txtpurpose").val();
-	if ($("#txtgroupno").val() == "") {
+	 
+	if ($("#txtgroupno").combobox("getValue") > 0&&$("#txtgroupno").combobox("getValue")!="") {
+		vehicle.intercomGroup = $("#txtgroupno").combobox("getValue");
+	} else {
 		$.messager.alert("错误提示", "请输入组呼号", "error");
 		return;
 	}
-	vehicle.intercomGroup = $("#txtgroupno").val();
-	if ($("#txtgpsid").val() > 0) {
-		vehicle.gpsId = $("#txtgpsid").val();
+	
+	if ($("#txtgpsid").combobox("getValue") > 0&&$("#txtgpsid").combobox("getValue")!="") {
+		vehicle.gpsId = $("#txtgpsid").combobox("getValue");
 	} else {
 		$.messager.alert("错误提示", "请选择GPS_ID", "error");
 		return;

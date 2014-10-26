@@ -4,6 +4,9 @@ var m_Gpsdevice_OrgPath;
 var m_Gpsdevice_Query = {};
 
 $(function() {
+	
+
+	$("#gpsdeviceinfowindow").window("close");
 
 	var args = getUrlArgs();
 	m_Gpsdevice_OrgId = 2; // args["orgId"];
@@ -24,7 +27,7 @@ $(function() {
 		fitColumns : true,
 		pageNumber : 1,
 		pageSize : 10,
-		// title:"s",
+		title:'定位设备列表',
 		// singleSelect: true,
 		columns : [ [ {
 			field : 'ck',
@@ -73,18 +76,19 @@ function btnSearchAction() {
 	$('#dtGpsdevice').datagrid("reload", {
 		'gpsdevice_Query' : JSON.stringify(m_Gpsdevice_Query)
 	});
-	$("#isSubOrg").val(0);
+	$("#isSubOrg").combobox("setValue","");
 	$("#txtsearchname").val("");
 };
 function InitData() {
 	getGpsType();
 };
 function getGpsType(){
-	getBaseData("gpsdevice/getGpsType.do","GPS类型","txttype"); 
+	getBaseDataCombobox("gpsdevice/getGpsType.do","txttype"); 
 };
 function btnAddGpsdevice() {
 	clearForm();
-	$('#myModal').modal('show');
+	//$('#myModal').modal('show');
+	$("#gpsdeviceinfowindow").window("open");
 };
 function btnEditGpsdevice() {
 	var hasRows = $('#dtGpsdevice').datagrid('getRows');
@@ -103,14 +107,15 @@ function btnEditGpsdevice() {
 	}
 	clearForm();
 	$("#gpsdeviceId").val(rows[0].id);
-	$("#txttype").val(rows[0].typeId);
+	$("#txttype").combobox("setValue",rows[0].typeId);
 	$("#txtgpsname").val(rows[0].gpsName);
 	$("#txtgpsnumber").val(rows[0].number);
-	$('#myModal').modal('show');
+	//$('#myModal').modal('show');
+	$("#gpsdeviceinfowindow").window("open");
 };
 function clearForm() {
 	$("#gpsdeviceId").val(0);
-	$("#txttype").val(0);
+	$("#txttype").combobox("setValue","");
 	$("#txtgpsname").val("");
 	$("#txtgpsnumber").val("");
 }
@@ -118,7 +123,7 @@ function pack_Gpsdevice_Query() {
 	m_Gpsdevice_Query.orgId = m_Gpsdevice_OrgId;
 	m_Gpsdevice_Query.orgCode = m_Gpsdevice_OrgCode;
 	m_Gpsdevice_Query.orgPath = m_Gpsdevice_OrgPath;
-	m_Gpsdevice_Query.isSubOrg = $("#isSubOrg").val();
+	m_Gpsdevice_Query.isSubOrg = $("#isSubOrg").combobox("getValue");
 	m_Gpsdevice_Query.gpsname = $("#txtsearchname").val();
 };
 
@@ -171,8 +176,8 @@ function saveGpsdeviceAction() {
 	var gpsdevice = {};
 	gpsdevice.id = $("#gpsdeviceId").val();
 
-	if ($("#txttype").val() > 0) {
-		gpsdevice.typeId = $("#txttype").val();
+	if ($("#txttype").combobox("getValue") > 0&&$("#txttype").combobox("getValue")!="") {
+		gpsdevice.typeId = $("#txttype").combobox("getValue");
 	} else {
 		$.messager.alert("错误提示", "请选择GPS类型", "error");
 		return;
