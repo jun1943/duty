@@ -103,6 +103,7 @@ public class DutyTypeController {
 			HttpServletRequest request
 			){
 			
+		
 			Integer did=Integer.getInteger(id);
 		
 			String msg="";
