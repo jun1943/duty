@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianyi.drs.duty.model.Org;
 import com.tianyi.drs.duty.service.OrgService;
+import com.tianyi.drs.duty.viewmodel.ListResult;
 import com.tianyi.drs.duty.viewmodel.OrgWithPoliceVM;
 
 @Scope("prototype")
@@ -41,8 +42,8 @@ public class OrgController {
 			map.put("orgPath", orgPath);
 			
 			List<Org> ls=orgService.loadSubOrgList(orgCode, orgPath);
-			
-			String rs=JSONArray.fromObject(ls).toString();
+			ListResult<Org> orgs=new ListResult<Org>(ls.size(),ls,true);
+			String rs=orgs.toJson();
 			return rs;
 		
 	}

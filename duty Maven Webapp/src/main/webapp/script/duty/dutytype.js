@@ -46,17 +46,7 @@ $(function () {
               
         ]]
     });
-    
-    /**
-     *  { title: '人数上限', field: 'maxPolice', align: 'left', width: 100,formatter: getMaxPolice },
-
-               { title: '统计显示方式', field: 'isShowname', align: 'left', width: 100, formatter: getDutyTypeDisplayType },
-               { title: '属性', field: 'properties', align: 'left', width: 100,formatter: getDutyTypeProperties },
-               { title: '关联任务', field: 'assoTaskType', align: 'left', width: 300,formatter: getDutyTypeTaskType},
-               { title: '着装', field: "attireType", align: 'left', width: 50, formatter: getDutyTypeAttireType },
-               { title: '武器', field: "armamentType", align: 'left', width: 50, formatter: getDutyTypeArmamentType }
-     */
-    
+       
     loadDutyType();
     loadDutyProperties();
 });
@@ -223,24 +213,24 @@ function addChildDutyType(){
 	if(row !=null){
 		if(!row.isUsed){
 			$.messager.alert('提示', '已停用的父节点不能再添加子节点!');
+		}else{
+			$('#txtDutyTypeId').val(0);
+			$('#txtDutyTypeParentId').val(row.id);
+			$('#txtDutyTypeParentName').val(row.name);
+			$('#txtDutyTypeParentFullPath').val(row.fullpath);
+			$('#txtDutyTypeName').val('');
+			$('#txtMaxPolice').val('');
+			$('#chkUnMax').attr("checked", true);
+			$('#radioDisplayType1').attr('checked', true);
+			$('#cmbProperty').combobox('clear');
+			$('#cmbTaskType').combobox('clear');
+			$('#radioAttireType1').attr('checked', true);
+			$('#radioArmamentType1').attr('checked', true);
+			$('#txtDutyTypeIsUsed').val(true); //新增的节点默认使用状态
+			$('#txtDutyTypeIsLeaf').val(true);//新增的节点永远多是最末级
+			
+			$("#winDutyType").window("open");
 		}
-		$('#txtDutyTypeId').val(0);
-		$('#txtDutyTypeParentId').val(row.id);
-		$('#txtDutyTypeParentName').val(row.name);
-		$('#txtDutyTypeParentFullPath').val(row.fullpath);
-		$('#txtDutyTypeName').val('');
-		$('#txtMaxPolice').val('');
-		$('#chkUnMax').attr("checked", true);
-		$('#radioDisplayType1').attr('checked', true);
-		$('#cmbProperty').combobox('clear');
-		$('#cmbTaskType').combobox('clear');
-		$('#radioAttireType1').attr('checked', true);
-		$('#radioArmamentType1').attr('checked', true);
-		$('#txtDutyTypeIsUsed').val(true); //新增的节点默认使用状态
-		$('#txtDutyTypeIsLeaf').val(true);//新增的节点永远多是最末级
-		
-		$("#winDutyType").window("open");
-
 	}else{
 		$.messager.alert('提示', '请先选择父节点!');
 	}
@@ -254,7 +244,9 @@ function editDutyType(){
 	if(row !=null){
 		
 		if(!row.isLeaf)/*如果不是子节点就不能再修改名称！*/
-			$('#txtDutyTypeName').attr('disabled','disabled');
+			$('#txtDutyTypeName').prop('disabled',true);
+		else
+			$('#txtDutyTypeName').prop('disabled',false);
 		
 		$('#txtDutyTypeId').val(row.id);
 		$('#txtDutyTypeParentId').val(row.parentId);
@@ -439,3 +431,5 @@ function saveDutyType(){
         }
     });
 }
+
+
