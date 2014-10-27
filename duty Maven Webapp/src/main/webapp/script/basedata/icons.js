@@ -9,13 +9,16 @@ $(function() {
 
 	
 	var args = getUrlArgs();
-	m_Icons_OrgId = 2; // args["orgId"];
-	m_Icons_OrgCode = '510106992500';// args["orgCode"];
+	m_Icons_OrgId = 15; // args["orgId"];
+	m_Icons_OrgCode = '510106993600';// args["orgCode"];
 	m_Icons_OrgPath = '/510106000000';// args["orgPath"];
 	pack_Icons_Query();
 
 	$("#orgtree").tree({
-	// url: '/TreeData/GetFunTree'
+		url:  "org/list.do?orgCode=" + m_Icons_OrgCode + "&orgPath=" + m_Icons_OrgPath,
+		loadFilter : function(data) {
+			return buildOrgTree(data);
+		}
 	});
 
 	$('#dtIcons').datagrid({
@@ -100,9 +103,57 @@ function clearForm() {
 	$("#txticons").val(""); 
 };
 function selectIconsAction(){
-	document.getElementById("iconfile").click();            //彈出打開文件對話框
-	var str= document.getElementById("iconfile").value;    //獲取文件路徑信息。
+	document.getElementById("iconfile").click();            //彈出打開文件對話框 
+	//var str= document.getElementById("iconfile").value;    //獲取文件路徑信息。
+	var str = getPath(document.getElementById("iconfile"));
 	$("#txticons").val(str);
-	$("#iconPath").attr("src",str);
+	var arry = str.split('\\');
+	$("#txtname").val(arry[arry.length-1]);
+	$("#img").attr("src",str);
 	//document.getElementById("btnfindIcon").value ="正在上傳....";
+};
+
+function getPath(obj) {
+	 if (obj) {
+	  if (window.navigator.userAgent.indexOf("MSIE") >= 1) {
+	   obj.select();
+	   return document.selection.createRange().text;
+	  } else if (window.navigator.userAgent.indexOf("Firefox") >= 1) {
+	   if (obj.files) {
+	    return obj.files.item(0).getAsDataURL();
+	   }
+	   return obj.value;
+	  }
+	  return obj.value;
+	 }
+	}
+function saveIconsAction(){
+	var icons = {};
+	icons.id=$("#iconsId").val();
+	//icons.name = $("#txtname").val();
+	if ($("#txttype").combobox("getValue") > 0
+			&& $("#txttype").combobox("getValue") != "") {
+		icons.typeId = $("#txttype").combobox("getValue");
+	} else {
+		$.messager.alert("错误提示", "请选择人员类别", "error");
+		return;
+	}
+	icons.name = $("#txticons").val();
+	
+	$.ajax({
+		url : "icons/saveIcons.do",
+		type : "POST",
+		dataType : "json",
+		async : false,
+		data : icons,
+		success : function(req) {
+			$.messager.alert("消息提示", req.Message, "info"); 
+		},
+		failer : function(a, b) {
+			$.messager.alert("消息提示", a, "info");
+		},
+		error : function(a) {
+			$.messager.alert("消息提示", a, "error");
+		}
+	});
 }

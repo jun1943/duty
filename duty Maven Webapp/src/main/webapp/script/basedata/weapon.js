@@ -9,13 +9,16 @@ $(function() {
 	$("#weaponinfowindow").window("close");
 	
 	var args = getUrlArgs();
-	m_Weapon_OrgId = 2; // args["orgId"];
-	m_Weapon_OrgCode = '510106992500';// args["orgCode"];
+	m_Weapon_OrgId = 15; // args["orgId"];
+	m_Weapon_OrgCode = '510106993600';// args["orgCode"];
 	m_Weapon_OrgPath = '/510106000000';// args["orgPath"];
 	pack_Weapon_Query();
 
 	$("#orgtree").tree({
-	// url: '/TreeData/GetFunTree'
+		url:  "org/list.do?orgCode=" + m_Weapon_OrgCode + "&orgPath=" + m_Weapon_OrgPath,
+		loadFilter : function(data) {
+			return buildOrgTree(data);
+		}
 	});
 
 	$('#dtWeapon').datagrid({
@@ -202,7 +205,8 @@ function saveWeaponAction() {
 		data : weapon,
 		success : function(req) {
 			$.messager.alert("消息提示", req.Message, "info");
-			$('#myModal').modal('hide');
+			//$('#myModal').modal('hide');
+			$("#weaponinfowindow").window("close");
 			btnSearchAction();
 		},
 		failer : function(a, b) {

@@ -9,7 +9,7 @@
     <result column="platform_id" property="platformId" jdbcType="INTEGER" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.tianyi.drs.basedata.model.Icons" extends="BaseResultMap" >
-    <result column="icon" property="icon" jdbcType="LONGVARBINARY" />
+    <result column="icon" property="icon"   javaType="byte[]"  jdbcType="BLOB" typeHandler="org.apache.ibatis.type.BlobTypeHandler" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, type_id, name, sync_state, platform_id
@@ -34,7 +34,7 @@
       sync_state, platform_id, icon
       )
     values (#{id,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER}, #{icon,jdbcType=LONGVARBINARY}
+      #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER}, #{icon, javaType=byte[], jdbcType=BLOB, typeHandler=org.apache.ibatis.type.BlobTypeHandler}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tianyi.drs.basedata.model.Icons" >
@@ -76,7 +76,7 @@
         #{platformId,jdbcType=INTEGER},
       </if>
       <if test="icon != null" >
-        #{icon,jdbcType=LONGVARBINARY},
+        #{icon, javaType=byte[], jdbcType=BLOB, typeHandler=org.apache.ibatis.type.BlobTypeHandler},
       </if>
     </trim>
   </insert>
@@ -96,7 +96,7 @@
         platform_id = #{platformId,jdbcType=INTEGER},
       </if>
       <if test="icon != null" >
-        icon = #{icon,jdbcType=LONGVARBINARY},
+        icon = #{icon, javaType=byte[], jdbcType=BLOB, typeHandler=org.apache.ibatis.type.BlobTypeHandler},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -107,7 +107,7 @@
       name = #{name,jdbcType=VARCHAR},
       sync_state = #{syncState,jdbcType=BIT},
       platform_id = #{platformId,jdbcType=INTEGER},
-      icon = #{icon,jdbcType=LONGVARBINARY}
+      icon = #{icon, javaType=byte[], jdbcType=BLOB, typeHandler=org.apache.ibatis.type.BlobTypeHandler}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.basedata.model.Icons" >

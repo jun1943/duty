@@ -1,3 +1,4 @@
+var m_Police_Org = {};
 var m_Police_OrgId;
 var m_Police_OrgCode;
 var m_Police_OrgPath;
@@ -7,13 +8,19 @@ $(function() {
 	$("#policeinfowindow").window("close");
 
 	var args = getUrlArgs();
-	m_Police_OrgId = 2; // args["orgId"];
-	m_Police_OrgCode = '510106992500';// args["orgCode"];
+	m_Police_OrgId = 15; // args["orgId"];
+	m_Police_OrgCode = '510106993600';// args["orgCode"];
 	m_Police_OrgPath = '/510106000000';// args["orgPath"];
+	m_Police_Org.id = m_Police_OrgId;
+	m_Police_Org.code = m_Police_OrgCode;
+	m_Police_Org.path = m_Police_OrgPath;
 	pack_police_Query();
 
 	$("#orgtree").tree({
-	// url: '/TreeData/GetFunTree'
+		url:  "org/list.do?orgCode=" + m_Police_Org.code + "&orgPath=" + m_Police_Org.path,
+		loadFilter : function(data) {
+			return buildOrgTree(data);
+		}
 	});
 
 	$('#dtPolice').datagrid({
@@ -309,7 +316,8 @@ function savePoliceAction() {
 		data : police,
 		success : function(req) {
 			$.messager.alert("消息提示", req.Message, "info");
-			$('#myModal').modal('hide');
+			//$('#myModal').modal('hide');
+			$("#policeinfowindow").window("close");
 			btnSearchAction();
 		},
 		failer : function(a, b) {

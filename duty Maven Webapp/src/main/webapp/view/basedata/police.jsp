@@ -18,25 +18,13 @@
 
 <body class="easyui-layout">
 	<div data-options="region:'west',split:true,title:'组织机构导航树'"
-		style="width:13%;padding:10px;">
+		style="width:16%;padding:10px;">
 		<div>
 			<input type="text">
 		</div>
-		<ul id="tt" class="easyui-tree">
-			<li><span>Folder</span>
-				<ul>
-					<li><span>Sub Folder 1</span>
-						<ul>
-							<li><span><a href="#">File 11</a></span></li>
-							<li><span>File 12</span></li>
-							<li><span>File 13</span></li>
-						</ul></li>
-					<li><span>File 2</span></li>
-					<li><span>File 3</span></li>
-				</ul></li>
-			<li><span>File21</span></li>
+		<ul id="orgtree" class="easyui-tree"> 
 		</ul>
-	</div>
+	</div> 
 	<div data-options="region:'center'" style="padding:10px;">
 		<div class="easyui-layout" data-options="fit:true">
 			<div data-options="region:'north',border:false"

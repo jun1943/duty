@@ -17,39 +17,12 @@
 </head> 
   <body class="easyui-layout"> 
    
-		<div data-options="region:'west',split:true,title:'组织机构导航树'" style="width:150px;padding:10px;">
+		<div data-options="region:'west',split:true,title:'组织机构导航树'" style="width:13%;padding:10px;">
 		<div>
 			<input type="text">
 		</div>
-		<ul id="tt" class="easyui-tree">    
-		    <li>    
-		        <span>Folder</span>    
-		        <ul>    
-		            <li>    
-		                <span>Sub Folder 1</span>    
-		                <ul>    
-		                    <li>    
-		                        <span><a href="#">File 11</a></span>    
-		                    </li>    
-		                    <li>    
-		                        <span>File 12</span>    
-		                    </li>    
-		                    <li>    
-		                        <span>File 13</span>    
-		                    </li>    
-		                </ul>    
-		            </li>    
-		            <li>    
-		                <span>File 2</span>    
-		            </li>    
-		            <li>    
-		                <span>File 3</span>    
-		            </li>    
-		        </ul>    
-		    </li>    
-		    <li>    
-		        <span>File21</span>    
-		    </li>    
+		
+		<ul id="orgtree" class="easyui-tree"> 
 		</ul>
 	</div>  
 	<div data-options="region:'center'"style="padding:10px;"> 
@@ -88,17 +61,7 @@
                	</div>
   			</div>
   			<div id="my-search-box" class="panel-body" style="border:0px;display:none">
-  			 <form class="form-inline"> 
-                  <div class="form-group">
-                      <div class="form-group">
-                        <div class="input-group">
-                         		   　　查询范围选择	
-                          <input id="isSubOrg" class="easyui-combobox" name="dept"
-										data-options="valueField:'id',textField:'name',data:[{id: 0,name: '本級机构'},{id: 1,name: '本级及下级机构'}]" />
-
-                        </div>
-                      </div>
-                  </div>
+  			 <form class="form-inline">  
                   
                   <div class="form-group">
                       <div class="form-group">
@@ -136,7 +99,7 @@
 					style="padding: 2px; height: 30px;">
 					<a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-save',plain:true"
-						onclick="selectIconsAction()">保存</a> <a href="javascript:void(0);"
+						onclick="saveIconsAction()">保存</a> <a href="javascript:void(0);"
 						class="easyui-linkbutton"
 						onclick="$('#iconsinfowindow').window('close');"
 						data-options="iconCls:'icon-remove',plain:true">关闭</a>
@@ -144,26 +107,30 @@
 				<div data-options="region:'center',border:false"
 					style="text-align: right; margin-left: 5px;
             padding: 5px 0 0;">
-            <form method="post" action="uploadicon.jsp"> 
-					<table style="width:100%;height:99%; font: 12px 微软雅黑;"> 
-						<tr>
-							<td><input type="hidden" id="iconsId"><label>图片类型:</label></td>
-							<td> <input id="txttype" class="easyui-combobox" name="dept"
-										data-options="valueField:'id',textField:'name',data:[{id: 0,name: '全部'},{id: 1,name: '警员'},{id: 2,name: '车辆'},{id: 3,name: '武器'},{id: 4,name: '定位设备'}]" />
-                         	</td>
-						</tr>
-						<tr>
-							<td><label>图标名称:</label></td>
-							<td><input type="text" class="easyui-validatebox" id="txtname"></td>
-						</tr>
-						<tr>
-							<td><label>选择图标:</label></td>
-							<td> <input type =file id ="iconfile" style="display:none" />
-		                      <input id="txticons" type="text" class="easyui-validatebox" >
-		                      <a  id="btnfindIcon"  href="javascript:void(0);" class="easyui-linkbutton"  plain="true"  onclick="selectIconsAction()" >选择图片</a></td>
-						</tr> 
-					</table>
-					</form>
+	           <form name="myform" action="icons" method="post" enctype="multipart/form-data">
+						<table style="width:100%;height:99%; font: 12px 微软雅黑;"> 
+							<tr>
+								<td><input type="hidden" id="iconsId"><label>图片类型:</label></td>
+								<td> <input id="txttype" class="easyui-combobox" name="dept"
+											data-options="valueField:'id',textField:'name',data:[{id: 0,name: '全部'},{id: 1,name: '警员'},{id: 2,name: '车辆'},{id: 3,name: '武器'},{id: 4,name: '定位设备'}]" />
+	                         	</td>
+							</tr>
+							<tr>
+								<td><label>图标名称:</label></td>
+								<td><input type="text" class="easyui-validatebox" id="txtname"></td>
+							</tr>
+							<tr>
+								<td><label>选择图标:</label></td>
+								<td> <input type =file id ="iconfile" style="display:none" />
+			                      <input id="txticons" type="text" class="easyui-validatebox" >
+			                      <a  id="btnfindIcon"  href="javascript:void(0);" class="easyui-linkbutton"  plain="true"  onclick="selectIconsAction()" >选择图片</a></td>
+							</tr> 
+							<tr>
+								<td><label>图片预览:</label></td>
+								<td><img id="img" src="" alt="pic"  /></td>
+							</tr> 
+						</table>
+					  
 				</div>
 			</div>
 		</div>

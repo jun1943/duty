@@ -39,7 +39,7 @@
 			<value>utf-8</value>
 		</property>
 		<property name="maxUploadSize">
-			<value>104857600</value>
+			<value>1073741824</value>
 		</property>
 		<property name="maxInMemorySize">
 			<value>4096</value>

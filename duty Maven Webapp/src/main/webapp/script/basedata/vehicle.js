@@ -9,13 +9,16 @@ $(function() {
 	$("#vehicleinfowindow").window("close");
 	
 	var args = getUrlArgs();
-	m_Vehicle_OrgId = 2; // args["orgId"];
-	m_Vehicle_OrgCode = '510106992500';// args["orgCode"];
+	m_Vehicle_OrgId = 15; // args["orgId"];
+	m_Vehicle_OrgCode = '510106993600';// args["orgCode"];
 	m_Vehicle_OrgPath = '/510106000000';// args["orgPath"];
 	pack_Vehicle_Query();
 
 	$("#orgtree").tree({
-	// url: '/TreeData/GetFunTree'
+		url:  "org/list.do?orgCode=" + m_Vehicle_OrgCode + "&orgPath=" + m_Vehicle_OrgPath,
+		loadFilter : function(data) {
+			return buildOrgTree(data);
+		}
 	});
 
 	$('#dtVehicle').datagrid({
@@ -276,7 +279,7 @@ function saveVehicleAction() {
 		data : vehicle,
 		success : function(req) {
 			$.messager.alert("消息提示", req.Message, "info");
-			$('#myModal').modal('hide');
+			$("#vehicleinfowindow").window("close");
 			btnSearchAction();
 		},
 		failer : function(a, b) {

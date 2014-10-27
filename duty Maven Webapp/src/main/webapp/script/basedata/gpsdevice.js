@@ -9,13 +9,16 @@ $(function() {
 	$("#gpsdeviceinfowindow").window("close");
 
 	var args = getUrlArgs();
-	m_Gpsdevice_OrgId = 2; // args["orgId"];
-	m_Gpsdevice_OrgCode = '510106992500';// args["orgCode"];
+	m_Gpsdevice_OrgId = 15; // args["orgId"];
+	m_Gpsdevice_OrgCode = '510106993600';// args["orgCode"];
 	m_Gpsdevice_OrgPath = '/510106000000';// args["orgPath"];
 	pack_Gpsdevice_Query();
 
 	$("#orgtree").tree({
-	// url: '/TreeData/GetFunTree'
+		url:  "org/list.do?orgCode=" + m_Gpsdevice_OrgCode + "&orgPath=" + m_Gpsdevice_OrgPath,
+		loadFilter : function(data) {
+			return buildOrgTree(data);
+		}
 	});
 
 	$('#dtGpsdevice').datagrid({
@@ -205,7 +208,8 @@ function saveGpsdeviceAction() {
 		data : gpsdevice,
 		success : function(req) {
 			$.messager.alert("消息提示", req.Message, "info");
-			$('#myModal').modal('hide');
+			$("#gpsdeviceinfowindow").window("close");
+			//$('#myModal').modal('hide');
 			btnSearchAction();
 		},
 		failer : function(a, b) {

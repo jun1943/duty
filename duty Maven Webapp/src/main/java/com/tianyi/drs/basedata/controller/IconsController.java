@@ -1,12 +1,16 @@
 package com.tianyi.drs.basedata.controller;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
@@ -15,8 +19,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
- 
-import com.tianyi.drs.basedata.model.Icons; 
+
+import com.tianyi.drs.basedata.model.Icons;
 import com.tianyi.drs.basedata.service.IconsService; 
 import com.tianyi.drs.duty.viewmodel.ListResult;
 
@@ -24,9 +28,9 @@ import com.tianyi.drs.duty.viewmodel.ListResult;
 @Controller
 @RequestMapping("/icons")
 public class IconsController {
+	 
 	@Resource(name = "iconsService")
 	protected IconsService iconsService;
-	
 
 	@RequestMapping(value = "getIconsList.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
@@ -37,9 +41,8 @@ public class IconsController {
 			HttpServletRequest request) throws Exception {
 		try {
 			JSONObject joQuery = JSONObject.fromObject(query);
-			int orgId = Integer.parseInt(joQuery.getString("orgId"));
-			int isSubOrg = Integer.parseInt(joQuery.getString("isSubOrg"));
-			String name = joQuery.getString("name");  
+			int orgId = Integer.parseInt(joQuery.getString("orgId")); 
+			String name = joQuery.getString("name");
 
 			String orgCode = joQuery.getString("orgCode");
 			String orgPath = joQuery.getString("orgPath");
@@ -50,12 +53,11 @@ public class IconsController {
 
 			map.put("pageStart", (page - 1) * rows);
 			map.put("pageSize", rows);
-			map.put("orgId", orgId);
-			map.put("isSubOrg", isSubOrg);
+			map.put("orgId", orgId); 
 			map.put("orgCode", orgCode);
 			map.put("orgPath", orgPath);
-			map.put("name", name);  
-			map.put("typeid", typeid);  
+			map.put("name", name);
+			map.put("typeid", typeid);
 
 			int total = iconsService.loadVMCount(map);
 			list = iconsService.loadVMList(map);
@@ -70,10 +72,19 @@ public class IconsController {
 		}
 	}
 
+	@SuppressWarnings("resource")
 	@RequestMapping(value = "saveIcons.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String saveIcons(Icons icons) throws Exception {
 		try {
+			String path = icons.getName();
+			// String[] plist = path.split("\\");
+			String name = "uploadify-cancel.png";
+			FileInputStream fis = null;
+			fis = new FileInputStream(path);
+			icons.setName(name);
+
+			// icons.setIcon(fis);
 			icons.setPlatformId(1);
 			icons.setSyncState(true);
 			int result = 0;
@@ -91,19 +102,20 @@ public class IconsController {
 					+ ex.getMessage() + "\"}";
 		}
 	}
-	
 
 	@RequestMapping(value = "deleteIcons.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String deleteIcons(int id) throws Exception {
 		try {
-			int result =0;
-			if(id>0){
+			int result = 0;
+			if (id > 0) {
 				result = iconsService.deleteByPrimaryKey(id);
 			}
-			return "{\"success\":true,\"Message\":\"删除成功,result is " + result + "\"}";
+			return "{\"success\":true,\"Message\":\"删除成功,result is " + result
+					+ "\"}";
 		} catch (Exception ex) {
-			return "{\"success\":false,\"Message\":\"删除失败，原因：" + ex.getMessage() + "\"}";
+			return "{\"success\":false,\"Message\":\"删除失败，原因："
+					+ ex.getMessage() + "\"}";
 		}
 	}
 }
