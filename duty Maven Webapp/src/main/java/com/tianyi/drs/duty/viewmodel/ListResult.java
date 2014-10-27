@@ -29,6 +29,12 @@ public class ListResult<T> {
 		this.rows=rows;
 	}
 	
+	public ListResult(int total,List<T> rows,boolean isSuccess){
+		this.total=total;
+		this.rows=rows;
+		this.isSuccess=isSuccess;
+	}
+	
 	public String toJson(){
 		JSONObject rs=JSONObject.fromObject(this);
 		return rs.toString();

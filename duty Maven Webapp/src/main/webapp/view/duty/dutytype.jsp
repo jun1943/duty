@@ -42,7 +42,7 @@
 			<div id="dtDutyType"></div>
 
 	<div id="winDutyType" class="easyui-window" title="勤务类型" style="height:330px;width:360px"    
-        data-options="iconCls:'icon-save',modal:true" closed="true" 
+        data-options="iconCls:'icon-save',modal:true" closed="true"  onClose="onWinDutyTypeClose"
         collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false">
 			<div id="tbGroup" class="btn-toolbar">
 				<div class="btn-group">

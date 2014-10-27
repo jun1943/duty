@@ -57,13 +57,14 @@ $(document).ready(function() {
 
 	$('#treeOrg').tree(
 			{
-				url : "org/list.do?orgCode=" + m_policeGroup_Org.code
-						+ "&orgPath=" + m_policeGroup_Org.path,
+//				url : "org/list.do?orgCode=" + m_policeGroup_Org.code
+//						+ "&orgPath=" + m_policeGroup_Org.path,
 				checkbox : true,
-				cascadeCheck : false,
-				loadFilter : function(data) {
-					return buildOrgTree(data);
-				}
+				cascadeCheck : false
+//				async : false
+//				loadFilter : function(data) {
+//					return buildOrgTree(data);
+//				}
 			});
 
 	$('#treeOrgWithPolice').tree(
@@ -84,7 +85,35 @@ $(document).ready(function() {
 		            {title : '警号',field : 'code',align : 'left',width : 100}
 		] ]
 	});
+	loadOrgs();
+	//forceSelTisOrg();
 });
+
+function loadOrgs(){
+	
+	$.ajax({
+		url : "org/list.do",
+		type : "POST",
+		dataType : "json",
+		data : {
+			orgId:m_policeGroup_Org.id,
+			orgCode :m_policeGroup_Org.code,
+			orgPath: m_policeGroup_Org.path
+		},
+		async : false,
+		success : function(req) {
+			if (req.isSuccess) {
+				var nodes=buildOrgTree(req.rows);
+				$('#treeOrg').tree("loadData",nodes);
+//				var node =$('#treeOrg').tree('find',m_policeGroup_Org.id);
+//				$('#treeOrg').tree('check',node.target);
+//				node.target.attr("disabled", "disabled");
+			} else {
+				$.messager.alert('提示', req.msg,"warning");
+			}
+		}
+	});
+}
 
 function pack_policeGroup_Query() {
 	m_policeGroup_Query.orgId = m_policeGroup_Org.id;
@@ -98,12 +127,16 @@ function showPoliceGroupDlg() {
 
 function addPoliceGroup() {
 
-	$('#txtPoliceGroupId').val(0);
-	$('#txtPoliceGroupName').val('');
-	$('#radioShare1').attr('checked', true);
-	$('#divOrg').css('visibility', 'hidden');
-	cleanShareOrgs();
+	var pg={};
+	pg.shareOrgs=[];
+	pg.id=0;
+	pg.shareType=0;
+	var po={};
+	po.orgId=m_policeGroup_Org.id;
+	pg.shareOrgs.push(po);
+	
 
+	displayPoliceGroup(pg);
 	showPoliceGroupDlg();
 }
 
@@ -126,16 +159,20 @@ function savePoliceGroup() {
 	pg.name = $('#txtPoliceGroupName').val();
 	pg.shareType = $('input:radio[name="shareType"]:checked').val();
 
-	if(pg.shareType==1){/*判断是否选择共享到下级*/
-		var nodes = $('#treeOrg').tree('getChecked');
-		var count = nodes.length;
+	/**
+	 * 强制选择根节点！
+	 */
+	var node =$('#treeOrg').tree('find',m_policeGroup_Org.id);
+	$('#treeOrg').tree('check',node.target);
 	
-		for ( var i = 0; i < count; i++) {
-			var n = nodes[i];
-			pg.shareOrgIds.push(n.id);
-		}
-	}
+	var nodes = $('#treeOrg').tree('getChecked');
+	var count = nodes.length;
 
+	for ( var i = 0; i < count; i++) {
+		var n = nodes[i];
+		pg.shareOrgIds.push(n.id);
+	}
+	
 	$.ajax({
 		url : "policeGroup/savePoliceGroup.do",
 		type : "POST",
@@ -198,7 +235,10 @@ function cleanShareOrgs() {
 
 	for ( var i = 0; i < count; i++) {
 		var n = nodes[i];
-		$('#treeOrg').tree('uncheck', n.target);
+		if(i==0)
+			$('#treeOrg').tree('check', n.target);//根节点强制选择
+		else
+			$('#treeOrg').tree('uncheck', n.target);
 	}
 }
 
@@ -208,6 +248,7 @@ function changeShareType() {
 
 	if (val == 0) {
 		$('#divOrg').css('visibility', 'hidden');
+		cleanShareOrgs();
 	} else {
 		$('#divOrg').css('visibility', 'visible');
 
@@ -228,14 +269,6 @@ function loadPoliceGroup(id, callback) {
 		}
 	});
 }
-/**
- * if (req.isSuccess) {
-				$.messager.alert('提示', '保存成功!');
-				$('#dtGroupMember').datagrid('reload');
-			} else {
-				$.messager.alert('提示', req.msg,"warning");
-			}
- */
 
 /**
  * 显示警员组信息
@@ -247,10 +280,11 @@ function displayPoliceGroup(pg) {
 	$('#txtPoliceGroupName').val(pg.name);
 
 	if (pg.shareType == 0) {
-		$('#radioShare1').attr('checked', true);
+		$('#radioShare1').prop('checked', true);
+		
 		$('#divOrg').css('visibility', 'hidden');
 	} else {
-		$('#radioShare2').attr('checked', true);
+		$('#radioShare2').prop('checked', true);
 		$('#divOrg').css('visibility', 'visible');
 	}
 	cleanShareOrgs();

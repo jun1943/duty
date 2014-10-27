@@ -77,6 +77,7 @@
 							id="radioShare2" name="shareType" type="radio" value="1"
 							onclick="changeShareType()"></input>共享到下级</label></td>
 				</tr>
+
 				<tr>
 					<td colspan="2">
 						<div style="border:1px solid #000;overflow:auto;height:200px">

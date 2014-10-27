@@ -29,6 +29,7 @@
 		
 	from organ as org
   	where
+  		org.code =#{orgCode,jdbcType=VARCHAR} or
   		org.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
   	order by org.id
   		
