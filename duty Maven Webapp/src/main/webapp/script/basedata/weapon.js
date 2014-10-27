@@ -119,7 +119,11 @@ function pack_Weapon_Query() {
 	m_Weapon_Query.orgId = m_Weapon_OrgId;
 	m_Weapon_Query.orgCode = m_Weapon_OrgCode;
 	m_Weapon_Query.orgPath = m_Weapon_OrgPath;
-	m_Weapon_Query.isSubOrg = $("#isSubOrg").combobox("getValue");
+	if($("#isSubOrg").combobox("getValue")!=""&&$("#isSubOrg").combobox("getValue")>0){
+		m_Weapon_Query.isSubOrg = $("#isSubOrg").combobox("getValue");
+	}else{
+		m_Weapon_Query.isSubOrg = 0;
+	} 
 	m_Weapon_Query.number = $("#txtsearchnumber").val();
 };
 

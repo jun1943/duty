@@ -59,7 +59,7 @@
 			<div class="container-fluid my-nav-bg">
 			<ul class="nav navbar-nav">
 				<li style="width:1px;"><a href="#">&nbsp;</a></li>
-				<li class="active"><a href="/duty/view/basedata/police.jsp"
+				<li><a href="/duty/view/basedata/police.jsp"
 					class="my-nav-btn">人员管理 <img src="asset/css/images/nav-btn-icon.png"
 						width="22" height="22"></a></li>
 				<li><a href="/duty/view/basedata/vehicle.jsp" class="my-nav-btn">车辆管理
@@ -144,6 +144,7 @@
 				<div data-options="region:'center',border:false"
 					style="text-align: right; margin-left: 5px;
             padding: 5px 0 0;">
+            <form method="post" action="uploadicon.jsp"> 
 					<table style="width:100%;height:99%; font: 12px 微软雅黑;"> 
 						<tr>
 							<td><input type="hidden" id="iconsId"><label>图片类型:</label></td>
@@ -162,6 +163,7 @@
 		                      <a  id="btnfindIcon"  href="javascript:void(0);" class="easyui-linkbutton"  plain="true"  onclick="selectIconsAction()" >选择图片</a></td>
 						</tr> 
 					</table>
+					</form>
 				</div>
 			</div>
 		</div>

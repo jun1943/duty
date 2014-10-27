@@ -145,7 +145,7 @@ function btnEditVehicle() {
 	$("#txtpersonalno").val(rows[0].intercomGroup);
 	$("#txtgpsid").combobox("setValue",rows[0].gpsId);
 	$("#txtgpsname").val(rows[0].gpsName);
-	$("#vehicleinfowindow").window("close");
+	$("#vehicleinfowindow").window("open");
 	//$('#myModal').modal('show');
 };
 function clearForm() {
@@ -164,7 +164,11 @@ function pack_Vehicle_Query() {
 	m_Vehicle_Query.orgId = m_Vehicle_OrgId;
 	m_Vehicle_Query.orgCode = m_Vehicle_OrgCode;
 	m_Vehicle_Query.orgPath = m_Vehicle_OrgPath;
-	m_Vehicle_Query.isSubOrg = $("#isSubOrg").combobox("getValue");
+	if($("#isSubOrg").combobox("getValue")!=""&&$("#isSubOrg").combobox("getValue")>0){
+		m_Vehicle_Query.isSubOrg = $("#isSubOrg").combobox("getValue");
+	}else{
+		m_Vehicle_Query.isSubOrg = 0;
+	} 
 	m_Vehicle_Query.number = $("#txtsearchnumber").val();
 };
 

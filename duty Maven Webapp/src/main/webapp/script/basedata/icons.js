@@ -64,9 +64,17 @@ function pack_Icons_Query() {
 	m_Icons_Query.orgId = m_Icons_OrgId;
 	m_Icons_Query.orgCode = m_Icons_OrgCode;
 	m_Icons_Query.orgPath = m_Icons_OrgPath;
-	m_Icons_Query.isSubOrg = $("#isSubOrg").combobox("getValue");
+	if($("#isSubOrg").combobox("getValue")!=""&&$("#isSubOrg").combobox("getValue")>0){
+		m_Icons_Query.isSubOrg = $("#isSubOrg").combobox("getValue");
+	}else{
+		m_Icons_Query.isSubOrg = 0;
+	}  
 	m_Icons_Query.name = $("#txtsearchName").val();
-	m_Icons_Query.typeid = $("#sltType").combobox("getValue");
+	if($("#sltType").combobox("getValue")!=""&&$("#sltType").combobox("getValue")>0){
+		m_Icons_Query.typeid = $("#sltType").combobox("getValue");
+	}else{
+		m_Icons_Query.typeid = 0;
+	}
 };
 
 //查询按钮事件

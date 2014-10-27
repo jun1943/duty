@@ -123,7 +123,11 @@ function pack_Gpsdevice_Query() {
 	m_Gpsdevice_Query.orgId = m_Gpsdevice_OrgId;
 	m_Gpsdevice_Query.orgCode = m_Gpsdevice_OrgCode;
 	m_Gpsdevice_Query.orgPath = m_Gpsdevice_OrgPath;
-	m_Gpsdevice_Query.isSubOrg = $("#isSubOrg").combobox("getValue");
+	if($("#isSubOrg").combobox("getValue")!=""&&$("#isSubOrg").combobox("getValue")>0){
+		m_Gpsdevice_Query.isSubOrg = $("#isSubOrg").combobox("getValue");
+	}else{
+		m_Gpsdevice_Query.isSubOrg = 0;
+	} 
 	m_Gpsdevice_Query.gpsname = $("#txtsearchname").val();
 };
 

@@ -93,9 +93,18 @@ function pack_police_Query() {
 	m_police_Query.orgId = m_Police_OrgId;
 	m_police_Query.orgCode = m_Police_OrgCode;
 	m_police_Query.orgPath = m_Police_OrgPath;
-	m_police_Query.isSubOrg = $("#isSubOrg").combobox("getValue");
+	
+	if($("#isSubOrg").combobox("getValue")!=""&&$("#isSubOrg").combobox("getValue")>0){
+		m_police_Query.isSubOrg = $("#isSubOrg").combobox("getValue");
+	}else{
+		m_police_Query.isSubOrg = 0;
+	} 
 	m_police_Query.name = $("#txtsearchName").val();
-	m_police_Query.typeid = $("#sltType").combobox("getValue");
+	if($("#sltType").combobox("getValue")!=""&&$("#sltType").combobox("getValue")>0){
+		m_police_Query.typeid = $("#sltType").combobox("getValue");
+	}else{
+		m_police_Query.typeid = 0;
+	}
 }
 // 初始化下拉列表数据
 function InitData() {
@@ -120,7 +129,7 @@ function btnSearchAction() {
 	$('#dtPolice').datagrid("reload", {
 		'police_Query' : JSON.stringify(m_police_Query)
 	});
-	$("#isSubOrg").val(0);
+	$("#isSubOrg").combobox("setValue",0);
 	$("#txtsearchName").combobox("setValue", 0);
 	$("#sltType").combobox("setValue", "");
 };
@@ -269,7 +278,7 @@ function savePoliceAction() {
 
 	if ($("#txtgroupno").combobox("getValue") > 0
 			&& $("#txtgroupno").combobox("getValue") != "") {
-		police.intercomGroup = $("#txtgroupno").val();
+		police.intercomGroup = $("#txtgroupno").combobox("getValue");
 	} else {
 		$.messager.alert("错误提示", "请选择对讲机组呼号", "error");
 		return;
@@ -281,7 +290,7 @@ function savePoliceAction() {
 	police.intercomPerson = $("#txtpersonalno").val();
 	if ($("#txtgpsid").combobox("getValue") > 0
 			&& $("#txtgpsid").combobox("getValue") != "") {
-		police.gpsId = $("#txtgpsid").val();
+		police.gpsId = $("#txtgpsid").combobox("getValue");
 	} else {
 		$.messager.alert("错误提示", "请选择GPS_ID", "error");
 		return;
