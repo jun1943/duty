@@ -9,17 +9,13 @@
 <!--  
 <link href='//cdn.datatables.net/plug-ins/a5734b29083/integration/jqueryui/dataTables.jqueryui.css' type='text/css' />
 -->
-<script src='<%=basePath%>script/basedata/policegroup.js'
+<script src='<%=basePath%>script/duty/policegroup.js'
 	type='text/javascript'></script>
 <title>人员分组</title>
 
 </head>
 
-<body>
-
-
-
-	<div class="easyui-layout" style="width:100%;height:100%;">
+<body class="easyui-layout" >
 		<div id="divPG" data-options="region:'west'" title="警员组"
 			style="width:40%">
 			<div id="tbGroup" class="btn-toolbar">
@@ -46,26 +42,25 @@
 						onclick="addPoliceGroupMember()">添加</a> <a
 						id="btnEditPoliceGroupMember" href="javascript:void(0);"
 						class="easyui-linkbutton" iconcls="icon-edit" plain="true"
-						onclick="editPoliceGroupMember()">删除</a> <a
+						onclick="delPoliceGroupMemeber()">删除</a> <a
 						id="btnCleanPoliceGroupMember" href="javascript:void(0);"
 						class="easyui-linkbutton" iconcls="icon-cancel" plain="true"
-						onclick="cleanPoliceGroupMember()">清空</a>
+						onclick="cleanPGMember()">清空</a>
 				</div>
 			</div>
 			<div id="dtGroupMember"></div>
 		</div>
-	</div>
 
-
-	<div style="display:none">
-		<div id="dlgPoliceGroup" style="height:320px;width:320px">
+	<div id="winPG" class="easyui-window" title="My Window" style="height:330px;width:320px"    
+        data-options="iconCls:'icon-save',modal:true" closed="true" 
+        collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false">
 			<div id="tbGroup" class="btn-toolbar">
 				<div class="btn-group">
 					<a id="btnSavePoliceGroup" href="javascript:void(0);"
 						class="easyui-linkbutton " plain="true"
 						onclick="savePoliceGroup()">保存</a> <a id="btnClosePoliceGroupDlg"
 						href="javascript:void(0);" class="easyui-linkbutton " plain="true"
-						onclick="closePoliceGroupDlg()">退出</a>
+						onclick="closeWinPG()">退出</a>
 				</div>
 			</div>
 			<input type="hidden" id="txtPoliceGroupId"></input>
@@ -84,7 +79,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<div style="border:1px solid #000;overflow:auto;height:220px">
+						<div style="border:1px solid #000;overflow:auto;height:200px">
 							<div id="divOrg">
 								<ul id="treeOrg" class="easyui-tree" style="overflow:auto"></ul>
 							</div>
@@ -94,7 +89,40 @@
 				</tr>
 			</table>
 		</div>
-	</div>
+
+	<div id="winPGMember" class="easyui-window" title="My Window" style="width:450px;height:400px"    
+        data-options="iconCls:'icon-save',modal:true" closed="true" 
+        collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false">    
+   	 		<div id="tbGroup" class="btn-toolbar">
+				<div class="btn-group">
+					<a id="btnSavePoliceGroup" href="javascript:void(0);"
+						class="easyui-linkbutton " plain="true"
+						onclick="appendMember()">保存</a> <a id="btnClosePoliceGroupDlg"
+						href="javascript:void(0);" class="easyui-linkbutton " plain="true"
+						onclick="closeWinPGMember()">退出</a>
+				</div>
+			</div>
+			<input id="txtPoliceGroupId"  type="hidden"></input>
+			<table>
+				<tr>
+					<td style="width:40%">
+						
+						<div style="border:1px solid #000;overflow:auto;height:300px">
+							<ul id="treeOrgWithPolice" class="easyui-tree"
+								style="overflow:auto"></ul>
+						</div>
+					</td>
+					<td style="width:10%">
+						<button onclick="selectMember()">&gt&gt</button>
+						<button onclick="unselectMember()">&lt&lt</button>
+					</td>
+
+					<td style="width:50%">
+						<div id="dtSelGroupMember" fit="true"></div>
+					</td>
+				</tr>
+			</table>   
+	</div> 
 
 
 </body>

@@ -1,13 +1,15 @@
 package com.tianyi.drs.duty.model;
 
 public class DutyType {
-    private Integer id;
+
+
+	private Integer id=0;
 
     private String name;
 
     private Integer parentId;
 
-    private Integer level;
+    private Integer level =0;
 
     private Boolean isLeaf;
 
@@ -15,12 +17,22 @@ public class DutyType {
 
     private Boolean isShowname;
 
-    private Integer defaultQty;
+    private Integer maxPolice;
+
+    private Integer attireType;
+
+    private Integer dutyPropertyId;
+
+    private Integer assoTaskType;
 
     private Boolean syncState;
 
     private Integer platformId;
 
+    private Integer armamentType;
+    
+    private boolean isUsed;
+    
     public Integer getId() {
         return id;
     }
@@ -77,12 +89,36 @@ public class DutyType {
         this.isShowname = isShowname;
     }
 
-    public Integer getDefaultQty() {
-        return defaultQty;
+    public Integer getMaxPolice() {
+        return maxPolice;
     }
 
-    public void setDefaultQty(Integer defaultQty) {
-        this.defaultQty = defaultQty;
+    public void setMaxPolice(Integer maxPolice) {
+        this.maxPolice = maxPolice;
+    }
+
+    public Integer getAttireType() {
+        return attireType;
+    }
+
+    public void setAttireType(Integer attireType) {
+        this.attireType = attireType;
+    }
+
+    public Integer getDutyPropertyId() {
+        return dutyPropertyId;
+    }
+
+    public void setDutyPropertyId(Integer dutyPropertyId) {
+        this.dutyPropertyId = dutyPropertyId;
+    }
+
+    public Integer getAssoTaskType() {
+        return assoTaskType;
+    }
+
+    public void setAssoTaskType(Integer assoTaskType) {
+        this.assoTaskType = assoTaskType;
     }
 
     public Boolean getSyncState() {
@@ -100,4 +136,20 @@ public class DutyType {
     public void setPlatformId(Integer platformId) {
         this.platformId = platformId;
     }
+    
+    public Integer getArmamentType() {
+		return armamentType;
+	}
+
+	public void setArmamentType(Integer armamentType) {
+		this.armamentType = armamentType;
+	}
+
+	public boolean getIsUsed() {
+		return isUsed;
+	}
+
+	public void setIsUsed(boolean isUsed) {
+		this.isUsed = isUsed;
+	}
 }

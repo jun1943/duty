@@ -54,6 +54,39 @@ function buildOrgTree(orgs){
     
     return ss;
 }
+/**
+ * 将勤务类型list转换到tree结构
+ */
+function buildDutyTypeTree(dutyType){
+var ss = [];
+	
+	if(dutyType == null || dutyType.length==0){
+		return ss;
+	}
+    var count = dutyType.length;    
+    /**
+     * 如果已经排过序的话，第一个肯定在根节点上
+     * 以这个parentid作为后续rog是否在根节点上的依据。
+     */
+    var rootParent=dutyType[0].parentId;
+    
+    for (var i = 0; i < count; i++) {
+    	var node = dutyType[i];
+    	node.text = node.name;
+        node.children=[];
+        
+        for (var j = 0; j < count; j++) {
+        	var tmp = dutyType[j];
+        	if (tmp.parentId == node.id){
+        		node.children.push(tmp);
+        	}
+        }
+        if(node.parentId==rootParent){
+        	ss.push(node);
+        }
+    }
+    return ss;
+}
 
 function getBaseData(urlStr, name, id) {
 	$.ajax({

@@ -1,5 +1,6 @@
 package com.tianyi.drs.duty.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,10 +10,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tianyi.drs.duty.dao.PoliceGroupMapper;
+import com.tianyi.drs.duty.dao.PoliceGroupMemberMapper;
 import com.tianyi.drs.duty.dao.PoliceGroupOrgMapper;
+import com.tianyi.drs.duty.dao.core.MyBatisRepository;
 import com.tianyi.drs.duty.model.PoliceGroup;
+import com.tianyi.drs.duty.model.PoliceGroupMember;
 import com.tianyi.drs.duty.model.PoliceGroupOrg;
 import com.tianyi.drs.duty.service.PoliceGroupService;
+import com.tianyi.drs.duty.viewmodel.PoliceGroupMemberVM;
 import com.tianyi.drs.duty.viewmodel.PoliceGroupVM;
 
 @Service("policeGroupService")
@@ -24,6 +29,8 @@ public class PoliceGroupServiceImpl implements PoliceGroupService{
 	@Resource(name="policeGroupOrgMapper")
 	private PoliceGroupOrgMapper policeGroupOrgMapper;
 	
+	@Resource(name="policeGroupMemberMapper")
+	private PoliceGroupMemberMapper policeGroupMemberMapper;
 	
 	public int loadVMCountByOrgId(Map<String, Object> map) {
 		
@@ -75,4 +82,41 @@ public class PoliceGroupServiceImpl implements PoliceGroupService{
 		policeGroupOrgMapper.deleteByPGId(id); //删除对应共享的机构
 		
 	}
+
+	public List<PoliceGroupMemberVM> loadMemberByGroupId(Map<String, Object> map) {
+		List<PoliceGroupMemberVM> ls=policeGroupMemberMapper.loadMemberByGroupId(map);
+
+		return ls;
+	}
+
+	public int countMemberByGroupId(Integer groupId) {
+		int total=policeGroupMemberMapper.countMemberByGroupId(groupId);
+		return total;
+	}
+	
+	@Transactional
+	public void appendMemeber(List<PoliceGroupMember> ls) {
+		for(PoliceGroupMember pgm : ls){
+			Map<String,Object> m1=new HashMap<String,Object>();
+			m1.put("groupId", pgm.getGroupId());
+			m1.put("memberId", pgm.getPoliceId());
+			
+			Integer count=policeGroupMemberMapper.existsByMemberId(m1);
+			
+			if(count==0){
+				policeGroupMemberMapper.insert(pgm);
+			}
+			
+		}
+		
+	}
+
+	public void delMemberById(Integer id) {
+		policeGroupMemberMapper.deleteByPrimaryKey(id);
+	}
+
+	public void cleanMember(Integer groupId) {
+		policeGroupMemberMapper.deleteByGroupId(groupId);
+	}
+
 }
