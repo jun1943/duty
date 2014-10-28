@@ -234,7 +234,6 @@ function addChildDutyType(){
 	}else{
 		$.messager.alert('提示', '请先选择父节点!');
 	}
-		
 }
 /**
  * 编辑勤务类型

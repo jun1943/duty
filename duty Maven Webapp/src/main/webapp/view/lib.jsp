@@ -50,6 +50,7 @@
 
 <script src='<%=basePath%>asset/script/json2.js' type='text/javascript'></script>
 <script src='<%=basePath%>asset/script/easyui/easyui-lang-zh_CN.js' type='text/javascript'></script>
+<script src='<%=basePath%>asset/script/easyui/treegrid-dnd.js' type='text/javascript'></script>
 <script src='<%=basePath%>script/common.js' type='text/javascript'></script>
 <!--
 <script src='<%=basePath%>asset/script/jquery.artDialog.js'></script> 
