@@ -32,7 +32,7 @@
        					   
                 <input id="txtpname" style="width:100px" type="text"/>
                 <a id="searchpoliceAction" name="searchpoliceAction" href="javascript:void(0);" class="easyui-linkbutton"
-                    iconcls="icon-search" plain="true"></a>
+                    iconcls="icon-search" onclick="SearchPoliceAction()" plain="true"></a>
        					  </div>
     			</div>
 				<div title="车辆" style="padding:10px;height:100%">  
@@ -41,7 +41,7 @@
        					  <a id="showvehicleCondition" name="showvehicleCondition" onclick="$('#vehicleConditionwindow').window('open');" href="javascript:void(0);" class="easyui-linkbutton"  plain="true">过滤条件</a>
        					  	 <input id="txtvnumber" style="width:100px" type="text"/>
                 <a id="searchvehicleAction" name="searchvehicleAction" href="javascript:void(0);" class="easyui-linkbutton"
-                    iconcls="icon-search" plain="true"></a>
+                    iconcls="icon-search" onclick="SearchVehicleAction()" plain="true"></a>
        					  </div>
     			</div>		
  				<div title="定位设备" style="padding:10px;height:100%">  
@@ -50,7 +50,7 @@
        					  	<a id="showgpsCondition" name="showgpsCondition" onclick="$('#gpsConditionwindow').window('open');" href="javascript:void(0);" class="easyui-linkbutton"  plain="true">过滤条件</a>
        					  	 <input id="txtgname" style="width:100px" type="text"/>
                 <a id="searchgpsdeviceAction" name="searchgpsdeviceAction" href="javascript:void(0);" class="easyui-linkbutton"
-                    iconcls="icon-search" plain="true"></a>
+                    iconcls="icon-search" onclick="SearchGpsAction()" plain="true"></a>
        					  </div>
     			</div>	
  				<div title="武器" style="padding:10px;height:100%">  
@@ -59,7 +59,7 @@
        					  	<a id="showweaponCondition" name="showweaponCondition" onclick="$('#weaponConditionwindow').window('open');" href="javascript:void(0);" class="easyui-linkbutton"  plain="true">过滤条件</a>
        					  	 <input id="txtwnumber" style="width:100px" type="text"/>
                 <a id="searchweaponAction" name="searchweaponAction" href="javascript:void(0);" class="easyui-linkbutton"
-                    iconcls="icon-search" plain="true"></a>
+                    iconcls="icon-search" onclick="SearchWeaponAction()" plain="true"></a>
        					  </div>
     			</div>
 			</div>
@@ -185,15 +185,15 @@
 					style="padding: 2px; height: 30px;">
 					 <a href="javascript:void(0);" style="float:right"
 						class="easyui-linkbutton"
-						onclick="$('#weaponConditionwindow').window('close');"
+						onclick="$('#vehicleConditionwindow').window('close');"
 						data-options="iconCls:'icon-remove',plain:true">取消</a>
 					<a href="javascript:void(0);" class="easyui-linkbutton" style="float:right"
 						data-options="iconCls:'icon-save',plain:true"
-						onclick="SearchWeaponAction()">确定</a>  
+						onclick="SearchVehicleAction()">确定</a>  
 				</div>	 
 				<div data-options="region:'center',border:false"
 					style="padding: 2px;  width:300px; height:200px">
-					 <div id="dt_weaponType" style="width:90%; height:200px"></div>
+					 <div id="dt_vehicleType" style="width:90%; height:200px"></div>
 				</div>
 			</div>
 	</div>

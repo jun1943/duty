@@ -5,6 +5,7 @@ $(function () {
 	$('#policeConditionwindow').window('close');
 	$('#gpsConditionwindow').window('close');
 	$('#weaponConditionwindow').window('close');
+	$('#vehicleConditionwindow').window('close');
 	var args = getUrlArgs();
 	m_dutyprepare_Org.id = args["orgId"];
 	m_dutyprepare_Org.code = args["orgCode"];
@@ -203,6 +204,16 @@ function InitGrid(){
 		              {	title : '武器类型',field : 'name',align : 'left',width : 150	}
 	              ] ]
 	});
+	$('#dt_vehicleType').datagrid({
+		url : 'vehicle/getvehicleTypelist.do', 
+		fitColumns : true,
+		pagination: false, 
+		title:"车辆类型",
+		columns : [ [ {field : 'ck',checkbox : true}, 
+		              {	title : 'Id',field : 'id',align : 'left',width : 10,hidden : true}, 
+		              {	title : '车辆类型',field : 'name',align : 'left',width : 150	}
+	              ] ]
+	});
 	loadDutyType();
 } 
 function loadDutyType() {
@@ -221,4 +232,84 @@ function loadDutyType() {
             }
         }
     });
+};
+function SearchVehicleAction(){
+	var number = $("#txtvnumber").val();
+	var row = $('#dt_vehicleType').datagrid("getChecked");
+	var typeId;
+	if(row.length>0){
+		typeId= row[0].id;
+	}
+	$('#source_vehicle').treegrid("reload",{"orgId":15,"number":number,"typeId":typeId});
+	$("#txtvnumber").val("");
+	$('#dt_vehicleType').datagrid("unselectAll");
+	$('#vehicleConditionwindow').window('close');
 }
+function SearchGpsAction(){ 
+	var name = $("#txtgname").val();
+	var row = $('#dt_gpsType').datagrid("getChecked");
+	var typeId;
+	if(row.length>0){
+		typeId= row[0].id;
+	}
+	$('#source_gpsdevice').treegrid("reload",{"orgId":15,"gpsname":name,"typeId":typeId});
+	$("#txtgname").val("");
+	$('#dt_gpsType').datagrid("unselectAll");
+	$('#gpsConditionwindow').window('close');
+}
+function SearchWeaponAction(){
+	var number = $("#txtwnumber").val();
+	var row = $('#dt_weaponType').datagrid("getChecked");
+	var typeId;
+	if(row.length>0){
+		typeId= row[0].id;
+	}
+	$('#source_weapon').treegrid("reload",{"orgId":15,"number":number,"typeId":typeId});
+	$("#txtwnumber").val("");
+	$('#dt_weaponType').datagrid("unselectAll");
+	$('#weaponConditionwindow').window('close');
+}
+function SearchPoliceAction(){
+	var name = $("#txtpname").val();
+	var typerow = $('#dt_policeType').datagrid("getChecked");
+	var grouprow = $('#dt_groupType').datagrid("getChecked");
+	var typeId;
+	var groupId;
+	if(typerow.length>0){
+		typeId= typerow[0].id;
+	}
+	if(grouprow.length>0){
+		groupId = grouprow[0].id;
+	}
+	$('#source_police').treegrid("reload",{"orgId":15,"name":name,"typeId":typeId,"groupId":groupId});
+	$("#txtpname").val("");
+	$('#dt_policeType').datagrid("unselectAll");
+	$('#dt_groupType').datagrid("unselectAll");
+	$('#policeConditionwindow').window('close');
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

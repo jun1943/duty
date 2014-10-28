@@ -335,4 +335,29 @@
   	 
   </select>
   
+  <select id="loadVMListWithGroup" parameterType="java.util.Map" resultMap="BaseModelMap">
+  		 select <include refid ="Base_Model_Column_List" />
+  		 from t_police p 
+  		 left join t_policetype pt on pt.id = p.type_id
+  		 left join organ o on o.id  = p.org_id
+  		 <if test ="groupId !=null">
+  		 	left join t_duty_police_group_member gm on gm.police_id = p.id
+  		 	left join t_duty_police_group pg on pg.id = gm.group_id
+  		 </if> 
+  		 where 
+  		 (
+  		 o.id = #{orgId,jdbcType=INTEGER}
+  		  or 
+  		  o.code =#{orgCode,jdbcType=VARCHAR} 
+  		)
+  		<if test ="name !=null">
+  			and p.name like CONCAT('%','${name}','%' )  
+  		</if>
+  		<if test ="typeId >0">
+  			and p.type_id = #{typeId,jdbcType=INTEGER}
+  		</if>
+  		<if test ="groupId !=null">
+  			and pg.id = #{groupId,jdbcType=INTEGER}
+  		</if> 
+  </select>
 </mapper>

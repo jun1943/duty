@@ -79,7 +79,7 @@ public class GpsController {
 			@RequestParam(value = "typeId", required = false) Integer typeId, 
 			HttpServletRequest request) throws Exception {
 		try {
-			 
+			gpsname= gpsname.replace(",", "");
 			List<GpsVM> list = new ArrayList<GpsVM>();
 			Map<String, Object> map = new HashMap<String, Object>();
  

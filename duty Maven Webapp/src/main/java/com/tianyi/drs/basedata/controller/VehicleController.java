@@ -123,6 +123,23 @@ public class VehicleController {
 		}
 	} 
 
+	@RequestMapping(value="getvehicleTypelist.do",produces="application/json;charset=UTF-8")
+	public @ResponseBody String getvehicleTypelist() throws Exception {
+		try
+		{ 
+			List<VehicleType> list = vehicleService.selectVehicleType();
+			int total = list.size();
+			ListResult<VehicleType> rs = new ListResult<VehicleType>(total, list);
+
+			String result = JSONObject.fromObject(rs).toString();
+
+			return result;
+		} catch (Exception ex) {
+			return "{\"total\":0,\"rows\":[]}";
+		}
+	} 
+
+
 	@RequestMapping(value="getintercomGroup.do",produces="application/json;charset=UTF-8")
 	public @ResponseBody String getintercomGroup() throws Exception {
 		try
@@ -141,14 +158,17 @@ public class VehicleController {
 	String getVehicleSource( 
 			@RequestParam(value = "orgId", required = false) Integer orgId,
 			@RequestParam(value = "number", required = false) String number,  
+			@RequestParam(value = "typeId", required = false) Integer typeId,  
 			HttpServletRequest request) throws Exception {
 		try {
-			  
+			 
+			number = number.replace(",", "");
 			List<VehicleVM> list = new ArrayList<VehicleVM>();
 			Map<String, Object> map = new HashMap<String, Object>();
  
 			map.put("orgId", orgId); 
 			map.put("number", number); 
+			map.put("typeId", typeId); 
  
 			list = vehicleService.loadVMList(map);
 			int total = list.size();

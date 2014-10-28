@@ -81,12 +81,13 @@ public class WeaponController {
 			@RequestParam(value = "typeId", required = false) Integer typeId, 
 			HttpServletRequest request) throws Exception {
 		try {  
+			number = number.replace(",", "");
 			List<WeaponVM> list = new ArrayList<WeaponVM>();
 			Map<String, Object> map = new HashMap<String, Object>();
  
 			map.put("orgId", orgId); 
 			map.put("number", number);
-			map.put("typeid", typeId);
+			map.put("typeId", typeId);
 
 			list = weaponService.loadVMList(map);
 			int total =  list.size();

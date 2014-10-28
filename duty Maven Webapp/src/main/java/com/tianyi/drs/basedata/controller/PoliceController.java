@@ -84,21 +84,31 @@ public class PoliceController {
 	public @ResponseBody
 	String getPoliceSource(
 			@RequestParam(value = "orgId", required = false) Integer orgId,
-			@RequestParam(value = "name", required = false) String name
+			@RequestParam(value = "name", required = false) String name,
+			@RequestParam(value = "typeId", required = false) String typeId,
+			@RequestParam(value = "groupId", required = false) String groupId
 			)
-			throws Exception {
-		List<PoliceVM> list = new ArrayList<PoliceVM>();
-		Map<String, Object> map = new HashMap<String, Object>();
-
-		map.put("orgId", orgId); 
-		map.put("name", name); 
-		list = policeService.loadVMList(map);
-		int total = list.size();
-		ListResult<PoliceVM> rs = new ListResult<PoliceVM>(total, list);
-
-		String result = JSONObject.fromObject(rs).toString();
-
-		return result;
+			throws Exception { 
+		try{
+			List<PoliceVM> list = new ArrayList<PoliceVM>();
+			Map<String, Object> map = new HashMap<String, Object>();
+			name = name.replace(",", "");
+			map.put("orgId", orgId); 
+			map.put("name", name); 
+			map.put("typeId", typeId); 
+			map.put("groupId", groupId); 
+			list = policeService.loadVMListWithGroup(map);
+			 
+			int total = list.size();
+			ListResult<PoliceVM> rs = new ListResult<PoliceVM>(total, list);
+	
+			String result = JSONObject.fromObject(rs).toString();
+	
+			return result;
+		}
+		catch(Exception ex){
+			return "{\"total\":0,\"rows\":[]}";
+		}
 	}
 	@RequestMapping(value = "savePolice.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody

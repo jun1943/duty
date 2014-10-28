@@ -47,4 +47,6 @@ public interface PoliceService {
 	List<IntercomGroup> selectIntercomGroup();
 
 	List<GpsBaseVM> selectGpsId(int orgId);
+
+	List<PoliceVM> loadVMListWithGroup(Map<String, Object> map);
 }

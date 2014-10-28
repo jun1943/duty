@@ -120,6 +120,12 @@ public class PoliceServiceImpl implements PoliceService {
 	public List<GpsBaseVM> selectGpsId(int orgId) {
 		// TODO Auto-generated method stub
 		return policeMapper.selectGpsId(orgId);
+	}
+
+	public List<PoliceVM> loadVMListWithGroup(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		List<PoliceVM> list = policeMapper.loadVMListWithGroup(map);
+		return list;
 	} 
 	
 }

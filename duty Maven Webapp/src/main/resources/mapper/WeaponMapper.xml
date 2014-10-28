@@ -193,6 +193,9 @@
   			and w.number like CONCAT('%','${number}','%' )  
   		</if>
   		  
+  		<if test ="typeId !=null">
+  			and w.type_id =  #{typeId,jdbcType=INTEGER}
+  		</if>
   		 <if test="pageStart !=null">
   			limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
   		</if>
@@ -217,5 +220,8 @@
   		<if test ="number !=null">
   			and w.number like CONCAT('%','${number}','%' )  
   		</if> 
+  		<if test ="typeId !=null">
+  			and w.type_id =  #{typeId,jdbcType=INTEGER}
+  		</if>
   </select>
 </mapper>
