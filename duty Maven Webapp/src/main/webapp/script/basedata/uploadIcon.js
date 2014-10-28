@@ -3,8 +3,8 @@ function InitUploadFun(){
     var fileType = "all", fileNum = "one";
 
     new AjaxUpload(button, {
-        action: 'icons/IconsUpload.do',
-        name: 'myicons',
+        action: 'icons/uploadIcon.do',
+        name: 'file',
         onSubmit: function (file, ext) {
 
             var text = "文件上传中";
@@ -30,7 +30,7 @@ function InitUploadFun(){
             //button.text('文件上传');
             window.clearInterval(interval);
             this.enable();
-            loadAttachFiles();
+            
             $.messager.alert('提示', response);
 
         }
