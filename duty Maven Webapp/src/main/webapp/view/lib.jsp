@@ -15,8 +15,8 @@
     <script src='<%=basePath%>js/sys/html5shiv.js' type='text/javascript'></script>
     <![endif]-->
  
-<link href='<%=basePath%>asset/css/bootstrap.min.css' media='all'
-	rel='stylesheet' type='text/css' />
+<!-- link href='<%=basePath%>asset/css/bootstrap.min.css' media='all'
+	rel='stylesheet' type='text/css' /-->
  
 
 <link href='<%=basePath%>asset/css/easyui/icon.css'
