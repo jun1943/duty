@@ -61,17 +61,13 @@ $(function() {
 	$("#btnSearchIcons").bind("click", function() {
 		$('#my-search-box').toggle();
 	}); 
+	InitUploadFun();
 });
 //打包查询条件
 function pack_Icons_Query() {
 	m_Icons_Query.orgId = m_Icons_OrgId;
 	m_Icons_Query.orgCode = m_Icons_OrgCode;
-	m_Icons_Query.orgPath = m_Icons_OrgPath;
-	if($("#isSubOrg").combobox("getValue")!=""&&$("#isSubOrg").combobox("getValue")>0){
-		m_Icons_Query.isSubOrg = $("#isSubOrg").combobox("getValue");
-	}else{
-		m_Icons_Query.isSubOrg = 0;
-	}  
+	m_Icons_Query.orgPath = m_Icons_OrgPath; 
 	m_Icons_Query.name = $("#txtsearchName").val();
 	if($("#sltType").combobox("getValue")!=""&&$("#sltType").combobox("getValue")>0){
 		m_Icons_Query.typeid = $("#sltType").combobox("getValue");
@@ -101,32 +97,8 @@ function clearForm() {
 	$("#txttype").combobox("setValue",0);
 	$("#txtname").val("");
 	$("#txticons").val(""); 
-};
-function selectIconsAction(){
-	document.getElementById("iconfile").click();            //彈出打開文件對話框 
-	//var str= document.getElementById("iconfile").value;    //獲取文件路徑信息。
-	var str = getPath(document.getElementById("iconfile"));
-	$("#txticons").val(str);
-	var arry = str.split('\\');
-	$("#txtname").val(arry[arry.length-1]);
-	$("#img").attr("src",str);
-	//document.getElementById("btnfindIcon").value ="正在上傳....";
-};
+}; 
 
-function getPath(obj) {
-	 if (obj) {
-	  if (window.navigator.userAgent.indexOf("MSIE") >= 1) {
-	   obj.select();
-	   return document.selection.createRange().text;
-	  } else if (window.navigator.userAgent.indexOf("Firefox") >= 1) {
-	   if (obj.files) {
-	    return obj.files.item(0).getAsDataURL();
-	   }
-	   return obj.value;
-	  }
-	  return obj.value;
-	 }
-	}
 function saveIconsAction(){
 	var icons = {};
 	icons.id=$("#iconsId").val();
@@ -135,7 +107,11 @@ function saveIconsAction(){
 			&& $("#txttype").combobox("getValue") != "") {
 		icons.typeId = $("#txttype").combobox("getValue");
 	} else {
-		$.messager.alert("错误提示", "请选择人员类别", "error");
+		$.messager.alert("错误提示", "请选择图标类别", "error");
+		return;
+	}
+	if($("#txticons").val()==""){ 
+		$.messager.alert("错误提示", "请选择图标名称", "error");
 		return;
 	}
 	icons.name = $("#txticons").val();

@@ -11,6 +11,10 @@
 -->
 <script src='<%=basePath%>script/basedata/icons.js'
 	type='text/javascript'></script>
+	<script src='<%=basePath%>script/ajaxupload.3.9.js'
+	type='text/javascript'></script>
+	<script src='<%=basePath%>script/basedata/uploadIcon.js'
+	type='text/javascript'></script>
 <title>图标管理</title>
 
 
@@ -97,17 +101,16 @@
 			<div class="easyui-layout" data-options="fit:true">
 				<div data-options="region:'north',border:false"
 					style="padding: 2px; height: 30px;">
-					<a href="javascript:void(0);" class="easyui-linkbutton"
+					<!-- <a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-save',plain:true"
-						onclick="saveIconsAction()">保存</a> <a href="javascript:void(0);"
+						onclick="saveIconsAction()">保存</a> --> <a href="javascript:void(0);"
 						class="easyui-linkbutton"
 						onclick="$('#iconsinfowindow').window('close');"
 						data-options="iconCls:'icon-remove',plain:true">关闭</a>
 				</div>
 				<div data-options="region:'center',border:false"
 					style="text-align: right; margin-left: 5px;
-            padding: 5px 0 0;">
-	           <form name="myform" action="icons" method="post" enctype="multipart/form-data">
+            padding: 5px 0 0;"> 
 						<table style="width:100%;height:99%; font: 12px 微软雅黑;"> 
 							<tr>
 								<td><input type="hidden" id="iconsId"><label>图片类型:</label></td>
@@ -121,14 +124,11 @@
 							</tr>
 							<tr>
 								<td><label>选择图标:</label></td>
-								<td> <input type =file id ="iconfile" style="display:none" />
-			                      <input id="txticons" type="text" class="easyui-validatebox" >
-			                      <a  id="btnfindIcon"  href="javascript:void(0);" class="easyui-linkbutton"  plain="true"  onclick="selectIconsAction()" >选择图片</a></td>
-							</tr> 
-							<tr>
-								<td><label>图片预览:</label></td>
-								<td><img id="img" src="" alt="pic"  /></td>
-							</tr> 
+								<td>
+			                    	<input id="txticons" type="text" class="easyui-validatebox" >
+			                    	<a id="btnfindIcon"  href="javascript:void(0);" class="easyui-linkbutton"  plain="true" >选择图片</a>
+			                    </td>
+							</tr>  
 						</table>
 					  
 				</div>

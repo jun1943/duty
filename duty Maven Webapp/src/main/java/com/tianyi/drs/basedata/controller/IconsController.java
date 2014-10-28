@@ -1,5 +1,6 @@
 package com.tianyi.drs.basedata.controller;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,28 +10,51 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.tianyi.drs.basedata.model.Icons;
-import com.tianyi.drs.basedata.service.IconsService; 
+import com.tianyi.drs.basedata.service.IconsService;
 import com.tianyi.drs.duty.viewmodel.ListResult;
-
+ 
 @Scope("prototype")
 @Controller
 @RequestMapping("/icons")
 public class IconsController {
-	 
+
 	@Resource(name = "iconsService")
 	protected IconsService iconsService;
+	 
+	
+	@RequestMapping(value = "IconsUpload.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	void IconsUpload(
+			@RequestParam("myicons") CommonsMultipartFile mFile,
+			Icons icons, HttpServletRequest request,  
+            HttpServletResponse response) throws Exception {
+		try {
+			response.setContentType("text/html;charset=utf-8");
+			String contents =  mFile.getFileItem().getString();
+			
+			FileInputStream fis=null;
+			fis=new FileInputStream(contents);
+			
+		} catch (Exception ex) {
+			String s = ex.getMessage();
+		}
+	}
 
 	@RequestMapping(value = "getIconsList.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
@@ -41,7 +65,7 @@ public class IconsController {
 			HttpServletRequest request) throws Exception {
 		try {
 			JSONObject joQuery = JSONObject.fromObject(query);
-			int orgId = Integer.parseInt(joQuery.getString("orgId")); 
+			int orgId = Integer.parseInt(joQuery.getString("orgId"));
 			String name = joQuery.getString("name");
 
 			String orgCode = joQuery.getString("orgCode");
@@ -53,7 +77,7 @@ public class IconsController {
 
 			map.put("pageStart", (page - 1) * rows);
 			map.put("pageSize", rows);
-			map.put("orgId", orgId); 
+			map.put("orgId", orgId);
 			map.put("orgCode", orgCode);
 			map.put("orgPath", orgPath);
 			map.put("name", name);
