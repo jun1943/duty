@@ -8,6 +8,7 @@ import com.tianyi.drs.basedata.model.GpsType;
 import com.tianyi.drs.basedata.viewmodel.GpsVM;
 import com.tianyi.drs.duty.dao.core.MyBatisRepository;
 import com.tianyi.util.PaginationData;
+
 @MyBatisRepository
 public interface GpsMapper {
     int deleteByPrimaryKey(Integer id);

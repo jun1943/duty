@@ -106,3 +106,11 @@ function getBaseData(urlStr, name, id) {
 		}
 	});
 }
+
+function getBaseDataCombobox(urlStr, id){
+	$("#"+id).combobox({
+        valueField: 'id',
+        textField: 'name', 
+        url:urlStr
+    });
+}
