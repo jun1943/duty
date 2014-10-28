@@ -127,6 +127,7 @@
 								<td>
 			                    	<input id="txticons" type="text" class="easyui-validatebox" >
 			                    	<a id="btnfindIcon"  href="javascript:void(0);" class="easyui-linkbutton"  plain="true" >选择图片</a>
+			                    	
 			                    </td>
 							</tr>  
 						</table>
