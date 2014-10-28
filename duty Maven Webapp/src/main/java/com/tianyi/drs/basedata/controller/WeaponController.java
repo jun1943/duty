@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody; 
      
+import com.tianyi.drs.basedata.model.GpsType;
 import com.tianyi.drs.basedata.model.Weapon;
 import com.tianyi.drs.basedata.model.WeaponType;
 import com.tianyi.drs.basedata.service.WeaponService;
@@ -62,6 +63,33 @@ public class WeaponController {
 
 			int total = weaponService.loadVMCount(map);
 			list = weaponService.loadVMList(map);
+
+			ListResult<WeaponVM> rs = new ListResult<WeaponVM>(total, list);
+
+			String result = JSONObject.fromObject(rs).toString();
+
+			return result;
+		} catch (Exception ex) {
+			return "{\"total\":0,\"rows\":[]}";
+		}
+	}
+	@RequestMapping(value = "getweaponSource.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String getweaponSource(  
+			@RequestParam(value = "orgId", required = false) Integer orgId,
+			@RequestParam(value = "number", required = false) String number, 
+			@RequestParam(value = "typeId", required = false) Integer typeId, 
+			HttpServletRequest request) throws Exception {
+		try {  
+			List<WeaponVM> list = new ArrayList<WeaponVM>();
+			Map<String, Object> map = new HashMap<String, Object>();
+ 
+			map.put("orgId", orgId); 
+			map.put("number", number);
+			map.put("typeid", typeId);
+
+			list = weaponService.loadVMList(map);
+			int total =  list.size();
 
 			ListResult<WeaponVM> rs = new ListResult<WeaponVM>(total, list);
 
@@ -120,6 +148,21 @@ public class WeaponController {
 		}
 		catch(Exception ex){
 			return "";
+		}
+	}
+	@RequestMapping(value="getWeaponTypelist.do",produces="application/json;charset=UTF-8")
+	public @ResponseBody String getWeaponTypelist() throws Exception {
+		try
+		{ 
+			List<WeaponType> list = weaponService.selectWeaponType();
+			int total = list.size();
+			ListResult<WeaponType> rs = new ListResult<WeaponType>(total, list);
+
+			String result = JSONObject.fromObject(rs).toString();
+
+			return result;
+		} catch (Exception ex) {
+			return "{\"total\":0,\"rows\":[]}";
 		}
 	}
 }

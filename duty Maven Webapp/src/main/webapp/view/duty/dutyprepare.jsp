@@ -23,10 +23,44 @@
 	
 <body class="easyui-layout" >
 	<div id="divResource" data-options="region:'west',split:true" title="资源"
-			style="width:20%;height:100%">
-			<div id="tt" class="easyui-tabs" style="width:100%;height:500px;">
-				<div title="Tab1" style="padding:10px;height:100%">  
-       					 <ul id="treeDrop"></ul>
+			style="width:30%;height:100%">
+			<div id="tt" class="easyui-tabs" style="width:100%;height:500px;">	
+ 				<div title="人员" style="padding:10px;height:100%">  
+       					  <div id="source_police"></div> 
+       					  <div id="tb_source_police">
+       					  <a id="showpoliceCondition" name="showpoliceCondition" onclick="$('#policeConditionwindow').window('open');" href="javascript:void(0);" class="easyui-linkbutton"  plain="true">过滤条件</a>
+       					   
+                <input id="txtpname" style="width:100px" type="text"/>
+                <a id="searchpoliceAction" name="searchpoliceAction" href="javascript:void(0);" class="easyui-linkbutton"
+                    iconcls="icon-search" plain="true"></a>
+       					  </div>
+    			</div>
+				<div title="车辆" style="padding:10px;height:100%">  
+       					 <div id="source_vehicle"></div> 
+       					  <div id="tb_source_vehicle">
+       					  <a id="showvehicleCondition" name="showvehicleCondition" onclick="$('#vehicleConditionwindow').window('open');" href="javascript:void(0);" class="easyui-linkbutton"  plain="true">过滤条件</a>
+       					  	 <input id="txtvnumber" style="width:100px" type="text"/>
+                <a id="searchvehicleAction" name="searchvehicleAction" href="javascript:void(0);" class="easyui-linkbutton"
+                    iconcls="icon-search" plain="true"></a>
+       					  </div>
+    			</div>		
+ 				<div title="定位设备" style="padding:10px;height:100%">  
+       					  <div id="source_gpsdevice"></div> 
+       					  <div id="tb_source_gpsdevice">
+       					  	<a id="showgpsCondition" name="showgpsCondition" onclick="$('#gpsConditionwindow').window('open');" href="javascript:void(0);" class="easyui-linkbutton"  plain="true">过滤条件</a>
+       					  	 <input id="txtgname" style="width:100px" type="text"/>
+                <a id="searchgpsdeviceAction" name="searchgpsdeviceAction" href="javascript:void(0);" class="easyui-linkbutton"
+                    iconcls="icon-search" plain="true"></a>
+       					  </div>
+    			</div>	
+ 				<div title="武器" style="padding:10px;height:100%">  
+       					  <div id="source_weapon"></div> 
+       					  <div id="tb_source_weapon">
+       					  	<a id="showweaponCondition" name="showweaponCondition" onclick="$('#weaponConditionwindow').window('open');" href="javascript:void(0);" class="easyui-linkbutton"  plain="true">过滤条件</a>
+       					  	 <input id="txtwnumber" style="width:100px" type="text"/>
+                <a id="searchweaponAction" name="searchweaponAction" href="javascript:void(0);" class="easyui-linkbutton"
+                    iconcls="icon-search" plain="true"></a>
+       					  </div>
     			</div>
 			</div>
 			
@@ -74,4 +108,93 @@
 		</div>
 	</div>
 
+	<div id="policeConditionwindow" class="easyui-window" title="人员选择过滤条件"
+			data-options="iconCls:'icon-edit'"
+			style="width: 354px; height: 300px; padding: 10px;">
+			<div class="easyui-layout" data-options="fit:true">
+				<div data-options="region:'south',border:false"
+					style="padding: 2px; height: 30px;">
+					 <a href="javascript:void(0);" style="float:right"
+						class="easyui-linkbutton"
+						onclick="$('#policeConditionwindow').window('close');"
+						data-options="iconCls:'icon-remove',plain:true">取消</a>
+					<a href="javascript:void(0);" class="easyui-linkbutton" style="float:right"
+						data-options="iconCls:'icon-save',plain:true"
+						onclick="SearchPoliceAction()">确定</a>  
+				</div>				
+				<div data-options="region:'west',border:false"
+					style="padding: 2px; width:150px; height:200px">
+					 <div id="dt_policeType" style="width:80%; height:200px"></div>
+				</div>			
+				<!-- <div data-options="region:'center',border:false"
+					style="padding: 2px; width:133px; height:400px">
+					<div id="dt_dutyType" style="width:80%; height:200px"></div>
+				</div>	 -->	
+				<div data-options="region:'center',border:false"
+					style="padding: 2px;  width:150px; height:200px">
+					 <div id="dt_groupType" style="width:80%; height:200px"></div>
+				</div>
+			</div>
+	</div>
+	
+	<div id="gpsConditionwindow" class="easyui-window" title="定位设备选择过滤条件"
+			data-options="iconCls:'icon-edit'"
+			style="width: 354px; height: 300px; padding: 10px;">
+			<div class="easyui-layout" data-options="fit:true">
+				<div data-options="region:'south',border:false"
+					style="padding: 2px; height: 30px;">
+					 <a href="javascript:void(0);" style="float:right"
+						class="easyui-linkbutton"
+						onclick="$('#gpsConditionwindow').window('close');"
+						data-options="iconCls:'icon-remove',plain:true">取消</a>
+					<a href="javascript:void(0);" class="easyui-linkbutton" style="float:right"
+						data-options="iconCls:'icon-save',plain:true"
+						onclick="SearchGpsAction()">确定</a>  
+				</div>	 
+				<div data-options="region:'center',border:false"
+					style="padding: 2px;  width:300px; height:200px">
+					 <div id="dt_gpsType" style="width:90%; height:200px"></div>
+				</div>
+			</div>
+	</div>
+	<div id="weaponConditionwindow" class="easyui-window" title="武器选择过滤条件"
+			data-options="iconCls:'icon-edit'"
+			style="width: 354px; height: 300px; padding: 10px;">
+			<div class="easyui-layout" data-options="fit:true">
+				<div data-options="region:'south',border:false"
+					style="padding: 2px; height: 30px;">
+					 <a href="javascript:void(0);" style="float:right"
+						class="easyui-linkbutton"
+						onclick="$('#weaponConditionwindow').window('close');"
+						data-options="iconCls:'icon-remove',plain:true">取消</a>
+					<a href="javascript:void(0);" class="easyui-linkbutton" style="float:right"
+						data-options="iconCls:'icon-save',plain:true"
+						onclick="SearchWeaponAction()">确定</a>  
+				</div>	 
+				<div data-options="region:'center',border:false"
+					style="padding: 2px;  width:300px; height:200px">
+					 <div id="dt_weaponType" style="width:90%; height:200px"></div>
+				</div>
+			</div>
+	</div>
+		<div id="vehicleConditionwindow" class="easyui-window" title="车辆选择过滤条件"
+			data-options="iconCls:'icon-edit'"
+			style="width: 354px; height: 300px; padding: 10px;">
+			<div class="easyui-layout" data-options="fit:true">
+				<div data-options="region:'south',border:false"
+					style="padding: 2px; height: 30px;">
+					 <a href="javascript:void(0);" style="float:right"
+						class="easyui-linkbutton"
+						onclick="$('#weaponConditionwindow').window('close');"
+						data-options="iconCls:'icon-remove',plain:true">取消</a>
+					<a href="javascript:void(0);" class="easyui-linkbutton" style="float:right"
+						data-options="iconCls:'icon-save',plain:true"
+						onclick="SearchWeaponAction()">确定</a>  
+				</div>	 
+				<div data-options="region:'center',border:false"
+					style="padding: 2px;  width:300px; height:200px">
+					 <div id="dt_weaponType" style="width:90%; height:200px"></div>
+				</div>
+			</div>
+	</div>
 </body>

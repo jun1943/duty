@@ -71,6 +71,34 @@ public class GpsController {
 		}
 	}
 
+	@RequestMapping(value = "getGpsdeviceSource.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String getGpsdeviceSource( 
+			@RequestParam(value = "orgId", required = false) Integer orgId,
+			@RequestParam(value = "gpsname", required = false) String gpsname, 
+			@RequestParam(value = "typeId", required = false) Integer typeId, 
+			HttpServletRequest request) throws Exception {
+		try {
+			 
+			List<GpsVM> list = new ArrayList<GpsVM>();
+			Map<String, Object> map = new HashMap<String, Object>();
+ 
+			map.put("orgId", orgId);
+			map.put("gpsname", gpsname);
+			map.put("typeId", typeId); 
+
+			int total = gpsService.loadVMCount(map);
+			list = gpsService.loadVMList(map);
+
+			ListResult<GpsVM> rs = new ListResult<GpsVM>(total, list);
+
+			String result = JSONObject.fromObject(rs).toString();
+
+			return result;
+		} catch (Exception ex) {
+			return "{\"total\":0,\"rows\":[]}";
+		}
+	}
 	@RequestMapping(value = "saveGpsdevice.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String saveGpsdevice(Gps gps) throws Exception {
@@ -118,6 +146,21 @@ public class GpsController {
 		}
 		catch(Exception ex){
 			return "";
+		}
+	}
+	@RequestMapping(value="getGpsTypelist.do",produces="application/json;charset=UTF-8")
+	public @ResponseBody String getGpsTypelist() throws Exception {
+		try
+		{ 
+			List<GpsType> list = gpsService.selectGpsType();
+			int total = list.size();
+			ListResult<GpsType> rs = new ListResult<GpsType>(total, list);
+
+			String result = JSONObject.fromObject(rs).toString();
+
+			return result;
+		} catch (Exception ex) {
+			return "{\"total\":0,\"rows\":[]}";
 		}
 	}
 }

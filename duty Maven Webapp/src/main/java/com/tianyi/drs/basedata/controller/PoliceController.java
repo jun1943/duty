@@ -80,6 +80,26 @@ public class PoliceController {
 		}
 	}
 
+	@RequestMapping(value = "getPoliceSource.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String getPoliceSource(
+			@RequestParam(value = "orgId", required = false) Integer orgId,
+			@RequestParam(value = "name", required = false) String name
+			)
+			throws Exception {
+		List<PoliceVM> list = new ArrayList<PoliceVM>();
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		map.put("orgId", orgId); 
+		map.put("name", name); 
+		list = policeService.loadVMList(map);
+		int total = list.size();
+		ListResult<PoliceVM> rs = new ListResult<PoliceVM>(total, list);
+
+		String result = JSONObject.fromObject(rs).toString();
+
+		return result;
+	}
 	@RequestMapping(value = "savePolice.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String savePolice(Police police) throws Exception {
@@ -131,6 +151,22 @@ public class PoliceController {
 	}
 
 
+	@RequestMapping(value="getPoliceTypeList.do",produces="application/json;charset=UTF-8")
+	public @ResponseBody String getPoliceTypeList() throws Exception {
+		try
+		{ 
+			List<PoliceType> list = policeService.selectPoliceType();
+			int total = list.size();
+			ListResult<PoliceType> rs = new ListResult<PoliceType>(total, list);
+
+			String result = JSONObject.fromObject(rs).toString();
+
+			return result;
+		}
+		catch(Exception ex){
+			return "{\"total\":0,\"rows\":[]}";
+		}
+	}
 	@RequestMapping(value="getintercomGroup.do",produces="application/json;charset=UTF-8")
 	public @ResponseBody String getintercomGroup() throws Exception {
 		try

@@ -135,4 +135,30 @@ public class VehicleController {
 			return "";
 		}
 	}
+
+	@RequestMapping(value = "getVehicleSource.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String getVehicleSource( 
+			@RequestParam(value = "orgId", required = false) Integer orgId,
+			@RequestParam(value = "number", required = false) String number,  
+			HttpServletRequest request) throws Exception {
+		try {
+			  
+			List<VehicleVM> list = new ArrayList<VehicleVM>();
+			Map<String, Object> map = new HashMap<String, Object>();
+ 
+			map.put("orgId", orgId); 
+			map.put("number", number); 
+ 
+			list = vehicleService.loadVMList(map);
+			int total = list.size();
+			ListResult<VehicleVM> rs = new ListResult<VehicleVM>(total, list);
+
+			String result = JSONObject.fromObject(rs).toString();
+
+			return result;
+		} catch (Exception ex) {
+			return "{\"total\":0,\"rows\":[]}";
+		}
+	}
 }
