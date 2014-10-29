@@ -17,42 +17,8 @@
 </head>
 
 <body class="easyui-layout"> 
-	
-	<div data-options="region:'west',split:true,title:'组织机构导航树'" style="width:13%;padding:10px;">
-		<div>
-			<input type="text">
-		</div>
-		<ul id="orgtree" class="easyui-tree">    
-		       
-		</ul>
-	</div>  
-	
-	<div data-options="region:'center'"style="padding:10px;"> 
-	<div class="easyui-layout" data-options="fit:true">
-			<div data-options="region:'north',border:false"
-				style="padding: 2px; height: 55px;overflow:hidden">
-				<div class="container-fluid my-nav-bg">
-				<ul class="nav navbar-nav">
-				<li style="width:1px;"><a href="#">&nbsp;</a></li>
-				<li><a href="/duty/view/basedata/police.jsp"
-					class="my-nav-btn">人员管理 <img src="asset/css/images/nav-btn-icon.png"
-						width="22" height="22"></a></li>
-				<li><a href="/duty/view/basedata/vehicle.jsp" class="my-nav-btn">车辆管理
-						<img src="asset/css/images/nav-btn-icon.png" width="22" height="22">
-				</a></li>
-				<li class="active"><a href="/duty/view/basedata/weapon.jsp" class="my-nav-btn">武器管理
-						<img src="asset/css/images/nav-btn-icon.png" width="22" height="22">
-				</a></li>
-				<li><a href="/duty/view/basedata/gpsdevice.jsp" class="my-nav-btn">定位设备
-						<img src="asset/css/images/nav-btn-icon.png" width="22" height="22">
-				</a></li>
-				<li><a href="/duty/view/basedata/icons.jsp" class="my-nav-btn">图标管理
-						<img src="asset/css/images/nav-btn-icon.png" width="22" height="22">
-				</a></li>
-			</ul>
-		</div>
-			</div>
-			<div data-options="region:'center',border:false">
+	  
+	<div data-options="region:'center'"style="padding:10px;">  
 			<div id="tbWeapon" class="btn-toolbar" style="height:40px; margin-top:10px">
   				<div class="btn-group">
   					<a id="btnAddWeapon" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-add"  plain="true" onclick="btnAddWeapon()">创建</a>
@@ -94,8 +60,7 @@
 			</div>	
   			<div id="dtWeapon" >
   			</div> 
-	</div> 
-  		</div>   
+ 
 	</div>   
 	 <div id="weaponinfowindow" class="easyui-window" title="新增/编辑武器信息"
 			data-options="iconCls:'icon-edit'"
@@ -130,57 +95,6 @@
 				</div>
 			</div>
 		</div>
-	<!--新增开始 
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">新增武器信息</h4>
-				</div>
-				<div class="modal-body">
-
-					<!--表单开始 
-					<form class="form-horizontal" role="form">
-						<div class="form-group">
-							<label for="txttype" class="col-sm-2 control-label">武器类别：</label>
-							<div class="col-sm-4">
-								<select id="txttype" class="form-control"> 
-								</select>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="txtnumber" class="col-sm-2 control-label">武器编号</label>
-							<div class="col-sm-4">
-								<input type="hidden" id="weaponId">
-								<input id="txtnumber" type="text" class="form-control"
-									placeholder="">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="txtstandard" class="col-sm-2 control-label">规格标准</label>
-							<div class="col-sm-4">
-								<input id="txtstandard" type="text" class="form-control"
-								placeholder="">
-							</div>
-						</div> 
-					</form>
-					<!--表单结束
-
-				</div>
-				<div class="modal-footer">
-					<button id="btnsaveweapon" onclick="saveWeaponAction()"
-						type="button" class="btn btn-primary">保存</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-				</div>
-			</div>
-		</div>
-	</div>-->
-
+ 
 </body>
 </html>

@@ -9,9 +9,9 @@ $(function() {
 	$("#gpsdeviceinfowindow").window("close");
 
 	var args = getUrlArgs();
-	m_Gpsdevice_OrgId = 15; // args["orgId"];
-	m_Gpsdevice_OrgCode = '510106993600';// args["orgCode"];
-	m_Gpsdevice_OrgPath = '/510106000000';// args["orgPath"];
+	m_Gpsdevice_OrgId =   args["orgId"];
+	m_Gpsdevice_OrgCode =   args["orgCode"];
+	m_Gpsdevice_OrgPath =  args["orgPath"];
 	pack_Gpsdevice_Query();
 
 	$("#orgtree").tree({
