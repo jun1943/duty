@@ -236,6 +236,29 @@ public class PoliceGroupController {
 		return rs.toJson();
 	}
 	
+
+	@RequestMapping(value = "getPoliceGrouplist.do")
+	public @ResponseBody
+	String getPoliceGrouplist(@RequestParam(value = "orgId", required = false) Integer orgId,
+			HttpServletRequest request) {
+		try{
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("orgId", orgId);
+
+			List<PoliceGroupVM> pgvms = policeGroupService.loadVMListByOrgIdShared(map);
+			int total = pgvms.size();
+			ListResult<PoliceGroupVM> rs = new ListResult<PoliceGroupVM>(total,
+					pgvms);
+
+			String ss = JSONObject.fromObject(rs).toString();
+
+			return ss;
+		}catch(Exception ex){
+			return "{'total':0,rows:[]}";
+		}
+		
+	}
+	
 }
 
 

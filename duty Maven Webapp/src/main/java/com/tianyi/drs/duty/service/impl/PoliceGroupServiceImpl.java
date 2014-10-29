@@ -119,4 +119,10 @@ public class PoliceGroupServiceImpl implements PoliceGroupService{
 		policeGroupMemberMapper.deleteByGroupId(groupId);
 	}
 
+	public List<PoliceGroupVM> loadVMListByOrgIdShared(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		List<PoliceGroupVM> ls=policeGroupMapper.loadVMListByOrgIdShared(map);
+		return ls;
+	}
+
 }

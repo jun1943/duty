@@ -35,11 +35,11 @@
             <property name="enableSubPackages" value="true"/>  
         </javaClientGenerator>  
 
-		<table tableName="t_icon" domainObjectName="Icons"
+		<!--table tableName="t_icon" domainObjectName="Icons"
            enableSelectByExample="false"
 	       enableDeleteByExample="false"
 	       enableCountByExample="false"
-	       enableUpdateByExample="false"/>
+	       enableUpdateByExample="false"/-->
 		 
 
     </context>  

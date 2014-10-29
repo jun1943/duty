@@ -23,6 +23,8 @@ public interface PoliceGroupMapper {
     int countByOrgId(Map<String, Object> map);
     
     List<PoliceGroupVM> loadVMListByOrgId(Map<String, Object> map);
+
+	List<PoliceGroupVM> loadVMListByOrgIdShared(Map<String, Object> map);
     
     
 }

@@ -33,4 +33,7 @@ public interface PoliceGroupService {
 	
 	void cleanMember(Integer groupId);
 
+	java.util.List<PoliceGroupVM> loadVMListByOrgIdShared(
+			Map<String, Object> map);
+
 }

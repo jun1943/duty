@@ -24,7 +24,7 @@ $(function () {
 //		//onDrop:onTreeD2BeforeDrop
 //	});
 	   $('#source_police').treegrid({ 
-		    url:"police/getPoliceSource.do?orgId=15&name=",
+		    url:"police/getPoliceSource.do?orgId="+m_dutyprepare_Org.id+"&name=",
 		    dnd:true,
 	        fitColumns: true, 
 	        resizable: true,
@@ -40,7 +40,7 @@ $(function () {
 	    });
 
 	   $('#source_vehicle').treegrid({ 
-		    url:"vehicle/getVehicleSource.do?orgId=15&number=",
+		    url:"vehicle/getVehicleSource.do?orgId="+m_dutyprepare_Org.id+"&number=",
 	        fitColumns: true, 
 	        resizable: true,
 	        idField: 'id',
@@ -54,7 +54,7 @@ $(function () {
 	        ]]
 	    });
 	   $('#source_gpsdevice').treegrid({ 
-		    url:"gpsdevice/getGpsdeviceSource.do?orgId=15&gpsname=",
+		    url:"gpsdevice/getGpsdeviceSource.do?orgId="+m_dutyprepare_Org.id+"&gpsname=",
 	        fitColumns: true, 
 	        resizable: true,
 	        idField: 'id',
@@ -69,7 +69,7 @@ $(function () {
 	    });
 
 	   $('#source_weapon').treegrid({ 
-		    url:"weapon/getweaponSource.do?orgId=15&number=",
+		    url:"weapon/getweaponSource.do?orgId="+m_dutyprepare_Org.id+"&number=",
 	        fitColumns: true, 
 	        resizable: true,
 	        idField: 'id',
@@ -175,7 +175,7 @@ function InitGrid(){
 //        ]]
 //    });
 	$('#dt_groupType').datagrid({
-		url : 'dutyType/getPoliceGrouplist.do?orgId=15', 
+		url : 'policeGroup/getPoliceGrouplist.do?orgId='+m_dutyprepare_Org.id, 
 		fitColumns : true,
 		pagination: false, 
 		title:"人员分组",
@@ -240,7 +240,7 @@ function SearchVehicleAction(){
 	if(row.length>0){
 		typeId= row[0].id;
 	}
-	$('#source_vehicle').treegrid("reload",{"orgId":15,"number":number,"typeId":typeId});
+	$('#source_vehicle').treegrid("reload",{"orgId":m_dutyprepare_Org.id,"number":number,"typeId":typeId});
 	$("#txtvnumber").val("");
 	$('#dt_vehicleType').datagrid("unselectAll");
 	$('#vehicleConditionwindow').window('close');
@@ -252,7 +252,7 @@ function SearchGpsAction(){
 	if(row.length>0){
 		typeId= row[0].id;
 	}
-	$('#source_gpsdevice').treegrid("reload",{"orgId":15,"gpsname":name,"typeId":typeId});
+	$('#source_gpsdevice').treegrid("reload",{"orgId":m_dutyprepare_Org.id,"gpsname":name,"typeId":typeId});
 	$("#txtgname").val("");
 	$('#dt_gpsType').datagrid("unselectAll");
 	$('#gpsConditionwindow').window('close');
@@ -264,7 +264,7 @@ function SearchWeaponAction(){
 	if(row.length>0){
 		typeId= row[0].id;
 	}
-	$('#source_weapon').treegrid("reload",{"orgId":15,"number":number,"typeId":typeId});
+	$('#source_weapon').treegrid("reload",{"orgId":m_dutyprepare_Org.id,"number":number,"typeId":typeId});
 	$("#txtwnumber").val("");
 	$('#dt_weaponType').datagrid("unselectAll");
 	$('#weaponConditionwindow').window('close');
@@ -281,7 +281,7 @@ function SearchPoliceAction(){
 	if(grouprow.length>0){
 		groupId = grouprow[0].id;
 	}
-	$('#source_police').treegrid("reload",{"orgId":15,"name":name,"typeId":typeId,"groupId":groupId});
+	$('#source_police').treegrid("reload",{"orgId":m_dutyprepare_Org.id,"name":name,"typeId":typeId,"groupId":groupId});
 	$("#txtpname").val("");
 	$('#dt_policeType').datagrid("unselectAll");
 	$('#dt_groupType').datagrid("unselectAll");

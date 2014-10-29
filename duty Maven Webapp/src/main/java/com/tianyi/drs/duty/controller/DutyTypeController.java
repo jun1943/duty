@@ -130,21 +130,4 @@ public class DutyTypeController {
 	}
 
 
-	@RequestMapping(value = "getPoliceGrouplist.do")
-	public @ResponseBody
-	String getPoliceGrouplist(@RequestParam(value = "orgId", required = false) Integer orgId,
-			HttpServletRequest request) {
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("orgId", orgId);
-
-		List<PoliceGroupVM> pgvms = policeGroupService.loadVMListByOrgId(map);
-		int total = pgvms.size();
-		ListResult<PoliceGroupVM> rs = new ListResult<PoliceGroupVM>(total,
-				pgvms);
-
-		String ss = JSONObject.fromObject(rs).toString();
-
-		return ss;
-	}
 }
