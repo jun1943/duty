@@ -175,7 +175,6 @@ public class IconsController extends CommonsMultipartResolver {
 								
 				ops.read(img);
 				
-				
 			}
 			
 			String s=icon.getName();
