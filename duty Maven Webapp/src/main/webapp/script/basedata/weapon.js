@@ -9,9 +9,9 @@ $(function() {
 	$("#weaponinfowindow").window("close");
 	
 	var args = getUrlArgs();
-	m_Weapon_OrgId = 15; // args["orgId"];
-	m_Weapon_OrgCode = '510106993600';// args["orgCode"];
-	m_Weapon_OrgPath = '/510106000000';// args["orgPath"];
+	m_Weapon_OrgId =  args["orgId"];
+	m_Weapon_OrgCode =   args["orgCode"];
+	m_Weapon_OrgPath =   args["orgPath"];
 	pack_Weapon_Query();
 
 	$("#orgtree").tree({

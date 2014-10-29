@@ -173,11 +173,13 @@ public class IconsController extends CommonsMultipartResolver {
 				
 				InputStream  ops=cmFile.getFileItem().getInputStream ();
 								
-				ops.read(img);
+				int s = ops.read(img);
 				
 			}
-			
-			String s=icon.getName();
+			byte[] s = new byte[1024];
+			Map parametermap=new HashMap();
+			parametermap.put("file",s);
+			String name=icon.getName();
 			
 			ObjResult<Icons>rs= new ObjResult<Icons>();
 			

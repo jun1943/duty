@@ -36,12 +36,16 @@ $(function () {
 	               { title: '姓名', field: 'name', align: 'center', width: 80 },
 	               { title: '警号', field: 'number', align: 'center', width: 80},
 	               { title: '单位', field: 'orgName', align: 'center', width: 50} 
-	        ]]
+	        ]],
+			onLoadSuccess: function(row){
+				$(this).treegrid('enableDnd', row?row.id:null);
+			}
 	    });
 
 	   $('#source_vehicle').treegrid({ 
 		    url:"vehicle/getVehicleSource.do?orgId="+m_dutyprepare_Org.id+"&number=",
 	        fitColumns: true, 
+		    dnd:true,
 	        resizable: true,
 	        idField: 'id',
 	        treeField: 'id',  
@@ -51,11 +55,15 @@ $(function () {
 	               { title: '车辆类型', field: 'typeName', align: 'center', width: 80 },
 	               { title: '车牌号码', field: 'number', align: 'center', width: 80},
 	               { title: '车辆品牌', field: 'brand', align: 'center', width: 50} 
-	        ]]
+	        ]],
+			onLoadSuccess: function(row){
+				$(this).treegrid('enableDnd', row?row.id:null);
+			}
 	    });
 	   $('#source_gpsdevice').treegrid({ 
 		    url:"gpsdevice/getGpsdeviceSource.do?orgId="+m_dutyprepare_Org.id+"&gpsname=",
 	        fitColumns: true, 
+		    dnd:true,
 	        resizable: true,
 	        idField: 'id',
 	        treeField: 'id',  
@@ -65,12 +73,16 @@ $(function () {
 	               { title: 'GPS类型', field: 'typeName', align: 'center', width: 80 },
 	               { title: 'GPS显示名称', field: 'gpsName', align: 'center', width: 80},
 	               { title: 'GPS设备编号', field: 'number', align: 'center', width: 50} 
-	        ]]
+	        ]],
+			onLoadSuccess: function(row){
+				$(this).treegrid('enableDnd', row?row.id:null);
+			}
 	    });
 
 	   $('#source_weapon').treegrid({ 
 		    url:"weapon/getweaponSource.do?orgId="+m_dutyprepare_Org.id+"&number=",
 	        fitColumns: true, 
+		    dnd:true,
 	        resizable: true,
 	        idField: 'id',
 	        treeField: 'id',  
@@ -80,7 +92,10 @@ $(function () {
 	               { title: '武器类型', field: 'typeName', align: 'center', width: 80 },
 	               { title: '武器编号', field: 'number', align: 'center', width: 80},
 	               { title: '规格标准', field: 'standard', align: 'center', width: 50} 
-	        ]]
+	        ]],
+			onLoadSuccess: function(row){
+				$(this).treegrid('enableDnd', row?row.id:null);
+			}
 	    });
 	$('#treeD2').tree({
 		dnd:true,

@@ -9,9 +9,9 @@ $(function() {
 
 	
 	var args = getUrlArgs();
-	m_Icons_OrgId = 15; // args["orgId"];
-	m_Icons_OrgCode = '510106993600';// args["orgCode"];
-	m_Icons_OrgPath = '/510106000000';// args["orgPath"];
+	m_Icons_OrgId =   args["orgId"];
+	m_Icons_OrgCode =   args["orgCode"];
+	m_Icons_OrgPath =   args["orgPath"];
 	pack_Icons_Query();
 
 	$("#orgtree").tree({

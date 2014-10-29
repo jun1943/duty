@@ -9,9 +9,9 @@ $(function() {
 	$("#vehicleinfowindow").window("close");
 	
 	var args = getUrlArgs();
-	m_Vehicle_OrgId = 15; // args["orgId"];
-	m_Vehicle_OrgCode = '510106993600';// args["orgCode"];
-	m_Vehicle_OrgPath = '/510106000000';// args["orgPath"];
+	m_Vehicle_OrgId =   args["orgId"];
+	m_Vehicle_OrgCode =   args["orgCode"];
+	m_Vehicle_OrgPath =   args["orgPath"];
 	pack_Vehicle_Query();
 
 	$("#orgtree").tree({

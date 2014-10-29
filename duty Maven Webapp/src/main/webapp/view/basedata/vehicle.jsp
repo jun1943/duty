@@ -17,42 +17,13 @@
 </head>
 
 <body class="easyui-layout">
- 
-	<div data-options="region:'west',split:true,title:'组织机构导航树'" style="width:13%;padding:10px;">
-		<div>
-			<input type="text">
-		</div>
-		
-		<ul id="orgtree" class="easyui-tree"> 
-		</ul>
-	</div>  
+  
 	
 	<div data-options="region:'center'"style="padding:10px;"> 
-		<div class="easyui-layout" data-options="fit:true">
-			<div data-options="region:'north',border:false"
-				style="padding: 2px; height: 55px;overflow:hidden">
-				<div class="container-fluid my-nav-bg">
-					<ul class="nav navbar-nav">
-						<li style="width:1px;"><a href="#">&nbsp;</a></li>
-						<li><a href="/duty/view/basedata/police.jsp"
-							class="my-nav-btn">人员管理 <img src="asset/css/images/nav-btn-icon.png"
-								width="22" height="22"></a></li>
-						<li class="active"><a href="/duty/view/basedata/vehicle.jsp" class="my-nav-btn">车辆管理
-								<img src="asset/css/images/nav-btn-icon.png" width="22" height="22">
-						</a></li>
-						<li><a href="/duty/view/basedata/weapon.jsp" class="my-nav-btn">武器管理
-								<img src="asset/css/images/nav-btn-icon.png" width="22" height="22">
-						</a></li>
-						<li><a href="/duty/view/basedata/gpsdevice.jsp" class="my-nav-btn">定位设备
-								<img src="asset/css/images/nav-btn-icon.png" width="22" height="22">
-						</a></li>
-						<li><a href="/duty/view/basedata/icons.jsp" class="my-nav-btn">图标管理
-								<img src="asset/css/images/nav-btn-icon.png" width="22" height="22">
-						</a></li>
-					</ul>
-				</div>
-			</div>
-			<div data-options="region:'center',border:false">
+		 
+		 
+				 
+			 
 				<div id="tbVehicle" class="btn-toolbar" style="height:40px; margin-top:10px">
 	  				<div class="btn-group">
 	  					<a id="btnAddVehicle" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-add"  plain="true" onclick="btnAddVehicle()">创建</a>
@@ -94,10 +65,7 @@
 				</div>	
 	  			<div id="dtVehicle" >
   				</div> 
-  			</div> 
-  		</div>   
-	</div>   
-  
+  			</div>  
   <div id="vehicleinfowindow" class="easyui-window" title="新增/编辑车辆信息"
 			data-options="iconCls:'icon-edit'"
 			style="width: 400px; height: 500px; padding: 10px;">
@@ -155,102 +123,6 @@
 				</div>
 			</div>
 		</div>
-  
-	<!--新增开始 
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">新增车辆信息</h4>
-				</div>
-				<div class="modal-body">
-
-					<!--表单开始 
-					<form class="form-horizontal" role="form">
-						<div class="form-group">
-							<label for="txtbrand" class="col-sm-2 control-label">车辆品牌</label>
-							<div class="col-sm-4">
-								<input type="hidden" id="vehicleId"> 
-								<input type="text" class="form-control" id="txtbrand"
-									placeholder="">
-							</div>
-						</div> 
-						<div class="form-group">
-							<label for="txttype" class="col-sm-2 control-label">车辆类型:</label>
-							<div class="col-sm-4">
-								<select id="txttype" class="form-control"> 
-								</select>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="txtsiteqty" class="col-sm-2 control-label">座位数:</label>
-							<div class="col-sm-4">
-								<input type="text" class="form-control" id="txtsiteqty"
-									placeholder="">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="txtnumber" class="col-sm-2 control-label">车牌号码:</label>
-							<div class="col-sm-4">
-								<input type="text" class="form-control" id="txtnumber"
-									placeholder="">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="txtpurpose" class="col-sm-2 control-label">车辆用途:</label>
-							<div class="col-sm-4">
-								<input type="text" class="form-control" id="txtpurpose"
-									placeholder="">
-							</div>
-						</div>
- 
-						<div class="form-group">
-							<label for="txtgroupno" class="col-sm-2 control-label">组呼号:</label>
-							<div class="col-sm-4">
-								<select id="txtgroupno" class="form-control"> 
-								</select>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="txtpersonalno" class="col-sm-2 control-label">个呼号:</label>
-							<div class="col-sm-4">
-							<input type="text" class="form-control" id="txtpersonalno"
-									placeholder="">
-								 
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="txtgpsid" class="col-sm-2 control-label">GPS_ID:</label>
-							<div class="col-sm-4">
-								<select id="txtgpsid" class="form-control"> 
-								</select>
-							</div>
-						</div>
-						
-						<div class="form-group">
-							<label for="txtgpsname" class="col-sm-2 control-label">GPS名称:</label>
-							<div class="col-sm-4">
-								<input type="text" class="form-control" id="txtgpsname"
-									placeholder="">
-							</div>
-						</div>
-					</form>
-					<!--表单结束
-
-				</div>
-				<div class="modal-footer">
-					<button id="btnsaveweapon" onclick="saveVehicleAction()"
-						type="button" class="btn btn-primary">保存</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-				</div>
-			</div>
-		</div>
-	</div>-->
+   
 </body>
 </html>

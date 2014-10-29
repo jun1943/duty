@@ -8,20 +8,14 @@ $(function() {
 	$("#policeinfowindow").window("close");
 
 	var args = getUrlArgs();
-	m_Police_OrgId = 15; // args["orgId"];
-	m_Police_OrgCode = '510106993600';// args["orgCode"];
-	m_Police_OrgPath = '/510106000000';// args["orgPath"];
+	m_Police_OrgId =  args["orgId"];
+	m_Police_OrgCode =   args["orgCode"];
+	m_Police_OrgPath =   args["orgPath"];
 	m_Police_Org.id = m_Police_OrgId;
 	m_Police_Org.code = m_Police_OrgCode;
 	m_Police_Org.path = m_Police_OrgPath;
 	pack_police_Query();
-
-	$("#orgtree").tree({
-		url:  "org/list.do?orgCode=" + m_Police_Org.code + "&orgPath=" + m_Police_Org.path,
-		loadFilter : function(data) {
-			return buildOrgTree(data);
-		}
-	});
+ 
 
 	$('#dtPolice').datagrid({
 		url : "police/getPoliceList.do",
@@ -33,6 +27,7 @@ $(function() {
 		pageNumber : 1,
 		pageSize : 10,
 	    title:"人员列表",
+	   
 		// singleSelect: true,
 		columns : [ [ {
 			field : 'ck',
