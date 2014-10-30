@@ -28,7 +28,8 @@
     delete from t_duty_desc
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tianyi.drs.duty.model.DutyDesc" >
+  
+  <insert id="insert" parameterType="com.tianyi.drs.duty.model.DutyDesc" useGeneratedKeys="true" keyProperty="id">
     insert into t_duty_desc (id, org_id, is_template, 
       name, ymd, create_time, 
       preparer_id, sync_state, platform_id
@@ -38,7 +39,7 @@
       #{preparerId,jdbcType=INTEGER}, #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.DutyDesc" >
+  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.DutyDesc" useGeneratedKeys="true" keyProperty="id">
     insert into t_duty_desc
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -151,6 +152,7 @@
   
   <resultMap id="DutyVMMap" type="com.tianyi.drs.duty.viewmodel.DutyVM">
   	<id column="duty_id" property="id" jdbcType="INTEGER" />
+  	<result column="duty_desc_id" property="DutyDescId" jdbcType="INTEGER" />
   	<result column="duty_type_id" property="typeId" jdbcType="INTEGER" />
   	<result column="duty_type_name" property="typeName" jdbcType="VARCHAR" />
   	<result column="duty_name" property="name" jdbcType="VARCHAR" />
@@ -159,13 +161,15 @@
   
   <resultMap id="DutySiftVMMap" type="com.tianyi.drs.duty.viewmodel.DutyShiftVM">
   	<id column="shift_id" property="id" jdbcType="INTEGER" />
-  	<result column="sift_begin_time" property="beginTime" jdbcType="TIMESTAMP" />
-  	<result column="sift_end_time" property="endTime" jdbcType="TIMESTAMP" />
+  	<result column="shift_duty_id" property="dutyId" jdbcType="INTEGER" />
+  	<result column="shift_begin_time" property="beginTime" jdbcType="TIMESTAMP" />
+  	<result column="shift_end_time" property="endTime" jdbcType="TIMESTAMP" />
   	<collection property="items" resultMap="DutyItemVMMap"/>
   </resultMap>
   
   <resultMap id="DutyItemVMMap" type="com.tianyi.drs.duty.viewmodel.DutyItemVM">
   	<id column="item_id" property="id" jdbcType="INTEGER" />
+  	<result column="item_shift_id" property="dutyShiftId" jdbcType="INTEGER" />
   	<result column="item_type_id" property="itemTypeId" jdbcType="INTEGER" />
   	<result column="item_type" property="itemType" jdbcType="VARCHAR" />
   	<result column="item_displayname" property="displayName" jdbcType="VARCHAR" />
@@ -178,19 +182,24 @@
   	<result column="item_full_id_path" property="fullIdPath" jdbcType="VARCHAR" />
   </resultMap>
   
+  
+  
   <select id="loadDutyDescVM" parameterType="java.util.Map" resultMap="AllAssocMap">
   	select 
   		dd.id 				as 	id,
   		dd.org_id			as		orgId,
   		org.name			as		orgName,
   		d.id					as		duty_id,
+  		d.duty_desc_id	as		duty_desc_id,
   		d.type_id			as		duty_type_id,
   		dt.name			as 	duty_type_name,
   		d.name				as 	duty_name,
   		ds.id					as 	shift_id,
+  		ds.duty_id			as		shift_duty_id,
   		ds.begin_time	as		shift_begin_time,
   		ds.end_time		as		shift_end_time,
   		di.id					as		item_id,
+  		di.duty_shift_id	as		item_shift_id,
   		di.item_type_id	as		item_type_id,
   		case	di.item_type_id
   			when	1		then	'车辆'
@@ -224,6 +233,27 @@
   	where
 		dd.id = #{id,jdbcType=INTEGER}
 	order by d.id,ds.id,di.id
+  </select>
+  
+  <select id="loadIdByOrgIdAndYMD" parameterType="java.util.Map"  resultType="java.lang.Integer">
+  	select id from t_duty_desc where org_id= #{orgId,jdbcType=INTEGER} and ymd= #{ymd,jdbcType=INTEGER}
+  </select>
+  
+  <select id="loadVMList" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select 
+  		* 
+  	from t_duty_desc
+  	where
+		<if test="orgId != null" >
+        	and org_id = #{orgId,jdbcType=INTEGER}
+      	</if>
+      	
+      	<if test="isTemplate != null" >
+        	and is_template = #{isTemplate,jdbcType=INTEGER}
+      	</if>
+      	
+      	
+      	
   </select>
   
 </mapper>

@@ -28,6 +28,11 @@ public class DutyDescVM extends DutyDesc{
 		this.duties = duties;
 	}
 	
-	
+	public DutyDesc toDutyDesc(){
+		DutyDesc dd=new DutyDesc();
+		dd.setId(this.getId());
+		
+		return dd;
+	}
 	
 }

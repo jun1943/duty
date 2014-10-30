@@ -15,4 +15,6 @@ public interface DutyItemMapper {
     int updateByPrimaryKeySelective(DutyItem record);
 
     int updateByPrimaryKey(DutyItem record);
+    
+    void deleteByShiftId(Integer shiftId);
 }

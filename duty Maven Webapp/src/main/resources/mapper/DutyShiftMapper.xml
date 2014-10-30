@@ -24,7 +24,7 @@
     delete from t_duty_shift
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tianyi.drs.duty.model.DutyShift" >
+  <insert id="insert" parameterType="com.tianyi.drs.duty.model.DutyShift" useGeneratedKeys="true" keyProperty="id">
     insert into t_duty_shift (id, duty_id, begin_time, 
       end_time, begin_datetime, end_datetime, 
       sync_state, platform_id)
@@ -32,7 +32,7 @@
       #{endTime,jdbcType=TIME}, #{beginDatetime,jdbcType=TIMESTAMP}, #{endDatetime,jdbcType=TIMESTAMP}, 
       #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.DutyShift" >
+  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.DutyShift" useGeneratedKeys="true" keyProperty="id">
     insert into t_duty_shift
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

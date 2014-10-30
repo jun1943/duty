@@ -22,7 +22,7 @@
     delete from t_duty
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tianyi.drs.duty.model.Duty" >
+  <insert id="insert" parameterType="com.tianyi.drs.duty.model.Duty" useGeneratedKeys="true" keyProperty="id">
     insert into t_duty (id, duty_desc_id, type_id, 
       name, sync_state, platform_id
       )
@@ -30,7 +30,7 @@
       #{name,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.Duty" >
+  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.Duty" useGeneratedKeys="true" keyProperty="id">
     insert into t_duty
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
