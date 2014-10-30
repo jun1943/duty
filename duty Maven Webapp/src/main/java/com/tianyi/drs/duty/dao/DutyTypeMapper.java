@@ -30,4 +30,5 @@ public interface DutyTypeMapper {
     void updateUseStateByFullPath(Map<String,Object> map);
     
     int checkUsed(Integer typeId);
+ 
 }

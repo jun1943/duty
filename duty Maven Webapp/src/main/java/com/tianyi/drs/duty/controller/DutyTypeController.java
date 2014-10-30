@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianyi.drs.basedata.service.PoliceService;
 import com.tianyi.drs.basedata.viewmodel.PoliceVM;
+import com.tianyi.drs.duty.model.DutyType;
 import com.tianyi.drs.duty.model.Org;
 import com.tianyi.drs.duty.service.DutyTypeService;
 import com.tianyi.drs.duty.service.OrgService;
@@ -55,8 +56,7 @@ public class DutyTypeController {
 
 		String result = rs.toJson();
 		return result;
-	}
-
+	} 
 	@RequestMapping(value = "loadProperties.do")
 	public @ResponseBody
 	String loadProperties(HttpServletRequest request) {

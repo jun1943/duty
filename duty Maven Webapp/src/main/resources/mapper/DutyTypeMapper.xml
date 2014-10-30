@@ -301,6 +301,6 @@
 		from  t_duty
 		where type_id =#{typeId,jdbcType=INTEGER}
   </select>
-  
+    
   
 </mapper>

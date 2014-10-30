@@ -76,7 +76,7 @@
 						<a id="btnEditPoliceGroup"	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
 						plain="true" onclick="editPoliceGroup()">保存为模板</a>
 						<a id="btnEditPoliceGroup"	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
-						plain="true" onclick="editPoliceGroup()">报备类型选择</a>
+						plain="true" onclick="selectDutyType()">报备类型选择</a>
 						<a id="btnDelPoliceGroup" href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
 						plain="true"	onclick="delPoliceGroup()">选择模板</a>
 						<a id="btnDelPoliceGroup" href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
@@ -87,22 +87,9 @@
 						plain="true"	onclick="delPoliceGroup()">导出</a>
 					</div>
 				</div>
-			</div>99
+			</div>
 			<div data-options="region:'center'"  >
-				<div id="aa" class="easyui-accordion" style="width:100%;height:90%;">    
-    				<div title="Title1" data-options="iconCls:'icon-save'" style="overflow:auto;padding:5px;">
-    					       
-        				<h3 style="color:#0099FF;">Accordion for jQuery</h3>    
-        				<p>Accordion is a part of easyui framework for jQuery.     
-        					It lets you define your accordion component on web page more easily.
-        				</p>    
-    				</div>    
-    				<div title="Title2" data-options="iconCls:'icon-reload'" style="padding:5px;">    
-        				
-    				</div>    
-    				<div title="Title3">    
-        				<ul id="treeD2"></ul> 
-    				</div>    
+				<div id="dutyTypeAccordion" class="easyui-accordion" style="width:100%;height:90%;">    
 				</div>
 			</div>
 		</div>
@@ -112,15 +99,15 @@
 			data-options="iconCls:'icon-edit'"
 			style="width: 354px; height: 300px; padding: 10px;">
 			<div class="easyui-layout" data-options="fit:true">
-				<div data-options="region:'south',border:false"
+				<div data-options="region:'north',border:false"
 					style="padding: 2px; height: 30px;">
-					 <a href="javascript:void(0);" style="float:right"
+					<a href="javascript:void(0);" class="easyui-linkbutton" 
+						data-options="iconCls:'icon-save',plain:true"
+						onclick="SearchPoliceAction()">确定</a>  
+					 <a href="javascript:void(0);" 
 						class="easyui-linkbutton"
 						onclick="$('#policeConditionwindow').window('close');"
 						data-options="iconCls:'icon-remove',plain:true">取消</a>
-					<a href="javascript:void(0);" class="easyui-linkbutton" style="float:right"
-						data-options="iconCls:'icon-save',plain:true"
-						onclick="SearchPoliceAction()">确定</a>  
 				</div>				
 				<div data-options="region:'west',border:false"
 					style="padding: 2px; width:150px; height:200px">
@@ -136,20 +123,19 @@
 				</div>
 			</div>
 	</div>
-	
 	<div id="gpsConditionwindow" class="easyui-window" title="定位设备选择过滤条件"
 			data-options="iconCls:'icon-edit'"
 			style="width: 354px; height: 300px; padding: 10px;">
 			<div class="easyui-layout" data-options="fit:true">
-				<div data-options="region:'south',border:false"
+				<div data-options="region:'north',border:false"
 					style="padding: 2px; height: 30px;">
-					 <a href="javascript:void(0);" style="float:right"
+					<a href="javascript:void(0);" class="easyui-linkbutton" 
+						data-options="iconCls:'icon-save',plain:true"
+						onclick="SearchGpsAction()">确定</a>  
+					 <a href="javascript:void(0);" 
 						class="easyui-linkbutton"
 						onclick="$('#gpsConditionwindow').window('close');"
 						data-options="iconCls:'icon-remove',plain:true">取消</a>
-					<a href="javascript:void(0);" class="easyui-linkbutton" style="float:right"
-						data-options="iconCls:'icon-save',plain:true"
-						onclick="SearchGpsAction()">确定</a>  
 				</div>	 
 				<div data-options="region:'center',border:false"
 					style="padding: 2px;  width:300px; height:200px">
@@ -161,15 +147,15 @@
 			data-options="iconCls:'icon-edit'"
 			style="width: 354px; height: 300px; padding: 10px;">
 			<div class="easyui-layout" data-options="fit:true">
-				<div data-options="region:'south',border:false"
+				<div data-options="region:'north',border:false"
 					style="padding: 2px; height: 30px;">
-					 <a href="javascript:void(0);" style="float:right"
+					<a href="javascript:void(0);" class="easyui-linkbutton" 
+						data-options="iconCls:'icon-save',plain:true"
+						onclick="SearchWeaponAction()">确定</a>  
+					 <a href="javascript:void(0);" 
 						class="easyui-linkbutton"
 						onclick="$('#weaponConditionwindow').window('close');"
 						data-options="iconCls:'icon-remove',plain:true">取消</a>
-					<a href="javascript:void(0);" class="easyui-linkbutton" style="float:right"
-						data-options="iconCls:'icon-save',plain:true"
-						onclick="SearchWeaponAction()">确定</a>  
 				</div>	 
 				<div data-options="region:'center',border:false"
 					style="padding: 2px;  width:300px; height:200px">
@@ -177,19 +163,19 @@
 				</div>
 			</div>
 	</div>
-		<div id="vehicleConditionwindow" class="easyui-window" title="车辆选择过滤条件"
+	<div id="vehicleConditionwindow" class="easyui-window" title="车辆选择过滤条件"
 			data-options="iconCls:'icon-edit'"
 			style="width: 354px; height: 300px; padding: 10px;">
 			<div class="easyui-layout" data-options="fit:true">
-				<div data-options="region:'south',border:false"
+				<div data-options="region:'north',border:false"
 					style="padding: 2px; height: 30px;">
-					 <a href="javascript:void(0);" style="float:right"
+					<a href="javascript:void(0);" class="easyui-linkbutton"  
+						data-options="iconCls:'icon-save',plain:true"
+						onclick="SearchVehicleAction()">确定</a>  
+					 <a href="javascript:void(0);"  
 						class="easyui-linkbutton"
 						onclick="$('#vehicleConditionwindow').window('close');"
 						data-options="iconCls:'icon-remove',plain:true">取消</a>
-					<a href="javascript:void(0);" class="easyui-linkbutton" style="float:right"
-						data-options="iconCls:'icon-save',plain:true"
-						onclick="SearchVehicleAction()">确定</a>  
 				</div>	 
 				<div data-options="region:'center',border:false"
 					style="padding: 2px;  width:300px; height:200px">
@@ -197,4 +183,29 @@
 				</div>
 			</div>
 	</div>
+	<div id="dutyTypeSelectwindow" class="easyui-window" title="勤务报备类型选择" data-options="iconCls:'icon-edit'"
+			style="width: 354px; height:500px; padding: 10px;">
+		<div class="easyui-layout" data-options="fit:true">
+			<div data-options="region:'north',border:false"
+					style="padding: 2px; height: 30px;"> 
+					<a href="javascript:void(0);" class="easyui-linkbutton" 
+						data-options="iconCls:'icon-save',plain:true"
+						onclick="selectDutyTypeAction()">确定</a>  
+					 <a href="javascript:void(0);" 
+						class="easyui-linkbutton"
+						onclick="$('#dutyTypeSelectwindow').window('close');"
+						data-options="iconCls:'icon-remove',plain:true">取消</a>
+			</div>
+			<div data-options="region:'center',border:false"
+					style="padding: 2px;  width:300px; height:400px">
+					<div id="dtDutyType"></div>
+			</div>
+		</div>
+	</div>
+	<div style="display:none">
+		<div id="tb_worksheet">
+			<input id="starttime" class="easyui-timespinner"  style="width:80px;" required="required" data-options="min:'00:00',showSeconds:false" />
+			<input id="endtime" class="easyui-timespinner"  style="width:80px;" required="required" data-options="min:'00:01',showSeconds:false" />
+		</div>
+	</div>	 
 </body>
