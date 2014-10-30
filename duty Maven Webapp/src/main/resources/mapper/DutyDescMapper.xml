@@ -13,38 +13,7 @@
     <result column="platform_id" property="platformId" jdbcType="INTEGER" />
   </resultMap>
   
-  <resultMap id="AllAssocMap" type="com.tianyi.drs.duty.viewmodel.DutyDescVM">
-  	<id column="id" property="id" jdbcType="INTEGER" />
-  	<result column="org_id" property="orgId" jdbcType="INTEGER" />
-  	<result column="org_name" property="orgName" jdbcType="VARCHAR" />
-  	<collection property="duties" resultMap="DutyVMMap"/>
-  </resultMap>
   
-  <resultMap id="DutyVMMap" type="com.tianyi.drs.duty.viewmodel.DutyVM">
-  	<id column="id" property="id" jdbcType="INTEGER" />
-  	<result column="duty_type_id" property="typeId" jdbcType="INTEGER" />
-  	<result column="duty_type_name" property="typeName" jdbcType="VARCHAR" />
-  	<result column="duty_name" property="name" jdbcType="VARCHAR" />
-  	<collection property="duties" resultMap="PropertyResultMap2"/>
-  </resultMap>
-  
-  <resultMap id="DutySiftVMMap" type="com.tianyi.drs.duty.viewmodel.DutyShiftVM">
-  	<id column="id" property="id" jdbcType="INTEGER" />
-  	<result column="sift_begin_time" property="beginTime" jdbcType="TIMESTAMP" />
-  	<result column="sift_end_time" property="endTime" jdbcType="TIMESTAMP" />
-  	<collection property="items" resultMap="DutyItemVMMap"/>
-  </resultMap>
-  
-  <resultMap id="DutyItemVMMap" type="com.tianyi.drs.duty.viewmodel.DutyItemVM">
-  	<id column="id" property="id" jdbcType="INTEGER" />
-  	<result column="item_type_id" property="itemTypeId" jdbcType="INTEGER" />
-  	<result column="item_type" property="itemType" jdbcType="VARCHAR" />
-  	<result column="item_ud_name" property="udName" jdbcType="VARCHAR" />
-  	<result column="item_parent_id" property="parentId" jdbcType="INTEGER" />
-  	<result column="item_is_leaf" property="isLeaf" jdbcType="BIT" />
-  	<result column="item_level" property="level" jdbcType="INTEGER" />
-  	<result column="item_full_id_path" property="fullIdPath" jdbcType="VARCHAR" />
-  </resultMap>
   
   <sql id="Base_Column_List" >
     id, org_id, is_template, name, ymd, create_time, preparer_id, sync_state, platform_id
@@ -173,26 +142,88 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   
+  <resultMap id="AllAssocMap" type="com.tianyi.drs.duty.viewmodel.DutyDescVM">
+  	<id column="id" property="id" jdbcType="INTEGER" />
+  	<result column="org_id" property="orgId" jdbcType="INTEGER" />
+  	<result column="org_name" property="orgName" jdbcType="VARCHAR" />
+  	<collection property="duties" resultMap="DutyVMMap"/>
+  </resultMap>
+  
+  <resultMap id="DutyVMMap" type="com.tianyi.drs.duty.viewmodel.DutyVM">
+  	<id column="duty_id" property="id" jdbcType="INTEGER" />
+  	<result column="duty_type_id" property="typeId" jdbcType="INTEGER" />
+  	<result column="duty_type_name" property="typeName" jdbcType="VARCHAR" />
+  	<result column="duty_name" property="name" jdbcType="VARCHAR" />
+  	<collection property="shifts" resultMap="DutySiftVMMap"/>
+  </resultMap>
+  
+  <resultMap id="DutySiftVMMap" type="com.tianyi.drs.duty.viewmodel.DutyShiftVM">
+  	<id column="shift_id" property="id" jdbcType="INTEGER" />
+  	<result column="sift_begin_time" property="beginTime" jdbcType="TIMESTAMP" />
+  	<result column="sift_end_time" property="endTime" jdbcType="TIMESTAMP" />
+  	<collection property="items" resultMap="DutyItemVMMap"/>
+  </resultMap>
+  
+  <resultMap id="DutyItemVMMap" type="com.tianyi.drs.duty.viewmodel.DutyItemVM">
+  	<id column="item_id" property="id" jdbcType="INTEGER" />
+  	<result column="item_type_id" property="itemTypeId" jdbcType="INTEGER" />
+  	<result column="item_type" property="itemType" jdbcType="VARCHAR" />
+  	<result column="item_displayname" property="displayName" jdbcType="VARCHAR" />
+  	<result column="item_name" property="name" jdbcType="VARCHAR" />
+  	<result column="item_number" property="number" jdbcType="VARCHAR" />
+  	<result column="item_ud_name" property="udName" jdbcType="VARCHAR" />
+  	<result column="item_parent_id" property="parentId" jdbcType="INTEGER" />
+  	<result column="item_is_leaf" property="isLeaf" jdbcType="BIT" />
+  	<result column="item_level" property="level" jdbcType="INTEGER" />
+  	<result column="item_full_id_path" property="fullIdPath" jdbcType="VARCHAR" />
+  </resultMap>
+  
   <select id="loadDutyDescVM" parameterType="java.util.Map" resultMap="AllAssocMap">
   	select 
-  	
+  		dd.id 				as 	id,
+  		dd.org_id			as		orgId,
+  		org.name			as		orgName,
+  		d.id					as		duty_id,
+  		d.type_id			as		duty_type_id,
+  		dt.name			as 	duty_type_name,
+  		d.name				as 	duty_name,
+  		ds.id					as 	shift_id,
+  		ds.begin_time	as		shift_begin_time,
+  		ds.end_time		as		shift_end_time,
+  		di.id					as		item_id,
+  		di.item_type_id	as		item_type_id,
+  		case	di.item_type_id
+  			when	1		then	'车辆'
+  			when	2		then	'警员'
+  			when 	3		then	'武器'
+  			when	4		then	'定位设备'
+  			when	999	then	'自定义'
+  		end 					as		item_type,
+  		case di.item_type_id
+  			when	1		then	 veh.number
+  			when	2		then	poc.name
+  			when	3		then	wpo.number
+  			when	4		then gps.number
+  			when	999	then	di.ud_name
+  		end					as		item_displayname,
+  		di.ud_name		as		item_ud_name,
+  		di.parent_id		as		item_parent_id,
+  		di.is_leaf			as 	item_is_leaf,
+  		di.level				as 	item_level,
+  		di.full_id_path	as		item_full_id_path
   	from	t_duty_desc as dd
   	left join		t_duty 			as d			on	dd.id=d.duty_desc_id
   	left join		t_duty_shift	as ds			on	d.id=ds.duty_id
   	left join		t_duty_item	as di			on	ds.id=di.duty_shift_id
+  	left join		organ 			as org		on 	dd.org_id=org.id
+  	left join 	t_duty_type	as dt			on 	d.type_id=dt.id
+  	left join		t_vehicle		as veh		on	di.item_type_id=1 and 	di.item_id=veh.id
+  	left join 	t_police			as poc		on	di.item_type_id=2	and	di.item_id=poc.id
+  	left join		t_weapon		as wpo		on	di.item_type_id=3	and	di.item_id=wpo.id
+  	left join		t_gps			as gps		on	di.item_type_id=4	and	di.item_id=gps.id	
   	where
-  		1=1
-  		<if test="id != null" >
-        	and id = #{id,jdbcType=INTEGER}
-      	</if>
-  		
-  		<if test="orgId != null" >
-        	and org_id = #{orgId,jdbcType=INTEGER}
-      	</if>
-  		
-  		<if test="ymd != null" >
-        	and ymd = #{ymd,jdbcType=INTEGER}
-      	</if>
+		dd.id = #{id,jdbcType=INTEGER}
+	order by d.id,ds.id,di.id
   </select>
   
 </mapper>

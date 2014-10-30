@@ -410,7 +410,28 @@ function Initdatagrid(id){
 
 
 
+function loadDutyDesc(id){
+	$.ajax({
+        url: "duty/loadDutyDesc.do",
+        type: "POST",
+        dataType: "json",
+        data:{'id':id},
+        async:false,
+        success: function (req) {
+            if (req.isSuccess) {//成功填充数据
+            	var ss = buildDutyTypeTree(req.rows);
+                $('#dtDutyType').treegrid('loadData', ss);
+            }
+            else {
+                alert("获取数据失败");
+            }
+        }
+    }); 
+}
 
+function onTest(){
+	loadDutyDesc(1);
+}
 
 
 
