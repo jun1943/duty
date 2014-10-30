@@ -6,6 +6,7 @@ $(function () {
 	$('#gpsConditionwindow').window('close');
 	$('#weaponConditionwindow').window('close');
 	$('#vehicleConditionwindow').window('close');
+	$('#dutyTypeSelectwindow').window('close');
 	var args = getUrlArgs();
 	m_dutyprepare_Org.id = args["orgId"];
 	m_dutyprepare_Org.code = args["orgCode"];
@@ -15,14 +16,7 @@ $(function () {
 	$('#d2').draggable();
 	
 	$('#dx1').droppable();
-	
-//	$('#treeDrop').tree({
-//		dnd:true,
-//		animate:true,
-//		cascadeCheck : false,
-//		onBeforeDrop:onTreeD2BeforeDrop
-//		//onDrop:onTreeD2BeforeDrop
-//	});
+	 
 	   $('#source_police').treegrid({ 
 		    url:"police/getPoliceSource.do?orgId="+m_dutyprepare_Org.id+"&name=",
 		    dnd:true,
@@ -303,7 +297,116 @@ function SearchPoliceAction(){
 	$('#policeConditionwindow').window('close');
 };
 
+/**************勤务报备模块业务逻辑*****************/
+//勤务报备类型选择，根据选择类型，加载区域标签
+function selectDutyType(){ 
+	 $('#dtDutyType').treegrid({ 
+	        fitColumns: true,
+	        rownumbers: false,
+	        resizable: true,
+	        idField: 'id',
+	        treeField: 'name',  
+	        width:'99%',
+	        height:'100%',
+	        singleSelect:false,
+	        onlyLeafCheck:true,
+	        onClickRow:isLeafSelected,
+	        columns: [[
+                   { field : 'ck', checkbox : true },
+	               { title: 'id', field: 'id', align: 'left', width: 0, hidden: true },
+	               { title: '名称', field: 'name', align: 'left', width: 200},
+	               { title: 'parentId', field: "parentId", align: 'left', width: 5, hidden: true}
+	              
+	        ]]
+	    });
+	InitDutyTypeTreeGrid();
+	$('#dutyTypeSelectwindow').window('open');
+}; 
+function isLeafSelected(row){
+	if(!row.isLeaf){
+		$('#dtDutyType').treegrid("unselect",row.id);
+	} 
+};
+function InitDutyTypeTreeGrid(){ 
+	 $.ajax({
+	        url: "dutyType/list.do",
+	        type: "POST",
+	        dataType: "json",
+	        //async:false,
+	        success: function (req) {
+	            if (req.isSuccess) {//成功填充数据
+	            	var ss = buildDutyTypeTree(req.rows);
+	                $('#dtDutyType').treegrid('loadData', ss);
+	            }
+	            else {
+	                alert("获取数据失败");
+	            }
+	        }
+	    }); 
+};
+//根据选择的勤务类型，加载according标签
+function selectDutyTypeAction(){
+	var rows = $('#dtDutyType').treegrid('getSelections');
+	if(rows.length>0){ 
+		var ids = [];
+		for(var i =0; i<rows.length; i++){ 
+			var titlename = rows[i].name;
+			var accId = rows[i].id;
+			if($.inArray(accId, ids)==-1){
+				$('#dutyTypeAccordion').accordion('add',{
+					title:titlename,
+					content:"<div id='td_"+accId+"'></div>",
+					tools:[{
+						iconCls:'icon-add', 
+						handler:function(){
+							alert("增加班次,下一班id是"+accId+"+1");
+						}
+					},{
+						iconCls:'', 
+						handler:function(){
+						 
+						}
+					},{
+						iconCls:'', 
+						handler:function(){
+							 
+						}
+					},{
+						iconCls:'icon-remove',
+						handler:reMoveAccdordion
+					}]
+				});
 
+				ids.push(accId);
+				Initdatagrid(accId);
+			}
+		}
+		$('#dtDutyType').treegrid('unselectAll');
+	}
+	
+};
+function reMoveAccdordion(){
+	var pp = $('#dutyTypeAccordion').accordion('getSelected');
+	if (pp){
+		var index = $('#dutyTypeAccordion').accordion('getPanelIndex',pp);
+		$('#dutyTypeAccordion').accordion('remove',index);
+	}
+
+};
+function Initdatagrid(id){
+	$("#dt_"+id).datagrid({ 
+		fitColumns : true,
+		pagination: false,  
+		toolbar:"#tb_worksheet",
+		width:'40%',
+		height:'100%',
+		columns : [ [ 
+		              {	title : 'Id',field : 'id',align : 'left',width : 10,hidden : true}, 
+		              {	title : '人员',field : 'name',align : 'left',width : 150	}
+	              ] ]
+	});
+};
+/****************逻辑区域结束*********************/
 
 
 

@@ -124,6 +124,6 @@ public class DutyTypeServiceImpl implements DutyTypeService {
 		}
 		
 	}
-	
+ 
 	
 }
