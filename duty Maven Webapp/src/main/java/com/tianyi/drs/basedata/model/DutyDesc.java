@@ -1,13 +1,21 @@
-package com.tianyi.drs.duty.model;
+package com.tianyi.drs.basedata.model;
 
-public class DutyTemplateDesc {
+import java.util.Date;
+
+public class DutyDesc {
     private Integer id;
 
     private Integer orgId;
 
+    private Boolean isTemplate;
+
     private String name;
 
-    private String description;
+    private Integer ymd;
+
+    private Date createTime;
+
+    private Integer preparerId;
 
     private Boolean syncState;
 
@@ -29,6 +37,14 @@ public class DutyTemplateDesc {
         this.orgId = orgId;
     }
 
+    public Boolean getIsTemplate() {
+        return isTemplate;
+    }
+
+    public void setIsTemplate(Boolean isTemplate) {
+        this.isTemplate = isTemplate;
+    }
+
     public String getName() {
         return name;
     }
@@ -37,12 +53,28 @@ public class DutyTemplateDesc {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public Integer getYmd() {
+        return ymd;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setYmd(Integer ymd) {
+        this.ymd = ymd;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Integer getPreparerId() {
+        return preparerId;
+    }
+
+    public void setPreparerId(Integer preparerId) {
+        this.preparerId = preparerId;
     }
 
     public Boolean getSyncState() {

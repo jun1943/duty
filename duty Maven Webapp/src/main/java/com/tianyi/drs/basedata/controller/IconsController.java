@@ -175,7 +175,6 @@ public class IconsController extends CommonsMultipartResolver {
 								
 				int s = ops.read(img);
 				
-				
 			}
 			byte[] s = new byte[1024];
 			Map parametermap=new HashMap();

@@ -6,6 +6,68 @@
  * 
  */
 
+/**
+ * 备勤资源关系对应
+ */
+var  dutyItemRelate={
+		root:{
+			children:[
+			          'vehicle',
+			          'police',
+			          'usernode'
+			          ]
+		},
+		vehicle:{
+			 children:[
+			           'police',
+			           'weapon',
+			           'gps',
+			           'usernode'
+			           ]
+		},
+		police:{
+			 children:[
+			           'weapon',
+			           'gps'
+			           ]
+		},
+		weapon:{
+			children:[
+			          ]
+		},
+		gps:{
+			 children:[
+			           ]
+		},
+		usernode:{
+			children:[
+			          'all'
+			          ]
+		},
+		/**
+		 * 检查拖动是否符合规则
+		 * @param parenttype
+		 * @param childtype
+		 * @returns {Boolean}
+		 */
+		check:function(parenttype,childtype){
+			var p=this[parenttype];
+			
+			var count=p.children.lenght;
+			var success=false;
+			
+			for(var i=0;i<count;i++){
+				var pc=p.children[i];
+				if(pc=='all' || pc==childtype){
+					sucess=true;
+					break;
+				}
+			}
+			
+			return success;
+		}
+};
+
 function getUrlArgs() {
     var url = location.search; //获取url中"?"符后的字串 
     var theRequest = new Object();
