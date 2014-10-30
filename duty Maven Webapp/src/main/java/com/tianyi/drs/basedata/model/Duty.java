@@ -1,17 +1,19 @@
-package com.tianyi.drs.duty.model;
+package com.tianyi.drs.basedata.model;
 
-public class DutyTemplate {
+import java.util.Date;
+
+public class Duty {
     private Integer id;
 
-    private Integer templateDescId;
+    private Integer dutyDescId;
 
     private Integer typeId;
 
     private String name;
 
-    private Integer beginMinute;
+    private Date beginTime;
 
-    private Integer endMinute;
+    private Date endTime;
 
     private Boolean syncState;
 
@@ -25,12 +27,12 @@ public class DutyTemplate {
         this.id = id;
     }
 
-    public Integer getTemplateDescId() {
-        return templateDescId;
+    public Integer getDutyDescId() {
+        return dutyDescId;
     }
 
-    public void setTemplateDescId(Integer templateDescId) {
-        this.templateDescId = templateDescId;
+    public void setDutyDescId(Integer dutyDescId) {
+        this.dutyDescId = dutyDescId;
     }
 
     public Integer getTypeId() {
@@ -49,20 +51,20 @@ public class DutyTemplate {
         this.name = name;
     }
 
-    public Integer getBeginMinute() {
-        return beginMinute;
+    public Date getBeginTime() {
+        return beginTime;
     }
 
-    public void setBeginMinute(Integer beginMinute) {
-        this.beginMinute = beginMinute;
+    public void setBeginTime(Date beginTime) {
+        this.beginTime = beginTime;
     }
 
-    public Integer getEndMinute() {
-        return endMinute;
+    public Date getEndTime() {
+        return endTime;
     }
 
-    public void setEndMinute(Integer endMinute) {
-        this.endMinute = endMinute;
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
     public Boolean getSyncState() {
