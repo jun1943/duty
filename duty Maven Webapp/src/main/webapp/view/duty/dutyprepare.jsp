@@ -71,12 +71,13 @@
 			<div data-options="region:'north'"  style="height:30px">
 				<div id="tbGroup" class="btn-toolbar">
 					<div class="btn-group">
+						
+						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
+						plain="true" onclick="selectDutyType()">报备类型选择</a> 
 						<a  href="javascript:void(0);"	class="easyui-linkbutton icon-camera-retro" 
-						plain="true"	onclick="addPoliceGroup()">保存</a> 
+						plain="true"	onclick="addPoliceGroup()">保存</a>
 						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
 						plain="true" onclick="editPoliceGroup()">保存为模板</a>
-						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
-						plain="true" onclick="selectDutyType()">报备类型选择</a>
 						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
 						plain="true"	onclick="delPoliceGroup()">选择模板</a>
 						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
