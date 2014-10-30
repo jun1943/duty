@@ -30,12 +30,12 @@
   
   <resultMap id="DutySiftVMMap" type="com.tianyi.drs.duty.viewmodel.DutyShiftVM">
   	<id column="id" property="id" jdbcType="INTEGER" />
-  	<result column="sift_begin_time" property="beginTime" jdbcType="DATETIME" />
-  	<result column="sift_end_time" property="endTime" jdbcType="DATETIME" />
+  	<result column="sift_begin_time" property="beginTime" jdbcType="TIMESTAMP" />
+  	<result column="sift_end_time" property="endTime" jdbcType="TIMESTAMP" />
   	<collection property="items" resultMap="DutyItemVMMap"/>
   </resultMap>
   
-  <resultMap id="DutySiftVMMap" type="com.tianyi.drs.duty.viewmodel.DutyShiftVM">
+  <resultMap id="DutyItemVMMap" type="com.tianyi.drs.duty.viewmodel.DutyItemVM">
   	<id column="id" property="id" jdbcType="INTEGER" />
   	<result column="item_type_id" property="itemTypeId" jdbcType="INTEGER" />
   	<result column="item_type" property="itemType" jdbcType="VARCHAR" />
