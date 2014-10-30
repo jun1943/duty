@@ -1,7 +1,5 @@
 package com.tianyi.drs.duty.model;
 
-import java.util.Date;
-
 public class Duty {
     private Integer id;
 
@@ -10,16 +8,6 @@ public class Duty {
     private Integer typeId;
 
     private String name;
-
-    private Integer ymd;
-
-    private Date beginTime;
-
-    private Date endTime;
-
-    private Integer submiterId;
-
-    private Date submitDate;
 
     private Boolean syncState;
 
@@ -55,46 +43,6 @@ public class Duty {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getYmd() {
-        return ymd;
-    }
-
-    public void setYmd(Integer ymd) {
-        this.ymd = ymd;
-    }
-
-    public Date getBeginTime() {
-        return beginTime;
-    }
-
-    public void setBeginTime(Date beginTime) {
-        this.beginTime = beginTime;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
-
-    public Integer getSubmiterId() {
-        return submiterId;
-    }
-
-    public void setSubmiterId(Integer submiterId) {
-        this.submiterId = submiterId;
-    }
-
-    public Date getSubmitDate() {
-        return submitDate;
-    }
-
-    public void setSubmitDate(Date submitDate) {
-        this.submitDate = submitDate;
     }
 
     public Boolean getSyncState() {

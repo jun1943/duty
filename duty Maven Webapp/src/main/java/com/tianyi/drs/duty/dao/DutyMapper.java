@@ -1,8 +1,7 @@
 package com.tianyi.drs.duty.dao;
 
-import com.tianyi.drs.duty.dao.core.MyBatisRepository;
 import com.tianyi.drs.duty.model.Duty;
-@MyBatisRepository
+
 public interface DutyMapper {
     int deleteByPrimaryKey(Integer id);
 

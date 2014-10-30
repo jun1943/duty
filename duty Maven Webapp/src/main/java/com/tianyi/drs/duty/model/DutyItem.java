@@ -1,9 +1,9 @@
-package com.tianyi.drs.basedata.model;
+package com.tianyi.drs.duty.model;
 
 public class DutyItem {
     private Integer id;
 
-    private Integer dutyId;
+    private Integer dutyShiftId;
 
     private Integer itemTypeId;
 
@@ -31,12 +31,12 @@ public class DutyItem {
         this.id = id;
     }
 
-    public Integer getDutyId() {
-        return dutyId;
+    public Integer getDutyShiftId() {
+        return dutyShiftId;
     }
 
-    public void setDutyId(Integer dutyId) {
-        this.dutyId = dutyId;
+    public void setDutyShiftId(Integer dutyShiftId) {
+        this.dutyShiftId = dutyShiftId;
     }
 
     public Integer getItemTypeId() {

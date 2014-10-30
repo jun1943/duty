@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tianyi.drs.basedata.dao.DutyMapper" >
-  <resultMap id="BaseResultMap" type="com.tianyi.drs.basedata.model.Duty" >
+<mapper namespace="com.tianyi.drs.duty.dao.DutyMapper" >
+  <resultMap id="BaseResultMap" type="com.tianyi.drs.duty.model.Duty" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="duty_desc_id" property="dutyDescId" jdbcType="INTEGER" />
     <result column="type_id" property="typeId" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="begin_time" property="beginTime" jdbcType="TIMESTAMP" />
-    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
     <result column="sync_state" property="syncState" jdbcType="BIT" />
     <result column="platform_id" property="platformId" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, duty_desc_id, type_id, name, begin_time, end_time, sync_state, platform_id
+    id, duty_desc_id, type_id, name, sync_state, platform_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,15 +22,15 @@
     delete from t_duty
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tianyi.drs.basedata.model.Duty" >
+  <insert id="insert" parameterType="com.tianyi.drs.duty.model.Duty" >
     insert into t_duty (id, duty_desc_id, type_id, 
-      name, begin_time, end_time, 
-      sync_state, platform_id)
+      name, sync_state, platform_id
+      )
     values (#{id,jdbcType=INTEGER}, #{dutyDescId,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, 
-      #{name,jdbcType=VARCHAR}, #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
-      #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER})
+      #{name,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.tianyi.drs.basedata.model.Duty" >
+  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.Duty" >
     insert into t_duty
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -46,12 +44,6 @@
       </if>
       <if test="name != null" >
         name,
-      </if>
-      <if test="beginTime != null" >
-        begin_time,
-      </if>
-      <if test="endTime != null" >
-        end_time,
       </if>
       <if test="syncState != null" >
         sync_state,
@@ -73,12 +65,6 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="beginTime != null" >
-        #{beginTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null" >
-        #{endTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="syncState != null" >
         #{syncState,jdbcType=BIT},
       </if>
@@ -87,7 +73,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.basedata.model.Duty" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.duty.model.Duty" >
     update t_duty
     <set >
       <if test="dutyDescId != null" >
@@ -99,12 +85,6 @@
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="beginTime != null" >
-        begin_time = #{beginTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null" >
-        end_time = #{endTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="syncState != null" >
         sync_state = #{syncState,jdbcType=BIT},
       </if>
@@ -114,13 +94,11 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.basedata.model.Duty" >
+  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.duty.model.Duty" >
     update t_duty
     set duty_desc_id = #{dutyDescId,jdbcType=INTEGER},
       type_id = #{typeId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
-      begin_time = #{beginTime,jdbcType=TIMESTAMP},
-      end_time = #{endTime,jdbcType=TIMESTAMP},
       sync_state = #{syncState,jdbcType=BIT},
       platform_id = #{platformId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
