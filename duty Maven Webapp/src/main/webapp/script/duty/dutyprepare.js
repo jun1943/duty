@@ -28,7 +28,10 @@ $(function () {
 	               { title: 'id', field: 'id', align: 'center', width: 0, hidden: true },
 	               { title: '姓名', field: 'name', align: 'center', width: 80 },
 	               { title: '警号', field: 'number', align: 'center', width: 80},
-	               { title: '单位', field: 'orgName', align: 'center', width: 50} 
+	               { title: '单位', field: 'orgName', align: 'center', width: 50} ,
+	               { title: '类型', field: 'objType', align: 'center', width: 50, hidden: true,formatter:function(value,row,index){
+	            	   return "警员";
+	               } } 
 	        ]],
 			onLoadSuccess: function(row){
 				$(this).treegrid('enableDnd', row?row.id:null);
@@ -47,7 +50,10 @@ $(function () {
 	               { title: 'id', field: 'id', align: 'center', width: 0, hidden: true },
 	               { title: '车辆类型', field: 'typeName', align: 'center', width: 80 },
 	               { title: '车牌号码', field: 'number', align: 'center', width: 80},
-	               { title: '车辆品牌', field: 'brand', align: 'center', width: 50} 
+	               { title: '车辆品牌', field: 'brand', align: 'center', width: 50} ,
+	               { title: '类型', field: 'objType', align: 'center', width: 50, hidden: true,formatter:function(value,row,index){
+	            	   return "车辆";
+	               } } 
 	        ]],
 			onLoadSuccess: function(row){
 				$(this).treegrid('enableDnd', row?row.id:null);
@@ -65,7 +71,10 @@ $(function () {
 	               { title: 'id', field: 'id', align: 'center', width: 0, hidden: true },
 	               { title: 'GPS类型', field: 'typeName', align: 'center', width: 80 },
 	               { title: 'GPS显示名称', field: 'gpsName', align: 'center', width: 80},
-	               { title: 'GPS设备编号', field: 'number', align: 'center', width: 50} 
+	               { title: 'GPS设备编号', field: 'number', align: 'center', width: 50} ,
+	               { title: '类型', field: 'objType', align: 'center', width: 50, hidden: true,formatter:function(value,row,index){
+	            	   return "定位设备";
+	               } } 
 	        ]],
 			onLoadSuccess: function(row){
 				$(this).treegrid('enableDnd', row?row.id:null);
@@ -84,7 +93,10 @@ $(function () {
 	               { title: 'id', field: 'id', align: 'center', width: 0, hidden: true },
 	               { title: '武器类型', field: 'typeName', align: 'center', width: 80 },
 	               { title: '武器编号', field: 'number', align: 'center', width: 80},
-	               { title: '规格标准', field: 'standard', align: 'center', width: 50} 
+	               { title: '规格标准', field: 'standard', align: 'center', width: 50} ,
+	               { title: '类型', field: 'objType', align: 'center', width: 50, hidden: true,formatter:function(value,row,index){
+	            	   return "武器";
+	               } } 
 	        ]],
 			onLoadSuccess: function(row){
 				$(this).treegrid('enableDnd', row?row.id:null);
@@ -324,7 +336,7 @@ function addPanel(id){
 	$('#contentTab_'+id).tabs('add',{
 		title: '班次'+index,
 		content: '<div id="dt_shedule_'+id+'_'+index+'" style="padding:10px"> </div>',
-		closable: true
+		closable: false
 	});
 	$("#dt_shedule_"+id+"_"+index).treegrid({ 
 		 url:"police/getPoliceSource.do?orgId="+m_dutyprepare_Org.id+"&name=",
