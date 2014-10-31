@@ -278,33 +278,21 @@ function selectDutyTypeAction(){
 			if($.inArray(accId, ids)==-1){
 				$('#dutyTypeAccordion').accordion('add',{
 					title:titlename,
-					content:"<div id='td_"+accId+"'></div>",
-					tools:[{
-						iconCls:'icon-add', 
-						handler:function(){
-							alert("增加班次,下一班id是"+accId+"+1");
-						}
-					},{
-						iconCls:'', 
-						handler:function(){
-						 
-						}
-					},{
-						iconCls:'', 
-						handler:function(){
-							 
-						}
-					},{
+					//content: document.getElementById("div_worksheet"),
+					content: initdatagridcontent(accId),
+					tools:[ 
+					{
 						iconCls:'icon-remove',
 						handler:reMoveAccdordion
 					}]
 				});
 
-				ids.push(accId);
-				Initdatagrid(accId);
+				ids.push(accId); 
 			}
 		}
 		$('#dtDutyType').treegrid('unselectAll');
+		$('#dutyTypeSelectwindow').window('close');
+		index = 0;
 	}
 	
 };
@@ -315,20 +303,59 @@ function reMoveAccdordion(){
 		$('#dutyTypeAccordion').accordion('remove',index);
 	}
 
+}; 
+function initdatagridcontent(id){
+	var html = '<div id="tb_worksheet_'+id+'" class="btn-toolbar"><div class="btn-group">'
+			 + ' <input id="starttime_'+id+'" class="easyui-timespinner"  style="width:80px;" required="required" data-options="min:\'00:00\',showSeconds:false" />     '
+			 + ' <input id="endtime_'+id+'" class="easyui-timespinner"  style="width:80px;" required="required" data-options="min:\'00:01\',showSeconds:false" />'
+			 + ' <label>是否第二天</label><input type="checkbox" id="ck_isTomorrow_'+id+'"> '
+			 + ' </div></div> '    
+			 + ' <div><label>数据汇总：</label><label></label></div> '
+			 + ' <div id="contentTab_'+id+'" class="easyui-tabs" data-options="tools:\'#contentTab-tools_'+id+'\'" style="width:500px;height:300px"></div> '    
+			 + ' <div id="contentTab-tools_'+id+'"> '    
+		     + ' <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:\'icon-add\'" onclick="addPanel('+id+')"></a> ' 
+		     + ' <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:\'icon-remove\'" onclick="removePanel('+id+')"></a> '
+		     + ' </div></div> '    ; 
+	return html;
 };
-function Initdatagrid(id){
-	$("#dt_"+id).datagrid({ 
-		fitColumns : true,
-		pagination: false,  
-		toolbar:"#tb_worksheet",
-		width:'40%',
-		height:'100%',
-		columns : [ [ 
-		              {	title : 'Id',field : 'id',align : 'left',width : 10,hidden : true}, 
-		              {	title : '人员',field : 'name',align : 'left',width : 150	}
-	              ] ]
+ var index = 0;
+function addPanel(id){ 
+	index++;
+	$('#contentTab_'+id).tabs('add',{
+		title: '班次'+index,
+		content: '<div id="dt_shedule_'+id+'_'+index+'" style="padding:10px"> </div>',
+		closable: true
 	});
-};
+	$("#dt_shedule_"+id+"_"+index).treegrid({ 
+		 url:"police/getPoliceSource.do?orgId="+m_dutyprepare_Org.id+"&name=",
+		    dnd:true,
+	        fitColumns: true, 
+	        resizable: true,
+	        idField: 'id',
+	        treeField: 'id',  
+	        toolbar:"#tb_source_police",
+	        columns: [[
+	               { title: 'id', field: 'id', align: 'center', width: 0, hidden: true },
+	               { title: '姓名', field: 'name', align: 'center', width: 80 },
+	               { title: '警号', field: 'number', align: 'center', width: 80},
+	               { title: '单位', field: 'orgName', align: 'center', width: 50} 
+	        ]],
+			onLoadSuccess: function(row){
+				$(this).treegrid('enableDnd', row?row.id:null);
+			}
+	    });
+
+} 
+function removePanel(id){
+	
+	var tab = $('#contentTab_'+id).tabs('getSelected');
+	if (tab){
+		var tabindex = $('#contentTab_'+id).tabs('getTabIndex', tab);
+		$('#contentTab_'+id).tabs('close', tabindex);
+		index--;
+	}
+}
+
 /****************逻辑区域结束*********************/
 
 
