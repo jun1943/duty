@@ -273,20 +273,14 @@ function selectDutyTypeAction(){
 	if(rows.length>0){ 
 		var ids = [];
 		for(var i =0; i<rows.length; i++){ 
-			var titlename = rows[i].name;
+			//var titlename = rows[i].name;
 			var accId = rows[i].id;
 			if($.inArray(accId, ids)==-1){
-				$('#dutyTypeAccordion').accordion('add',{
-					title:titlename,
-					//content: document.getElementById("div_worksheet"),
-					content: initdatagridcontent(accId),
-					tools:[ 
-					{
-						iconCls:'icon-remove',
-						handler:reMoveAccdordion
-					}]
-				});
-
+				
+				var duty={};
+				addDuty(duty,rows[i]);
+				addDutyPanel(duty);
+				
 				ids.push(accId); 
 			}
 		}
@@ -304,17 +298,17 @@ function reMoveAccdordion(){
 	}
 
 }; 
-function initdatagridcontent(id){
-	var html = '<div id="tb_worksheet_'+id+'" class="btn-toolbar"><div class="btn-group">'
-			 + ' <input id="starttime_'+id+'" class="easyui-timespinner"  style="width:80px;" required="required" data-options="min:\'00:00\',showSeconds:false" />     '
-			 + ' <input id="endtime_'+id+'" class="easyui-timespinner"  style="width:80px;" required="required" data-options="min:\'00:01\',showSeconds:false" />'
-			 + ' <label>是否第二天</label><input type="checkbox" id="ck_isTomorrow_'+id+'"> '
+function initdatagridcontent(duty){
+	var html = '<div id="tb_worksheet_'+duty.cid+'" class="btn-toolbar"><div class="btn-group">'
+			 + ' <input id="starttime_'+duty.cid+'" class="easyui-timespinner"  style="width:80px;" required="required" data-options="min:\'00:00\',showSeconds:false" />     '
+			 + ' <input id="endtime_'+duty.cid+'" class="easyui-timespinner"  style="width:80px;" required="required" data-options="min:\'00:01\',showSeconds:false" />'
+			 + ' <label>是否第二天</label><input type="checkbox" id="ck_isTomorrow_'+duty.cid+'"> '
 			 + ' </div></div> '    
 			 + ' <div><label>数据汇总：</label><label></label></div> '
-			 + ' <div id="contentTab_'+id+'" class="easyui-tabs" data-options="tools:\'#contentTab-tools_'+id+'\'" style="width:500px;height:300px"></div> '    
-			 + ' <div id="contentTab-tools_'+id+'"> '    
-		     + ' <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:\'icon-add\'" onclick="addPanel('+id+')"></a> ' 
-		     + ' <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:\'icon-remove\'" onclick="removePanel('+id+')"></a> '
+			 + ' <div id="contentTab_'+duty.cid+'" class="easyui-tabs" data-options="tools:\'#contentTab-tools_'+duty.cid+'\'" style="width:500px;height:300px"></div> '    
+			 + ' <div id="contentTab-tools_'+duty.cid+'"> '    
+		     + ' <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:\'icon-add\'" onclick="addDutyShiftPanel('+duty.cid+')"></a> ' 
+		     + ' <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:\'icon-remove\'" onclick="removeDutyShiftPanel('+duty.cid+')"></a> '
 		     + ' </div></div> '    ; 
 	return html;
 };
@@ -346,7 +340,7 @@ function addPanel(id){
 	    });
 
 } 
-function removePanel(id){
+function removeDutyShiftPanel(id){
 	
 	var tab = $('#contentTab_'+id).tabs('getSelected');
 	if (tab){
@@ -380,10 +374,19 @@ function loadDutyDesc(id){
 /*
  * 初始化一个duty
  */
-function addDuty(duty,dutyTypeId){
+function addDuty(duty,dutyType){
 	duty.id=0;
+	duty.name=dutyType.name;
 	duty.dutyDescId=m_dutyDesc.id;
-	duty.typeId=dutyTypeId;
+	duty.typeId=dutyType.id;
+}
+
+function getNewShift(duty){
+	var shift={};
+	shift.dutyId=duty.id;
+	shift.id=0;
+	
+	return shift;
 }
 /**
  * 将duty追加到panel,
@@ -392,18 +395,60 @@ function addDuty(duty,dutyTypeId){
 function addDutyPanel(duty){
 	duty.cid=idgen.getMaxDutyId();
 	
-	$.each(duty.children,function(index,value){
-		addDutyShiftPanel(value);
+	$('#dutyTypeAccordion').accordion('add',{
+		title:duty.name,
+		content: initdatagridcontent(duty),
+		tools:[ 
+		{
+			iconCls:'icon-remove',
+			handler:reMoveAccdordion
+		}]
 	});
+	
+	if(duty.children != undefined && duty.children !=null ){
+		$.each(duty.children,function(index,value){
+			addDutyShiftPanel(value);
+		});
+	}
 }
 /**
  * 将shift追加到panel,
  * @param shift
  */
-function addDutyShiftPanel(shift){
+function addDutyShiftPanel(cid){
+	var index=0;
 	shift.cid=idgen.getMaxDutyShiftId();
 	
+	$('#contentTab_'+shift.cid).tabs('add',{
+		title: '班次'+index,
+		content: '<div id="dt_shedule_'+shift.cid+'"  style="padding:10px"> </div>',
+		closable: true
+	});
+	$("#dt_shedule_"+shift.cid).treegrid({ 
+		 	url:"police/getPoliceSource.do?orgId="+m_dutyprepare_Org.id+"&name=",
+		    dnd:true,
+	        fitColumns: true, 
+	        resizable: true,
+	        idField: 'id',
+	        treeField: 'id',  
+	        //toolbar:"#tb_source_police",
+	        columns: [[
+	               { title: 'id', field: 'id', align: 'center', width: 0, hidden: true },
+	               { title: '名称', field: 'displayName', align: 'center', width: 160 },
+	               { title: '描述', field: 'display', align: 'center', width: 80},
+	               { title: 'itemType', field: 'itemType', align: 'center', hidden: true },
+	        ]],
+			onLoadSuccess: function(row){
+				$(this).treegrid('enableDnd', row?row.id:null);
+			}
+	    });
 }
+
+function getDispalyName(rowIndex,rowData){
+	//
+}
+
+
 /**
  * 将界面数据映射到对象
  */
@@ -417,17 +462,117 @@ var idgen={
 		dsid:0,
 		
 		getMaxDutyId:function(){
-			did++;
-			return "d_"+did;
+			this.did++;
+			return "d_"+this.did;
 		},
 		
 		getMaxDutyShiftId:function(){
-			dsid++;
-			return "ds_"+dsid;
+			this.dsid++;
+			return "ds_"+this.dsid;
 		}
 };
 
-
+var DutyMgr={
+		cid:0,
+		getNextCId:function(){
+			cid++;
+			return cid;
+		},
+		
+		
+		createNew:function(dutyDesc){
+			var dutymgr={};
+			
+			dutymgr.dutyDesc=dutyDesc;
+			if(dutymgr.dutyDesc.duties==undefined || dutymgr.dutyDesc.duties==null){
+				dutymgr.dutyDesc.duties=[];
+			}
+			dutymgr.createDuty=function(type){
+				var duty={};
+				duty.id=0;
+				duty.typeId=type.id;
+				duty.name=type.name;
+				duty.shifts=[];
+				
+				duty.dutyDescId=dutymgr.dutyDesc.id;
+				dutymgr.dutyDesc.duties.push(duty);
+				
+				return duty;
+			};
+			
+			dutymgr.createShift=function(dutycid){
+				var duty=dutymgr.getDutyByCId(dutycid);
+				var shift={};
+				shift.id=0;
+				shift.dutyId=duty.id;
+				shift.items=[];
+			};
+			
+			dutymgr.viewDuty=function(duty){
+				if(duty.cid==undefined || duty.cid==null || duty.cid ==0)
+					duty.cid=
+				duty.cid=idgen.getMaxDutyId();
+				
+				$('#dutyTypeAccordion').accordion('add',{
+					title:duty.name,
+					content: initdatagridcontent(duty),
+					tools:[ 
+					{
+						iconCls:'icon-remove',
+						handler:reMoveAccdordion
+					}]
+				});
+				
+				if(duty.children != undefined && duty.children !=null ){
+					$.each(duty.children,function(index,value){
+						addDutyShiftPanel(value);
+					});
+				}
+			};
+			
+			dutymgr.viewShift=function(shift){
+				
+			};
+			
+			dutymgr.createAndViewDuty=function(type){
+				var duty=dutymgr.createDuty(type);
+				dutymgr.viewDuty(duty);
+			};
+			
+			dutymgr.createAndViewShift=function(dutycid){
+				var shift=dutymgr.createShift(dutycid);
+				dutymgr.viewShift(shift);
+			};
+			
+			/**
+			 * 通过cid查找duty
+			 */
+			dutymgr.getDutyByCId=function(cid){
+				$.each(dutymgr.dutyDesc.duties,function(index,value){
+					if(value.cid==cid){
+						return value;
+					}
+				});
+			};
+			
+			/**
+			 * 通过cid查找shift
+			 */
+			dutymgr.getDutyByCId=function(cid){
+				$.each(dutymgr.dutyDesc.duties,function(i,val){
+					$.each(val.shifts,function(i2,val){
+						if(val.cid==cid){
+							return val;
+						}
+					});
+				});
+			};
+			
+			return dutymgr;
+			
+		}
+		
+};
 
 
 
