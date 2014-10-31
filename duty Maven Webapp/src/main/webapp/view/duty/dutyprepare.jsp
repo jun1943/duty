@@ -79,7 +79,7 @@
 						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
 						plain="true" onclick="editPoliceGroup()">保存为模板</a>
 						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
-						plain="true"	onclick="delPoliceGroup()">选择模板</a>
+						plain="true"	onclick="selectDutyTemplate()">选择模板</a>
 						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
 						plain="true"	onclick="delPoliceGroup()">报备复制</a>
 						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
@@ -200,6 +200,25 @@
 			<div data-options="region:'center',border:false"
 					style="padding: 2px;  width:300px; height:400px">
 					<div id="dtDutyType"></div>
+			</div>
+		</div>
+	</div>
+	<div id="dutyTemplateSelectwindow"  class="easyui-window" title="勤务报备模板选择" data-options="iconCls:'icon-edit'"
+			style="width: 354px; height:400px; padding: 10px;">
+			<div class="easyui-layout" data-options="fit:true">
+			<div data-options="region:'north',border:false"
+					style="padding: 2px; height: 30px;"> 
+					<a href="javascript:void(0);" class="easyui-linkbutton" 
+						data-options="iconCls:'icon-save',plain:true"
+						onclick="selectDutyTemplateAction()">确定</a>  
+					 <a href="javascript:void(0);" 
+						class="easyui-linkbutton"
+						onclick="$('#dutyTemplateSelectwindow').window('close');"
+						data-options="iconCls:'icon-remove',plain:true">取消</a>
+			</div>
+			<div data-options="region:'center',border:false"
+					style="padding: 2px;  width:350px; height:350px">
+					<div id="dtDutyTemplate"></div>
 			</div>
 		</div>
 	</div>
