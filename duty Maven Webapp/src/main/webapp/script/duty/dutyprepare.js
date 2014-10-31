@@ -353,11 +353,10 @@ function loadDutyDesc(id){
 /*
  * 初始化一个duty
  */
-function addDuty(duty,dutyType){
+function addDuty(duty,dutyTypeId){
 	duty.id=0;
 	duty.dutyDescId=m_dutyDesc.id;
-	duty.typeId=dutyType.id;
-	
+	duty.typeId=dutyTypeId;
 }
 /**
  * 将duty追加到panel,
