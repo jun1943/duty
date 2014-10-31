@@ -1,0 +1,11 @@
+package com.tianyi.drs.duty.service;
+
+import java.util.List;
+import java.util.Map;
+
+import com.tianyi.drs.duty.viewmodel.DutyVM;
+
+public interface DutyService {
+
+	List<DutyVM> loadDutyVMList(Map<String,Object> map);
+}
