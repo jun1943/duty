@@ -9,6 +9,7 @@ $(function () {
 	$('#weaponConditionwindow').window('close');
 	$('#vehicleConditionwindow').window('close');
 	$('#dutyTypeSelectwindow').window('close');
+	$('#dutyTemplateSelectwindow').window('close');
 	
 	var args = getUrlArgs();
 	m_dutyprepare_Org.id = args["orgId"];
@@ -234,6 +235,26 @@ function SearchPoliceAction(){
 
 /**************勤务报备模块业务逻辑*****************/
 //勤务报备类型选择，根据选择类型，加载区域标签
+function selectDutyTemplate(){ 
+	 $('#dtDutyTemplate').datagrid({ 
+		 url : "duty/loadTemplateByOrgId.do",
+			queryParams : {
+				'orgId' : m_dutyprepare_Org.id
+			},
+			pagination : false,
+			fitColumns : true, 
+			title:'勤务报备模板',
+	        width:'90%',
+	        height:'90%',
+			singleSelect: true,
+			columns : [ [ { field : 'ck', checkbox : true },
+			              { title : '模板名称', field : 'name', align : 'center', width : 100  }, 
+			              { title : 'Id', field : 'id', align : 'center', width : 10, hidden : true }
+		              ] ]
+		 
+	 });
+	$('#dutyTemplateSelectwindow').window('open');
+};
 function selectDutyType(){ 
 	 $('#dtDutyType').treegrid({ 
 	        fitColumns: true,
@@ -255,7 +276,7 @@ function selectDutyType(){
 	        ]]
 	    });
 	InitDutyTypeTreeGrid();
-	$('#dutyTypeSelectwindow').window('open');
+	$('#dutyTypeSelectwindow').window('open');dutyTemplateSelectwindow
 }; 
 function isLeafSelected(row){
 	if(!row.isLeaf){
