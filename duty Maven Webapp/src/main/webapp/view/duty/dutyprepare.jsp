@@ -71,20 +71,21 @@
 			<div data-options="region:'north'"  style="height:30px">
 				<div id="tbGroup" class="btn-toolbar">
 					<div class="btn-group">
-						<a id="btnAddPoliceGroup" href="javascript:void(0);"	class="easyui-linkbutton icon-camera-retro" 
-						plain="true"	onclick="addPoliceGroup()">保存</a> 
-						<a id="btnEditPoliceGroup"	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
+						
+						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
+						plain="true" onclick="selectDutyType()">报备类型选择</a> 
+						<a  href="javascript:void(0);"	class="easyui-linkbutton icon-camera-retro" 
+						plain="true"	onclick="addPoliceGroup()">保存</a>
+						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
 						plain="true" onclick="editPoliceGroup()">保存为模板</a>
-						<a id="btnEditPoliceGroup"	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
-						plain="true" onclick="selectDutyType()">报备类型选择</a>
-						<a id="btnDelPoliceGroup" href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
+						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
 						plain="true"	onclick="delPoliceGroup()">选择模板</a>
-						<a id="btnDelPoliceGroup" href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
+						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
 						plain="true"	onclick="delPoliceGroup()">报备复制</a>
-						<a id="btnDelPoliceGroup" href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
+						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
 						plain="true"	onclick="delPoliceGroup()">清空报备</a>
-						<a id="btnDelPoliceGroup" href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
-						plain="true"	onclick="delPoliceGroup()">导出</a>
+						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
+						plain="true"	onclick="onTest()">导出</a>
 					</div>
 				</div>
 			</div>

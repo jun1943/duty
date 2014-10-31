@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tianyi.drs.basedata.dao.DutyItemMapper" >
-  <resultMap id="BaseResultMap" type="com.tianyi.drs.basedata.model.DutyItem" >
+<mapper namespace="com.tianyi.drs.duty.dao.DutyItemMapper" >
+  <resultMap id="BaseResultMap" type="com.tianyi.drs.duty.model.DutyItem" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="duty_id" property="dutyId" jdbcType="INTEGER" />
+    <result column="duty_shift_id" property="dutyShiftId" jdbcType="INTEGER" />
     <result column="item_type_id" property="itemTypeId" jdbcType="INTEGER" />
     <result column="item_id" property="itemId" jdbcType="VARCHAR" />
     <result column="ud_name" property="udName" jdbcType="VARCHAR" />
@@ -15,7 +15,7 @@
     <result column="platform_id" property="platformId" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, duty_id, item_type_id, item_id, ud_name, parent_id, is_leaf, level, full_id_path, 
+    id, duty_shift_id, item_type_id, item_id, ud_name, parent_id, is_leaf, level, full_id_path, 
     sync_state, platform_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -28,24 +28,24 @@
     delete from t_duty_item
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tianyi.drs.basedata.model.DutyItem" >
-    insert into t_duty_item (id, duty_id, item_type_id, 
+  <insert id="insert" parameterType="com.tianyi.drs.duty.model.DutyItem" useGeneratedKeys="true" keyProperty="id">
+    insert into t_duty_item (id, duty_shift_id, item_type_id, 
       item_id, ud_name, parent_id, 
       is_leaf, level, full_id_path, 
       sync_state, platform_id)
-    values (#{id,jdbcType=INTEGER}, #{dutyId,jdbcType=INTEGER}, #{itemTypeId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{dutyShiftId,jdbcType=INTEGER}, #{itemTypeId,jdbcType=INTEGER}, 
       #{itemId,jdbcType=VARCHAR}, #{udName,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
       #{isLeaf,jdbcType=BIT}, #{level,jdbcType=INTEGER}, #{fullIdPath,jdbcType=VARCHAR}, 
       #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.tianyi.drs.basedata.model.DutyItem" >
+  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.DutyItem" useGeneratedKeys="true" keyProperty="id">
     insert into t_duty_item
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="dutyId != null" >
-        duty_id,
+      <if test="dutyShiftId != null" >
+        duty_shift_id,
       </if>
       <if test="itemTypeId != null" >
         item_type_id,
@@ -79,8 +79,8 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="dutyId != null" >
-        #{dutyId,jdbcType=INTEGER},
+      <if test="dutyShiftId != null" >
+        #{dutyShiftId,jdbcType=INTEGER},
       </if>
       <if test="itemTypeId != null" >
         #{itemTypeId,jdbcType=INTEGER},
@@ -111,11 +111,11 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.basedata.model.DutyItem" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.duty.model.DutyItem" >
     update t_duty_item
     <set >
-      <if test="dutyId != null" >
-        duty_id = #{dutyId,jdbcType=INTEGER},
+      <if test="dutyShiftId != null" >
+        duty_shift_id = #{dutyShiftId,jdbcType=INTEGER},
       </if>
       <if test="itemTypeId != null" >
         item_type_id = #{itemTypeId,jdbcType=INTEGER},
@@ -147,9 +147,9 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.basedata.model.DutyItem" >
+  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.duty.model.DutyItem" >
     update t_duty_item
-    set duty_id = #{dutyId,jdbcType=INTEGER},
+    set duty_shift_id = #{dutyShiftId,jdbcType=INTEGER},
       item_type_id = #{itemTypeId,jdbcType=INTEGER},
       item_id = #{itemId,jdbcType=VARCHAR},
       ud_name = #{udName,jdbcType=VARCHAR},
@@ -161,4 +161,10 @@
       platform_id = #{platformId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <delete id="deleteByShiftId" parameterType="java.lang.Integer">
+  	 delete from t_duty_item
+    where duty_shift_id = #{shiftId,jdbcType=INTEGER} 
+  </delete>
+  
 </mapper>

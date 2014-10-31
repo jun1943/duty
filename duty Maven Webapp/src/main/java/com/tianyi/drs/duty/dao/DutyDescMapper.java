@@ -1,7 +1,12 @@
 package com.tianyi.drs.duty.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import com.tianyi.drs.duty.dao.core.MyBatisRepository;
 import com.tianyi.drs.duty.model.DutyDesc;
+import com.tianyi.drs.duty.viewmodel.DutyDescVM;
+
 @MyBatisRepository
 public interface DutyDescMapper {
     int deleteByPrimaryKey(Integer id);
@@ -15,4 +20,10 @@ public interface DutyDescMapper {
     int updateByPrimaryKeySelective(DutyDesc record);
 
     int updateByPrimaryKey(DutyDesc record);
+    
+    DutyDescVM loadDutyDescVM(Integer id) ;
+    
+    int loadIdByOrgIdAndYMD(Integer orgId , Integer ymd);
+    
+    List<DutyDesc> loadVMList(Map<String,Object> map);
 }

@@ -1,5 +1,7 @@
 
 var m_dutyprepare_Org = {};
+var m_ymd=0;
+var m_dutyDesc={};
 
 $(function () {
 	$('#policeConditionwindow').window('close');
@@ -7,16 +9,13 @@ $(function () {
 	$('#weaponConditionwindow').window('close');
 	$('#vehicleConditionwindow').window('close');
 	$('#dutyTypeSelectwindow').window('close');
+	
 	var args = getUrlArgs();
 	m_dutyprepare_Org.id = args["orgId"];
 	m_dutyprepare_Org.code = args["orgCode"];
 	m_dutyprepare_Org.path = args["orgPath"];
+	m_ymd =args["ymd"];
 	
-	$('#d1').draggable();
-	$('#d2').draggable();
-	
-	$('#dx1').droppable();
-	 
 	   $('#source_police').treegrid({ 
 		    url:"police/getPoliceSource.do?orgId="+m_dutyprepare_Org.id+"&name=",
 		    dnd:true,
@@ -91,74 +90,8 @@ $(function () {
 				$(this).treegrid('enableDnd', row?row.id:null);
 			}
 	    });
-	$('#treeD2').tree({
-		dnd:true,
-		cascadeCheck : false,
-		onBeforeDrop:onTreeD2BeforeDrop
-	});
-	
-	loadOrgs();
-	loadTreeD2();
 	InitGrid();
 });
-
-function onTreeD2BeforeDrop(target,source,point){
-	var t=target;
-	var s=source;
-	var p=point;
-}
-
-function loadOrgs(){
-	
-	$.ajax({
-		url : "org/list.do",
-		type : "POST",
-		dataType : "json",
-		data : {
-			orgId:m_dutyprepare_Org.id,
-			orgCode :m_dutyprepare_Org.code,
-			orgPath: m_dutyprepare_Org.path
-		},
-		async : false,
-		success : function(req) {
-			if (req.isSuccess) {
-				var nodes=buildOrgTree(req.rows);
-				//$('#treeDrop').tree("loadData",nodes);
-			} else {
-				$.messager.alert('提示', req.msg,"warning");
-			}
-		}
-	});
-}
-
-function loadTreeD2(){
-	var data=[
-		      {
-		    	  id:'1',
-		    	  text:'a1',
-		    	  children:[
-		    	            {
-		    	            	id:'1.1',
-		    	            	text:'a1.1'
-		    	            },
-		    	            {
-		    	            	id:'1.2',
-		    	            	text:'a1.2'
-		    	            },
-		    	            ]
-		      },
-		      {
-		    	  id:'2',
-		    	  text:'a2',
-		      }
-		      ];
-	
-	$('#treeD2').tree("loadData",data);
-	
-}
-
-
-
 
 function InitGrid(){
 	$('#dt_policeType').datagrid({
@@ -172,17 +105,7 @@ function InitGrid(){
 	              ] ]
 	});
 	
-//	$('#dt_dutyType').treegrid({  
-//        fitColumns: true, 
-//        idField: 'id',
-//        treeField: 'name', 
-//        title:"勤务类型",
-//        columns: [[ 
-//                    {field : 'ck',checkbox : true}, 
-//               { title: 'id', field: 'id', align: 'left', width: 0, hidden: true },
-//               { title: '名称', field: 'name', align: 'left', width: 200 } 
-//        ]]
-//    });
+
 	$('#dt_groupType').datagrid({
 		url : 'policeGroup/getPoliceGrouplist.do?orgId='+m_dutyprepare_Org.id, 
 		fitColumns : true,
@@ -437,12 +360,73 @@ function removePanel(id){
 
 
 
+function loadDutyDesc(id){
+	$.ajax({
+        url: "duty/loadDutyDesc.do",
+        type: "POST",
+        dataType: "json",
+        data:{'id':id},
+        async:false,
+        success: function (req) {
+            if (req.isSuccess) {//成功填充数据
+            	m_dutyDesc = req.obj;
+            }
+            else {
+                alert("获取数据失败");
+            }
+        }
+    }); 
+}
+/*
+ * 初始化一个duty
+ */
+function addDuty(duty,dutyType){
+	duty.id=0;
+	duty.dutyDescId=m_dutyDesc.id;
+	duty.typeId=dutyType.id;
+	
+}
+/**
+ * 将duty追加到panel,
+ * @param duty
+ */
+function addDutyPanel(duty){
+	duty.cid=idgen.getMaxDutyId();
+	
+	$.each(duty.children,function(index,value){
+		addDutyShiftPanel(value);
+	});
+}
+/**
+ * 将shift追加到panel,
+ * @param shift
+ */
+function addDutyShiftPanel(shift){
+	shift.cid=idgen.getMaxDutyShiftId();
+	
+}
+/**
+ * 将界面数据映射到对象
+ */
+function viewToObj(){
+	
+}
 
 
-
-
-
-
+var idgen={
+		did:0,
+		dsid:0,
+		
+		getMaxDutyId:function(){
+			did++;
+			return "d_"+did;
+		},
+		
+		getMaxDutyShiftId:function(){
+			dsid++;
+			return "ds_"+dsid;
+		}
+};
 
 
 

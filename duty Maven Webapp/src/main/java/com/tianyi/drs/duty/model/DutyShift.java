@@ -1,15 +1,11 @@
-package com.tianyi.drs.basedata.model;
+package com.tianyi.drs.duty.model;
 
 import java.util.Date;
 
-public class Duty {
+public class DutyShift {
     private Integer id;
 
-    private Integer dutyDescId;
-
-    private Integer typeId;
-
-    private String name;
+    private Integer dutyId;
 
     private Date beginTime;
 
@@ -27,28 +23,12 @@ public class Duty {
         this.id = id;
     }
 
-    public Integer getDutyDescId() {
-        return dutyDescId;
+    public Integer getDutyId() {
+        return dutyId;
     }
 
-    public void setDutyDescId(Integer dutyDescId) {
-        this.dutyDescId = dutyDescId;
-    }
-
-    public Integer getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(Integer typeId) {
-        this.typeId = typeId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setDutyId(Integer dutyId) {
+        this.dutyId = dutyId;
     }
 
     public Date getBeginTime() {
@@ -66,6 +46,7 @@ public class Duty {
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
+
 
     public Boolean getSyncState() {
         return syncState;

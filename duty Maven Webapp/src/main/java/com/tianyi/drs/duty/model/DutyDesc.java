@@ -7,13 +7,19 @@ public class DutyDesc {
 
     private Integer orgId;
 
-    private Boolean asTemplate;
+    private Boolean isTemplate;
 
     private String name;
+
+    private Integer ymd;
 
     private Date createTime;
 
     private Integer preparerId;
+
+    private Boolean syncState;
+
+    private Integer platformId;
 
     public Integer getId() {
         return id;
@@ -31,12 +37,12 @@ public class DutyDesc {
         this.orgId = orgId;
     }
 
-    public Boolean getAsTemplate() {
-        return asTemplate;
+    public Boolean getIsTemplate() {
+        return isTemplate;
     }
 
-    public void setAsTemplate(Boolean asTemplate) {
-        this.asTemplate = asTemplate;
+    public void setIsTemplate(Boolean isTemplate) {
+        this.isTemplate = isTemplate;
     }
 
     public String getName() {
@@ -45,6 +51,14 @@ public class DutyDesc {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getYmd() {
+        return ymd;
+    }
+
+    public void setYmd(Integer ymd) {
+        this.ymd = ymd;
     }
 
     public Date getCreateTime() {
@@ -61,5 +75,21 @@ public class DutyDesc {
 
     public void setPreparerId(Integer preparerId) {
         this.preparerId = preparerId;
+    }
+
+    public Boolean getSyncState() {
+        return syncState;
+    }
+
+    public void setSyncState(Boolean syncState) {
+        this.syncState = syncState;
+    }
+
+    public Integer getPlatformId() {
+        return platformId;
+    }
+
+    public void setPlatformId(Integer platformId) {
+        this.platformId = platformId;
     }
 }

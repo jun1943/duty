@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tianyi.drs.basedata.dao.DutyDescMapper" >
-  <resultMap id="BaseResultMap" type="com.tianyi.drs.basedata.model.DutyDesc" >
+<mapper namespace="com.tianyi.drs.duty.dao.DutyDescMapper" >
+  <resultMap id="BaseResultMap" type="com.tianyi.drs.duty.model.DutyDesc" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="org_id" property="orgId" jdbcType="INTEGER" />
     <result column="is_template" property="isTemplate" jdbcType="BIT" />
@@ -12,6 +12,9 @@
     <result column="sync_state" property="syncState" jdbcType="BIT" />
     <result column="platform_id" property="platformId" jdbcType="INTEGER" />
   </resultMap>
+  
+  
+  
   <sql id="Base_Column_List" >
     id, org_id, is_template, name, ymd, create_time, preparer_id, sync_state, platform_id
   </sql>
@@ -25,7 +28,8 @@
     delete from t_duty_desc
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tianyi.drs.basedata.model.DutyDesc" >
+  
+  <insert id="insert" parameterType="com.tianyi.drs.duty.model.DutyDesc" useGeneratedKeys="true" keyProperty="id">
     insert into t_duty_desc (id, org_id, is_template, 
       name, ymd, create_time, 
       preparer_id, sync_state, platform_id
@@ -35,7 +39,7 @@
       #{preparerId,jdbcType=INTEGER}, #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.tianyi.drs.basedata.model.DutyDesc" >
+  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.DutyDesc" useGeneratedKeys="true" keyProperty="id">
     insert into t_duty_desc
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -96,7 +100,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.basedata.model.DutyDesc" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.duty.model.DutyDesc" >
     update t_duty_desc
     <set >
       <if test="orgId != null" >
@@ -126,7 +130,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.basedata.model.DutyDesc" >
+  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.duty.model.DutyDesc" >
     update t_duty_desc
     set org_id = #{orgId,jdbcType=INTEGER},
       is_template = #{isTemplate,jdbcType=BIT},
@@ -138,4 +142,118 @@
       platform_id = #{platformId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <resultMap id="AllAssocMap" type="com.tianyi.drs.duty.viewmodel.DutyDescVM">
+  	<id column="id" property="id" jdbcType="INTEGER" />
+  	<result column="org_id" property="orgId" jdbcType="INTEGER" />
+  	<result column="org_name" property="orgName" jdbcType="VARCHAR" />
+  	<collection property="duties" resultMap="DutyVMMap"/>
+  </resultMap>
+  
+  <resultMap id="DutyVMMap" type="com.tianyi.drs.duty.viewmodel.DutyVM">
+  	<id column="duty_id" property="id" jdbcType="INTEGER" />
+  	<result column="duty_desc_id" property="DutyDescId" jdbcType="INTEGER" />
+  	<result column="duty_type_id" property="typeId" jdbcType="INTEGER" />
+  	<result column="duty_type_name" property="typeName" jdbcType="VARCHAR" />
+  	<result column="duty_name" property="name" jdbcType="VARCHAR" />
+  	<collection property="shifts" resultMap="DutySiftVMMap"/>
+  </resultMap>
+  
+  <resultMap id="DutySiftVMMap" type="com.tianyi.drs.duty.viewmodel.DutyShiftVM">
+  	<id column="shift_id" property="id" jdbcType="INTEGER" />
+  	<result column="shift_duty_id" property="dutyId" jdbcType="INTEGER" />
+  	<result column="shift_begin_time" property="beginTime" jdbcType="TIMESTAMP" />
+  	<result column="shift_end_time" property="endTime" jdbcType="TIMESTAMP" />
+  	<collection property="items" resultMap="DutyItemVMMap"/>
+  </resultMap>
+  
+  <resultMap id="DutyItemVMMap" type="com.tianyi.drs.duty.viewmodel.DutyItemVM">
+  	<id column="item_id" property="id" jdbcType="INTEGER" />
+  	<result column="item_shift_id" property="dutyShiftId" jdbcType="INTEGER" />
+  	<result column="item_type_id" property="itemTypeId" jdbcType="INTEGER" />
+  	<result column="item_type" property="itemType" jdbcType="VARCHAR" />
+  	<result column="item_displayname" property="displayName" jdbcType="VARCHAR" />
+  	<result column="item_name" property="name" jdbcType="VARCHAR" />
+  	<result column="item_number" property="number" jdbcType="VARCHAR" />
+  	<result column="item_ud_name" property="udName" jdbcType="VARCHAR" />
+  	<result column="item_parent_id" property="parentId" jdbcType="INTEGER" />
+  	<result column="item_is_leaf" property="isLeaf" jdbcType="BIT" />
+  	<result column="item_level" property="level" jdbcType="INTEGER" />
+  	<result column="item_full_id_path" property="fullIdPath" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  
+  <select id="loadDutyDescVM" parameterType="java.util.Map" resultMap="AllAssocMap">
+  	select 
+  		dd.id 				as 	id,
+  		dd.org_id			as		orgId,
+  		org.name			as		orgName,
+  		d.id					as		duty_id,
+  		d.duty_desc_id	as		duty_desc_id,
+  		d.type_id			as		duty_type_id,
+  		dt.name			as 	duty_type_name,
+  		d.name				as 	duty_name,
+  		ds.id					as 	shift_id,
+  		ds.duty_id			as		shift_duty_id,
+  		ds.begin_time	as		shift_begin_time,
+  		ds.end_time		as		shift_end_time,
+  		di.id					as		item_id,
+  		di.duty_shift_id	as		item_shift_id,
+  		di.item_type_id	as		item_type_id,
+  		case	di.item_type_id
+  			when	1		then	'车辆'
+  			when	2		then	'警员'
+  			when 	3		then	'武器'
+  			when	4		then	'定位设备'
+  			when	999	then	'自定义'
+  		end 					as		item_type,
+  		case di.item_type_id
+  			when	1		then	 veh.number
+  			when	2		then	poc.name
+  			when	3		then	wpo.number
+  			when	4		then gps.number
+  			when	999	then	di.ud_name
+  		end					as		item_displayname,
+  		di.ud_name		as		item_ud_name,
+  		di.parent_id		as		item_parent_id,
+  		di.is_leaf			as 	item_is_leaf,
+  		di.level				as 	item_level,
+  		di.full_id_path	as		item_full_id_path
+  	from	t_duty_desc as dd
+  	left join		t_duty 			as d			on	dd.id=d.duty_desc_id
+  	left join		t_duty_shift	as ds			on	d.id=ds.duty_id
+  	left join		t_duty_item	as di			on	ds.id=di.duty_shift_id
+  	left join		organ 			as org		on 	dd.org_id=org.id
+  	left join 	t_duty_type	as dt			on 	d.type_id=dt.id
+  	left join		t_vehicle		as veh		on	di.item_type_id=1 and 	di.item_id=veh.id
+  	left join 	t_police			as poc		on	di.item_type_id=2	and	di.item_id=poc.id
+  	left join		t_weapon		as wpo		on	di.item_type_id=3	and	di.item_id=wpo.id
+  	left join		t_gps			as gps		on	di.item_type_id=4	and	di.item_id=gps.id	
+  	where
+		dd.id = #{id,jdbcType=INTEGER}
+	order by d.id,ds.id,di.id
+  </select>
+  
+  <select id="loadIdByOrgIdAndYMD" parameterType="java.util.Map"  resultType="java.lang.Integer">
+  	select id from t_duty_desc where org_id= #{orgId,jdbcType=INTEGER} and ymd= #{ymd,jdbcType=INTEGER}
+  </select>
+  
+  <select id="loadVMList" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select 
+  		* 
+  	from t_duty_desc
+  	where
+		<if test="orgId != null" >
+        	and org_id = #{orgId,jdbcType=INTEGER}
+      	</if>
+      	
+      	<if test="isTemplate != null" >
+        	and is_template = #{isTemplate,jdbcType=INTEGER}
+      	</if>
+      	
+      	
+      	
+  </select>
+  
 </mapper>
