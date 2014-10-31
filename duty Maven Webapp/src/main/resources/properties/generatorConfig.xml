@@ -34,29 +34,14 @@
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.tianyi.drs.duty.dao" targetProject="src\main\java">  
             <property name="enableSubPackages" value="true"/>  
         </javaClientGenerator>  
-        
-		<table tableName="t_duty_desc" domainObjectName="DutyDesc"
-           enableSelectByExample="false"
-	       enableDeleteByExample="false"
-	       enableCountByExample="false"
-	       enableUpdateByExample="false"/>
-		 
-		 <table tableName="t_duty" domainObjectName="Duty"
-           enableSelectByExample="false"
-	       enableDeleteByExample="false"
-	       enableCountByExample="false"
-	       enableUpdateByExample="false"/>
 
-		<table tableName="t_duty_item" domainObjectName="DutyItem"
+		 
+
+		<table tableName="t_duty_item_type" domainObjectName="DutyItemType"
            enableSelectByExample="false"
 	       enableDeleteByExample="false"
 	       enableCountByExample="false"
 	       enableUpdateByExample="false"/>
 	       
-	       <table tableName="t_duty_shift" domainObjectName="DutyShift"
-           enableSelectByExample="false"
-	       enableDeleteByExample="false"
-	       enableCountByExample="false"
-	       enableUpdateByExample="false"/>
     </context>  
 </generatorConfiguration>  

@@ -3,14 +3,19 @@
 <mapper namespace="com.tianyi.drs.duty.dao.DutyMapper" >
   <resultMap id="BaseResultMap" type="com.tianyi.drs.duty.model.Duty" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="duty_desc_id" property="dutyDescId" jdbcType="INTEGER" />
-    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="org_id" property="orgId" jdbcType="INTEGER" />
+    <result column="is_template" property="isTemplate" jdbcType="BIT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="ymd" property="ymd" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="preparer_id" property="preparerId" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="sync_state" property="syncState" jdbcType="BIT" />
     <result column="platform_id" property="platformId" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, duty_desc_id, type_id, name, sync_state, platform_id
+    id, org_id, is_template, name, ymd, create_time, preparer_id, description, sync_state, 
+    platform_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -22,28 +27,42 @@
     delete from t_duty
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tianyi.drs.duty.model.Duty" useGeneratedKeys="true" keyProperty="id">
-    insert into t_duty (id, duty_desc_id, type_id, 
-      name, sync_state, platform_id
-      )
-    values (#{id,jdbcType=INTEGER}, #{dutyDescId,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, 
-      #{name,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER}
-      )
+  <insert id="insert" parameterType="com.tianyi.drs.duty.model.Duty" >
+    insert into t_duty (id, org_id, is_template, 
+      name, ymd, create_time, 
+      preparer_id, description, sync_state, 
+      platform_id)
+    values (#{id,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, #{isTemplate,jdbcType=BIT}, 
+      #{name,jdbcType=VARCHAR}, #{ymd,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{preparerId,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT}, 
+      #{platformId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.Duty" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.Duty" >
     insert into t_duty
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="dutyDescId != null" >
-        duty_desc_id,
+      <if test="orgId != null" >
+        org_id,
       </if>
-      <if test="typeId != null" >
-        type_id,
+      <if test="isTemplate != null" >
+        is_template,
       </if>
       <if test="name != null" >
         name,
+      </if>
+      <if test="ymd != null" >
+        ymd,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="preparerId != null" >
+        preparer_id,
+      </if>
+      <if test="description != null" >
+        description,
       </if>
       <if test="syncState != null" >
         sync_state,
@@ -56,14 +75,26 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="dutyDescId != null" >
-        #{dutyDescId,jdbcType=INTEGER},
+      <if test="orgId != null" >
+        #{orgId,jdbcType=INTEGER},
       </if>
-      <if test="typeId != null" >
-        #{typeId,jdbcType=INTEGER},
+      <if test="isTemplate != null" >
+        #{isTemplate,jdbcType=BIT},
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ymd != null" >
+        #{ymd,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="preparerId != null" >
+        #{preparerId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
       </if>
       <if test="syncState != null" >
         #{syncState,jdbcType=BIT},
@@ -76,14 +107,26 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.duty.model.Duty" >
     update t_duty
     <set >
-      <if test="dutyDescId != null" >
-        duty_desc_id = #{dutyDescId,jdbcType=INTEGER},
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=INTEGER},
       </if>
-      <if test="typeId != null" >
-        type_id = #{typeId,jdbcType=INTEGER},
+      <if test="isTemplate != null" >
+        is_template = #{isTemplate,jdbcType=BIT},
       </if>
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ymd != null" >
+        ymd = #{ymd,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="preparerId != null" >
+        preparer_id = #{preparerId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
       </if>
       <if test="syncState != null" >
         sync_state = #{syncState,jdbcType=BIT},
@@ -96,11 +139,98 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.duty.model.Duty" >
     update t_duty
-    set duty_desc_id = #{dutyDescId,jdbcType=INTEGER},
-      type_id = #{typeId,jdbcType=INTEGER},
+    set org_id = #{orgId,jdbcType=INTEGER},
+      is_template = #{isTemplate,jdbcType=BIT},
       name = #{name,jdbcType=VARCHAR},
+      ymd = #{ymd,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      preparer_id = #{preparerId,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
       sync_state = #{syncState,jdbcType=BIT},
       platform_id = #{platformId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+    <resultMap id="VMResultMap" type="com.tianyi.drs.duty.model.Duty" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="org_id" property="orgId" jdbcType="INTEGER" />
+    <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+    <result column="is_template" property="isTemplate" jdbcType="BIT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="ymd" property="ymd" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="preparer_id" property="preparerId" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="sync_state" property="syncState" jdbcType="BIT" />
+    <result column="platform_id" property="platformId" jdbcType="INTEGER" />
+    <collection property="items" resultMap="ItemVMResultMap"/>
+  </resultMap>
+  
+	<resultMap id="ItemVMResultMap" type="com.tianyi.drs.duty.model.Duty" >
+    <id column="item_id" property="id" jdbcType="INTEGER" />
+    <result column="item_duty_id" property="dutyId" jdbcType="INTEGER" />
+    <result column="item_duty_type_id" property="dutyTypeId" jdbcType="INTEGER" />
+    <result column="item_duty_type_name" property="dutyTypeName" jdbcType="INTEGER" />
+    <result column="item_begin_time" property="beginTime" jdbcType="TIMESTAMP" />
+    <result column="item_end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="item_type_id" property="itemTypeId" jdbcType="INTEGER" />
+    <result column="item_type_name" property="itemTypeName" jdbcType="INTEGER" />
+    <result column="item_rec_id" property="itemId" jdbcType="INTEGER" />
+    <result column="item_item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="item_name" property="name" jdbcType="VARCHAR" />
+    <result column="item_parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="item_level" property="level" jdbcType="INTEGER" />
+    <result column="item_is_leaf" property="isLeaf" jdbcType="BIT" />
+    <result column="item_full_id_path" property="fullIdPath" jdbcType="VARCHAR" />
+    <result column="item_description" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="loadDutyVMList"  parameterType="java.util.Map" resultMap="VMResultMap">
+  	select 
+  		d.*
+  		org.name 				as org_name,
+  		di.id						as item_id,
+  		di.duty_id				as item_duty_id,
+  		di.duty_type_id		as item_duty_type_id,
+  		dt.name				as item_duty_type_name,
+  		di.begin_time		as item_begin_time,
+  		di.end_time			as item_end_time,
+  		di.item_type_id		as item_type_id,
+  		dit.name				as item_type_name,
+  		di.item_id				as item_rec_id,
+  		di.	item_name		as item_item_name,
+  		di.name				as item_name,
+  		di.parent_id			as item_parent_id,
+  		di.level					as item_level,
+  		di.is_leaf				as item_is_leaf,
+  		di.full_id_path		as item_full_id_path,
+  		di.description		as item_description		
+  		
+  	from 
+  		t_duty as d
+  	left join t_duty_item 			as di 	on d.id=di.duty_id
+  	left join organ 					as org 	on d.org_id=org.id
+  	left join t_duty_type 			as dt 	on di.duty_type_id= dt.id
+  	left join t_duty_item_type	as dit 	on di.item_type_id=dit.type_id
+  	
+  	where
+  		<if test="id != null" >
+        	and d.id = #{id,jdbcType=INTEGER},
+      	</if>
+  		
+  		<if test="orgId != null" >
+        	and d.org_id = #{orgId,jdbcType=INTEGER}
+      	</if>
+  	
+		<if test="ymd != null" >
+        	and d.ymd = #{ymd,jdbcType=INTEGER}
+      	</if>
+  	
+  		<if test="isTemplate != null" >
+        	and d.is_template = #{isTemplate,jdbcType=BIT}
+      	</if>
+     order by d.id,di.id
+  </select>
+  
+  
 </mapper>

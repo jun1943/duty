@@ -3,20 +3,25 @@
 <mapper namespace="com.tianyi.drs.duty.dao.DutyItemMapper" >
   <resultMap id="BaseResultMap" type="com.tianyi.drs.duty.model.DutyItem" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="duty_shift_id" property="dutyShiftId" jdbcType="INTEGER" />
+    <result column="duty_id" property="dutyId" jdbcType="INTEGER" />
+    <result column="duty_type_id" property="dutyTypeId" jdbcType="INTEGER" />
+    <result column="begin_time" property="beginTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
     <result column="item_type_id" property="itemTypeId" jdbcType="INTEGER" />
-    <result column="item_id" property="itemId" jdbcType="VARCHAR" />
-    <result column="ud_name" property="udName" jdbcType="VARCHAR" />
+    <result column="item_id" property="itemId" jdbcType="INTEGER" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="parent_id" property="parentId" jdbcType="INTEGER" />
-    <result column="is_leaf" property="isLeaf" jdbcType="BIT" />
     <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="is_leaf" property="isLeaf" jdbcType="BIT" />
     <result column="full_id_path" property="fullIdPath" jdbcType="VARCHAR" />
     <result column="sync_state" property="syncState" jdbcType="BIT" />
     <result column="platform_id" property="platformId" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, duty_shift_id, item_type_id, item_id, ud_name, parent_id, is_leaf, level, full_id_path, 
-    sync_state, platform_id
+    id, duty_id, duty_type_id, begin_time, end_time, item_type_id, item_id, item_name, 
+    name, parent_id, level, is_leaf, full_id_path, sync_state, platform_id, description
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -28,24 +33,37 @@
     delete from t_duty_item
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tianyi.drs.duty.model.DutyItem" useGeneratedKeys="true" keyProperty="id">
-    insert into t_duty_item (id, duty_shift_id, item_type_id, 
-      item_id, ud_name, parent_id, 
-      is_leaf, level, full_id_path, 
-      sync_state, platform_id)
-    values (#{id,jdbcType=INTEGER}, #{dutyShiftId,jdbcType=INTEGER}, #{itemTypeId,jdbcType=INTEGER}, 
-      #{itemId,jdbcType=VARCHAR}, #{udName,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
-      #{isLeaf,jdbcType=BIT}, #{level,jdbcType=INTEGER}, #{fullIdPath,jdbcType=VARCHAR}, 
-      #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER})
+  <insert id="insert" parameterType="com.tianyi.drs.duty.model.DutyItem" >
+    insert into t_duty_item (id, duty_id, duty_type_id, 
+      begin_time, end_time, item_type_id, 
+      item_id, item_name, name, 
+      parent_id, level, is_leaf, 
+      full_id_path, sync_state, platform_id, 
+      description)
+    values (#{id,jdbcType=INTEGER}, #{dutyId,jdbcType=INTEGER}, #{dutyTypeId,jdbcType=INTEGER}, 
+      #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{itemTypeId,jdbcType=INTEGER}, 
+      #{itemId,jdbcType=INTEGER}, #{itemName,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, #{isLeaf,jdbcType=BIT}, 
+      #{fullIdPath,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER}, 
+      #{description,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.DutyItem" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.DutyItem" >
     insert into t_duty_item
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="dutyShiftId != null" >
-        duty_shift_id,
+      <if test="dutyId != null" >
+        duty_id,
+      </if>
+      <if test="dutyTypeId != null" >
+        duty_type_id,
+      </if>
+      <if test="beginTime != null" >
+        begin_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
       </if>
       <if test="itemTypeId != null" >
         item_type_id,
@@ -53,17 +71,20 @@
       <if test="itemId != null" >
         item_id,
       </if>
-      <if test="udName != null" >
-        ud_name,
+      <if test="itemName != null" >
+        item_name,
+      </if>
+      <if test="name != null" >
+        name,
       </if>
       <if test="parentId != null" >
         parent_id,
       </if>
-      <if test="isLeaf != null" >
-        is_leaf,
-      </if>
       <if test="level != null" >
         level,
+      </if>
+      <if test="isLeaf != null" >
+        is_leaf,
       </if>
       <if test="fullIdPath != null" >
         full_id_path,
@@ -74,31 +95,46 @@
       <if test="platformId != null" >
         platform_id,
       </if>
+      <if test="description != null" >
+        description,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="dutyShiftId != null" >
-        #{dutyShiftId,jdbcType=INTEGER},
+      <if test="dutyId != null" >
+        #{dutyId,jdbcType=INTEGER},
+      </if>
+      <if test="dutyTypeId != null" >
+        #{dutyTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="beginTime != null" >
+        #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
       </if>
       <if test="itemTypeId != null" >
         #{itemTypeId,jdbcType=INTEGER},
       </if>
       <if test="itemId != null" >
-        #{itemId,jdbcType=VARCHAR},
+        #{itemId,jdbcType=INTEGER},
       </if>
-      <if test="udName != null" >
-        #{udName,jdbcType=VARCHAR},
+      <if test="itemName != null" >
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="parentId != null" >
         #{parentId,jdbcType=INTEGER},
       </if>
-      <if test="isLeaf != null" >
-        #{isLeaf,jdbcType=BIT},
-      </if>
       <if test="level != null" >
         #{level,jdbcType=INTEGER},
+      </if>
+      <if test="isLeaf != null" >
+        #{isLeaf,jdbcType=BIT},
       </if>
       <if test="fullIdPath != null" >
         #{fullIdPath,jdbcType=VARCHAR},
@@ -109,31 +145,46 @@
       <if test="platformId != null" >
         #{platformId,jdbcType=INTEGER},
       </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.duty.model.DutyItem" >
     update t_duty_item
     <set >
-      <if test="dutyShiftId != null" >
-        duty_shift_id = #{dutyShiftId,jdbcType=INTEGER},
+      <if test="dutyId != null" >
+        duty_id = #{dutyId,jdbcType=INTEGER},
+      </if>
+      <if test="dutyTypeId != null" >
+        duty_type_id = #{dutyTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="beginTime != null" >
+        begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
       </if>
       <if test="itemTypeId != null" >
         item_type_id = #{itemTypeId,jdbcType=INTEGER},
       </if>
       <if test="itemId != null" >
-        item_id = #{itemId,jdbcType=VARCHAR},
+        item_id = #{itemId,jdbcType=INTEGER},
       </if>
-      <if test="udName != null" >
-        ud_name = #{udName,jdbcType=VARCHAR},
+      <if test="itemName != null" >
+        item_name = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="parentId != null" >
         parent_id = #{parentId,jdbcType=INTEGER},
       </if>
-      <if test="isLeaf != null" >
-        is_leaf = #{isLeaf,jdbcType=BIT},
-      </if>
       <if test="level != null" >
         level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="isLeaf != null" >
+        is_leaf = #{isLeaf,jdbcType=BIT},
       </if>
       <if test="fullIdPath != null" >
         full_id_path = #{fullIdPath,jdbcType=VARCHAR},
@@ -144,27 +195,29 @@
       <if test="platformId != null" >
         platform_id = #{platformId,jdbcType=INTEGER},
       </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.duty.model.DutyItem" >
     update t_duty_item
-    set duty_shift_id = #{dutyShiftId,jdbcType=INTEGER},
+    set duty_id = #{dutyId,jdbcType=INTEGER},
+      duty_type_id = #{dutyTypeId,jdbcType=INTEGER},
+      begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
       item_type_id = #{itemTypeId,jdbcType=INTEGER},
-      item_id = #{itemId,jdbcType=VARCHAR},
-      ud_name = #{udName,jdbcType=VARCHAR},
+      item_id = #{itemId,jdbcType=INTEGER},
+      item_name = #{itemName,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
       parent_id = #{parentId,jdbcType=INTEGER},
-      is_leaf = #{isLeaf,jdbcType=BIT},
       level = #{level,jdbcType=INTEGER},
+      is_leaf = #{isLeaf,jdbcType=BIT},
       full_id_path = #{fullIdPath,jdbcType=VARCHAR},
       sync_state = #{syncState,jdbcType=BIT},
-      platform_id = #{platformId,jdbcType=INTEGER}
+      platform_id = #{platformId,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  
-  <delete id="deleteByShiftId" parameterType="java.lang.Integer">
-  	 delete from t_duty_item
-    where duty_shift_id = #{shiftId,jdbcType=INTEGER} 
-  </delete>
-  
 </mapper>

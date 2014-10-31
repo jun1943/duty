@@ -1,27 +1,39 @@
 package com.tianyi.drs.duty.model;
 
+import java.util.Date;
+
 public class DutyItem {
     private Integer id;
 
-    private Integer dutyShiftId;
+    private Integer dutyId;
+
+    private Integer dutyTypeId;
+
+    private Date beginTime;
+
+    private Date endTime;
 
     private Integer itemTypeId;
 
-    private String itemId;
+    private Integer itemId;
 
-    private String udName;
+    private String itemName;
+
+    private String name;
 
     private Integer parentId;
 
-    private Boolean isLeaf;
-
     private Integer level;
+
+    private Boolean isLeaf;
 
     private String fullIdPath;
 
     private Boolean syncState;
 
     private Integer platformId;
+
+    private String description;
 
     public Integer getId() {
         return id;
@@ -31,12 +43,36 @@ public class DutyItem {
         this.id = id;
     }
 
-    public Integer getDutyShiftId() {
-        return dutyShiftId;
+    public Integer getDutyId() {
+        return dutyId;
     }
 
-    public void setDutyShiftId(Integer dutyShiftId) {
-        this.dutyShiftId = dutyShiftId;
+    public void setDutyId(Integer dutyId) {
+        this.dutyId = dutyId;
+    }
+
+    public Integer getDutyTypeId() {
+        return dutyTypeId;
+    }
+
+    public void setDutyTypeId(Integer dutyTypeId) {
+        this.dutyTypeId = dutyTypeId;
+    }
+
+    public Date getBeginTime() {
+        return beginTime;
+    }
+
+    public void setBeginTime(Date beginTime) {
+        this.beginTime = beginTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
     public Integer getItemTypeId() {
@@ -47,20 +83,28 @@ public class DutyItem {
         this.itemTypeId = itemTypeId;
     }
 
-    public String getItemId() {
+    public Integer getItemId() {
         return itemId;
     }
 
-    public void setItemId(String itemId) {
+    public void setItemId(Integer itemId) {
         this.itemId = itemId;
     }
 
-    public String getUdName() {
-        return udName;
+    public String getItemName() {
+        return itemName;
     }
 
-    public void setUdName(String udName) {
-        this.udName = udName;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getParentId() {
@@ -71,20 +115,20 @@ public class DutyItem {
         this.parentId = parentId;
     }
 
-    public Boolean getIsLeaf() {
-        return isLeaf;
-    }
-
-    public void setIsLeaf(Boolean isLeaf) {
-        this.isLeaf = isLeaf;
-    }
-
     public Integer getLevel() {
         return level;
     }
 
     public void setLevel(Integer level) {
         this.level = level;
+    }
+
+    public Boolean getIsLeaf() {
+        return isLeaf;
+    }
+
+    public void setIsLeaf(Boolean isLeaf) {
+        this.isLeaf = isLeaf;
     }
 
     public String getFullIdPath() {
@@ -109,5 +153,13 @@ public class DutyItem {
 
     public void setPlatformId(Integer platformId) {
         this.platformId = platformId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
