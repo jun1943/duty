@@ -12,23 +12,23 @@
 var  dutyItemRelate={
 		root:{
 			children:[
-			          'vehicle',
-			          'police',
-			          'usernode'
+			          '车辆',
+			          '警员',
+			          '自定义'
 			          ]
 		},
 		vehicle:{
 			 children:[
-			           'police',
-			           'weapon',
-			           'gps',
-			           'usernode'
+			           '警员',
+			           '武器',
+			           '定位设备',
+			           '自定义'
 			           ]
 		},
 		police:{
 			 children:[
-			           'weapon',
-			           'gps'
+			           '武器',
+			           '定位设备'
 			           ]
 		},
 		weapon:{
@@ -41,7 +41,7 @@ var  dutyItemRelate={
 		},
 		usernode:{
 			children:[
-			          'all'
+			          '全部'
 			          ]
 		},
 		/**
@@ -58,7 +58,7 @@ var  dutyItemRelate={
 			
 			for(var i=0;i<count;i++){
 				var pc=p.children[i];
-				if(pc=='all' || pc==childtype){
+				if(pc=='全部' || pc==childtype){
 					sucess=true;
 					break;
 				}

@@ -46,6 +46,14 @@ public class DutyController {
 		
 		DutyDescVM vm= dutyDescService.loadDutyDescVMByOrgIdAndYMD(orgId, ymd);
 		
+		if(vm==null){
+			vm=new DutyDescVM();
+			vm.setId(0);
+			vm.setIsTemplate(false);
+			vm.setOrgId(orgId);
+			vm.setYmd(ymd);
+		}
+		
 		ObjResult<DutyDescVM> rs=new ObjResult<DutyDescVM>(true,null,vm.getId(),vm);
 		
 		return rs.toJson();

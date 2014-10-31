@@ -88,25 +88,42 @@ public class DutyDescServiceImpl implements DutyDescService{
 				dutyMapper.updateByPrimaryKey(dvm);
 			
 			for(DutyShiftVM dsvm : dvm.getShifts()){
+				
+				dsvm.setDutyId(dvm.getId());
+				
 				if(dsvm.getId()==0)
 					dutyShiftMapper.insert(dsvm);
 				else
 					dutyShiftMapper.updateByPrimaryKey(dsvm);
 				
-				dutyItemMapper.deleteByShiftId(dsvm.getId()); //构建tree依赖于id的顺序，所以必须先删除所有记录，再添重新添加，否则会混乱。
-				
 				for(DutyItemVM divm : dsvm.getItems()){
-					divm.setId(0);//全部重置为零
-					
-					dutyItemMapper.insert(divm);
+					saveItem(divm,dsvm.getId());
 				}
-				
 			}
 			
 		}
 		
 	}
 
+	/**
+	 * 递归保存dutyitem
+	 * @param divm
+	 * @param shiftId
+	 */
+	private void saveItem(DutyItemVM divm,Integer shiftId){
+		if(divm.getId() ==0)
+			dutyItemMapper.insert(divm);
+		else
+			dutyItemMapper.updateByPrimaryKey(divm);
+		
+		for(DutyItemVM divm2 :divm.getChildren()){
+			divm2.setDutyShiftId(shiftId);
+			divm2.setParentId(divm.getId());
+			saveItem(divm2,shiftId);
+		}
+		
+	}
+	
 	public DutyDescVM loadDutyDescVMByOrgIdAndYMD(Integer orgId, Integer ymd) {
 		Integer id=dutyDescMapper.loadIdByOrgIdAndYMD(orgId, ymd);
 		
