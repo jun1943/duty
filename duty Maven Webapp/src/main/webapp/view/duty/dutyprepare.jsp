@@ -202,10 +202,24 @@
 			</div>
 		</div>
 	</div>
-	<div style="display:none">
-		<div id="tb_worksheet">
-			<input id="starttime" class="easyui-timespinner"  style="width:80px;" required="required" data-options="min:'00:00',showSeconds:false" />
-			<input id="endtime" class="easyui-timespinner"  style="width:80px;" required="required" data-options="min:'00:01',showSeconds:false" />
+	 
+	<div style="display:none"> 
+		<div id="div_worksheet">
+			<div id="tb_worksheet" class="btn-toolbar">
+				<div class="btn-group">
+					<input id="starttime" class="easyui-timespinner"  style="width:80px;" required="required" data-options="min:'00:00',showSeconds:false" />
+					<input id="endtime" class="easyui-timespinner"  style="width:80px;" required="required" data-options="min:'00:01',showSeconds:false" />
+					<label>是否第二天</label><input type="checkbox" id="ck_isTomorrow_">
+				</div>
+				<div><label>数据汇总：</label><label></label></div>
+			</div>
+			<div id="contentTab" class="easyui-tabs" data-options="tools:'#contentTab-tools'" style="width:500px;height:300px">
+			</div>
+			<div id="contentTab-tools">
+				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'" onclick="addPanel()"></a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-remove'" onclick="removePanel()"></a>
+			</div> 
 		</div>
-	</div>	 
+	</div>
+	 
 </body>
