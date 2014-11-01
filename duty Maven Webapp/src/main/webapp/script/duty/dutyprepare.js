@@ -1,7 +1,7 @@
 
-var m_dutyprepare_Org = {};
-var m_ymd=0;
-var m_dutyDesc={};
+var m_dutyprepare_Org = {}; /*当前组织机构*/
+var m_ymd=0; /*当前年月日*/
+var m_duty={}; /*备勤记录*/
 
 $(function () {
 	$('#policeConditionwindow').window('close');
@@ -23,10 +23,11 @@ $(function () {
 	        fitColumns: true, 
 	        resizable: true,
 	        idField: 'id',
-	        treeField: 'id',  
-	        toolbar:"#tb_source_police",
+	        treeField: 'displayName',
+	        //toolbar:"#tb_source_police",
 	        columns: [[
 	               { title: 'id', field: 'id', align: 'center', width: 0, hidden: true },
+	               { title: 'displayName', field: 'displayName',  width: 30},
 	               { title: '姓名', field: 'name', align: 'center', width: 80 },
 	               { title: '警号', field: 'number', align: 'center', width: 80},
 	               { title: '单位', field: 'orgName', align: 'center', width: 50} ,
@@ -103,10 +104,104 @@ $(function () {
 				$(this).treegrid('enableDnd', row?row.id:null);
 			}
 	    });
-	InitGrid();
+	   
+		 $('#dtDutyType').treegrid({ 
+		        fitColumns: true,
+		        rownumbers: false,
+		        resizable: true,
+		        idField: 'id',
+		        treeField: 'name',  
+		        width:'99%',
+		        height:'100%',
+		        singleSelect:false,
+		        onlyLeafCheck:true,
+		        onClickRow:isLeafSelected,
+		        columns: [[
+	                   { field : 'ck', checkbox : true },
+		               { title: 'id', field: 'id', align: 'left', width: 0, hidden: true },
+		               { title: '名称', field: 'name', align: 'left', width: 200},
+		               { title: 'parentId', field: "parentId", align: 'left', width: 5, hidden: true}
+		              
+		        ]]
+		    });
+	   
+	   $('#tdDuty').treegrid({
+		   fitColumns:true,
+		   dnd:true,
+		   resizable:true,
+		   idField:'id',
+		   treeField:'displayName',
+		   toolbar:'#tdDutyToolbar',
+		   showFooter:true,
+		   columns:[[
+		             { title: 'id', field: 'id', align: 'center', width: 0, hidden: true },
+		             { title: '名称', field: 'displayName', width: 200 },
+		             { title: '类型', field: 'itemInnerTypeName', align: 'center', width: 70},
+		             { title: '时间区间', field: 'beginTime', align: 'center', width: 100,formatter:fmtShiftPeriod },
+		             { title: '车辆', field: 'velicleCount', align: 'right', width: 50,formatter:fmtDigit} ,
+		             { title: '警员', field: 'policeCount', align: 'right', width: 50,formatter:fmtDigit} ,
+		             { title: '武器', field: 'weaponCount', align: 'right', width: 50,formatter:fmtDigit} ,
+		             { title: '定位', field: 'gpsCount', align: 'right', width: 50,formatter:fmtDigit} 
+		             ]],
+		    onLoadSuccess: function(row){
+							$(this).treegrid('enableDnd', row?row.id:null);
+						}
+	   });
+	   
+	   initResourceQueryTG();
+	   loadDutyType();
+	   loadDuty();
 });
 
-function InitGrid(){
+function fmtDisplayTypeName(value,row,index){
+	switch(row.itemTypeId){
+	case 101:
+		return "班次";
+		break;
+	case 999:
+		return "自定义";
+		break;
+	default:
+		return row.itemTypeName;
+	}
+}
+
+function fmtDigit(value,row,index){
+	if(value==0)
+		return "";
+	else
+		return value;
+}
+
+function fmtShiftPeriod(value,row,index){
+	var result="";
+	if(row.beginTime !=null && row.endTime){
+		var b=new Date(row.beginTime);
+		var e=new Date(row.endTime);
+
+		var b1=new Date(b.getFullYear(),b.getMonth(),b.getDate());
+		var e1=new Date(e.getFullYear(),e.getMonth(),e.getDate());
+
+		result =b.getHours()+":" +b.getMinutes() + "至";
+		
+		var diff=b1.dateDiff("d", e1);
+
+		switch(diff){
+		case 0:
+			result += e.getHours()+":"+e.getMinutes();
+			break;
+		case 1:
+			result +="明日"+ e.getHours()+":"+e.getMinutes();
+			break;
+		default:
+			result ="起止时间错误!";
+		}
+		
+	}
+	return result;
+}
+
+function initResourceQueryTG(){
 	$('#dt_policeType').datagrid({
 		url : "police/getPoliceTypeList.do",  
 		fitColumns : true,
@@ -118,7 +213,6 @@ function InitGrid(){
 	              ] ]
 	});
 	
-
 	$('#dt_groupType').datagrid({
 		url : 'policeGroup/getPoliceGrouplist.do?orgId='+m_dutyprepare_Org.id, 
 		fitColumns : true,
@@ -129,6 +223,7 @@ function InitGrid(){
 		              {	title : '组名称',field : 'name',align : 'left',width : 150	}
 	              ] ]
 	});
+	
 	$('#dt_gpsType').datagrid({
 		url : 'gpsdevice/getGpsTypelist.do', 
 		fitColumns : true,
@@ -139,6 +234,7 @@ function InitGrid(){
 		              {	title : '设备类型',field : 'name',align : 'left',width : 150	}
 	              ] ]
 	});
+	
 	$('#dt_weaponType').datagrid({
 		url : 'weapon/getWeaponTypelist.do', 
 		fitColumns : true,
@@ -149,6 +245,7 @@ function InitGrid(){
 		              {	title : '武器类型',field : 'name',align : 'left',width : 150	}
 	              ] ]
 	});
+	
 	$('#dt_vehicleType').datagrid({
 		url : 'vehicle/getvehicleTypelist.do', 
 		fitColumns : true,
@@ -159,18 +256,18 @@ function InitGrid(){
 		              {	title : '车辆类型',field : 'name',align : 'left',width : 150	}
 	              ] ]
 	});
-	loadDutyType();
 } 
+
 function loadDutyType() {
     $.ajax({
         url: "dutyType/list.do",
         type: "POST",
         dataType: "json",
-        //async:false,
+        async:false,
         success: function (req) {
             if (req.isSuccess) {//成功填充数据
             	var ss = buildDutyTypeTree(req.rows);
-                $('#dt_dutyType').treegrid('loadData', ss);
+                $('#dtDutyType').treegrid('loadData', ss);
             }
             else {
                 alert("获取数据失败");
@@ -178,13 +275,89 @@ function loadDutyType() {
         }
     });
 };
+/**
+ * 从后台获取当前duty数据
+ */
+function loadDuty(){
+	$.ajax({
+        url: "duty/loadDutyByOrgIdAndYMD.do",
+        type: "POST",
+        dataType: "json",
+        data:{'orgId':m_dutyprepare_Org.id,'ymd':m_ymd},
+        async:false,
+        success: function (req) {
+            if (req.isSuccess) {//成功填充数据
+            	var duty=req.obj;
+            	gatherDutyTree(duty);
+                $('#tdDuty').treegrid('loadData', duty.items);
+            }
+            else {
+                alert("获取数据失败");
+            }
+        }
+    });
+}
+
+function initDuty(){
+	m_duty.id=0;
+	m_duty.orgId=m_dutyprepare_Org.id;
+	m_duty.ymd=m_ymd;
+	m_duty.items=[];
+}
+
+/**
+ * 汇总各级节点的数据
+ * @param duty
+ */
+function gatherDutyTree(duty){
+	$.each(duty.items,function(i,val){
+		gatherItem(val);
+	});
+}
+function gatherItem(item){
+	/*初始化数量等于0*/
+	item.velicleCount =0;
+	item.policeCount =0;
+	item.weaponCount=0;
+	item.gpsCount=0;
+	
+	switch(item.itemTypeId){
+	case 1:
+		item.velicleCount=1;
+		break;
+	case 2:
+		item.policeCount=1;
+		break;
+	case 3:
+		item.weaponCount=1;
+		break;
+	case 4:
+		item.gpsCount=1;
+		break;
+	}
+	if(item.children!=undefined && item.children !=null && item.children.length>0){
+		$.each(item.children,function(i,val){
+			gatherItem(val);/*获取下级的汇总*/
+			item.velicleCount +=val.velicleCount;
+			item.policeCount +=val.policeCount;
+			item.weaponCount+=val.weaponCount;
+			item.gpsCount+=val.gpsCount;
+		});
+	}
+}
+/**
+ * 格式化开始时间-结束时间
+ */
+function fmtPeriod(value, rowData, index){
+	
+}
+
+
 function SearchVehicleAction(){
 	var number = $("#txtvnumber").val();
 	var row = $('#dt_vehicleType').datagrid("getChecked");
-	var typeId;
-	if(row.length>0){
-		typeId= row[0].id;
-	}
+	var typeId =row.length>0?row[0].id:0;
+
 	$('#source_vehicle').treegrid("reload",{"orgId":m_dutyprepare_Org.id,"number":number,"typeId":typeId});
 	$("#txtvnumber").val("");
 	$('#dt_vehicleType').datagrid("unselectAll");
@@ -193,10 +366,9 @@ function SearchVehicleAction(){
 function SearchGpsAction(){ 
 	var name = $("#txtgname").val();
 	var row = $('#dt_gpsType').datagrid("getChecked");
-	var typeId;
-	if(row.length>0){
-		typeId= row[0].id;
-	}
+	var typeId =row.length>0?row[0].id:0;
+
+
 	$('#source_gpsdevice').treegrid("reload",{"orgId":m_dutyprepare_Org.id,"gpsname":name,"typeId":typeId});
 	$("#txtgname").val("");
 	$('#dt_gpsType').datagrid("unselectAll");
@@ -205,10 +377,8 @@ function SearchGpsAction(){
 function SearchWeaponAction(){
 	var number = $("#txtwnumber").val();
 	var row = $('#dt_weaponType').datagrid("getChecked");
-	var typeId;
-	if(row.length>0){
-		typeId= row[0].id;
-	}
+	var typeId =row.length>0?row[0].id:0;
+
 	$('#source_weapon').treegrid("reload",{"orgId":m_dutyprepare_Org.id,"number":number,"typeId":typeId});
 	$("#txtwnumber").val("");
 	$('#dt_weaponType').datagrid("unselectAll");
@@ -218,14 +388,9 @@ function SearchPoliceAction(){
 	var name = $("#txtpname").val();
 	var typerow = $('#dt_policeType').datagrid("getChecked");
 	var grouprow = $('#dt_groupType').datagrid("getChecked");
-	var typeId;
-	var groupId;
-	if(typerow.length>0){
-		typeId= typerow[0].id;
-	}
-	if(grouprow.length>0){
-		groupId = grouprow[0].id;
-	}
+	var typeId =typerow.length>0?typerow[0].id:0;
+	var groupId=grouprow.length>0?grouprow[0].id:0;
+
 	$('#source_police').treegrid("reload",{"orgId":m_dutyprepare_Org.id,"name":name,"typeId":typeId,"groupId":groupId});
 	$("#txtpname").val("");
 	$('#dt_policeType').datagrid("unselectAll");
@@ -256,132 +421,14 @@ function selectDutyTemplate(){
 	$('#dutyTemplateSelectwindow').window('open');
 };
 function selectDutyType(){ 
-	 $('#dtDutyType').treegrid({ 
-	        fitColumns: true,
-	        rownumbers: false,
-	        resizable: true,
-	        idField: 'id',
-	        treeField: 'name',  
-	        width:'99%',
-	        height:'100%',
-	        singleSelect:false,
-	        onlyLeafCheck:true,
-	        onClickRow:isLeafSelected,
-	        columns: [[
-                   { field : 'ck', checkbox : true },
-	               { title: 'id', field: 'id', align: 'left', width: 0, hidden: true },
-	               { title: '名称', field: 'name', align: 'left', width: 200},
-	               { title: 'parentId', field: "parentId", align: 'left', width: 5, hidden: true}
-	              
-	        ]]
-	    });
-	InitDutyTypeTreeGrid();
-	$('#dutyTypeSelectwindow').window('open');dutyTemplateSelectwindow
+	
+	$('#dutyTypeSelectwindow').window('open');
 }; 
 function isLeafSelected(row){
 	if(!row.isLeaf){
 		$('#dtDutyType').treegrid("unselect",row.id);
 	} 
 };
-function InitDutyTypeTreeGrid(){ 
-	 $.ajax({
-	        url: "dutyType/list.do",
-	        type: "POST",
-	        dataType: "json",
-	        //async:false,
-	        success: function (req) {
-	            if (req.isSuccess) {//成功填充数据
-	            	var ss = buildDutyTypeTree(req.rows);
-	                $('#dtDutyType').treegrid('loadData', ss);
-	            }
-	            else {
-	                alert("获取数据失败");
-	            }
-	        }
-	    }); 
-};
-//根据选择的勤务类型，加载according标签
-function selectDutyTypeAction(){
-	var rows = $('#dtDutyType').treegrid('getSelections');
-	if(rows.length>0){ 
-		var ids = [];
-		for(var i =0; i<rows.length; i++){ 
-			//var titlename = rows[i].name;
-			var accId = rows[i].id;
-			if($.inArray(accId, ids)==-1){
-				
-				var duty={};
-				addDuty(duty,rows[i]);
-				addDutyPanel(duty);
-				
-				ids.push(accId); 
-			}
-		}
-		$('#dtDutyType').treegrid('unselectAll');
-		$('#dutyTypeSelectwindow').window('close');
-		index = 0;
-	}
-	
-};
-function reMoveAccdordion(){
-	var pp = $('#dutyTypeAccordion').accordion('getSelected');
-	if (pp){
-		var index = $('#dutyTypeAccordion').accordion('getPanelIndex',pp);
-		$('#dutyTypeAccordion').accordion('remove',index);
-	}
-
-}; 
-function initdatagridcontent(duty){
-	var html = '<div id="tb_worksheet_'+duty.cid+'" class="btn-toolbar"><div class="btn-group">'
-			 + ' <input id="starttime_'+duty.cid+'" class="easyui-timespinner"  style="width:80px;" required="required" data-options="min:\'00:00\',showSeconds:false" />     '
-			 + ' <input id="endtime_'+duty.cid+'" class="easyui-timespinner"  style="width:80px;" required="required" data-options="min:\'00:01\',showSeconds:false" />'
-			 + ' <label>是否第二天</label><input type="checkbox" id="ck_isTomorrow_'+duty.cid+'"> '
-			 + ' </div></div> '    
-			 + ' <div><label>数据汇总：</label><label></label></div> '
-			 + ' <div id="contentTab_'+duty.cid+'" class="easyui-tabs" data-options="tools:\'#contentTab-tools_'+duty.cid+'\'" style="width:500px;height:300px"></div> '    
-			 + ' <div id="contentTab-tools_'+duty.cid+'"> '    
-		     + ' <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:\'icon-add\'" onclick="addDutyShiftPanel('+duty.cid+')"></a> ' 
-		     + ' <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:\'icon-remove\'" onclick="removeDutyShiftPanel('+duty.cid+')"></a> '
-		     + ' </div></div> '    ; 
-	return html;
-};
- var index = 0;
-function addPanel(id){ 
-	index++;
-	$('#contentTab_'+id).tabs('add',{
-		title: '班次'+index,
-		content: '<div id="dt_shedule_'+id+'_'+index+'" style="padding:10px"> </div>',
-		closable: false
-	});
-	$("#dt_shedule_"+id+"_"+index).treegrid({ 
-		 url:"police/getPoliceSource.do?orgId="+m_dutyprepare_Org.id+"&name=",
-		    dnd:true,
-	        fitColumns: true, 
-	        resizable: true,
-	        idField: 'id',
-	        treeField: 'id',  
-	        toolbar:"#tb_source_police",
-	        columns: [[
-	               { title: 'id', field: 'id', align: 'center', width: 0, hidden: true },
-	               { title: '姓名', field: 'name', align: 'center', width: 80 },
-	               { title: '警号', field: 'number', align: 'center', width: 80},
-	               { title: '单位', field: 'orgName', align: 'center', width: 50} 
-	        ]],
-			onLoadSuccess: function(row){
-				$(this).treegrid('enableDnd', row?row.id:null);
-			}
-	    });
-
-} 
-function removeDutyShiftPanel(id){
-	
-	var tab = $('#contentTab_'+id).tabs('getSelected');
-	if (tab){
-		var tabindex = $('#contentTab_'+id).tabs('getTabIndex', tab);
-		$('#contentTab_'+id).tabs('close', tabindex);
-		index--;
-	}
-}
 
 /****************逻辑区域结束*********************/
 

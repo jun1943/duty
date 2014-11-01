@@ -151,7 +151,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   
-    <resultMap id="VMResultMap" type="com.tianyi.drs.duty.model.Duty" >
+    <resultMap id="VMResultMap" type="com.tianyi.drs.duty.viewmodel.DutyVM" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="org_id" property="orgId" jdbcType="INTEGER" />
     <result column="org_name" property="orgName" jdbcType="VARCHAR" />
@@ -166,7 +166,7 @@
     <collection property="items" resultMap="ItemVMResultMap"/>
   </resultMap>
   
-	<resultMap id="ItemVMResultMap" type="com.tianyi.drs.duty.model.Duty" >
+	<resultMap id="ItemVMResultMap" type="com.tianyi.drs.duty.viewmodel.DutyItemVM" >
     <id column="item_id" property="id" jdbcType="INTEGER" />
     <result column="item_duty_id" property="dutyId" jdbcType="INTEGER" />
     <result column="item_duty_type_id" property="dutyTypeId" jdbcType="INTEGER" />
@@ -178,16 +178,18 @@
     <result column="item_rec_id" property="itemId" jdbcType="INTEGER" />
     <result column="item_item_name" property="itemName" jdbcType="VARCHAR" />
     <result column="item_name" property="name" jdbcType="VARCHAR" />
+    <result column="item_display_name" property="displayName" jdbcType="VARCHAR" />
     <result column="item_parent_id" property="parentId" jdbcType="INTEGER" />
     <result column="item_level" property="level" jdbcType="INTEGER" />
     <result column="item_is_leaf" property="isLeaf" jdbcType="BIT" />
     <result column="item_full_id_path" property="fullIdPath" jdbcType="VARCHAR" />
     <result column="item_description" property="description" jdbcType="VARCHAR" />
+    <result column="item_inner_type_name" property="itemInnerTypeName" jdbcType="VARCHAR" />
   </resultMap>
   
   <select id="loadDutyVMList"  parameterType="java.util.Map" resultMap="VMResultMap">
   	select 
-  		d.*
+  		d.*,
   		org.name 				as org_name,
   		di.id						as item_id,
   		di.duty_id				as item_duty_id,
@@ -196,6 +198,24 @@
   		di.begin_time		as item_begin_time,
   		di.end_time			as item_end_time,
   		di.item_type_id		as item_type_id,
+  		case di.item_type_id
+  			when	1		then	CONCAT(velt.name," : ",vel.number)
+  			when	2		then	poc.name
+  			when	3		then CONCAT(wept.name," : ",wep.number)
+  			when	4		then CONCAT(gpst.name," : ",gps.number)
+  			when	100	then	di.name
+  			when	101	then	di.name
+  			when	999	then	di.name
+  		end as item_display_name,
+  		case di.item_type_id
+  			when	1		then	velt.name
+  			when	2		then	poct.name
+  			when	3		then wept.name
+  			when	4		then gpst.name
+  			when	100	then	dt.name
+  			when	101	then	"班次"
+  			when	999	then	"自定义"
+  		end as item_inner_type_name,		
   		dit.name				as item_type_name,
   		di.item_id				as item_rec_id,
   		di.	item_name		as item_item_name,
@@ -208,12 +228,21 @@
   		
   	from 
   		t_duty as d
-  	left join t_duty_item 			as di 	on d.id=di.duty_id
-  	left join organ 					as org 	on d.org_id=org.id
-  	left join t_duty_type 			as dt 	on di.duty_type_id= dt.id
-  	left join t_duty_item_type	as dit 	on di.item_type_id=dit.type_id
+  	left join t_duty_item 			as di 		on d.id=di.duty_id
+  	left join organ 					as org 		on d.org_id=org.id
+  	left join t_duty_type 			as dt 		on di.duty_type_id= dt.id
+  	left join t_duty_item_type	as dit 		on di.item_type_id=dit.type_id
+  	left join t_vehicle				as vel		on di.item_type_id=1 and di.item_id=vel.id
+  	left join t_vehicletype		as velt		on vel.vehicle_type_id=velt.id
+  	left join t_police				as poc		on di.item_type_id=2 and di.item_id=poc.id
+  	left join t_policetype			as poct		on poc.type_id=poct.id
+  	left join t_weapon				as wep		on di.item_type_id=3 and di.item_id=wep.id
+  	left join	t_weapontype		as	wept		on wep.type_id =wept.id
+  	left join t_gps					as gps		on di.item_type_id=4 and di.item_id=gps.id
+  	left join t_gpstype				as gpst		on gps.type_id =gpst.id
   	
   	where
+  		1=1
   		<if test="id != null" >
         	and d.id = #{id,jdbcType=INTEGER},
       	</if>
@@ -232,5 +261,11 @@
      order by d.id,di.id
   </select>
   
+  <select id="loadTemplatesWithOutItem"  parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from t_duty
+    where is_template=1 and org_id = #{orgId,jdbcType=INTEGER}
+  </select>
   
 </mapper>

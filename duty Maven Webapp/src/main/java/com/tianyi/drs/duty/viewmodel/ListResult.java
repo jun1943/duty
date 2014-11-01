@@ -27,6 +27,7 @@ public class ListResult<T> {
 	public ListResult(int total,List<T> rows){
 		this.total=total;
 		this.rows=rows;
+		this.isSuccess=true;
 	}
 	
 	public ListResult(int total,List<T> rows,boolean isSuccess){

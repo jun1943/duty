@@ -34,6 +34,7 @@
     <result column="gps_name" property="gpsName" jdbcType="VARCHAR" />
     <result column="orgcode" jdbcType="VARCHAR" property="orgCode" />
     <result column="orgpath" jdbcType="VARCHAR" property="orgPath" />
+    <result column="display_name" jdbcType="VARCHAR" property="displayName" />
   </resultMap>
   
   <sql id="Base_Column_List" >
@@ -42,7 +43,7 @@
   </sql>
   <sql id="Base_Model_Column_List" >
     p.id, p.type_id as typeId,pt.name as typeName, p.name, p.org_id as orgId,o.short_name as orgName,p.idcardno, p.number, p.title, p.mobile, p.mobile_short as mobileShort, 
-    p.intercom_group as intercomGroup, p.intercom_person, p.gps_id as gpsId, p.gps_name as gpsName,o.code as orgCode,o.path as orgPath
+    p.intercom_group as intercomGroup, p.intercom_person, p.gps_id as gpsId, p.gps_name as gpsName,o.code as orgCode,o.path as orgPath,CONCAT(pt.name,":",p.name) as display_name
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

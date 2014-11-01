@@ -21,4 +21,6 @@ public interface DutyMapper {
     int updateByPrimaryKey(Duty record);
     
     List<DutyVM> loadDutyVMList(Map<String,Object> map);
+    
+    List<DutyVM> loadTemplatesWithOutItem(Integer orgId);
 }

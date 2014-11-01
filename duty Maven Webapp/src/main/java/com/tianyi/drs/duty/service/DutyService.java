@@ -7,5 +7,9 @@ import com.tianyi.drs.duty.viewmodel.DutyVM;
 
 public interface DutyService {
 
-	List<DutyVM> loadDutyVMList(Map<String,Object> map);
+	List<DutyVM> loadVMList(Map<String,Object> map);
+	
+	DutyVM loadVMByOrgIdAndYmd(Integer orgId,Integer ymd);
+	
+	List<DutyVM> loadTemplatesWithOutItem(Integer orgId);
 }
