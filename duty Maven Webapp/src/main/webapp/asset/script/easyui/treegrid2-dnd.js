@@ -50,7 +50,7 @@
 					deltaX: 15,
 					deltaY: 15,
 					onBeforeDrag:function(e){
-						if (opts.onBeforeDrag.call(target, getRow(this)) == false){return false}
+						if (opts.onBeforeDrag.call(target, getRow(this)) == false){return false;}
 						if ($(e.target).hasClass('tree-hit') || $(e.target).parent().hasClass('datagrid-cell-check')){return false;}
 						if (e.which != 1){return false;}
 						$(this).next('tr.treegrid-tr-tree').find('tr[node-id]').droppable({accept:'no-accept'});
@@ -66,7 +66,11 @@
 							left:-10000,
 							top:-10000
 						});
+						
 						var row = getRow(this);
+						$(this).prop('treegrid',t); /*设置源treegrid owen 2014-11-02*/
+						$(this).prop('row',row); /*设置源 row owen 2014-11-02*/
+						
 						opts.onStartDrag.call(target, row);
 						state.draggingNodeId = row[opts.idField];
 					},
@@ -107,7 +111,7 @@
 					},
 					onDragOver:function(e,source){
 						var nodeId = $(this).attr('node-id');
-						if ($.inArray(nodeId, state.disabledNodes) >= 0){return}
+						if ($.inArray(nodeId, state.disabledNodes) >= 0){return;}
 						var pageY = source.pageY;
 						var top = $(this).offset().top;
 						var bottom = top + $(this).outerHeight();
@@ -152,18 +156,20 @@
 							action = insert;
 							point = tr.hasClass('treegrid-row-top') ? 'top' : 'bottom';
 						}
-						
+						var st=$(source).prop('treegrid');/*获取源treegrid owen 2014-11-02*/
+
 						var dRow = getRow(this);
-						var sRow = getRow(source);
+						var sRow=$(source).prop('row'); /* 从源中获取sRow owen 2014-11-02*/
+						//var sRow = getRow(source);  bug:不支持多个treegrid之间拖动! 
 						if (opts.onBeforeDrop.call(target, dRow, sRow, point) == false){
 							tr.removeClass('treegrid-row-append treegrid-row-top treegrid-row-bottom');
 							return;
 						}
-						action(sRow, dRow, point);
+						action(st,t,sRow, dRow, point);/*增加两个参数:源treegrid,目标treegrid owen 2014-11-02*/
 						tr.removeClass('treegrid-row-append treegrid-row-top treegrid-row-bottom');
 					}
 				});
-				
+								
 				function allowDrop(source, allowed){
 					var icon = $(source).draggable('proxy').find('span.tree-dnd-icon');
 					icon.removeClass('tree-dnd-yes tree-dnd-no').addClass(allowed ? 'tree-dnd-yes' : 'tree-dnd-no');
@@ -172,15 +178,16 @@
 					var nodeId = $(tr).attr('node-id');
 					return t.treegrid('find', nodeId);
 				}
-				function append(sRow, dRow){
+				function append(st,dt,sRow, dRow){
+					
 					doAppend();
 					if (dRow.state == 'closed'){
 						t.treegrid('expand', dRow[opts.idField]);
 					}
 					
 					function doAppend(){
-						var data = t.treegrid('pop', sRow[opts.idField]);
-						t.treegrid('append', {
+						var data = st.treegrid('pop', sRow[opts.idField]);
+						dt.treegrid('append', {
 							parent: dRow[opts.idField],
 							data: [data]
 						});

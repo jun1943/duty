@@ -3,6 +3,8 @@ var m_dutyprepare_Org = {}; /*当前组织机构*/
 var m_ymd=0; /*当前年月日*/
 var m_duty={}; /*备勤记录*/
 
+var m_xid_max=0; //duty的treegrid的id,必须确保
+
 $(function () {
 	$('#policeConditionwindow').window('close');
 	$('#gpsConditionwindow').window('close');
@@ -145,9 +147,13 @@ $(function () {
 		             ]],
 		    onLoadSuccess: function(row){
 							$(this).treegrid('enableDnd', row?row.id:null);
+						},
+			onBeforeDrop:function(targetRow, sourceRow, point){
+				/*drop前的业务逻辑验证*/
+							
 						}
 	   });
-	   
+
 	   initResourceQueryTG();
 	   loadDutyType();
 	   loadDuty();
@@ -315,21 +321,35 @@ function gatherDutyTree(duty){
 	});
 }
 function gatherItem(item){
+	if(item.xid ==undefined){
+		item.xid='x_'+100;
+	}
 	/*初始化数量等于0*/
 	item.velicleCount =0;
 	item.policeCount =0;
 	item.weaponCount=0;
 	item.gpsCount=0;
 	
+	if(item.xid==undefined || item.xid==null || item.xid==''){
+		if(item.itemId==null || item.itemId  ==0 || item.itemId==''){
+			/*班次，自定义的itemid等于null*/
+			item.xid=item.itemTypeId + "_" + item.id;
+		}else{
+			item.xid=item.itemTypeId + "_" + item.itemId;
+		}
+	}
 	switch(item.itemTypeId){
 	case 1:
 		item.velicleCount=1;
+
 		break;
 	case 2:
 		item.policeCount=1;
+		item.xid=2 +"_" +item.itemId;
 		break;
 	case 3:
 		item.weaponCount=1;
+
 		break;
 	case 4:
 		item.gpsCount=1;
@@ -345,6 +365,11 @@ function gatherItem(item){
 		});
 	}
 }
+
+function getMaxXId(){
+	
+}
+
 /**
  * 格式化开始时间-结束时间
  */
