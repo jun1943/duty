@@ -90,8 +90,7 @@
 				</div>
 			</div>
 			<div data-options="region:'center'"  >
-				<div id="dutyTypeAccordion" class="easyui-accordion" style="width:100%;height:90%;">    
-				</div>
+				<div id="tdDuty" />
 			</div>
 		</div>
 	</div>

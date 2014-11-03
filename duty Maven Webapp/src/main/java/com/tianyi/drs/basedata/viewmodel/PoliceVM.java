@@ -12,6 +12,8 @@ public class PoliceVM extends Police {
 	
 	private String orgPath;
 
+	private String displayName;
+	
 	public String getTypeName() {
 		return typeName;
 	}
@@ -42,5 +44,13 @@ public class PoliceVM extends Police {
 
 	public void setOrgPath(String orgPath) {
 		this.orgPath = orgPath;
+	}
+
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	} 
 }

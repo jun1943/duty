@@ -1,13 +1,23 @@
 package com.tianyi.drs.duty.model;
 
+import java.util.Date;
+
 public class Duty {
     private Integer id;
 
-    private Integer dutyDescId;
+    private Integer orgId;
 
-    private Integer typeId;
+    private Boolean isTemplate;
 
     private String name;
+
+    private Integer ymd;
+
+    private Date createTime;
+
+    private Integer preparerId;
+
+    private String description;
 
     private Boolean syncState;
 
@@ -21,20 +31,20 @@ public class Duty {
         this.id = id;
     }
 
-    public Integer getDutyDescId() {
-        return dutyDescId;
+    public Integer getOrgId() {
+        return orgId;
     }
 
-    public void setDutyDescId(Integer dutyDescId) {
-        this.dutyDescId = dutyDescId;
+    public void setOrgId(Integer orgId) {
+        this.orgId = orgId;
     }
 
-    public Integer getTypeId() {
-        return typeId;
+    public Boolean getIsTemplate() {
+        return isTemplate;
     }
 
-    public void setTypeId(Integer typeId) {
-        this.typeId = typeId;
+    public void setIsTemplate(Boolean isTemplate) {
+        this.isTemplate = isTemplate;
     }
 
     public String getName() {
@@ -43,6 +53,38 @@ public class Duty {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getYmd() {
+        return ymd;
+    }
+
+    public void setYmd(Integer ymd) {
+        this.ymd = ymd;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Integer getPreparerId() {
+        return preparerId;
+    }
+
+    public void setPreparerId(Integer preparerId) {
+        this.preparerId = preparerId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Boolean getSyncState() {
