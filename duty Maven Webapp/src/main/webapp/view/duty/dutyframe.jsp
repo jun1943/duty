@@ -16,7 +16,7 @@
   
   <body>
 <div id="cc" class="easyui-layout" style="width:100%;height:100%;">
-	<div data-options="region:'west',title:'机构',split:true"  style="width:20%;">
+	<div data-options="region:'west',title:'机构',split:true"  style="width:14%;">
     	<ul id="treeDutyFrmOrg"></ul>
     </div>
     <div data-options="region:'center',title:'警务备勤'"  >

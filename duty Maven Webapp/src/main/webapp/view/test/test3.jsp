@@ -12,131 +12,285 @@
 <title>人员分组</title>
 
 <script type="text/javascript">
-	$(function() {
-		$('#win').dialog('close');
-	});
-	function btnAddPolice(){
-		$('#win').dialog('open');	
-		$('#dtPolice').datagrid({
-		url : "police/getPoliceList.do", 
-		pagination : true,
-		fitColumns : true,
-		pageNumber : 1,
-		pageSize : 10,
-		// title:"s",
-		// singleSelect: true,
-		columns : [ [ {
-			field : 'ck',
-			checkbox : true
-		}, {
-			title : 'Id',
-			field : 'id',
-			align : 'center',
-			width : 10,
-			hidden : true
-		}, {
-			title : '机构',
-			field : 'orgName',
-			align : 'center',
-			width : 100
-		}, {
-			title : '姓名',
-			field : 'name',
-			align : 'center',
-			width : 100
-		}, {
-			title : '警员类别',
-			field : 'typeName',
-			align : 'center',
-			width : 100
-		}, {
-			title : '职务',
-			field : 'title',
-			align : 'center',
-			width : 100
-		}, {
-			title : '手机号',
-			field : 'mobile',
-			align : 'center',
-			width : 100
-		}, {
-			title : '公安短号',
-			field : 'mobileShort',
-			align : 'center',
-			width : 150
-		}, {
-			title : '身份证号码',
-			field : 'idcardno',
-			align : 'center',
-			width : 80
-		}, {
-			title : '警号',
-			field : 'number',
-			align : 'center',
-			width : 80
-		}, {
-			title : 'GPS名称',
-			field : 'gpsName',
-			align : 'center',
-			width : 200
-		} ] ]
-	});
+	 $(function () {
+		 $('#source_police').treegrid({ 
+			    url:"police/getPoliceSource.do?orgId=15&name=",
+			    dnd:true,
+		        fitColumns: true, 
+		        resizable: true,
+		        idField: 'id',
+		        treeField: 'name',   
+		        columns: [[
+		               { title: 'id', field: 'id', align: 'center', width: 0, hidden: true },
+		               { title: '姓名', field: 'name', align: 'center', width: 80 },
+		               { title: '警号', field: 'number', align: 'center', width: 80},
+		               { title: '单位', field: 'orgName', align: 'center', width: 50} ,
+		               { title: '类型', field: 'objType', align: 'center', width: 50, hidden: true,formatter:function(value,row,index){
+		            	   return "警员";
+		               } } 
+		        ]],
+				onLoadSuccess: function(row, param){
+					//enableDnd(this);
+					$(this).treegrid('enableDnd', row?row.id:null);
+				},
+			onBeforeDrag: function(row){
+					var i =1;
+					i++;
+				},	// return false to deny drag
+			onStartDrag: function(row){
+					var i =1;
+					i++;
+				},
+			onStopDrag: function(row){
+					var i =1;
+					i++;
+				},
+			onDragEnter: function(targetRow, sourceRow){
+					var i =1;
+					i++;
+				},	// return false to deny drop
+			onDragOver: function(targetRow, sourceRow){
+					var i =1;
+					i++;
+				},	// return false to deny drop
+			onDragLeave: function(targetRow, sourceRow){
+					var i =1;
+					i++;
+				},
+			onBeforeDrop: function(targetRow, sourceRow, point){
+					var i =1;
+					i++;
+				},
+			onDrop: function(targetRow, sourceRow, point){
+					var i =1;
+					i++;
+				}
+		    });
+		    
+	   $('#source_vehicle').treegrid({ 
+		    url:"vehicle/getVehicleSource.do?orgId=15&number=",
+	        fitColumns: true, 
+		    dnd:true,
+	        resizable: true,
+	        idField: 'id',
+	        treeField: 'name',   
+	        columns: [[
+	               { title: 'id', field: 'id', align: 'center', width: 0, hidden: true },
+	               { title: '车辆类型', field: 'typeName', align: 'center', width: 80 },
+	               { title: '车牌号码', field: 'number', align: 'center', width: 80},
+	               { title: '车辆品牌', field: 'brand', align: 'center', width: 50} ,
+	               { title: '类型', field: 'objType', align: 'center', width: 50, hidden: true,formatter:function(value,row,index){
+	            	   return "车辆";
+	               } } 
+	        ]],
+			onLoadSuccess: function(row, param){
+				$(this).treegrid('enableDnd', row?row.id:null);
+			},
+			onBeforeDrag: function(row){
+					var i =1;
+					i++;
+				},	// return false to deny drag
+			onStartDrag: function(row){
+					var i =1;
+					i++;
+				},
+			onStopDrag: function(row){
+					var i =1;
+					i++;
+				},
+			onDragEnter: function(targetRow, sourceRow){
+					var i =1;
+					i++;
+				},	// return false to deny drop
+			onDragOver: function(targetRow, sourceRow){
+					var i =1;
+					i++;
+				},	// return false to deny drop
+			onDragLeave: function(targetRow, sourceRow){
+					var i =1;
+					i++;
+				},
+			onBeforeDrop: function(targetRow, sourceRow, point){
+					var i =1;
+					i++;
+				},
+			onDrop: function(targetRow, sourceRow, point){
+					var i =1;
+					i++;
+				}
+	    });
+	    $('#dtDutyType').treegrid({
+
+	        fitColumns: true,
+	        rownumbers: true,
+	        resizable: true,
+			    dnd:true,
+	        idField: 'id',
+	        treeField: 'name', 
+	        title:'勤务类型',
+	        singleSelect: true,
+	        columns: [[
+	               { title: 'id', field: 'id', align: 'left', width: 0, hidden: true },
+	               { title: '名称', field: 'name', align: 'left', width: 200 },
+	               { title: '编号', field: 'number', align: 'left', width: 200 },
+	               { title: '机构', field: 'orgName', align: 'left', width: 200 },
+	               { title: '类型', field: 'objType', align: 'left', width: 200 }  
+	        ]],
+			onLoadSuccess: function(row, param){
+				$(this).treegrid('enableDnd', row?row.id:null);
+			},
+			onBeforeDrag: function(row){
+					var i =1;
+					i++;
+				},	// return false to deny drag
+			onStartDrag: function(row){
+					var i =1;
+					i++;
+				},
+			onStopDrag: function(row){
+					var i =1;
+					i++;
+				},
+			onDragEnter: function(targetRow, sourceRow){
+					var i =1;
+					i++;
+				},	// return false to deny drop
+			onDragOver: function(targetRow, sourceRow){
+					var i =1;
+					i++;
+				},	// return false to deny drop
+			onDragLeave: function(targetRow, sourceRow){
+					var i =1;
+					i++;
+				},
+			onBeforeDrop: function(targetRow, sourceRow, point){
+					var i =1;
+					i++;
+				},
+			onDrop: function(targetRow, sourceRow, point){
+					var i =1;
+					i++;
+				}
+	    });
+	    loadDutyType();
+    }); 
+function loadDutyType() {
+    $.ajax({
+        url: "dutyType/list.do",
+        type: "POST",
+        dataType: "json",
+        //async:false,
+        success: function (req) {
+            if (req.isSuccess) {//成功填充数据
+            	var ss = buildDutyTypeTree(req.rows);
+                $('#dtDutyType').treegrid('loadData', ss);
+            }
+            else {
+                alert("获取数据失败");
+            }
+        }
+    });
+}
+    
+function getDutyTypeDisplayType(value, rowData, index){
+	if(rowData!=null){
+		if(rowData.isShowname)
+			return "名称";
+		else
+			return "数量";
 	}
+}
+
+function getDutyTypeProperties(value, rowData, index){
+	var a="";
+	if(rowData!=null && rowData.properties !=null){
+		
+		var ps=rowData.properties;
+		var count=ps.length;
+		for(var i=0;i<count;i++){
+			var p=ps[i];
+			if(a=="")
+				a =p.name;
+			else
+				a =a+";"+p.name;
+		}
+	}
+	return a;
+}
+
+function getDutyTypeTaskType(value, rowData, index){
+	if(rowData!=null){
+		switch(rowData.assoTaskType){
+		case 1:
+			return "社区";
+		case 2:
+			return "巡区";
+		case 3:
+			return "卡点";
+		default:
+			return "";
+		
+		}
+	}
+}
+
+function getDutyTypeArmamentType(value, rowData, index){
+	if(rowData!=null){
+			if(rowData.armamentType==0)
+				return "非武装";
+			else
+				return "武装";
+	}
+}
+
+function getDutyTypeAttireType(value, rowData, index){
+	if(rowData!=null){
+		switch(rowData.assoTaskType){
+		case 1:
+			return "制服";
+		case 2:
+			return "便衣";	
+		default:
+			return "";
+		}
+	}
+}
+
+function getMaxPolice(value, rowData, index){
+	if(rowData!=null){
+		if(rowData.maxPolice==null || rowData.maxPolice==0){
+			return "不限";
+		}else{
+			return rowData.maxPolice;
+		}
+	}
+}
+
+function getDutyTypeUsed(value, rowData, index){
+	if(rowData!=null){
+		if(rowData.isUsed)
+			return "启用";
+		else
+			return "停用";
+	}
+}
 </script>
 </head>
 
 <body class="easyui-layout">
-
-	<div data-options="region:'center',title:'人员列表'" style="padding:10px;">
-
-		<a id="btnAddPolice" href="javascript:void(0);"
-			class="easyui-linkbutton" iconcls="icon-add" plain="true"
-			onclick="btnAddPolice()">新增</a>
-	</div>
-	<div id="win" class="easyui-dialog" title="新增/编辑排班信息"
-		data-options="iconCls:'icon-save'"
-		style="width: 600px; height: 400px; padding: 10px;">
-		<div class="easyui-layout" data-options="fit:true">
-			<div data-options="region:'north'"
-				style="padding: 2px; height: 30px;">
-				<a href="javascript:void(0)" class="easyui-linkbutton"
-					data-options="iconCls:'icon-save',plain:true" onclick="saveForm()">保存</a>
-			</div>
-			<div data-options="region:'west'" style="padding: 5px; width: 430px;">
-				<ul id="tt" class="easyui-tree">
-					<li><span>Folder</span>
-						<ul>
-							<li><span>Sub Folder 1</span>
-								<ul>
-									<li><span><a href="#">File 11</a></span></li>
-									<li><span>File 12</span></li>
-									<li><span>File 13</span></li>
-								</ul></li>
-							<li><span>File 2</span></li>
-							<li><span>File 3</span></li>
-						</ul></li>
-					<li><span>File21</span></li>
-				</ul>
-			</div>
-			<div data-options="region:'center',border:false"
-				style="text-align: right; margin-left: 5px;
-            padding: 5px 0 0;">
-				<div id="tt" style="height: auto">
-					<a href="javascript:void(0)" class="easyui-linkbutton"
-						data-options="iconCls:'icon-add',plain:true" onclick="append()">添加</a>
-					<a href="javascript:void(0)" class="easyui-linkbutton"
-						data-options="iconCls:'icon-remove',plain:true" onclick="remove()">删除</a>
-					 
-				</div>
-
-			</div>
-			<div data-options="region:'east'" style="padding: 5px; width: 430px;">
-				 
-	  			<div id="dtPolice" >
-	  			</div> 
-			</div>
+	<div data-options="region:'west',title:'资源'" style="padding:10px;width:30%">
+		<div id="tt" class="easyui-tabs" >	
+			<div title="人员" style="padding:10px ">  
+				<div id="source_police"></div> 
+   			</div>
+			<div title="车辆" style="padding:10px ">  
+    			<div id="source_vehicle"></div> 
+   			</div>		
 		</div>
 	</div>
-
+	<div data-options="region:'center',title:'树节点'" style="padding:10px;">
+		<div id="dtDutyType"></div>	 
+	</div>
+	  
 </body>
 </html>

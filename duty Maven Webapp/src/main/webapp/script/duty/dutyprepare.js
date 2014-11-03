@@ -442,8 +442,112 @@ function isLeafSelected(row){
 	if(!row.isLeaf){
 		$('#dtDutyType').treegrid("unselect",row.id);
 	} 
+}; 
+function InitDutyTypeTreeGrid(){ 
+	 $.ajax({
+	        url: "dutyType/list.do",
+	        type: "POST",
+	        dataType: "json",
+	        //async:false,
+	        success: function (req) {
+	            if (req.isSuccess) {//成功填充数据
+	            	var ss = buildDutyTypeTree(req.rows);
+	                $('#dtDutyType').treegrid('loadData', ss);
+	            }
+	            else {
+	                alert("获取数据失败");
+	            }
+	        }
+	    }); 
 };
+//根据选择的勤务类型，加载according标签
+function selectDutyTypeAction(){
+	var rows = $('#dtDutyType').treegrid('getSelections');
+	if(rows.length>0){ 
+		var ids = [];
+		for(var i =0; i<rows.length; i++){ 
+			var titlename = rows[i].name;
+			var accId = rows[i].id;
+			if($.inArray(accId, ids)==-1){
+				$('#dutyTypeAccordion').accordion('add',{
+					title:titlename,
+					//content: document.getElementById("div_worksheet"),
+					content: initdatagridcontent(accId),
+					tools:[ 
+					{
+						iconCls:'icon-remove',
+						handler:reMoveAccdordion
+					}]
+				});
 
+				ids.push(accId); 
+			}
+		}
+		$('#dtDutyType').treegrid('unselectAll');
+		$('#dutyTypeSelectwindow').window('close');
+		index = 0;
+	}
+	
+};
+function reMoveAccdordion(){
+	var pp = $('#dutyTypeAccordion').accordion('getSelected');
+	if (pp){
+		var index = $('#dutyTypeAccordion').accordion('getPanelIndex',pp);
+		$('#dutyTypeAccordion').accordion('remove',index);
+	}
+
+}; 
+function initdatagridcontent(id){
+	var html = '<div id="tb_worksheet_'+id+'" class="btn-toolbar"><div class="btn-group">'
+			 + ' <input id="starttime_'+id+'" class="easyui-timespinner"  style="width:80px;" required="required" data-options="min:\'00:00\',showSeconds:false" />     '
+			 + ' <input id="endtime_'+id+'" class="easyui-timespinner"  style="width:80px;" required="required" data-options="min:\'00:01\',showSeconds:false" />'
+			 + ' <label>是否第二天</label><input type="checkbox" id="ck_isTomorrow_'+id+'"> '
+			 + ' </div></div> '    
+			 + ' <div><label>数据汇总：</label><label></label></div> '
+			 + ' <div id="contentTab_'+id+'" class="easyui-tabs" data-options="tools:\'#contentTab-tools_'+id+'\'" style="width:500px;height:300px"></div> '    
+			 + ' <div id="contentTab-tools_'+id+'"> '    
+		     + ' <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:\'icon-add\'" onclick="addPanel('+id+')"></a> ' 
+		     + ' <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:\'icon-remove\'" onclick="removePanel('+id+')"></a> '
+		     + ' </div></div> '    ; 
+	return html;
+};
+ var index = 0;
+function addPanel(id){ 
+	index++;
+	$('#contentTab_'+id).tabs('add',{
+		title: '班次'+index,
+		content: '<div id="dt_shedule_'+id+'_'+index+'" style="padding:10px"> </div>',
+		closable: false
+	});
+	$("#dt_shedule_"+id+"_"+index).treegrid({ 
+		 //url:"police/getPoliceSource.do?orgId="+m_dutyprepare_Org.id+"&name=",
+		    dnd:true,
+	        fitColumns: true, 
+	        resizable: true,
+	        idField: 'id',
+	        treeField: 'id',  
+	        toolbar:"#tb_source_police",
+	        columns: [[
+	               { title: 'id', field: 'id', align: 'center', width: 0, hidden: true },
+	               { title: '姓名', field: 'name', align: 'center', width: 80 },
+	               { title: '警号', field: 'number', align: 'center', width: 80},
+	               { title: '单位', field: 'orgName', align: 'center', width: 50} 
+	        ]],
+			onLoadSuccess: function(row){
+				$(this).treegrid('enableDnd', row?row.id:null);
+			}
+	    });
+
+} 
+function removePanel(id){
+	
+	var tab = $('#contentTab_'+id).tabs('getSelected');
+	if (tab){
+		var tabindex = $('#contentTab_'+id).tabs('getTabIndex', tab);
+		$('#contentTab_'+id).tabs('close', tabindex);
+		index--;
+	}
+} 
 /****************逻辑区域结束*********************/
 
 /***************主菜单功能-----开始******************/
