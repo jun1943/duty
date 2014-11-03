@@ -70,6 +70,7 @@
 						var row = getRow(this);
 						$(this).prop('treegrid',t); /*设置源treegrid owen 2014-11-02*/
 						$(this).prop('row',row); /*设置源 row owen 2014-11-02*/
+						$(this).prop('opts',opts); /*设置源 row owen 2014-11-02*/
 						
 						opts.onStartDrag.call(target, row);
 						state.draggingNodeId = row[opts.idField];
@@ -157,15 +158,15 @@
 							point = tr.hasClass('treegrid-row-top') ? 'top' : 'bottom';
 						}
 						var st=$(source).prop('treegrid');/*获取源treegrid owen 2014-11-02*/
-
-						var dRow = getRow(this);
+						var sopts=$(source).prop('opts'); /* 从源中获取sRow owen 2014-11-02*/
 						var sRow=$(source).prop('row'); /* 从源中获取sRow owen 2014-11-02*/
+						var dRow = getRow(this);
 						//var sRow = getRow(source);  bug:不支持多个treegrid之间拖动! 
 						if (opts.onBeforeDrop.call(target, dRow, sRow, point) == false){
 							tr.removeClass('treegrid-row-append treegrid-row-top treegrid-row-bottom');
 							return;
 						}
-						action(st,t,sRow, dRow, point);/*增加两个参数:源treegrid,目标treegrid owen 2014-11-02*/
+						action(st,t,sopts,opts,sRow, dRow, point);/*增加两个参数:源treegrid,目标treegrid owen 2014-11-02*/
 						tr.removeClass('treegrid-row-append treegrid-row-top treegrid-row-bottom');
 					}
 				});
@@ -178,7 +179,7 @@
 					var nodeId = $(tr).attr('node-id');
 					return t.treegrid('find', nodeId);
 				}
-				function append(st,dt,sRow, dRow){
+				function append(st,dt,sopts,dopts,sRow, dRow){
 					
 					doAppend();
 					if (dRow.state == 'closed'){
@@ -186,7 +187,7 @@
 					}
 					
 					function doAppend(){
-						var data = st.treegrid('pop', sRow[opts.idField]);
+						var data = st.treegrid('pop', sRow[sopts.idField]);
 						dt.treegrid('append', {
 							parent: dRow[opts.idField],
 							data: [data]
@@ -194,17 +195,17 @@
 						opts.onDrop.call(target, dRow, data, 'append');
 					}
 				}
-				function insert(sRow, dRow, point){
+				function insert(st,dt,sopts,dopts,sRow, dRow,point){
 					var param = {};
 					if (point == 'top'){
-						param.before = dRow[opts.idField];
+						param.before = dRow[dopts.idField];
 					} else {
-						param.after = dRow[opts.idField];
+						param.after = dRow[dopts.idField];
 					}
 					
-					var data = t.treegrid('pop', sRow[opts.idField]);
+					var data = st.treegrid('pop', sRow[sopts.idField]);
 					param.data = data;
-					t.treegrid('insert', param);
+					dt.treegrid('insert', param);
 					opts.onDrop.call(target, dRow, data, point);
 				}
 			});

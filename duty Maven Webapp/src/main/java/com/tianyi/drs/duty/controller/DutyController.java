@@ -1,11 +1,14 @@
 package com.tianyi.drs.duty.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 
 import org.springframework.context.annotation.Scope;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianyi.drs.duty.service.DutyService;
 import com.tianyi.drs.duty.util.DateJsonValueProcessor;
+import com.tianyi.drs.duty.viewmodel.DutyItemVM;
+import com.tianyi.drs.duty.viewmodel.DutyTypePropertyVM;
 import com.tianyi.drs.duty.viewmodel.DutyVM;
 import com.tianyi.drs.duty.viewmodel.ListResult;
 import com.tianyi.drs.duty.viewmodel.ObjResult;
@@ -69,14 +74,26 @@ public class DutyController {
 		return s;
 	}
 	
-//	@RequestMapping(value = "save.do")
-//	public @ResponseBody String save(
-//			@RequestParam(value = "dutyDesc", required = false) DutyDescVM ddvm,
-//			HttpServletRequest request
-//			){
-//		
-//		return null;
-//	}
+	@RequestMapping(value = "save.do")
+	public @ResponseBody String save(
+			@RequestParam(value = "duty", required = false) String dvm,
+			HttpServletRequest request
+			){
+		
+		JSONObject jobj=JSONObject.fromObject(dvm);
+
+		Map<String, Class<?>> classMap = new HashMap<String, Class<?>>();
+
+		classMap.put("items", DutyItemVM.class);
+		classMap.put("children", DutyItemVM.class);
+		DutyVM d=(DutyVM)JSONObject.toBean(jobj, DutyVM.class,classMap);
+		
+		dutyService.save(d);
+		
+		ObjResult<DutyVM> rs=new ObjResult<DutyVM>(true,null,d.getId(),null);//暂时不
+		
+		return rs.toJson();
+	}
 	
 	@RequestMapping(value = "loadTemplateByOrgId.do")
 	public @ResponseBody String loadTemplateByOrgId(

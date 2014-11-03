@@ -33,7 +33,7 @@
     delete from t_duty_item
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tianyi.drs.duty.model.DutyItem" >
+  <insert id="insert" parameterType="com.tianyi.drs.duty.model.DutyItem" useGeneratedKeys="true" keyProperty="id">
     insert into t_duty_item (id, duty_id, duty_type_id, 
       begin_time, end_time, item_type_id, 
       item_id, item_name, name, 
@@ -47,7 +47,7 @@
       #{fullIdPath,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER}, 
       #{description,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.DutyItem" >
+  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.DutyItem" useGeneratedKeys="true" keyProperty="id">
     insert into t_duty_item
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -220,4 +220,9 @@
       description = #{description,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <delete id="deleteByDutyId" parameterType="java.lang.Integer">
+  	delete from t_duty_item where duty_id=#{dutyId,jdbcType=INTEGER}
+  </delete>
+  
 </mapper>

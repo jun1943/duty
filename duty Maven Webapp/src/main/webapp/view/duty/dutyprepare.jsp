@@ -22,6 +22,27 @@
 </head>
 	
 <body class="easyui-layout" >
+		<div data-options="region:'north'"  style="height:30px">
+				<div id="tbGroup" class="btn-toolbar">
+					<div class="btn-group">
+						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
+						plain="true" onclick="selectDutyType()">报备类型选择</a> 
+						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
+						plain="true"	onclick="selectDutyTemplate()">选择模板</a>
+						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
+						plain="true"	onclick="delPoliceGroup()">报备复制</a>
+						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
+						plain="true"	onclick="delPoliceGroup()">清空报备</a>
+						<a  href="javascript:void(0);"	class="easyui-linkbutton icon-camera-retro" 
+						plain="true"	onclick="saveDuty()">保存</a>
+						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
+						plain="true" onclick="editPoliceGroup()">另存为模板</a>
+						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
+						plain="true"	onclick="onTest()">导出</a>
+					</div>
+			</div>
+	</div>
+
 	<div id="divResource" data-options="region:'west',split:true" title="资源"
 			style="width:30%;height:100%">
 			<div id="tt" class="easyui-tabs" style="width:100%;height:500px;">	
@@ -63,35 +84,29 @@
        					  </div>
     			</div>
 			</div>
-			
 	</div>
 	
 	<div id="divMember" data-options="region:'center'" title="备勤">
 		<div class="easyui-layout" style="height:100%;width :100%">
-			<div data-options="region:'north'"  style="height:30px">
-				<div id="tbGroup" class="btn-toolbar">
-					<div class="btn-group">
-						
-						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
-						plain="true" onclick="selectDutyType()">报备类型选择</a> 
-						<a  href="javascript:void(0);"	class="easyui-linkbutton icon-camera-retro" 
-						plain="true"	onclick="addPoliceGroup()">保存</a>
-						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
-						plain="true" onclick="editPoliceGroup()">保存为模板</a>
-						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
-						plain="true"	onclick="selectDutyTemplate()">选择模板</a>
-						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
-						plain="true"	onclick="delPoliceGroup()">报备复制</a>
-						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
-						plain="true"	onclick="delPoliceGroup()">清空报备</a>
-						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
-						plain="true"	onclick="onTest()">导出</a>
+				<div data-options="region:'north'"  style="height:30px">
+					<div class="btn-toolbar">
+						<div class="btn-group">
+							<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
+							plain="true" onclick="addUserNode()">添加编组</a> 
+							<a  href="javascript:void(0);"	class="easyui-linkbutton icon-camera-retro" 
+							plain="true"	onclick="setUserNode()">设置编组</a>
+							<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
+							plain="true" onclick="addShift()">添加班次</a> 
+							<a  href="javascript:void(0);"	class="easyui-linkbutton icon-camera-retro" 
+							plain="true"	onclick="setShift()">设置班次</a>
+							<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
+							plain="true" onclick="deleteNode()">删除节点</a>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div data-options="region:'center'"  >
-				<div id="tdDuty" />
-			</div>
+		<div data-options="region:'center'"  >
+				<div id="tdDuty" ></div>
+		</div>
 		</div>
 	</div>
 
@@ -238,6 +253,30 @@
 				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'" onclick="addPanel()"></a>
 				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-remove'" onclick="removePanel()"></a>
 			</div> 
+		</div>
+	</div>
+	 
+	 <div id="UserNodeWindows"  class="easyui-window" title="自定义编组"  data-options="iconCls:'icon-save',modal:true" closed="true" 
+	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" style="width: 300px; height:100px; padding: 2px;">
+			<div class="easyui-layout" data-options="fit:true">
+			<div data-options="region:'north',border:false"
+					style="padding: 2px; height: 30px;"> 
+					<a href="javascript:void(0);" class="easyui-linkbutton" 
+						data-options="iconCls:'icon-save',plain:true"
+						onclick="userNodeConfirm()">确定</a>  
+					 <a href="javascript:void(0);" 
+						class="easyui-linkbutton"
+						onclick="$('#UserNodeWindows').window('close');"
+						data-options="iconCls:'icon-remove',plain:true">取消</a>
+			</div>
+			<div data-options="region:'center',border:false"
+					style="padding: 2px">
+					<table style="width:100%">
+						<tr>
+							<td style="text-align:right"><lable>编组名称:</lable></td>
+							<td><input id="txtUserNodeName" type="text"	class="easyui-validatebox"></input></td>
+						</tr>
+			</div>
 		</div>
 	</div>
 	 

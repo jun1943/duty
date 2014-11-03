@@ -12,4 +12,7 @@ public interface DutyService {
 	DutyVM loadVMByOrgIdAndYmd(Integer orgId,Integer ymd);
 	
 	List<DutyVM> loadTemplatesWithOutItem(Integer orgId);
+	
+	
+	void save(DutyVM vm);
 }

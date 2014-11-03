@@ -91,7 +91,7 @@
 			</table>
 		</div>
 
-	<div id="winPGMember" class="easyui-window" title="My Window" style="width:450px;height:400px"    
+	<div id="winPGMember" class="easyui-window" title="组成员选择" style="width:450px;height:400px"    
         data-options="iconCls:'icon-save',modal:true" closed="true" 
         collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false">    
    	 		<div id="tbGroup" class="btn-toolbar">

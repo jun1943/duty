@@ -9,64 +9,7 @@
 /**
  * 备勤资源关系对应
  */
-var  dutyItemRelate={
-		root:{
-			children:[
-			          '车辆',
-			          '警员',
-			          '自定义'
-			          ]
-		},
-		vehicle:{
-			 children:[
-			           '警员',
-			           '武器',
-			           '定位设备',
-			           '自定义'
-			           ]
-		},
-		police:{
-			 children:[
-			           '武器',
-			           '定位设备'
-			           ]
-		},
-		weapon:{
-			children:[
-			          ]
-		},
-		gps:{
-			 children:[
-			           ]
-		},
-		usernode:{
-			children:[
-			          '全部'
-			          ]
-		},
-		/**
-		 * 检查拖动是否符合规则
-		 * @param parenttype
-		 * @param childtype
-		 * @returns {Boolean}
-		 */
-		check:function(parenttype,childtype){
-			var p=this[parenttype];
-			
-			var count=p.children.lenght;
-			var success=false;
-			
-			for(var i=0;i<count;i++){
-				var pc=p.children[i];
-				if(pc=='全部' || pc==childtype){
-					sucess=true;
-					break;
-				}
-			}
-			
-			return success;
-		}
-};
+
 
 function getUrlArgs() {
     var url = location.search; //获取url中"?"符后的字串 

@@ -36,7 +36,8 @@ function pageSwitch(node,url){
 	var src=m_dutyFrame_func_prop.url
 		+"?orgId="+m_dutyFrame_func_prop.orgId
 		+"&orgCode="+m_dutyFrame_func_prop.orgCode
-		+"&orgPath="+m_dutyFrame_func_prop.orgPath;
+		+"&orgPath="+m_dutyFrame_func_prop.orgPath
+		+"&ymd"+20141101;
 	
 	$("#ifmWorkSpace").attr("src",src);
 	//$("#ifmWorkSpace").attr("src",src);
