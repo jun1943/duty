@@ -26,7 +26,9 @@ function onOrgTreeDblClick(node){
 	m_dutyFrame_func_prop.orgId=node.id;
 	m_dutyFrame_func_prop.orgCode=node.code;
 	m_dutyFrame_func_prop.orgPath=node.path;
-	
+	var name = encodeURI(node.text);
+	m_dutyFrame_func_prop.orgName = name;
+	m_dutyFrame_func_prop.url = "view/duty/dutycalendar.jsp";
 	pageSwitch();
 }
 /*
@@ -36,7 +38,8 @@ function pageSwitch(node,url){
 	var src=m_dutyFrame_func_prop.url
 		+"?orgId="+m_dutyFrame_func_prop.orgId
 		+"&orgCode="+m_dutyFrame_func_prop.orgCode
-		+"&orgPath="+m_dutyFrame_func_prop.orgPath;
+		+"&orgPath="+m_dutyFrame_func_prop.orgPath
+		+"&orgName="+m_dutyFrame_func_prop.orgName;
 	
 	$("#ifmWorkSpace").attr("src",src);
 	//$("#ifmWorkSpace").attr("src",src);
@@ -45,9 +48,14 @@ function pageSwitch(node,url){
 
 
 function onDutyPrepare(){
-	m_dutyFrame_func_prop.url="view/duty/dutyprepare.jsp";
+	m_dutyFrame_func_prop.url="view/duty/dutycalendar.jsp";
+	//m_dutyFrame_func_prop.url="view/duty/dutyprepare.jsp";
 	pageSwitch();
 }
+function onClickData(){
+	m_dutyFrame_func_prop.url="view/duty/dutyprepare.jsp";
+	pageSwitch();
+};
 
 function onPoliceGroup(){
 	m_dutyFrame_func_prop.url="view/duty/policegroup.jsp";
@@ -56,6 +64,11 @@ function onPoliceGroup(){
 
 function onDutyType(){
 	m_dutyFrame_func_prop.url="view/duty/dutytype.jsp";
+	pageSwitch();
+}
+
+function onDutyReport(){
+	m_dutyFrame_func_prop.url="view/duty/policeinquiry.jsp";
 	pageSwitch();
 }
 
