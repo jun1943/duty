@@ -360,7 +360,7 @@ function addPanel(id){
 		closable: false
 	});
 	$("#dt_shedule_"+id+"_"+index).treegrid({ 
-		 url:"police/getPoliceSource.do?orgId="+m_dutyprepare_Org.id+"&name=",
+		 //url:"police/getPoliceSource.do?orgId="+m_dutyprepare_Org.id+"&name=",
 		    dnd:true,
 	        fitColumns: true, 
 	        resizable: true,
