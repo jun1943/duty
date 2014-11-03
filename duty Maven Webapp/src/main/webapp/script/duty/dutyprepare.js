@@ -25,11 +25,10 @@ $(function () {
 	        fitColumns: true, 
 	        resizable: true,
 	        idField: 'id',
-	        treeField: 'displayName',
+	        treeField: 'name',
 	        //toolbar:"#tb_source_police",
 	        columns: [[
 	               { title: 'id', field: 'id', align: 'center', width: 0, hidden: true },
-	               { title: 'displayName', field: 'displayName',  width: 30},
 	               { title: '姓名', field: 'name', align: 'center', width: 80 },
 	               { title: '警号', field: 'number', align: 'center', width: 80},
 	               { title: '单位', field: 'orgName', align: 'center', width: 50} ,
@@ -131,12 +130,12 @@ $(function () {
 		   fitColumns:true,
 		   dnd:true,
 		   resizable:true,
-		   idField:'id',
+		   idField:'xid',
 		   treeField:'displayName',
 		   toolbar:'#tdDutyToolbar',
 		   showFooter:true,
 		   columns:[[
-		             { title: 'id', field: 'id', align: 'center', width: 0, hidden: true },
+		             { title: 'xid', field: 'xid', width: 0, hidden: true },
 		             { title: '名称', field: 'displayName', width: 200 },
 		             { title: '类型', field: 'itemInnerTypeName', align: 'center', width: 70},
 		             { title: '时间区间', field: 'beginTime', align: 'center', width: 100,formatter:fmtShiftPeriod },
@@ -332,7 +331,7 @@ function gatherItem(item){
 	
 	if(item.xid==undefined || item.xid==null || item.xid==''){
 		if(item.itemId==null || item.itemId  ==0 || item.itemId==''){
-			/*班次，自定义的itemid等于null*/
+			/*班次，自定义的itemId等于null*/
 			item.xid=item.itemTypeId + "_" + item.id;
 		}else{
 			item.xid=item.itemTypeId + "_" + item.itemId;
@@ -341,7 +340,6 @@ function gatherItem(item){
 	switch(item.itemTypeId){
 	case 1:
 		item.velicleCount=1;
-
 		break;
 	case 2:
 		item.policeCount=1;
