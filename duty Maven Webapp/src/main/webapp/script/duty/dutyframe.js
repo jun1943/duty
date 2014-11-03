@@ -52,9 +52,16 @@ function onDutyPrepare(){
 	//m_dutyFrame_func_prop.url="view/duty/dutyprepare.jsp";
 	pageSwitch();
 }
-function onClickData(){
+function onClickData(date){
 	m_dutyFrame_func_prop.url="view/duty/dutyprepare.jsp";
-	pageSwitch();
+	var src=m_dutyFrame_func_prop.url
+	+"?orgId="+m_dutyFrame_func_prop.orgId
+	+"&orgCode="+m_dutyFrame_func_prop.orgCode
+	+"&orgPath="+m_dutyFrame_func_prop.orgPath
+	+"&orgName="+m_dutyFrame_func_prop.orgName
+	+"&ymd="+date;
+
+	$("#ifmWorkSpace").attr("src",src);
 };
 
 function onPoliceGroup(){

@@ -2,13 +2,14 @@ var y;
 var m;
 
 $(function() {
+	$("#dutyTemplateSelectwindow").window("close");
 	var date = new Date();
 	y = date.getFullYear();
-	m = date.getMonth()+1;
+	m = date.getMonth() + 1;
 	$("#sp_years").text(y);
 	$("#sp_month").text(m);
 	changeDivHeight(); // 表格自动高度设置
-	getDateData(y + "-" + m);// 初始化默认月份数据
+	getDateData(y + "-" + m + "-" + 1);// 初始化默认月份数据
 });
 // 设置日历窗体的高度
 function changeDivHeight() {
@@ -46,27 +47,34 @@ function getDateClick(action) {
 			y--;
 		}
 	}
-	var date = y + "-" + m;
+	var date = y + "-" + m + "-" + 1;
 	$("#dateY").text(y);
 	$("#dateM").text(m);
 
-	getDateData(y + "-" + m)
+	getDateData(date);
 }
 // 根据日期，获取后台数据
 function getDateData(date) {
-	// alert('/date/?date='+date);
 	$.ajax({
-		url : '/date/?date=' + date, // 鍚庡彴澶勭悊绋嬪簭
-		type : 'get', // 鏁版嵁鍙戦�佹柟寮�
-		success : setDateData
-	// 鍥炰紶鍑芥暟(杩欓噷鏄嚱鏁板悕)
+		url : 'dutyCalendar/getCalender.do?date=' + date,
+		type : "POST",
+		dataType : "json",
+		// async:false,
+		success : function(req) {
+			if (req) {
+				setDateData(req);
+			} else {
+				alert("获取数据失败");
+			}
+		}
 	});
 }
 // 初始化日期数据显示
 function setDateData(result) {
 	// 鏃ュ巻鏁版嵁缁勮鎴愭暟缁�
 	var dateArray = new Array();
-	var json = eval("(" + result + ")");
+	// var json = eval("(" + result + ")");
+	var json = result;
 	for ( var i = 0; i < 6; i++) {// 鍒濆鍖�6琛�7鍒楃┖鏁版嵁浜岀淮鏁扮粍
 		dateArray[i] = new Array();
 		for ( var j = 0; j < 7; j++) {
@@ -113,7 +121,13 @@ function creatHtml(arr) {
 				continue;
 			}
 
-			tdHtml = '<td onclick=getDateInfo("'
+			tdHtml = '<td ondbclick="onClickData("'
+					+ y
+					+ '-'
+					+ m
+					+ '-'
+					+ arr[i][j]["d"]
+					+ '")" onmouseover=getDateInfo("'
 					+ y
 					+ '-'
 					+ m
@@ -121,10 +135,10 @@ function creatHtml(arr) {
 					+ arr[i][j]["d"]
 					+ '")><div class="dateBoxMainDateTD"><div class="dateBoxMainDateTDLib">'
 					+ arr[i][j]["d"]
-					+ '鏃�</div><div class="dateBoxMainDateTDBox"><ul><li>鍊肩彮棰嗗'
-					+ arr[i][j]["name"] + '</li><li>鑱屽姟:'
-					+ arr[i][j]["position"] + '</li><li>鐢佃瘽:'
-					+ arr[i][j]["phone"] + '</li><li>鍏畨鐭彿'
+					+ '</div><div class="dateBoxMainDateTDBox"><ul><li>值班领导'
+					+ arr[i][j]["name"] + '</li><li>职务:'
+					+ arr[i][j]["position"] + '</li><li>电话:'
+					+ arr[i][j]["phone"] + '</li><li>公安短号'
 					+ arr[i][j]["cornet"] + '</li></ul></div></div></td>';
 
 			trHtml = trHtml + tdHtml;
@@ -138,19 +152,39 @@ function creatHtml(arr) {
 
 // 点击具体日期，加载详细信息对话框
 function getDateInfo(date) {
-
 	$.ajax({
-		url : '/date/info.php?date=' + date, // 鍚庡彴澶勭悊绋嬪簭
-		type : 'get', // 鏁版嵁鍙戦�佹柟寮�
-		success : function(result) {// 鍥炰紶鍑芥暟(杩欓噷鏄嚱鏁板悕)
-			var json = eval("(" + result + ")");
-			$('#dialog').attr("title", json['date'] + "璀﹀姟鎶ュ鎯呭喌");
-			var html = "<ul><li>鍊肩彮棰嗗:" + json['name'] + "</li><li>鑱屽姟:"
-					+ json['position'] + "</li><li>鐢佃瘽:" + json['phone']
-					+ "</li><li>鍏畨鐭彿:" + json['cornet'] + "</li></ul>";
-			$("#myDialogBox").empty();
-			$("#myDialogBox").append(html);
-			keleyidialog();
+		url : 'dutyCalendar/getDutyInfoForDay.do?date=' + date, // 鍚庡彴澶勭悊绋嬪簭
+		type : "POST",
+		dataType : "json",
+		// async:false,
+		success : function(req) {
+			if (req) {
+				$('#dutyTemplateSelectwindow').attr("title", date + "警务报备情况");
+				var html = "<ul onclick=\"onClickData('" + date
+						+ "')\"><li>报备日期:" + date + "</li>"
+						+"<li>值班领导:" + req.name + "</li><li>职务:"
+						+ req.position + "</li><li>电话:" + req.phone
+						+ "</li><li>公安短号:" + req.cornet + "</li></ul>";
+				$("#dutyTemplateSelectwindow").empty();
+				$("#dutyTemplateSelectwindow").append(html);
+				$("#dutyTemplateSelectwindow").window("open"); 
+			} else {
+				alert("获取数据失败");
+			}
 		}
 	});
 }
+var TimeFn=null;
+function onClickData(date){
+	$("#dutyTemplateSelectwindow").window("close"); 
+	// 取消上次延时未执行的方法
+    clearTimeout(TimeFn);
+    //执行延时
+    TimeFn = setTimeout(function(){
+    	parent.onClickData(date);
+    },100); 
+};
+function ondbClickData(date){// 取消上次延时未执行的方法 
+	$("#dutyTemplateSelectwindow").window("close"); 
+	parent.onClickData(date);
+};

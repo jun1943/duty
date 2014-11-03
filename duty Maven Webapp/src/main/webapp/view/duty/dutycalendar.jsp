@@ -39,7 +39,7 @@
 	            </div>
         	</div>
         	
-        	<div class="dateBoxMainDate">
+        	<div class="dateBoxMainDate" style="overflow:auto">
 	        	 <table id="dateTable" class="" width="100%" height="100%" >
 	                <thead>
 	                    <tr>
@@ -58,12 +58,9 @@
         	</div>
     	</div>
 	</div>
-	
-	<div id="dialog" title="标题">
-		<div class="myDialogBox" id='myDialogBox'> 
-		</div>
-    </div>
-
-</div>
+	 
+ 	<div id="dutyTemplateSelectwindow" title="警务报备情况" class="easyui-window" data-options="iconCls:'icon-edit'"
+			style="width: 354px; height:400px; padding: 10px;">
+	</div>
   </body>
 </html>
