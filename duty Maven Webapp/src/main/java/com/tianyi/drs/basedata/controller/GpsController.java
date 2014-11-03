@@ -87,9 +87,9 @@ public class GpsController {
 			map.put("gpsname", gpsname);
 			map.put("typeId", typeId); 
 
-			int total = gpsService.loadVMCount(map);
+			//int total = gpsService.loadVMCount(map);
 			list = gpsService.loadVMList(map);
-
+			int total = list.size();
 			ListResult<GpsVM> rs = new ListResult<GpsVM>(total, list);
 
 			String result = JSONObject.fromObject(rs).toString();

@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest; 
- 
+import javax.servlet.http.HttpServletRequest;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -45,13 +45,13 @@ public class PoliceController {
 			@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "rows", required = false) Integer rows,
 			HttpServletRequest request) throws Exception {
-		try {  
+		try {
 			JSONObject joQuery = JSONObject.fromObject(query);
 			int orgId = Integer.parseInt(joQuery.getString("orgId"));
 			int isSubOrg = Integer.parseInt(joQuery.getString("isSubOrg"));
 			String name = joQuery.getString("name");
 			int typeid = Integer.parseInt(joQuery.getString("typeid"));
-
+			int[] ids = new int[1];
 			String orgCode = joQuery.getString("orgCode");
 			String orgPath = joQuery.getString("orgPath");
 
@@ -65,8 +65,11 @@ public class PoliceController {
 			map.put("orgCode", orgCode);
 			map.put("orgPath", orgPath);
 			map.put("name", name);
-			map.put("typeid", typeid);
 
+			if (typeid > 0) {
+				ids[0] = typeid;
+				map.put("ids", ids);
+			}
 			int total = policeService.loadVMCount(map);
 			list = policeService.loadVMList(map);
 
@@ -86,30 +89,50 @@ public class PoliceController {
 			@RequestParam(value = "orgId", required = false) Integer orgId,
 			@RequestParam(value = "name", required = false) String name,
 			@RequestParam(value = "typeId", required = false) String typeId,
-			@RequestParam(value = "groupId", required = false) String groupId
-			)
-			throws Exception { 
-		try{
+			@RequestParam(value = "groupId", required = false) String groupId)
+			throws Exception {
+		try {
 			List<PoliceVM> list = new ArrayList<PoliceVM>();
 			Map<String, Object> map = new HashMap<String, Object>();
 			name = name.replace(",", "");
-			map.put("orgId", orgId); 
-			map.put("name", name); 
-			map.put("typeId", typeId); 
-			map.put("groupId", groupId); 
+			map.put("orgId", orgId);
+			map.put("name", name);
+			// map.put("typeId", typeId);
+			// map.put("groupId", groupId);
+
+			if (groupId != null && groupId != "") {
+				String[] gs = {};
+				gs = groupId.split(",");
+				int[] gids = new int[gs.length];
+				for (int i = 0; i < gs.length; i++) {
+					gids[i] = Integer.parseInt(String.valueOf(gs[i]));
+				}
+				map.put("gids", gids);
+			}
+
+			if (typeId != null && typeId != "") {
+				String[] s = {};
+				s = typeId.split(",");
+				int[] ids = new int[s.length];
+				for (int i = 0; i < s.length; i++) {
+					ids[i] = Integer.parseInt(String.valueOf(s[i]));
+				}
+				map.put("ids", ids);
+			}
+
 			list = policeService.loadVMListWithGroup(map);
-			 
+
 			int total = list.size();
 			ListResult<PoliceVM> rs = new ListResult<PoliceVM>(total, list);
-	
+
 			String result = JSONObject.fromObject(rs).toString();
-	
+
 			return result;
-		}
-		catch(Exception ex){
+		} catch (Exception ex) {
 			return "{\"total\":0,\"rows\":[]}";
 		}
 	}
+
 	@RequestMapping(value = "savePolice.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String savePolice(Police police) throws Exception {
@@ -131,40 +154,39 @@ public class PoliceController {
 					+ ex.getMessage() + "\"}";
 		}
 	}
-	
 
 	@RequestMapping(value = "deletePolice.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String deletePolice(int id) throws Exception {
 		try {
-			int result =0;
-			if(id>0){
+			int result = 0;
+			if (id > 0) {
 				result = policeService.deleteByPrimaryKey(id);
 			}
-			return "{\"success\":true,\"Message\":\"删除成功,result is " + result + "\"}";
+			return "{\"success\":true,\"Message\":\"删除成功,result is " + result
+					+ "\"}";
 		} catch (Exception ex) {
-			return "{\"success\":false,\"Message\":\"删除失败，原因：" + ex.getMessage() + "\"}";
+			return "{\"success\":false,\"Message\":\"删除失败，原因："
+					+ ex.getMessage() + "\"}";
 		}
 	}
 
-	@RequestMapping(value="getPoliceType.do",produces="application/json;charset=UTF-8")
-	public @ResponseBody String getPoliceType() throws Exception {
-		try
-		{ 
+	@RequestMapping(value = "getPoliceType.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String getPoliceType() throws Exception {
+		try {
 			List<PoliceType> list = policeService.selectPoliceType();
 			JSONArray result = JSONArray.fromObject(list);
 			return result.toString();
-		}
-		catch(Exception ex){
+		} catch (Exception ex) {
 			return "";
 		}
 	}
 
-
-	@RequestMapping(value="getPoliceTypeList.do",produces="application/json;charset=UTF-8")
-	public @ResponseBody String getPoliceTypeList() throws Exception {
-		try
-		{ 
+	@RequestMapping(value = "getPoliceTypeList.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String getPoliceTypeList() throws Exception {
+		try {
 			List<PoliceType> list = policeService.selectPoliceType();
 			int total = list.size();
 			ListResult<PoliceType> rs = new ListResult<PoliceType>(total, list);
@@ -172,39 +194,35 @@ public class PoliceController {
 			String result = JSONObject.fromObject(rs).toString();
 
 			return result;
-		}
-		catch(Exception ex){
+		} catch (Exception ex) {
 			return "{\"total\":0,\"rows\":[]}";
 		}
 	}
-	@RequestMapping(value="getintercomGroup.do",produces="application/json;charset=UTF-8")
-	public @ResponseBody String getintercomGroup() throws Exception {
-		try
-		{ 
+
+	@RequestMapping(value = "getintercomGroup.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String getintercomGroup() throws Exception {
+		try {
 			List<IntercomGroup> list = policeService.selectIntercomGroup();
 			JSONArray result = JSONArray.fromObject(list);
 			return result.toString();
-		}
-		catch(Exception ex){
+		} catch (Exception ex) {
 			return "";
 		}
 	}
-	
 
-
-	@RequestMapping(value="getGpsId.do",produces="application/json;charset=UTF-8")
-	public @ResponseBody String getGpsId(int orgId) throws Exception {
-		try
-		{ 
+	@RequestMapping(value = "getGpsId.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String getGpsId(int orgId) throws Exception {
+		try {
 			List<GpsBaseVM> list = policeService.selectGpsId(orgId);
 			JSONArray result = JSONArray.fromObject(list);
 			return result.toString();
-		}
-		catch(Exception ex){
+		} catch (Exception ex) {
 			return "";
 		}
 	}
-	
+
 	@RequestMapping(value = "updatePolice.do", produces = "application/json;charset=UTF-8")
 	public void updatePolice() throws Exception {
 		try {

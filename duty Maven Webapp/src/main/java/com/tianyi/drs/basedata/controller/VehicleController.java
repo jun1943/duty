@@ -1,11 +1,12 @@
-package com.tianyi.drs.basedata.controller; 
+package com.tianyi.drs.basedata.controller;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;  
+import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -14,14 +15,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody; 
-   
-import com.tianyi.drs.basedata.model.IntercomGroup; 
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.tianyi.drs.basedata.model.IntercomGroup;
 import com.tianyi.drs.basedata.model.Vehicle;
 import com.tianyi.drs.basedata.model.VehicleType;
 import com.tianyi.drs.basedata.service.VehicleService;
 import com.tianyi.drs.basedata.viewmodel.VehicleVM;
-import com.tianyi.drs.duty.viewmodel.ListResult; 
+import com.tianyi.drs.duty.viewmodel.ListResult;
 
 @Scope("prototype")
 @Controller
@@ -29,8 +30,6 @@ import com.tianyi.drs.duty.viewmodel.ListResult;
 public class VehicleController {
 	@Resource(name = "vehicleService")
 	protected VehicleService vehicleService;
-
-
 
 	@RequestMapping(value = "getVehicleList.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
@@ -43,7 +42,7 @@ public class VehicleController {
 			JSONObject joQuery = JSONObject.fromObject(query);
 			int orgId = Integer.parseInt(joQuery.getString("orgId"));
 			int isSubOrg = Integer.parseInt(joQuery.getString("isSubOrg"));
-			String number = joQuery.getString("number"); 
+			String number = joQuery.getString("number");
 
 			String orgCode = joQuery.getString("orgCode");
 			String orgPath = joQuery.getString("orgPath");
@@ -57,7 +56,7 @@ public class VehicleController {
 			map.put("isSubOrg", isSubOrg);
 			map.put("orgCode", orgCode);
 			map.put("orgPath", orgPath);
-			map.put("number", number); 
+			map.put("number", number);
 
 			int total = vehicleService.loadVMCount(map);
 			list = vehicleService.loadVMList(map);
@@ -93,43 +92,43 @@ public class VehicleController {
 					+ ex.getMessage() + "\"}";
 		}
 	}
-	
 
 	@RequestMapping(value = "deleteVehicle.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String deleteVehicle(int id) throws Exception {
 		try {
-			int result =0;
-			if(id>0){
+			int result = 0;
+			if (id > 0) {
 				result = vehicleService.deleteByPrimaryKey(id);
 			}
-			return "{\"success\":true,\"Message\":\"删除成功,result is " + result + "\"}";
+			return "{\"success\":true,\"Message\":\"删除成功,result is " + result
+					+ "\"}";
 		} catch (Exception ex) {
-			return "{\"success\":false,\"Message\":\"删除失败，原因：" + ex.getMessage() + "\"}";
+			return "{\"success\":false,\"Message\":\"删除失败，原因："
+					+ ex.getMessage() + "\"}";
 		}
 	}
-	
 
-	@RequestMapping(value="getVehicleType.do",produces="application/json;charset=UTF-8")
-	public @ResponseBody String getVehicleType() throws Exception {
-		try
-		{ 
+	@RequestMapping(value = "getVehicleType.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String getVehicleType() throws Exception {
+		try {
 			List<VehicleType> list = vehicleService.selectVehicleType();
 			JSONArray result = JSONArray.fromObject(list);
 			return result.toString();
-		}
-		catch(Exception ex){
+		} catch (Exception ex) {
 			return "";
 		}
-	} 
+	}
 
-	@RequestMapping(value="getvehicleTypelist.do",produces="application/json;charset=UTF-8")
-	public @ResponseBody String getvehicleTypelist() throws Exception {
-		try
-		{ 
+	@RequestMapping(value = "getvehicleTypelist.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String getvehicleTypelist() throws Exception {
+		try {
 			List<VehicleType> list = vehicleService.selectVehicleType();
 			int total = list.size();
-			ListResult<VehicleType> rs = new ListResult<VehicleType>(total, list);
+			ListResult<VehicleType> rs = new ListResult<VehicleType>(total,
+					list);
 
 			String result = JSONObject.fromObject(rs).toString();
 
@@ -137,39 +136,45 @@ public class VehicleController {
 		} catch (Exception ex) {
 			return "{\"total\":0,\"rows\":[]}";
 		}
-	} 
+	}
 
-
-	@RequestMapping(value="getintercomGroup.do",produces="application/json;charset=UTF-8")
-	public @ResponseBody String getintercomGroup() throws Exception {
-		try
-		{ 
+	@RequestMapping(value = "getintercomGroup.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String getintercomGroup() throws Exception {
+		try {
 			List<IntercomGroup> list = vehicleService.selectIntercomGroup();
 			JSONArray result = JSONArray.fromObject(list);
 			return result.toString();
-		}
-		catch(Exception ex){
+		} catch (Exception ex) {
 			return "";
 		}
 	}
 
 	@RequestMapping(value = "getVehicleSource.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
-	String getVehicleSource( 
+	String getVehicleSource(
 			@RequestParam(value = "orgId", required = false) Integer orgId,
-			@RequestParam(value = "number", required = false) String number,  
-			@RequestParam(value = "typeId", required = false) Integer typeId,  
+			@RequestParam(value = "number", required = false) String number,
+			@RequestParam(value = "typeId", required = false) String typeId,
 			HttpServletRequest request) throws Exception {
 		try {
-			 
+
 			number = number.replace(",", "");
 			List<VehicleVM> list = new ArrayList<VehicleVM>();
 			Map<String, Object> map = new HashMap<String, Object>();
- 
-			map.put("orgId", orgId); 
+			
+			if (typeId != null&& typeId !="") {
+				String[] s = {};
+				s = typeId.split(",");
+				int[] ids = new int[s.length];
+				for (int i = 0; i < s.length; i++) { 
+					ids[i] = Integer.parseInt(String.valueOf(s[i]));
+				}
+				map.put("ids", ids);
+			}
+			map.put("orgId", orgId);
 			map.put("number", number); 
-			map.put("typeId", typeId); 
- 
+			
 			list = vehicleService.loadVMList(map);
 			int total = list.size();
 			ListResult<VehicleVM> rs = new ListResult<VehicleVM>(total, list);

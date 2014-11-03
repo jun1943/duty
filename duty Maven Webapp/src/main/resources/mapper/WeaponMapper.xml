@@ -193,7 +193,7 @@
   			and w.number like CONCAT('%','${number}','%' )  
   		</if>
   		  
-  		<if test ="typeId !=null">
+  		<if test ="typeId >0">
   			and w.type_id =  #{typeId,jdbcType=INTEGER}
   		</if>
   		 <if test="pageStart !=null">
@@ -220,7 +220,7 @@
   		<if test ="number !=null">
   			and w.number like CONCAT('%','${number}','%' )  
   		</if> 
-  		<if test ="typeId !=null">
+  		<if test ="typeId >0">
   			and w.type_id =  #{typeId,jdbcType=INTEGER}
   		</if>
   </select>
