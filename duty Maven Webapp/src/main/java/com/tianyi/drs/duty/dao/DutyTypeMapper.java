@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.tianyi.drs.duty.dao.core.MyBatisRepository;
 import com.tianyi.drs.duty.model.DutyType;
+import com.tianyi.drs.duty.viewmodel.DutyItemCountVM;
 import com.tianyi.drs.duty.viewmodel.DutyTypePropertyVM;
 import com.tianyi.drs.duty.viewmodel.DutyTypeVM;
 
@@ -30,5 +31,10 @@ public interface DutyTypeMapper {
     void updateUseStateByFullPath(Map<String,Object> map);
     
     int checkUsed(Integer typeId);
+ 
+
+	List<DutyType> loadDutyType(Map<String, Object> map);
+
+	List<DutyItemCountVM> loadDutyItemCount(Map<String, Object> map);
  
 }

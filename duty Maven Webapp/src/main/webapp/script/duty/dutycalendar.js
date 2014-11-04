@@ -7,6 +7,7 @@ $(function() {
 	m_dutyCalendar_Org.id =args["orgId"];
 	m_dutyCalendar_Org.code = args["orgCode"];
 	m_dutyCalendar_Org.path = args["orgPath"];
+	m_dutyCalendar_Org.name = args["orgName"];
 	var date = new Date();
 	y = date.getFullYear();
 	m = date.getMonth() + 1;
@@ -131,8 +132,8 @@ function creatHtml(arr) {
 					+ arr[i][j]["d"]
 					+ '")><div class="dateBoxMainDateTD"><div class="dateBoxMainDateTDLib">'
 					+ arr[i][j]["d"]
-					+ '</div><div class="dateBoxMainDateTDBox"><ul><li>报备警力：</li> '
-					+ arr[i][j]["totalpolice"] +  arr[i][j]["dutyList"]+'</ul></div></div></td>';
+					+ '</div><div class="dateBoxMainDateTDBox"><ul><li>警力：'+arr[i][j]["totalpolice"]+'</li> '
+					+  arr[i][j]["dutyList"]+'</ul></div></div></td>';
 
 			trHtml = trHtml + tdHtml;
 		}
@@ -146,17 +147,25 @@ function creatHtml(arr) {
 // 点击具体日期，加载详细信息对话框
 function getDateInfo(date) {
 	$.ajax({
-		url : 'dutyCalendar/getDutyInfoForDay.do?date=' + date, // 鍚庡彴澶勭悊绋嬪簭
+		url : 'dutyCalendar/getDutyInfoForDay.do?orgId='+m_dutyCalendar_Org.id+'&date=' + date,
 		type : "POST",
 		dataType : "json",
 		// async:false,
 		success : function(req) {
 			if (req) {
 				$('#dutyTemplateSelectwindow').attr("title", date + "警务报备情况");
+				var htmls =  ' <div onclick=\"onClickData("' + date
+					+ '")\" id="p" class="easyui-panel" title="领导报备" '  
+						   + ' data-options="fit:true,border:false"> '
+		                   + ' <p style="text-align:center">'+ date+'  '+m_dutyCalendar_Org.name+'报备汇总'+'</p>'
+		                   + ' <p>panel content.</p> </div> ';  
+				
 				var html = "<ul onclick=\"onClickData('" + date
 						+ "')\"><li>报备日期:" + date + "</li>" + "<li>报备总警力:"
 						+ req.name + "</li><li>" + req.position
 						+ "</li></ul>";
+				
+				
 				$("#dutyTemplateSelectwindow").empty();
 				$("#dutyTemplateSelectwindow").append(html);
 				$("#dutyTemplateSelectwindow").window("open");
