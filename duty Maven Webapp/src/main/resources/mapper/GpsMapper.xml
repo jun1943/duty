@@ -165,8 +165,13 @@
   			<if test="gpsname != null ">
   				and g.gps_name  like CONCAT("%",#{gpsname,jdbcType=VARCHAR},"%")
   			</if>
-  			<if test="typeId >0 ">
-  				and g.type_id =#{typeId,jdbcType=INTEGER}
+  			<if test="ids !=null ">
+  				and g.type_id  in 
+
+				<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+ 				
   			</if>
   			order by id
   			<if test="pageStart != null">
@@ -194,8 +199,13 @@
   		<if test="gpsname != null ">
   			and g.gps_name  like CONCAT("%",#{gpsname,jdbcType=VARCHAR},"%")
   		</if>
-  			<if test="typeId >0 ">
-  				and g.type_id =#{typeId,jdbcType=INTEGER}
+  			<if test="ids !=null ">
+  				and g.type_id   in 
+
+				<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+ 				
   			</if>
   </select>
   

@@ -78,7 +78,7 @@ public class WeaponController {
 	String getweaponSource(  
 			@RequestParam(value = "orgId", required = false) Integer orgId,
 			@RequestParam(value = "number", required = false) String number, 
-			@RequestParam(value = "typeId", required = false) Integer typeId, 
+			@RequestParam(value = "typeId", required = false) String typeId, 
 			HttpServletRequest request) throws Exception {
 		try {  
 			number = number.replace(",", "");
@@ -87,7 +87,18 @@ public class WeaponController {
  
 			map.put("orgId", orgId); 
 			map.put("number", number);
-			map.put("typeId", typeId);
+			//map.put("typeId", typeId);
+
+			if (typeId != null&& typeId !="") {
+				String[] s = {};
+				s = typeId.split(",");
+				int[] ids = new int[s.length];
+				for (int i = 0; i < s.length; i++) { 
+					ids[i] = Integer.parseInt(String.valueOf(s[i]));
+				}
+				map.put("ids", ids);
+			}
+
 
 			list = weaponService.loadVMList(map);
 			int total =  list.size();

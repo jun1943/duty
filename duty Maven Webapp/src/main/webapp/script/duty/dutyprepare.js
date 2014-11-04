@@ -598,7 +598,18 @@ function SearchVehicleAction() {
 function SearchGpsAction() {
 	var name = $("#txtgname").val();
 	var row = $('#dt_gpsType').datagrid("getChecked");
-	var typeId = row.length > 0 ? row[0].id : 0;
+	var typeId="";
+	if (row.length > 0) {
+		for ( var i = 0; i < row.length; i++) {
+			typeId += row[i].id + ",";
+		}
+		if (typeId.length > 0) {
+			typeId = typeId.substring(0, typeId.length - 1);
+		}
+	} else {
+		typeId = "";
+	}
+	//var typeId = row.length > 0 ? row[0].id : 0;
 
 	$('#source_gpsdevice').treegrid("reload", {
 		"orgId" : m_dutyprepare_Org.id,
@@ -612,7 +623,18 @@ function SearchGpsAction() {
 function SearchWeaponAction() {
 	var number = $("#txtwnumber").val();
 	var row = $('#dt_weaponType').datagrid("getChecked");
-	var typeId = row.length > 0 ? row[0].id : 0;
+	var typeId="";
+	if (row.length > 0) {
+		for ( var i = 0; i < row.length; i++) {
+			typeId += row[i].id + ",";
+		}
+		if (typeId.length > 0) {
+			typeId = typeId.substring(0, typeId.length - 1);
+		}
+	} else {
+		typeId = "";
+	}
+	//var typeId = row.length > 0 ? row[0].id : 0;
 
 	$('#source_weapon').treegrid("reload", {
 		"orgId" : m_dutyprepare_Org.id,

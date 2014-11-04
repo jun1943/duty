@@ -193,8 +193,13 @@
   			and w.number like CONCAT('%','${number}','%' )  
   		</if>
   		  
-  		<if test ="typeId >0">
-  			and w.type_id =  #{typeId,jdbcType=INTEGER}
+  		<if test ="ids !=null ">
+  			and w.type_id   in 
+
+				<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+ 				
   		</if>
   		 <if test="pageStart !=null">
   			limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
@@ -220,8 +225,13 @@
   		<if test ="number !=null">
   			and w.number like CONCAT('%','${number}','%' )  
   		</if> 
-  		<if test ="typeId >0">
-  			and w.type_id =  #{typeId,jdbcType=INTEGER}
+  		<if test ="ids !=null ">
+  			and w.type_id   in 
+
+				<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+ 				
   		</if>
   </select>
 </mapper>
