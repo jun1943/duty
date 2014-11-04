@@ -2,9 +2,9 @@ package com.tianyi.drs.duty.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.Date; 
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.context.annotation.Scope;
@@ -13,15 +13,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tianyi.drs.duty.service.DutyService;
+
 @Scope("prototype")
 @Controller
 @RequestMapping("/dutyCalendar")
 public class DutyCalendarController {
 
+
+	@Resource(name = "dutyService")
+	protected DutyService dutyService;
+	
 	@RequestMapping(value = "getCalender.do")
 	public @ResponseBody
 	String getCalender(
 			@RequestParam(value = "date", required = false) String date,
+			@RequestParam(value = "orgId", required = false) Integer orgId,
 			HttpServletRequest request) throws Exception {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -47,13 +54,26 @@ public class DutyCalendarController {
 					+ i
 					+ "\",\"week\":\""
 					+ week
-					+ "\",\"name\":\"randName\",\"position\":\"randPosition\",\"phone\":\"028-0022569\",\"cornet\":\"10086\"},";
+					+ "\",\"totalpolice\":\""+getTotalPolice(date,orgId)+"\",\"dutyList\":\""+getDutyList(date,orgId)+"\"},";
 		}
 		if (result.endsWith(",")) {
 			result = result.substring(0, result.length() - 1) + "]";
-		}
-
+		} 
 		return result;
+	}
+	/*
+	 * 根据日期，组织，获取报备总警力
+	 * */
+	private String getDutyList(String date, Integer orgId) {
+
+		return "<li>领导报备</li><li>处警报备</li><li>巡逻报备</li><li>前置平台报备</li>"; 
+	}
+	/*
+	 * 根据日期，组织，获取报备类型
+	 * */
+	private String getTotalPolice(String date, Integer orgId) {
+		
+		return "<li>10人5车6武器</li>";
 	}
 
 	/**

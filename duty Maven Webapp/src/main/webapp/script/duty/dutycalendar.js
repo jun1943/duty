@@ -1,8 +1,12 @@
 var y;
 var m;
-
+var m_dutyCalendar_Org = {};
 $(function() {
 	$("#dutyTemplateSelectwindow").window("close");
+	var args = getUrlArgs();
+	m_dutyCalendar_Org.id =args["orgId"];
+	m_dutyCalendar_Org.code = args["orgCode"];
+	m_dutyCalendar_Org.path = args["orgPath"];
 	var date = new Date();
 	y = date.getFullYear();
 	m = date.getMonth() + 1;
@@ -18,7 +22,7 @@ function changeDivHeight() {
 	var tdHeight = parseInt(tableContentHeight / 6) - 3;
 	var dateBoxMainDateTDBoxWidht = parseInt($("#dateTable").width() * 0.14 * 0.98);
 
-	var trObj = $("table tbody tr");
+//	var trObj = $("table tbody tr");
 	var tdObj = $("table tbody tr td");
 	for ( var i = 0; i < tdObj.length; i++) {
 		$(tdObj[i]).height(tdHeight);
@@ -56,7 +60,7 @@ function getDateClick(action) {
 // 根据日期，获取后台数据
 function getDateData(date) {
 	$.ajax({
-		url : 'dutyCalendar/getCalender.do?date=' + date,
+		url : 'dutyCalendar/getCalender.do?orgId='+m_dutyCalendar_Org.id+'&date=' + date,
 		type : "POST",
 		dataType : "json",
 		// async:false,
@@ -88,10 +92,8 @@ function setDateData(result) {
 		today['y'] = json[i]["y"];
 		today['m'] = json[i]["m"];
 		today['d'] = json[i]["d"];
-		today['name'] = json[i]["name"];
-		today['position'] = json[i]["position"];
-		today['phone'] = json[i]["phone"];
-		today['cornet'] = json[i]["cornet"];
+		today['totalpolice'] = json[i]["totalpolice"];
+		today['dutyList'] = json[i]["dutyList"]; 
 		dateArray[lineIndexOf][parseInt(json[i]["week"])] = today;
 		if (parseInt(json[i]["week"]) == 6) {// 鍒ゆ柇鏄惁璇ユ崲琛�,鑻ュ綋鍓嶄笅鏍囧埌鍒拌揪6鍗冲彲鎹㈣+1
 			lineIndexOf++;
@@ -121,13 +123,7 @@ function creatHtml(arr) {
 				continue;
 			}
 
-			tdHtml = '<td ondbclick="onClickData("'
-					+ y
-					+ '-'
-					+ m
-					+ '-'
-					+ arr[i][j]["d"]
-					+ '")" onmouseover=getDateInfo("'
+			tdHtml = '<td  onclick=getDateInfo("'
 					+ y
 					+ '-'
 					+ m
@@ -135,11 +131,8 @@ function creatHtml(arr) {
 					+ arr[i][j]["d"]
 					+ '")><div class="dateBoxMainDateTD"><div class="dateBoxMainDateTDLib">'
 					+ arr[i][j]["d"]
-					+ '</div><div class="dateBoxMainDateTDBox"><ul><li>值班领导'
-					+ arr[i][j]["name"] + '</li><li>职务:'
-					+ arr[i][j]["position"] + '</li><li>电话:'
-					+ arr[i][j]["phone"] + '</li><li>公安短号'
-					+ arr[i][j]["cornet"] + '</li></ul></div></div></td>';
+					+ '</div><div class="dateBoxMainDateTDBox"><ul><li>报备警力：</li> '
+					+ arr[i][j]["totalpolice"] +  arr[i][j]["dutyList"]+'</ul></div></div></td>';
 
 			trHtml = trHtml + tdHtml;
 		}
@@ -161,30 +154,20 @@ function getDateInfo(date) {
 			if (req) {
 				$('#dutyTemplateSelectwindow').attr("title", date + "警务报备情况");
 				var html = "<ul onclick=\"onClickData('" + date
-						+ "')\"><li>报备日期:" + date + "</li>"
-						+"<li>值班领导:" + req.name + "</li><li>职务:"
-						+ req.position + "</li><li>电话:" + req.phone
-						+ "</li><li>公安短号:" + req.cornet + "</li></ul>";
+						+ "')\"><li>报备日期:" + date + "</li>" + "<li>报备总警力:"
+						+ req.name + "</li><li>" + req.position
+						+ "</li></ul>";
 				$("#dutyTemplateSelectwindow").empty();
 				$("#dutyTemplateSelectwindow").append(html);
-				$("#dutyTemplateSelectwindow").window("open"); 
+				$("#dutyTemplateSelectwindow").window("open");
 			} else {
 				alert("获取数据失败");
 			}
 		}
 	});
 }
-var TimeFn=null;
-function onClickData(date){
-	$("#dutyTemplateSelectwindow").window("close"); 
-	// 取消上次延时未执行的方法
-    clearTimeout(TimeFn);
-    //执行延时
-    TimeFn = setTimeout(function(){
-    	parent.onClickData(date);
-    },100); 
-};
-function ondbClickData(date){// 取消上次延时未执行的方法 
+var TimeFn = null;
+function onClickData(date) {
 	$("#dutyTemplateSelectwindow").window("close"); 
 	parent.onClickData(date);
-};
+};  
