@@ -317,7 +317,7 @@
   </select>
   
     <select id="loadDutyItemCount"  parameterType="java.util.Map"  resultType="com.tianyi.drs.duty.viewmodel.DutyItemCountVM">
-  		select count(di.item_type_id) as totalcount ,dit.name as itemTypeName
+  		select count(di.item_type_id) as orgName ,dit.name as itemTypeName
   		
   		from drs.t_duty_item di
   		

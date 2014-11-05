@@ -21,6 +21,8 @@ import com.tianyi.drs.duty.model.DutyType;
 import com.tianyi.drs.duty.service.DutyService;
 import com.tianyi.drs.duty.service.DutyTypeService;
 import com.tianyi.drs.duty.viewmodel.DutyItemCountVM;
+import com.tianyi.drs.duty.viewmodel.DutyVM;
+import com.tianyi.drs.duty.viewmodel.ListResult;
 
 @Scope("prototype")
 @Controller
@@ -117,11 +119,11 @@ public class DutyCalendarController {
 				//result +="<li>";
 				for (int i = 0; i < list.size(); i++) {
 					if(list.get(i).getItemTypeName().equals("警员")){
-						result += list.get(i).getTotalcount()+"人";
+						result += list.get(i).getorgName()+"人";
 					}else if(list.get(i).getItemTypeName().equals("车辆")){
-						result += list.get(i).getTotalcount()+"车";
+						result += list.get(i).getorgName()+"车";
 					}else if(list.get(i).getItemTypeName().equals("武器")){
-						result += list.get(i).getTotalcount()+"武器";
+						result += list.get(i).getorgName()+"武器";
 					}
 				}
 				//result +="</li>";
@@ -173,5 +175,26 @@ public class DutyCalendarController {
 			return " 获取报备信息发生错误 ";
 		}
 	}
-
+	@RequestMapping(value = "getTotalPolice.do")
+	public @ResponseBody String getTotalPolice(
+			@RequestParam(value = "orgId", required = false) Integer orgId,
+			@RequestParam(value = "orgPath", required = false) String orgPath,
+			@RequestParam(value = "orgCode", required = false) String orgCode,
+			@RequestParam(value = "beginTime", required = false) String beginTime,
+			@RequestParam(value = "endTime", required = false) String endTime,
+			HttpServletRequest request
+			){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("orgId", orgId);
+		map.put("orgPath", orgPath);
+		map.put("orgCode", orgCode);
+		map.put("beginTime", beginTime);
+		map.put("endTime", endTime);
+		List<DutyItemCountVM> dicvms=dutyService.loadTotalPolice(map);
+		
+		ListResult<DutyItemCountVM> rs=new ListResult<DutyItemCountVM>(dicvms.size(),dicvms,true);
+		
+		return rs.toJson();
+	}
+	
 }

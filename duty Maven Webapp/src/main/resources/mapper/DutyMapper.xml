@@ -268,4 +268,82 @@
     where is_template=1 and org_id = #{orgId,jdbcType=INTEGER}
   </select>
   
+  
+    <select id="loadTotalPolice"   parameterType="java.util.Map"  resultType="com.tianyi.drs.duty.viewmodel.DutyItemCountVM">
+  		select concat(cast((select count(di.id) from t_duty_item   di 
+			left join t_duty         d on di.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}) as char(5)),  '/', cast((select count(di.id) from t_duty_item   di 
+				left join t_duty         d on di.duty_id = d.id
+				left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER} 
+			<if test="orgPath != null" >
+				or o.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
+			</if>
+			) as char(5))) as orgName ,
+
+		(select count(di.id) from t_duty_item as di 
+			left join t_duty         d on di.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}  and di.duty_type_id in (
+				select st.id from t_duty_type as st  where st.name like '%领导%')
+				and di.item_type_id = 2 ) as shiftLeaderCount,
+
+		(select count(di.id) from t_duty_item as di  
+			left join t_duty         d on di.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}  and  di.item_type_id = 2 ) as chiefLeaderCount,
+
+		(select count(di.id) from t_duty_item as di 
+			left join t_duty         d on di.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}  and  di.item_type_id = 2 ) as dutypoliceCount,
+
+		(select count(t.id) from t_duty_item as t  
+			left join t_duty         d on t.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}  and  t.item_type_id = 1 ) as vehicleCount,
+
+		(select count(t.id) from t_duty_item as t 
+			left join t_duty         d on t.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}  and  t.item_type_id = 3 ) as weaponCount,
+
+		(select count(t.id) from t_duty_item as t  
+			left join t_duty         d on t.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}  and  t.item_type_id = 3 ) as unitdutyCount,
+
+		(select count(t.id) from t_duty_item as t  
+			left join t_duty         d on t.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}  and  t.item_type_id = 3 ) as illuminatesCount,
+
+		(select count(t.id) from t_duty_item as t 
+			left join t_duty         d on t.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}  and  t.item_type_id = 3 ) as patrolpoliceCount,
+
+		(select count(t.id) from t_duty_item as t  
+			left join t_duty         d on t.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}  and  t.item_type_id = 3 ) as checkpointpoliceCount,
+
+		(select count(t.id) from t_duty_item as t 
+			left join t_duty         d on t.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+		where o.id = #{orgId,jdbcType=INTEGER}  and  t.item_type_id = 3 ) as patrolareaPoliceCount
+  </select>
 </mapper>
