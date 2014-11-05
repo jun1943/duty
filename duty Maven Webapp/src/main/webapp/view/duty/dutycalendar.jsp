@@ -59,8 +59,10 @@
     	</div>
 	</div>
 	 
- 	<div id="dutyTemplateSelectwindow" title="警务报备情况" class="easyui-window" data-options="iconCls:'icon-edit'"
+ 	<div id="dutyDetailsForDaywindow" title="警务报备情况" class="easyui-window" data-options="iconCls:'icon-edit'"
 			style="width:654px; height:450px; padding: 10px;">
+			<div id="tgddutydetailsforday" >
+			</div>
 	</div>
   </body>
 </html>
