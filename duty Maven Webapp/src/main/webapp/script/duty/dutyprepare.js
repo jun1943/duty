@@ -196,16 +196,10 @@ function fmtDigit(value,row,index){
 function fmtShiftPeriod(value,row,index){
 	var result="";
 	if(row.beginTime !=null && row.endTime){
-		var b=new Date(row.beginTime);
-		var e=new Date(row.endTime);
-
-		var b1=new Date(b.getFullYear(),b.getMonth(),b.getDate());
-		var e1=new Date(e.getFullYear(),e.getMonth(),e.getDate());
-
+		var b=row.beginTime2;
+		var e=row.endTime2;
 		result =b.getHours()+":" +b.getMinutes() + "至";
-		
-		var diff=b1.dateDiff("d", e1);
-
+		var diff=b.dateDiffOfDay(e);
 		switch(diff){
 		case 0:
 			result += e.getHours()+":"+e.getMinutes();
@@ -351,6 +345,9 @@ function structureItem(item,parent){
 	item.weaponCount=0;
 	item.gpsCount=0;
 	item.xid=genXId(item.itemTypeId);
+	
+	item.beginTime2=getMergeDate(m_ymd,item.beginTime);
+	item.endTime2=getMergeDate(m_ymd,item.endTime);
 	//item.id=item.xid;
 	
 	switch(item.itemTypeId){
@@ -569,6 +566,8 @@ function itemRegul(item){
 	item.policeCount=undefined;
 	item.weaponCount=undefined;
 	item.gpsCount=undefined;
+	item.beginTime=item.beginTime2.format('yyyy-mm-dd h:m:s');
+	item.endTime=item.endTime2.format('yyyy-mm-dd h:m:s');
 	
 	if(item.children!=null){
 		$.each(item.children,function(i,row){
@@ -838,18 +837,11 @@ function setShift(){
 	if(row==null){
 		$.messager.alert('提示', "请选择班次!", "warning");
 	}else{
-		var b=new Date(row.beginTime);
-		var b1=b.getHours()+":" + b.getMinutes();
-		var e=new Date(row.endTime);
-		var e1=b.getHours()+":"+e.getMinutes();
-		$('#txtShiftName').val(row.name);
-		$('#txtBeginTime').timespinner('setValue',b1);
-		$('#txtEndTime').timespinner('setValue',e1);
+
+		$('#txtBeginTime').timespinner('setValue',row.beginTime.getHours());
+		$('#txtEndTime').timespinner('setValue',row.beginTime.getMinutes());
 		
-		var b2=new Date(b.getFullYear(),b.getMonth(),b.getDate());
-		var e2=new Date(e.getFullYear(),e.getMonth(),e.getDate());
-		
-		if(b2.dateDiff('d', e2)==1){
+		if(row.beginTime.dateDiffOfDay('d',row.endTime)==1){
 			$('#chkDayType').val(true);
 		}else{
 			$('#chkDayType').val(false);
@@ -868,7 +860,8 @@ function shiftConfirm(){
 	var et=new Date(ds + " " + $('#txtEndTime').timespinner("getValue"));
 	
 	if($('#chkDayType').val()=="true"){
-		dateAdd('d',1,et);
+		et.add('d',1);
+		//dateAdd('d',1,et);
 	}
 	
 	if(!verifyTime(bt,et)){
@@ -879,6 +872,9 @@ function shiftConfirm(){
 	}else{
 		if(m_shift.editType=='new'){
 			var row={};
+			row.beginTime2=bt;
+			row.endTime2=et;
+			
 			genDutyRow(0,name,101,0,'班次',row);
 			$("#tdDuty").treegrid('append', {
 				parent: m_shift.targetRow.xid,
@@ -888,6 +884,8 @@ function shiftConfirm(){
 		}else{
 			m_shift.targetRow.name=name;
 			m_shift.targetRow.displayName=name;
+			m_shift.targetRow.beginTime2=bt;
+			m_shift.targetRow.endTime2=et;
 			$("#tdDuty").treegrid('reload', m_shift.targetRow.xid);
 		}
 		$('#shiftWindows').window('close');
@@ -900,8 +898,28 @@ function shiftConfirm(){
 		}
 	}
 }
-
-
+/**根据ymd和日期合并一成一个时间
+ * 
+ * @param ymd
+ * @param dateStr
+ * @returns {Date}
+ */
+function getMergeDate(ymd,dateStr){
+	var str=ymd.toString();
+	var str2=str.substr (0,4)+"-" + str.substr(4,2) +"-" +str.substr(6,2);
+	var d=new Date(str2);
+	
+	var HH=0;
+	var mm=0;;
+	
+	if(dateStr!=undefined && dateStr!=null){
+		var d2=new Date(dateStr);
+		HH =d2.getHours();
+		mm=d2.getMinutes();
+	}
+	d.setHours(HH, mm, 0, 0);
+	return d;
+}
 
 
 
