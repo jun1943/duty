@@ -73,7 +73,8 @@
 				<tr>
 					<td style="text-align:right"><lable>共享类型:</lable></td>
 					<td><label><input id="radioShare1" name="shareType"
-							type="radio" value="0" onclick="changeShareType()"></input>不共享</label> <label><input
+							type="radio" value="0" onclick="changeShareType()"></input>不共享</label> 
+							<label><input
 							id="radioShare2" name="shareType" type="radio" value="1"
 							onclick="changeShareType()"></input>共享到下级</label></td>
 				</tr>

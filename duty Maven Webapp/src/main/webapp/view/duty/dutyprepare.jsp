@@ -34,7 +34,7 @@
 						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
 						plain="true"	onclick="delPoliceGroup()">清空报备</a>
 						<a  href="javascript:void(0);"	class="easyui-linkbutton icon-camera-retro" 
-						plain="true"	onclick="saveDuty()">保存</a>
+						plain="true"	onclick="save()">保存</a>
 						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
 						plain="true" onclick="editPoliceGroup()">另存为模板</a>
 						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
@@ -256,7 +256,7 @@
 		</div>
 	</div>
 	 
-	 <div id="UserNodeWindows"  class="easyui-window" title="自定义编组"  data-options="iconCls:'icon-save',modal:true" closed="true" 
+	 <div id="userNodeWindows"  class="easyui-window" title="自定义编组"  data-options="iconCls:'icon-save',modal:true" closed="true" 
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" style="width: 300px; height:100px; padding: 2px;">
 			<div class="easyui-layout" data-options="fit:true">
 			<div data-options="region:'north',border:false"
@@ -276,8 +276,46 @@
 							<td style="text-align:right"><lable>编组名称:</lable></td>
 							<td><input id="txtUserNodeName" type="text"	class="easyui-validatebox"></input></td>
 						</tr>
+					</table>
 			</div>
 		</div>
 	</div>
+	 
+	 <div id="shiftWindows"  class="easyui-window" title="班次"  data-options="iconCls:'icon-save',modal:true" closed="true" 
+	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" style="width: 380px; height:200px; padding: 2px;">
+			<div class="easyui-layout" data-options="fit:true">
+			<div data-options="region:'north',border:false"
+					style="padding: 2px; height: 30px;"> 
+					<a href="javascript:void(0);" class="easyui-linkbutton" 
+						data-options="iconCls:'icon-save',plain:true"
+						onclick="shiftConfirm()">确定</a>  
+					 <a href="javascript:void(0);" 
+						class="easyui-linkbutton"
+						onclick="$('#shiftWindows').window('close');"
+						data-options="iconCls:'icon-remove',plain:true">取消</a>
+			</div>
+			<div data-options="region:'center',border:false"
+					style="padding: 2px">
+					<table style="width:100%">
+						<tr>
+							<td style="text-align:right;width:70px"><lable>班次名称:</lable></td>
+							<td style="width:45%"><input id="txtShiftName" type="text"	class="easyui-validatebox"></input></td>
+							<td style="width:50px"></td>
+						</tr>
+						<tr>
+							<td style="text-align:right"><lable>开始时间:</lable></td>
+							<td><input id="txtBeginTime" type="text"	class="easyui-timespinner"></input></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td style="text-align:right" ><lable>结束时间:</lable></td>
+							<td><input id="txtEndTime" type="text"	class="easyui-timespinner"></input></td>
+							<td><lable><input type="checkbox" id="chkDayType"></input>第二天</lable></td>
+						</tr>
+					</table>
+			</div>
+		</div>
+	</div>
+	 
 	 
 </body>

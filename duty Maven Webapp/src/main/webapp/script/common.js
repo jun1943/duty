@@ -136,5 +136,54 @@ Date.prototype.dateDiff = function(interval,objDate){
 	case "w":return parseInt((dtEnd - this) / (86400000 * 7));
 	case "m":return (dtEnd.getMonth()+1)+((dtEnd.getFullYear()-this.getFullYear())*12) - (this.getMonth()+1);
 	case "y":return dtEnd.getFullYear() - this.getFullYear();
+	};
+};
+/**
+ * 返回日期是否相差天数，忽略时，分，秒
+ */
+Date.protoype.dateDiffOfDay=function(endDate){
+	var dtBegin=new Date(this.getFullYear(),this.getMonth(),this.getDate());
+	var dtEnd=new Date(endDate.getFullYear(),endDate.getMonth(),endDate.getDate());
+	return dtBegin.dateDiff('d',dtEnd);
+};
+
+Date.protoype.add=function(interval,number){
+	 switch(interval.toLowerCase()){  
+     case "y": return new Date(this.setFullYear(date.getFullYear()+number));  
+     case "m": return new Date(this.setMonth(date.getMonth()+number));  
+     case "d": return new Date(this.setDate(date.getDate()+number));  
+     case "w": return new Date(this.setDate(date.getDate()+7*number));  
+     case "h": return new Date(this.setHours(date.getHours()+number));  
+     case "n": return new Date(this.setMinutes(date.getMinutes()+number));  
+     case "s": return new Date(this.setSeconds(date.getSeconds()+number));  
+     case "l": return new Date(this.setMilliseconds(date.getMilliseconds()+number));  
+	 }  
+};
+
+function dateAdd(interval,number,date){  
+    switch(interval.toLowerCase()){  
+        case "y": return new Date(date.setFullYear(date.getFullYear()+number));  
+        case "m": return new Date(date.setMonth(date.getMonth()+number));  
+        case "d": return new Date(date.setDate(date.getDate()+number));  
+        case "w": return new Date(date.setDate(date.getDate()+7*number));  
+        case "h": return new Date(date.setHours(date.getHours()+number));  
+        case "n": return new Date(date.setMinutes(date.getMinutes()+number));  
+        case "s": return new Date(date.setSeconds(date.getSeconds()+number));  
+        case "l": return new Date(date.setMilliseconds(date.getMilliseconds()+number));  
+    }  
+};
+
+function gYmdToStr(ymd){
+	var str=ymd.toString();
+	var str2=str.substr (0,4)+"-" + str.substr(4,2) +"-" +str.substr(6,2);
+
+	return str2;
+};
+
+function DateHelp(){
+	
+	function intervalDay(d1,d2){
+		
 	}
-	}
+};
+

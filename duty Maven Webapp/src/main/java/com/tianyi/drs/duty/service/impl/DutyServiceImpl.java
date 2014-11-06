@@ -1,6 +1,7 @@
 package com.tianyi.drs.duty.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,6 +73,8 @@ public class DutyServiceImpl implements DutyService{
 
 	@Transactional
 	public void save(DutyVM vm) {
+		vm.setCreateTime(new Date());
+		
 		if(vm.getId()==0){
 			dutyMapper.insert(vm);
 		}else{
