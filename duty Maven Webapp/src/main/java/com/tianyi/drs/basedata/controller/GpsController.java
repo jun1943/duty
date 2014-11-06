@@ -76,7 +76,7 @@ public class GpsController {
 	String getGpsdeviceSource( 
 			@RequestParam(value = "orgId", required = false) Integer orgId,
 			@RequestParam(value = "gpsname", required = false) String gpsname, 
-			@RequestParam(value = "typeId", required = false) Integer typeId, 
+			@RequestParam(value = "typeId", required = false) String typeId, 
 			HttpServletRequest request) throws Exception {
 		try {
 			gpsname= gpsname.replace(",", "");
@@ -85,11 +85,21 @@ public class GpsController {
  
 			map.put("orgId", orgId);
 			map.put("gpsname", gpsname);
-			map.put("typeId", typeId); 
+			//map.put("typeId", typeId);
 
-			int total = gpsService.loadVMCount(map);
+			if (typeId != null&& typeId !="") {
+				String[] s = {};
+				s = typeId.split(",");
+				int[] ids = new int[s.length];
+				for (int i = 0; i < s.length; i++) { 
+					ids[i] = Integer.parseInt(String.valueOf(s[i]));
+				}
+				map.put("ids", ids);
+			}
+
+			//int total = gpsService.loadVMCount(map);
 			list = gpsService.loadVMList(map);
-
+			int total = list.size();
 			ListResult<GpsVM> rs = new ListResult<GpsVM>(total, list);
 
 			String result = JSONObject.fromObject(rs).toString();

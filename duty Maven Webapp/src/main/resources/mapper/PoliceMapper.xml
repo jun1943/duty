@@ -301,8 +301,13 @@
   		<if test ="name !=null">
   			and p.name like CONCAT('%','${name}','%' )  
   		</if>
-  		<if test ="typeid >0">
-  			and pt.id = #{typeid,jdbcType=INTEGER}
+  		<if test ="ids !=null">
+  			and pt.id  in
+
+				<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+ 				
   		</if>
   		 
   		 <if test="pageStart !=null">
@@ -329,8 +334,13 @@
   		<if test ="name !=null">
   			and p.name like CONCAT('%','${name}','%' )  
   		</if>
-  		<if test ="typeid >0">
-  			and pt.id = #{typeid,jdbcType=INTEGER}
+  		<if test ="ids !=null">
+  			and pt.id  in
+
+				<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+ 				
   		</if>
   		 
   	 
@@ -341,7 +351,7 @@
   		 from t_police p 
   		 left join t_policetype pt on pt.id = p.type_id
   		 left join organ o on o.id  = p.org_id
-  		 <if test ="groupId !=null">
+  		 <if test ="gids !=null">
   		 	left join t_duty_police_group_member gm on gm.police_id = p.id
   		 	left join t_duty_police_group pg on pg.id = gm.group_id
   		 </if> 
@@ -354,11 +364,21 @@
   		<if test ="name !=null">
   			and p.name like CONCAT('%','${name}','%' )  
   		</if>
-  		<if test ="typeId >0">
-  			and p.type_id = #{typeId,jdbcType=INTEGER}
+  		<if test ="ids !=null">
+  			and p.type_id in
+
+				<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+ 				
   		</if>
-  		<if test ="groupId !=null">
-  			and pg.id = #{groupId,jdbcType=INTEGER}
+  		<if test ="gids !=null">
+  			and pg.id  in
+
+				<foreach item="gitem" index="index" collection="gids" open="(" separator="," close=")">  
+  					#{gitem}  
+ 				</foreach>
+ 				
   		</if> 
   </select>
 </mapper>

@@ -15,6 +15,7 @@ import com.tianyi.drs.duty.model.DutyType;
 import com.tianyi.drs.duty.model.DutyTypePropertyRelate;
 import com.tianyi.drs.duty.service.DutyTypeService;
 import com.tianyi.drs.duty.util.TreeHelper;
+import com.tianyi.drs.duty.viewmodel.DutyItemCountVM;
 import com.tianyi.drs.duty.viewmodel.DutyTypePropertyVM;
 import com.tianyi.drs.duty.viewmodel.DutyTypeVM;
 
@@ -123,6 +124,16 @@ public class DutyTypeServiceImpl implements DutyTypeService {
 			return true;
 		}
 		
+	}
+ 
+
+	public List<DutyType> loadDutyType(Map<String, Object> map) {
+		return dutyTypeMapper.loadDutyType(map);
+	}
+
+	public List<DutyItemCountVM> loadDutyItemCount(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return dutyTypeMapper.loadDutyItemCount(map);
 	}
  
 	

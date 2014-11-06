@@ -1,6 +1,5 @@
 package com.tianyi.drs.duty.controller;
-
-import java.util.Date;
+ 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,8 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import net.sf.json.JSONObject;
-import net.sf.json.JsonConfig;
+import net.sf.json.JSONObject; 
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -17,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tianyi.drs.duty.service.DutyService;
-import com.tianyi.drs.duty.util.DateJsonValueProcessor;
-import com.tianyi.drs.duty.viewmodel.DutyItemVM;
-import com.tianyi.drs.duty.viewmodel.DutyTypePropertyVM;
+import com.tianyi.drs.duty.service.DutyService; 
+import com.tianyi.drs.duty.viewmodel.DutyItemVM; 
 import com.tianyi.drs.duty.viewmodel.DutyVM;
 import com.tianyi.drs.duty.viewmodel.ListResult;
 import com.tianyi.drs.duty.viewmodel.ObjResult;

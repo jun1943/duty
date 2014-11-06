@@ -268,4 +268,274 @@
     where is_template=1 and org_id = #{orgId,jdbcType=INTEGER}
   </select>
   
+  
+    <select id="loadTotalPolice"   parameterType="java.util.Map"  resultType="com.tianyi.drs.duty.viewmodel.DutyItemCountVM">
+  		select concat(cast((select count(di.id) from t_duty_item   di 
+			left join t_duty         d on di.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where (o.id = #{orgId,jdbcType=INTEGER} or o.path like CONCAT("%","/",#{orgCode,jdbcType=VARCHAR},"%")) 
+			
+			<if test="beginTime >0 " >
+				 and d.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			) as char(5)),  '/', cast(
+			(select count(t.percount) from (select  count(o.id) as percount from organ as o 
+				left join t_duty d on o.id = d.org_id
+				left join t_duty_item di on di.duty_id = d.id
+			where o.path like CONCAT("%","/",#{orgCode,jdbcType=VARCHAR},"%")
+				group by o.name) as t
+			 
+			) as char(5))) as orgName ,
+
+		(select count(di.id) from t_duty_item as di 
+			left join t_duty         d on di.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER} 
+						
+			<if test="beginTime >0 " >
+				 and d.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			 and di.duty_type_id in (
+				select st.id from t_duty_type as st  where st.name like CONCAT("%","领导","%"))
+				and di.item_type_id = 2 ) as shiftLeaderCount,
+
+		(select count(di.id) from t_duty_item as di  
+			left join t_duty         d on di.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}
+			
+			<if test="beginTime >0 " >
+				 and d.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  di.item_type_id = 2 ) as chiefLeaderCount,
+
+		(select count(di.id) from t_duty_item as di 
+			left join t_duty         d on di.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}
+			
+			<if test="beginTime >0 " >
+				 and d.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			 and  di.item_type_id = 2 ) as dutypoliceCount,
+
+		(select count(t.id) from t_duty_item as t  
+			left join t_duty         d on t.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}  
+			
+			<if test="beginTime >0 " >
+				 and d.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t.item_type_id = 1 ) as vehicleCount,
+
+		(select count(t.id) from t_duty_item as t 
+			left join t_duty         d on t.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}  
+			
+			<if test="beginTime >0 " >
+				 and d.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t.item_type_id = 3 ) as weaponCount,
+
+		(select count(t.id) from t_duty_item as t  
+			left join t_duty         d on t.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}  
+			
+			<if test="beginTime >0 " >
+				 and d.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t.item_type_id = 3 ) as unitdutyCount,
+
+		(select count(t.id) from t_duty_item as t  
+			left join t_duty         d on t.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}  
+			
+			<if test="beginTime >0 " >
+				 and d.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t.item_type_id = 3 ) as illuminatesCount,
+
+		(select count(t.id) from t_duty_item as t 
+			left join t_duty         d on t.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}  
+			
+			<if test="beginTime >0 " >
+				 and d.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t.item_type_id = 3 ) as patrolpoliceCount,
+
+		(select count(t.id) from t_duty_item as t  
+			left join t_duty         d on t.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}  
+			
+			<if test="beginTime >0 " >
+				 and d.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t.item_type_id = 3 ) as checkpointpoliceCount,
+
+		(select count(t.id) from t_duty_item as t 
+			left join t_duty         d on t.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+		where o.id = #{orgId,jdbcType=INTEGER}  
+			
+			<if test="beginTime >0 " >
+				 and d.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t.item_type_id = 3 ) as patrolareaPoliceCount
+  </select>
+  
+  <select id="loadTotalPolicedetail"    parameterType="java.util.Map"  resultType="com.tianyi.drs.duty.viewmodel.DutyItemCountVM">
+  select  o.short_name  as orgName ,
+		(select count(di1.id) from t_duty_item as di1 
+			left join t_duty         d1 on di1.duty_id = d1.id
+			left join organ          o1 on o1.id = d1.org_id
+
+			where o1.id = o.id  
+			
+			<if test="beginTime >0 " >
+				 and d1.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and di1.duty_type_id in (
+			select st1.id from t_duty_type as st1  where st1.name like CONCAT("%","领导","%"))
+			and di1.item_type_id = 2 )  as shiftLeaderCount,
+
+		(select count(di2.id) from t_duty_item as di2  
+			left join t_duty         d2 on di2.duty_id = d2.id
+			left join organ          o2 on o2.id = d2.org_id
+
+			where o2.id = o.id 
+			
+			<if test="beginTime >0 " >
+				 and d2.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  di2.item_type_id = 2 ) as chiefLeaderCount,
+
+		(select count(di3.id) from t_duty_item as di3 
+			left join t_duty         d3 on di3.duty_id = d3.id
+			left join organ          o3 on o3.id = d3.org_id
+
+			where o3.id = o.id  
+			
+			<if test="beginTime >0 " >
+				 and d3.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  di3.item_type_id = 2 ) as dutypoliceCount,
+
+		(select count(t4.id) from t_duty_item as t4  
+			left join t_duty         d4 on t4.duty_id = d4.id
+			left join organ          o4 on o4.id = d4.org_id
+
+			where o4.id = o.id  
+			
+			<if test="beginTime >0 " >
+				 and d4.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t4.item_type_id = 1 ) as vehicleCount,
+
+		(select count(t5.id) from t_duty_item as t5 
+			left join t_duty         d5 on t5.duty_id = d5.id
+			left join organ          o5 on o5.id = d5.org_id
+
+			where o5.id = o.id  
+			
+			<if test="beginTime >0 " >
+				 and d5.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t5.item_type_id = 3 ) as weaponCount,
+
+		(select count(t6.id) from t_duty_item as t6 
+			left join t_duty         d6 on t6.duty_id = d6.id
+			left join organ          o6 on o6.id = d6.org_id
+
+			where o6.id = o.id  
+			
+			<if test="beginTime >0 " >
+				 and d6.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t6.item_type_id = 3 ) as unitdutyCount,
+
+		(select count(t7.id) from t_duty_item as t7  
+			left join t_duty         d7 on t7.duty_id = d7.id
+			left join organ          o7 on o7.id = d7.org_id
+
+			where o7.id = o.id  
+			
+			<if test="beginTime >0 " >
+				 and d7.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t7.item_type_id = 3 ) as illuminatesCount,
+
+		(select count(t8.id) from t_duty_item as t8 
+			left join t_duty         d8 on t8.duty_id = d8.id
+			left join organ          o8 on o8.id = d8.org_id
+
+			where o8.id = o.id  
+			
+			<if test="beginTime >0 " >
+				 and d8.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t8.item_type_id = 3 ) as patrolpoliceCount,
+
+		(select count(t9.id) from t_duty_item as t9  
+			left join t_duty         d9 on t9.duty_id = d9.id
+			left join organ          o9 on o9.id = d9.org_id
+
+			where o9.id = o.id  
+			
+			<if test="beginTime >0 " >
+				 and d9.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t9.item_type_id = 3 ) as checkpointpoliceCount,
+
+		(select count(t11.id) from t_duty_item as t11 
+			left join t_duty         d11 on t11.duty_id = d11.id
+			left join organ          o11 on o11.id = d11.org_id
+ 
+			where o11.id = o.id  
+			
+			<if test="beginTime >0 " >
+				 and d11.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t11.item_type_id = 3 ) as patrolareaPoliceCount
+				
+	 from organ as o 
+		where o.path like CONCAT("%","/",#{orgCode,jdbcType=VARCHAR},"%")
+    </select>
 </mapper>

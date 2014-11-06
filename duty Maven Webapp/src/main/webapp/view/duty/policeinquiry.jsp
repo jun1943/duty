@@ -33,7 +33,7 @@
                     <label>结束时间:</label>
                     <input id="dteEndTime" class="easyui-datebox" style="width:120px" />
                     <a id="searchpoliceQueryAction" name="searchpoliceQueryAction" href="javascript:void(0);" class="easyui-linkbutton"
-                    iconcls="icon-search" onclick="searchQueryAction()" plain="true"></a>
+                    iconcls="icon-search" onclick="loadTotalPolice()" plain="true"></a>
 				</p>
 			</div>
 			<div id="div_totalPoliceInfo">

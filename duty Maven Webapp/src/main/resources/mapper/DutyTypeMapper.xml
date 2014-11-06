@@ -56,7 +56,7 @@
     	<id column="prop_id" property="id" jdbcType="INTEGER" />
     	<result column="prop_name" property="name" jdbcType="VARCHAR" />
   	</resultMap>
-  
+   
   
   <sql id="Base_Column_List" >
     id, name, parent_id, level, is_leaf, fullpath, is_showname, max_police, attire_type, 
@@ -303,4 +303,32 @@
   </select>
     
   
+  <select id="loadDutyType"  parameterType="java.util.Map"  resultMap="BaseResultMap">
+  		select distinct
+  			dt.* 
+  		from 
+  			t_duty_item as di
+  			left join drs.t_duty d on di.duty_id = d.id
+			left join drs.t_duty_type dt on dt.id = di.duty_type_id
+			
+  		where d.org_id = #{orgId,jdbcType=INTEGER}
+  			  and d.ymd = #{ymd,jdbcType=INTEGER}
+			 
+  </select>
+  
+    <select id="loadDutyItemCount"  parameterType="java.util.Map"  resultType="com.tianyi.drs.duty.viewmodel.DutyItemCountVM">
+  		select count(di.item_type_id) as orgName ,dit.name as itemTypeName
+  		
+  		from drs.t_duty_item di
+  		
+  		left join drs.t_duty d on di.duty_id = d.id
+		left join drs.t_duty_type dt on dt.id = di.duty_type_id
+		left join drs.t_duty_item_type dit on dit.type_id = di.item_type_id
+			
+  		where d.org_id = #{orgId,jdbcType=INTEGER}
+  			  and d.ymd = #{ymd,jdbcType=INTEGER}
+  			  
+  			  group by di.item_type_id
+			 
+  </select>
 </mapper>

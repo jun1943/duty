@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.tianyi.drs.duty.dao.core.MyBatisRepository;
 import com.tianyi.drs.duty.model.Duty;
+import com.tianyi.drs.duty.viewmodel.DutyItemCountVM;
 import com.tianyi.drs.duty.viewmodel.DutyVM;
 @MyBatisRepository
 public interface DutyMapper {
@@ -23,4 +24,8 @@ public interface DutyMapper {
     List<DutyVM> loadDutyVMList(Map<String,Object> map);
     
     List<DutyVM> loadTemplatesWithOutItem(Integer orgId);
+
+	List<DutyItemCountVM> loadTotalPolice(Map<String, Object> map);
+
+	List<DutyItemCountVM> loadTotalPolicedetail(Map<String, Object> map);
 }

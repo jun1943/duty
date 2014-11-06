@@ -271,8 +271,13 @@
   			<if test="number != null ">
   				and v.number  like CONCAT("%",#{number,jdbcType=VARCHAR},"%")
   			</if>
-  			<if test="typeId != null ">
-  				and v.vehicle_type_id = #{typeId,jdbcType=VARCHAR}
+  			<if test="ids !=null ">
+  				and v.vehicle_type_id in 
+
+				<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+ 				
   			</if>
   			order by id
   			<if test="pageStart != null">
@@ -297,8 +302,14 @@
   		</if>
   		)
   	
-  			<if test="typeId != null ">
-  				and v.vehicle_type_id = #{typeId,jdbcType=VARCHAR}
+  			<if test="ids !=null ">
+  				
+  				and v.vehicle_type_id in 
+
+				<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+ 				
   			</if>
   		<if test="number != null ">
   			and v.number  like CONCAT("%",#{number,jdbcType=VARCHAR},"%")

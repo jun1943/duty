@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tianyi.drs.duty.dao.DutyItemMapper;
 import com.tianyi.drs.duty.dao.DutyMapper;
 import com.tianyi.drs.duty.service.DutyService;
+import com.tianyi.drs.duty.viewmodel.DutyItemCountVM;
 import com.tianyi.drs.duty.viewmodel.DutyItemVM;
 import com.tianyi.drs.duty.viewmodel.DutyVM;
 
@@ -124,5 +125,15 @@ public class DutyServiceImpl implements DutyService{
 				saveItem(civm,ivm,vm);
 			}
 		}
+	}
+
+	public List<DutyItemCountVM> loadTotalPolice(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return dutyMapper.loadTotalPolice(map);
+	}
+
+	public List<DutyItemCountVM> loadTotalPolicedetail(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return dutyMapper.loadTotalPolicedetail(map);
 	}
 }
