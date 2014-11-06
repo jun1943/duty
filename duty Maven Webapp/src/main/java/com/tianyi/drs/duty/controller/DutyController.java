@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
+import com.tianyi.drs.duty.model.Duty;
 import com.tianyi.drs.duty.service.DutyService; 
 import com.tianyi.drs.duty.viewmodel.DutyItemVM; 
 import com.tianyi.drs.duty.viewmodel.DutyVM;
@@ -96,9 +97,9 @@ public class DutyController {
 			HttpServletRequest request
 			){
 		
-		List<DutyVM> dvms=dutyService.loadTemplatesWithOutItem(orgId);
+		List<Duty> dvms=dutyService.loadTemplatesWithOutItem(orgId);
 		
-		ListResult<DutyVM> rs=new ListResult<DutyVM>(dvms.size(),dvms,true);
+		ListResult<Duty> rs=new ListResult<Duty>(dvms.size(),dvms,true);
 		
 		return rs.toJson();
 	}

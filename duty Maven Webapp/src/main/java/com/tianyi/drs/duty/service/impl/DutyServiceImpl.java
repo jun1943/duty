@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tianyi.drs.duty.dao.DutyItemMapper;
 import com.tianyi.drs.duty.dao.DutyMapper;
+import com.tianyi.drs.duty.model.Duty;
 import com.tianyi.drs.duty.service.DutyService;
 import com.tianyi.drs.duty.viewmodel.DutyItemCountVM;
 import com.tianyi.drs.duty.viewmodel.DutyItemVM;
@@ -37,6 +38,7 @@ public class DutyServiceImpl implements DutyService{
 		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("orgId", orgId);
 		map.put("ymd", ymd);
+		map.put("isTemplate", false);
 		List<DutyVM> dvms=loadVMList(map);
 		
 		DutyVM dvm=null;
@@ -67,9 +69,9 @@ public class DutyServiceImpl implements DutyService{
 		
 	}
 
-	public List<DutyVM> loadTemplatesWithOutItem(Integer orgId) {
-		
-		return null;
+	public List<Duty> loadTemplatesWithOutItem(Integer orgId) {
+		List<Duty> vms=  dutyMapper.loadTemplatesWithOutItem(orgId);
+		return vms;
 	}
 
 	@Transactional

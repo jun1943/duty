@@ -23,7 +23,7 @@ public interface DutyMapper {
     
     List<DutyVM> loadDutyVMList(Map<String,Object> map);
     
-    List<DutyVM> loadTemplatesWithOutItem(Integer orgId);
+    List<Duty> loadTemplatesWithOutItem(Integer orgId);
 
 	List<DutyItemCountVM> loadTotalPolice(Map<String, Object> map);
 

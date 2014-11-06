@@ -34,9 +34,9 @@
 						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
 						plain="true"	onclick="delPoliceGroup()">清空报备</a>
 						<a  href="javascript:void(0);"	class="easyui-linkbutton icon-camera-retro" 
-						plain="true"	onclick="save()">保存</a>
+						plain="true"	onclick="saveDuty()">保存</a>
 						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
-						plain="true" onclick="editPoliceGroup()">另存为模板</a>
+						plain="true" onclick="saveTemplate()">另存为模板</a>
 						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
 						plain="true"	onclick="onTest()">导出</a>
 					</div>
@@ -317,5 +317,29 @@
 		</div>
 	</div>
 	 
+	<div id="templateWindows"  class="easyui-window" title="自定义编组"  data-options="iconCls:'icon-save',modal:true" closed="true" 
+	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" style="width: 300px; height:100px; padding: 2px;">
+			<div class="easyui-layout" data-options="fit:true">
+			<div data-options="region:'north',border:false"
+					style="padding: 2px; height: 30px;"> 
+					<a href="javascript:void(0);" class="easyui-linkbutton" 
+						data-options="iconCls:'icon-save',plain:true"
+						onclick="templateNameConfirm()">确定</a>  
+					 <a href="javascript:void(0);" 
+						class="easyui-linkbutton"
+						onclick="$('#templateWindows').window('close');"
+						data-options="iconCls:'icon-remove',plain:true">取消</a>
+			</div>
+			<div data-options="region:'center',border:false"
+					style="padding: 2px">
+					<table style="width:100%">
+						<tr>
+							<td style="text-align:right"><lable>模板名称:</lable></td>
+							<td><input id="txtTemplateName" type="text"	class="easyui-validatebox"></input></td>
+						</tr>
+					</table>
+			</div>
+		</div>
+	</div>
 	 
 </body>
