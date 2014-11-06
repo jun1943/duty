@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianyi.drs.duty.model.DutyType;
+import com.tianyi.drs.duty.model.Org;
 import com.tianyi.drs.duty.service.DutyService;
 import com.tianyi.drs.duty.service.DutyTypeService;
+import com.tianyi.drs.duty.service.OrgService;
 import com.tianyi.drs.duty.viewmodel.DutyItemCountVM;
 import com.tianyi.drs.duty.viewmodel.DutyVM;
 import com.tianyi.drs.duty.viewmodel.ListResult;
@@ -35,6 +37,9 @@ public class DutyCalendarController {
 	@Resource(name = "dutyTypeService")
 	protected DutyTypeService dutyTypeService;
 
+	@Resource(name = "orgService")
+	protected OrgService orgService;
+	  
 	@RequestMapping(value = "getCalender.do")
 	public @ResponseBody
 	String getCalender(
@@ -185,16 +190,57 @@ public class DutyCalendarController {
 			HttpServletRequest request
 			){
 		Map<String, Object> map = new HashMap<String, Object>();
+		int bTime = 0;
+		int eTime = 0;
+		if(beginTime != null && !beginTime.equals("")){
+			beginTime = beginTime.replace("-", "");
+			bTime = Integer.parseInt(beginTime);
+		}
+		if(endTime != null && !endTime.equals("")){
+			endTime = endTime.replace("-", "");
+			eTime = Integer.parseInt(endTime);
+		}
 		map.put("orgId", orgId);
 		map.put("orgPath", orgPath);
 		map.put("orgCode", orgCode);
-		map.put("beginTime", beginTime);
-		map.put("endTime", endTime);
+		map.put("beginTime", bTime);
+		map.put("endTime", eTime);
 		List<DutyItemCountVM> dicvms=dutyService.loadTotalPolice(map);
 		
 		ListResult<DutyItemCountVM> rs=new ListResult<DutyItemCountVM>(dicvms.size(),dicvms,true);
 		
 		return rs.toJson();
 	}
-	
+	@RequestMapping(value = "getTotalPolicedetail.do")
+	public @ResponseBody String getTotalPolicedetail(
+			@RequestParam(value = "orgId", required = false) Integer orgId,
+			@RequestParam(value = "orgPath", required = false) String orgPath,
+			@RequestParam(value = "orgCode", required = false) String orgCode,
+			@RequestParam(value = "beginTime", required = false) String beginTime,
+			@RequestParam(value = "endTime", required = false) String endTime,
+			HttpServletRequest request
+			){
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		int bTime = 0;
+		int eTime = 0;
+		if(beginTime != null && !beginTime.equals("")){
+			beginTime = beginTime.replace("-", "");
+			bTime = Integer.parseInt(beginTime);
+		}
+		if(endTime != null && !endTime.equals("")){
+			endTime = endTime.replace("-", "");
+			eTime = Integer.parseInt(endTime);
+		}
+		map.put("orgId", orgId);
+		map.put("orgPath", orgPath);
+		map.put("orgCode", orgCode);
+		map.put("beginTime", bTime);
+		map.put("endTime", eTime);
+		List<DutyItemCountVM> dicvms=dutyService.loadTotalPolicedetail(map);
+		
+		ListResult<DutyItemCountVM> rs=new ListResult<DutyItemCountVM>(dicvms.size(),dicvms,true);
+		
+		return rs.toJson();
+	}
 }

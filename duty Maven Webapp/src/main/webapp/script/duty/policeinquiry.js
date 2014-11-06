@@ -52,12 +52,12 @@ $(function() {
 	        ]] 
 	    });
 	 loadTotalPolice();
-	 loadPoliceInfodetail();
+	 loadTotalPolicedetail();
 });
 
 function loadTotalPolice(){
-	var beginTime ="";
-	var endTime ="";
+	var beginTime =$("#dteBeginTime").datebox("getValue");
+	var endTime =$("#dteEndTime").datebox("getValue");
 	
 	 $.ajax({
 	        url: "dutyCalendar/getTotalPolice.do?orgId=" + m_policeQuery_Org.id + "&orgCode=" + m_policeQuery_Org.code+"&orgPath=" + m_policeQuery_Org.path+"&beginTime="+beginTime+"&endTime="+endTime,
@@ -73,14 +73,29 @@ function loadTotalPolice(){
 	        }
 	    });
 };
-function loadPoliceInfodetail(){
+function loadTotalPolicedetail(){
+	var beginTime =$("#dteBeginTime").datebox("getValue");
+	var endTime =$("#dteEndTime").datebox("getValue");
 	 $.ajax({
-	        url: "",
+	        url: "dutyCalendar/getTotalPolicedetail.do?orgId=" + m_policeQuery_Org.id + "&orgCode=" + m_policeQuery_Org.code+"&orgPath=" + m_policeQuery_Org.path+"&beginTime="+beginTime+"&endTime="+endTime,
 	        type: "POST",
-	        dataType: "json",
-	        data:{},
+	        dataType: "json", 
 	        success: function (req) {
-	           //获取数据成功，加载datagrid数据
+	        	if(req.isSuccess){
+	        		$('#dtPolicedetails').datagrid("loadData",req.rows);
+	        	}else
+        		{
+	        		alert("获取数据失败");
+        		}
 	        }
 	    });
-};
+}; 
+
+
+
+
+
+
+
+
+

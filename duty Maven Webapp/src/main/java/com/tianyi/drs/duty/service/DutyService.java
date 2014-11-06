@@ -18,4 +18,6 @@ public interface DutyService {
 	void save(DutyVM vm);
 
 	List<DutyItemCountVM> loadTotalPolice(Map<String, Object> map);
+
+	List<DutyItemCountVM> loadTotalPolicedetail(Map<String, Object> map);
 }

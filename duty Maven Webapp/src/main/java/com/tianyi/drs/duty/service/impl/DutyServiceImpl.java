@@ -128,4 +128,9 @@ public class DutyServiceImpl implements DutyService{
 		// TODO Auto-generated method stub
 		return dutyMapper.loadTotalPolice(map);
 	}
+
+	public List<DutyItemCountVM> loadTotalPolicedetail(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return dutyMapper.loadTotalPolicedetail(map);
+	}
 }
