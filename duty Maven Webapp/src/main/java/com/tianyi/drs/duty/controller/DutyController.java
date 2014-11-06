@@ -7,13 +7,16 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.ezmorph.object.DateMorpher;
 import net.sf.json.JSONObject; 
+import net.sf.json.util.JSONUtils;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import com.tianyi.drs.duty.service.DutyService; 
 import com.tianyi.drs.duty.viewmodel.DutyItemVM; 
@@ -40,15 +43,6 @@ public class DutyController {
 		return null;
 	}
 	
-	@RequestMapping(value = "loadDutyDesc.do")
-	public @ResponseBody String loadDutyDesc(
-			@RequestParam(value = "id", required = false) Integer id,
-			HttpServletRequest request
-			){
-		
-			return null;
-	}
-
 	@RequestMapping(value = "loadDutyByOrgIdAndYMD.do")
 	public @ResponseBody String loadDutyByOrgIdAndYMD(
 			@RequestParam(value = "orgId", required = false) Integer orgId,
@@ -56,10 +50,7 @@ public class DutyController {
 			HttpServletRequest request
 			){
 		
-		/*
-		 * JSONUtils.getMorpherRegistry().registerMorpher(
-          new DateMorpher(new String[] { "yyyy-MM-dd HH:mm" }));
-		 */
+
 		
 		DutyVM dvm=dutyService.loadVMByOrgIdAndYmd(orgId, ymd);
 	
@@ -78,12 +69,20 @@ public class DutyController {
 		
 		JSONObject jobj=JSONObject.fromObject(dvm);
 
+//		jobj.remove("beginTime");
+//		jobj.remove("endTime2");
+		
+		JSONUtils.getMorpherRegistry().registerMorpher(  new DateMorpher(new String[] { "yyyy-MM-dd HH:mm" }));
+		
 		Map<String, Class<?>> classMap = new HashMap<String, Class<?>>();
 
 		classMap.put("items", DutyItemVM.class);
 		classMap.put("children", DutyItemVM.class);
-		DutyVM d=(DutyVM)JSONObject.toBean(jobj, DutyVM.class,classMap);
 		
+		
+		
+		DutyVM d=(DutyVM)JSONObject.toBean(jobj, DutyVM.class,classMap);
+		d.getItems().get(0).getChildren().get(0).getBeginTime();
 		dutyService.save(d);
 		
 		ObjResult<DutyVM> rs=new ObjResult<DutyVM>(true,null,d.getId(),null);//暂时不

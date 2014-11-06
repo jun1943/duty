@@ -141,39 +141,32 @@ Date.prototype.dateDiff = function(interval,objDate){
 /**
  * 返回日期是否相差天数，忽略时，分，秒
  */
-Date.protoype.dateDiffOfDay=function(endDate){
+Date.prototype.dateDiffOfDay=function(endDate){
 	var dtBegin=new Date(this.getFullYear(),this.getMonth(),this.getDate());
 	var dtEnd=new Date(endDate.getFullYear(),endDate.getMonth(),endDate.getDate());
 	return dtBegin.dateDiff('d',dtEnd);
 };
 
-Date.protoype.add=function(interval,number){
+Date.prototype.add=function(interval,number){
 	 switch(interval.toLowerCase()){  
-     case "y": return new Date(this.setFullYear(date.getFullYear()+number));  
-     case "m": return new Date(this.setMonth(date.getMonth()+number));  
-     case "d": return new Date(this.setDate(date.getDate()+number));  
-     case "w": return new Date(this.setDate(date.getDate()+7*number));  
-     case "h": return new Date(this.setHours(date.getHours()+number));  
-     case "n": return new Date(this.setMinutes(date.getMinutes()+number));  
-     case "s": return new Date(this.setSeconds(date.getSeconds()+number));  
-     case "l": return new Date(this.setMilliseconds(date.getMilliseconds()+number));  
-	 }  
+     case "y": return new Date(this.setFullYear(this.getFullYear()+number));  
+     case "m": return new Date(this.setMonth(this.getMonth()+number));  
+     case "d": return new Date(this.setDate(this.getDate()+number));  
+     case "w": return new Date(this.setDate(this.getDate()+7*number));  
+     case "h": return new Date(this.setHours(this.getHours()+number));  
+     case "n": return new Date(this.setMinutes(this.getMinutes()+number));  
+     case "s": return new Date(this.setSeconds(this.getSeconds()+number));  
+     case "l": return new Date(this.setMilliseconds(this.getMilliseconds()+number));  
+	 } 
 };
 
-Date.prototype.format = function (fmt) { //author: meizz 
-    var o = {
-        "M+": this.getMonth() + 1, //月份 
-        "d+": this.getDate(), //日 
-        "h+": this.getHours(), //小时 
-        "m+": this.getMinutes(), //分 
-        "s+": this.getSeconds(), //秒 
-        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
-        "S": this.getMilliseconds() //毫秒 
-    };
-    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-    for (var k in o)
-    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-    return fmt;
+Date.prototype.toSimpleString = function () { //author: meizz 
+	var y=this.getFullYear();
+	var m=this.getMonth()+1;
+	var d=this.getDate();
+	var hh=this.getHours();
+	var mm=this.getMinutes();
+    return y+ "-" +m+ "-" +d+" " +hh+":"+mm ;
 };
 
 function dateAdd(interval,number,date){  
