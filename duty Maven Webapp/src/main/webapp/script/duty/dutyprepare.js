@@ -315,10 +315,125 @@ $(document).ready(function() {
 		    required: true
 		});  
 	
-	//initResourceQueryTG();
+	initResourceQueryTG();
 	loadDutyType();
 	loadDuty();
 });
+
+
+function initResourceQueryTG() {
+	$('#dt_policeType').datagrid({
+		url : "police/getPoliceTypeList.do",
+		fitColumns : true,
+		pagination : false,
+		title : "人员类别",
+		columns : [ [ {
+			field : 'ck',
+			checkbox : true
+		}, {
+			title : 'Id',
+			field : 'id',
+			align : 'center',
+			width : 10,
+			hidden : true
+		}, {
+			title : '类型',
+			field : 'name',
+			align : 'center',
+			width : 150
+		} ] ]
+	});
+
+	$('#dt_groupType').datagrid(
+			{
+				url : 'policeGroup/getPoliceGrouplist.do?orgId='
+						+ m_dutyprepare_Org.id,
+				fitColumns : true,
+				pagination : false,
+				title : "人员分组",
+				columns : [ [ {
+					field : 'ck',
+					checkbox : true
+				}, {
+					title : 'Id',
+					field : 'id',
+					align : 'left',
+					width : 10,
+					hidden : true
+				}, {
+					title : '组名称',
+					field : 'name',
+					align : 'left',
+					width : 150
+				} ] ]
+			});
+
+	$('#dt_gpsType').datagrid({
+		url : 'gpsdevice/getGpsTypelist.do',
+		fitColumns : true,
+		pagination : false,
+		title : "定位设备类型",
+		columns : [ [ {
+			field : 'ck',
+			checkbox : true
+		}, {
+			title : 'Id',
+			field : 'id',
+			align : 'left',
+			width : 10,
+			hidden : true
+		}, {
+			title : '设备类型',
+			field : 'name',
+			align : 'left',
+			width : 150
+		} ] ]
+	});
+
+	$('#dt_weaponType').datagrid({
+		url : 'weapon/getWeaponTypelist.do',
+		fitColumns : true,
+		pagination : false,
+		title : "武器类型",
+		columns : [ [ {
+			field : 'ck',
+			checkbox : true
+		}, {
+			title : 'Id',
+			field : 'id',
+			align : 'left',
+			width : 10,
+			hidden : true
+		}, {
+			title : '武器类型',
+			field : 'name',
+			align : 'left',
+			width : 150
+		} ] ]
+	});
+
+	$('#dt_vehicleType').datagrid({
+		url : 'vehicle/getvehicleTypelist.do',
+		fitColumns : true,
+		pagination : false,
+		title : "车辆类型",
+		columns : [ [ {
+			field : 'ck',
+			checkbox : true
+		}, {
+			title : 'Id',
+			field : 'id',
+			align : 'left',
+			width : 10,
+			hidden : true
+		}, {
+			title : '车辆类型',
+			field : 'name',
+			align : 'left',
+			width : 150
+		} ] ]
+	});
+}
 
 function fmtDisplayTypeName(value, row, index) {
 	switch (row.itemTypeId) {
