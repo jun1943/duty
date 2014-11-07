@@ -80,8 +80,6 @@ public class DutyController {
 		classMap.put("items", DutyItemVM.class);
 		classMap.put("children", DutyItemVM.class);
 		
-		
-		
 		DutyVM d=(DutyVM)JSONObject.toBean(jobj, DutyVM.class,classMap);
 		d.getItems().get(0).getChildren().get(0).getBeginTime();
 		dutyService.save(d);
