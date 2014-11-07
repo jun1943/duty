@@ -49,6 +49,19 @@ public class DutyServiceImpl implements DutyService{
 		return dvm;
 	}
 	
+	public DutyVM loadById(Integer id){
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("id", id);
+		List<DutyVM> dvms=loadVMList(map);
+		
+		DutyVM dvm=null;
+		
+		if(dvms.size()>0){
+			dvm=dvms.get(0);
+		}
+		return dvm;
+	}
+	
 	private void itemToTreeOfList(List<DutyVM> dvms){
 		for(DutyVM dvm : dvms){
 			Map<Integer,DutyItemVM> map=new HashMap<Integer,DutyItemVM>();

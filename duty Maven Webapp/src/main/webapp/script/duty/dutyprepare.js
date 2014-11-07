@@ -84,7 +84,8 @@ $(document).ready(function() {
 				} ] ],
 				onLoadSuccess : function(row) {
 					$(this).treegrid('enableDnd', row ? row.id : null);
-				}
+				},
+				onBeforeDrop : doRejectDrop
 			});
 
 	$('#source_vehicle').treegrid(
@@ -131,7 +132,8 @@ $(document).ready(function() {
 				} ] ],
 				onLoadSuccess : function(row) {
 					$(this).treegrid('enableDnd', row ? row.id : null);
-				}
+				},
+				onBeforeDrop : doRejectDrop
 			});
 	$('#source_gpsdevice').treegrid(
 			{
@@ -177,7 +179,8 @@ $(document).ready(function() {
 				} ] ],
 				onLoadSuccess : function(row) {
 					$(this).treegrid('enableDnd', row ? row.id : null);
-				}
+				},
+				onBeforeDrop : doRejectDrop
 			});
 	$('#source_weapon').treegrid(
 			{
@@ -223,7 +226,8 @@ $(document).ready(function() {
 				} ] ],
 				onLoadSuccess : function(row) {
 					$(this).treegrid('enableDnd', row ? row.id : null);
-				}
+				},
+				onBeforeDrop : doRejectDrop
 			});
 
 	$('#dtDutyType').treegrid({
@@ -253,6 +257,7 @@ $(document).ready(function() {
 		treeField : 'displayName',
 		toolbar : '#tdDutyToolbar',
 		showFooter : true,
+		onDblClickRow:onSelRow,
 		columns : [ [ {
 			title : 'xid',
 			field : 'xid',
@@ -265,12 +270,12 @@ $(document).ready(function() {
 		}, {
 			title : '类型',
 			field : 'itemInnerTypeName',
-			align : 'center',
+			align : 'left',
 			width : 70
 		}, {
 			title : '时间区间',
 			field : 'beginTime',
-			align : 'center',
+			align : 'left',
 			width : 100,
 			formatter : fmtShiftPeriod
 		}, {
@@ -317,9 +322,9 @@ $(document).ready(function() {
 	
 	initResourceQueryTG();
 	loadDutyType();
-	loadDuty();
+	var pars={orgId:m_dutyprepare_Org.id,ymd:m_ymd.ymd};
+	loadDuty(pars);
 });
-
 
 function initResourceQueryTG() {
 	$('#dt_policeType').datagrid({
@@ -496,12 +501,12 @@ function loadDutyType() {
 /**
  * 从后台获取当前duty数据
  */
-function loadDuty() {
+function loadDuty(pars) {
 	$.ajax({
         url: "duty/loadDutyByOrgIdAndYMD.do",
         type: "POST",
         dataType: "json",
-        data:{'orgId':m_dutyprepare_Org.id,'ymd':m_ymd.ymd},
+        data:pars,
         async:false,
         success: function (req) {
             if (req.isSuccess) {//成功填充数据
@@ -515,8 +520,6 @@ function loadDuty() {
             	}
             	structureItemTree(duty.items);
             	m_duty=duty;
-            	//var x=$('#tdDuty').treegrid('options');
-            	//var a=$('#tdDuty').treegrid('idField');
                 $('#tdDuty').treegrid('loadData', duty.items);
             }
             else {
@@ -702,7 +705,7 @@ function SearchPoliceAction() {
 
 /** ************勤务报备模块业务逻辑**************** */
 // 勤务报备类型选择，根据选择类型，加载区域标签
-function selectDutyTemplate() {
+function showDutyTemplate() {
 	$('#dtDutyTemplate').datagrid({
 		url : "duty/loadTemplateByOrgId.do",
 		queryParams : {
@@ -714,13 +717,11 @@ function selectDutyTemplate() {
 		width : '90%',
 		height : '90%',
 		singleSelect : true,
+		onDblClickRow:selTemplate,
 		columns : [ [ {
-			field : 'ck',
-			checkbox : true
-		}, {
 			title : '模板名称',
 			field : 'name',
-			align : 'center',
+			align : 'left',
 			width : 100
 		}, {
 			title : 'Id',
@@ -733,6 +734,29 @@ function selectDutyTemplate() {
 	});
 	$('#dutyTemplateSelectwindow').window('open');
 };
+
+function showCalendar(){
+	$('#cc').calendar({
+		fit:true,
+		firstDay:1,
+		border:false,
+//		width:280,
+//		height:280,
+		current:new Date(),
+		onSelect: function(date){
+			var y=date.getFullYear();
+			var m=date.getMonth()+1;
+			var d=date.getDate();
+			var s=y.toString()+(m<10?'0'+m:m)+(d<10?'0'+d:d);
+			var pars={orgId:m_dutyprepare_Org.id,ymd:s};
+			loadDuty(pars);
+			$('#calendarWindow').window('close');
+		}
+	});
+
+	$('#calendarWindow').window('open');
+}
+
 function selectDutyType() {
 
 	$('#dutyTypeSelectwindow').window('open');
@@ -779,6 +803,8 @@ function addDutyTypeRow(value){
 	var duty={};
 	var shift={};
 	genDutyRow(value.id,value.name,100,value.typeId,value.name,duty);
+	shift.beginTime2=new Date(m_ymd.getYear(),m_ymd.getMonth(),m_ymd.getDay(),9,30);
+	shift.endTime2=new Date(m_ymd.getYear(),m_ymd.getMonth(),m_ymd.getDay(),16,30);
 	genDutyRow(null,"班次",101,null,"班次",shift);
 	$('#tdDuty').treegrid('append',
 			{
@@ -890,7 +916,7 @@ function genDutyRow(itemId, name, typeId, innerTypeId, innerTypeName, dutyRow) {
 	dutyRow.name = name;
 	dutyRow.itemTypeId = typeId;
 	dutyRow.itemId = itemId;
-	dutyRow.itemInnerTypeId = innerTypeId;
+	//dutyRow.itemInnerTypeId = innerTypeId;
 	dutyRow.itemInnerTypeName = innerTypeName;
 	dutyRow.displayName = genDisplayName(typeId, innerTypeName, name);
 	dutyRow.itemTypeName = genItemTypeName(typeId);
@@ -914,6 +940,16 @@ function doBeforeDrop(tRow, sRow, point) {
 	} else {
 		return true;
 	}
+}
+/**
+ * 资源树拒绝拖动
+ * @param tRow
+ * @param sRow
+ * @param point
+ * @returns {Boolean}
+ */
+function doRejectDrop(tRow, sRow, point){
+	return false;
 }
 
 function doDrop(tRow, sRow, point) {
@@ -986,6 +1022,7 @@ function genDisplayName(itemTypeId, iteminnerTypeName, name) {
 	}
 	return rs;
 }
+
 var dutyItemRelate = {
 	root : {
 		children : [ 100 /* 勤务类型 */
@@ -1057,20 +1094,48 @@ var dutyItemRelate = {
 	}
 };
 
+ function selectDutyTemplateAction(){
+	 var row=$('#dtDutyTemplate').treegrid('getSelected');
+	 if(row==null){
+		 $.messager.alert('提示', "请选择模板!", "warning");
+	 }else{
+		 var pars={id:row.id};
+		 loadDuty(pars);
+		 $('#dutyTemplateSelectwindow').window('close');
+	 }
+ }
+
+ function selTemplate(){
+	 selectDutyTemplateAction();
+ }
+ 
 function addUserNode() {
-	var row = $("#tdDuty").datagrid("getSelected");
+	var row = $("#tdDuty").treegrid("getSelected");
 	if (row == null) {
 		$.messager.alert('提示', "请选择父节点", "warning");
 	} else {
 		if (dutyItemRelate.check(row.itemTypeId, 999)) {
 			$('#txtUserNodeName').val('');
-			$('#UserNodeWindows').window('open');
 			m_userNode.targetRow = row;
 			m_userNode.editType = "new";
 			$('#userNodeWindows').window('open');
 		} else {
 			$.messager.alert('提示', "只能在班次，车辆下面自定义节点!", "warning");
 		}
+	}
+}
+
+function setUserNode(){
+	var row = $("#tdDuty").treegrid("getSelected");
+	if(row==null){
+		$.messager.alert('提示', "请选择编组!", "warning");
+	}else if(row.itemTypeId!=999){
+		$.messager.alert('提示', "请选择编组所在行!", "warning");
+	}else{
+		$('#txtUserNodeName').val(row.name);
+		m_userNode.targetRow = row;
+		m_userNode.editType = "edit";
+		$('#userNodeWindows').window('open');
 	}
 }
 /**
@@ -1100,7 +1165,7 @@ function userNodeConfirm() {
 }
 
 function addShift(){
-	var row = $("#tdDuty").datagrid("getSelected");
+	var row = $("#tdDuty").treegrid("getSelected");
 	if(row==null){
 		$.messager.alert('提示', "请选择父节点", "warning");
 	}else{
@@ -1120,11 +1185,12 @@ function addShift(){
 }
 
 function setShift(){
-	var row = $("#tdDuty").datagrid("getSelected");
+	var row = $("#tdDuty").treegrid("getSelected");
 	if(row==null){
 		$.messager.alert('提示', "请选择班次!", "warning");
+	}else  if(row.itemTypeId!=101){
+		$.messager.alert('提示', "请选择班次所在行!", "warning");
 	}else{
-
 		$('#txtShiftName').val(row.name);
 		$('#txtBeginTime').timespinner('setValue',row.beginTime2.getHours()+":" + row.beginTime2.getMinutes());
 		$('#txtEndTime').timespinner('setValue',row.endTime2.getHours()+":" + row.endTime2.getMinutes());
@@ -1137,6 +1203,44 @@ function setShift(){
 		m_shift.targetRow=row;
 		m_shift.editType="edit";
 		$('#shiftWindows').window('open');
+	}
+}
+
+function deleteNode(){
+	var row = $("#tdDuty").treegrid("getSelected");
+	if(row!=null){
+		if(row.children !=undefined && row.children !=null && row.children.length>0){
+			$.messager.confirm('操作提示', "确定要清空[ " + row.displayName + " ]及下级所有节点?",
+					function(r) {
+						if (r) {
+							$("#tdDuty").treegrid("remove",row.xid);
+							reCalcDuty();
+						}
+				});
+		}else{
+			$("#tdDuty").treegrid("remove",row.xid);
+			reCalcDuty();
+		}
+	}
+}
+
+
+/**
+ * 双击选择
+ * @param index
+ * @param row
+ */
+function onSelRow(index,row){
+	var row = $("#tdDuty").treegrid("getSelected");
+	if(row!=null){
+		switch(row.itemTypeId){
+		case 101:
+			setShift();
+			break;
+		case 999:
+			setUserNode();
+			break;
+		}
 	}
 }
 
@@ -1218,21 +1322,23 @@ function getMergeDate(ymd,dateStr){
  */
 function initDate(item){
 	
-	var b=new Date(item.beginTime);
-	var e=new Date(item.endTime);
-
-	var diffDay=b.dateDiffOfDay(e);
+	if(item.beginTime2 ==undefined || item.endTime2==undefined){
+		var b=new Date(item.beginTime);
+		var e=new Date(item.endTime);
 	
-	if(diffDay>1){
-		alert('date diff day is error !');
+		var diffDay=b.dateDiffOfDay(e);
+		
+		if(diffDay>1){
+			alert('date diff day is error !');
+		}
+		
+		b.setFullYear(m_ymd.getYear(), m_ymd.getMonth(), m_ymd.getDay());
+		e.setFullYear(m_ymd.getYear(), m_ymd.getMonth(), m_ymd.getDay());
+		e.add('d', diffDay);
+		
+		item.beginTime2=b;
+		item.endTime2=e;
 	}
-	
-	b.setFullYear(m_ymd.getYear(), m_ymd.getMonth(), m_ymd.getDay());
-	e.setFullYear(m_ymd.getYear(), m_ymd.getMonth(), m_ymd.getDay());
-	e.add('d', diffDay);
-	
-	item.beginTime2=b;
-	item.endTime2=e;
 }
 
 var YMD={
@@ -1268,3 +1374,5 @@ function templateNameConfirm(){
 	}
 	
 }
+
+
