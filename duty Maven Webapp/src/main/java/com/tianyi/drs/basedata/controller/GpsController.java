@@ -50,7 +50,7 @@ public class GpsController {
 			List<GpsVM> list = new ArrayList<GpsVM>();
 			Map<String, Object> map = new HashMap<String, Object>();
 
-			map.put("pageStart", (page - 1) * rows);
+			map.put("pageStart", (page - 1) * rows); 
 			map.put("pageSize", rows);
 			map.put("orgId", orgId);
 			map.put("isSubOrg", isSubOrg);
