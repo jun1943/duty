@@ -21,16 +21,16 @@
 
 </head>
 	
-<body class="easyui-layout" >
+<body class="easyui-layout" oncontextmenu=self.event.returnValue=false>
 		<div data-options="region:'north'"  style="height:30px">
 				<div id="tbGroup" class="btn-toolbar">
 					<div class="btn-group">
 						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
 						plain="true" onclick="selectDutyType()">报备类型选择</a> 
 						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
-						plain="true"	onclick="selectDutyTemplate()">选择模板</a>
+						plain="true"	onclick="showDutyTemplate()">选择模板</a>
 						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
-						plain="true"	onclick="delPoliceGroup()">报备复制</a>
+						plain="true"	onclick="showCalendar()">报备复制</a>
 						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
 						plain="true"	onclick="delPoliceGroup()">清空报备</a>
 						<a  href="javascript:void(0);"	class="easyui-linkbutton icon-camera-retro" 
@@ -198,7 +198,7 @@
 				</div>
 			</div>
 	</div>
-	<div id="dutyTypeSelectwindow" class="easyui-window" title="勤务报备类型选择" data-options="iconCls:'icon-edit'"
+	<div id="dutyTypeSelectwindow" class="easyui-window" title="报备类型-选择" data-options="iconCls:'icon-edit'"
 			style="width: 354px; height:500px; padding: 10px;">
 		<div class="easyui-layout" data-options="fit:true">
 			<div data-options="region:'north',border:false"
@@ -217,7 +217,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="dutyTemplateSelectwindow"  class="easyui-window" title="勤务报备模板选择" data-options="iconCls:'icon-edit'"
+	<div id="dutyTemplateSelectwindow"  class="easyui-window" title="备勤模板-选择" data-options="iconCls:'icon-edit'"
 			style="width: 354px; height:400px; padding: 10px;">
 			<div class="easyui-layout" data-options="fit:true">
 			<div data-options="region:'north',border:false"
@@ -266,7 +266,7 @@
 						onclick="userNodeConfirm()">确定</a>  
 					 <a href="javascript:void(0);" 
 						class="easyui-linkbutton"
-						onclick="$('#UserNodeWindows').window('close');"
+						onclick="$('#userNodeWindows').window('close');"
 						data-options="iconCls:'icon-remove',plain:true">取消</a>
 			</div>
 			<div data-options="region:'center',border:false"
@@ -317,7 +317,7 @@
 		</div>
 	</div>
 	 
-	<div id="templateWindows"  class="easyui-window" title="自定义编组"  data-options="iconCls:'icon-save',modal:true" closed="true" 
+	<div id="templateWindows"  class="easyui-window" title="备勤模板-保存"  data-options="iconCls:'icon-save',modal:true" closed="true" 
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" style="width: 300px; height:100px; padding: 2px;">
 			<div class="easyui-layout" data-options="fit:true">
 			<div data-options="region:'north',border:false"
@@ -339,6 +339,23 @@
 						</tr>
 					</table>
 			</div>
+		</div>
+	</div>
+	 
+	 <div id="calendarWindow"  class="easyui-window" title="备勤复制"  data-options="iconCls:'icon-save',modal:true" closed="true" 
+	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" style="width: 300px; height:300px; padding: 2px;">
+			<div class="easyui-layout" data-options="fit:true">
+				<div data-options="region:'north',border:false"
+					style="padding: 2px; height: 30px;"> 
+					 <a href="javascript:void(0);" 
+						class="easyui-linkbutton"
+						onclick="$('#calendarWindow').window('close');"
+						data-options="iconCls:'icon-remove',plain:true">取消</a>
+				</div>
+				<div data-options="region:'center',border:false"
+					style="padding: 2px">
+					<div id="cc"></div>
+				</div>
 		</div>
 	</div>
 	 

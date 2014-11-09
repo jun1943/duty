@@ -32,6 +32,7 @@ $(function () {
         treeField: 'name',
         toolbar: '#tbDutyType',
         singleSelect: true,
+        onDblClickRow:selDutyRow,
         columns: [[
                { title: 'id', field: 'id', align: 'left', width: 0, hidden: true },
                { title: '名称', field: 'name', align: 'left', width: 200 },
@@ -431,4 +432,7 @@ function saveDutyType(){
     });
 }
 
+function selDutyRow(){
+	editDutyType()
+}
 

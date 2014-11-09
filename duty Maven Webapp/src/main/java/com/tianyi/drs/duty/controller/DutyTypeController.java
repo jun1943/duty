@@ -24,6 +24,7 @@ import com.tianyi.drs.duty.model.Org;
 import com.tianyi.drs.duty.service.DutyTypeService;
 import com.tianyi.drs.duty.service.OrgService;
 import com.tianyi.drs.duty.service.PoliceGroupService;
+import com.tianyi.drs.duty.util.ResultMsg;
 import com.tianyi.drs.duty.viewmodel.DutyTypePropertyVM;
 import com.tianyi.drs.duty.viewmodel.DutyTypeVM;
 import com.tianyi.drs.duty.viewmodel.ListResult;
@@ -117,17 +118,14 @@ public class DutyTypeController {
 			@RequestParam(value = "id", required = false) String id,
 			HttpServletRequest request) {
 
-		Integer did = Integer.getInteger(id);
+		Integer did = Integer.valueOf(id);
 
-		String msg = "";
-		Boolean isSuccess = dutyTypeService.deleteNode(did, msg);
+		ResultMsg rm = dutyTypeService.deleteNode(did);
 
-		ObjResult<DutyTypeVM> rs = new ObjResult<DutyTypeVM>(isSuccess, msg, 0,
-				null);
+		ObjResult<DutyTypeVM> rs = new ObjResult<DutyTypeVM>(rm.getIsSuccess(), rm.getMessage(), 0,null);
 
 		String result = rs.toJson();
 		return result;
 	}
-
-
 }
+

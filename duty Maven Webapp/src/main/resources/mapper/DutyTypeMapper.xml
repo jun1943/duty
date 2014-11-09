@@ -295,11 +295,12 @@
   			</if>
   </update>
   
-  <select id="checkUsed" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  <select id="checkUsed" parameterType="java.lang.String" resultType="java.lang.Integer">
 		select 
 			count(*)
-		from  t_duty
-		where type_id =#{typeId,jdbcType=INTEGER}
+		from  t_duty_item as i 
+		left join t_duty_type as t on i.duty_type_id  = t.id
+		where t.fullpath=#{fullPath,jdbcType=VARCHAR} or t.fullpath like CONCAT(#{fullPath,jdbcType=VARCHAR},".%") 
   </select>
     
   

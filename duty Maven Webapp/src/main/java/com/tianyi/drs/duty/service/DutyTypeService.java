@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.tianyi.drs.duty.model.DutyType;
+import com.tianyi.drs.duty.util.ResultMsg;
 import com.tianyi.drs.duty.viewmodel.DutyItemCountVM;
 import com.tianyi.drs.duty.viewmodel.DutyTypePropertyVM;
 import com.tianyi.drs.duty.viewmodel.DutyTypeVM;
@@ -19,7 +20,7 @@ public interface DutyTypeService {
 	
 	void updateUseStateByFullPath(Integer id,Boolean isUsed);
 	
-	boolean deleteNode(Integer id,String msg);
+	ResultMsg deleteNode(Integer id);
  
 	List<DutyType> loadDutyType(Map<String, Object> map);
 

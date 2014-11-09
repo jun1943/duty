@@ -48,13 +48,17 @@ public class DutyController {
 	public @ResponseBody String loadDutyByOrgIdAndYMD(
 			@RequestParam(value = "orgId", required = false) Integer orgId,
 			@RequestParam(value = "ymd", required = false) Integer ymd,
+			@RequestParam(value = "id", required = false) Integer id,
 			HttpServletRequest request
 			){
+		DutyVM dvm=null;
 		
-
+		if(id==null){
+			dvm=dutyService.loadVMByOrgIdAndYmd(orgId, ymd);
+		}else{
+			dvm=dutyService.loadById(id);
+		}
 		
-		DutyVM dvm=dutyService.loadVMByOrgIdAndYmd(orgId, ymd);
-	
 		ObjResult<DutyVM> rs=new ObjResult<DutyVM>(true,null,dvm==null?0:dvm.getId(),dvm);
 		
 		String s=rs.toJson();
