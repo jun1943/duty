@@ -14,6 +14,7 @@ import com.tianyi.drs.duty.dao.DutyTypePropertyRelateMapper;
 import com.tianyi.drs.duty.model.DutyType;
 import com.tianyi.drs.duty.model.DutyTypePropertyRelate;
 import com.tianyi.drs.duty.service.DutyTypeService;
+import com.tianyi.drs.duty.util.ResultMsg;
 import com.tianyi.drs.duty.util.TreeHelper;
 import com.tianyi.drs.duty.viewmodel.DutyItemCountVM;
 import com.tianyi.drs.duty.viewmodel.DutyTypePropertyVM;
@@ -108,22 +109,25 @@ public class DutyTypeServiceImpl implements DutyTypeService {
 	}
 
 	@Transactional
-	public boolean deleteNode(Integer id,String msg) {
+	public ResultMsg deleteNode(Integer id) {
 		
-		int usedCount=dutyTypeMapper.checkUsed(id);
+		ResultMsg rm=null;
+		
 		DutyType dt=dutyTypeMapper.selectByPrimaryKey(id);
 		
+		int usedCount=dutyTypeMapper.checkUsed(dt.getFullpath());
+			
 		if(usedCount>0){
-			msg="勤务类型已经被使用，不能删除!";
-			return false;
+			rm=new ResultMsg(false,"勤务类型已经被使用，不能删除!");
+				
 		}else if(!dt.getIsLeaf()){
-			msg="只能删除末级节点!";
-			return false;
+			rm=new ResultMsg(false,"只能删除末级节点!");
 		}else{
 			dutyTypeMapper.deleteByPrimaryKey(id);
-			return true;
+			rm=new ResultMsg(false,null);
 		}
 		
+		return rm;
 	}
  
 

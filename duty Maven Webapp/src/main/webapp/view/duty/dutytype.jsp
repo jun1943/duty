@@ -21,7 +21,7 @@
 
 </head>
 	
-<body >
+<body oncontextmenu=self.event.returnValue=false>
 	<div id="tbDutyType" class="btn-toolbar">
 				<div class="btn-group">
 					<a href="javascript:void(0);"
@@ -50,7 +50,7 @@
 						class="easyui-linkbutton " plain="true"
 						onclick="saveDutyType()">保存</a> 
 					<a 	href="javascript:void(0);" class="easyui-linkbutton " plain="true"
-						onclick="closeWinDutyType()">退出</a>
+						onclick="$('#winDutyType').window('close');">退出</a>
 				</div>
 			</div>
 			<input type="hidden" id="txtDutyTypeId"></input>

@@ -30,9 +30,8 @@ public interface DutyTypeMapper {
 
     void updateUseStateByFullPath(Map<String,Object> map);
     
-    int checkUsed(Integer typeId);
+    int checkUsed(String fullPath);
  
-
 	List<DutyType> loadDutyType(Map<String, Object> map);
 
 	List<DutyItemCountVM> loadDutyItemCount(Map<String, Object> map);

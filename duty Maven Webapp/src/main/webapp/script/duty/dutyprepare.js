@@ -549,6 +549,8 @@ function structureItemTree(items) {
 }
 function structureItem(item, parent) {
 
+	//item.iconCls={"background":"url('icons/help.png') no-repeat center center"};
+	
 	item.getParent=function(){return parent;};
 	/*初始化数量等于0*/
 	item.velicleCount =0;
@@ -922,6 +924,9 @@ function genDutyRow(itemId, name, typeId, innerTypeId, innerTypeName, dutyRow) {
 	dutyRow.itemTypeName = genItemTypeName(typeId);
 }
 
+/**
+ * 拖动前业务检查
+ */
 function doBeforeDrop(tRow, sRow, point) {
 
 	var pTypeId = null;
@@ -938,9 +943,38 @@ function doBeforeDrop(tRow, sRow, point) {
 	if (!isSuccess) {
 		return false;
 	} else {
-		return true;
+		var shiftRow=findShiftRow(tRow);
+		var exists=existsResource(shiftRow,sRow);
+		if(exists){
+			var name = sRow.objType == 2 ? sRow.name : sRow.number;
+			$.messager.alert('提示',name + ' 在班次 ' + shiftRow.name +'中已经存在!', "warning");
+		}
+		return !exists;
 	}
 }
+
+function findShiftRow(tRow){
+	if(tRow.itemTypeId==101)
+		return tRow;
+	else
+		return findShiftRow(tRow.getParent());
+}
+
+function existsResource(p, row){
+	var exists=false;
+	if(p.itemTypeId==row.objType && p.itemId==row.id){
+		return true;
+	}else if(p.children!=null && p.children.length>0){
+		$.each(p.children,function(index,value){
+			exists=existsResource(value,row);
+			if(exists){
+				return false;
+			}
+		});
+	}
+	return exists;
+}
+
 /**
  * 资源树拒绝拖动
  * @param tRow
@@ -1155,6 +1189,7 @@ function userNodeConfirm() {
 				data : [ row ]
 			});
 			$('#tdDuty').treegrid('enableDnd', row.xid);
+			reCalcDuty();
 		} else {
 			m_userNode.targetRow.name = name;
 			m_userNode.targetRow.displayName = name;
@@ -1282,6 +1317,7 @@ function shiftConfirm(){
 			var tmp=$("#tdDuty").treegrid('getData');
 			
 			$("#tdDuty").treegrid('loadData',tmp);
+			reCalcDuty();
 		}
 		$('#shiftWindows').window('close');
 	}
