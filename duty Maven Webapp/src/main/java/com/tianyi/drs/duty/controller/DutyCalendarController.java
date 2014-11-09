@@ -17,13 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tianyi.drs.duty.model.DutyType;
-import com.tianyi.drs.duty.model.Org;
+import com.tianyi.drs.duty.model.DutyType; 
 import com.tianyi.drs.duty.service.DutyService;
 import com.tianyi.drs.duty.service.DutyTypeService;
 import com.tianyi.drs.duty.service.OrgService;
-import com.tianyi.drs.duty.viewmodel.DutyItemCountVM;
-import com.tianyi.drs.duty.viewmodel.DutyVM;
+import com.tianyi.drs.duty.viewmodel.DutyItemCountVM; 
 import com.tianyi.drs.duty.viewmodel.ListResult;
 
 @Scope("prototype")

@@ -1,7 +1,6 @@
 package com.tianyi.drs.duty.controller;
  
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.ArrayList; 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -27,8 +26,7 @@ import com.tianyi.drs.duty.service.PoliceGroupService;
 import com.tianyi.drs.duty.viewmodel.ObjResult;
 import com.tianyi.drs.duty.viewmodel.PoliceGroupMemberVM;
 import com.tianyi.drs.duty.viewmodel.PoliceGroupVM;  
-import com.tianyi.drs.duty.viewmodel.ListResult;
-import com.tianyi.drs.duty.viewmodel.OrgVM; 
+import com.tianyi.drs.duty.viewmodel.ListResult; 
 
 @Scope("prototype")
 @Controller

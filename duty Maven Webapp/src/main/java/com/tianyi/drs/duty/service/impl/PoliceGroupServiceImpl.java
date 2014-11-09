@@ -11,8 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tianyi.drs.duty.dao.PoliceGroupMapper;
 import com.tianyi.drs.duty.dao.PoliceGroupMemberMapper;
-import com.tianyi.drs.duty.dao.PoliceGroupOrgMapper;
-import com.tianyi.drs.duty.dao.core.MyBatisRepository;
+import com.tianyi.drs.duty.dao.PoliceGroupOrgMapper; 
 import com.tianyi.drs.duty.model.PoliceGroup;
 import com.tianyi.drs.duty.model.PoliceGroupMember;
 import com.tianyi.drs.duty.model.PoliceGroupOrg;

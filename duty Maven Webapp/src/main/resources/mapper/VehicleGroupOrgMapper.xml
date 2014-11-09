@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianyi.drs.duty.dao.VehicleGroupOrgMapper" >
+  <resultMap id="BaseResultMap" type="com.tianyi.drs.duty.model.VehicleGroupOrg" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="vehicle_group_id" property="vehicleGroupId" jdbcType="INTEGER" />
+    <result column="org_id" property="orgId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, vehicle_group_id, org_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_duty_vehicle_group_org
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_duty_vehicle_group_org
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tianyi.drs.duty.model.VehicleGroupOrg" >
+    insert into t_duty_vehicle_group_org (id, vehicle_group_id, org_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{vehicleGroupId,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.VehicleGroupOrg" >
+    insert into t_duty_vehicle_group_org
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="vehicleGroupId != null" >
+        vehicle_group_id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="vehicleGroupId != null" >
+        #{vehicleGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.duty.model.VehicleGroupOrg" >
+    update t_duty_vehicle_group_org
+    <set >
+      <if test="vehicleGroupId != null" >
+        vehicle_group_id = #{vehicleGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.duty.model.VehicleGroupOrg" >
+    update t_duty_vehicle_group_org
+    set vehicle_group_id = #{vehicleGroupId,jdbcType=INTEGER},
+      org_id = #{orgId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
