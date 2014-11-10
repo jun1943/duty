@@ -7,6 +7,7 @@ public class WeaponGroupVM extends WeaponGroup  {
 	private String orgCode;
 	private String orgPath;
 	private String shareTypeDesc;
+
 	public String getOrgName() {
 		return orgName;
 	}
@@ -26,9 +27,21 @@ public class WeaponGroupVM extends WeaponGroup  {
 		this.orgPath = orgPath;
 	}
 	public String getShareTypeDesc() {
+		
+		switch(this.getShareType())
+		{
+		case 0:
+			this.shareTypeDesc="不共享";
+			break;
+		case 1:
+			this.shareTypeDesc="共享到下级";
+			break;
+		}
+
 		return shareTypeDesc;
 	}
 	public void setShareTypeDesc(String shareTypeDesc) {
 		this.shareTypeDesc = shareTypeDesc;
 	}
+	
 }

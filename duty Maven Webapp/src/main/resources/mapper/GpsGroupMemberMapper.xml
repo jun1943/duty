@@ -8,6 +8,19 @@
     <result column="sync_state" property="syncState" jdbcType="BIT" />
     <result column="platform_id" property="platformId" jdbcType="INTEGER" />
   </resultMap>
+  
+  
+  <resultMap id="MemeberResultMap" type="com.tianyi.drs.duty.viewmodel.GpsGroupMemberVM">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="group_id" jdbcType="INTEGER" property="groupId" />
+    <result column="gps_id" jdbcType="INTEGER" property="gpsId" />
+    <result column="org_name" jdbcType="VARCHAR" property="orgName" />
+    <result column="org_short_name" jdbcType="VARCHAR" property="orgShortName" />
+    <result column="p_name" jdbcType="VARCHAR" property="gpsName" />
+    <result column="p_number" jdbcType="VARCHAR" property="number" /> 
+    <result column="p_typename" jdbcType="VARCHAR" property="typeName" />  
+  </resultMap>
+  
   <sql id="Base_Column_List" >
     id, group_id, gps_id, sync_state, platform_id
   </sql>
@@ -90,4 +103,50 @@
       platform_id = #{platformId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+    <select id="countMemberByGroupId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    	select 
+			count(*)
+    	from t_duty_gps_group_member as m
+    	where m.group_id = #{groupId,jdbcType=INTEGER}
+  </select>
+  
+  
+  <select id="loadMemberByGroupId" parameterType="java.util.Map" resultMap="MemeberResultMap">
+    select 
+    	m.id as id,
+    	m.group_id,
+    	m.gps_id,
+    	org.name as org_name,
+    	org.short_name as org_short_name,
+    	p.gps_name as p_name,
+    	p.number as p_number,
+    	t.name as p_typename
+    from t_duty_gps_group_member as m
+    left join t_gps as p on m.gps_id=p.id
+    left join t_gpstype t on t.id = p.type_id
+    left join organ as org on p.org_id=org.id
+    where group_id = #{groupId,jdbcType=INTEGER}
+    order by m.id
+  		<if test="pageStart != null">
+	    	limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	  	</if>
+    
+  </select>
+  
+    <select id="existsByMemberId" parameterType="java.util.Map" resultType="java.lang.Integer">
+    select 
+    	count(*)
+    from t_duty_gps_group_member 
+    where 
+    	group_id = #{groupId,jdbcType=INTEGER} and
+    	gps_id= #{memberId,jdbcType=INTEGER}  
+  </select>
+  
+  <delete id="deleteByGroupId" parameterType="java.lang.Integer">
+    delete from t_duty_gps_group_member
+    where group_id = #{groupId,jdbcType=INTEGER}
+  </delete>
+  
 </mapper>

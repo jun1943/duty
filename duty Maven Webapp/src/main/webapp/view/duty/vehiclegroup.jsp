@@ -15,59 +15,79 @@
 
 </head>
   
-<body class="easyui-layout" >
-		<div id="divPG" data-options="region:'west'" title="警员组"
+<body class="easyui-layout"  style ="width:100%; height:100%">
+	<div  class="easyui-layout"   style ="width:100%; height:100%">
+		 <div data-options="region:'north'" style ="width:100%; height:40px">
+		 	<div class="btn-toolbar">
+					<div class="btn-group">
+						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
+						plain="true" onclick="onPoliceManGroup('policegroup')">警员分组</a> 
+						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
+						plain="true"	onclick="onVehicleGroup('vehiclegroup')">车辆分组</a>
+						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
+						plain="true"	onclick="onWeaponGroup('weapongroup')">武器分组</a>
+						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
+						plain="true"	onclick="onGpsDeviceGroup('gpsgroup')">定位设备分组</a> 
+					</div>
+			</div>
+		 </div>
+		 <div data-options="region:'center'" style="width:100%; height:80%">
+		 	<div  class="easyui-layout" style="width:100%; height:100%">
+		 		
+		<div id="divPG" data-options="region:'west'" title="车辆分组"
 			style="width:40%">
 			<div id="tbGroup" class="btn-toolbar">
 
 				<div class="btn-group">
-					<a id="btnAddPoliceGroup" href="javascript:void(0);"
+					<a id="btnAddVehicleGroup" href="javascript:void(0);"
 						class="easyui-linkbutton icon-camera-retro" plain="true"
-						onclick="addPoliceGroup()">创建</a> <a id="btnEditPoliceGroup"
+						onclick="addVehicleGroup()">创建</a> <a id="btnEditVehicleGroup"
 						href="javascript:void(0);" class="easyui-linkbutton"
-						iconcls="icon-edit" plain="true" onclick="editPoliceGroup()">修改</a>
-					<a id="btnDelPoliceGroup" href="javascript:void(0);"
+						iconcls="icon-edit" plain="true" onclick="editVehicleGroup()">修改</a>
+					<a id="btnDelVehicleGroup" href="javascript:void(0);"
 						class="easyui-linkbutton" iconcls="icon-cancel" plain="true"
-						onclick="delPoliceGroup()">删除</a>
+						onclick="delVehicleGroup()">删除</a>
 				</div>
 			</div>
-			<div id="dtPoliceGroup"></div>
+			<div id="dtVehicleGroup"></div>
 		</div>
 		<div id="dtGroup"></div>
-		<div data-options="region:'center',title:'警员'">
+		<div data-options="region:'center',title:'车辆'">
 			<div id="tbGroupMember" class="btn-toolbar">
 				<div class="btn-group">
-					<a id="btnAddPoliceGroupMember" href="javascript:void(0);"
+					<a id="btnAddVehicleGroupMember" href="javascript:void(0);"
 						class="easyui-linkbutton" iconcls="icon-add" plain="true"
-						onclick="addPoliceGroupMember()">添加</a> <a
-						id="btnEditPoliceGroupMember" href="javascript:void(0);"
+						onclick="addVehicleGroupMember()">添加</a> <a
+						id="btnEditVehicleGroupMember" href="javascript:void(0);"
 						class="easyui-linkbutton" iconcls="icon-edit" plain="true"
-						onclick="delPoliceGroupMemeber()">删除</a> <a
-						id="btnCleanPoliceGroupMember" href="javascript:void(0);"
+						onclick="delVehicleGroupMemeber()">删除</a> <a
+						id="btnCleanVehicleGroupMember" href="javascript:void(0);"
 						class="easyui-linkbutton" iconcls="icon-cancel" plain="true"
 						onclick="cleanPGMember()">清空</a>
 				</div>
 			</div>
 			<div id="dtGroupMember"></div>
 		</div>
-
+	</div>
+			 </div>
+	</div>
 	<div id="winPG" class="easyui-window" title="My Window" style="height:330px;width:320px"    
         data-options="iconCls:'icon-save',modal:true" closed="true" 
         collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false">
 			<div id="tbGroup" class="btn-toolbar">
 				<div class="btn-group">
-					<a id="btnSavePoliceGroup" href="javascript:void(0);"
+					<a id="btnSaveVehicleGroup" href="javascript:void(0);"
 						class="easyui-linkbutton " plain="true"
-						onclick="savePoliceGroup()">保存</a> <a id="btnClosePoliceGroupDlg"
+						onclick="saveVehicleGroup()">保存</a> <a id="btnCloseVehicleGroupDlg"
 						href="javascript:void(0);" class="easyui-linkbutton " plain="true"
 						onclick="closeWinPG()">退出</a>
 				</div>
 			</div>
-			<input type="hidden" id="txtPoliceGroupId"></input>
+			<input type="hidden" id="txtVehicleGroupId"></input>
 			<table style="width:100%">
 				<tr>
 					<td style="text-align:right"><lable>组名称:</lable></td>
-					<td><input id="txtPoliceGroupName" type="text"
+					<td><input id="txtVehicleGroupName" type="text"
 						class="easyui-validatebox"></input></td>
 				</tr>
 				<tr>
@@ -97,20 +117,20 @@
         collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false">    
    	 		<div id="tbGroup" class="btn-toolbar">
 				<div class="btn-group">
-					<a id="btnSavePoliceGroup" href="javascript:void(0);"
+					<a id="btnSaveVehicleGroup" href="javascript:void(0);"
 						class="easyui-linkbutton " plain="true"
-						onclick="appendMember()">保存</a> <a id="btnClosePoliceGroupDlg"
+						onclick="appendMember()">保存</a> <a id="btnCloseVehicleGroupDlg"
 						href="javascript:void(0);" class="easyui-linkbutton " plain="true"
 						onclick="closeWinPGMember()">退出</a>
 				</div>
 			</div>
-			<input id="txtPoliceGroupId"  type="hidden"></input>
+			<input id="txtVehicleGroupId"  type="hidden"></input>
 			<table>
 				<tr>
 					<td style="width:40%">
 						
 						<div style="border:1px solid #000;overflow:auto;height:300px">
-							<ul id="treeOrgWithPolice" class="easyui-tree"
+							<ul id="treeOrgWithVehicle" class="easyui-tree"
 								style="overflow:auto"></ul>
 						</div>
 					</td>

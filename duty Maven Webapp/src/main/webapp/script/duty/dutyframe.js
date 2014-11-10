@@ -66,8 +66,8 @@ function onClickData(date){
 	$("#ifmWorkSpace").attr("src",src);
 };
 
-function onPoliceGroup(){
-	m_dutyFrame_func_prop.url="view/duty/policegroup.jsp";
+function onDutyDataGroup(name){
+	m_dutyFrame_func_prop.url="view/duty/"+name+".jsp";
 	pageSwitch();
 }
 

@@ -9,6 +9,21 @@
     <result column="sync_state" property="syncState" jdbcType="BIT" />
     <result column="platform_id" property="platformId" jdbcType="INTEGER" />
   </resultMap>
+  
+  
+  <resultMap id="ViewResultMap" type="com.tianyi.drs.duty.viewmodel.GpsGroupVM" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="org_id" property="orgId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="share_type" property="shareType" jdbcType="INTEGER" />
+    <result column="sync_state" property="syncState" jdbcType="BIT" />
+    <result column="platform_id" property="platformId" jdbcType="INTEGER" />
+    <result column="orgname" jdbcType="VARCHAR" property="orgName" />
+    <result column="orgcode" jdbcType="VARCHAR" property="orgCode" />
+    <result column="orgpath" jdbcType="VARCHAR" property="orgPath" />
+  </resultMap>
+  
+  
   <sql id="Base_Column_List" >
     id, org_id, name, share_type, sync_state, platform_id
   </sql>
@@ -103,4 +118,68 @@
       platform_id = #{platformId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+  
+  <select id ="countByOrgId" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	select 
+  		count(*) 
+  	from 
+  		t_duty_gps_group as g
+  	where
+  		g.org_id =#{orgId,jdbcType=INTEGER}
+
+  		<if test="groupName != null ">
+  			and g.name  like CONCAT("%",#{groupName,jdbcType=VARCHAR},"%")
+  		</if>
+  </select>
+  
+  <select id="loadVMListByOrgId" parameterType="java.util.Map" resultMap="ViewResultMap">
+  	select 
+  		g.id,
+  		g.org_id,
+  		g.name,
+  		g.share_type,
+  		g.sync_state,
+  		g.platform_id,
+  		org.name			as	orgname,
+		org.code 			as 	orgcode,
+		org.path 			as 	orgPath
+  	from 
+  		t_duty_gps_group as g
+  		left join organ as org on g.org_id=org.id
+  	where
+		g.org_id=#{orgId,jdbcType=INTEGER}
+  	
+  		<if test="groupName != null ">
+  			and g.name  like CONCAT("%",#{groupName,jdbcType=VARCHAR},"%")
+  		</if>
+  	order by g.id
+  		<if test="pageStart != null">
+	    	limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	  	</if>
+  
+  </select>
+  
+  <select id="loadVMListByOrgIdShared" parameterType="java.util.Map" resultMap="ViewResultMap">
+select distinct	g.id,
+  		g.org_id,
+  		g.name,
+  		g.share_type,
+  		g.sync_state,
+  		g.platform_id,
+  		org.name			as	orgname,
+		org.code 			as 	orgcode,
+		org.path 			as 	orgPath
+ 		from t_duty_gps_group_org  pgo
+			left join t_duty_gps_group g on g.id = pgo.gps_group_id 
+			left join organ org on g.org_id = org.id
+  	where
+		pgo.org_id=#{orgId,jdbcType=INTEGER}
+  	 
+  	order by g.id
+  		 
+  
+  </select>
+  
 </mapper>

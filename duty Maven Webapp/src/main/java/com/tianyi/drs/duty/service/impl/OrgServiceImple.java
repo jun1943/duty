@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.tianyi.drs.duty.dao.OrgMapper;
 import com.tianyi.drs.duty.model.Org;
-import com.tianyi.drs.duty.service.OrgService;
-import com.tianyi.drs.duty.viewmodel.OrgVM;
+import com.tianyi.drs.duty.service.OrgService; 
+import com.tianyi.drs.duty.viewmodel.OrgWithGpsVM;
 import com.tianyi.drs.duty.viewmodel.OrgWithPoliceVM;
+import com.tianyi.drs.duty.viewmodel.OrgWithVehicleVM;
+import com.tianyi.drs.duty.viewmodel.OrgWithWeaponVM;
 
 @Service("orgService")
 public class OrgServiceImple implements OrgService {
@@ -34,6 +36,21 @@ public class OrgServiceImple implements OrgService {
 
 	public List<OrgWithPoliceVM> loadOrgWithPoliceVMList(Integer id) {
 		List<OrgWithPoliceVM> ls = orgMapper.loadOrgWithPoliceVMList(id);
+		return ls;
+	}
+
+	public List<OrgWithVehicleVM> loadOrgWithVehicleVMList(Integer id) {
+		List<OrgWithVehicleVM> ls = orgMapper.loadOrgWithVehicleVMList(id);
+		return ls;
+	}
+
+	public List<OrgWithWeaponVM> loadOrgWithWeaponVMList(Integer id) {
+		List<OrgWithWeaponVM> ls = orgMapper.loadOrgWithWeaponVMList(id);
+		return ls;
+	}
+
+	public List<OrgWithGpsVM> loadOrgWithGpsVMList(Integer id) {
+		List<OrgWithGpsVM> ls = orgMapper.loadOrgWithGpsVMList(id);
 		return ls;
 	}
 
