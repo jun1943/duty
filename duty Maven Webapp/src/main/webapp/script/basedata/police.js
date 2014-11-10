@@ -42,7 +42,8 @@ $(function() {
 			title : '状态',
 			field : 'isUsed',
 			align : 'left',
-			width : 50 
+			width : 50 ,
+			formatter:fmtIsUsed
 		}, {
 			title : '职务',
 			field : 'title',
@@ -113,6 +114,11 @@ function pack_police_Query() {
 		m_police_Query.typeid = 0;
 	}
 }
+function fmtIsUsed(value, row, index) {
+	if(row.isused){
+		return "停用";
+	}else{return "启用";}
+}
 // 初始化下拉列表数据
 function InitData() {
 	getPoliceType();
@@ -148,10 +154,10 @@ function btnAddPolice() {
 };
 
 function btnUnLockPolice(){
-	 changePoliceState(1);
+	 changePoliceState(0);
 };
 function btnLockPolice(){
-	 changePoliceState(0); 
+	 changePoliceState(1); 
 };
 function changePoliceState(pType){
 	var hasRows = $('#dtPolice').datagrid('getRows');

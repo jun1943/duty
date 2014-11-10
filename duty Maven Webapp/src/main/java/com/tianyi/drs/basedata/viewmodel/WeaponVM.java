@@ -11,6 +11,7 @@ public class WeaponVM extends Weapon {
 		 private String orgCode;
 		  
 		    private String orgPath;
+			 
 
 		public String getTypeName() {
 			return typeName;
@@ -43,4 +44,5 @@ public class WeaponVM extends Weapon {
 		public void setOrgPath(String orgPath) {
 			this.orgPath = orgPath;
 		}
+ 
 }

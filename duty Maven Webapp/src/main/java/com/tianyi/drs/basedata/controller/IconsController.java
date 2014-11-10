@@ -1,5 +1,6 @@
 package com.tianyi.drs.basedata.controller;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -165,13 +166,14 @@ public class IconsController extends CommonsMultipartResolver {
 			File saveDir = null;//初始化上传文件后的保存目录
 			
 			if (!cmFile.isEmpty()) { 
-				 
+				 @SuppressWarnings("deprecation")
+				String path = request.getRealPath("upload");
+						 
 				int size = (int) cmFile.getFileItem().getSize();
 				String name = cmFile.getFileItem().getName();
-				byte[] img = new byte[(int) size];
-
-				InputStream ops = cmFile.getFileItem().getInputStream();
-
+				byte[] img = new byte[(int) size];  
+				
+				InputStream ops = cmFile.getFileItem().getInputStream(); 
 				int s = ops.read(img);
 
 			}
@@ -184,7 +186,7 @@ public class IconsController extends CommonsMultipartResolver {
 
 			return rs.toJson();
 		} catch (Exception ex) {
-			return null;
+			return "上传失败";
 		}
 
 	}

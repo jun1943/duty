@@ -17,8 +17,8 @@ function InitUploadFun(){
             }
            
             this.setData(data);
-            if (fileNum == 'one')
-                this.disable();
+//            if (fileNum == 'one')
+//                this.disable();
             interval = window.setInterval(function () { 
                 if (text.length < 20) {
                     text += ".";

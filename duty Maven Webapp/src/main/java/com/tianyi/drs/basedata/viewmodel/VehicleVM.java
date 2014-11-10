@@ -11,7 +11,7 @@ public class VehicleVM extends Vehicle {
 	private String orgPath;
 	private String gpsNumber;
 	private String gpsName;
-	
+	private String iconUrl;
 	public String getOrgName() {
 		return orgName;
 	}
@@ -58,6 +58,14 @@ public class VehicleVM extends Vehicle {
 
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
+	}
+
+	public String getIconUrl() {
+		return iconUrl;
+	}
+
+	public void setIconUrl(String iconUrl) {
+		this.iconUrl = iconUrl;
 	}
 
 	

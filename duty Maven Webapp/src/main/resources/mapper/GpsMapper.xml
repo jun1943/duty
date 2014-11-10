@@ -11,7 +11,7 @@
     <result column="platform_id" jdbcType="INTEGER" property="platformId" />
     <result column="icon_url" jdbcType="VARCHAR" property="iconUrl" />
   </resultMap> 
-  <resultMap id="ViewResultMap" type="com.tianyi.drs.basedata.model.Gps">
+  <resultMap id="ViewResultMap" type="com.tianyi.drs.basedata.viewmodel.GpsVM">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="type_id" jdbcType="INTEGER" property="typeId" />
     <result column="org_id" jdbcType="INTEGER" property="orgId" />
@@ -155,7 +155,7 @@
 			org.name				as	orgName,
 			org.code 				as 	orgCode,
 			org.path 				as 	orgPath,
-			g.icon_url              as  iconUrl
+			g.icon_url              as  iconUrl,
 			gt.name 				as 	typeName 
 		from t_gps as g
 			left join organ as org on g.org_id=org.id  

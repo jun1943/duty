@@ -23,14 +23,14 @@
     <result column="sync_state" property="syncState" jdbcType="BIT" />
     <result column="platform_id" property="platformId" jdbcType="INTEGER" />
     <result column="orgcode" jdbcType="VARCHAR" property="orgCode" />
-    <result column="orgpath" jdbcType="VARCHAR" property="orgPath" />
+    <result column="orgpath" jdbcType="VARCHAR" property="orgPath" /> 
   </resultMap>
   <sql id="Base_Column_List" >
     id, standard, number, type_id, org_id, sync_state, platform_id
   </sql>
    <sql id="Base_Model_Column_List" >
     w.id, w.type_id as typeId,wt.name as typeName, w.number, w.org_id as orgId,o.short_name as orgName, 
-    o.code as orgCode,o.path as orgPath,w.standard
+    o.code as orgCode,o.path as orgPath,w.standard 
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

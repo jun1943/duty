@@ -21,7 +21,8 @@
   </resultMap>
   <resultMap id="BaseModelMap" type="com.tianyi.drs.basedata.viewmodel.PoliceVM" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="typeName" property="typeName" jdbcType="VARCHAR" />
+    <result column="typeName" property="typeName" jdbcType="VARCHAR" /> 
+    <result column="isUsed" property="isused" jdbcType="BIT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="type_id" property="typeId" jdbcType="INTEGER" />
     <result column="org_id" property="orgId" jdbcType="INTEGER" />
@@ -38,6 +39,7 @@
     <result column="gps_name" property="gpsName" jdbcType="VARCHAR" />
     <result column="orgcode" jdbcType="VARCHAR" property="orgCode" />
     <result column="orgpath" jdbcType="VARCHAR" property="orgPath" />
+    <result column="iconUrl" jdbcType="VARCHAR" property="iconUrl" />
     <result column="display_name" jdbcType="VARCHAR" property="displayName" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -45,8 +47,8 @@
     intercom_person, gps_id, gps_name, sync_state, platform_id, isUsed
   </sql>
   <sql id="Base_Model_Column_List" >
-    p.id, p.type_id as typeId,pt.name as typeName, p.name, p.org_id as orgId,o.short_name as orgName,p.idcardno, p.number, p.title, p.mobile, p.mobile_short as mobileShort, 
-    p.intercom_group as intercomGroup, p.intercom_person, p.gps_id as gpsId, p.gps_name as gpsName,o.code as orgCode,o.path as orgPath,CONCAT(pt.name,":",p.name) as display_name
+    p.id,p.isUsed as isused, p.type_id as typeId,pt.name as typeName, p.name, p.org_id as orgId,o.short_name as orgName,p.idcardno, p.number, p.title, p.mobile, p.mobile_short as mobileShort, 
+    p.intercom_group as intercomGroup, p.intercom_person, p.gps_id as gpsId, p.gps_name as gpsName,o.code as orgCode,o.path as orgPath,tg.icon_url as iconUrl,CONCAT(pt.name,":",p.name) as display_name
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -296,6 +298,7 @@
   	from t_police p 
   	left join t_policetype pt on pt.id = p.type_id 
   	left join organ o on o.id = p.org_id
+  		 	left join t_gps tg  on p.gps_id = tg.id
   		<include refid="Where_Sql" />
   		
   		order by id
@@ -324,6 +327,7 @@
   		 from t_police p 
   		 left join t_policetype pt on pt.id = p.type_id
   		 left join organ o on o.id  = p.org_id
+  		 	left join t_gps tg  on p.gps_id = tg.id
   		 where 
   		 (
   		 o.id = #{orgId,jdbcType=INTEGER}
@@ -386,6 +390,7 @@
   		 from t_police p 
   		 left join t_policetype pt on pt.id = p.type_id
   		 left join organ o on o.id  = p.org_id
+  		 	left join t_gps tg  on p.gps_id = tg.id
   		 <if test ="gids !=null">
   		 	left join t_duty_police_group_member gm on gm.police_id = p.id
   		 	left join t_duty_police_group pg on pg.id = gm.group_id

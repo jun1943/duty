@@ -57,7 +57,7 @@ public class PoliceController {
 
 			List<PoliceVM> list = new ArrayList<PoliceVM>();
 			Map<String, Object> map = new HashMap<String, Object>();
-
+			page = page==0?1:page;
 			map.put("pageStart", (page - 1) * rows);
 			map.put("pageSize", rows);
 			map.put("orgId", orgId);
@@ -138,7 +138,7 @@ public class PoliceController {
 	String savePolice(Police police) throws Exception {
 		try {
 			police.setPlatformId(1);
-			
+			police.setIsused(true);
 			police.setSyncState(true);
 			int result = 0;
 			if (police.getId() > 0) {
@@ -235,6 +235,11 @@ public class PoliceController {
 			int result = id;
 			String message ="";
 			if(police!=null){
+					if(isUsed ==0){
+						police.setIsused(false);
+					}else{
+						police.setIsused(true);
+					}
 				 	//更新状态
 					police.setId(id); 
 					result = policeService.updateByPrimaryKey(police); 
