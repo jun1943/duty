@@ -49,6 +49,14 @@ public class OrgController {
 			return rs;
 		
 	}
+	@RequestMapping(value = "loadListByName.do")
+	public @ResponseBody String  loadListByName(
+			@RequestParam(value = "name", required = false) String name,
+			HttpServletRequest request
+			){
+	
+		return null;
+	}
 	/**
 	 * 返回组织机构和下属警员信息
 	 * @param orgCode

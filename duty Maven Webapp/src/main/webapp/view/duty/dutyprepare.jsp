@@ -32,7 +32,7 @@
 						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
 						plain="true"	onclick="showCalendar()">报备复制</a>
 						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
-						plain="true"	onclick="delPoliceGroup()">清空报备</a>
+						plain="true"	onclick="clearDuty()">清空报备</a>
 						<a  href="javascript:void(0);"	class="easyui-linkbutton icon-camera-retro" 
 						plain="true"	onclick="saveDuty()">保存</a>
 						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
@@ -100,7 +100,7 @@
 							<a  href="javascript:void(0);"	class="easyui-linkbutton icon-camera-retro" 
 							plain="true"	onclick="setUserNode()">设置编组</a>
 							<a  href="javascript:void(0);"	class="easyui-linkbutton icon-camera-retro" 
-							plain="true"	onclick="showTaskWindow()">设置任务</a>
+							plain="true"	onclick="showTaskWindow()">关联任务</a>
 							<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
 							plain="true" onclick="deleteNode()">删除节点</a>
 						</div>
@@ -361,8 +361,8 @@
 		</div>
 	</div>
 	 
-	 <div id="taskWindow"  class="easyui-window" title="任务设置"  data-options="iconCls:'icon-save',modal:true" closed="true" 
-	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" style="width: 300px; height:350px; padding: 2px;">
+	 <div id="taskWindow"  class="easyui-window" title="任务关联"  data-options="iconCls:'icon-save',modal:true" closed="true" 
+	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" style="width: 350px; height:350px; padding: 2px;">
 			<div class="easyui-layout" data-options="fit:true">
 				<div data-options="region:'north',border:false"
 					style="padding: 2px; height: 30px;"> 
@@ -376,7 +376,7 @@
 				</div>
 				<div data-options="region:'center',border:false"	style="padding: 2px">
 					<div id="dgtaskTarget" style="width:100%; height:100%"></div>
-					<div id="tbTaskTarget">
+					<div id="tbTaskTarget" style="padding: 2px; height: 30px;">
 							<label id="lblPoliceInfo"></label>
 						</div>
 				</div>

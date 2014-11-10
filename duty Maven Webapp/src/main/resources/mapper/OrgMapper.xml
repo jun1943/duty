@@ -112,6 +112,8 @@
 	order by t.data_type desc,t.rid
   </select>
   
+  <select id="loadListByName" parameterType="java.util.Map" resultMap="BaseResultMap">
   
+  </select>
   
 </mapper>

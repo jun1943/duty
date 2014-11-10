@@ -17,6 +17,11 @@
   <body>
 <div id="cc" class="easyui-layout" style="width:100%;height:100%;">
 	<div data-options="region:'west',title:'机构',split:true"  style="width:14%;">
+		<div>
+			<input id="txtOrgName" style="width:100px" type="text"/>
+			<a id="btnSearchOrg" href="javascript:void(0);" class="easyui-linkbutton"
+                    iconcls="icon-search" onclick="searchOrgAction()" plain="true"></a>
+		</div>
     	<ul id="treeDutyFrmOrg"></ul>
     </div>
     <div data-options="region:'center',title:'警务备勤'"  >
