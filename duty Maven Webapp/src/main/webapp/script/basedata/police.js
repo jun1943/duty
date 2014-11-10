@@ -35,54 +35,59 @@ $(function() {
 		}, {
 			title : 'Id',
 			field : 'id',
-			align : 'center',
+			align : 'left',
 			width : 10,
 			hidden : true
 		}, {
-			title : '机构',
-			field : 'orgName',
-			align : 'center',
-			width : 100
-		}, {
-			title : '姓名',
-			field : 'name',
-			align : 'center',
-			width : 100
-		}, {
-			title : '警员类别',
-			field : 'typeName',
-			align : 'center',
-			width : 100
+			title : '状态',
+			field : 'isUsed',
+			align : 'left',
+			width : 50 
 		}, {
 			title : '职务',
 			field : 'title',
-			align : 'center',
+			align : 'left',
 			width : 100
-		}, {
-			title : '手机号',
-			field : 'mobile',
-			align : 'center',
-			width : 100
-		}, {
-			title : '公安短号',
-			field : 'mobileShort',
-			align : 'center',
-			width : 150
-		}, {
-			title : '身份证号码',
-			field : 'idcardno',
-			align : 'center',
-			width : 80
 		}, {
 			title : '警号',
 			field : 'number',
-			align : 'center',
+			align : 'left',
 			width : 80
 		}, {
 			title : 'GPS名称',
 			field : 'gpsName',
-			align : 'center',
+			align : 'left',
 			width : 200
+		}, {
+			title : '手机号',
+			field : 'mobile',
+			align : 'left',
+			width : 100
+		}, {
+			title : '公安短号',
+			field : 'mobileShort',
+			align : 'left',
+			width : 150
+		}, {
+			title : '身份证号码',
+			field : 'idcardno',
+			align : 'left',
+			width : 80
+		}, {
+			title : '机构',
+			field : 'orgName',
+			align : 'left',
+			width : 100
+		}, {
+			title : '姓名',
+			field : 'name',
+			align : 'left',
+			width : 100
+		}, {
+			title : '警员类别',
+			field : 'typeName',
+			align : 'left',
+			width : 100
 		} ] ]
 	});
 	$("#btnSearchPolice").bind("click", function() {
@@ -141,6 +146,50 @@ function btnAddPolice() {
 	clearForm();
 	// $('#myModal').modal('show');
 };
+
+function btnUnLockPolice(){
+	 changePoliceState(1);
+};
+function btnLockPolice(){
+	 changePoliceState(0); 
+};
+function changePoliceState(pType){
+	var hasRows = $('#dtPolice').datagrid('getRows');
+	if (hasRows.length == 0) {
+		$.messager.alert('操作提示', "没有可操作数据", "warning");
+		return;
+	}
+	var rows = $("#dtPolice").datagrid("getChecked");
+	if (!rows || rows.length == 0) {
+		$.messager.alert('操作提示', "请选择操作项!", "warning");
+		return;
+	}
+	if (rows.length > 1) {
+		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
+		return;
+	} 
+	var pId = rows[0].id;
+	$.ajax({
+		url : "police/changePoliceState.do",
+		type : "POST",
+		dataType : "json",
+		async : false,
+		data : {
+			"id" : pId,
+			"isUsed":pType
+		},
+		success : function(req) {
+			$.messager.alert("消息提示", req.Message, "info");
+			btnSearchAction();
+		},
+		failer : function(a, b) {
+			$.messager.alert("消息提示", a, "info");
+		},
+		error : function(a) {
+			$.messager.alert("消息提示", a, "error");
+		}
+	});
+}
 // 删除按钮事件
 function btnDelPolice() {
 	var hasRows = $('#dtPolice').datagrid('getRows');
@@ -250,45 +299,16 @@ function savePoliceAction() {
 		$.messager.alert("错误提示", "请输入警员名称", "error");
 		return;
 	}
-	police.name = $("#txtname").val();
-	if ($("#txtidcardno").val() == "") {
-		$.messager.alert("错误提示", "请输入警员身份证号码", "error");
-		return;
-	}
+	police.name = $("#txtname").val(); 
 	police.idcardno = $("#txtidcardno").val();
-	police.orgId = m_Police_OrgId;
-	if ($("#txtnumber").val() == "") {
-		$.messager.alert("错误提示", "请输入警员警号", "error");
-		return;
-	}
-	police.number = $("#txtnumber").val();
-	if ($("#txttitle").val() == "") {
-		$.messager.alert("错误提示", "请输入警员职务", "error");
-		return;
-	}
-	police.title = $("#txttitle").val();
-	if ($("#txtmobile").val() == "") {
-		$.messager.alert("错误提示", "请输入警员手机号码", "error");
-		return;
-	}
-	police.mobile = $("#txtmobile").val();
-	if ($("#txtmobileshort").val() == "") {
-		$.messager.alert("错误提示", "请输入警员公安短号", "error");
-		return;
-	}
+	
+	police.orgId = m_Police_OrgId; 
+	police.number = $("#txtnumber").val(); 
+	police.title = $("#txttitle").val(); 
+	police.mobile = $("#txtmobile").val(); 
 	police.mobileShort = $("#txtmobileshort").val();
-
-	if ($("#txtgroupno").combobox("getValue") > 0
-			&& $("#txtgroupno").combobox("getValue") != "") {
-		police.intercomGroup = $("#txtgroupno").combobox("getValue");
-	} else {
-		$.messager.alert("错误提示", "请选择对讲机组呼号", "error");
-		return;
-	}
-	if ($("#txtpersonalno").val() == "") {
-		$.messager.alert("错误提示", "请输入警员对讲机个呼号", "error");
-		return;
-	}
+ 
+	police.intercomGroup = $("#txtgroupno").combobox("getValue");  
 	police.intercomPerson = $("#txtpersonalno").val();
 	if ($("#txtgpsid").combobox("getValue") > 0
 			&& $("#txtgpsid").combobox("getValue") != "") {
@@ -296,12 +316,7 @@ function savePoliceAction() {
 	} else {
 		$.messager.alert("错误提示", "请选择GPS_ID", "error");
 		return;
-	}
-
-	if ($("#txtgpsdes").val() == "") {
-		$.messager.alert("错误提示", "请输入警员对讲机个呼号", "error");
-		return;
-	}
+	} 
 	police.gpsName = $("#txtgpsdes").val();
 	$.ajax({
 		url : "police/savePolice.do",

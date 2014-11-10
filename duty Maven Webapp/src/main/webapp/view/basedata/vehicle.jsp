@@ -97,7 +97,7 @@
 						</tr>
 						<tr>
 							<td><label>车牌号码:</label></td>
-							<td><input type="text" class="easyui-validatebox" id="txtnumber"></td>
+							<td><input type="text" class="easyui-validatebox" data-options="required:true" id="txtnumber"></td>
 						</tr>
 						<tr>
 							<td><label>车辆用途:</label></td>

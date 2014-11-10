@@ -26,6 +26,12 @@
 							onclick="btnAddPolice()">新增</a> <a id="btnEditPolice"
 							href="javascript:void(0);" class="easyui-linkbutton"
 							iconcls="icon-edit" plain="true" onclick="btnEditPolice()">修改</a>
+							<a id="btnUnLockPolice"
+							href="javascript:void(0);" class="easyui-linkbutton"
+							iconcls="icon-edit" plain="true" onclick="btnUnLockPolice()">启用</a>
+							<a id="btnLockPolice"
+							href="javascript:void(0);" class="easyui-linkbutton"
+							iconcls="icon-edit" plain="true" onclick="btnLockPolice()">停用</a>
 						<a id="btnDelPolice" href="javascript:void(0);"
 							class="easyui-linkbutton" iconcls="icon-cancel" plain="true"
 							onclick="btnDelPolice()">删除</a>
@@ -99,17 +105,17 @@
 						<tr>
 							<td><label>姓名:</label></td>
 							<td><input id="txtname" type="text"
-								class="easyui-validatebox"></td>
+								class="easyui-validatebox" data-options="required:true"></td>
 						</tr>
 						<tr>
 							<td><label>身份证号码:</label></td>
-							<td><input id="txtidcardno" type="text"
+							<td><input id="txtidcardno" type="text" 
 								class="easyui-validatebox"></td>
 						</tr>
 						<tr>
 							<td><label>警号:</label></td>
 							<td><input id="txtnumber" type="text"
-								class="easyui-validatebox"></td>
+								class="easyui-numberbox" ></td>
 						</tr>
 						<tr>
 							<td><label>职务:</label></td>
@@ -119,7 +125,7 @@
 						<tr>
 							<td><label>手机号码:</label></td>
 							<td><input id="txtmobile" type="text"
-								class="easyui-validatebox"></td>
+								class="easyui-numberbox"></td>
 						</tr>
 						<tr>
 							<td><label>公安短号:</label></td>

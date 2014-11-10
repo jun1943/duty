@@ -138,6 +138,7 @@ public class PoliceController {
 	String savePolice(Police police) throws Exception {
 		try {
 			police.setPlatformId(1);
+			
 			police.setSyncState(true);
 			int result = 0;
 			if (police.getId() > 0) {
@@ -223,26 +224,29 @@ public class PoliceController {
 		}
 	}
 
-	@RequestMapping(value = "updatePolice.do", produces = "application/json;charset=UTF-8")
-	public void updatePolice() throws Exception {
+	@RequestMapping(value = "changePoliceState.do", produces = "application/json;charset=UTF-8")
+	public  @ResponseBody
+	String  changePoliceState(
+			@RequestParam(value = "id", required = false) Integer id,
+			@RequestParam(value = "isUsed", required = false) Integer isUsed) throws Exception {
 		try {
 			Police police = new Police();
-			police.setId(1);
-			police.setName("张五");
-			police.setGpsId(5);
-			police.setGpsName("95手机定位");
-			police.setMobile("13568865179");
-			police.setIntercomGroup("mmmm");
-			police.setIntercomPerson("3333");
-			police.setIdcardno("512301198506234875");
-			police.setOrgId(2);
-			police.setMobileShort("6179");
-			police.setNumber("51007818");
-			police.setTypeId(3);
-			police.setTitle("副主任");
-			System.out.println(policeService.updateByPrimaryKey(police));
+			police = policeService.selectByPrimaryKey(id);
+			int result = id;
+			String message ="";
+			if(police!=null){
+				 	//更新状态
+					police.setId(id); 
+					result = policeService.updateByPrimaryKey(police); 
+					message = "状态修改成功,result is " + result;
+			}else{
+				message = "状态修改失败,根据Id获取对象为空";
+			}
+			return "{\"success\":true,\"Message\":\"" + message
+					+ "\"}";
 		} catch (Exception ex) {
-			System.out.println("update failed");
+			return "{\"success\":false,\"Message\":\"状态修改失败，原因："
+					+ ex.getMessage() + "\"}";
 		}
 	}
 
