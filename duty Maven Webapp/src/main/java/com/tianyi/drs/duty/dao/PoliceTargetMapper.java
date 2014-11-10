@@ -15,4 +15,8 @@ public interface PoliceTargetMapper {
     int updateByPrimaryKeySelective(PoliceTarget record);
 
     int updateByPrimaryKey(PoliceTarget record);
+    
+    void deleteByDutyItemId(Integer dutyItemId);
+    
+    void deleteByDutyId(Integer dutyId);
 }

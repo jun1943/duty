@@ -13,7 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tianyi.drs.duty.dao.DutyItemMapper;
 import com.tianyi.drs.duty.dao.DutyMapper;
+import com.tianyi.drs.duty.dao.PoliceTargetMapper;
 import com.tianyi.drs.duty.model.Duty;
+import com.tianyi.drs.duty.model.PoliceTarget;
 import com.tianyi.drs.duty.service.DutyService;
 import com.tianyi.drs.duty.viewmodel.DutyItemCountVM;
 import com.tianyi.drs.duty.viewmodel.DutyItemVM;
@@ -27,6 +29,9 @@ public class DutyServiceImpl implements DutyService{
 	
 	@Resource(name = "dutyItemMapper")
 	private DutyItemMapper dutyItemMapper;
+	
+	@Resource(name = "policeTargetMapper")
+	private PoliceTargetMapper policeTargetMapper;
 	
 	public List<DutyVM> loadVMList(Map<String, Object> map) {
 		List<DutyVM> dvms=dutyMapper.loadDutyVMList(map);
@@ -98,13 +103,13 @@ public class DutyServiceImpl implements DutyService{
 		}
 		
 		dutyItemMapper.deleteByDutyId(vm.getId());
+		policeTargetMapper.deleteByDutyId(vm.getId());
 		
 		for(DutyItemVM ivm:vm.getItems()){
 			saveItem(ivm,null,vm);
 		}
 	}
 
-	
 	private void saveItem(DutyItemVM ivm,DutyItemVM pivm,DutyVM vm){
 		
 		ivm.setId(0);
@@ -134,6 +139,16 @@ public class DutyServiceImpl implements DutyService{
 		ivm.setFullIdPath(ivm.getLevel()==1?ivm.getId().toString():pivm.getFullIdPath()+"."+ivm.getId());
 		dutyItemMapper.updateByPrimaryKey(ivm);
 
+		if(ivm.getItemTypeId()==2){
+			if(ivm.getTargets()!=null ){
+				for(PoliceTarget pt : ivm.getTargets()){
+					pt.setDutyId(vm.getId());
+					pt.setDutyItemId(ivm.getId());
+					policeTargetMapper.insert(pt);
+				}
+			}
+		}
+		
 		if(ivm.getChildren() !=null){
 			
 			for(DutyItemVM civm:ivm.getChildren()){

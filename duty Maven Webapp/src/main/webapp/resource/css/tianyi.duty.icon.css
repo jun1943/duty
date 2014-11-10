@@ -1,0 +1,28 @@
+.icon_default_dutytype{
+	background:url('icons/dutytype.png') no-repeat center center;
+}
+
+.icon_default_shift{
+	background:url('icons/shift.png') no-repeat center center;
+}
+
+.icon_default_usernode{
+	background:url('icons/usernode.png') no-repeat center center;
+}
+
+.icon_default_vehicle{
+	background:url('icons/vehicle.png')no-repeat center center ;
+}
+
+.icon_default_police{
+	background:url('icons/police.png')no-repeat center center ;
+}
+
+.icon_default_weapon{
+	background:url('icons/gun.png') no-repeat center center;
+}
+
+.icon_default_gps{
+	background:url('icons/gps.png')no-repeat center center ;
+}
+
