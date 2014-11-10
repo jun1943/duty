@@ -169,9 +169,10 @@
   
   <resultMap id="TargetVMResultMap" type="com.tianyi.drs.duty.model.PoliceTarget" >
   	<id column="target_id" property="id" jdbcType="INTEGER" />
-    <result column="item_duty_id" property="dutyId" jdbcType="INTEGER" />
-    <result column="item_rec_id" property="policeId" jdbcType="INTEGER" />
+    <result column="target_duty_id" property="dutyId" jdbcType="INTEGER" />
+    <result column="target_duty_Item_id" property="policeId" jdbcType="INTEGER" />
     <result column="target_task_type_id" property="taskTypeId" jdbcType="INTEGER" />
+    <result column="target_police_id" property="policeId" jdbcType="INTEGER" />
     <result column="target_target_id" property="targetId" jdbcType="INTEGER" />
   </resultMap>
   
@@ -230,6 +231,12 @@
   			when	101	then	"班次"
   			when	999	then	"自定义"
   		end as item_inner_type_name,		
+  		dpt.id					as target_id,
+  		dpt.duty_id			as target_duty_id,
+  		dpt.duty_item_id	as target_duty_Item_id,
+  		dpt.task_type_id	as target_task_type_id,
+  		dpt.police_id			as target_police_id,
+  		dpt.target_id			as target_target_id,
   		dit.name				as item_type_name,
   		di.item_id				as item_rec_id,
   		di.	item_name		as item_item_name,
@@ -242,19 +249,19 @@
   		
   	from 
   		t_duty as d
-  	left join t_duty_item 			as di 		on d.id=di.duty_id
-  	left join organ 					as org 		on d.org_id=org.id
-  	left join t_duty_type 			as dt 		on di.duty_type_id= dt.id
-  	left join t_duty_item_type	as dit 		on di.item_type_id=dit.type_id
-  	left join t_vehicle				as vel		on di.item_type_id=1 and di.item_id=vel.id
-  	left join t_vehicletype		as velt		on vel.vehicle_type_id=velt.id
-  	left join t_police				as poc		on di.item_type_id=2 and di.item_id=poc.id
-  	left join t_policetype			as poct		on poc.type_id=poct.id
-  	left join t_weapon				as wep		on di.item_type_id=3 and di.item_id=wep.id
-  	left join	t_weapontype		as	wept		on wep.type_id =wept.id
-  	left join t_gps					as gps		on di.item_type_id=4 and di.item_id=gps.id
-  	left join t_gpstype				as gpst		on gps.type_id =gpst.id
-  	left join t_duty_police_target		as	dpt	on	di.id=dpt.duty_item_id and di.item_type_id=2
+  	left join t_duty_item 					as di 		on d.id=di.duty_id
+  	left join organ 							as org 		on d.org_id=org.id
+  	left join t_duty_type 					as dt 		on di.duty_type_id= dt.id
+  	left join t_duty_item_type			as dit 		on di.item_type_id=dit.type_id
+  	left join t_vehicle						as vel		on di.item_type_id=1 and di.item_id=vel.id
+  	left join t_vehicletype				as velt		on vel.vehicle_type_id=velt.id
+  	left join t_police						as poc		on di.item_type_id=2 and di.item_id=poc.id
+  	left join t_policetype					as poct		on poc.type_id=poct.id
+  	left join t_weapon						as wep		on di.item_type_id=3 and di.item_id=wep.id
+  	left join	t_weapontype				as	wept		on wep.type_id =wept.id
+  	left join t_gps							as gps		on di.item_type_id=4 and di.item_id=gps.id
+  	left join t_gpstype						as gpst		on gps.type_id =gpst.id
+  	left join t_duty_police_target		as	dpt		on	di.id=dpt.duty_item_id and di.item_type_id=2
   	where
   		1=1
   		<if test="id != null" >

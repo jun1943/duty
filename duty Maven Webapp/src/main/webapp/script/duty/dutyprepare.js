@@ -1351,6 +1351,9 @@ function onSelRow(index,row){
 		case 999:
 			setUserNode();
 			break;
+		case 2:
+			showTaskWindow();
+			break;
 		}
 	}
 }
@@ -1562,13 +1565,20 @@ function showTaskWindow(){
 	var row = $("#tdDuty").treegrid("getSelected");
 	
 	if(row!=null){
-		if(row.itemTypeId==100 || row.itemTypeId==101 || row.itemTypeId==999 || row.itemTypeId==1 || row.itemTypeId==2){
+		/*row.itemTypeId==100 || row.itemTypeId==101 || row.itemTypeId==999 || row.itemTypeId==1 ||*/
+		if( row.itemTypeId==2){
 			var dutyTypeRow=getDutyTypeRow(row);
 			var taskType=dutyTypeRow.taskType;
-			loadTaskTarget(taskType);
-			m_target=row;
-			setCheckBoxOfTarget(row);
-			$('#taskWindow').window('open');
+			if(taskType>0){
+				loadTaskTarget(taskType);
+				m_target=row;
+				setCheckBoxOfTarget(row);
+				$('#taskWindow').window('open');
+			}else{
+				$.messager.alert('提示', "当前勤务类型没有关联任务!", "warning");
+			}
+		}else{
+			$.messager.alert('提示', "只能在警员上设置关联任务!", "warning");
 		}
 	}
 }
