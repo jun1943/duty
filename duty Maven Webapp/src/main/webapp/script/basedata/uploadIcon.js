@@ -6,16 +6,20 @@ function InitUploadFun(){
         action: 'icons/uploadIcon.do',
         name: 'file',
         onSubmit: function (file, ext) {
-
+        	if (!(ext && /^(png)$/.test(ext))) {
+                alert('图片格式不正确,请选择 png 格式的文件!', '系统提示');
+                return false;
+            }
             var text = "文件上传中";
             var data= getData();
             if(!data||data==null){
-            	return;
+            	return false;
             }
+           
             this.setData(data);
             if (fileNum == 'one')
                 this.disable();
-            interval = window.setInterval(function () {
+            interval = window.setInterval(function () { 
                 if (text.length < 20) {
                     text += ".";
                 } else {
@@ -26,6 +30,7 @@ function InitUploadFun(){
 
         },
         onComplete: function (file, response) {//上传成功的函数；response代表服务器返回的数据  
+        	button.text('上传图片(只允许上传JPG格式的图片,大小不得大于150K)');
             //清楚按钮的状态  
             //button.text('文件上传');
             window.clearInterval(interval);

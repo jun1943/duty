@@ -52,6 +52,12 @@ $(document).ready(function() {
 					align : 'left',
 					width : 50
 				}, {
+					title : '图标',
+					field : 'iconUrl',
+					align : 'left',
+					width : 50,
+					hidden : true
+				}, {
 					title : '类型',
 					field : 'objType',
 					align : 'center',
@@ -100,6 +106,12 @@ $(document).ready(function() {
 					field : 'brand',
 					align : 'center',
 					width : 50
+				}, {
+					title : '图标',
+					field : 'iconUrl',
+					align : 'left',
+					width : 50,
+					hidden : true
 				}, {
 					title : '类型',
 					field : 'objType',
