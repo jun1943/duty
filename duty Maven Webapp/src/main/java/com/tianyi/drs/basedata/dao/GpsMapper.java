@@ -1,4 +1,4 @@
-package com.tianyi.drs.basedata.dao;
+ package com.tianyi.drs.basedata.dao;
 
 import java.util.List;
 import java.util.Map;
@@ -33,3 +33,5 @@ public interface GpsMapper {
 
 	List<GpsType> selectGpsType();
 }
+
+

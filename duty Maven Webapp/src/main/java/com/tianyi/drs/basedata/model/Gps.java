@@ -15,6 +15,8 @@ public class Gps {
 
     private Integer platformId;
 
+    private String iconUrl;
+
     public Integer getId() {
         return id;
     }
@@ -69,5 +71,13 @@ public class Gps {
 
     public void setPlatformId(Integer platformId) {
         this.platformId = platformId;
+    }
+
+    public String getIconUrl() {
+        return iconUrl;
+    }
+
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
     }
 }

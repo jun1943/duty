@@ -6,7 +6,7 @@
     <result column="type_id" property="typeId" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="org_id" property="orgId" jdbcType="INTEGER" />
-    <result column="idcardno" property="idcardno" jdbcType="VARCHAR" />
+    <result column="idcardNo" property="idcardno" jdbcType="VARCHAR" />
     <result column="number" property="number" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="mobile" property="mobile" jdbcType="VARCHAR" />
@@ -15,6 +15,9 @@
     <result column="intercom_person" property="intercomPerson" jdbcType="VARCHAR" />
     <result column="gps_id" property="gpsId" jdbcType="INTEGER" />
     <result column="gps_name" property="gpsName" jdbcType="VARCHAR" />
+    <result column="sync_state" property="syncState" jdbcType="BIT" />
+    <result column="platform_id" property="platformId" jdbcType="INTEGER" />
+    <result column="isUsed" property="isused" jdbcType="BIT" />
   </resultMap>
   <resultMap id="BaseModelMap" type="com.tianyi.drs.basedata.viewmodel.PoliceVM" >
     <id column="id" property="id" jdbcType="INTEGER" />
@@ -37,10 +40,9 @@
     <result column="orgpath" jdbcType="VARCHAR" property="orgPath" />
     <result column="display_name" jdbcType="VARCHAR" property="displayName" />
   </resultMap>
-  
   <sql id="Base_Column_List" >
-    id, type_id, name, org_id, idcardno, number, title, mobile, mobile_short, 
-    intercom_group, intercom_person, gps_id, gps_name
+    id, type_id, name, org_id, idcardNo, number, title, mobile, mobile_short, intercom_group, 
+    intercom_person, gps_id, gps_name, sync_state, platform_id, isUsed
   </sql>
   <sql id="Base_Model_Column_List" >
     p.id, p.type_id as typeId,pt.name as typeName, p.name, p.org_id as orgId,o.short_name as orgName,p.idcardno, p.number, p.title, p.mobile, p.mobile_short as mobileShort, 
@@ -58,15 +60,17 @@
   </delete>
   <insert id="insert" parameterType="com.tianyi.drs.basedata.model.Police" >
     insert into t_police (id, type_id, name, 
-      org_id, idcardno, number, 
+      org_id, idcardNo, number, 
       title, mobile, mobile_short, 
       intercom_group, intercom_person, gps_id, 
-      gps_name,platform_id,sync_state)
+      gps_name, sync_state, platform_id, 
+      isUsed)
     values (#{id,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{orgId,jdbcType=INTEGER}, #{idcardno,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, 
       #{title,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{mobileShort,jdbcType=VARCHAR}, 
       #{intercomGroup,jdbcType=VARCHAR}, #{intercomPerson,jdbcType=VARCHAR}, #{gpsId,jdbcType=INTEGER}, 
-      #{gpsName,jdbcType=VARCHAR},#{platformId,jdbcType=INTEGER},#{syncState,jdbcType=BIT})
+      #{gpsName,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER}, 
+      #{isused,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.tianyi.drs.basedata.model.Police" >
     insert into t_police
@@ -84,7 +88,7 @@
         org_id,
       </if>
       <if test="idcardno != null" >
-        idcardno,
+        idcardNo,
       </if>
       <if test="number != null" >
         number,
@@ -109,6 +113,15 @@
       </if>
       <if test="gpsName != null" >
         gps_name,
+      </if>
+      <if test="syncState != null" >
+        sync_state,
+      </if>
+      <if test="platformId != null" >
+        platform_id,
+      </if>
+      <if test="isused != null" >
+        isUsed,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -151,6 +164,15 @@
       <if test="gpsName != null" >
         #{gpsName,jdbcType=VARCHAR},
       </if>
+      <if test="syncState != null" >
+        #{syncState,jdbcType=BIT},
+      </if>
+      <if test="platformId != null" >
+        #{platformId,jdbcType=INTEGER},
+      </if>
+      <if test="isused != null" >
+        #{isused,jdbcType=BIT},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.basedata.model.Police" >
@@ -166,7 +188,7 @@
         org_id = #{orgId,jdbcType=INTEGER},
       </if>
       <if test="idcardno != null" >
-        idcardno = #{idcardno,jdbcType=VARCHAR},
+        idcardNo = #{idcardno,jdbcType=VARCHAR},
       </if>
       <if test="number != null" >
         number = #{number,jdbcType=VARCHAR},
@@ -192,6 +214,15 @@
       <if test="gpsName != null" >
         gps_name = #{gpsName,jdbcType=VARCHAR},
       </if>
+      <if test="syncState != null" >
+        sync_state = #{syncState,jdbcType=BIT},
+      </if>
+      <if test="platformId != null" >
+        platform_id = #{platformId,jdbcType=INTEGER},
+      </if>
+      <if test="isused != null" >
+        isUsed = #{isused,jdbcType=BIT},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -200,7 +231,7 @@
     set type_id = #{typeId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
       org_id = #{orgId,jdbcType=INTEGER},
-      idcardno = #{idcardno,jdbcType=VARCHAR},
+      idcardNo = #{idcardno,jdbcType=VARCHAR},
       number = #{number,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
       mobile = #{mobile,jdbcType=VARCHAR},
@@ -208,10 +239,13 @@
       intercom_group = #{intercomGroup,jdbcType=VARCHAR},
       intercom_person = #{intercomPerson,jdbcType=VARCHAR},
       gps_id = #{gpsId,jdbcType=INTEGER},
-      gps_name = #{gpsName,jdbcType=VARCHAR}
+      gps_name = #{gpsName,jdbcType=VARCHAR},
+      sync_state = #{syncState,jdbcType=BIT},
+      platform_id = #{platformId,jdbcType=INTEGER},
+      isUsed = #{isused,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
-           <select id="findBycode" parameterType="String" resultType="com.tianyi.drs.basedata.model.Police">  
+   <select id="findBycode" parameterType="String" resultType="com.tianyi.drs.basedata.model.Police">  
        		select * from t_police where number = #{code}  
     	 </select> 
     	 

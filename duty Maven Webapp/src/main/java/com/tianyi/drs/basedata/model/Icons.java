@@ -7,11 +7,11 @@ public class Icons {
 
     private String name;
 
+    private String iconUrl;
+
     private Boolean syncState;
 
     private Integer platformId;
-
-    private byte[] icon;
 
     public Integer getId() {
         return id;
@@ -37,6 +37,14 @@ public class Icons {
         this.name = name;
     }
 
+    public String getIconUrl() {
+        return iconUrl;
+    }
+
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
+    }
+
     public Boolean getSyncState() {
         return syncState;
     }
@@ -51,13 +59,5 @@ public class Icons {
 
     public void setPlatformId(Integer platformId) {
         this.platformId = platformId;
-    }
-
-    public byte[] getIcon() {
-        return icon;
-    }
-
-    public void setIcon(byte[] icon) {
-        this.icon = icon;
     }
 }

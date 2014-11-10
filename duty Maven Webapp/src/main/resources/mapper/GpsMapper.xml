@@ -1,137 +1,145 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tianyi.drs.basedata.dao.GpsMapper" >
-  <resultMap id="BaseResultMap" type="com.tianyi.drs.basedata.model.Gps" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="type_id" property="typeId" jdbcType="INTEGER" />
-    <result column="org_id" property="orgId" jdbcType="INTEGER" />
-    <result column="number" property="number" jdbcType="VARCHAR" />
-    <result column="gps_name" property="gpsName" jdbcType="VARCHAR" />
-    <result column="sync_state" property="syncState" jdbcType="BIT" />
-    <result column="platform_id" property="platformId" jdbcType="INTEGER" />
-  </resultMap>
-  
-  
-  <resultMap id="ViewResultMap" type="com.tianyi.drs.basedata.viewmodel.GpsVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tianyi.drs.basedata.dao.GpsMapper">
+  <resultMap id="BaseResultMap" type="com.tianyi.drs.basedata.model.Gps">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="type_id" jdbcType="INTEGER" property="typeId" />
     <result column="org_id" jdbcType="INTEGER" property="orgId" />
-    <result column="number" jdbcType="VARCHAR" property="number" />  
-    <result column="gps_name" jdbcType="VARCHAR" property="gpsName" />  
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="gps_name" jdbcType="VARCHAR" property="gpsName" />
     <result column="sync_state" jdbcType="BIT" property="syncState" />
-    <result column="platform_id" jdbcType="VARCHAR" property="platformId" />
-    <result column="typename" jdbcType="VARCHAR" property="typeName" />
-    <result column="orgname" jdbcType="VARCHAR" property="orgName" />
+    <result column="platform_id" jdbcType="INTEGER" property="platformId" />
+    <result column="icon_url" jdbcType="VARCHAR" property="iconUrl" />
+  </resultMap> 
+  <resultMap id="ViewResultMap" type="com.tianyi.drs.basedata.model.Gps">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="type_id" jdbcType="INTEGER" property="typeId" />
+    <result column="org_id" jdbcType="INTEGER" property="orgId" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="gps_name" jdbcType="VARCHAR" property="gpsName" />
+    <result column="sync_state" jdbcType="BIT" property="syncState" />
+    <result column="platform_id" jdbcType="INTEGER" property="platformId" />
+    <result column="icon_url" jdbcType="VARCHAR" property="iconUrl" />
+    <result column="orgName" jdbcType="VARCHAR" property="orgName" />
     <result column="orgcode" jdbcType="VARCHAR" property="orgCode" />
-    <result column="orgpath" jdbcType="VARCHAR" property="orgPath" /> 
+    <result column="orgpath" jdbcType="VARCHAR" property="orgPath" />
+    <result column="typeName" jdbcType="VARCHAR" property="typeName" />
   </resultMap>
-  
-  
-  <sql id="Base_Column_List" >
-    id, type_id, org_id, number, gps_name, sync_state, platform_id
+  <sql id="Base_Column_List">
+    id, type_id, org_id, number, gps_name, sync_state, platform_id, icon_url
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from t_gps
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_gps
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tianyi.drs.basedata.model.Gps" >
+  <insert id="insert" parameterType="com.tianyi.drs.basedata.model.Gps">
     insert into t_gps (id, type_id, org_id, 
       number, gps_name, sync_state, 
-      platform_id)
+      platform_id, icon_url)
     values (#{id,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, 
       #{number,jdbcType=VARCHAR}, #{gpsName,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT}, 
-      #{platformId,jdbcType=INTEGER})
+      #{platformId,jdbcType=INTEGER}, #{iconUrl,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.tianyi.drs.basedata.model.Gps" >
+  <insert id="insertSelective" parameterType="com.tianyi.drs.basedata.model.Gps">
     insert into t_gps
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="typeId != null" >
+      <if test="typeId != null">
         type_id,
       </if>
-      <if test="orgId != null" >
+      <if test="orgId != null">
         org_id,
       </if>
-      <if test="number != null" >
+      <if test="number != null">
         number,
       </if>
-      <if test="gpsName != null" >
+      <if test="gpsName != null">
         gps_name,
       </if>
-      <if test="syncState != null" >
+      <if test="syncState != null">
         sync_state,
       </if>
-      <if test="platformId != null" >
+      <if test="platformId != null">
         platform_id,
       </if>
+      <if test="iconUrl != null">
+        icon_url,
+      </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="typeId != null" >
+      <if test="typeId != null">
         #{typeId,jdbcType=INTEGER},
       </if>
-      <if test="orgId != null" >
+      <if test="orgId != null">
         #{orgId,jdbcType=INTEGER},
       </if>
-      <if test="number != null" >
+      <if test="number != null">
         #{number,jdbcType=VARCHAR},
       </if>
-      <if test="gpsName != null" >
+      <if test="gpsName != null">
         #{gpsName,jdbcType=VARCHAR},
       </if>
-      <if test="syncState != null" >
+      <if test="syncState != null">
         #{syncState,jdbcType=BIT},
       </if>
-      <if test="platformId != null" >
+      <if test="platformId != null">
         #{platformId,jdbcType=INTEGER},
+      </if>
+      <if test="iconUrl != null">
+        #{iconUrl,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.basedata.model.Gps" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.basedata.model.Gps">
     update t_gps
-    <set >
-      <if test="typeId != null" >
+    <set>
+      <if test="typeId != null">
         type_id = #{typeId,jdbcType=INTEGER},
       </if>
-      <if test="orgId != null" >
+      <if test="orgId != null">
         org_id = #{orgId,jdbcType=INTEGER},
       </if>
-      <if test="number != null" >
+      <if test="number != null">
         number = #{number,jdbcType=VARCHAR},
       </if>
-      <if test="gpsName != null" >
+      <if test="gpsName != null">
         gps_name = #{gpsName,jdbcType=VARCHAR},
       </if>
-      <if test="syncState != null" >
+      <if test="syncState != null">
         sync_state = #{syncState,jdbcType=BIT},
       </if>
-      <if test="platformId != null" >
+      <if test="platformId != null">
         platform_id = #{platformId,jdbcType=INTEGER},
+      </if>
+      <if test="iconUrl != null">
+        icon_url = #{iconUrl,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.basedata.model.Gps" >
+  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.basedata.model.Gps">
     update t_gps
     set type_id = #{typeId,jdbcType=INTEGER},
       org_id = #{orgId,jdbcType=INTEGER},
       number = #{number,jdbcType=VARCHAR},
       gps_name = #{gpsName,jdbcType=VARCHAR},
       sync_state = #{syncState,jdbcType=BIT},
-      platform_id = #{platformId,jdbcType=INTEGER}
+      platform_id = #{platformId,jdbcType=INTEGER},
+      icon_url = #{iconUrl,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-      	 <select id="selectGpsType" resultType="com.tianyi.drs.basedata.model.GpsType">  
+<select id="selectGpsType" resultType="com.tianyi.drs.basedata.model.GpsType">  
        		 select * from t_gpstype order by id asc
     	 </select> 
   
@@ -147,6 +155,7 @@
 			org.name				as	orgName,
 			org.code 				as 	orgCode,
 			org.path 				as 	orgPath,
+			g.icon_url              as  iconUrl
 			gt.name 				as 	typeName 
 		from t_gps as g
 			left join organ as org on g.org_id=org.id  
@@ -208,5 +217,4 @@
  				
   			</if>
   </select>
-  
 </mapper>

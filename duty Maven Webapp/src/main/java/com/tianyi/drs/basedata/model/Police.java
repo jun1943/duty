@@ -31,6 +31,8 @@ public class Police {
 
     private Integer platformId;
 
+    private Boolean isused;
+
     public Integer getId() {
         return id;
     }
@@ -149,5 +151,13 @@ public class Police {
 
     public void setPlatformId(Integer platformId) {
         this.platformId = platformId;
+    }
+
+    public Boolean getIsused() {
+        return isused;
+    }
+
+    public void setIsused(Boolean isused) {
+        this.isused = isused;
     }
 }

@@ -1,122 +1,106 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tianyi.drs.basedata.dao.IconsMapper">
-  <resultMap id="BaseResultMap" type="com.tianyi.drs.basedata.model.Icons">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="type_id" jdbcType="INTEGER" property="typeId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="sync_state" jdbcType="BIT" property="syncState" />
-    <result column="platform_id" jdbcType="INTEGER" property="platformId" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianyi.drs.basedata.dao.IconsMapper" >
+  <resultMap id="BaseResultMap" type="com.tianyi.drs.basedata.model.Icons" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="icon_url" property="iconUrl" jdbcType="VARCHAR" />
+    <result column="sync_state" property="syncState" jdbcType="BIT" />
+    <result column="platform_id" property="platformId" jdbcType="INTEGER" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tianyi.drs.basedata.model.Icons">
-    <result column="icon" jdbcType="LONGVARBINARY" property="icon" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, type_id, name, sync_state, platform_id
+  <sql id="Base_Column_List" >
+    id, type_id, name, icon_url, sync_state, platform_id
   </sql>
-  <sql id="Blob_Column_List">
-    icon
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from t_icon
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_icon
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tianyi.drs.basedata.model.Icons">
+  <insert id="insert" parameterType="com.tianyi.drs.basedata.model.Icons" >
     insert into t_icon (id, type_id, name, 
-      sync_state, platform_id, icon
+      icon_url, sync_state, platform_id
       )
     values (#{id,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER}, #{icon,jdbcType=LONGVARBINARY}
+      #{iconUrl,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.tianyi.drs.basedata.model.Icons">
+  <insert id="insertSelective" parameterType="com.tianyi.drs.basedata.model.Icons" >
     insert into t_icon
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         id,
       </if>
-      <if test="typeId != null">
+      <if test="typeId != null" >
         type_id,
       </if>
-      <if test="name != null">
+      <if test="name != null" >
         name,
       </if>
-      <if test="syncState != null">
+      <if test="iconUrl != null" >
+        icon_url,
+      </if>
+      <if test="syncState != null" >
         sync_state,
       </if>
-      <if test="platformId != null">
+      <if test="platformId != null" >
         platform_id,
       </if>
-      <if test="icon != null">
-        icon,
-      </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="typeId != null">
+      <if test="typeId != null" >
         #{typeId,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
+      <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="syncState != null">
+      <if test="iconUrl != null" >
+        #{iconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="syncState != null" >
         #{syncState,jdbcType=BIT},
       </if>
-      <if test="platformId != null">
+      <if test="platformId != null" >
         #{platformId,jdbcType=INTEGER},
-      </if>
-      <if test="icon != null">
-        #{icon,jdbcType=LONGVARBINARY},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.basedata.model.Icons">
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.basedata.model.Icons" >
     update t_icon
-    <set>
-      <if test="typeId != null">
+    <set >
+      <if test="typeId != null" >
         type_id = #{typeId,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
+      <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="syncState != null">
+      <if test="iconUrl != null" >
+        icon_url = #{iconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="syncState != null" >
         sync_state = #{syncState,jdbcType=BIT},
       </if>
-      <if test="platformId != null">
+      <if test="platformId != null" >
         platform_id = #{platformId,jdbcType=INTEGER},
-      </if>
-      <if test="icon != null">
-        icon = #{icon,jdbcType=LONGVARBINARY},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tianyi.drs.basedata.model.Icons">
+  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.basedata.model.Icons" >
     update t_icon
     set type_id = #{typeId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
-      sync_state = #{syncState,jdbcType=BIT},
-      platform_id = #{platformId,jdbcType=INTEGER},
-      icon = #{icon,jdbcType=LONGVARBINARY}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.basedata.model.Icons">
-    update t_icon
-    set type_id = #{typeId,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
+      icon_url = #{iconUrl,jdbcType=VARCHAR},
       sync_state = #{syncState,jdbcType=BIT},
       platform_id = #{platformId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  
 </mapper>
