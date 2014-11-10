@@ -934,7 +934,11 @@ function save(isTemplate,name){
 	reCalcDuty();
 }
 
-
+function clearDuty(){
+	m_duty.items.length=0;
+	$('#tdDuty').treegrid('loadData',m_duty.items);
+	reCalcDuty();
+}
 
 function dutyRegul(duty){
 	
@@ -1571,6 +1575,7 @@ function showTaskWindow(){
 			var taskType=dutyTypeRow.taskType;
 			if(taskType>0){
 				loadTaskTarget(taskType);
+				$('#lblPoliceInfo').text(row.name);
 				m_target=row;
 				setCheckBoxOfTarget(row);
 				$('#taskWindow').window('open');

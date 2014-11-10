@@ -45,11 +45,12 @@ function buildOrgTree(orgs){
     	var node = orgs[i];
     	node.text = node.shortName;
         node.children=[];
-        
+        node.children2=[];
         for (var j = 0; j < count; j++) {
         	var tmp = orgs[j];
         	if (tmp.parentId == node.id){
         		node.children.push(tmp);
+        		node.children2.push(tmp);
         	}
         }
         if(node.parentId==rootParent){
