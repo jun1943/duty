@@ -36,12 +36,13 @@
         </javaClientGenerator>  
 
 		 
-
-		<table tableName="t_duty_item_type" domainObjectName="DutyItemType"
+ 
+	       
+		<table tableName="t_duty_gps_group_membesr" domainObjectName="GpsGroupMembser"
            enableSelectByExample="false"
 	       enableDeleteByExample="false"
 	       enableCountByExample="false"
 	       enableUpdateByExample="false"/>
-	       
+	        
     </context>  
 </generatorConfiguration>  

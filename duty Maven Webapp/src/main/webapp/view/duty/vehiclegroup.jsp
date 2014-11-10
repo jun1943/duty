@@ -9,41 +9,41 @@
 <!--  
 <link href='//cdn.datatables.net/plug-ins/a5734b29083/integration/jqueryui/dataTables.jqueryui.css' type='text/css' />
 -->
-<script src='<%=basePath%>script/duty/policegroup.js'
+<script src='<%=basePath%>script/duty/vehiclegroup.js'
 	type='text/javascript'></script>
-<title>人员分组</title>
+<title>车辆分组</title>
 
 </head>
-
+  
 <body class="easyui-layout" >
 		<div id="divPG" data-options="region:'west'" title="警员组"
 			style="width:40%">
 			<div id="tbGroup" class="btn-toolbar">
 
 				<div class="btn-group">
-					<a id="btnAddVehicleGroup" href="javascript:void(0);"
+					<a id="btnAddPoliceGroup" href="javascript:void(0);"
 						class="easyui-linkbutton icon-camera-retro" plain="true"
-						onclick="addVehicleGroup()">创建</a> <a id="btnEditVehicleGroup"
+						onclick="addPoliceGroup()">创建</a> <a id="btnEditPoliceGroup"
 						href="javascript:void(0);" class="easyui-linkbutton"
-						iconcls="icon-edit" plain="true" onclick="editVehicleGroup()">修改</a>
-					<a id="btnDelVehicleGroup" href="javascript:void(0);"
+						iconcls="icon-edit" plain="true" onclick="editPoliceGroup()">修改</a>
+					<a id="btnDelPoliceGroup" href="javascript:void(0);"
 						class="easyui-linkbutton" iconcls="icon-cancel" plain="true"
-						onclick="delVehicleGroup()">删除</a>
+						onclick="delPoliceGroup()">删除</a>
 				</div>
 			</div>
-			<div id="dtVehicleGroup"></div>
+			<div id="dtPoliceGroup"></div>
 		</div>
 		<div id="dtGroup"></div>
 		<div data-options="region:'center',title:'警员'">
 			<div id="tbGroupMember" class="btn-toolbar">
 				<div class="btn-group">
-					<a id="btnAddVehicleGroupMember" href="javascript:void(0);"
+					<a id="btnAddPoliceGroupMember" href="javascript:void(0);"
 						class="easyui-linkbutton" iconcls="icon-add" plain="true"
-						onclick="addVehicleGroupMember()">添加</a> <a
-						id="btnEditVehicleGroupMember" href="javascript:void(0);"
+						onclick="addPoliceGroupMember()">添加</a> <a
+						id="btnEditPoliceGroupMember" href="javascript:void(0);"
 						class="easyui-linkbutton" iconcls="icon-edit" plain="true"
-						onclick="delVehicleGroupMemeber()">删除</a> <a
-						id="btnCleanVehicleGroupMember" href="javascript:void(0);"
+						onclick="delPoliceGroupMemeber()">删除</a> <a
+						id="btnCleanPoliceGroupMember" href="javascript:void(0);"
 						class="easyui-linkbutton" iconcls="icon-cancel" plain="true"
 						onclick="cleanPGMember()">清空</a>
 				</div>
@@ -56,18 +56,18 @@
         collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false">
 			<div id="tbGroup" class="btn-toolbar">
 				<div class="btn-group">
-					<a id="btnSaveVehicleGroup" href="javascript:void(0);"
+					<a id="btnSavePoliceGroup" href="javascript:void(0);"
 						class="easyui-linkbutton " plain="true"
-						onclick="saveVehicleGroup()">保存</a> <a id="btnCloseVehicleGroupDlg"
+						onclick="savePoliceGroup()">保存</a> <a id="btnClosePoliceGroupDlg"
 						href="javascript:void(0);" class="easyui-linkbutton " plain="true"
 						onclick="closeWinPG()">退出</a>
 				</div>
 			</div>
-			<input type="hidden" id="txtVehicleGroupId"></input>
+			<input type="hidden" id="txtPoliceGroupId"></input>
 			<table style="width:100%">
 				<tr>
 					<td style="text-align:right"><lable>组名称:</lable></td>
-					<td><input id="txtVehicleGroupName" type="text"
+					<td><input id="txtPoliceGroupName" type="text"
 						class="easyui-validatebox"></input></td>
 				</tr>
 				<tr>
@@ -97,14 +97,14 @@
         collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false">    
    	 		<div id="tbGroup" class="btn-toolbar">
 				<div class="btn-group">
-					<a id="btnSaveVehicleGroup" href="javascript:void(0);"
+					<a id="btnSavePoliceGroup" href="javascript:void(0);"
 						class="easyui-linkbutton " plain="true"
-						onclick="appendMember()">保存</a> <a id="btnCloseVehicleGroupDlg"
+						onclick="appendMember()">保存</a> <a id="btnClosePoliceGroupDlg"
 						href="javascript:void(0);" class="easyui-linkbutton " plain="true"
 						onclick="closeWinPGMember()">退出</a>
 				</div>
 			</div>
-			<input id="txtVehicleGroupId"  type="hidden"></input>
+			<input id="txtPoliceGroupId"  type="hidden"></input>
 			<table>
 				<tr>
 					<td style="width:40%">
