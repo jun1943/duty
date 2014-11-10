@@ -34,7 +34,7 @@
 				</li>
 				<li><a href="javascript:void(0);" 
 						class="easyui-linkbutton " plain="true" 
-						onclick="onPoliceGroup()">分组管理</a>
+						onclick="onDutyDataGroup('policegroup')">分组管理</a>
 				</li>
 				<li><a href="javascript:void(0);" value="view/duty/dutytype.jsp"
 						class="easyui-linkbutton" plain="true"

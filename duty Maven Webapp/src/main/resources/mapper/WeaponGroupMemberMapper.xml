@@ -8,6 +8,20 @@
     <result column="sync_state" property="syncState" jdbcType="BIT" />
     <result column="platform_id" property="platformId" jdbcType="INTEGER" />
   </resultMap>
+  
+  
+  
+  <resultMap id="MemeberResultMap" type="com.tianyi.drs.duty.viewmodel.WeaponGroupMemberVM">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="group_id" jdbcType="INTEGER" property="groupId" />
+    <result column="weapon_id" jdbcType="INTEGER" property="weaponId" />
+    <result column="org_name" jdbcType="VARCHAR" property="orgName" />
+    <result column="org_short_name" jdbcType="VARCHAR" property="orgShortName" />
+    <result column="p_typename" jdbcType="VARCHAR" property="typeName" />
+    <result column="p_number" jdbcType="VARCHAR" property="number" />
+    <result column="p_standard" jdbcType="VARCHAR" property="standard" />
+  </resultMap>
+  
   <sql id="Base_Column_List" >
     id, group_id, weapon_id, sync_state, platform_id
   </sql>
@@ -90,4 +104,51 @@
       platform_id = #{platformId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+  
+    <select id="countMemberByGroupId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    	select 
+			count(*)
+    	from t_duty_weapon_group_member as m
+    	where m.group_id = #{groupId,jdbcType=INTEGER}
+  </select>
+  
+  
+  <select id="loadMemberByGroupId" parameterType="java.util.Map" resultMap="MemeberResultMap">
+    select 
+    	m.id as id,
+    	m.group_id,
+    	m.weapon_id,
+    	org.name as org_name,
+    	org.short_name as org_short_name,
+    	t.name as p_typename,
+    	p.number as p_number,
+    	p.standard as p_standard
+    from t_duty_weapon_group_member as m
+    left join t_weapon as p on m.weapon_id=p.id
+    left join t_weapontype t on p.type_id = t.id 
+    left join organ as org on p.org_id=org.id
+    where group_id = #{groupId,jdbcType=INTEGER}
+    order by m.id
+  		<if test="pageStart != null">
+	    	limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+	  	</if>
+    
+  </select>
+  
+    <select id="existsByMemberId" parameterType="java.util.Map" resultType="java.lang.Integer">
+    select 
+    	count(*)
+    from t_duty_weapon_group_member 
+    where 
+    	group_id = #{groupId,jdbcType=INTEGER} and
+    	weapon_id= #{memberId,jdbcType=INTEGER}  
+  </select>
+  
+  <delete id="deleteByGroupId" parameterType="java.lang.Integer">
+    delete from t_duty_weapon_group_member
+    where group_id = #{groupId,jdbcType=INTEGER}
+  </delete>
+  
 </mapper>

@@ -89,6 +89,20 @@ $(document).ready(function() {
 	//forceSelTisOrg();
 });
 
+function onPoliceManGroup(name){
+	parent.onDutyDataGroup(name);
+}
+function onVehicleGroup(name){
+	parent.onDutyDataGroup(name);
+}
+function onWeaponGroup(name){
+	parent.onDutyDataGroup(name);
+}
+function onGpsDeviceGroup(name){
+	parent.onDutyDataGroup(name);
+}
+
+
 function loadOrgs(){
 	
 	$.ajax({

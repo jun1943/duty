@@ -7,8 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import net.sf.json.JSONArray; 
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.tianyi.drs.duty.model.Org;
 import com.tianyi.drs.duty.service.OrgService;
 import com.tianyi.drs.duty.viewmodel.ListResult;
+import com.tianyi.drs.duty.viewmodel.OrgWithGpsVM;
 import com.tianyi.drs.duty.viewmodel.OrgWithPoliceVM;
+import com.tianyi.drs.duty.viewmodel.OrgWithVehicleVM;
+import com.tianyi.drs.duty.viewmodel.OrgWithWeaponVM;
 
 @Scope("prototype")
 @Controller
@@ -79,5 +81,100 @@ public class OrgController {
 			return null;
 		}		
 	}
-	
+	/**
+	 * 返回组织机构和下属车辆信息
+	 * @param orgCode
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "listWithVehicle.do")
+	public @ResponseBody String listWithVehicle(
+			@RequestParam(value = "rootId", required = false) Integer rootId,
+			@RequestParam(value = "id", required = false) String hybrid_id,
+			HttpServletRequest request
+			){
+
+		Integer qid=null;
+		
+		if(hybrid_id!=null && hybrid_id!=""){
+			if(hybrid_id.indexOf("org")>=0){
+				qid=new Integer(hybrid_id.split("_")[1]);
+			}
+		}else{
+			qid=rootId;
+		}
+		
+		if(qid!=null){
+			List<OrgWithVehicleVM> ls=orgService.loadOrgWithVehicleVMList(qid);
+			JSONArray rs=JSONArray.fromObject(ls);
+			
+			return rs.toString();
+		}else{
+			return null;
+		}		
+	}
+	/**
+	 * 返回组织机构和下属武器信息
+	 * @param orgCode
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "listWithWeapon.do")
+	public @ResponseBody String listWithWeapon(
+			@RequestParam(value = "rootId", required = false) Integer rootId,
+			@RequestParam(value = "id", required = false) String hybrid_id,
+			HttpServletRequest request
+			){
+
+		Integer qid=null;
+		
+		if(hybrid_id!=null && hybrid_id!=""){
+			if(hybrid_id.indexOf("org")>=0){
+				qid=new Integer(hybrid_id.split("_")[1]);
+			}
+		}else{
+			qid=rootId;
+		}
+		
+		if(qid!=null){
+			List<OrgWithWeaponVM> ls=orgService.loadOrgWithWeaponVMList(qid);
+			JSONArray rs=JSONArray.fromObject(ls);
+			
+			return rs.toString();
+		}else{
+			return null;
+		}		
+	}
+	/**
+	 * 返回组织机构和下属武器信息
+	 * @param orgCode
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "listWithGps.do")
+	public @ResponseBody String listWithGps(
+			@RequestParam(value = "rootId", required = false) Integer rootId,
+			@RequestParam(value = "id", required = false) String hybrid_id,
+			HttpServletRequest request
+			){
+
+		Integer qid=null;
+		
+		if(hybrid_id!=null && hybrid_id!=""){
+			if(hybrid_id.indexOf("org")>=0){
+				qid=new Integer(hybrid_id.split("_")[1]);
+			}
+		}else{
+			qid=rootId;
+		}
+		
+		if(qid!=null){
+			List<OrgWithGpsVM> ls=orgService.loadOrgWithGpsVMList(qid);
+			JSONArray rs=JSONArray.fromObject(ls);
+			
+			return rs.toString();
+		}else{
+			return null;
+		}		
+	}
 }

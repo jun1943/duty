@@ -49,16 +49,16 @@ $(document).ready(function() {
 		columns : [ [ 
 		              {title : 'id',field : 'id',align : 'left',width : 0,hidden : true	}, 
 		              {	title : '所属单位',field : 'orgShortName',align : 'left',width : 110	}, 
-		              {	title : '车辆类型',	field : 'name',	align : 'left',width : 100	},
+		              {	title : '车辆类型',	field : 'typeName',	align : 'left',width : 100	},
 		              {	title : '车牌号码',	field : 'number',	align : 'left',width : 100	},
-		              {	title : '车辆用途',	field : 'title',	align : 'left',width : 100	},
+		              {	title : '车辆用途',	field : 'brand',	align : 'left',width : 100	},
 		] ]
 	});
 
 	$('#treeOrg').tree(
 			{
-//				url : "org/list.do?orgCode=" + m_policeGroup_Org.code
-//						+ "&orgPath=" + m_policeGroup_Org.path,
+//				url : "org/list.do?orgCode=" + m_vehicleGroup_Org.code
+//						+ "&orgPath=" + m_vehicleGroup_Org.path,
 				checkbox : true,
 				cascadeCheck : false
 //				async : false
@@ -67,9 +67,9 @@ $(document).ready(function() {
 //				}
 			});
 
-	$('#treeOrgWithPolice').tree(
+	$('#treeOrgWithVehicle').tree(
 			{
-				url : "org/listWithPolice.do?rootId="+m_policeGroup_Org.id,
+				url : "org/listWithVehicle.do?rootId="+m_vehicleGroup_Org.id,
 				checkbox : false,
 				cascadeCheck : false
 			});
@@ -81,14 +81,27 @@ $(document).ready(function() {
 		fitColumns : true,
 		columns : [ [
 		            {title : 'id',field : 'id',align : 'left',width : 10,hidden : true}, 
-		            {title : '姓名',field : 'name',align : 'left',	width : 100},
-		            {title : '警号',field : 'code',align : 'left',width : 100}
+		            {title : '车辆类型',field : 'name',align : 'left',	width : 100}, 
+		            {title : '车牌号码',field : 'code',align : 'left',	width : 100} 
 		] ]
 	});
 	loadOrgs();
 	//forceSelTisOrg();
 });
 
+
+function onPoliceManGroup(name){
+	parent.onDutyDataGroup(name);
+}
+function onVehicleGroup(name){
+	parent.onDutyDataGroup(name);
+}
+function onWeaponGroup(name){
+	parent.onDutyDataGroup(name);
+}
+function onGpsDeviceGroup(name){
+	parent.onDutyDataGroup(name);
+}
 function loadOrgs(){
 	
 	$.ajax({
@@ -105,7 +118,7 @@ function loadOrgs(){
 			if (req.isSuccess) {
 				var nodes=buildOrgTree(req.rows);
 				$('#treeOrg').tree("loadData",nodes);
-//				var node =$('#treeOrg').tree('find',m_policeGroup_Org.id);
+//				var node =$('#treeOrg').tree('find',m_vehicleGroup_Org.id);
 //				$('#treeOrg').tree('check',node.target);
 //				node.target.attr("disabled", "disabled");
 			} else {
@@ -121,7 +134,7 @@ function pack_vehicleGroup_Query() {
 	m_vehicleGroup_Query.orgPath = m_vehicleGroup_Org.path;
 }
 
-function showPoliceGroupDlg() {
+function showVehicleGroupDlg() {
 	$('#winPG').window('open'); 
 }
 
@@ -340,7 +353,7 @@ function delVehicleGroupMemeber(){
 
 function cleanPGMember(){
 	
-	var row=$('#dtPoliceGroup').datagrid("getSelected");
+	var row=$('#dtVehicleGroup').datagrid("getSelected");
 	
 	if(row!=null){
 		$.messager.confirm('操作提示', "确定要清空[ " + row.name + " ]下面所有的成员?",
@@ -410,7 +423,7 @@ function closeWinPGMember(){
 }
 
 function selectMember(){
-	var node=$('#treeOrgWithPolice').tree('getSelected');
+	var node=$('#treeOrgWithVehicle').tree('getSelected');
 	if(node !=null && node.dataType==2){
 		
 		var datas=$('#dtSelGroupMember').datagrid('getData');

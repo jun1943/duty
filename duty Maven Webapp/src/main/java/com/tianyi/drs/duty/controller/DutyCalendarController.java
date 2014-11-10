@@ -68,8 +68,8 @@ public class DutyCalendarController {
 			}
 			result += "{\"y\":\"" + year + "\",\"m\":\"" + month
 					+ "\",\"d\":\"" + i + "\",\"week\":\"" + week
-					+ "\",\"totalpolice\":\"" + getTotalPolice(dt, orgId)
-					+ "\",\"dutyList\":\"" + getDutyList(dt, orgId) + "\"},";
+					+ "\",\"totalpolice\":\"" + getTotalPolice(dt, orgId) + "\"},";
+					//+ "\",\"dutyList\":\"" + getDutyList(dt, orgId) + "\"},";
 		}
 		if (result.endsWith(",")) {
 			result = result.substring(0, result.length() - 1) + "]";
@@ -119,8 +119,8 @@ public class DutyCalendarController {
 			list = dutyTypeService.loadDutyItemCount(map);
 			String result = "";
 			if (list.size() > 0) {
-				//result +="<li>";
 				for (int i = 0; i < list.size(); i++) {
+					result +="<li>";
 					if(list.get(i).getItemTypeName().equals("警员")){
 						result += list.get(i).getorgName()+"人";
 					}else if(list.get(i).getItemTypeName().equals("车辆")){
@@ -128,10 +128,9 @@ public class DutyCalendarController {
 					}else if(list.get(i).getItemTypeName().equals("武器")){
 						result += list.get(i).getorgName()+"武器";
 					}
+					result +="</li>";
 				}
-				//result +="</li>";
-			} else {
-				//result = "<li>0</li>";
+			} else { 
 				result = "0";
 			}
 			return result;
