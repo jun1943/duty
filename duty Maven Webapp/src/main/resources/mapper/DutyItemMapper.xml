@@ -15,13 +15,14 @@
     <result column="level" property="level" jdbcType="INTEGER" />
     <result column="is_leaf" property="isLeaf" jdbcType="BIT" />
     <result column="full_id_path" property="fullIdPath" jdbcType="VARCHAR" />
+    <result column="icon_url" property="iconUrl" jdbcType="VARCHAR" />
     <result column="sync_state" property="syncState" jdbcType="BIT" />
     <result column="platform_id" property="platformId" jdbcType="INTEGER" />
     <result column="description" property="description" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, duty_id, duty_type_id, begin_time, end_time, item_type_id, item_id, item_name, 
-    name, parent_id, level, is_leaf, full_id_path, sync_state, platform_id, description
+    name, parent_id, level, is_leaf, full_id_path, iconUrl,sync_state, platform_id, description
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -38,13 +39,13 @@
       begin_time, end_time, item_type_id, 
       item_id, item_name, name, 
       parent_id, level, is_leaf, 
-      full_id_path, sync_state, platform_id, 
+      full_id_path, icon_url,sync_state, platform_id, 
       description)
     values (#{id,jdbcType=INTEGER}, #{dutyId,jdbcType=INTEGER}, #{dutyTypeId,jdbcType=INTEGER}, 
       #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{itemTypeId,jdbcType=INTEGER}, 
       #{itemId,jdbcType=INTEGER}, #{itemName,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{parentId,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, #{isLeaf,jdbcType=BIT}, 
-      #{fullIdPath,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER}, 
+      #{fullIdPath,jdbcType=VARCHAR},#{iconUrl,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER}, 
       #{description,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.DutyItem" useGeneratedKeys="true" keyProperty="id">
@@ -88,6 +89,9 @@
       </if>
       <if test="fullIdPath != null" >
         full_id_path,
+      </if>
+      <if test="iconUrl != null" >
+        icon_url,
       </if>
       <if test="syncState != null" >
         sync_state,
@@ -189,6 +193,9 @@
       <if test="fullIdPath != null" >
         full_id_path = #{fullIdPath,jdbcType=VARCHAR},
       </if>
+      <if test="iconUrl != null" >
+        icon_url = #{iconUrl,jdbcType=VARCHAR},
+      </if>
       <if test="syncState != null" >
         sync_state = #{syncState,jdbcType=BIT},
       </if>
@@ -215,6 +222,7 @@
       level = #{level,jdbcType=INTEGER},
       is_leaf = #{isLeaf,jdbcType=BIT},
       full_id_path = #{fullIdPath,jdbcType=VARCHAR},
+      icon_url = #{iconUrl,jdbcType=VARCHAR},
       sync_state = #{syncState,jdbcType=BIT},
       platform_id = #{platformId,jdbcType=INTEGER},
       description = #{description,jdbcType=VARCHAR}

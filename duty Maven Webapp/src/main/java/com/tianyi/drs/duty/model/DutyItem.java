@@ -35,6 +35,8 @@ public class DutyItem {
 
     private String description;
 
+    private String iconUrl;
+    
     public Integer getId() {
         return id;
     }
@@ -162,4 +164,12 @@ public class DutyItem {
     public void setDescription(String description) {
         this.description = description;
     }
+
+	public String getIconUrl() {
+		return iconUrl;
+	}
+
+	public void setIconUrl(String iconUrl) {
+		this.iconUrl = iconUrl;
+	}
 }
