@@ -30,6 +30,7 @@
     <result column="mobile_short" property="mobileShort" jdbcType="VARCHAR" />
     <result column="intercom_group" property="intercomGroup" jdbcType="VARCHAR" />
     <result column="intercom_person" property="intercomPerson" jdbcType="VARCHAR" />
+    <result column="gps_icon" property="iconUrl" jdbcType="VARCHAR" />
     <result column="gps_id" property="gpsId" jdbcType="INTEGER" />
     <result column="gps_name" property="gpsName" jdbcType="VARCHAR" />
     <result column="orgcode" jdbcType="VARCHAR" property="orgCode" />

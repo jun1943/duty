@@ -14,6 +14,8 @@ public class PoliceVM extends Police {
 
 	private String displayName;
 	
+	private String iconUrl;
+	
 	public String getTypeName() {
 		return typeName;
 	}
@@ -52,5 +54,13 @@ public class PoliceVM extends Police {
 
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
+	}
+
+	public String getIconUrl() {
+		return iconUrl;
+	}
+
+	public void setIconUrl(String iconUrl) {
+		this.iconUrl = iconUrl;
 	} 
 }
