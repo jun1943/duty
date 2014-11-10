@@ -21,8 +21,7 @@ $(function() {
 		idField : 'xid',
 		width : 600,
 		height : '100%',
-		treeField : 'displayName',
-		showFooter : true,
+		treeField : 'displayName', 
 		onClickRow:onClickData,
 		columns : [ [ {
 			title : 'xid',

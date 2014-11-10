@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
+import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUpload;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -159,7 +161,11 @@ public class IconsController extends CommonsMultipartResolver {
 			Icons icon, HttpServletRequest request, HttpServletResponse response) {
 
 		try {
+			File tmpDir = null;//初始化上传文件的临时存放目录
+			File saveDir = null;//初始化上传文件后的保存目录
+			
 			if (!cmFile.isEmpty()) { 
+				 
 				int size = (int) cmFile.getFileItem().getSize();
 				String name = cmFile.getFileItem().getName();
 				byte[] img = new byte[(int) size];
