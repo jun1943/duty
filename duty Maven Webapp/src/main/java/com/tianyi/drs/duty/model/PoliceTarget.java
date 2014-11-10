@@ -4,6 +4,8 @@ public class PoliceTarget {
     private Integer id;
 
     private Integer dutyId;
+    
+    private Integer dutyItemId;
 
     private Integer policeId;
 
@@ -33,6 +35,14 @@ public class PoliceTarget {
         this.dutyId = dutyId;
     }
 
+    public Integer getDutyItemId() {
+        return dutyItemId;
+    }
+
+    public void setDutyItemId(Integer dutyItemId) {
+        this.dutyItemId = dutyItemId;
+    }
+    
     public Integer getPoliceId() {
         return policeId;
     }

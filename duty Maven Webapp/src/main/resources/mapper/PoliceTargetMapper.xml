@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.tianyi.drs.duty.model.PoliceTarget" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="duty_id" property="dutyId" jdbcType="INTEGER" />
+    <result column="duty_item_id" property="dutyItemId" jdbcType="INTEGER" />
     <result column="police_id" property="policeId" jdbcType="INTEGER" />
     <result column="task_type_id" property="taskTypeId" jdbcType="INTEGER" />
     <result column="target_id" property="targetId" jdbcType="INTEGER" />
@@ -12,7 +13,7 @@
     <result column="platform_id" property="platformId" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, duty_id, police_id, task_type_id, target_id, is_pass, sync_state, platform_id
+    id, duty_id,duty_item_id, police_id, task_type_id, target_id, is_pass, sync_state, platform_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -25,10 +26,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.tianyi.drs.duty.model.PoliceTarget" >
-    insert into t_duty_police_target (id, duty_id, police_id, 
+    insert into t_duty_police_target (id, duty_id,duty_item_id, police_id, 
       task_type_id, target_id, is_pass, 
       sync_state, platform_id)
-    values (#{id,jdbcType=INTEGER}, #{dutyId,jdbcType=INTEGER}, #{policeId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{dutyId,jdbcType=INTEGER},#{dutyItemId,jdbcType=INTEGER}, #{policeId,jdbcType=INTEGER}, 
       #{taskTypeId,jdbcType=INTEGER}, #{targetId,jdbcType=INTEGER}, #{isPass,jdbcType=BIT}, 
       #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER})
   </insert>
@@ -40,6 +41,9 @@
       </if>
       <if test="dutyId != null" >
         duty_id,
+      </if>
+      <if test="dutyItemId != null" >
+        duty_item_id,
       </if>
       <if test="policeId != null" >
         police_id,
@@ -64,8 +68,8 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="dutyId != null" >
-        #{dutyId,jdbcType=INTEGER},
+      <if test="dutyItemId != null" >
+        #{dutyItemId,jdbcType=INTEGER},
       </if>
       <if test="policeId != null" >
         #{policeId,jdbcType=INTEGER},
@@ -90,8 +94,11 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.duty.model.PoliceTarget" >
     update t_duty_police_target
     <set >
-      <if test="dutyId != null" >
+    	<if test="dutyId != null" >
         duty_id = #{dutyId,jdbcType=INTEGER},
+      </if>
+      <if test="dutyItemId != null" >
+        duty_item_id = #{dutyItemId,jdbcType=INTEGER},
       </if>
       <if test="policeId != null" >
         police_id = #{policeId,jdbcType=INTEGER},
@@ -116,7 +123,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.duty.model.PoliceTarget" >
     update t_duty_police_target
-    set duty_id = #{dutyId,jdbcType=INTEGER},
+    set duty_id=#{dutyId,jdbcType=INTEGER},duty_item_id = #{dutyItemId,jdbcType=INTEGER},
       police_id = #{policeId,jdbcType=INTEGER},
       task_type_id = #{taskTypeId,jdbcType=INTEGER},
       target_id = #{targetId,jdbcType=INTEGER},
@@ -125,4 +132,13 @@
       platform_id = #{platformId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <delete id="deleteByDutyItemId" parameterType="java.lang.Integer">
+  	delete from t_duty_police_target where duty_item_id=#{dutyItemId,jdbcType=INTEGER}
+  </delete>
+  
+  <delete id="deleteByDutyId" parameterType="java.lang.Integer">
+  	delete from t_duty_police_target where duty_id=#{dutyId,jdbcType=INTEGER}
+  </delete>
+  
 </mapper>

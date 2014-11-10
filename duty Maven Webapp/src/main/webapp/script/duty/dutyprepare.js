@@ -8,6 +8,8 @@ var m_userNode = {};// 自定义节点信息
 
 var m_shift={};//班次信息
 
+var m_target={};
+
 var m_iconCls={};
 
 $(document).ready(function() {
@@ -1539,7 +1541,10 @@ function iconTest(itemTypeId,row){
 		row.iconCls=classId;
 	}
 }
-
+/**
+ * 动态创建一个css样式
+ * @param css
+ */
 function createStyle(css){
 	try { //IE下可行
 			  var style = document.createStyleSheet();
@@ -1561,9 +1566,42 @@ function showTaskWindow(){
 			var dutyTypeRow=getDutyTypeRow(row);
 			var taskType=dutyTypeRow.taskType;
 			loadTaskTarget(taskType);
+			m_target=row;
+			setCheckBoxOfTarget(row);
 			$('#taskWindow').window('open');
 		}
 	}
+}
+
+function taskConfirm(){
+	getCheckBoxOfTarget(m_target);
+	$('#taskWindow').window('close');
+}
+
+function setCheckBoxOfTarget(item){
+	var data=$('#dgtaskTarget').datagrid('getData');
+	$.each(item.targets,function(index,val){
+		$.each(data.rows,function(index2,val2){
+			if(val.targetId==val2.targetId){
+				$('#dgtaskTarget').datagrid('checkRow', index2);
+				return false;
+			}
+		});
+	});
+}
+
+function getCheckBoxOfTarget(item){
+	var rows=$('#dgtaskTarget').datagrid('getChecked');
+	item.targets=[];/**/
+	$.each(rows,function(index,value){
+		var pt={};
+		pt.dutyId=item.dutyId;
+		pt.dutyItemId =item.id;
+		pt.policeId=item.itemId;
+		pt.taskTypeId=item.taskType;
+		pt.targetId=value.targetId;
+		item.targets.push(pt);
+	});
 }
 
 function  getDutyTypeRow(row){
@@ -1592,7 +1630,5 @@ function loadTaskTarget(taskType){
             }
         }
     });
-	
-
 }
 

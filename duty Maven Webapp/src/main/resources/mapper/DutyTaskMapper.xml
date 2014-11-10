@@ -114,7 +114,7 @@
       <select id="loadPatrolAreaByOrg" parameterType="java.util.Map" resultMap="TaskTargetResultMap">
   		select
   			2 			as target_type,
-  			id 			as target_Id,
+  			id 			as id,
   			name 	as	name  
   		from 
   			patrol_area
@@ -128,7 +128,7 @@
   <select id="loadBayonetByOrg" parameterType="java.util.Map" resultMap="TaskTargetResultMap">
   	select
   		3 			as target_type,
-  		id 			as target_Id,
+  		id 			as id,
   		name 	as	name  
   		from 
   		bayonet_info

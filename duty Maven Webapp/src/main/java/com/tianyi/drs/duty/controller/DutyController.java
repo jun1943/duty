@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianyi.drs.duty.model.Duty;
 import com.tianyi.drs.duty.model.Org;
+import com.tianyi.drs.duty.model.PoliceTarget;
 import com.tianyi.drs.duty.service.DutyService; 
 import com.tianyi.drs.duty.service.DutyTaskService;
 import com.tianyi.drs.duty.viewmodel.DutyItemVM; 
@@ -89,6 +90,7 @@ public class DutyController {
 
 		classMap.put("items", DutyItemVM.class);
 		classMap.put("children", DutyItemVM.class);
+		classMap.put("targets", PoliceTarget.class);
 		
 		DutyVM d=(DutyVM)JSONObject.toBean(jobj, DutyVM.class,classMap);
 		d.getItems().get(0).getChildren().get(0).getBeginTime();

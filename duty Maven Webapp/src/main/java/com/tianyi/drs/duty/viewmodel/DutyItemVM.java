@@ -3,6 +3,7 @@ package com.tianyi.drs.duty.viewmodel;
 import java.util.List;
 
 import com.tianyi.drs.duty.model.DutyItem;
+import com.tianyi.drs.duty.model.PoliceTarget;
 
 public class DutyItemVM extends DutyItem{
 	private String dutyTypeName;
@@ -14,6 +15,8 @@ public class DutyItemVM extends DutyItem{
 	
 	private List<DutyItemVM> children;
 
+	private List<PoliceTarget> targets;
+	
 	public String getDutyTypeName() {
 		return dutyTypeName;
 	}
@@ -68,6 +71,14 @@ public class DutyItemVM extends DutyItem{
 
 	public void setTaskType(Integer taskType) {
 		this.taskType = taskType;
+	}
+
+	public List<PoliceTarget> getTargets() {
+		return targets;
+	}
+
+	public void setTargets(List<PoliceTarget> targets) {
+		this.targets = targets;
 	}
 
 }

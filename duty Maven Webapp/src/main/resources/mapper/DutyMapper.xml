@@ -167,6 +167,14 @@
     <collection property="items" resultMap="ItemVMResultMap"/>
   </resultMap>
   
+  <resultMap id="TargetVMResultMap" type="com.tianyi.drs.duty.model.PoliceTarget" >
+  	<id column="target_id" property="id" jdbcType="INTEGER" />
+    <result column="item_duty_id" property="dutyId" jdbcType="INTEGER" />
+    <result column="item_rec_id" property="policeId" jdbcType="INTEGER" />
+    <result column="target_task_type_id" property="taskTypeId" jdbcType="INTEGER" />
+    <result column="target_target_id" property="targetId" jdbcType="INTEGER" />
+  </resultMap>
+  
 	<resultMap id="ItemVMResultMap" type="com.tianyi.drs.duty.viewmodel.DutyItemVM" >
     <id column="item_id" property="id" jdbcType="INTEGER" />
     <result column="item_duty_id" property="dutyId" jdbcType="INTEGER" />
@@ -188,6 +196,7 @@
     <result column="item_icon_url" property="iconUrl" jdbcType="VARCHAR" />
     <result column="item_description" property="description" jdbcType="VARCHAR" />
     <result column="item_inner_type_name" property="itemInnerTypeName" jdbcType="VARCHAR" />
+    <collection property="targets" resultMap="TargetVMResultMap"/>
   </resultMap>
   
   <select id="loadDutyVMList"  parameterType="java.util.Map" resultMap="VMResultMap">
@@ -245,6 +254,7 @@
   	left join	t_weapontype		as	wept		on wep.type_id =wept.id
   	left join t_gps					as gps		on di.item_type_id=4 and di.item_id=gps.id
   	left join t_gpstype				as gpst		on gps.type_id =gpst.id
+  	left join t_duty_police_target		as	dpt	on	di.id=dpt.duty_item_id and di.item_type_id=2
   	where
   		1=1
   		<if test="id != null" >
