@@ -93,6 +93,10 @@
 							<td><label>GPS编号:</label></td>
 							<td><input type="text" class="easyui-validatebox" id="txtgpsnumber"></td>
 						</tr> 
+						<tr>
+							<td><label>GPS图标:</label></td>
+							<td><input type="text" class="easyui-combobox" id="txtgpsicon"></td>
+						</tr> 
 					</table>
 				</div>
 			</div>

@@ -88,7 +88,7 @@
 							<td><input type="text" class="easyui-validatebox" id="txtnumber"></td>
 						</tr>
 						<tr>
-							<td><label>规格标准:</label></td>
+							<td><label>子弹数目:</label></td>
 							<td><input type="text" class="easyui-validatebox" id="txtstandard"></td>
 						</tr> 
 					</table>

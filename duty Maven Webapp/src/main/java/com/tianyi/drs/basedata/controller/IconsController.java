@@ -36,7 +36,7 @@ import com.tianyi.drs.basedata.model.Icons;
 import com.tianyi.drs.basedata.service.IconsService;
 import com.tianyi.drs.duty.viewmodel.ListResult;
 import com.tianyi.drs.duty.viewmodel.ObjResult;
- 
+
 @Scope("prototype")
 @Controller
 @RequestMapping("/icons")
@@ -44,25 +44,23 @@ public class IconsController extends CommonsMultipartResolver {
 
 	@Resource(name = "iconsService")
 	protected IconsService iconsService;
-	 
-	
-	public IconsController() {  
-        super();  
-    }  
-	
+
+	public IconsController() {
+		super();
+	}
+
 	@RequestMapping(value = "IconsUpload.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
-	void IconsUpload(
-			@RequestParam("myicons") CommonsMultipartFile mFile,
-			@RequestParam MultipartFile mf,
-			Icons icons, HttpServletRequest request,  
-            HttpServletResponse response) throws Exception {
+	void IconsUpload(@RequestParam("myicons") CommonsMultipartFile mFile,
+			@RequestParam MultipartFile mf, Icons icons,
+			HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
 		try {
-			
-			int i=100;
-			
-			int x=i;
-			
+
+			int i = 100;
+
+			int x = i;
+
 		} catch (Exception ex) {
 			String s = ex.getMessage();
 		}
@@ -154,39 +152,34 @@ public class IconsController extends CommonsMultipartResolver {
 					+ ex.getMessage() + "\"}";
 		}
 	}
-	
+
 	@RequestMapping(value = "uploadIcon.do")
-	public @ResponseBody String uploadIcon(
-			@RequestParam("file") CommonsMultipartFile cmFile, // 请求参数一定要与form中的参数名对应
-			Icons icon,
-			HttpServletRequest request,  
-			HttpServletResponse response
-			) {
-		
-		try
-		{
-			if(!cmFile.isEmpty()){
-				int size=(int)cmFile.getFileItem().getSize();
-				String name=cmFile.getFileItem().getName();
-				
-				byte[] img=new byte[(int) size];
-				
-				InputStream  ops=cmFile.getFileItem().getInputStream ();
-								
+	public @ResponseBody
+	String uploadIcon(@RequestParam("file") CommonsMultipartFile cmFile, // 请求参数一定要与form中的参数名对应
+			Icons icon, HttpServletRequest request, HttpServletResponse response) {
+
+		try {
+			if (!cmFile.isEmpty()) { 
+				int size = (int) cmFile.getFileItem().getSize();
+				String name = cmFile.getFileItem().getName();
+				byte[] img = new byte[(int) size];
+
+				InputStream ops = cmFile.getFileItem().getInputStream();
+
 				int s = ops.read(img);
-				
+
 			}
 			byte[] s = new byte[1024];
-			Map parametermap=new HashMap();
-			parametermap.put("file",s);
-			String name=icon.getName();
-			
-			ObjResult<Icons>rs= new ObjResult<Icons>();
-			
+			Map parametermap = new HashMap();
+			parametermap.put("file", s);
+			String name = icon.getName();
+
+			ObjResult<Icons> rs = new ObjResult<Icons>();
+
 			return rs.toJson();
-		}catch(Exception ex){
+		} catch (Exception ex) {
 			return null;
 		}
-		
+
 	}
 }
