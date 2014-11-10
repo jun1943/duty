@@ -8,6 +8,8 @@ var m_userNode = {};// 自定义节点信息
 
 var m_shift={};//班次信息
 
+var m_iconCls={};
+
 $(document).ready(function() {
 	$('#policeConditionwindow').window('close');
 	$('#gpsConditionwindow').window('close');
@@ -572,8 +574,6 @@ function structureItemTree(items) {
 }
 function structureItem(item, parent) {
 
-	//item.iconCls={"background":"url('icons/help.png') no-repeat center center"};
-	
 	item.getParent=function(){return parent;};
 	/*初始化数量等于0*/
 	item.velicleCount =0;
@@ -1021,6 +1021,8 @@ function doDrop(tRow, sRow, point) {
 		/* 从资源拖动过来 */
 		/* itemId,name,typeId,innerTypeId,innerTypeName,dutyRow */
 		var name = sRow.objType == 2 ? sRow.name : sRow.number;
+		
+		sRow.iconUrl=tRow.iconUrl==undefined?null:tRow.iconUrl;
 		genDutyRow(sRow.id, name, sRow.objType, sRow.typeId, sRow.typeName,
 				sRow);
 	}		
@@ -1439,11 +1441,20 @@ function templateNameConfirm(){
 	}
 }
 
-function createIconStyle(row){
-	
+function createIconStyle(row,itemTypeId,iconUrl){
+	if(row!=null){
+		var classId="icon_"+itemTypeId+"_"+row.id;
+		var classId2=m_iconCls[classId];
+		if(classId2==undefined || classId2==null){
+			var style="."+classId+"{	background:url('"+iconUrl+"');}";
+			createStyle(style);
+			m_iconCls[classId]=classId;
+		}
+		row.iconCls=classId;
+	}
 }
 
-function iconTest(row,itemTypeId){
+function iconTest(itemTypeId,row){
 	if(row!=null){
 		var classId="icon_"+itemTypeId+"_"+row.id;
 		var style="."+classId+"{	background:url('asset/css/easyui/icons/man.png');}";
