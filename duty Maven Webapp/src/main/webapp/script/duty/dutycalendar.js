@@ -194,8 +194,8 @@ function creatHtml(arr) {
 					+ '")><div class="dateBoxMainDateTD"><div class="dateBoxMainDateTDLib">'
 					+ arr[i][j]["d"]
 					+ '</div><div class="dateBoxMainDateTDBox"><ul><li>警力：'
-					+ arr[i][j]["totalpolice"] + '</li> '
-					+ arr[i][j]["dutyList"] + '</ul></div></div></td>';
+					+ arr[i][j]["totalpolice"] + '</li> </ul></div></div></td>';
+					//+ arr[i][j]["dutyList"] + '</ul></div></div></td>';
 
 			trHtml = trHtml + tdHtml;
 		}
