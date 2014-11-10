@@ -29,6 +29,8 @@
 	media='all' rel='stylesheet' type='text/css' />
 <link href='<%=basePath%>asset/css/fontawesome/css/font-awesome.min.css'
 	media='all' rel='stylesheet' type='text/css' />
+	
+<link href='<%=basePath%>resource/css/tianyi.duty.icon.css'' media='all' rel='stylesheet' type='text/css' />
 <!-- 
 <link href='<%=basePath%>asset/css/Dialogdefault.css'
 	media='all' rel='stylesheet' type='text/css' />

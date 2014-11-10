@@ -172,6 +172,7 @@
     <result column="item_duty_id" property="dutyId" jdbcType="INTEGER" />
     <result column="item_duty_type_id" property="dutyTypeId" jdbcType="INTEGER" />
     <result column="item_duty_type_name" property="dutyTypeName" jdbcType="INTEGER" />
+    <result column="item_duty_type_taskType" property="taskType" jdbcType="VARCHAR" />
     <result column="item_begin_time" property="beginTime" jdbcType="TIMESTAMP" />
     <result column="item_end_time" property="endTime" jdbcType="TIMESTAMP" />
     <result column="item_type_id" property="itemTypeId" jdbcType="INTEGER" />
@@ -197,6 +198,7 @@
   		di.duty_id				as item_duty_id,
   		di.duty_type_id		as item_duty_type_id,
   		dt.name				as item_duty_type_name,
+  		dt.asso_task_type	as item_duty_type_taskType,
   		di.begin_time		as item_begin_time,
   		di.end_time			as item_end_time,
   		di.item_type_id		as item_type_id,
@@ -243,7 +245,6 @@
   	left join	t_weapontype		as	wept		on wep.type_id =wept.id
   	left join t_gps					as gps		on di.item_type_id=4 and di.item_id=gps.id
   	left join t_gpstype				as gpst		on gps.type_id =gpst.id
-  	
   	where
   		1=1
   		<if test="id != null" >

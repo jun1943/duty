@@ -7,7 +7,7 @@ public class PoliceTarget {
 
     private Integer policeId;
 
-    private Integer taskId;
+    private Integer taskTypeId;
 
     private Integer targetId;
 
@@ -41,12 +41,12 @@ public class PoliceTarget {
         this.policeId = policeId;
     }
 
-    public Integer getTaskId() {
-        return taskId;
+    public Integer getTaskTypeId() {
+        return taskTypeId;
     }
 
-    public void setTaskId(Integer taskId) {
-        this.taskId = taskId;
+    public void setTaskTypeId(Integer taskTypeId) {
+        this.taskTypeId = taskTypeId;
     }
 
     public Integer getTargetId() {

@@ -90,4 +90,55 @@
       platform_id = #{platformId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <resultMap id="TaskTargetResultMap" type="com.tianyi.drs.duty.viewmodel.TaskTargetVM" >
+    <id column="id" property="targetId" jdbcType="INTEGER" />
+    <result column="target_type" property="targetType" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="loadCommunityByOrg" parameterType="java.util.Map" resultMap="TaskTargetResultMap">
+  		select
+  			1 			as target_type,
+  			id 			as id,
+  			name 	as	name  
+  		from 
+  			community
+  		where
+  			1=1
+  			<if test="orgId != null" >
+        		and organ_id = #{orgId,jdbcType=INTEGER}
+      		</if>
+  	</select>
+  
+      <select id="loadPatrolAreaByOrg" parameterType="java.util.Map" resultMap="TaskTargetResultMap">
+  		select
+  			2 			as target_type,
+  			id 			as target_Id,
+  			name 	as	name  
+  		from 
+  			patrol_area
+  		where
+  			1=1
+  			<if test="orgId != null" >
+        		and organ_id = #{orgId,jdbcType=INTEGER}
+      		</if>
+  	</select>
+  
+  <select id="loadBayonetByOrg" parameterType="java.util.Map" resultMap="TaskTargetResultMap">
+  	select
+  		3 			as target_type,
+  		id 			as target_Id,
+  		name 	as	name  
+  		from 
+  		bayonet_info
+  		where
+  			1=1
+  			<if test="orgCode != null" >
+        		and orgCode = #{orgCode,jdbcType=VARCHAR}
+      		</if>
+  </select>
+  
+    
+  
 </mapper>

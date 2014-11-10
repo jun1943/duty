@@ -19,11 +19,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import com.tianyi.drs.duty.model.Duty;
+import com.tianyi.drs.duty.model.Org;
 import com.tianyi.drs.duty.service.DutyService; 
+import com.tianyi.drs.duty.service.DutyTaskService;
 import com.tianyi.drs.duty.viewmodel.DutyItemVM; 
 import com.tianyi.drs.duty.viewmodel.DutyVM;
 import com.tianyi.drs.duty.viewmodel.ListResult;
 import com.tianyi.drs.duty.viewmodel.ObjResult;
+import com.tianyi.drs.duty.viewmodel.TaskTargetVM;
 
 @Scope("prototype")
 @Controller
@@ -31,6 +34,9 @@ import com.tianyi.drs.duty.viewmodel.ObjResult;
 public class DutyController {
 	@Resource(name = "dutyService")
 	protected DutyService dutyService;
+	
+	@Resource(name = "dutyTaskService")
+	protected DutyTaskService dutyTaskService;
 	
 	@RequestMapping(value = "load.do")
 	public @ResponseBody String load(
@@ -102,6 +108,25 @@ public class DutyController {
 		List<Duty> dvms=dutyService.loadTemplatesWithOutItem(orgId);
 		
 		ListResult<Duty> rs=new ListResult<Duty>(dvms.size(),dvms,true);
+		
+		return rs.toJson();
+	}
+	@RequestMapping(value = "loadTaskTargetByOrg.do")
+	public @ResponseBody String loadTaskTargetByOrg(
+			@RequestParam(value = "orgId", required = false) Integer orgId,
+			@RequestParam(value = "orgCode", required = false) String orgCode,
+			@RequestParam(value = "taskType", required = false) Integer taskType,
+			HttpServletRequest request
+			){
+		
+		Org org=new Org();
+		
+		org.setId(orgId);
+		org.setCode(orgCode);
+		
+		List<TaskTargetVM> ls=dutyTaskService.loadTaskTargetVMList(taskType, org);
+		
+		ListResult<TaskTargetVM> rs=new ListResult<TaskTargetVM>(ls.size(),ls,true);
 		
 		return rs.toJson();
 	}

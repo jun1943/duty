@@ -5,14 +5,14 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="duty_id" property="dutyId" jdbcType="INTEGER" />
     <result column="police_id" property="policeId" jdbcType="INTEGER" />
-    <result column="task_id" property="taskId" jdbcType="INTEGER" />
+    <result column="task_type_id" property="taskTypeId" jdbcType="INTEGER" />
     <result column="target_id" property="targetId" jdbcType="INTEGER" />
     <result column="is_pass" property="isPass" jdbcType="BIT" />
     <result column="sync_state" property="syncState" jdbcType="BIT" />
     <result column="platform_id" property="platformId" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, duty_id, police_id, task_id, target_id, is_pass, sync_state, platform_id
+    id, duty_id, police_id, task_type_id, target_id, is_pass, sync_state, platform_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -26,10 +26,10 @@
   </delete>
   <insert id="insert" parameterType="com.tianyi.drs.duty.model.PoliceTarget" >
     insert into t_duty_police_target (id, duty_id, police_id, 
-      task_id, target_id, is_pass, 
+      task_type_id, target_id, is_pass, 
       sync_state, platform_id)
     values (#{id,jdbcType=INTEGER}, #{dutyId,jdbcType=INTEGER}, #{policeId,jdbcType=INTEGER}, 
-      #{taskId,jdbcType=INTEGER}, #{targetId,jdbcType=INTEGER}, #{isPass,jdbcType=BIT}, 
+      #{taskTypeId,jdbcType=INTEGER}, #{targetId,jdbcType=INTEGER}, #{isPass,jdbcType=BIT}, 
       #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.PoliceTarget" >
@@ -44,8 +44,8 @@
       <if test="policeId != null" >
         police_id,
       </if>
-      <if test="taskId != null" >
-        task_id,
+      <if test="taskTypeId != null" >
+        task_type_id,
       </if>
       <if test="targetId != null" >
         target_id,
@@ -70,8 +70,8 @@
       <if test="policeId != null" >
         #{policeId,jdbcType=INTEGER},
       </if>
-      <if test="taskId != null" >
-        #{taskId,jdbcType=INTEGER},
+      <if test="taskTypeId != null" >
+        #{taskTypeId,jdbcType=INTEGER},
       </if>
       <if test="targetId != null" >
         #{targetId,jdbcType=INTEGER},
@@ -96,8 +96,8 @@
       <if test="policeId != null" >
         police_id = #{policeId,jdbcType=INTEGER},
       </if>
-      <if test="taskId != null" >
-        task_id = #{taskId,jdbcType=INTEGER},
+      <if test="taskTypeId != null" >
+        task_type_id = #{taskTypeId,jdbcType=INTEGER},
       </if>
       <if test="targetId != null" >
         target_id = #{targetId,jdbcType=INTEGER},
@@ -118,7 +118,7 @@
     update t_duty_police_target
     set duty_id = #{dutyId,jdbcType=INTEGER},
       police_id = #{policeId,jdbcType=INTEGER},
-      task_id = #{taskId,jdbcType=INTEGER},
+      task_type_id = #{taskTypeId,jdbcType=INTEGER},
       target_id = #{targetId,jdbcType=INTEGER},
       is_pass = #{isPass,jdbcType=BIT},
       sync_state = #{syncState,jdbcType=BIT},

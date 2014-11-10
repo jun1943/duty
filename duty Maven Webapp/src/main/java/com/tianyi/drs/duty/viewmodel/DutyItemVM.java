@@ -10,6 +10,7 @@ public class DutyItemVM extends DutyItem{
 	private String displayName;
 	private String itemName;
 	private String itemInnerTypeName;
+	private Integer taskType;
 	
 	private List<DutyItemVM> children;
 
@@ -59,6 +60,14 @@ public class DutyItemVM extends DutyItem{
 
 	public void setItemInnerTypeName(String itemInnerTypeName) {
 		this.itemInnerTypeName = itemInnerTypeName;
+	}
+
+	public Integer getTaskType() {
+		return taskType;
+	}
+
+	public void setTaskType(Integer taskType) {
+		this.taskType = taskType;
 	}
 
 }

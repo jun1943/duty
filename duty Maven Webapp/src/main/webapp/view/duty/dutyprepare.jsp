@@ -51,7 +51,7 @@
        					  <div id="tb_source_police">
        					  <a id="showpoliceCondition" name="showpoliceCondition" onclick="$('#policeConditionwindow').window('open');" href="javascript:void(0);" class="easyui-linkbutton"  plain="true">过滤条件</a>
        					   
-                <input id="txtpname" style="width:100px" type="text"/>
+                		<input id="txtpname" style="width:100px" type="text"/>
                 <a id="searchpoliceAction" name="searchpoliceAction" href="javascript:void(0);" class="easyui-linkbutton"
                     iconcls="icon-search" onclick="SearchPoliceAction()" plain="true"></a>
        					  </div>
@@ -92,13 +92,15 @@
 					<div class="btn-toolbar">
 						<div class="btn-group">
 							<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
-							plain="true" onclick="addUserNode()">添加编组</a> 
-							<a  href="javascript:void(0);"	class="easyui-linkbutton icon-camera-retro" 
-							plain="true"	onclick="setUserNode()">设置编组</a>
-							<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
 							plain="true" onclick="addShift()">添加班次</a> 
 							<a  href="javascript:void(0);"	class="easyui-linkbutton icon-camera-retro" 
 							plain="true"	onclick="setShift()">设置班次</a>
+							<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
+							plain="true" onclick="addUserNode()">添加编组</a> 
+							<a  href="javascript:void(0);"	class="easyui-linkbutton icon-camera-retro" 
+							plain="true"	onclick="setUserNode()">设置编组</a>
+							<a  href="javascript:void(0);"	class="easyui-linkbutton icon-camera-retro" 
+							plain="true"	onclick="showTaskWindow()">设置任务</a>
 							<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
 							plain="true" onclick="deleteNode()">删除节点</a>
 						</div>
@@ -355,6 +357,28 @@
 				<div data-options="region:'center',border:false"
 					style="padding: 2px">
 					<div id="cc"></div>
+				</div>
+		</div>
+	</div>
+	 
+	 <div id="taskWindow"  class="easyui-window" title="任务设置"  data-options="iconCls:'icon-save',modal:true" closed="true" 
+	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" style="width: 300px; height:350px; padding: 2px;">
+			<div class="easyui-layout" data-options="fit:true">
+				<div data-options="region:'north',border:false"
+					style="padding: 2px; height: 30px;"> 
+					<a href="javascript:void(0);" class="easyui-linkbutton" 
+						data-options="iconCls:'icon-save',plain:true"
+						onclick="taskConfirm()">确定</a>  
+					 <a href="javascript:void(0);" 
+						class="easyui-linkbutton"
+						onclick="$('#taskWindow').window('close');"
+						data-options="iconCls:'icon-remove',plain:true">取消</a>
+				</div>
+				<div data-options="region:'center',border:false"	style="padding: 2px">
+					<div id="dgtaskTarget" style="width:100%; height:100%"></div>
+					<div id="tbTaskTarget">
+							<label id="lblPoliceInfo"></label>
+						</div>
 				</div>
 		</div>
 	</div>

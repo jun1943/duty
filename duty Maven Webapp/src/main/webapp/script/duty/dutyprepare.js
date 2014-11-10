@@ -289,6 +289,33 @@ $(document).ready(function() {
 		onDrop : doDrop
 	});
 
+	$('#dgtaskTarget').datagrid({
+		fitColumns : true,
+		pagination : false,
+		toolbar : '#tbTaskTarget',
+		columns : [ [ {
+			field : 'ck',
+			checkbox : true
+		}, {
+			title : 'targetType',
+			field : 'targetType',
+			align : 'center',
+			width : 10,
+			hidden : true
+		}, {
+			title : 'id',
+			field : 'targetId',
+			align : 'center',
+			width : 10,
+			hidden : true
+		}, {
+			title : '名称',
+			field : 'name',
+			align : 'left',
+			width : 180
+		} ] ]
+	});
+	
 	   $('#txtBeginTime').timespinner({    
 		    min: '00:00',    
 		    required: true
@@ -586,6 +613,8 @@ function structureItem(item, parent) {
 		initDate(item);
 	}
 
+	itemiconCls=createIconStyle(item,item.itemTypeId,item.iconUrl);
+	
 	switch (item.itemTypeId) {
 	case 1:
 		item.velicleCount = 1;
@@ -1021,10 +1050,24 @@ function doDrop(tRow, sRow, point) {
 		/* 从资源拖动过来 */
 		/* itemId,name,typeId,innerTypeId,innerTypeName,dutyRow */
 		var name = sRow.objType == 2 ? sRow.name : sRow.number;
-		
 		sRow.iconUrl=tRow.iconUrl==undefined?null:tRow.iconUrl;
-		genDutyRow(sRow.id, name, sRow.objType, sRow.typeId, sRow.typeName,
-				sRow);
+		
+		switch(sRow.objType){
+		case 1:
+			name=sRow.number;
+			break;
+		case 2:
+			name=sRow.name;
+			break;
+		case 3:
+			name=sRow.number;
+			break;
+		case 4:
+			name=sRow.number;
+			break;
+		}
+		
+		genDutyRow(sRow.id, name, sRow.objType, sRow.typeId, sRow.typeName,sRow);
 	}		
 	reCalcDuty();
 }
@@ -1440,17 +1483,50 @@ function templateNameConfirm(){
 		$('#templateWindows').window('close');
 	}
 }
-
+/**
+ * 设置图标，如果没有图标就采用默认图标
+ * @param row
+ * @param itemTypeId
+ * @param iconUrl
+ */
 function createIconStyle(row,itemTypeId,iconUrl){
 	if(row!=null){
-		var classId="icon_"+itemTypeId+"_"+row.id;
-		var classId2=m_iconCls[classId];
-		if(classId2==undefined || classId2==null){
-			var style="."+classId+"{	background:url('"+iconUrl+"');}";
-			createStyle(style);
-			m_iconCls[classId]=classId;
+		if(row.iconCls==undefined || row.iconCls==null){
+			if(row.iconUrl!=null && row.iconUrl.length>0){
+				var classId="icon_"+itemTypeId+"_"+row.id;
+				var classId2=m_iconCls[classId];
+				if(classId2==undefined || classId2==null){
+					var style="."+classId+"{	background:url('"+iconUrl+"');}";
+					createStyle(style);
+					m_iconCls[classId]=classId;
+				}
+				row.iconCls=classId;
+			}else{/*获取默认图标*/
+				switch(row.itemTypeId){
+				case 1:
+					row.iconCls='icon_default_vehicle';
+					break;
+				case 2:
+					row.iconCls='icon_default_police';
+					break;
+				case 3:
+					row.iconCls='icon_default_weapon';
+					break;
+				case 4:
+					row.iconCls='icon_default_gps';
+					break;
+				case 100:
+					row.iconCls='icon_default_dutytype';
+					break;
+				case 101:
+					row.iconCls='icon_default_shift';
+					break;
+				case 999:
+					row.iconCls='icon_default_usernode';
+					break;
+				}
+			}
 		}
-		row.iconCls=classId;
 	}
 }
 
@@ -1476,3 +1552,47 @@ function createStyle(css){
 		document.getElementsByTagName("HEAD").item(0).appendChild(style);
 		 }
 }
+
+function showTaskWindow(){
+	var row = $("#tdDuty").treegrid("getSelected");
+	
+	if(row!=null){
+		if(row.itemTypeId==100 || row.itemTypeId==101 || row.itemTypeId==999 || row.itemTypeId==1 || row.itemTypeId==2){
+			var dutyTypeRow=getDutyTypeRow(row);
+			var taskType=dutyTypeRow.taskType;
+			loadTaskTarget(taskType);
+			$('#taskWindow').window('open');
+		}
+	}
+}
+
+function  getDutyTypeRow(row){
+	if(row.itemTypeId==100){
+		return row;
+	}else{
+		return getDutyTypeRow(row.getParent());
+	}
+}
+
+function loadTaskTarget(taskType){
+	var pars={'orgId':m_dutyprepare_Org.id,'orgCode':m_dutyprepare_Org.code,'taskType':taskType};
+	
+	$.ajax({
+        url: "duty/loadTaskTargetByOrg.do",
+        type: "POST",
+        dataType: "json",
+        data:pars,
+        async:false,
+        success: function (req) {
+            if (req.isSuccess) {//成功填充数据
+            	$('#dgtaskTarget').datagrid('loadData', req.rows);
+            }
+            else {
+                alert("获取数据失败");
+            }
+        }
+    });
+	
+
+}
+
