@@ -12,6 +12,7 @@
     <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="sync_state" property="syncState" jdbcType="BIT" />
     <result column="platform_id" property="platformId" jdbcType="INTEGER" />
+    
   </resultMap>
   <sql id="Base_Column_List" >
     id, org_id, is_template, name, ymd, create_time, preparer_id, description, sync_state, 
@@ -183,6 +184,7 @@
     <result column="item_level" property="level" jdbcType="INTEGER" />
     <result column="item_is_leaf" property="isLeaf" jdbcType="BIT" />
     <result column="item_full_id_path" property="fullIdPath" jdbcType="VARCHAR" />
+    <result column="item_icon_url" property="iconUrl" jdbcType="VARCHAR" />
     <result column="item_description" property="description" jdbcType="VARCHAR" />
     <result column="item_inner_type_name" property="itemInnerTypeName" jdbcType="VARCHAR" />
   </resultMap>
@@ -198,6 +200,7 @@
   		di.begin_time		as item_begin_time,
   		di.end_time			as item_end_time,
   		di.item_type_id		as item_type_id,
+  		di.icon_url				as item_icon_url,
   		case di.item_type_id
   			when	1		then	CONCAT(velt.name," : ",vel.number)
   			when	2		then	poc.name
