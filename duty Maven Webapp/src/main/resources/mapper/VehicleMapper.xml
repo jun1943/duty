@@ -34,7 +34,7 @@
     <result column="orgcode" jdbcType="VARCHAR" property="orgCode" />
     <result column="orgpath" jdbcType="VARCHAR" property="orgPath" />
     <result column="gpsnumber" jdbcType="VARCHAR" property="gpsNumber" />
-    <result column="gpsname" jdbcType="VARCHAR" property="gpsName" />
+    <result column="icon_url" jdbcType="VARCHAR" property="iconUrl" />
   </resultMap>
   
   
@@ -318,4 +318,61 @@
   		</if>
   </select>
   
+  <select id="loadVMListWithGroup" parameterType="java.util.Map" resultMap="ViewResultMap">
+  		 select 
+   
+    		v.id,
+    		vt.id as vehicleTypeId,
+    		v.org_id  as orgId,
+    		v.number,
+    		v.intercom_group as intercomgroup,
+    		v.gps_id as gpsId,
+    		v.gps_name as gpsName,
+    		v.purpose,
+    		v.brand,
+    		v.site_qty  as siteQty,
+    		v.sync_state  as syncState,
+    		v.platform_id as platformId,
+    		vt.name as typeName,
+    		o.short_name as orgName,
+    		o.code as orgCode,
+    		o.path as orgPath,
+    		tg.number as gpsNumber,
+    		tg.icon_url as iconUrl
+    		
+    		
+  		 from t_vehicle v 
+  		 left join t_vehicletype vt on vt.id = v.vehicle_type_id
+  		 left join organ o on o.id  = v.org_id
+  		 	left join t_gps tg  on v.gps_id = tg.id
+  		 <if test ="gids !=null">
+  		 	left join t_duty_vehicle_group_member gm on gm.vehicle_id = v.id
+  		 	left join t_duty_vehicle_group pg on pg.id = gm.group_id
+  		 </if> 
+  		 where 
+  		 (
+  		 o.id = #{orgId,jdbcType=INTEGER}
+  		  or 
+  		  o.code =#{orgCode,jdbcType=VARCHAR} 
+  		)
+  		<if test ="number !=null">
+  			and v.number like CONCAT('%','${number}','%' )  
+  		</if>
+  		<if test ="ids !=null">
+  			and v.type_id in
+
+				<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+ 				
+  		</if>
+  		<if test ="gids !=null">
+  			and pg.id  in
+
+				<foreach item="gitem" index="index" collection="gids" open="(" separator="," close=")">  
+  					#{gitem}  
+ 				</foreach>
+ 				
+  		</if> 
+  </select>
 </mapper>

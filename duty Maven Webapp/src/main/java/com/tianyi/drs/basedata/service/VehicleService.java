@@ -30,4 +30,6 @@ public interface VehicleService {
 	public List<VehicleType> selectVehicleType();
 
 	public List<IntercomGroup> selectIntercomGroup();
+
+	public List<VehicleVM> loadVMListWithGroup(Map<String, Object> map);
 }

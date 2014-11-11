@@ -34,4 +34,6 @@ public interface WeaponMapper {
 	int loadVMCount(Map<String, Object> map);
 
 	List<WeaponType> selectWeaponType();
+
+	List<WeaponVM> loadVMListWithGroup(Map<String, Object> map);
 }

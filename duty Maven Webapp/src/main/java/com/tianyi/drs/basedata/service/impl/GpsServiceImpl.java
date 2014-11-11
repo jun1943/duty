@@ -59,4 +59,9 @@ public class GpsServiceImpl implements GpsService{
 		// TODO Auto-generated method stub
 		return gpsMapper.selectGpsType();
 	}
+
+	public List<GpsVM> loadVMListWithGroup(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return gpsMapper.loadVMListWithGroup(map);
+	}
 }

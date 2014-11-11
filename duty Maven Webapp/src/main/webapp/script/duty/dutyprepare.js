@@ -83,7 +83,7 @@ $(document).ready(function() {
 				dnd : true,
 				resizable : true,
 				idField : 'id',
-				treeField : 'id',
+				treeField : 'number',
 				toolbar : "#tb_source_vehicle",
 				columns : [ [ {
 					title : 'id',
@@ -92,15 +92,16 @@ $(document).ready(function() {
 					width : 0,
 					hidden : true
 				}, {
-					title : '车辆类型',
-					field : 'typeName',
-					align : 'left',
-					width : 80
-				}, {
 					title : '车牌号码',
 					field : 'number',
 					align : 'left',
 					width : 80
+				}, {
+					title : '车辆类型',
+					field : 'typeName',
+					align : 'left',
+					width : 80,
+					hidden : true
 				}, {
 					title : '车辆品牌',
 					field : 'brand',
@@ -136,7 +137,7 @@ $(document).ready(function() {
 				dnd : true,
 				resizable : true,
 				idField : 'id',
-				treeField : 'id',
+				treeField : 'typeName',
 				toolbar : "#tb_source_gpsdevice",
 				columns : [ [ {
 					title : 'id',
@@ -183,7 +184,7 @@ $(document).ready(function() {
 				dnd : true,
 				resizable : true,
 				idField : 'id',
-				treeField : 'id',
+				treeField : 'typeName',
 				toolbar : "#tb_source_weapon",
 				columns : [ [ {
 					title : 'id',
@@ -417,6 +418,30 @@ function initResourceQueryTG() {
 		} ] ]
 	});
 
+	$('#dt_gpsgroupType').datagrid(
+			{
+				url : 'gpsGroup/getGpsGrouplist.do?orgId='
+						+ m_dutyprepare_Org.id,
+				fitColumns : true,
+				pagination : false,
+				title : "定位设备分组",
+				columns : [ [ {
+					field : 'ck',
+					checkbox : true
+				}, {
+					title : 'Id',
+					field : 'id',
+					align : 'left',
+					width : 10,
+					hidden : true
+				}, {
+					title : '组名称',
+					field : 'name',
+					align : 'left',
+					width : 150
+				} ] ]
+			});
+
 	$('#dt_weaponType').datagrid({
 		url : 'weapon/getWeaponTypelist.do',
 		fitColumns : true,
@@ -439,6 +464,30 @@ function initResourceQueryTG() {
 		} ] ]
 	});
 
+	$('#dt_weapongroupType').datagrid(
+			{
+				url : 'weaponGroup/getWeaponGrouplist.do?orgId='
+						+ m_dutyprepare_Org.id,
+				fitColumns : true,
+				pagination : false,
+				title : "武器分组",
+				columns : [ [ {
+					field : 'ck',
+					checkbox : true
+				}, {
+					title : 'Id',
+					field : 'id',
+					align : 'left',
+					width : 10,
+					hidden : true
+				}, {
+					title : '组名称',
+					field : 'name',
+					align : 'left',
+					width : 150
+				} ] ]
+			});
+
 	$('#dt_vehicleType').datagrid({
 		url : 'vehicle/getvehicleTypelist.do',
 		fitColumns : true,
@@ -460,6 +509,31 @@ function initResourceQueryTG() {
 			width : 150
 		} ] ]
 	});
+
+	$('#dt_vehiclegroupType').datagrid(
+			{
+				url : 'vehicleGroup/getVehicleGrouplist.do?orgId='
+						+ m_dutyprepare_Org.id,
+				fitColumns : true,
+				pagination : false,
+				title : "车辆分组",
+				columns : [ [ {
+					field : 'ck',
+					checkbox : true
+				}, {
+					title : 'Id',
+					field : 'id',
+					align : 'left',
+					width : 10,
+					hidden : true
+				}, {
+					title : '组名称',
+					field : 'name',
+					align : 'left',
+					width : 150
+				} ] ]
+			});
+
 }
 
 function fmtDisplayTypeName(value, row, index) {
@@ -655,10 +729,12 @@ function structureItem(item, parent) {
 	}
 }
 
-function SearchVehicleAction() {
+function searchVehicleAction() {
 	var number = $("#txtvnumber").val();
 	var row = $('#dt_vehicleType').datagrid("getChecked");
+	var grouprow = $('#dt_vehiclegroupType').datagrid("getChecked");
 	var typeId="";
+	var groupId="";
 	if (row.length > 0) {
 		for ( var i = 0; i < row.length; i++) {
 			typeId += row[i].id + ",";
@@ -669,20 +745,34 @@ function SearchVehicleAction() {
 	} else {
 		typeId = "";
 	}
+	if (grouprow.length > 0) {
+		for ( var i = 0; i < grouprow.length; i++) {
+			groupId += grouprow[i].id + ",";
+		}
+		if (groupId.length > 0) {
+			groupId = groupId.substring(0, groupId.length - 1);
+		}
+	} else {
+		groupId = "";
+	}
 	// var a =row.length>0?row[0].id:0; 
 	$('#source_vehicle').treegrid("reload", {
 		"orgId" : m_dutyprepare_Org.id,
 		"number" : number,
-		"typeId" : typeId
+		"typeId" : typeId,
+		"groupId" : groupId
 	});
 	$("#txtvnumber").val("");
 	$('#dt_vehicleType').datagrid("unselectAll");
+	$('#dt_vehiclegroupType').datagrid("unselectAll");
 	$('#vehicleConditionwindow').window('close');
 }
-function SearchGpsAction() {
+function searchGpsAction() {
 	var name = $("#txtgname").val();
 	var row = $('#dt_gpsType').datagrid("getChecked");
+	var grouprow = $('#dt_gpsgroupType').datagrid("getChecked");
 	var typeId="";
+	var groupId="";
 	if (row.length > 0) {
 		for ( var i = 0; i < row.length; i++) {
 			typeId += row[i].id + ",";
@@ -692,22 +782,36 @@ function SearchGpsAction() {
 		}
 	} else {
 		typeId = "";
+	}
+	if (grouprow.length > 0) {
+		for ( var i = 0; i < grouprow.length; i++) {
+			groupId += grouprow[i].id + ",";
+		}
+		if (groupId.length > 0) {
+			groupId = groupId.substring(0, groupId.length - 1);
+		}
+	} else {
+		groupId = "";
 	}
 	//var typeId = row.length > 0 ? row[0].id : 0;
 
 	$('#source_gpsdevice').treegrid("reload", {
 		"orgId" : m_dutyprepare_Org.id,
 		"gpsname" : name,
-		"typeId" : typeId
+		"typeId" : typeId,
+		"groupId" : groupId
 	});
 	$("#txtgname").val("");
 	$('#dt_gpsType').datagrid("unselectAll");
+	$('#dt_gpsgroupType').datagrid("unselectAll");
 	$('#gpsConditionwindow').window('close');
 }
-function SearchWeaponAction() {
+function searchWeaponAction() {
 	var number = $("#txtwnumber").val();
 	var row = $('#dt_weaponType').datagrid("getChecked");
+	var grouprow = $('#dt_weapongroupType').datagrid("getChecked");
 	var typeId="";
+	var groupId="";
 	if (row.length > 0) {
 		for ( var i = 0; i < row.length; i++) {
 			typeId += row[i].id + ",";
@@ -718,18 +822,30 @@ function SearchWeaponAction() {
 	} else {
 		typeId = "";
 	}
+	if (grouprow.length > 0) {
+		for ( var i = 0; i < grouprow.length; i++) {
+			groupId += grouprow[i].id + ",";
+		}
+		if (groupId.length > 0) {
+			groupId = groupId.substring(0, groupId.length - 1);
+		}
+	} else {
+		groupId = "";
+	}
 	//var typeId = row.length > 0 ? row[0].id : 0;
 
 	$('#source_weapon').treegrid("reload", {
 		"orgId" : m_dutyprepare_Org.id,
 		"number" : number,
-		"typeId" : typeId
+		"typeId" : typeId,
+		"groupId" : groupId
 	});
 	$("#txtwnumber").val("");
 	$('#dt_weaponType').datagrid("unselectAll");
+	$('#dt_weapongroupType').datagrid("unselectAll");
 	$('#weaponConditionwindow').window('close');
 }
-function SearchPoliceAction() {
+function searchPoliceAction() {
 	var name = $("#txtpname").val();
 	var typerow = $('#dt_policeType').datagrid("getChecked");
 	var grouprow = $('#dt_groupType').datagrid("getChecked");

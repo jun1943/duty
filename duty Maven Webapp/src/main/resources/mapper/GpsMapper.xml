@@ -217,4 +217,54 @@
  				
   			</if>
   </select>
+  
+  
+  
+  <select id="loadVMListWithGroup" parameterType="java.util.Map" resultMap="ViewResultMap">
+  		 select 
+			g.id,
+			g.type_id as typeId,
+			g.org_id  as orgId,
+			g.number,
+			g.gps_name as gpsName,
+			g.sync_state as syncState,
+			g.platform_id as platformId,
+			g.icon_url    as iconUrl,
+			o.short_name  as orgName,
+			o.code        as orgCode,
+			o.path        as orgPath,
+			gt.name       as typeName 
+  		 from t_gps g 
+  		 left join t_gpstype gt on gt.id = g.type_id
+  		 left join organ o on o.id  = g.org_id 
+  		 <if test ="gids !=null">
+  		 	left join t_duty_gps_group_member gm on gm.gps_id = g.id
+  		 	left join t_duty_gps_group pg on pg.id = gm.group_id
+  		 </if> 
+  		 where 
+  		 (
+  		 o.id = #{orgId,jdbcType=INTEGER}
+  		  or 
+  		  o.code =#{orgCode,jdbcType=VARCHAR} 
+  		)
+  		<if test ="number !=null">
+  			and g.number like CONCAT('%','${number}','%' )  
+  		</if>
+  		<if test ="ids !=null">
+  			and g.type_id in
+
+				<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+ 				
+  		</if>
+  		<if test ="gids !=null">
+  			and pg.id  in
+
+				<foreach item="gitem" index="index" collection="gids" open="(" separator="," close=")">  
+  					#{gitem}  
+ 				</foreach>
+ 				
+  		</if> 
+  </select>
 </mapper>

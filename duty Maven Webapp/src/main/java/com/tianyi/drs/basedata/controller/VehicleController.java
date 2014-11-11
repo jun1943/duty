@@ -156,13 +156,22 @@ public class VehicleController {
 			@RequestParam(value = "orgId", required = false) Integer orgId,
 			@RequestParam(value = "number", required = false) String number,
 			@RequestParam(value = "typeId", required = false) String typeId,
+			@RequestParam(value = "groupId", required = false) String groupId,
 			HttpServletRequest request) throws Exception {
 		try {
 
 			number = number.replace(",", "");
 			List<VehicleVM> list = new ArrayList<VehicleVM>();
 			Map<String, Object> map = new HashMap<String, Object>();
-			
+			if (groupId != null && groupId != "") {
+				String[] gs = {};
+				gs = groupId.split(",");
+				int[] gids = new int[gs.length];
+				for (int i = 0; i < gs.length; i++) {
+					gids[i] = Integer.parseInt(String.valueOf(gs[i]));
+				}
+				map.put("gids", gids);
+			}
 			if (typeId != null&& typeId !="") {
 				String[] s = {};
 				s = typeId.split(",");
@@ -175,7 +184,7 @@ public class VehicleController {
 			map.put("orgId", orgId);
 			map.put("number", number); 
 			
-			list = vehicleService.loadVMList(map);
+			list = vehicleService.loadVMListWithGroup(map);
 			int total = list.size();
 			ListResult<VehicleVM> rs = new ListResult<VehicleVM>(total, list);
 
