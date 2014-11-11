@@ -257,7 +257,7 @@
   		from t_duty_type_property
   </select>
   
-  <select id="loadDutyTypeVM" parameterType="java.lang.Boolean" resultMap="VMResultMap">
+  <select id="loadDutyTypeVM" parameterType="java.util.Map" resultMap="VMResultMap">
   		select 
   			d.*,
   			r.id as r_id,
@@ -273,7 +273,7 @@
   			left join t_duty_type as dp on d.parent_id=dp.id
   		where 1=1
 			<if test="isUsed != null" >
-        		and is_used = #{isUsed,jdbcType=BIT},
+        		and d.is_used = #{isUsed,jdbcType=BIT}
       		</if>
       	order by d.id
   </select>

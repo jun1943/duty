@@ -553,6 +553,7 @@ function loadDutyType() {
 		url : "dutyType/list.do",
 		type : "POST",
 		dataType : "json",
+		data:{isUsed:true},
 		//async : false,
 		success : function(req) {
 			if (req.isSuccess) {// 成功填充数据
@@ -564,10 +565,13 @@ function loadDutyType() {
 		}
 	});
 };
+
+
+
 /**
  * 从后台获取当前duty数据
  */
-function loadDuty(pars) {
+function loadDuty(pars,type) {
 	$.ajax({
         url: "duty/loadDutyByOrgIdAndYMD.do",
         type: "POST",
@@ -584,6 +588,16 @@ function loadDuty(pars) {
             		duty.orgId=m_dutyprepare_Org.id;
             		duty.items=[];
             	}
+            	
+            	switch(type){
+            	case 1:
+            		clearId(duty);
+            		duty.isTemplate=false;
+            		break;
+            	case 2:
+            		clearId(duty);
+            		break;
+            	}
             	structureItemTree(duty.items);
             	m_duty=duty;
                 $('#tdDuty').treegrid('loadData', duty.items);
@@ -594,6 +608,29 @@ function loadDuty(pars) {
         }
     });
 
+}
+
+function clearId(duty){
+	duty.id=0;
+	if(duty.items!=null){
+		$.each(duty.items,function(i,v){
+			clearItemId(v);
+		});
+	}
+}
+
+function clearItemId(item){
+	item.id=0;
+	if(item.targets!=null){
+		$.each(item.targets,function(i,v){
+			v.id=0;
+		});
+	}
+	if(item.children!=null){
+		$.each(item.children,function(i2,v2){
+			clearItemId(v2);
+		});
+	}
 }
 
 function initDuty() {
@@ -823,7 +860,7 @@ function showCalendar(){
 			var d=date.getDate();
 			var s=y.toString()+(m<10?'0'+m:m)+(d<10?'0'+d:d);
 			var pars={orgId:m_dutyprepare_Org.id,ymd:s};
-			loadDuty(pars);
+			loadDuty(pars,2);
 			$('#calendarWindow').window('close');
 		}
 	});
@@ -1226,7 +1263,7 @@ var dutyItemRelate = {
 		 $.messager.alert('提示', "请选择模板!", "warning");
 	 }else{
 		 var pars={id:row.id};
-		 loadDuty(pars);
+		 loadDuty(pars,1);
 		 $('#dutyTemplateSelectwindow').window('close');
 	 }
  }

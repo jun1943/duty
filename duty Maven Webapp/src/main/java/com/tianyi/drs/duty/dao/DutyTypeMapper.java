@@ -26,7 +26,7 @@ public interface DutyTypeMapper {
     //自定义
     List<DutyTypePropertyVM> loadProperties();
     
-    List<DutyTypeVM> loadDutyTypeVM(Boolean isUsed);
+    List<DutyTypeVM> loadDutyTypeVM(Map<String,Object> map);
 
     void updateUseStateByFullPath(Map<String,Object> map);
     
