@@ -63,7 +63,8 @@
  
 	</div>   
 	 <div id="weaponinfowindow" class="easyui-window" title="新增/编辑武器信息"
-			data-options="iconCls:'icon-edit'"
+			data-options="iconCls:'icon-edit',modal:true" closed="true" 
+	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
 			style="width: 400px; height: 240px; padding: 10px;">
 			<div class="easyui-layout" data-options="fit:true">
 				<div data-options="region:'north',border:false"

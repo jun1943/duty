@@ -43,13 +43,13 @@
 	        	 <table id="dateTable" class="" width="100%" height="100%" >
 	                <thead>
 	                    <tr>
-	                    <th> 星期日</th>
-	                    <th> 星期一</th>
-	                    <th> 星期二</th>
-	                    <th> 星期三</th>
-	                    <th> 星期四 </th>
-	                    <th> 星期五</th>
-	                    <th> 星期六</th>
+	                    <th> 日</th>
+	                    <th> 一</th>
+	                    <th> 二</th>
+	                    <th> 三</th>
+	                    <th> 四 </th>
+	                    <th> 五</th>
+	                    <th> 六</th>
 	                    </tr>
 	                </thead>
 	                <tbody id="dateBody"> 
@@ -59,7 +59,8 @@
     	</div>
 	</div>
 	 
- 	<div id="dutyDetailsForDaywindow" title="警务报备情况" class="easyui-window" data-options="iconCls:'icon-edit'"
+ 	<div id="dutyDetailsForDaywindow" title="警务报备情况" class="easyui-window" data-options="iconCls:'icon-edit',modal:true" closed="true" 
+	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
 			style="width:654px; height:450px; padding: 10px;">
 			<div id="tgddutydetailsforday" >
 			</div>

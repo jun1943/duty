@@ -113,7 +113,8 @@
 	</div>
 
 	<div id="policeConditionwindow" class="easyui-window" title="人员选择过滤条件"
-			data-options="iconCls:'icon-edit'"
+			data-options="iconCls:'icon-edit',modal:true" closed="true" 
+	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
 			style="width: 354px; height: 300px; padding: 10px;">
 			<div class="easyui-layout" data-options="fit:true">
 				<div data-options="region:'north',border:false"
@@ -137,7 +138,8 @@
 			</div>
 	</div>
 	<div id="gpsConditionwindow" class="easyui-window" title="定位设备选择过滤条件"
-			data-options="iconCls:'icon-edit'"
+			data-options="iconCls:'icon-edit',modal:true" closed="true" 
+	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
 			style="width: 354px; height: 300px; padding: 10px;">
 			<div class="easyui-layout" data-options="fit:true">
 				<div data-options="region:'north',border:false"
@@ -161,7 +163,8 @@
 			</div>
 	</div>
 	<div id="weaponConditionwindow" class="easyui-window" title="武器选择过滤条件"
-			data-options="iconCls:'icon-edit'"
+			data-options="iconCls:'icon-edit',modal:true" closed="true" 
+	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
 			style="width: 354px; height: 300px; padding: 10px;">
 			<div class="easyui-layout" data-options="fit:true">
 				<div data-options="region:'north',border:false"
@@ -185,7 +188,8 @@
 			</div>
 	</div>
 	<div id="vehicleConditionwindow" class="easyui-window" title="车辆选择过滤条件"
-			data-options="iconCls:'icon-edit'"
+			data-options="iconCls:'icon-edit',modal:true" closed="true" 
+	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
 			style="width: 354px; height: 300px; padding: 10px;">
 			<div class="easyui-layout" data-options="fit:true">
 				<div data-options="region:'north',border:false"

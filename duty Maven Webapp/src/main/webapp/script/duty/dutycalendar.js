@@ -20,7 +20,7 @@ $(function() {
 	$('#tgddutydetailsforday').treegrid({
 		fitColumns : true,  
 		idField : 'xid',
-		title:"报备明细",
+		//title:"报备明细",
 		resizable : true,
 		width:"99%",
 		height:390,
@@ -193,7 +193,7 @@ function creatHtml(arr) {
 					+ m
 					+ '-'
 					+ d
-					+ '")  onclick=onClickData("'
+					+ '") onmouseout=mouseOutFunction()  onclick=onClickData("'
 					+ y
 					+ '-'
 					+ m
@@ -221,25 +221,31 @@ function onClickData(date){
 	parent.onClickData(dtime);
 };
 var timeouts;
-function mouseOverFunction(date){
-	timeouts=setTimeout(function(){
-		getDateInfo(date);
-		 clearTimeout(timeouts);
-		},3*1000);
-} 
-// 点击具体日期，加载详细信息对话框
-function getDateInfo(date) {
+var timer = 1500;
+function mouseOverFunction(date){ 
 	dtime = null;
 	var dt = date.replace(/-/gm, '');
 	dtime = dt; 
-	m_ymd =YMD.createNew(dtime);
+	timeouts =  setTimeout('getDateInfo("'+dt+'")',timer);
+//	timeouts=setTimeout(function(){
+//		getDateInfo(date);
+//		 clearTimeout(timeouts);
+//		},2*1000);
+} 
+
+function mouseOutFunction(){
+	window.clearTimeout(timeouts);
+}
+// 点击具体日期，加载详细信息对话框
+function getDateInfo(date) { 
+	m_ymd =YMD.createNew(date);
 	$.ajax({
 				url : "duty/loadDutyByOrgIdAndYMD.do",
 				type : "POST",
 				dataType : "json",
 				data : {
 					'orgId' : m_dutyCalendar_Org.id,
-					'ymd' : dt
+					'ymd' : date
 				},
 				async : false,
 				success : function(req) {
@@ -249,13 +255,16 @@ function getDateInfo(date) {
 							structureItemTree(duty.items);
 							// m_duty = duty;
 							$('#tgddutydetailsforday').treegrid('loadData',duty.items);
-						} 
+						}  else{
+							$('.datagrid-body').html("");
+						}
 						$("#dutyDetailsForDaywindow").window("open");
 					} else {
-						alert("获取数据失败");
+						alert("获取报备数据详细信息失败");
 					}
 				}
 			});
+	window.clearInterval(timeouts);
 }
 
 /**

@@ -23,7 +23,7 @@
 	media='all' rel='stylesheet' type='text/css' />
 <link href='<%=basePath%>asset/css/jquery.loadmask/jquery.loadmask.css'
 	media='all' rel='stylesheet' type='text/css' />
-<link href='<%=basePath%>asset/css/easyui/metro/easyui.css'
+<link href='<%=basePath%>asset/css/easyui/gray/easyui.css'
 	media='all' rel='stylesheet' type='text/css' />
 <link href='<%=basePath%>asset/css/images/main.css'
 	media='all' rel='stylesheet' type='text/css' />
