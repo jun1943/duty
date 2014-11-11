@@ -265,7 +265,7 @@
   	where
   		1=1
   		<if test="id != null" >
-        	and d.id = #{id,jdbcType=INTEGER},
+        	and d.id = #{id,jdbcType=INTEGER}
       	</if>
   		
   		<if test="orgId != null" >

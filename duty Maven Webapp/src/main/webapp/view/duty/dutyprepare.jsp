@@ -80,7 +80,7 @@
        					  	<a id="showweaponCondition" name="showweaponCondition" onclick="$('#weaponConditionwindow').window('open');" href="javascript:void(0);" class="easyui-linkbutton"  plain="true">过滤条件</a>
        					  	 <input id="txtwnumber" style="width:100px" type="text"/>
                 <a id="searchweaponAction" name="searchweaponAction" href="javascript:void(0);" class="easyui-linkbutton"
-                    iconcls="icon-search" onclick="SearchWeaponAction()" plain="true"></a>
+                    iconcls="icon-search" onclick="searchWeaponAction()" plain="true"></a>
        					  </div>
     			</div>
 			</div>

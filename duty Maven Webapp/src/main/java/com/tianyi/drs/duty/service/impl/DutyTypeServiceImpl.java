@@ -37,7 +37,9 @@ public class DutyTypeServiceImpl implements DutyTypeService {
 	}
 
 	public List<DutyTypeVM> loadDutyTypeVM(Boolean isUsed) {
-		return dutyTypeMapper.loadDutyTypeVM(isUsed);
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("isUsed", isUsed);
+		return dutyTypeMapper.loadDutyTypeVM(map);
 	}
 
 	@Transactional

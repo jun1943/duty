@@ -25,6 +25,7 @@ $(document).ready(function() {
 	m_dutyprepare_Org.id = args["orgId"];
 	m_dutyprepare_Org.code = args["orgCode"];
 	m_dutyprepare_Org.path = args["orgPath"];
+	m_dutyprepare_Org.name = decodeURI(args["orgName"]);
 	m_ymd =YMD.createNew((args["ymd"]));
 	
 	$('#source_police').treegrid(
@@ -59,13 +60,13 @@ $(document).ready(function() {
 					hidden : true
 				}, {
 					title : '类型',
-					field : 'objType',
+					field : 'itemTypeId',
 					align : 'center',
 					width : 50,
 					hidden : true,
 					formatter : function(value, row, index) {
-						row.objType = 2;
-						return row.objType;
+						row.itemTypeId = 2;
+						return row.itemTypeId;
 					}
 				} ] ],
 				onLoadSuccess : function(row) {
@@ -115,13 +116,13 @@ $(document).ready(function() {
 					hidden : true
 				}, {
 					title : '类型',
-					field : 'objType',
+					field : 'itemTypeId',
 					align : 'center',
 					width : 50,
 					hidden : true,
 					formatter : function(value, row, index) {
-						row.objType = 1;
-						return row.objType;
+						row.itemTypeId = 1;
+						return row.itemTypeId;
 					}
 				} ] ],
 				onLoadSuccess : function(row) {
@@ -162,12 +163,12 @@ $(document).ready(function() {
 					width : 50
 				}, {
 					title : '类型',
-					field : 'objType',
+					field : 'itemTypeId',
 					align : 'center',
 					width : 50,
 					hidden : true,
 					formatter : function(value, row, index) {
-						row.objType = 4;
+						row.itemTypeId = 4;
 						return 4;
 					}
 				} ] ],
@@ -209,12 +210,12 @@ $(document).ready(function() {
 					width : 50
 				}, {
 					title : '类型',
-					field : 'objType',
+					field : 'itemTypeId',
 					align : 'center',
 					width : 50,
 					hidden : true,
 					formatter : function(value, row, index) {
-						row.objType = 3;
+						row.itemTypeId = 3;
 						return 3;
 					}
 				} ] ],
@@ -347,6 +348,11 @@ $(document).ready(function() {
 	loadDutyType();
 	var pars={orgId:m_dutyprepare_Org.id,ymd:m_ymd.ymd};
 	loadDuty(pars);
+	
+	var title=m_dutyprepare_Org.name+ '  ' + m_ymd.format() ;
+	
+	$('#divMember').panel({'title':title});
+	
 });
 
 function initResourceQueryTG() {
@@ -627,6 +633,7 @@ function loadDutyType() {
 		url : "dutyType/list.do",
 		type : "POST",
 		dataType : "json",
+		data:{isUsed:true},
 		//async : false,
 		success : function(req) {
 			if (req.isSuccess) {// 成功填充数据
@@ -638,10 +645,13 @@ function loadDutyType() {
 		}
 	});
 };
+
+
+
 /**
  * 从后台获取当前duty数据
  */
-function loadDuty(pars) {
+function loadDuty(pars,type) {
 	$.ajax({
         url: "duty/loadDutyByOrgIdAndYMD.do",
         type: "POST",
@@ -658,6 +668,16 @@ function loadDuty(pars) {
             		duty.orgId=m_dutyprepare_Org.id;
             		duty.items=[];
             	}
+            	
+            	switch(type){
+            	case 1:
+            		clearId(duty);
+            		duty.isTemplate=false;
+            		break;
+            	case 2:
+            		clearId(duty);
+            		break;
+            	}
             	structureItemTree(duty.items);
             	m_duty=duty;
                 $('#tdDuty').treegrid('loadData', duty.items);
@@ -668,6 +688,29 @@ function loadDuty(pars) {
         }
     });
 
+}
+
+function clearId(duty){
+	duty.id=0;
+	if(duty.items!=null){
+		$.each(duty.items,function(i,v){
+			clearItemId(v);
+		});
+	}
+}
+
+function clearItemId(item){
+	item.id=0;
+	if(item.targets!=null){
+		$.each(item.targets,function(i,v){
+			v.id=0;
+		});
+	}
+	if(item.children!=null){
+		$.each(item.children,function(i2,v2){
+			clearItemId(v2);
+		});
+	}
 }
 
 function initDuty() {
@@ -939,7 +982,7 @@ function showCalendar(){
 			var d=date.getDate();
 			var s=y.toString()+(m<10?'0'+m:m)+(d<10?'0'+d:d);
 			var pars={orgId:m_dutyprepare_Org.id,ymd:s};
-			loadDuty(pars);
+			loadDuty(pars,2);
 			$('#calendarWindow').window('close');
 		}
 	});
@@ -1130,16 +1173,27 @@ function doBeforeDrop(tRow, sRow, point) {
 		pTypeId = p == null ? 0 : p.itemTypeId;
 	}
 
-	var isSuccess = dutyItemRelate.check(pTypeId, sRow.objType);
+	var isSuccess = dutyItemRelate.check(pTypeId, sRow.itemTypeId);
 
 	if (!isSuccess) {
 		return false;
 	} else {
-		var shiftRow=findShiftRow(tRow);
-		var exists=existsResource(shiftRow,sRow);
+		var shiftRowT=null;
+		var shiftRowS=null;
+		var exists=false;
+		if(sRow.xid!=undefined){
+			shiftRowT=findShiftRow(tRow);
+			shiftRowS=findShiftRow(sRow);
+			if(shiftRowT.xid!=shiftRowS.xid){
+				exists=existsResource(shiftRowT,sRow);
+			}
+		}else{
+			shiftRowT=findShiftRow(tRow);
+			exists=existsResource(shiftRowT,sRow);
+		}
 		if(exists){
-			var name = sRow.objType == 2 ? sRow.name : sRow.number;
-			$.messager.alert('提示',name + ' 在班次 ' + shiftRow.name +'中已经存在!', "warning");
+			var name = sRow.itemTypeId == 2 ? sRow.name : sRow.number;
+			$.messager.alert('提示',name + ' 在班次 ' + shiftRowT.name +'中已经存在!', "warning");
 		}
 		return !exists;
 	}
@@ -1154,7 +1208,9 @@ function findShiftRow(tRow){
 
 function existsResource(p, row){
 	var exists=false;
-	if(p.itemTypeId==row.objType && p.itemId==row.id){
+	if(row.xid==undefined &&p.itemTypeId==row.itemTypeId && p.itemId==row.id){
+		return true;
+	}else if(row.xid!=undefined &&p.itemTypeId==row.itemTypeId && p.itemId==row.itemId){
 		return true;
 	}else if(p.children!=null && p.children.length>0){
 		$.each(p.children,function(index,value){
@@ -1180,13 +1236,13 @@ function doRejectDrop(tRow, sRow, point){
 
 function doDrop(tRow, sRow, point) {
 
-	if (sRow.itemTypeId == undefined) {
+	if (sRow.xid == undefined) {
 		/* 从资源拖动过来 */
 		/* itemId,name,typeId,innerTypeId,innerTypeName,dutyRow */
-		var name = sRow.objType == 2 ? sRow.name : sRow.number;
+		var name = sRow.itemTypeId == 2 ? sRow.name : sRow.number;
 		sRow.iconUrl=tRow.iconUrl==undefined?null:tRow.iconUrl;
 		
-		switch(sRow.objType){
+		switch(sRow.itemTypeId){
 		case 1:
 			name=sRow.number;
 			break;
@@ -1201,7 +1257,7 @@ function doDrop(tRow, sRow, point) {
 			break;
 		}
 		
-		genDutyRow(sRow.id, name, sRow.objType, sRow.typeId, sRow.typeName,sRow);
+		genDutyRow(sRow.id, name, sRow.itemTypeId, sRow.typeId, sRow.typeName,sRow);
 	}		
 	reCalcDuty();
 }
@@ -1342,7 +1398,7 @@ var dutyItemRelate = {
 		 $.messager.alert('提示', "请选择模板!", "warning");
 	 }else{
 		 var pars={id:row.id};
-		 loadDuty(pars);
+		 loadDuty(pars,1);
 		 $('#dutyTemplateSelectwindow').window('close');
 	 }
  }
@@ -1593,9 +1649,13 @@ var YMD={
 			var _ymd={};
 			_ymd.ymd=ymd;
 			
-			var year=Number(ymd.substr (0,4));
-			var month=Number(ymd.substr (4,2));
-			var day=Number(ymd.substr (6,2));
+			var yearStr=ymd.substr (0,4);
+			var monthStr=ymd.substr (4,2);
+			var dayStr=ymd.substr (6,2);
+			
+			var year=Number(yearStr);
+			var month=Number(monthStr);
+			var day=Number(dayStr);
 			
 			_ymd.getYear=function(){
 				return year;
@@ -1605,6 +1665,10 @@ var YMD={
 			};
 			_ymd.getDay=function(){
 				return day;
+			};
+			
+			_ymd.format=function(){
+				return yearStr+'-'+monthStr+'-'+dayStr;
 			};
 			return _ymd;
 		}
