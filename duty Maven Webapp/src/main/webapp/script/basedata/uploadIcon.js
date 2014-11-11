@@ -30,14 +30,15 @@ function InitUploadFun(){
 
         },
         onComplete: function (file, response) {//上传成功的函数；response代表服务器返回的数据  
-        	button.text('上传图片(只允许上传JPG格式的图片,大小不得大于150K)');
+        	//button.text('上传图片(只允许上传JPG格式的图片,大小不得大于150K)');
             //清楚按钮的状态  
-            //button.text('文件上传');
+            button.text('文件上传');
             window.clearInterval(interval);
             this.enable();
             
             $.messager.alert('提示', response);
-
+            button.text('选择文件');
+            btnSearchAction();
         }
     });
 };

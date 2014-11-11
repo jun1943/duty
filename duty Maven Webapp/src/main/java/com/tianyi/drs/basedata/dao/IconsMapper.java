@@ -21,7 +21,9 @@ public interface IconsMapper {
 
     int updateByPrimaryKey(Icons record);
 
-	List<Icons> loadVMList(Map<String, Object> map);
+	List<Icons> loadList(Map<String, Object> map);
 
-	int loadVMCount(Map<String, Object> map);
+	int loadCount(Map<String, Object> map);
+
+	Icons loadById(int id);
 }

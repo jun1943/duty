@@ -45,7 +45,18 @@ $(function() {
 			title : '图标类型',
 			field : 'typeName',
 			align : 'center',
-			width : 100
+			width : 100,
+			formatter:function(value,rowData,index){
+				if(rowData.typeId==1){
+					return "警员";
+				}else if(rowData.typeId==2){
+					return "车辆";
+				}else if(rowData.typeId==3){
+					return "武器";
+				}else if(rowData.typeId==4){
+					return "定位设备";
+				}
+			}
 		}, {
 			title : '图标名称',
 			field : 'name',
@@ -53,9 +64,13 @@ $(function() {
 			width : 100
 		}, {
 			title : '缩略图',
-			field : 'icon',
+			field : 'iconUrl',
 			align : 'center',
-			width : 100
+			width : 100,
+			formatter:function(value,rowData,index){
+				var src = value.substring(1,value.length);
+				return "<img style='width:25px; height:25px' src='"+src+"' />";
+			}
 		} ] ]
 	});
 	$("#btnSearchIcons").bind("click", function() {
@@ -91,39 +106,66 @@ function btnAddIcons() {
 	clearForm();
 	//$('#myModal').modal('show');
 	$("#iconsinfowindow").window("open");
-};//清空form表单
-function clearForm() {
-	$("#iconsId").val(0);
-	$("#txttype").combobox("setValue",0);
-	$("#txtname").val("");
-	$("#txticons").val(""); 
-}; 
+};
+function btnEditIcons(){
+	var hasRows = $('#dtIcons').datagrid('getRows');
+	if (hasRows.length == 0) {
+		$.messager.alert('操作提示', "没有可操作数据", "warning");
+		return;
+	}
+	var rows = $("#dtIcons").datagrid("getChecked");
+	if (!rows || rows.length == 0) {
+		$.messager.alert('操作提示', "请选择操作项!", "warning");
+		return;
+	}
+	if (rows.length > 1) {
+		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
+		return;
+	}
+	clearForm();
 
-function saveIconsAction(){
-	var icons = {};
-	icons.id=$("#iconsId").val();
-	//icons.name = $("#txtname").val();
-	if ($("#txttype").combobox("getValue") > 0
-			&& $("#txttype").combobox("getValue") != "") {
-		icons.typeId = $("#txttype").combobox("getValue");
-	} else {
-		$.messager.alert("错误提示", "请选择图标类别", "error");
+	$("#iconsId").val(rows[0].id);
+	$("#txttype").combobox("setValue",rows[0].typeId);
+	$("#txtname").val(rows[0].name); 
+
+	$("#iconsinfowindow").window("open");
+};
+function btnDelIcons(){
+	var hasRows = $('#dtIcons').datagrid('getRows');
+	if (hasRows.length == 0) {
+		$.messager.alert('操作提示', "没有可操作数据", "warning");
 		return;
 	}
-	if($("#txticons").val()==""){ 
-		$.messager.alert("错误提示", "请选择图标名称", "error");
+	var rows = $("#dtIcons").datagrid("getChecked");
+	if (!rows || rows.length == 0) {
+		$.messager.alert('操作提示', "请选择操作项!", "warning");
 		return;
 	}
-	icons.name = $("#txticons").val();
-	
+	if (rows.length > 1) {
+		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
+		return;
+	}
+	var iconId = rows[0].id;
+	var name = rows[0].name;
+	$.messager.confirm("系统提示", "确认删除名为    " + name + " 的数据信息吗？",
+			function(r) {
+				if (r) {
+					deleteIcons(iconId);
+				}
+			});
+}
+function deleteIcons(id){
 	$.ajax({
-		url : "icons/saveIcons.do",
+		url : "icons/deleteIcons.do",
 		type : "POST",
 		dataType : "json",
 		async : false,
-		data : icons,
+		data : {
+			"id" : id
+		},
 		success : function(req) {
-			$.messager.alert("消息提示", req.Message, "info"); 
+			$.messager.alert("消息提示", req.Message, "info");
+			btnSearchAction();
 		},
 		failer : function(a, b) {
 			$.messager.alert("消息提示", a, "info");
@@ -133,3 +175,10 @@ function saveIconsAction(){
 		}
 	});
 }
+//清空form表单
+function clearForm() {
+	$("#iconsId").val(0);
+	$("#txttype").combobox("setValue",0);
+	$("#txtname").val(""); 
+}; 
+ 

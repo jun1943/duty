@@ -92,16 +92,8 @@
 							</tr>
 							<tr>
 								<td><label>图标名称:</label></td>
-								<td><input type="text" class="easyui-validatebox" id="txtname"></td>
-							</tr>
-							<tr>
-								<td><label>选择图标:</label></td>
-								<td>
-			                    	<input id="txticons" type="text" class="easyui-validatebox" >
-			                    	<a id="btnfindIcon"  href="javascript:void(0);" class="easyui-linkbutton"  plain="true" >选择图片</a>
-			                    	
-			                    </td>
-							</tr>  
+								<td><input type="text" class="easyui-validatebox" id="txtname"><a id="btnfindIcon"  href="javascript:void(0);" class="easyui-linkbutton"  plain="true" >选择图片</a></td>
+							</tr> 
 						</table>
 					  
 				</div>

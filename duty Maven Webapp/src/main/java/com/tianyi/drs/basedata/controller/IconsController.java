@@ -40,6 +40,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.tianyi.drs.basedata.model.Icons;
 import com.tianyi.drs.basedata.service.IconsService;
+import com.tianyi.drs.duty.viewmodel.DutyTypeVM;
 import com.tianyi.drs.duty.viewmodel.ListResult;
 import com.tianyi.drs.duty.viewmodel.ObjResult;
 
@@ -53,23 +54,6 @@ public class IconsController extends CommonsMultipartResolver {
 
 	public IconsController() {
 		super();
-	}
-
-	@RequestMapping(value = "IconsUpload.do", produces = "application/json;charset=UTF-8")
-	public @ResponseBody
-	void IconsUpload(@RequestParam("myicons") CommonsMultipartFile mFile,
-			@RequestParam MultipartFile mf, Icons icons,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		try {
-
-			int i = 100;
-
-			int x = i;
-
-		} catch (Exception ex) {
-			String s = ex.getMessage();
-		}
 	}
 
 	@RequestMapping(value = "getIconsList.do", produces = "application/json;charset=UTF-8")
@@ -90,7 +74,7 @@ public class IconsController extends CommonsMultipartResolver {
 
 			List<Icons> list = new ArrayList<Icons>();
 			Map<String, Object> map = new HashMap<String, Object>();
-
+			page = page == 0 ? 1 : page;
 			map.put("pageStart", (page - 1) * rows);
 			map.put("pageSize", rows);
 			map.put("orgId", orgId);
@@ -99,8 +83,8 @@ public class IconsController extends CommonsMultipartResolver {
 			map.put("name", name);
 			map.put("typeid", typeid);
 
-			int total = iconsService.loadVMCount(map);
-			list = iconsService.loadVMList(map);
+			int total = iconsService.loadCount(map);
+			list = iconsService.loadList(map);
 
 			ListResult<Icons> rs = new ListResult<Icons>(total, list);
 
@@ -111,37 +95,7 @@ public class IconsController extends CommonsMultipartResolver {
 			return "{\"total\":0,\"rows\":[]}";
 		}
 	}
-
-	@SuppressWarnings("resource")
-	@RequestMapping(value = "saveIcons.do", produces = "application/json;charset=UTF-8")
-	public @ResponseBody
-	String saveIcons(Icons icons) throws Exception {
-		try {
-			String path = icons.getName();
-			// String[] plist = path.split("\\");
-			String name = "uploadify-cancel.png";
-			FileInputStream fis = null;
-			fis = new FileInputStream(path);
-			icons.setName(name);
-
-			// icons.setIcon(fis);
-			icons.setPlatformId(1);
-			icons.setSyncState(true);
-			int result = 0;
-			if (icons.getId() > 0) {
-				int pid = icons.getId();
-				icons.setId(pid);
-				result = iconsService.updateByPrimaryKey(icons);
-			} else {
-				result = iconsService.insert(icons);
-			}
-			return "{\"success\":true,\"Message\":\"保存成功,result is " + result
-					+ "\"}";
-		} catch (Exception ex) {
-			return "{\"success\":false,\"Message\":\"保存失败，原因："
-					+ ex.getMessage() + "\"}";
-		}
-	}
+ 
 
 	@RequestMapping(value = "deleteIcons.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
@@ -149,6 +103,16 @@ public class IconsController extends CommonsMultipartResolver {
 		try {
 			int result = 0;
 			if (id > 0) {
+				Icons icon = new Icons();
+				icon = iconsService.loadById(id);
+				if(icon!=null){
+					String iconUrl = icon.getIconUrl();
+					File pc = new File(iconUrl);
+					
+					if (pc.exists()) {
+						pc.delete();
+					}
+				}
 				result = iconsService.deleteByPrimaryKey(id);
 			}
 			return "{\"success\":true,\"Message\":\"删除成功,result is " + result
@@ -167,20 +131,27 @@ public class IconsController extends CommonsMultipartResolver {
 			HttpServletResponse response) {
 
 		try {
-			String serverPath = "\\duty\\resources\\";
-			String realPath = "";
+			String realPath = getClass().getResource("/").getFile().toString();
+			if (realPath.startsWith("/")) {
+				realPath = realPath.substring(0);
+			}
 			if (icons != null) {
 				if (icons.getTypeId() == 1) {
-					realPath = serverPath + "police\\";
+					realPath = realPath + "police";
 				} else if (icons.getTypeId() == 2) {
-					realPath = serverPath + "vehicle\\";
+					realPath = realPath + "vehicle";
 				} else if (icons.getTypeId() == 3) {
-					realPath = serverPath + "weapon\\";
+					realPath = realPath + "weapon";
 				} else if (icons.getTypeId() == 4) {
-					realPath = serverPath + "gpsdevice\\";
+					realPath = realPath + "gpsdevice";
 				} else {
-					realPath = serverPath + "others\\";
+					realPath = realPath + "others";
 				}
+				File rF = new File(realPath);
+				if (!rF.exists()) {
+					rF.mkdir();
+				}
+				realPath = realPath + "/";
 			}
 
 			if (!cmFile.isEmpty()) {
@@ -193,36 +164,72 @@ public class IconsController extends CommonsMultipartResolver {
 				iconObj.setName(icons.getName());
 				iconObj.setSyncState(true);
 				iconObj.setPlatformId(1);
-				iconsService.insert(iconObj);
-				int iconId = iconObj.getId();
-				String dirUrl = realPath + iconId + "/";
-				File filedir = new File(dirUrl);
-				if (!filedir.exists()) {
-					filedir.mkdir();
+
+				int iconId = icons.getId();
+				if(iconId==0){
+					iconsService.insert(iconObj);
+					iconId = iconObj.getId();
+					String dirUrl = realPath + iconId;
+					File filedir = new File(dirUrl);
+					
+					if (!filedir.exists()) {
+						filedir.mkdir();
+					}
+					dirUrl = dirUrl + "/";
+					String iconUrl = dirUrl + name;
+	
+					iconObj.setIconUrl(iconUrl);
+					iconObj.setId(iconId);
+					iconsService.updateByPrimaryKey(iconObj);
+	
+					InputStream ops = cmFile.getFileItem().getInputStream();
+					BufferedImage iconPic = ImageIO.read(ops);
+					// String
+					// rootPath=getClass().getResource("/").getFile().toString();
+	
+					File pc = new File(iconUrl);
+	
+					if (pc.exists()) {
+						pc.delete();
+					}
+	
+					ImageIO.write(iconPic, "png", pc);// 不管输出什么格式图片，此处不需改动
+				}else{ 
+					String dirUrl = realPath + iconId;
+					File filedir = new File(dirUrl);
+					
+					if (!filedir.exists()) {
+						filedir.mkdir();
+					}
+					dirUrl = dirUrl + "/";
+					String iconUrl = dirUrl + name;
+	
+					iconObj.setIconUrl(iconUrl);
+					iconObj.setId(iconId);
+					iconsService.updateByPrimaryKey(iconObj);
+	
+					InputStream ops = cmFile.getFileItem().getInputStream();
+					BufferedImage iconPic = ImageIO.read(ops);
+					// String
+					// rootPath=getClass().getResource("/").getFile().toString();
+	
+					File pc = new File(iconUrl);
+	
+					if (pc.exists()) {
+						pc.delete();
+					}
+	
+					ImageIO.write(iconPic, "png", pc);// 不管输出什么格式图片，此处不需改动
 				}
-				String iconUrl = realPath + iconId + name;
-
-				iconObj.setIconUrl(iconUrl);
-				iconObj.setId(iconId);
-				iconsService.updateByPrimaryKey(iconObj);
-
-				InputStream ops = cmFile.getFileItem().getInputStream();
-				BufferedImage iconPic = ImageIO.read(ops);
-				String p = request.getRealPath("/");
-				File pc = new File(p);
-				//File filedoc = new File(realPath);
-				if(!pc.exists()){
-					pc.mkdir();
-				}
-				
-				ImageIO.write(iconPic, "png", pc);// 不管输出什么格式图片，此处不需改动
-
 			}
-			ObjResult<Icons> rs = new ObjResult<Icons>();
+			// ObjResult<IconsVM> rs = new ObjResult<DutyTypeVM>(true, null,
+			// dtvm.getId(), null);
 
-			return rs.toJson();
+			String result = "File upLoad Success !";
+			return result;
+
 		} catch (Exception ex) {
-			return "上传失败";
+			return "File upLoad Failed !";
 		}
 
 	}

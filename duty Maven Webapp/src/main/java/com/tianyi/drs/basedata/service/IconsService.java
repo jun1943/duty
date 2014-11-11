@@ -7,14 +7,16 @@ import com.tianyi.drs.basedata.model.Icons;
 
 public interface IconsService {
 
-	int loadVMCount(Map<String, Object> map);
+	int loadCount(Map<String, Object> map);
  
-	List<Icons> loadVMList(Map<String, Object> map);
+	List<Icons> loadList(Map<String, Object> map);
 
 	int deleteByPrimaryKey(int id);
 
 	int updateByPrimaryKey(Icons icons);
 
 	int insert(Icons icons);
+
+	Icons loadById(int id);
 
 }

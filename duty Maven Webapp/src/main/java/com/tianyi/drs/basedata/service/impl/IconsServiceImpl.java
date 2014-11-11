@@ -17,14 +17,14 @@ public class IconsServiceImpl implements IconsService  {
 	@Resource(name="iconsMapper")
 	private IconsMapper iconsMapper;
 	
-	public int loadVMCount(Map<String, Object> map) {
+	public int loadCount(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return iconsMapper.loadVMCount(map);
+		return iconsMapper.loadCount(map);
 	}
 
-	public List<Icons> loadVMList(Map<String, Object> map) {
+	public List<Icons> loadList(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return iconsMapper.loadVMList(map);
+		return iconsMapper.loadList(map);
 	}
 
 	public int deleteByPrimaryKey(int id) {
@@ -40,6 +40,11 @@ public class IconsServiceImpl implements IconsService  {
 	public int insert(Icons icons) {
 		// TODO Auto-generated method stub
 		return iconsMapper.insert(icons);
+	}
+
+	public Icons loadById(int id) {
+		// TODO Auto-generated method stub
+		return iconsMapper.loadById(id);
 	}
 
 }
