@@ -93,7 +93,7 @@ public class DutyController {
 		classMap.put("targets", PoliceTarget.class);
 		
 		DutyVM d=(DutyVM)JSONObject.toBean(jobj, DutyVM.class,classMap);
-		d.getItems().get(0).getChildren().get(0).getBeginTime();
+
 		dutyService.save(d);
 		
 		ObjResult<DutyVM> rs=new ObjResult<DutyVM>(true,null,d.getId(),null);//暂时不

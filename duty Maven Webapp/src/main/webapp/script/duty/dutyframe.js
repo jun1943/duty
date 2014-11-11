@@ -30,7 +30,7 @@ function onOrgTreeDblClick(node){
 	m_dutyFrame_func_prop.orgId=node.id;
 	m_dutyFrame_func_prop.orgCode=node.code;
 	m_dutyFrame_func_prop.orgPath=node.path;
-	var name = encodeURI(node.text);
+	var name = node.text;
 	m_dutyFrame_func_prop.orgName = name;
 	m_dutyFrame_func_prop.url = "view/duty/dutycalendar.jsp";
 	pageSwitch();
@@ -43,13 +43,10 @@ function pageSwitch(node,url){
 		+"?orgId="+m_dutyFrame_func_prop.orgId
 		+"&orgCode="+m_dutyFrame_func_prop.orgCode
 		+"&orgPath="+m_dutyFrame_func_prop.orgPath
-		+"&ymd"+20141101
 		+"&orgName="+m_dutyFrame_func_prop.orgName;
 
-	
-	$("#ifmWorkSpace").attr("src",src);
-	//$("#ifmWorkSpace").attr("src",src);
-	//$("#ifmWorkSpace").reload();
+	var esrc=encodeURI(src);
+	$("#ifmWorkSpace").attr("src",esrc);
 }
 
 
@@ -58,17 +55,7 @@ function onDutyPrepare(){
 	//m_dutyFrame_func_prop.url="view/duty/dutyprepare.jsp";
 	pageSwitch();
 }
-function onClickData(date){
-	m_dutyFrame_func_prop.url="view/duty/dutyprepare.jsp";
-	var src=m_dutyFrame_func_prop.url
-	+"?orgId="+m_dutyFrame_func_prop.orgId
-	+"&orgCode="+m_dutyFrame_func_prop.orgCode
-	+"&orgPath="+m_dutyFrame_func_prop.orgPath
-	+"&orgName="+m_dutyFrame_func_prop.orgName
-	+"&ymd="+date;
 
-	$("#ifmWorkSpace").attr("src",src);
-};
 
 function onDutyDataGroup(name){
 	m_dutyFrame_func_prop.url="view/duty/"+name+".jsp";
@@ -149,3 +136,15 @@ function findOrgTree(org,name,array){
 		return null;
 	}
 }
+
+function onClickData(date){
+	m_dutyFrame_func_prop.url="view/duty/dutyprepare.jsp";
+	var src=m_dutyFrame_func_prop.url
+	+"?orgId="+m_dutyFrame_func_prop.orgId
+	+"&orgCode="+m_dutyFrame_func_prop.orgCode
+	+"&orgPath="+m_dutyFrame_func_prop.orgPath
+	+"&orgName="+m_dutyFrame_func_prop.orgName
+	+"&ymd="+date;
+
+	$("#ifmWorkSpace").attr("src",src);
+};
