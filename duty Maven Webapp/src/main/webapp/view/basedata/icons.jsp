@@ -87,7 +87,7 @@
 							<tr>
 								<td><input type="hidden" id="iconsId"><label>图片类型:</label></td>
 								<td> <input id="txttype" class="easyui-combobox" name="dept"
-											data-options="valueField:'id',textField:'name',data:[{id: 0,name: '全部'},{id: 1,name: '警员'},{id: 2,name: '车辆'},{id: 3,name: '武器'},{id: 4,name: '定位设备'}]" />
+											data-options="valueField:'id',textField:'name',data:[{id: 0,name: '请选择图片类型'},{id: 1,name: '警员'},{id: 2,name: '车辆'},{id: 3,name: '武器'},{id: 4,name: '定位设备'}]" />
 	                         	</td>
 							</tr>
 							<tr>

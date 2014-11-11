@@ -53,7 +53,7 @@
        					   
                 		<input id="txtpname" style="width:100px" type="text"/>
                 <a id="searchpoliceAction" name="searchpoliceAction" href="javascript:void(0);" class="easyui-linkbutton"
-                    iconcls="icon-search" onclick="SearchPoliceAction()" plain="true"></a>
+                    iconcls="icon-search" onclick="searchPoliceAction()" plain="true"></a>
        					  </div>
     			</div>
 				<div title="车辆" style="padding:10px;height:100%">  
@@ -62,7 +62,7 @@
        					  <a id="showvehicleCondition" name="showvehicleCondition" onclick="$('#vehicleConditionwindow').window('open');" href="javascript:void(0);" class="easyui-linkbutton"  plain="true">过滤条件</a>
        					  	 <input id="txtvnumber" style="width:100px" type="text"/>
                 <a id="searchvehicleAction" name="searchvehicleAction" href="javascript:void(0);" class="easyui-linkbutton"
-                    iconcls="icon-search" onclick="SearchVehicleAction()" plain="true"></a>
+                    iconcls="icon-search" onclick="searchVehicleAction()" plain="true"></a>
        					  </div>
     			</div>		
  				<div title="定位设备" style="padding:10px;height:100%">  
@@ -71,7 +71,7 @@
        					  	<a id="showgpsCondition" name="showgpsCondition" onclick="$('#gpsConditionwindow').window('open');" href="javascript:void(0);" class="easyui-linkbutton"  plain="true">过滤条件</a>
        					  	 <input id="txtgname" style="width:100px" type="text"/>
                 <a id="searchgpsdeviceAction" name="searchgpsdeviceAction" href="javascript:void(0);" class="easyui-linkbutton"
-                    iconcls="icon-search" onclick="SearchGpsAction()" plain="true"></a>
+                    iconcls="icon-search" onclick="searchGpsAction()" plain="true"></a>
        					  </div>
     			</div>	
  				<div title="武器" style="padding:10px;height:100%">  

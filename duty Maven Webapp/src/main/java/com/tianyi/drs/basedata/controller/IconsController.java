@@ -1,8 +1,10 @@
 package com.tianyi.drs.basedata.controller;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -13,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServlet;
@@ -158,30 +161,63 @@ public class IconsController extends CommonsMultipartResolver {
 
 	@RequestMapping(value = "uploadIcon.do")
 	public @ResponseBody
-	String uploadIcon(@RequestParam("file") CommonsMultipartFile cmFile, // 请求参数一定要与form中的参数名对应
-			Icons icon, HttpServletRequest request, HttpServletResponse response) {
+	String uploadIcon(
+			@RequestParam("file") CommonsMultipartFile cmFile, // 请求参数一定要与form中的参数名对应
+			Icons icons, HttpServletRequest request,
+			HttpServletResponse response) {
 
 		try {
-			File tmpDir = null;//初始化上传文件的临时存放目录
-			File saveDir = null;//初始化上传文件后的保存目录
-			
-			if (!cmFile.isEmpty()) { 
-				 @SuppressWarnings("deprecation")
-				String path = request.getRealPath("upload");
-						 
-				int size = (int) cmFile.getFileItem().getSize();
+			String serverPath = "\\duty\\resources\\";
+			String realPath = "";
+			if (icons != null) {
+				if (icons.getTypeId() == 1) {
+					realPath = serverPath + "police\\";
+				} else if (icons.getTypeId() == 2) {
+					realPath = serverPath + "vehicle\\";
+				} else if (icons.getTypeId() == 3) {
+					realPath = serverPath + "weapon\\";
+				} else if (icons.getTypeId() == 4) {
+					realPath = serverPath + "gpsdevice\\";
+				} else {
+					realPath = serverPath + "others\\";
+				}
+			}
+
+			if (!cmFile.isEmpty()) {
+				// int size = (int) cmFile.getFileItem().getSize();
 				String name = cmFile.getFileItem().getName();
-				byte[] img = new byte[(int) size];  
+
+				Icons iconObj = new Icons();
+				iconObj.setId(icons.getId());
+				iconObj.setTypeId(icons.getTypeId());
+				iconObj.setName(icons.getName());
+				iconObj.setSyncState(true);
+				iconObj.setPlatformId(1);
+				iconsService.insert(iconObj);
+				int iconId = iconObj.getId();
+				String dirUrl = realPath + iconId + "/";
+				File filedir = new File(dirUrl);
+				if (!filedir.exists()) {
+					filedir.mkdir();
+				}
+				String iconUrl = realPath + iconId + name;
+
+				iconObj.setIconUrl(iconUrl);
+				iconObj.setId(iconId);
+				iconsService.updateByPrimaryKey(iconObj);
+
+				InputStream ops = cmFile.getFileItem().getInputStream();
+				BufferedImage iconPic = ImageIO.read(ops);
+				String p = request.getRealPath("/");
+				File pc = new File(p);
+				//File filedoc = new File(realPath);
+				if(!pc.exists()){
+					pc.mkdir();
+				}
 				
-				InputStream ops = cmFile.getFileItem().getInputStream(); 
-				int s = ops.read(img);
+				ImageIO.write(iconPic, "png", pc);// 不管输出什么格式图片，此处不需改动
 
 			}
-			byte[] s = new byte[1024];
-			Map parametermap = new HashMap();
-			parametermap.put("file", s);
-			String name = icon.getName();
-
 			ObjResult<Icons> rs = new ObjResult<Icons>();
 
 			return rs.toJson();
