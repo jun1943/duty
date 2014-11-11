@@ -23,6 +23,7 @@ import com.tianyi.drs.duty.model.WeaponGroupMember;
 import com.tianyi.drs.duty.model.WeaponGroupOrg;
 import com.tianyi.drs.duty.service.OrgService; 
 import com.tianyi.drs.duty.service.WeaponGroupService;
+import com.tianyi.drs.duty.viewmodel.GpsGroupVM;
 import com.tianyi.drs.duty.viewmodel.ListResult;
 import com.tianyi.drs.duty.viewmodel.ObjResult; 
 import com.tianyi.drs.duty.viewmodel.WeaponGroupMemberVM;
@@ -237,5 +238,28 @@ public class WeaponGroupController {
 		ObjResult<Object> rs=new ObjResult<Object>(true,null,0,null);
 		
 		return rs.toJson();
+	}
+
+
+	@RequestMapping(value = "getWeaponGrouplist.do")
+	public @ResponseBody
+	String getWeaponGrouplist(@RequestParam(value = "orgId", required = false) Integer orgId,
+			HttpServletRequest request) {
+		try{
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("orgId", orgId);
+
+			List<WeaponGroupVM> pgvms = weaponGroupService.loadVMListByOrgIdShared(map);
+			int total = pgvms.size();
+			ListResult<WeaponGroupVM> rs = new ListResult<WeaponGroupVM>(total,
+					pgvms);
+
+			String ss = JSONObject.fromObject(rs).toString();
+
+			return ss;
+		}catch(Exception ex){
+			return "{'total':0,rows:[]}";
+		}
+		
 	}
 }

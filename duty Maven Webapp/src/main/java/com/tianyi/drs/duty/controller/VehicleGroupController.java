@@ -27,6 +27,7 @@ import com.tianyi.drs.duty.viewmodel.ListResult;
 import com.tianyi.drs.duty.viewmodel.ObjResult;
 import com.tianyi.drs.duty.viewmodel.VehicleGroupMemberVM;
 import com.tianyi.drs.duty.viewmodel.VehicleGroupVM;
+import com.tianyi.drs.duty.viewmodel.WeaponGroupVM;
 
 @Scope("prototype")
 @Controller
@@ -235,5 +236,27 @@ public class VehicleGroupController {
 		ObjResult<Object> rs=new ObjResult<Object>(true,null,0,null);
 		
 		return rs.toJson();
+	}
+
+	@RequestMapping(value = "getVehicleGrouplist.do")
+	public @ResponseBody
+	String getVehicleGrouplist(@RequestParam(value = "orgId", required = false) Integer orgId,
+			HttpServletRequest request) {
+		try{
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("orgId", orgId);
+
+			List<VehicleGroupVM> pgvms = vehicleGroupService.loadVMListByOrgIdShared(map);
+			int total = pgvms.size();
+			ListResult<VehicleGroupVM> rs = new ListResult<VehicleGroupVM>(total,
+					pgvms);
+
+			String ss = JSONObject.fromObject(rs).toString();
+
+			return ss;
+		}catch(Exception ex){
+			return "{'total':0,rows:[]}";
+		}
+		
 	}
 }

@@ -12,6 +12,7 @@ import com.tianyi.drs.basedata.dao.WeaponMapper;
 import com.tianyi.drs.basedata.model.Weapon;
 import com.tianyi.drs.basedata.model.WeaponType;
 import com.tianyi.drs.basedata.service.WeaponService;
+import com.tianyi.drs.basedata.viewmodel.PoliceVM;
 import com.tianyi.drs.basedata.viewmodel.WeaponVM;
 import com.tianyi.util.PaginationData;
  
@@ -90,6 +91,11 @@ public class WeaponServiceImpl implements WeaponService {
 	public List<WeaponType> selectWeaponType() {
 		// TODO Auto-generated method stub
 		return weaponMapper.selectWeaponType();
+	}
+
+	public List<WeaponVM> loadVMListWithGroup(Map<String, Object> map) {
+		List<WeaponVM> list = weaponMapper.loadVMListWithGroup(map);
+		return list;
 	} 
 	
 }

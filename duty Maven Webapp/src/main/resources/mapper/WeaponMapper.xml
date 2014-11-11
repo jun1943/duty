@@ -234,4 +234,41 @@
  				
   		</if>
   </select>
+  
+  
+  <select id="loadVMListWithGroup" parameterType="java.util.Map" resultMap="BaseModelMap">
+  		 select <include refid ="Base_Model_Column_List" />
+  		 from t_weapon w 
+  		 left join t_weapontype wt on wt.id = w.type_id
+  		 left join organ o on o.id  = w.org_id 
+  		 <if test ="gids !=null">
+  		 	left join t_duty_weapon_group_member gm on gm.weapon_id = w.id
+  		 	left join t_duty_weapon_group pg on pg.id = gm.group_id
+  		 </if> 
+  		 where 
+  		 (
+  		 o.id = #{orgId,jdbcType=INTEGER}
+  		  or 
+  		  o.code =#{orgCode,jdbcType=VARCHAR} 
+  		)
+  		<if test ="number !=null">
+  			and w.number like CONCAT('%','${number}','%' )  
+  		</if>
+  		<if test ="ids !=null">
+  			and w.type_id in
+
+				<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+ 				
+  		</if>
+  		<if test ="gids !=null">
+  			and pg.id  in
+
+				<foreach item="gitem" index="index" collection="gids" open="(" separator="," close=")">  
+  					#{gitem}  
+ 				</foreach>
+ 				
+  		</if> 
+  </select>
 </mapper>

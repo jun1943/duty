@@ -48,9 +48,10 @@ public class WeaponGroupServiceImpl implements WeaponGroupService  {
 	}
 	@Transactional
 	public void saveWeaponGroup(WeaponGroup pg, Object[] orgIds) {
+		 
 		if(pg.getId()==0){
-			weaponGroupMapper.insert(pg);
-		}else{
+		 weaponGroupMapper.insert(pg);
+		}else{ 
 			weaponGroupMapper.updateByPrimaryKey(pg);
 			weaponGroupOrgMapper.deleteByPGId(pg.getId());
 		}

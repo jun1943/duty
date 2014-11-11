@@ -99,5 +99,11 @@ public class VehicleServiceImpl implements VehicleService{
 		// TODO Auto-generated method stub
 		return vehicleMapper.selectIntercomGroup();
 	}
+
+
+	public List<VehicleVM> loadVMListWithGroup(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return vehicleMapper.loadVMListWithGroup(map);
+	}
 	
 }

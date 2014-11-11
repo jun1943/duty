@@ -25,4 +25,6 @@ public interface GpsService {
 	public int deleteByPrimaryKey(int id);
 
 	public List<GpsType> selectGpsType();
+
+	public List<GpsVM> loadVMListWithGroup(Map<String, Object> map);
 }

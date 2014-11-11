@@ -32,6 +32,8 @@ public interface GpsMapper {
 	List<GpsVM> loadVMList(Map<String, Object> map);
 
 	List<GpsType> selectGpsType();
+
+	List<GpsVM> loadVMListWithGroup(Map<String, Object> map);
 }
 
 

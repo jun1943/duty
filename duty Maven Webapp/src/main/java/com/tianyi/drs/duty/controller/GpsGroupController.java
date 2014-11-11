@@ -27,6 +27,7 @@ import com.tianyi.drs.duty.viewmodel.GpsGroupMemberVM;
 import com.tianyi.drs.duty.viewmodel.GpsGroupVM;
 import com.tianyi.drs.duty.viewmodel.ListResult;
 import com.tianyi.drs.duty.viewmodel.ObjResult;
+import com.tianyi.drs.duty.viewmodel.PoliceGroupVM;
 
 @Scope("prototype")
 @Controller
@@ -238,5 +239,28 @@ public class GpsGroupController {
 		ObjResult<Object> rs = new ObjResult<Object>(true, null, 0, null);
 
 		return rs.toJson();
+	}
+	
+
+	@RequestMapping(value = "getGpsGrouplist.do")
+	public @ResponseBody
+	String getGpsGrouplist(@RequestParam(value = "orgId", required = false) Integer orgId,
+			HttpServletRequest request) {
+		try{
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("orgId", orgId);
+
+			List<GpsGroupVM> pgvms = gpsGroupService.loadVMListByOrgIdShared(map);
+			int total = pgvms.size();
+			ListResult<GpsGroupVM> rs = new ListResult<GpsGroupVM>(total,
+					pgvms);
+
+			String ss = JSONObject.fromObject(rs).toString();
+
+			return ss;
+		}catch(Exception ex){
+			return "{'total':0,rows:[]}";
+		}
+		
 	}
 }

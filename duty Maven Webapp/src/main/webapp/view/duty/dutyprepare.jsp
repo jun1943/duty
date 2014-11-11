@@ -129,11 +129,7 @@
 				<div data-options="region:'west',border:false"
 					style="padding: 2px; width:150px; height:200px">
 					 <div id="dt_policeType" style="width:80%; height:200px"></div>
-				</div>			
-				<!-- <div data-options="region:'center',border:false"
-					style="padding: 2px; width:133px; height:400px">
-					<div id="dt_dutyType" style="width:80%; height:200px"></div>
-				</div>	 -->	
+				</div>		 
 				<div data-options="region:'center',border:false"
 					style="padding: 2px;  width:150px; height:200px">
 					 <div id="dt_groupType" style="width:80%; height:200px"></div>
@@ -148,15 +144,19 @@
 					style="padding: 2px; height: 30px;">
 					<a href="javascript:void(0);" class="easyui-linkbutton" 
 						data-options="iconCls:'icon-save',plain:true"
-						onclick="SearchGpsAction()">确定</a>  
+						onclick="searchGpsAction()">确定</a>  
 					 <a href="javascript:void(0);" 
 						class="easyui-linkbutton"
 						onclick="$('#gpsConditionwindow').window('close');"
 						data-options="iconCls:'icon-remove',plain:true">取消</a>
-				</div>	 
+				</div>	 			
+				<div data-options="region:'west',border:false"
+					style="padding: 2px; width:150px; height:200px">
+					 <div id="dt_gpsType" style="width:80%; height:200px"></div>
+				</div>	
 				<div data-options="region:'center',border:false"
-					style="padding: 2px;  width:300px; height:200px">
-					 <div id="dt_gpsType" style="width:90%; height:200px"></div>
+					style="padding: 2px;  width:150px; height:200px">
+					 <div id="dt_gpsgroupType" style="width:80%; height:200px"></div>
 				</div>
 			</div>
 	</div>
@@ -168,15 +168,19 @@
 					style="padding: 2px; height: 30px;">
 					<a href="javascript:void(0);" class="easyui-linkbutton" 
 						data-options="iconCls:'icon-save',plain:true"
-						onclick="SearchWeaponAction()">确定</a>  
+						onclick="searchWeaponAction()">确定</a>  
 					 <a href="javascript:void(0);" 
 						class="easyui-linkbutton"
 						onclick="$('#weaponConditionwindow').window('close');"
 						data-options="iconCls:'icon-remove',plain:true">取消</a>
-				</div>	 
+				</div>	 	 			
+				<div data-options="region:'west',border:false"
+					style="padding: 2px; width:150px; height:200px">
+					 <div id="dt_weaponType" style="width:80%; height:200px"></div>
+				</div>	
 				<div data-options="region:'center',border:false"
-					style="padding: 2px;  width:300px; height:200px">
-					 <div id="dt_weaponType" style="width:90%; height:200px"></div>
+					style="padding: 2px;  width:150px; height:200px">
+					 <div id="dt_weapongroupType" style="width:80%; height:200px"></div>
 				</div>
 			</div>
 	</div>
@@ -188,15 +192,19 @@
 					style="padding: 2px; height: 30px;">
 					<a href="javascript:void(0);" class="easyui-linkbutton"  
 						data-options="iconCls:'icon-save',plain:true"
-						onclick="SearchVehicleAction()">确定</a>  
+						onclick="searchVehicleAction()">确定</a>  
 					 <a href="javascript:void(0);"  
 						class="easyui-linkbutton"
 						onclick="$('#vehicleConditionwindow').window('close');"
 						data-options="iconCls:'icon-remove',plain:true">取消</a>
-				</div>	 
+				</div>	  	 			
+				<div data-options="region:'west',border:false"
+					style="padding: 2px; width:150px; height:200px">
+					 <div id="dt_vehicleType" style="width:80%; height:200px"></div>
+				</div>	
 				<div data-options="region:'center',border:false"
-					style="padding: 2px;  width:300px; height:200px">
-					 <div id="dt_vehicleType" style="width:90%; height:200px"></div>
+					style="padding: 2px;  width:150px; height:200px">
+					 <div id="dt_vehiclegroupType" style="width:80%; height:200px"></div>
 				</div>
 			</div>
 	</div>

@@ -36,5 +36,7 @@ public interface VehicleMapper {
 	List<VehicleType> selectVehicleType();
 
 	List<IntercomGroup> selectIntercomGroup();
+
+	List<VehicleVM> loadVMListWithGroup(Map<String, Object> map);
     
 }

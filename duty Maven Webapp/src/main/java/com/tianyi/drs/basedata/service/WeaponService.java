@@ -33,5 +33,7 @@ public interface WeaponService {
 
 	List<WeaponVM> loadVMList(Map<String, Object> map);
 
-	List<WeaponType> selectWeaponType(); 
+	List<WeaponType> selectWeaponType();
+
+	List<WeaponVM> loadVMListWithGroup(Map<String, Object> map); 
 }

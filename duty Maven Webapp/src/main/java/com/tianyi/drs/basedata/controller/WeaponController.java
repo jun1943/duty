@@ -16,8 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody; 
-     
-import com.tianyi.drs.basedata.model.GpsType;
+      
 import com.tianyi.drs.basedata.model.Weapon;
 import com.tianyi.drs.basedata.model.WeaponType;
 import com.tianyi.drs.basedata.service.WeaponService;
@@ -79,6 +78,7 @@ public class WeaponController {
 			@RequestParam(value = "orgId", required = false) Integer orgId,
 			@RequestParam(value = "number", required = false) String number, 
 			@RequestParam(value = "typeId", required = false) String typeId, 
+			@RequestParam(value = "groupId", required = false) String groupId,
 			HttpServletRequest request) throws Exception {
 		try {  
 			number = number.replace(",", "");
@@ -88,7 +88,15 @@ public class WeaponController {
 			map.put("orgId", orgId); 
 			map.put("number", number);
 			//map.put("typeId", typeId);
-
+			if (groupId != null && groupId != "") {
+				String[] gs = {};
+				gs = groupId.split(",");
+				int[] gids = new int[gs.length];
+				for (int i = 0; i < gs.length; i++) {
+					gids[i] = Integer.parseInt(String.valueOf(gs[i]));
+				}
+				map.put("gids", gids);
+			}
 			if (typeId != null&& typeId !="") {
 				String[] s = {};
 				s = typeId.split(",");
@@ -100,7 +108,7 @@ public class WeaponController {
 			}
 
 
-			list = weaponService.loadVMList(map);
+			list = weaponService.loadVMListWithGroup(map);
 			int total =  list.size();
 
 			ListResult<WeaponVM> rs = new ListResult<WeaponVM>(total, list);
