@@ -117,8 +117,15 @@ public class DutyServiceImpl implements DutyService{
 
 		if(ivm.getItemTypeId()==100){
 			ivm.setDutyTypeId(ivm.getItemId());
+			ivm.setBeginTime(null);
+			ivm.setEndTime(null);
 		}else {
 			ivm.setDutyTypeId(pivm.getDutyTypeId());
+		}
+		
+		if(ivm.getItemTypeId() !=101 && pivm !=null){
+			ivm.setBeginTime(pivm.getBeginTime());
+			ivm.setEndTime(pivm.getEndTime());
 		}
 		
 		if(pivm==null){

@@ -119,9 +119,7 @@ public class DutyTypeController {
 			HttpServletRequest request) {
 
 		Integer did = Integer.valueOf(id);
-
 		ResultMsg rm = dutyTypeService.deleteNode(did);
-
 		ObjResult<DutyTypeVM> rs = new ObjResult<DutyTypeVM>(rm.getIsSuccess(), rm.getMessage(), 0,null);
 
 		String result = rs.toJson();

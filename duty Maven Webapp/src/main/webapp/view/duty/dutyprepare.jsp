@@ -121,7 +121,7 @@
 					style="padding: 2px; height: 30px;">
 					<a href="javascript:void(0);" class="easyui-linkbutton" 
 						data-options="iconCls:'icon-save',plain:true"
-						onclick="SearchPoliceAction()">确定</a>  
+						onclick="searchPoliceAction()">确定</a>  
 					 <a href="javascript:void(0);" 
 						class="easyui-linkbutton"
 						onclick="$('#policeConditionwindow').window('close');"

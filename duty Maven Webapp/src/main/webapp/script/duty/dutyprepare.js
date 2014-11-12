@@ -66,6 +66,7 @@ $(document).ready(function() {
 					hidden : true,
 					formatter : function(value, row, index) {
 						row.itemTypeId = 2;
+						row.iconCls='icon_default_police';
 						return row.itemTypeId;
 					}
 				} ] ],
