@@ -24,7 +24,6 @@ $(function () {
     });
 	
     $('#dtDutyType').treegrid({
-
         fitColumns: true,
         rownumbers: true,
         resizable: true,
@@ -116,10 +115,10 @@ function getDutyTypeArmamentType(value, rowData, index){
 
 function getDutyTypeAttireType(value, rowData, index){
 	if(rowData!=null){
-		switch(rowData.assoTaskType){
-		case 1:
+		switch(rowData.attireType){
+		case 0:
 			return "制服";
-		case 2:
+		case 1:
 			return "便衣";	
 		default:
 			return "";
@@ -268,20 +267,22 @@ function editDutyType(){
 			$('#radioDisplayType1').attr("checked", true);
 		}
 		
-		//$("input[name='displayType'][value=row.]").attr("checked",true);  //根据Value值设置Radio为选中状态
 		var count=row.properties.length;
 		var pa=[];
 		for(var i=0;i<count;i++){
 			var p=row.properties[i];
 			pa.push(p.id);
 		}
+		
 		$('#cmbProperty').combobox('setValues',pa);
-		$('#cmbTaskType').combobox('setValue',row.assoTaskType);
+		if(row.assoTaskType>0){
+			$('#cmbTaskType').combobox('setValue',row.assoTaskType);
+		}
 		$("input[name='attireType'][value="+row.attireType+"]").attr("checked",true);  //根据Value值设置Radio为选中状态
 		$("input[name='armamentType'][value="+row.armamentType+"]").attr("checked",true);  //根据Value值设置Radio为选中状态
-		//$('#radioArmamentType1').attr('checked', true);
-		$('#txtDutyTypeIsUsed').val(row.isUsed); //新增的节点默认使用状态
-		$('#txtDutyTypeIsLeaf').val(row.isLeaf);//新增的节点永远多是最末级
+
+		$('#txtDutyTypeIsUsed').val(row.isUsed); 
+		$('#txtDutyTypeIsLeaf').val(row.isLeaf);
 		
 		$("#winDutyType").window("open");
 	}
@@ -433,6 +434,6 @@ function saveDutyType(){
 }
 
 function selDutyRow(){
-	editDutyType()
+	editDutyType();
 }
 
