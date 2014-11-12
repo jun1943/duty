@@ -218,7 +218,7 @@ function onClickData(date){
 	dtime = null;
 	var dt = date.replace(/-/gm, '');
 	dtime = dt; 
-	parent.onClickData(dtime);
+	parent.onClickData(dtime); 
 };
 var timeouts;
 var timer = 1500;

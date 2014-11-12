@@ -87,6 +87,8 @@ public class PoliceController {
 	public @ResponseBody
 	String getPoliceSource(
 			@RequestParam(value = "orgId", required = false) Integer orgId,
+			@RequestParam(value = "orgCode", required = false) String orgCode,
+			@RequestParam(value = "orgPath", required = false) String orgPath,
 			@RequestParam(value = "name", required = false) String name,
 			@RequestParam(value = "typeId", required = false) String typeId,
 			@RequestParam(value = "groupId", required = false) String groupId)
@@ -96,6 +98,8 @@ public class PoliceController {
 			Map<String, Object> map = new HashMap<String, Object>();
 			name = name.replace(",", "");
 			map.put("orgId", orgId);
+			map.put("orgPath", orgPath);
+			map.put("orgCode", orgCode);
 			map.put("name", name);
 			// map.put("typeId", typeId);
 			// map.put("groupId", groupId);

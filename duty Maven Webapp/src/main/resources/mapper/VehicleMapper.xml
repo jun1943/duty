@@ -314,12 +314,12 @@
  				
   			</if>
   		<if test="number != null ">
-  			and v.number  like CONCAT("%",#{number,jdbcType=VARCHAR},"%")
+  			and v.number  like CONCAT("%",'${number}',"%")
   		</if>
   </select>
   
   <select id="loadVMListWithGroup" parameterType="java.util.Map" resultMap="ViewResultMap">
-  		 select 
+  		 select distinct
    
     		v.id,
     		vt.id as vehicleTypeId,
@@ -353,13 +353,13 @@
   		 (
   		 o.id = #{orgId,jdbcType=INTEGER}
   		  or 
-  		  o.code =#{orgCode,jdbcType=VARCHAR} 
+  		  o.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
   		)
   		<if test ="number !=null">
   			and v.number like CONCAT('%','${number}','%' )  
   		</if>
   		<if test ="ids !=null">
-  			and v.type_id in
+  			and v.vehicle_type_id in
 
 				<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
   					#{item}  

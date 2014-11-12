@@ -76,6 +76,8 @@ public class WeaponController {
 	public @ResponseBody
 	String getweaponSource(  
 			@RequestParam(value = "orgId", required = false) Integer orgId,
+			@RequestParam(value = "orgCode", required = false) String orgCode,
+			@RequestParam(value = "orgPath", required = false) String orgPath,
 			@RequestParam(value = "number", required = false) String number, 
 			@RequestParam(value = "typeId", required = false) String typeId, 
 			@RequestParam(value = "groupId", required = false) String groupId,
@@ -87,6 +89,8 @@ public class WeaponController {
  
 			map.put("orgId", orgId); 
 			map.put("number", number);
+			map.put("orgPath", orgPath);
+			map.put("orgCode", orgCode);
 			//map.put("typeId", typeId);
 			if (groupId != null && groupId != "") {
 				String[] gs = {};

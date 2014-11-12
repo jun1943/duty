@@ -64,13 +64,12 @@ $(document).ready(function() {
 					align : 'center',
 					width : 50,
 					hidden : true,
-					formatter : function(value, row, index) {
-						row.itemTypeId = 2;
-						return row.itemTypeId;
+					formatter : function(value, row, index) { 
+						row.itemTypeId =2; 
+						return 2;
 					}
 				} ] ],
-				onLoadSuccess : function(row) {
-					//iconTest(row);
+				onLoadSuccess : function(row) {  
 					$(this).treegrid('enableDnd', row ? row.id : null);
 				},
 				onBeforeDrop : doRejectDrop
@@ -78,8 +77,8 @@ $(document).ready(function() {
 
 	$('#source_vehicle').treegrid(
 			{
-				url : "vehicle/getVehicleSource.do?orgId="
-						+ m_dutyprepare_Org.id + "&number=",
+//				url : "vehicle/getVehicleSource.do?orgId="
+//						+ m_dutyprepare_Org.id+"&orgCode="+m_dutyprepare_Org.code+"&orgPath="+m_dutyprepare_Org.path + "&number=",
 				fitColumns : true,
 				dnd : true,
 				resizable : true,
@@ -120,9 +119,10 @@ $(document).ready(function() {
 					align : 'center',
 					width : 50,
 					hidden : true,
-					formatter : function(value, row, index) {
+					formatter : function(value, row, index) { 
 						row.itemTypeId = 1;
-						return row.itemTypeId;
+						 
+						return 1;
 					}
 				} ] ],
 				onLoadSuccess : function(row) {
@@ -132,8 +132,8 @@ $(document).ready(function() {
 			});
 	$('#source_gpsdevice').treegrid(
 			{
-				url : "gpsdevice/getGpsdeviceSource.do?orgId="
-						+ m_dutyprepare_Org.id + "&gpsname=",
+//				url : "gpsdevice/getGpsdeviceSource.do?orgId="
+//						+ m_dutyprepare_Org.id+"&orgCode="+m_dutyprepare_Org.code+"&orgPath="+m_dutyprepare_Org.path + "&gpsname=",
 				fitColumns : true,
 				dnd : true,
 				resizable : true,
@@ -179,8 +179,8 @@ $(document).ready(function() {
 			});
 	$('#source_weapon').treegrid(
 			{
-				url : "weapon/getweaponSource.do?orgId=" + m_dutyprepare_Org.id
-						+ "&number=",
+//				url : "weapon/getweaponSource.do?orgId=" + m_dutyprepare_Org.id+"&orgCode="+m_dutyprepare_Org.code+"&orgPath="+m_dutyprepare_Org.path
+//						+ "&number=",
 				fitColumns : true,
 				dnd : true,
 				resizable : true,
@@ -343,8 +343,10 @@ $(document).ready(function() {
 		});  
 	
 	initResourceQueryTG();
-	loadSourcePolice({"orgId" : m_dutyprepare_Org.id,"name" : ""});
-	loadSourceVehicle({"orgId" : m_dutyprepare_Org.id,"number" : ""});
+	loadSourcePolice({"orgId" : m_dutyprepare_Org.id,"orgCode" : m_dutyprepare_Org.code,"orgPath" : m_dutyprepare_Org.path,"name" : ""});
+	loadSourceVehicle({"orgId" : m_dutyprepare_Org.id,"orgCode" : m_dutyprepare_Org.code,"orgPath" : m_dutyprepare_Org.path,"number" : ""});
+	loadSourceGpsDevice({"orgId" : m_dutyprepare_Org.id,"orgCode" : m_dutyprepare_Org.code,"orgPath" : m_dutyprepare_Org.path,"gpsname" : ""});
+	loadSourceWeapon({"orgId" : m_dutyprepare_Org.id,"orgCode" : m_dutyprepare_Org.code,"orgPath" : m_dutyprepare_Org.path,"number" : ""});
 	loadDutyType();
 	var pars={orgId:m_dutyprepare_Org.id,ymd:m_ymd.ymd};
 	loadDuty(pars);
@@ -595,7 +597,8 @@ function loadSourcePolice(par){
 			if (req.isSuccess) {// 成功填充数据
 				if(req.rows!=null && req.rows.length>0){
 						$.each(req.rows,function(index,value){
-							iconTest(value);
+							var iconUrl = value.iconUrl.substring(1,value.length);
+							itemiconCls=createIconStyle(value,2,iconUrl);
 						});
 						$('#source_police').treegrid('loadData', req.rows);
 				}
@@ -617,7 +620,8 @@ function loadSourceVehicle(par){
 			if (req.isSuccess) {// 成功填充数据
 				if(req.rows!=null && req.rows.length>0){
 						$.each(req.rows,function(index,value){
-							iconTest(value);
+							var iconUrl = value.iconUrl.substring(1,value.length);
+							itemiconCls=createIconStyle(value,1,iconUrl);
 						});
 						$('#source_vehicle').treegrid('loadData', req.rows);
 				}
@@ -627,7 +631,50 @@ function loadSourceVehicle(par){
 		}
 	});
 }
-
+function loadSourceGpsDevice(par){
+	$.ajax({
+		url : "gpsdevice/getGpsdeviceSource.do",
+		type : "POST",
+		dataType : "json",
+		data:par,
+		//async : false,
+		success : function(req) {
+			if (req.isSuccess) {// 成功填充数据
+				if(req.rows!=null && req.rows.length>0){
+						$.each(req.rows,function(index,value){
+							var iconUrl = value.iconUrl.substring(1,value.length);
+							itemiconCls=createIconStyle(value,4,iconUrl);
+						});
+						$('#source_gpsdevice').treegrid('loadData', req.rows);
+				}
+			} else {
+				alert("获取数据失败");
+			}
+		}
+	});
+} 
+function loadSourceWeapon(par){
+	$.ajax({
+		url : "weapon/getweaponSource.do",
+		type : "POST",
+		dataType : "json",
+		data:par,
+		//async : false,
+		success : function(req) {
+			if (req.isSuccess) {// 成功填充数据
+				if(req.rows!=null && req.rows.length>0){
+						$.each(req.rows,function(index,value){
+							var iconUrl = value.iconUrl.substring(1,value.length);
+							itemiconCls=createIconStyle(value,3,iconUrl); 
+						});
+						$('#source_weapon').treegrid('loadData', req.rows);
+				}
+			} else {
+				alert("获取数据失败");
+			}
+		}
+	});
+}
 function loadDutyType() {
 	$.ajax({
 		url : "dutyType/list.do",
@@ -798,13 +845,21 @@ function searchVehicleAction() {
 	} else {
 		groupId = "";
 	}
-	// var a =row.length>0?row[0].id:0; 
-	$('#source_vehicle').treegrid("reload", {
+
+	loadSourceVehicle({ 
 		"orgId" : m_dutyprepare_Org.id,
+		"orgCode" : m_dutyprepare_Org.code,
+		"orgPath" : m_dutyprepare_Org.path,
 		"number" : number,
 		"typeId" : typeId,
 		"groupId" : groupId
 	});
+	// var a =row.length>0?row[0].id:0; 
+//	$('#source_vehicle').treegrid("reload", { 
+//		"number" : number,
+//		"typeId" : typeId,
+//		"groupId" : groupId
+//	});
 	$("#txtvnumber").val("");
 	$('#dt_vehicleType').datagrid("unselectAll");
 	$('#dt_vehiclegroupType').datagrid("unselectAll");
@@ -838,12 +893,20 @@ function searchGpsAction() {
 	}
 	//var typeId = row.length > 0 ? row[0].id : 0;
 
-	$('#source_gpsdevice').treegrid("reload", {
+
+	loadSourceGpsDevice({ 
 		"orgId" : m_dutyprepare_Org.id,
+		"orgCode" : m_dutyprepare_Org.code,
+		"orgPath" : m_dutyprepare_Org.path,
 		"gpsname" : name,
 		"typeId" : typeId,
 		"groupId" : groupId
 	});
+//	$('#source_gpsdevice').treegrid("reload", {  
+//		"gpsname" : name,
+//		"typeId" : typeId,
+//		"groupId" : groupId
+//	});
 	$("#txtgname").val("");
 	$('#dt_gpsType').datagrid("unselectAll");
 	$('#dt_gpsgroupType').datagrid("unselectAll");
@@ -876,13 +939,19 @@ function searchWeaponAction() {
 		groupId = "";
 	}
 	//var typeId = row.length > 0 ? row[0].id : 0;
-
-	$('#source_weapon').treegrid("reload", {
+	loadSourceWeapon({ 
 		"orgId" : m_dutyprepare_Org.id,
+		"orgCode" : m_dutyprepare_Org.code,
+		"orgPath" : m_dutyprepare_Org.path,
 		"number" : number,
 		"typeId" : typeId,
 		"groupId" : groupId
 	});
+//	$('#source_weapon').treegrid("reload", { 
+//		"number" : number,
+//		"typeId" : typeId,
+//		"groupId" : groupId
+//	});
 	$("#txtwnumber").val("");
 	$('#dt_weaponType').datagrid("unselectAll");
 	$('#dt_weapongroupType').datagrid("unselectAll");
@@ -918,8 +987,10 @@ function searchPoliceAction() {
 	//var typeId = typerow.length > 0 ? typerow[0].id : 0;
 	//var groupId = grouprow.length > 0 ? grouprow[0].id : 0;
 
-	loadSourcePolice({
+	loadSourcePolice({ 
 		"orgId" : m_dutyprepare_Org.id,
+		"orgCode" : m_dutyprepare_Org.code,
+		"orgPath" : m_dutyprepare_Org.path,
 		"name" : name,
 		"typeId" : typeId,
 		"groupId" : groupId
@@ -1731,10 +1802,10 @@ function createIconStyle(row,itemTypeId,iconUrl){
 	}
 }
 
-function iconTest(itemTypeId,row){
+function iconTest(row){
 	if(row!=null){
 		var classId="icon_"+itemTypeId+"_"+row.id;
-		var style="."+classId+"{	background:url('asset/css/easyui/icons/man.png');}";
+		var style="."+classId+"{	background:url('"+row+"');}";
 		createStyle(style);
 		
 		row.iconCls=classId;

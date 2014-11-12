@@ -237,7 +237,7 @@
   
   
   <select id="loadVMListWithGroup" parameterType="java.util.Map" resultMap="BaseModelMap">
-  		 select <include refid ="Base_Model_Column_List" />
+  		 select distinct <include refid ="Base_Model_Column_List" />
   		 from t_weapon w 
   		 left join t_weapontype wt on wt.id = w.type_id
   		 left join organ o on o.id  = w.org_id 
@@ -249,7 +249,7 @@
   		 (
   		 o.id = #{orgId,jdbcType=INTEGER}
   		  or 
-  		  o.code =#{orgCode,jdbcType=VARCHAR} 
+  		  o.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
   		)
   		<if test ="number !=null">
   			and w.number like CONCAT('%','${number}','%' )  
