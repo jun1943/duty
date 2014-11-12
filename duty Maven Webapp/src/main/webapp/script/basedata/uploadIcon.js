@@ -36,7 +36,8 @@ function InitUploadFun(){
             window.clearInterval(interval);
             this.enable();
             
-            $.messager.alert('提示', response);
+            $.messager.alert('提示', response.split(";")[0]);
+        	$("#iconsId").val(response.split(";")[1]);
             button.text('选择文件');
             btnSearchAction();
         }

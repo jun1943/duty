@@ -181,4 +181,8 @@ function clearForm() {
 	$("#txttype").combobox("setValue",0);
 	$("#txtname").val(""); 
 }; 
- 
+function saveIconsAction(){
+	$("#iconsId").val(0);
+	$("#txttype").combobox("setValue",0);
+	$("#txtname").val(""); 
+}
