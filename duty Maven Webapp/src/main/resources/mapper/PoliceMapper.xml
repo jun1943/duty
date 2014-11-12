@@ -61,6 +61,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.tianyi.drs.basedata.model.Police" >
+    <selectKey resultType="INTEGER" keyProperty="id">  
+  SELECT LAST_INSERT_ID()  
+  </selectKey> 
     insert into t_police (id, type_id, name, 
       org_id, idcardNo, number, 
       title, mobile, mobile_short, 
@@ -386,7 +389,7 @@
   </select>
   
   <select id="loadVMListWithGroup" parameterType="java.util.Map" resultMap="BaseModelMap">
-  		 select <include refid ="Base_Model_Column_List" />
+  		 select distinct <include refid ="Base_Model_Column_List" />
   		 from t_police p 
   		 left join t_policetype pt on pt.id = p.type_id
   		 left join organ o on o.id  = p.org_id
@@ -399,8 +402,8 @@
   		 (
   		 o.id = #{orgId,jdbcType=INTEGER}
   		  or 
-  		  o.code =#{orgCode,jdbcType=VARCHAR} 
-  		)
+  		  o.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
+  		 )
   		<if test ="name !=null">
   			and p.name like CONCAT('%','${name}','%' )  
   		</if>

@@ -154,6 +154,8 @@ public class VehicleController {
 	public @ResponseBody
 	String getVehicleSource(
 			@RequestParam(value = "orgId", required = false) Integer orgId,
+			@RequestParam(value = "orgCode", required = false) String orgCode,
+			@RequestParam(value = "orgPath", required = false) String orgPath,
 			@RequestParam(value = "number", required = false) String number,
 			@RequestParam(value = "typeId", required = false) String typeId,
 			@RequestParam(value = "groupId", required = false) String groupId,
@@ -182,6 +184,8 @@ public class VehicleController {
 				map.put("ids", ids);
 			}
 			map.put("orgId", orgId);
+			map.put("orgPath", orgPath);
+			map.put("orgCode", orgCode);
 			map.put("number", number); 
 			
 			list = vehicleService.loadVMListWithGroup(map);

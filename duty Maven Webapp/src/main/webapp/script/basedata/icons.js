@@ -14,12 +14,12 @@ $(function() {
 	m_Icons_OrgPath =   args["orgPath"];
 	pack_Icons_Query();
 
-	$("#orgtree").tree({
-		url:  "org/list.do?orgCode=" + m_Icons_OrgCode + "&orgPath=" + m_Icons_OrgPath,
-		loadFilter : function(data) {
-			return buildOrgTree(data);
-		}
-	});
+//	$("#orgtree").tree({
+//		url:  "org/list.do?orgCode=" + m_Icons_OrgCode + "&orgPath=" + m_Icons_OrgPath,
+//		loadFilter : function(data) {
+//			return buildOrgTree(data);
+//		}
+//	});
 
 	$('#dtIcons').datagrid({
 		url : "icons/getIconsList.do",
@@ -79,10 +79,7 @@ $(function() {
 	InitUploadFun();
 });
 //打包查询条件
-function pack_Icons_Query() {
-	m_Icons_Query.orgId = m_Icons_OrgId;
-	m_Icons_Query.orgCode = m_Icons_OrgCode;
-	m_Icons_Query.orgPath = m_Icons_OrgPath; 
+function pack_Icons_Query() { 
 	m_Icons_Query.name = $("#txtsearchName").val();
 	if($("#sltType").combobox("getValue")!=""&&$("#sltType").combobox("getValue")>0){
 		m_Icons_Query.typeid = $("#sltType").combobox("getValue");
@@ -181,4 +178,8 @@ function clearForm() {
 	$("#txttype").combobox("setValue",0);
 	$("#txtname").val(""); 
 }; 
- 
+function saveIconsAction(){
+	$("#iconsId").val(0);
+	$("#txttype").combobox("setValue",0);
+	$("#txtname").val(""); 
+}

@@ -75,6 +75,8 @@ public class GpsController {
 	public @ResponseBody
 	String getGpsdeviceSource( 
 			@RequestParam(value = "orgId", required = false) Integer orgId,
+			@RequestParam(value = "orgCode", required = false) String orgCode,
+			@RequestParam(value = "orgPath", required = false) String orgPath,
 			@RequestParam(value = "gpsname", required = false) String gpsname, 
 			@RequestParam(value = "typeId", required = false) String typeId,  
 			@RequestParam(value = "groupId", required = false) String groupId,
@@ -85,6 +87,8 @@ public class GpsController {
 			Map<String, Object> map = new HashMap<String, Object>();
  
 			map.put("orgId", orgId);
+			map.put("orgPath", orgPath);
+			map.put("orgCode", orgCode);
 			map.put("gpsname", gpsname);
 			//map.put("typeId", typeId);
 			if (groupId != null && groupId != "") {

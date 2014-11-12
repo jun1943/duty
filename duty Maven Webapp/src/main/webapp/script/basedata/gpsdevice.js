@@ -2,7 +2,7 @@ var m_Gpsdevice_OrgId;
 var m_Gpsdevice_OrgCode;
 var m_Gpsdevice_OrgPath;
 var m_Gpsdevice_Query = {};
-
+var m_Icons_Query = {};
 $(function() {
 	
 
@@ -13,7 +13,8 @@ $(function() {
 	m_Gpsdevice_OrgCode =   args["orgCode"];
 	m_Gpsdevice_OrgPath =  args["orgPath"];
 	pack_Gpsdevice_Query();
-
+	m_Icons_Query.name = "";
+	m_Icons_Query.typeid =0;
 	$("#orgtree").tree({
 		url:  "org/list.do?orgCode=" + m_Gpsdevice_OrgCode + "&orgPath=" + m_Gpsdevice_OrgPath,
 		loadFilter : function(data) {
@@ -63,9 +64,13 @@ $(function() {
 			width : 100
 		}, {
 			title : 'GPS图标',
-			field : 'gpsIcon',
+			field : 'iconUrl',
 			align : 'center',
-			width : 150
+			width : 150,
+			formatter:function(value,rowData,index){
+				var src = value.substring(1,value.length);
+				return "<img style='width:25px; height:25px' src='"+src+"' />";
+			}
 		} ] ]
 	});
 	$("#btnSearchGpsdevice").bind("click", function() {
@@ -84,10 +89,51 @@ function btnSearchAction() {
 };
 function InitData() {
 	getGpsType();
+	getGpsIconList();
 };
 function getGpsType(){
 	getBaseDataCombobox("gpsdevice/getGpsType.do","txttype"); 
 };
+
+function getGpsIconList(){
+	$("#txtgpsicon").combogrid({
+		url: 'icons/getIconsList.do', 
+		queryParams : {
+			'icons_Query' : JSON.stringify(m_Icons_Query)
+		},
+        idField: 'id',
+        textField: 'name',
+        pagination: true,  
+		pageNumber : 1,
+		pageSize : 10,
+        fitColumns: true,
+        panelWidth: 430,
+        singleSelect: true,
+        columns: [[
+            { field: 'id', title: 'id', width: 100, hidden: true },
+            { field: 'iconUrl', title: '缩略图', width: 40, align: 'center',
+    			formatter:function(value,rowData,index){
+    				var src = value.substring(1,value.length);
+    				return "<img style='width:25px; height:25px' src='"+src+"' />";
+    			} },
+            { field: 'name', title: '图片名称', width: 80, align: 'left',
+        			formatter:function(value,rowData,index){
+        				if(rowData.typeId==1){
+        					return "警员图标:"+rowData.name;
+        				}else if(rowData.typeId==2){
+        					return "车辆图标:"+rowData.name;
+        				}else if(rowData.typeId==3){
+        					return "武器图标:"+rowData.name;
+        				}else if(rowData.typeId==4){
+        					return "定位设备图标:"+rowData.name;
+        				}
+        			} }
+        ]],
+        onSelect: function (index, data) {
+        	$("#txtIconUrl").val(data.iconUrl);
+        }
+	});
+}
 function btnAddGpsdevice() {
 	clearForm();
 	//$('#myModal').modal('show');
@@ -107,7 +153,7 @@ function btnEditGpsdevice() {
 	if (rows.length > 1) {
 		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
 		return;
-	}
+	} 
 	clearForm();
 	$("#gpsdeviceId").val(rows[0].id);
 	$("#txttype").combobox("setValue",rows[0].typeId);
@@ -121,6 +167,7 @@ function clearForm() {
 	$("#txttype").combobox("setValue","");
 	$("#txtgpsname").val("");
 	$("#txtgpsnumber").val("");
+	$("#txtIconUrl").val("");
 }
 function pack_Gpsdevice_Query() {
 	m_Gpsdevice_Query.orgId = m_Gpsdevice_OrgId;
@@ -200,6 +247,12 @@ function saveGpsdeviceAction() {
 	}
 	gpsdevice.number = $("#txtgpsnumber").val();
 	gpsdevice.orgId = m_Gpsdevice_OrgId;
+	if ($("#txtIconUrl").val() == "") {
+		$.messager.alert("错误提示", "请选择GPS图标", "error");
+		return;
+	}
+	gpsdevice.iconUrl = $("#txtIconUrl").val();
+	
 	$.ajax({
 		url : "gpsdevice/saveGpsdevice.do",
 		type : "POST",

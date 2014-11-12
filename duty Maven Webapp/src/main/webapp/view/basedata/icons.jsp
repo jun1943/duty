@@ -73,9 +73,9 @@
 			<div class="easyui-layout" data-options="fit:true">
 				<div data-options="region:'north',border:false"
 					style="padding: 2px; height: 30px;">
-					<!-- <a href="javascript:void(0);" class="easyui-linkbutton"
+					 <a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-save',plain:true"
-						onclick="saveIconsAction()">保存</a> --> <a href="javascript:void(0);"
+						onclick="saveIconsAction()">保存并继续</a>  <a href="javascript:void(0);"
 						class="easyui-linkbutton"
 						onclick="$('#iconsinfowindow').window('close');"
 						data-options="iconCls:'icon-remove',plain:true">关闭</a>
