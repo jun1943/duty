@@ -598,7 +598,7 @@ function loadSourcePolice(par){
 				if(req.rows!=null && req.rows.length>0){
 						$.each(req.rows,function(index,value){
 							var iconUrl = value.iconUrl.substring(1,value.length);
-							itemiconCls=createIconStyle(value,2,iconUrl);
+							itemiconCls=createIconStyle(value,value.itemTypeId,iconUrl);
 						});
 						$('#source_police').treegrid('loadData', req.rows);
 				}
@@ -621,7 +621,7 @@ function loadSourceVehicle(par){
 				if(req.rows!=null && req.rows.length>0){
 						$.each(req.rows,function(index,value){
 							var iconUrl = value.iconUrl.substring(1,value.length);
-							itemiconCls=createIconStyle(value,1,iconUrl);
+							itemiconCls=createIconStyle(value,value.itemTypeId,iconUrl);
 						});
 						$('#source_vehicle').treegrid('loadData', req.rows);
 				}
@@ -643,7 +643,7 @@ function loadSourceGpsDevice(par){
 				if(req.rows!=null && req.rows.length>0){
 						$.each(req.rows,function(index,value){
 							var iconUrl = value.iconUrl.substring(1,value.length);
-							itemiconCls=createIconStyle(value,4,iconUrl);
+							itemiconCls=createIconStyle(value,value.itemTypeId,iconUrl);
 						});
 						$('#source_gpsdevice').treegrid('loadData', req.rows);
 				}
@@ -663,9 +663,8 @@ function loadSourceWeapon(par){
 		success : function(req) {
 			if (req.isSuccess) {// 成功填充数据
 				if(req.rows!=null && req.rows.length>0){
-						$.each(req.rows,function(index,value){
-							var iconUrl = value.iconUrl.substring(1,value.length);
-							itemiconCls=createIconStyle(value,3,iconUrl); 
+						$.each(req.rows,function(index,value){ 
+							value.iconCls='icon_default_weapon'; 
 						});
 						$('#source_weapon').treegrid('loadData', req.rows);
 				}
@@ -1768,7 +1767,7 @@ function createIconStyle(row,itemTypeId,iconUrl){
 				var classId="icon_"+itemTypeId+"_"+row.id;
 				var classId2=m_iconCls[classId];
 				if(classId2==undefined || classId2==null){
-					var style="."+classId+"{	background:url('"+iconUrl+"');}";
+					var style="."+classId+"{	background:url('"+iconUrl+"'); width:25px; height:25px}";
 					createStyle(style);
 					m_iconCls[classId]=classId;
 				}
