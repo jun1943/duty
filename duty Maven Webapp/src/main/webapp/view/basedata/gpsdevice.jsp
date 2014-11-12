@@ -96,7 +96,8 @@
 						</tr> 
 						<tr>
 							<td><label>GPS图标:</label></td>
-							<td><input type="text" class="easyui-combobox" id="txtgpsicon"></td>
+							
+							<td><input type="text"  id="txtgpsicon"><input type="hidden" id="txtIconUrl"></td>
 						</tr> 
 					</table>
 				</div>

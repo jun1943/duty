@@ -39,6 +39,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.tianyi.drs.basedata.model.Gps">
+    <selectKey resultType="INTEGER" keyProperty="id">  
+  SELECT LAST_INSERT_ID()  
+  </selectKey> 
     insert into t_gps (id, type_id, org_id, 
       number, gps_name, sync_state, 
       platform_id, icon_url)
@@ -167,12 +170,12 @@
   			org.code =#{orgCode,jdbcType=VARCHAR}
   	
   			<if test ="inSubOrg ==1">
-  				or org.path like CONCAT('#{orgPath,jdbcType=VARCHAR}',"/",'#{orgCode,jdbcType=VARCHAR}',"%")
+  				or org.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
   			</if>
   			)
   	
   			<if test="gpsname != null ">
-  				and g.gps_name  like CONCAT("%",'#{gpsname,jdbcType=VARCHAR}',"%")
+  				and g.gps_name  like CONCAT("%",'${gpsname}',"%")
   			</if>
   			<if test="ids !=null ">
   				and g.type_id  in 

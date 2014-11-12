@@ -53,6 +53,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.tianyi.drs.basedata.model.Vehicle">
+    <selectKey resultType="INTEGER" keyProperty="id">  
+  SELECT LAST_INSERT_ID()  
+  </selectKey> 
     insert into t_vehicle (id, vehicle_type_id, org_id, 
       number, intercom_group, gps_id, 
       gps_name, purpose, brand, 

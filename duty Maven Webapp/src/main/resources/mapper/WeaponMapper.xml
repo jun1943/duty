@@ -43,6 +43,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.tianyi.drs.basedata.model.Weapon" >
+    <selectKey resultType="INTEGER" keyProperty="id">  
+  SELECT LAST_INSERT_ID()  
+  </selectKey> 
     insert into t_weapon (id, standard, number, 
       type_id, org_id, sync_state, 
       platform_id)

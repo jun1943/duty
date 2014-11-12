@@ -64,22 +64,16 @@ public class IconsController extends CommonsMultipartResolver {
 			@RequestParam(value = "rows", required = false) Integer rows,
 			HttpServletRequest request) throws Exception {
 		try {
-			JSONObject joQuery = JSONObject.fromObject(query);
-			int orgId = Integer.parseInt(joQuery.getString("orgId"));
+			JSONObject joQuery = JSONObject.fromObject(query); 
 			String name = joQuery.getString("name");
-
-			String orgCode = joQuery.getString("orgCode");
-			String orgPath = joQuery.getString("orgPath");
+ 
 			int typeid = Integer.parseInt(joQuery.getString("typeid"));
 
 			List<Icons> list = new ArrayList<Icons>();
 			Map<String, Object> map = new HashMap<String, Object>();
 			page = page == 0 ? 1 : page;
 			map.put("pageStart", (page - 1) * rows);
-			map.put("pageSize", rows);
-			map.put("orgId", orgId);
-			map.put("orgCode", orgCode);
-			map.put("orgPath", orgPath);
+			map.put("pageSize", rows); 
 			map.put("name", name);
 			map.put("typeid", typeid);
 
