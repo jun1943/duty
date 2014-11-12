@@ -11,6 +11,8 @@
 -->
 <script src='<%=basePath%>script/duty/dutycalendar.js'
 	type='text/javascript'></script>
+	<script src='<%=basePath%>script/exportExcleUtil.js'
+	type='text/javascript'></script>
 <link href='<%=basePath%>asset/css/images/dateStyle.css' media='all'
 	rel='stylesheet' type='text/css' />
 	
@@ -61,7 +63,11 @@
 	 
  	<div id="dutyDetailsForDaywindow" title="警务报备情况" class="easyui-window" data-options="iconCls:'icon-edit',modal:true" closed="true" 
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
-			style="width:654px; height:450px; padding: 10px;">
+			style="width:654px; height:450px; padding: 10px;"> 
+		    <div id="tbdutydetailsforday" style="height:30px"> 
+                <a id="exprotToExcel" name="exprotToExcel" href="javascript:void(0);" class="easyui-linkbutton" style="float:right"
+                    iconcls="icon-add" plain="true" onclick="btnExportAction()">导出</a>  
+		    </div>
 			<div id="tgddutydetailsforday" >
 			</div>
 	</div>

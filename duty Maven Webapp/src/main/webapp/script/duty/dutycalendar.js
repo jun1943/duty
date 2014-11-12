@@ -18,28 +18,29 @@ $(function() {
 	changeDivHeight(); // 表格自动高度设置
 	getDateData(y + "-" + m + "-" + 1);// 初始化默认月份数据
 	$('#tgddutydetailsforday').treegrid({
-		fitColumns : true,  
+		fitColumns : true,
 		idField : 'xid',
-		//title:"报备明细",
+		// title:"报备明细",
 		resizable : true,
-		width:"99%",
-		height:390,
-		treeField : 'displayName', 
-		showFooter : true, 
+		width : "99%",
+		height : 390,
+		treeField : 'displayName',
+		showFooter : true,
+		toolbar : '#tbdutydetailsforday',
 		columns : [ [ {
 			title : 'xid',
-			field : 'xid', 
-			width :100,
+			field : 'xid',
+			width : 100,
 			hidden : true
 		}, {
 			title : '名称',
 			field : 'displayName',
-			width : 200
+			width : 300
 		}, {
 			title : '类型',
 			field : 'itemInnerTypeName',
 			align : 'left',
-			width : 200
+			width : 100
 		}, {
 			title : '时间区间',
 			field : 'beginTime',
@@ -70,7 +71,7 @@ $(function() {
 			align : 'right',
 			width : 50,
 			formatter : fmtDigit
-		} ] ] 
+		} ] ]
 	});
 });
 // 设置日历窗体的高度
@@ -203,7 +204,7 @@ function creatHtml(arr) {
 					+ arr[i][j]["d"]
 					+ '</div><div class="dateBoxMainDateTDBox"><ul><li>警力：'
 					+ arr[i][j]["totalpolice"] + '</li> </ul></div></div></td>';
-					//+ arr[i][j]["dutyList"] + '</ul></div></div></td>';
+			// + arr[i][j]["dutyList"] + '</ul></div></div></td>';
 
 			trHtml = trHtml + tdHtml;
 		}
@@ -213,33 +214,35 @@ function creatHtml(arr) {
 	$("#dateBody").append(html);// 鎻掑叆html
 	changeDivHeight();// 鎻掑叆html琛ㄦ牸楂樺害涓嶆槸鑷姩閫傚簲鐨勶紝璋冪敤楂樺害璋冩暣鍑芥暟锛岃嚜閫傚簲楂樺害
 }
-var dtime=null;
-function onClickData(date){
+var dtime = null;
+function onClickData(date) {
 	dtime = null;
 	var dt = date.replace(/-/gm, '');
-	dtime = dt; 
-	parent.onClickData(dtime); 
+	dtime = dt;
+	parent.onClickData(dtime);
 };
 var timeouts;
 var timer = 1500;
-function mouseOverFunction(date){ 
+function mouseOverFunction(date) {
 	dtime = null;
 	var dt = date.replace(/-/gm, '');
-	dtime = dt; 
-	timeouts =  setTimeout('getDateInfo("'+dt+'")',timer);
-//	timeouts=setTimeout(function(){
-//		getDateInfo(date);
-//		 clearTimeout(timeouts);
-//		},2*1000);
-} 
+	dtime = dt;
+	timeouts = setTimeout('getDateInfo("' + dt + '")', timer);
+	// timeouts=setTimeout(function(){
+	// getDateInfo(date);
+	// clearTimeout(timeouts);
+	// },2*1000);
+}
 
-function mouseOutFunction(){
+function mouseOutFunction() {
 	window.clearTimeout(timeouts);
 }
 // 点击具体日期，加载详细信息对话框
-function getDateInfo(date) { 
-	m_ymd =YMD.createNew(date);
-	$.ajax({
+function getDateInfo(date) {
+	m_dutyCalendar_Org.date = date;
+	m_ymd = YMD.createNew(date);
+	$
+			.ajax({
 				url : "duty/loadDutyByOrgIdAndYMD.do",
 				type : "POST",
 				dataType : "json",
@@ -254,8 +257,9 @@ function getDateInfo(date) {
 							var duty = req.obj;
 							structureItemTree(duty.items);
 							// m_duty = duty;
-							$('#tgddutydetailsforday').treegrid('loadData',duty.items);
-						}  else{
+							$('#tgddutydetailsforday').treegrid('loadData',
+									duty.items);
+						} else {
 							$('.datagrid-body').html("");
 						}
 						$("#dutyDetailsForDaywindow").window("open");
@@ -279,20 +283,22 @@ function structureItemTree(items) {
 }
 function structureItem(item, parent) {
 
-	item.getParent=function(){return parent;};
-	/*初始化数量等于0*/
-	item.velicleCount =0;
-	item.policeCount =0;
-	item.weaponCount=0;
-	item.gpsCount=0;
-	item.xid=genXId(item.itemTypeId);
-	
-	if(item.itemTypeId==101){
+	item.getParent = function() {
+		return parent;
+	};
+	/* 初始化数量等于0 */
+	item.velicleCount = 0;
+	item.policeCount = 0;
+	item.weaponCount = 0;
+	item.gpsCount = 0;
+	item.xid = genXId(item.itemTypeId);
+
+	if (item.itemTypeId == 101) {
 		initDate(item);
 	}
 
-	itemiconCls=createIconStyle(item,item.itemTypeId,item.iconUrl);
-	
+	itemiconCls = createIconStyle(item, item.itemTypeId, item.iconUrl);
+
 	switch (item.itemTypeId) {
 	case 1:
 		item.velicleCount = 1;
@@ -321,48 +327,50 @@ function structureItem(item, parent) {
 
 function genXId(itemTypeId, itemId) {
 	m_xid_max++;
-	return  itemTypeId + "_AI_" +m_xid_max;
+	return itemTypeId + "_AI_" + m_xid_max;
 }
 /**
  * 设置图标，如果没有图标就采用默认图标
+ * 
  * @param row
  * @param itemTypeId
  * @param iconUrl
  */
-function createIconStyle(row,itemTypeId,iconUrl){
-	if(row!=null){
-		if(row.iconCls==undefined || row.iconCls==null){
-			if(row.iconUrl!=null && row.iconUrl.length>0){
-				var classId="icon_"+itemTypeId+"_"+row.id;
-				var classId2=m_iconCls[classId];
-				if(classId2==undefined || classId2==null){
-					var style="."+classId+"{	background:url('"+iconUrl+"');}";
+function createIconStyle(row, itemTypeId, iconUrl) {
+	if (row != null) {
+		if (row.iconCls == undefined || row.iconCls == null) {
+			if (row.iconUrl != null && row.iconUrl.length > 0) {
+				var classId = "icon_" + itemTypeId + "_" + row.id;
+				var classId2 = m_iconCls[classId];
+				if (classId2 == undefined || classId2 == null) {
+					var style = "." + classId + "{	background:url('" + iconUrl
+							+ "');}";
 					createStyle(style);
-					m_iconCls[classId]=classId;
+					m_iconCls[classId] = classId;
 				}
-				row.iconCls=classId;
-			}else{/*获取默认图标*/
-				switch(row.itemTypeId){
+				row.iconCls = classId;
+			} else {/* 获取默认图标 */
+				switch (row.itemTypeId) {
 				case 1:
-					row.iconCls='icon_default_vehicle';
+					row.iconCls = 'icon_default_vehicle';
 					break;
 				case 2:
-					row.iconCls='icon_default_police';
+					row.iconCls = 'icon_default_police';
 					break;
 				case 3:
-					row.iconCls='icon_default_weapon';
+					row.iconCls = 'icon_default_weapon';
 					break;
 				case 4:
-					row.iconCls='icon_default_gps';
+					row.iconCls = 'icon_default_gps';
 					break;
 				case 100:
-					row.iconCls='icon_default_dutytype';
+					row.iconCls = 'icon_default_dutytype';
 					break;
 				case 101:
-					row.iconCls='icon_default_shift';
+					row.iconCls = 'icon_default_shift';
 					break;
 				case 999:
-					row.iconCls='icon_default_usernode';
+					row.iconCls = 'icon_default_usernode';
 					break;
 				}
 			}
@@ -371,19 +379,19 @@ function createIconStyle(row,itemTypeId,iconUrl){
 }
 /**
  * 动态创建一个css样式
+ * 
  * @param css
  */
-function createStyle(css){
-	try { //IE下可行
-			  var style = document.createStyleSheet();
-			  style.cssText = css;
-		 }
-	catch (e) { //Firefox,Opera,Safari,Chrome下可行
+function createStyle(css) {
+	try { // IE下可行
+		var style = document.createStyleSheet();
+		style.cssText = css;
+	} catch (e) { // Firefox,Opera,Safari,Chrome下可行
 		var style = document.createElement("style");
 		style.type = "text/css";
 		style.textContent = css;
 		document.getElementsByTagName("HEAD").item(0).appendChild(style);
-		 }
+	}
 }
 function fmtDigit(value, row, index) {
 	if (value == 0)
@@ -394,69 +402,95 @@ function fmtDigit(value, row, index) {
 
 function fmtShiftPeriod(value, row, index) {
 	var result = "";
-	
-	if(row.itemTypeId==101 && row.beginTime2!=undefined && row.beginTime2!=null){
-		result = row.beginTime2.getHours() + ":" + row.beginTime2.getMinutes() + "至";
+
+	if (row.itemTypeId == 101 && row.beginTime2 != undefined
+			&& row.beginTime2 != null) {
+		result = row.beginTime2.getHours() + ":" + row.beginTime2.getMinutes()
+				+ "至";
 		var diff = row.beginTime2.dateDiffOfDay(row.endTime2);
-		
+
 		switch (diff) {
 		case 0:
 			result += row.endTime2.getHours() + ":" + row.endTime2.getMinutes();
 			break;
 		case 1:
-			result += "明日" + row.endTime2.getHours() + ":" + row.endTime2.getMinutes();
+			result += "明日" + row.endTime2.getHours() + ":"
+					+ row.endTime2.getMinutes();
 			break;
 		default:
 			result = "起止时间错误!";
 		}
-		
+
 		return result;
 	}
 }
 
 /**
  * 初始化日期
+ * 
  * @param ymd
  * @param item
  */
-function initDate(item){
-	
-	if(item.beginTime2 ==undefined || item.endTime2==undefined){
-		var b=new Date(item.beginTime);
-		var e=new Date(item.endTime);
-	
-		var diffDay=b.dateDiffOfDay(e);
-		
-		if(diffDay>1){
+function initDate(item) {
+
+	if (item.beginTime2 == undefined || item.endTime2 == undefined) {
+		var b = new Date(item.beginTime);
+		var e = new Date(item.endTime);
+
+		var diffDay = b.dateDiffOfDay(e);
+
+		if (diffDay > 1) {
 			alert('date diff day is error !');
 		}
-		
+
 		b.setFullYear(m_ymd.getYear(), m_ymd.getMonth(), m_ymd.getDay());
 		e.setFullYear(m_ymd.getYear(), m_ymd.getMonth(), m_ymd.getDay());
 		e.add('d', diffDay);
-		
-		item.beginTime2=b;
-		item.endTime2=e;
+
+		item.beginTime2 = b;
+		item.endTime2 = e;
 	}
 }
-var YMD={
-		createNew:function(ymd){
-			var _ymd={};
-			_ymd.ymd=ymd;
-			
-			var year=Number(ymd.substr (0,4));
-			var month=Number(ymd.substr (4,2));
-			var day=Number(ymd.substr (6,2));
-			
-			_ymd.getYear=function(){
-				return year;
-			};
-			_ymd.getMonth=function(){
-				return month;
-			};
-			_ymd.getDay=function(){
-				return day;
-			};
-			return _ymd;
+var YMD = {
+	createNew : function(ymd) {
+		var _ymd = {};
+		_ymd.ymd = ymd;
+
+		var year = Number(ymd.substr(0, 4));
+		var month = Number(ymd.substr(4, 2));
+		var day = Number(ymd.substr(6, 2));
+
+		_ymd.getYear = function() {
+			return year;
+		};
+		_ymd.getMonth = function() {
+			return month;
+		};
+		_ymd.getDay = function() {
+			return day;
+		};
+		return _ymd;
+	}
+};
+
+function btnExportToExcelAction() {
+	var obj = $('#tgddutydetailsforday').treegrid("getData");  
+	createExcelApplication(obj);
+};
+function btnExportAction() { 
+	$
+	.ajax({
+		url : "dutyCalendar/exportDataToExcle.do",
+		type : "POST",
+		dataType : "json",
+		data : {
+			'orgId' : m_dutyCalendar_Org.id,
+			'ymd' : m_dutyCalendar_Org.date
+		},
+		async : false,
+		success : function(req) {
+			if (req.isSuccess) {// 成功填充数据 
+			} 
 		}
+	});
 };

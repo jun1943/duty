@@ -1,5 +1,9 @@
 package com.tianyi.drs.duty.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -10,6 +14,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -17,12 +22,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tianyi.drs.duty.model.DutyType; 
+import com.tianyi.drs.duty.model.DutyType;
 import com.tianyi.drs.duty.service.DutyService;
 import com.tianyi.drs.duty.service.DutyTypeService;
 import com.tianyi.drs.duty.service.OrgService;
-import com.tianyi.drs.duty.viewmodel.DutyItemCountVM; 
+import com.tianyi.drs.duty.viewmodel.DutyExportVM;
+import com.tianyi.drs.duty.viewmodel.DutyItemCountVM;
+import com.tianyi.drs.duty.viewmodel.DutyItemVM;
+import com.tianyi.drs.duty.viewmodel.DutyVM;
 import com.tianyi.drs.duty.viewmodel.ListResult;
+import com.tianyi.drs.duty.viewmodel.ObjResult;
 
 @Scope("prototype")
 @Controller
@@ -37,7 +46,7 @@ public class DutyCalendarController {
 
 	@Resource(name = "orgService")
 	protected OrgService orgService;
-	  
+
 	@RequestMapping(value = "getCalender.do")
 	public @ResponseBody
 	String getCalender(
@@ -68,8 +77,9 @@ public class DutyCalendarController {
 			}
 			result += "{\"y\":\"" + year + "\",\"m\":\"" + month
 					+ "\",\"d\":\"" + i + "\",\"week\":\"" + week
-					+ "\",\"totalpolice\":\"" + getTotalPolice(dt, orgId) + "\"},";
-					//+ "\",\"dutyList\":\"" + getDutyList(dt, orgId) + "\"},";
+					+ "\",\"totalpolice\":\"" + getTotalPolice(dt, orgId)
+					+ "\"},";
+			// + "\",\"dutyList\":\"" + getDutyList(dt, orgId) + "\"},";
 		}
 		if (result.endsWith(",")) {
 			result = result.substring(0, result.length() - 1) + "]";
@@ -120,17 +130,17 @@ public class DutyCalendarController {
 			String result = "";
 			if (list.size() > 0) {
 				for (int i = 0; i < list.size(); i++) {
-					result +="<li>";
-					if(list.get(i).getItemTypeName().equals("警员")){
-						result += list.get(i).getorgName()+"人";
-					}else if(list.get(i).getItemTypeName().equals("车辆")){
-						result += list.get(i).getorgName()+"车";
-					}else if(list.get(i).getItemTypeName().equals("武器")){
-						result += list.get(i).getorgName()+"武器";
+					result += "<li>";
+					if (list.get(i).getItemTypeName().equals("警员")) {
+						result += list.get(i).getorgName() + "人";
+					} else if (list.get(i).getItemTypeName().equals("车辆")) {
+						result += list.get(i).getorgName() + "车";
+					} else if (list.get(i).getItemTypeName().equals("武器")) {
+						result += list.get(i).getorgName() + "武器";
 					}
-					result +="</li>";
+					result += "</li>";
 				}
-			} else { 
+			} else {
 				result = "0";
 			}
 			return result;
@@ -159,7 +169,7 @@ public class DutyCalendarController {
 			@RequestParam(value = "date", required = false) String date,
 			@RequestParam(value = "orgId", required = false) Integer orgId,
 			HttpServletRequest request) throws Exception {
-		try{
+		try {
 			int dt = 0;
 			String dates = date.replace("-", "");
 			dt = Integer.parseInt(dates);
@@ -167,33 +177,32 @@ public class DutyCalendarController {
 			map.put("ymd", dt);
 			map.put("orgId", orgId);
 			List<DutyItemCountVM> list = new ArrayList<DutyItemCountVM>();
-			
-			
+
 			String result = "{\"name\":\"randName\",\"position\":\"randPosition\",\"phone\":\"028-0022569\",\"cornet\":\"10086\"}";
-			
+
 			return result;
-		}
-		catch(Exception ex){
+		} catch (Exception ex) {
 			return " 获取报备信息发生错误 ";
 		}
 	}
+
 	@RequestMapping(value = "getTotalPolice.do")
-	public @ResponseBody String getTotalPolice(
+	public @ResponseBody
+	String getTotalPolice(
 			@RequestParam(value = "orgId", required = false) Integer orgId,
 			@RequestParam(value = "orgPath", required = false) String orgPath,
 			@RequestParam(value = "orgCode", required = false) String orgCode,
 			@RequestParam(value = "beginTime", required = false) String beginTime,
 			@RequestParam(value = "endTime", required = false) String endTime,
-			HttpServletRequest request
-			){
+			HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int bTime = 0;
 		int eTime = 0;
-		if(beginTime != null && !beginTime.equals("")){
+		if (beginTime != null && !beginTime.equals("")) {
 			beginTime = beginTime.replace("-", "");
 			bTime = Integer.parseInt(beginTime);
 		}
-		if(endTime != null && !endTime.equals("")){
+		if (endTime != null && !endTime.equals("")) {
 			endTime = endTime.replace("-", "");
 			eTime = Integer.parseInt(endTime);
 		}
@@ -202,30 +211,32 @@ public class DutyCalendarController {
 		map.put("orgCode", orgCode);
 		map.put("beginTime", bTime);
 		map.put("endTime", eTime);
-		List<DutyItemCountVM> dicvms=dutyService.loadTotalPolice(map);
-		
-		ListResult<DutyItemCountVM> rs=new ListResult<DutyItemCountVM>(dicvms.size(),dicvms,true);
-		
+		List<DutyItemCountVM> dicvms = dutyService.loadTotalPolice(map);
+
+		ListResult<DutyItemCountVM> rs = new ListResult<DutyItemCountVM>(
+				dicvms.size(), dicvms, true);
+
 		return rs.toJson();
 	}
+
 	@RequestMapping(value = "getTotalPolicedetail.do")
-	public @ResponseBody String getTotalPolicedetail(
+	public @ResponseBody
+	String getTotalPolicedetail(
 			@RequestParam(value = "orgId", required = false) Integer orgId,
 			@RequestParam(value = "orgPath", required = false) String orgPath,
 			@RequestParam(value = "orgCode", required = false) String orgCode,
 			@RequestParam(value = "beginTime", required = false) String beginTime,
 			@RequestParam(value = "endTime", required = false) String endTime,
-			HttpServletRequest request
-			){
+			HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		int bTime = 0;
 		int eTime = 0;
-		if(beginTime != null && !beginTime.equals("")){
+		if (beginTime != null && !beginTime.equals("")) {
 			beginTime = beginTime.replace("-", "");
 			bTime = Integer.parseInt(beginTime);
 		}
-		if(endTime != null && !endTime.equals("")){
+		if (endTime != null && !endTime.equals("")) {
 			endTime = endTime.replace("-", "");
 			eTime = Integer.parseInt(endTime);
 		}
@@ -234,10 +245,80 @@ public class DutyCalendarController {
 		map.put("orgCode", orgCode);
 		map.put("beginTime", bTime);
 		map.put("endTime", eTime);
-		List<DutyItemCountVM> dicvms=dutyService.loadTotalPolicedetail(map);
-		
-		ListResult<DutyItemCountVM> rs=new ListResult<DutyItemCountVM>(dicvms.size(),dicvms,true);
-		
+		List<DutyItemCountVM> dicvms = dutyService.loadTotalPolicedetail(map);
+
+		ListResult<DutyItemCountVM> rs = new ListResult<DutyItemCountVM>(
+				dicvms.size(), dicvms, true);
+
 		return rs.toJson();
 	}
+
+	@RequestMapping(value = "exportDataToExcle.do")
+	public @ResponseBody
+	void  exportDataToExcle(
+			@RequestParam(value = "orgId", required = false) Integer orgId,
+			@RequestParam(value = "ymd", required = false) Integer ymd,
+			HttpServletResponse response,
+			HttpServletRequest request)throws IOException  {
+		DutyVM dvm = null;
+		String filePath="";
+		String fileName ="";
+		dvm = dutyService.loadVMByOrgIdAndYmd(orgId, ymd);
+		List<DutyItemVM> list = dvm.getItems();
+		if (list.size() > 0) {
+			List<DutyExportVM> sublist = new ArrayList<DutyExportVM>();
+			sublist = getSubList(list); 
+			filePath = initExcelData(sublist,filePath);
+		}
+		FileInputStream fis = null;  
+        OutputStream os = null;  
+        try {  
+            fis = new FileInputStream(filePath);  
+            os = response.getOutputStream();// 取得输出流  
+            response.reset();// 清空输出流  
+            response.setHeader("Content-disposition", "attachment; filename=" + fileName);// 设定输出文件头  
+            response.setContentType("application/x-download");  
+            byte[] mybyte = new byte[8192];  
+            int len = 0;  
+            while ((len = fis.read(mybyte)) != -1) {  
+                os.write(mybyte, 0, len);  
+            }  
+            os.close();  
+        }catch (IOException e) {  
+         
+        }  
+	}
+ 
+	private List<DutyExportVM> getSubList(List<DutyItemVM> list) {
+		List<DutyExportVM> sList = new ArrayList<DutyExportVM>();
+		for(int i = 0;i<list.size();i++){
+			DutyExportVM dwm = new DutyExportVM();
+			dwm.setDutyName(list.get(i).getDisplayName());
+			dwm.setTypeName(list.get(i).getItemInnerTypeName());
+			String date = "";
+			if (list.get(i).getBeginTime() != null) {
+				date = list.get(i).getBeginTime().toString();
+			}
+			if (list.get(i).getEndTime() != null) {
+				date += "至" + list.get(i).getEndTime().toString();
+			}
+			dwm.setTimeArea(date);
+			dwm.setVehicleCount("1");
+			dwm.setPoliceCount("1");
+			dwm.setWeaponCount("1");
+			dwm.setGpsdeviceCount("1"); 
+			sList.add(dwm);
+		}
+		return sList;
+	}
+	private String initExcelData(List<DutyExportVM> sublist,String filepath) {
+		File file = new File(filepath);  
+		 if(!file.exists()){  
+	            file.mkdirs();  
+	        } 
+		 file = new File(file,System.currentTimeMillis()+".xls");  
+		 //WritableWorkbook book=null;  
+		 return "";
+	}
+
 }

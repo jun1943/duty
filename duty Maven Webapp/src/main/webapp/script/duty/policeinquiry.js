@@ -34,7 +34,7 @@ $(function() {
 			pagination : false,
 			fitColumns : true,  
 	        width:'100%',
-	        height:400,
+	        height:300,
 			//singleSelect: true,
 		    //title:"警力总数",
 	        columns: [[ 
@@ -51,8 +51,14 @@ $(function() {
 					{ title: '巡区警力', field: "patrolareaPoliceCount", align: 'center', width: 80 } 
 	        ]] 
 	    });
+
+		$("#cmtdutytype").combotree({  
+	        valueField: 'id',
+	        textField: 'name'
+		});
 	 loadTotalPolice();
 	 loadTotalPolicedetail();
+	 loaddutyTypeComboTree();
 });
 
 function loadTotalPolice(){
@@ -90,7 +96,31 @@ function loadTotalPolicedetail(){
 	        }
 	    });
 }; 
+function loaddutyTypeComboTree(){
+	$.ajax({
+		url : "dutyType/list.do",
+		type : "POST",
+		dataType : "json",
+		data:{isUsed:true},
+		//async : false,
+		success : function(req) {
+			if (req.isSuccess) {// 成功填充数据
+				var ss = buildDutyTypeTree(req.rows);
+				$('#cmtdutytype').combotree('loadData', ss);
+			} else {
+				alert("获取数据失败");
+			}
+		}
+	});
+};
 
+function btnExportDataAction(){
+	 alert("导出数据");
+};
+function btnSearchQueryAction(){
+	var date = $("#dteBeginDate").datebox("getValue");
+	//var 
+};
 
 
 
