@@ -69,14 +69,11 @@
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
 			style="width: 400px; height: 240px; padding: 10px;">
 			<div class="easyui-layout" data-options="fit:true">
-				<div data-options="region:'north',border:false"
-					style="padding: 2px; height: 30px;">
+				<div data-options="region:'south',border:false"
+					style="padding: 2px; height: 30px;"> 
 					<a href="javascript:void(0);" class="easyui-linkbutton"
-						data-options="iconCls:'icon-save',plain:true"
-						onclick="saveGpsdeviceAction()">保存</a> <a href="javascript:void(0);"
-						class="easyui-linkbutton"
-						onclick="$('#gpsdeviceinfowindow').window('close');"
-						data-options="iconCls:'icon-remove',plain:true">关闭</a>
+						data-options="iconCls:'icon-save',plain:true" style="float:right"
+						onclick="saveGpsdeviceAction()">保存</a> 
 				</div>
 				<div data-options="region:'center',border:false"
 					style="text-align: right; margin-left: 5px;

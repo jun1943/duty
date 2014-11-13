@@ -27,7 +27,7 @@
 			 
 			<div id="tbIcons" class="btn-toolbar" style="height:40px; margin-top:10px">
   				<div class="btn-group">
-  					<a id="btnAddIcons" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-add"  plain="true" onclick="btnAddIcons()">新增</a>
+  					<a id="btnAddIcons" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-add" 	onclick="btnAddIcons()">新增</a>
                 	<a id="btnEditIcons" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="btnEditIcons()">修改</a>
                 	<a id="btnDelIcons" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel" plain="true" onclick="btnDelIcons()">删除</a> 
   				</div>  				
@@ -56,7 +56,7 @@
                           
                         </div>
                       </div>
-                  </div> 
+                  </div>  
                  <a id="btnSearchAction" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"  plain="true" onclick="btnSearchAction()">查询</a>
 				<!-- button type="submit" class="btn btn-info">查询</button -->
 				</form>
@@ -71,14 +71,11 @@
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
 			style="width: 400px; height: 240px; padding: 10px;">
 			<div class="easyui-layout" data-options="fit:true">
-				<div data-options="region:'north',border:false"
-					style="padding: 2px; height: 30px;">
+				<div data-options="region:'south',border:false"
+					style="padding: 2px; height: 30px;"> 
 					 <a href="javascript:void(0);" class="easyui-linkbutton"
-						data-options="iconCls:'icon-save',plain:true"
-						onclick="saveIconsAction()">保存并继续</a>  <a href="javascript:void(0);"
-						class="easyui-linkbutton"
-						onclick="$('#iconsinfowindow').window('close');"
-						data-options="iconCls:'icon-remove',plain:true">关闭</a>
+						data-options="iconCls:'icon-save',plain:true" style="float:right"
+						onclick="saveIconsAction()">保存并继续</a>  
 				</div>
 				<div data-options="region:'center',border:false"
 					style="text-align: right; margin-left: 5px;
@@ -89,11 +86,20 @@
 								<td> <input id="txttype" class="easyui-combobox" name="dept"
 											data-options="valueField:'id',textField:'name',data:[{id: 0,name: '请选择图片类型'},{id: 1,name: '警员'},{id: 2,name: '车辆'},{id: 3,name: '武器'},{id: 4,name: '定位设备'}]" />
 	                         	</td>
+	                         	<td rowspan="3">
+		                         	<img id="sltImage" style="width:120px; height:120px" src="">
+                  				</td>
 							</tr>
 							<tr>
-								<td><label>图标名称:</label></td>
-								<td><input type="text" class="easyui-validatebox" id="txtname"><a id="btnfindIcon"  href="javascript:void(0);" class="easyui-linkbutton"  plain="true" >选择图片</a></td>
+								<td><label>图标标题:</label></td>
+								<td><input type="text" class="easyui-validatebox" id="txtname"></td>
 							</tr> 
+							<tr>
+								<td><label>图标选择:</label>
+								</td>
+								<td><input type="text" class="easyui-validatebox" id="txtfilename"><a id="btnfindIcon"  href="javascript:void(0);" class="easyui-linkbutton"  plain="true" >选择图片</a>
+								</td>
+							</tr>
 						</table>
 					  
 				</div>
