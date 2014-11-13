@@ -30,24 +30,22 @@ $(function() {
 	              
 	        ]]
 	    });
-	 $('#dtPolicedetails').datagrid({
-			pagination : false,
+	 $('#dtPolicedetails').treegrid({
 			fitColumns : true,  
 	        width:'100%',
 	        height:300,
+	        idField : 'id',
+			treeField : 'orgShortName',
 			//singleSelect: true,
 		    //title:"警力总数",
 	        columns: [[ 
-					{ title: '机构树', field: 'orgName', align: 'center', width: 80 },
-					{ title: '值班领导', field: 'shiftLeaderCount', align: 'center', width: 80 },
-					{ title: '值班主任', field: 'chiefLeaderCount', align: 'center', width: 80},
-					{ title: '值班警力', field: 'dutypoliceCount', align: 'center', width: 80},
+					{ title: '机构树', field: 'orgShortName', align: 'left', width: 120 },
+					{ title: '值班领导', field: 'shiftLeaderCount', align: 'left', width: 80 },
+					{ title: '警力', field: 'policeCount', align: 'center', width: 80},
 					{ title: '车辆', field: 'vehicleCount', align: 'center', width: 80},
 					{ title: '枪支', field: "weaponCount", align: 'center', width: 80 },
-					{ title: '单位值班', field: "unitdutyCount", align: 'center', width: 80 },
-					{ title: '接处警', field: "illuminatesCount", align: 'center', width: 80 },
 					{ title: '巡逻警力', field: "patrolpoliceCount", align: 'center', width: 80},
-					{ title: '动态卡点警力', field: "checkpointpoliceCount", align: 'center', width: 80 },
+					{ title: '卡点警力', field: "checkpointpoliceCount", align: 'center', width: 80 },
 					{ title: '巡区警力', field: "patrolareaPoliceCount", align: 'center', width: 80 } 
 	        ]] 
 	    });

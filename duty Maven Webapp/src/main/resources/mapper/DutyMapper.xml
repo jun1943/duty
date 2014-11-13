@@ -560,58 +560,6 @@
 		where o.path like CONCAT("%","/",#{orgCode,jdbcType=VARCHAR},"%")
     </select >
     
-    <select id="dutyReport" parameterType="java.util.Map">
-		select 
-			org.name,
-			org.short_name,
-			org.id,
-			org.code,
-			org.path,
-			t.vehicleCount,
-			t.policeCount,
-			t.weaponCount,
-			t.gpsCount,
-			t.npname
-		from organ as org
-		left join
-		(
-			select 
-				d.org_id as org_id,
-				count(v.id) as vehicleCount,
-				count(p.id) as policeCount,
-				count(w.id)	as weaponCount,
-				count(g.id) as gpsCount,
-				GROUP_CONCAT(n.npname) as npname
-			from t_duty as d 
-			left join t_duty_item as di on d.id=di.duty_id
-			left join t_vehicle as v on di.item_id=v.id and di.item_type_id=1
-			left join t_police as p on di.item_id=p.id and di.item_type_id=2
-			left join t_weapon as w on di.item_id=w.id and di.item_type_id=3
-			left join t_gps as g on di.item_id=g.id and di.item_type_id=4
-			left join t_duty_type as dt1 on di.duty_type_id = dt1.id and dt1.asso_task_type=1 and di.item_type_id=2
-			left join t_duty_type as dt2 on di.duty_type_id = dt2.id and dt2.asso_task_type=2 and di.item_type_id=2
-			left join t_duty_type as dt3 on di.duty_type_id = dt3.id and dt3.asso_task_type=3 and di.item_type_id=2
-			left join 
-			(
-				select
-					ndi.id as nid,
-					np.name as npname
-				from t_duty_item as ndi
-				left join t_police as np on ndi.item_id=np.id and ndi.item_type_id=2
-				left join t_duty_type as ndt on ndt.id=ndi.duty_type_id
-				where ndt.name like '%领导%'
-			) as n on n.nid=di.id
-			where
-				d.is_template=false	and
-				exists (select 1 from t_duty_type_property_relate as dtpr where dtpr.duty_type_id=di.duty_type_id and dtpr.property_id in(1,2,3)) and
-				exists (select 1 from t_duty_type as wdt where wdt.id=di.duty_type_id and wdt.attire_type=0) and
-				exists (select 1 from t_duty_type as wdt where wdt.id=di.duty_type_id and wdt.armament_type=0) and
-				p.type_id in (1,2,3,4) and
-				di.duty_type_id in (1) and
-				di.begin_time  between '2014-01-01' and '2014-11-01' and
-				d.ymd=20141101
-			group by d.org_id
-		) as t on org.id=t.org_id
-    </select>
+    
     
 </mapper>

@@ -15,40 +15,29 @@
     <script src='<%=basePath%>js/sys/html5shiv.js' type='text/javascript'></script>
     <![endif]-->
  
-<link href='<%=basePath%>asset/css/bootstrap.min.css' media='all'
-	rel='stylesheet' type='text/css' />
+<link href='<%=basePath%>asset/css/bootstrap.min.css' media='all'	rel='stylesheet' type='text/css' />
  
 
-<link href='<%=basePath%>asset/css/easyui/icon.css'
-	media='all' rel='stylesheet' type='text/css' />
-<link href='<%=basePath%>asset/css/jquery.loadmask/jquery.loadmask.css'
-	media='all' rel='stylesheet' type='text/css' />
-<link href='<%=basePath%>asset/css/easyui/gray/easyui.css'
-	media='all' rel='stylesheet' type='text/css' />
-<link href='<%=basePath%>asset/css/images/main.css'
-	media='all' rel='stylesheet' type='text/css' />
-<link href='<%=basePath%>asset/css/fontawesome/css/font-awesome.min.css'
-	media='all' rel='stylesheet' type='text/css' />
+<link href='<%=basePath%>asset/css/easyui/icon.css'	media='all' rel='stylesheet' type='text/css' />
+<link href='<%=basePath%>asset/css/jquery.loadmask/jquery.loadmask.css'	media='all' rel='stylesheet' type='text/css' />
+<link href='<%=basePath%>asset/css/easyui/gray/easyui.css'	media='all' rel='stylesheet' type='text/css' />
+<link href='<%=basePath%>asset/css/images/main.css'	media='all' rel='stylesheet' type='text/css' />
+<link href='<%=basePath%>asset/css/fontawesome/css/font-awesome.min.css'	media='all' rel='stylesheet' type='text/css' />
 	
 <link href='<%=basePath%>resource/css/tianyi.duty.icon.css'' media='all' rel='stylesheet' type='text/css' />
 <!-- 
-<link href='<%=basePath%>asset/css/Dialogdefault.css'
-	media='all' rel='stylesheet' type='text/css' />
+<link href='<%=basePath%>asset/css/Dialogdefault.css'	media='all' rel='stylesheet' type='text/css' />
  -->
 
 	
-<script src='<%=basePath%>asset/script/jquery-1.11.1.min.js'
-	type='text/javascript'></script>
+<script src='<%=basePath%>asset/script/jquery-1.11.1.min.js'	type='text/javascript'></script>
 <!-- 
-<script src='<%=basePath%>asset/script/bootstrap.min.js'
-	type='text/javascript'></script>
+<script src='<%=basePath%>asset/script/bootstrap.min.js'	type='text/javascript'></script>
  -->
 
-<script src='<%=basePath%>asset/script/easyui/jquery.easyui.1.4.min.js'
-	type='text/javascript'></script>
+<script src='<%=basePath%>asset/script/easyui/jquery.easyui.1.4.min.js'	type='text/javascript'></script>
 <script
-	src='<%=basePath%>asset/script/jquery.loadmask/jquery.loadmask.min.js'
-	type='text/javascript'></script>
+	src='<%=basePath%>asset/script/jquery.loadmask/jquery.loadmask.min.js'	type='text/javascript'></script>
 
 <script src='<%=basePath%>asset/script/json2.js' type='text/javascript'></script>
 <script src='<%=basePath%>asset/script/easyui/easyui-lang-zh_CN.js' type='text/javascript'></script>
