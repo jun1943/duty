@@ -47,16 +47,23 @@ function buildOrgTree(orgs){
     	node.text = node.shortName;
         node.children=[];
         node.children2=[];
+        
+        if(node.parentId==rootParent){
+        	node.parentObj=rootParent;
+        	node.level=1;
+        	ss.push(node);
+        }
+        
         for (var j = 0; j < count; j++) {
         	var tmp = orgs[j];
         	if (tmp.parentId == node.id){
+        		tmp.parentObj=node;
+        		tmp.level=node.level+1;
         		node.children.push(tmp);
         		node.children2.push(tmp);
         	}
         }
-        if(node.parentId==rootParent){
-        	ss.push(node);
-        }
+        
     }
     
     return ss;

@@ -20,6 +20,7 @@ $(function () {
 	$('#treeDutyFrmOrg').tree(
 			{
 				checkbox:false,
+				cascadeCheck:true,
 				onDblClick:onOrgTreeDblClick
 			});
 	
@@ -162,3 +163,6 @@ function onClickData(date){
 
 	$("#ifmWorkSpace").attr("src",src);
 };
+
+
+

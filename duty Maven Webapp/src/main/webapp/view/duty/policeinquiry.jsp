@@ -28,8 +28,9 @@
 				<div class="btn-group" style="float:right; margin-right:20px">
 					 <a id="exportData" name="exportData" href="javascript:void(0);" class="easyui-linkbutton"
                    iconcls="icon-export" onclick="btnExportDataAction()" plain="true" style="float:right; margin-left:20px">导出</a>
-                   <a id="searchpoliceQuery" href="javascript:void(0);" class="easyui-linkbutton"
-                   iconcls="icon-search"  plain="true" style="float:right">查询</a>
+                   
+                   <a id="btnsearchQueryBox" href="javascript:void(0);" class="easyui-linkbutton" 
+                   iconcls="icon-search"  plain="true" style="float:right">查询条件</a>
 				</div>
 		 	</div>
 		 	<div id="my-search-box" class="panel-body" style="border:0px;display:none">
@@ -39,9 +40,9 @@
 								<div class="input-group">
 									时间范围 
 									<input id="dteBeginDate" class="easyui-datebox" style="width:200px" />
-									<input id="dteBeginTime" class="easyui-timespinner"  style="width:80px;" data-options="min:'00:00',showSeconds:true" />
+									<input id="spnBeginTime" class="easyui-timespinner"  style="width:80px;" data-options="min:'00:00',showSeconds:true" />
 									——
-									<input id="dteEndTime"   class="easyui-timespinner"  style="width:80px;" data-options="min:'00:00',showSeconds:true" />
+									<input id="spnEndTime"   class="easyui-timespinner"  style="width:80px;" data-options="min:'00:00',showSeconds:true" />
 
 								</div>
 							</div>
@@ -50,7 +51,7 @@
 						<div class="form-group">
 							<div class="form-group">
 								<div class="input-group">
-									任务属性 <input id="dutyProperty" class="easyui-combobox" name="dutyProperty"  style="width:200px" />
+									任务属性 <input id="dutyProperty" style="width:200px" />
 								</div>
 							</div>
 						</div>
@@ -58,9 +59,9 @@
 							<div class="form-group">
 								<div class="input-group">
 									衣着
-									<input id="ckProattire" type="checkbox" >
+									<input id="ckAttireType1" type="checkbox"  value="0">
 									着装
-									<input id="ckProplainclothes" type="checkbox" >
+									<input id="ckAttireType2" type="checkbox"  value="1">
 									便衣
 								</div>
 							</div>
@@ -69,7 +70,7 @@
 						<div class="form-group">
 							<div class="form-group">
 								<div class="input-group">
-									人员类别 <input id="cmpoliceType" class="easyui-combobox" name="policeType"  style="width:200px" />
+									人员类别 <input id="cmbpoliceType" style="width:200px" />
 								</div>
 							</div>
 						</div>
@@ -77,10 +78,10 @@
 							<div class="form-group">
 								<div class="input-group">
 									武装
-									<input id="ckProarmed" type="checkbox" >
-									武装
-									<input id="ckProunarmed" type="checkbox" >
+									<input id="ckArmamentType1" type="checkbox" value="0">
 									非武装
+									<input id="ckArmamentType2" type="checkbox" value="1">
+									武装
 								</div>
 							</div>
 						</div>
@@ -89,7 +90,7 @@
 						<div class="form-group">
 							<div class="form-group">
 								<div class="input-group">
-									勤务类型 <input id="cmtdutytype"  class="easyui-combotree" style="width:200px" >
+									勤务类型 <input id="cmbdutytype"  class="easyui-combotree" style="width:200px" >
 								</div>
 							</div>
 						</div>
