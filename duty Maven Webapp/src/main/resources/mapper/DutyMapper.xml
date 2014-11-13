@@ -152,6 +152,10 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   
+   <select id="selectdutyProperty" resultType="com.tianyi.drs.duty.model.DutyProperty">  
+       		 select * from t_duty_type_property order by id asc
+    	 </select> 
+  
     <resultMap id="VMResultMap" type="com.tianyi.drs.duty.viewmodel.DutyVM" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="org_id" property="orgId" jdbcType="INTEGER" />

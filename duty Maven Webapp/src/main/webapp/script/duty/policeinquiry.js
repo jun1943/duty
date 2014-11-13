@@ -5,9 +5,10 @@ $(function() {
 	m_policeQuery_Org.code = args["orgCode"];
 	m_policeQuery_Org.path = args["orgPath"];
 	var orgName = args["orgName"];
-	m_policeQuery_Org.name = decodeURI(orgName);
-	$("#tt_orgName").html(m_policeQuery_Org.name+"警力:");
-	
+	m_policeQuery_Org.name = decodeURI(orgName); 
+	$("#searchpoliceQuery").bind("click", function() {
+		$('#my-search-box').toggle();
+	});
 	 $('#dtPolicetotal').datagrid({ 
 		  	pagination : false,
 			fitColumns : true,  
@@ -56,14 +57,17 @@ $(function() {
 	        valueField: 'id',
 	        textField: 'name'
 		});
+ 
 	 loadTotalPolice();
 	 loadTotalPolicedetail();
 	 loaddutyTypeComboTree();
+	 getBaseDataCombobox("police/getPoliceType.do", "cmpoliceType");
+	 getBaseDataCombobox("duty/getdutyProperty.do", "dutyProperty");
 });
 
 function loadTotalPolice(){
-	var beginTime =$("#dteBeginTime").datebox("getValue");
-	var endTime =$("#dteEndTime").datebox("getValue");
+	var beginTime ="";
+	var endTime ="";
 	
 	 $.ajax({
 	        url: "dutyCalendar/getTotalPolice.do?orgId=" + m_policeQuery_Org.id + "&orgCode=" + m_policeQuery_Org.code+"&orgPath=" + m_policeQuery_Org.path+"&beginTime="+beginTime+"&endTime="+endTime,
@@ -80,8 +84,8 @@ function loadTotalPolice(){
 	    });
 };
 function loadTotalPolicedetail(){
-	var beginTime =$("#dteBeginTime").datebox("getValue");
-	var endTime =$("#dteEndTime").datebox("getValue");
+	var beginTime ="";
+	var endTime ="";
 	 $.ajax({
 	        url: "dutyCalendar/getTotalPolicedetail.do?orgId=" + m_policeQuery_Org.id + "&orgCode=" + m_policeQuery_Org.code+"&orgPath=" + m_policeQuery_Org.path+"&beginTime="+beginTime+"&endTime="+endTime,
 	        type: "POST",

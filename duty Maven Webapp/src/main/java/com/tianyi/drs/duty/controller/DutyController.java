@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import net.sf.ezmorph.object.DateMorpher;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject; 
 import net.sf.json.util.JSONUtils;
 
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
+import com.tianyi.drs.basedata.model.PoliceType;
 import com.tianyi.drs.duty.model.Duty;
+import com.tianyi.drs.duty.model.DutyProperty;
 import com.tianyi.drs.duty.model.Org;
 import com.tianyi.drs.duty.model.PoliceTarget;
 import com.tianyi.drs.duty.service.DutyService; 
@@ -132,4 +135,16 @@ public class DutyController {
 		
 		return rs.toJson();
 	}
+	@RequestMapping(value = "getdutyProperty.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String getdutyProperty() throws Exception {
+		try {
+			List<DutyProperty> list = dutyService.selectdutyProperty();
+			JSONArray result = JSONArray.fromObject(list);
+			return result.toString();
+		} catch (Exception ex) {
+			return "";
+		}
+	}
+	
 }
