@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tianyi.drs.duty.dao.DutyReportMapper" >
 
-<resultMap id="BaseResultMap" type="com.tianyi.drs.duty.viewmodel.DutyReport" >
+<resultMap id="BaseResultMap" type="com.tianyi.drs.duty.viewmodel.DutyReportVM" >
     <result column="org_id" property="orgId" jdbcType="INTEGER" />
     <result column="org_name" property="orgName" jdbcType="VARCHAR" />
     <result column="org_short_name" property="orgShortName" jdbcType="VARCHAR" />
