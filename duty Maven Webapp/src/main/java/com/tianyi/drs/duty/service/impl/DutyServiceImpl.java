@@ -15,6 +15,7 @@ import com.tianyi.drs.duty.dao.DutyItemMapper;
 import com.tianyi.drs.duty.dao.DutyMapper;
 import com.tianyi.drs.duty.dao.PoliceTargetMapper;
 import com.tianyi.drs.duty.model.Duty;
+import com.tianyi.drs.duty.model.DutyProperty;
 import com.tianyi.drs.duty.model.PoliceTarget;
 import com.tianyi.drs.duty.service.DutyService;
 import com.tianyi.drs.duty.viewmodel.DutyItemCountVM;
@@ -172,5 +173,10 @@ public class DutyServiceImpl implements DutyService{
 	public List<DutyItemCountVM> loadTotalPolicedetail(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return dutyMapper.loadTotalPolicedetail(map);
+	}
+
+	public List<DutyProperty> selectdutyProperty() {
+		// TODO Auto-generated method stub
+		return dutyMapper.selectdutyProperty();
 	}
 }
