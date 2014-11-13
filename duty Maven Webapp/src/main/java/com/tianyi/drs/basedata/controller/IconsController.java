@@ -64,16 +64,16 @@ public class IconsController extends CommonsMultipartResolver {
 			@RequestParam(value = "rows", required = false) Integer rows,
 			HttpServletRequest request) throws Exception {
 		try {
-			JSONObject joQuery = JSONObject.fromObject(query); 
+			JSONObject joQuery = JSONObject.fromObject(query);
 			String name = joQuery.getString("name");
- 
+
 			int typeid = Integer.parseInt(joQuery.getString("typeid"));
 
 			List<Icons> list = new ArrayList<Icons>();
 			Map<String, Object> map = new HashMap<String, Object>();
 			page = page == 0 ? 1 : page;
 			map.put("pageStart", (page - 1) * rows);
-			map.put("pageSize", rows); 
+			map.put("pageSize", rows);
 			map.put("name", name);
 			map.put("typeid", typeid);
 
@@ -101,7 +101,7 @@ public class IconsController extends CommonsMultipartResolver {
 				Icons icon = new Icons();
 				icon = iconsService.loadById(id);
 				if (icon != null) {
-					String iconUrl = realPath+icon.getIconUrl();
+					String iconUrl = realPath + icon.getIconUrl();
 					File pc = new File(iconUrl);
 
 					if (pc.exists()) {
@@ -127,6 +127,7 @@ public class IconsController extends CommonsMultipartResolver {
 
 		try {
 			String realPath = getClass().getResource("/").getFile().toString();
+			String result = "";
 			realPath = realPath.substring(0, (realPath.length() - 16));
 			realPath = realPath + "resource";
 			String picPath = "/resource";
@@ -144,7 +145,7 @@ public class IconsController extends CommonsMultipartResolver {
 			int iconId = 0;
 			if (icons != null) {
 
-				 iconId = icons.getId();
+				iconId = icons.getId();
 				if (icons.getTypeId() == 1) {
 					realPath = realPath + "/police";
 					picPath += "/police";
@@ -173,17 +174,22 @@ public class IconsController extends CommonsMultipartResolver {
 			if (!cmFile.isEmpty()) {
 				// int size = (int) cmFile.getFileItem().getSize();
 				String name = cmFile.getFileItem().getName();
-
 				Icons iconObj = new Icons();
 				iconObj.setId(icons.getId());
 				iconObj.setTypeId(icons.getTypeId());
-				iconObj.setName(icons.getName());
+				if (equals(icons.getName() == "") || icons.getName() == null) {
+					iconObj.setName(name);
+					result = name;
+				} else {
+					iconObj.setName(icons.getName());
+					result = icons.getName();
+				}
 				iconObj.setSyncState(true);
 				iconObj.setPlatformId(1);
 
 				if (iconId == 0) {
 					iconsService.insert(iconObj);
-					iconId = iconObj.getId();
+					iconId = iconObj.getId(); 
 					String dirUrl = realPath + iconId;
 					picPath += iconId + "/";
 					File filedir = new File(dirUrl);
@@ -194,6 +200,7 @@ public class IconsController extends CommonsMultipartResolver {
 					dirUrl = dirUrl + "/";
 					String iconUrl = dirUrl + name;
 					picPath += name;
+					result = result + ";" + iconId + ";" + picPath;
 					iconObj.setIconUrl(picPath);
 					iconObj.setId(iconId);
 					iconsService.updateByPrimaryKey(iconObj);
@@ -222,6 +229,7 @@ public class IconsController extends CommonsMultipartResolver {
 					String iconUrl = dirUrl + name;
 
 					picPath += name;
+					result = result + ";" + iconId + ";" + picPath;
 					iconObj.setIconUrl(picPath);
 					iconObj.setId(iconId);
 					iconsService.updateByPrimaryKey(iconObj);
@@ -243,11 +251,10 @@ public class IconsController extends CommonsMultipartResolver {
 			// ObjResult<IconsVM> rs = new ObjResult<DutyTypeVM>(true, null,
 			// dtvm.getId(), null);
 
-			String result = "File Upload Success;"+iconId;
 			return result;
 
 		} catch (Exception ex) {
-			return "File Upload Failed;0";
+			return "File Upload Failed;0;";
 		}
 
 	}

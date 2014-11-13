@@ -202,7 +202,7 @@ function creatHtml(arr) {
 					+ d
 					+ '")><div class="dateBoxMainDateTD"><div class="dateBoxMainDateTDLib">'
 					+ arr[i][j]["d"]
-					+ '</div><div class="dateBoxMainDateTDBox"><ul><li>警力：'
+					+ '</div><div class="dateBoxMainDateTDBox"><ul><li> '
 					+ arr[i][j]["totalpolice"] + '</li> </ul></div></div></td>';
 			// + arr[i][j]["dutyList"] + '</ul></div></div></td>';
 
@@ -474,23 +474,27 @@ var YMD = {
 };
 
 function btnExportToExcelAction() {
-	var obj = $('#tgddutydetailsforday').treegrid("getData");  
+	var obj = $('#tgddutydetailsforday').treegrid("getData");
 	createExcelApplication(obj);
 };
 function btnExportAction() { 
-	$
-	.ajax({
+	$.ajax({
 		url : "dutyCalendar/exportDataToExcle.do",
 		type : "POST",
 		dataType : "json",
 		data : {
 			'orgId' : m_dutyCalendar_Org.id,
+			'orgName' : m_dutyCalendar_Org.id,
 			'ymd' : m_dutyCalendar_Org.date
+		}, 
+		success : function(req) { 
+			window.open(req.Data);
 		},
-		async : false,
-		success : function(req) {
-			if (req.isSuccess) {// 成功填充数据 
-			} 
+		failer : function(a, b) {
+			$.messager.alert("消息提示", a, "info");
+		},
+		error : function(a) { 
+			$.messager.alert("消息提示", a, "error");
 		}
 	});
 };
