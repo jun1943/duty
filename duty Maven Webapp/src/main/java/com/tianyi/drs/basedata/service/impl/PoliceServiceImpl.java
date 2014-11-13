@@ -126,6 +126,11 @@ public class PoliceServiceImpl implements PoliceService {
 		// TODO Auto-generated method stub
 		List<PoliceVM> list = policeMapper.loadVMListWithGroup(map);
 		return list;
+	}
+
+	public Police findByidCard(String param) {
+		// TODO Auto-generated method stub
+		return policeMapper.findByidCard(param);
 	} 
 	
 }

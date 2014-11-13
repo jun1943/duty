@@ -3,19 +3,19 @@ var m_Police_OrgId;
 var m_Police_OrgCode;
 var m_Police_OrgPath;
 var m_police_Query = {};
+var operationType = "";
 $(function() {
 
 	$("#policeinfowindow").window("close");
 
 	var args = getUrlArgs();
-	m_Police_OrgId =  args["orgId"];
-	m_Police_OrgCode =   args["orgCode"];
-	m_Police_OrgPath =   args["orgPath"];
+	m_Police_OrgId = args["orgId"];
+	m_Police_OrgCode = args["orgCode"];
+	m_Police_OrgPath = args["orgPath"];
 	m_Police_Org.id = m_Police_OrgId;
 	m_Police_Org.code = m_Police_OrgCode;
 	m_Police_Org.path = m_Police_OrgPath;
 	pack_police_Query();
- 
 
 	$('#dtPolice').datagrid({
 		url : "police/getPoliceList.do",
@@ -26,9 +26,9 @@ $(function() {
 		fitColumns : true,
 		pageNumber : 1,
 		pageSize : 10,
-	    title:"人员列表",
-	   
-		// singleSelect: true,
+		title : "人员列表",
+		onDblClickRow : btnEditPolice,
+		singleSelect : true,
 		columns : [ [ {
 			field : 'ck',
 			checkbox : true
@@ -42,8 +42,8 @@ $(function() {
 			title : '状态',
 			field : 'isUsed',
 			align : 'left',
-			width : 50 ,
-			formatter:fmtIsUsed
+			width : 50,
+			formatter : fmtIsUsed
 		}, {
 			title : '职务',
 			field : 'title',
@@ -101,23 +101,27 @@ function pack_police_Query() {
 	m_police_Query.orgId = m_Police_OrgId;
 	m_police_Query.orgCode = m_Police_OrgCode;
 	m_police_Query.orgPath = m_Police_OrgPath;
-	
-	if($("#isSubOrg").combobox("getValue")!=""&&$("#isSubOrg").combobox("getValue")>0){
+
+	if ($("#isSubOrg").combobox("getValue") != ""
+			&& $("#isSubOrg").combobox("getValue") > 0) {
 		m_police_Query.isSubOrg = $("#isSubOrg").combobox("getValue");
-	}else{
+	} else {
 		m_police_Query.isSubOrg = 0;
-	} 
+	}
 	m_police_Query.name = $("#txtsearchName").val();
-	if($("#sltType").combobox("getValue")!=""&&$("#sltType").combobox("getValue")>0){
+	if ($("#sltType").combobox("getValue") != ""
+			&& $("#sltType").combobox("getValue") > 0) {
 		m_police_Query.typeid = $("#sltType").combobox("getValue");
-	}else{
+	} else {
 		m_police_Query.typeid = 0;
 	}
 }
 function fmtIsUsed(value, row, index) {
-	if(row.isused){
+	if (row.isused) {
 		return "停用";
-	}else{return "启用";}
+	} else {
+		return "启用";
+	}
 }
 // 初始化下拉列表数据
 function InitData() {
@@ -142,24 +146,25 @@ function btnSearchAction() {
 	$('#dtPolice').datagrid("reload", {
 		'police_Query' : JSON.stringify(m_police_Query)
 	});
-	$("#isSubOrg").combobox("setValue",0);
+	$("#isSubOrg").combobox("setValue", 0);
 	$("#txtsearchName").combobox("setValue", 0);
 	$("#sltType").combobox("setValue", "");
 };
 // 新增开始
-function btnAddPolice() {
+function btnAddPolice(optType) {
+	operationType = optType;
 	$("#policeinfowindow").window("open");
 	clearForm();
 	// $('#myModal').modal('show');
 };
 
-function btnUnLockPolice(){
-	 changePoliceState(0);
+function btnUnLockPolice() {
+	changePoliceState(0);
 };
-function btnLockPolice(){
-	 changePoliceState(1); 
+function btnLockPolice() {
+	changePoliceState(1);
 };
-function changePoliceState(pType){
+function changePoliceState(pType) {
 	var hasRows = $('#dtPolice').datagrid('getRows');
 	if (hasRows.length == 0) {
 		$.messager.alert('操作提示', "没有可操作数据", "warning");
@@ -173,7 +178,7 @@ function changePoliceState(pType){
 	if (rows.length > 1) {
 		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
 		return;
-	} 
+	}
 	var pId = rows[0].id;
 	$.ajax({
 		url : "police/changePoliceState.do",
@@ -182,7 +187,7 @@ function changePoliceState(pType){
 		async : false,
 		data : {
 			"id" : pId,
-			"isUsed":pType
+			"isUsed" : pType
 		},
 		success : function(req) {
 			$.messager.alert("消息提示", req.Message, "info");
@@ -231,7 +236,7 @@ function deletePolice(id) {
 			"id" : id
 		},
 		success : function(req) {
-			$.messager.alert("消息提示", req.Message, "info");
+			// $.messager.alert("消息提示", req.Message, "info");
 			btnSearchAction();
 		},
 		failer : function(a, b) {
@@ -243,7 +248,8 @@ function deletePolice(id) {
 	});
 }
 // 编辑开始
-function btnEditPolice() {
+function btnEditPolice(optType) {
+	operationType = optType;
 	var hasRows = $('#dtPolice').datagrid('getRows');
 	if (hasRows.length == 0) {
 		$.messager.alert('操作提示', "没有可操作数据", "warning");
@@ -272,7 +278,7 @@ function btnEditPolice() {
 	$("#txtgroupno").combobox("setValue", rows[0].intercomGroup);
 	$("#txtpersonalno").val(rows[0].intercomPerson);
 	$("#policeinfowindow").window("open");
-	//$('#myModal').modal('show');
+	// $('#myModal').modal('show');
 }
 // 清空form表单
 function clearForm() {
@@ -305,16 +311,30 @@ function savePoliceAction() {
 		$.messager.alert("错误提示", "请输入警员名称", "error");
 		return;
 	}
-	police.name = $("#txtname").val(); 
+	police.name = $("#txtname").val();
 	police.idcardno = $("#txtidcardno").val();
-	
-	police.orgId = m_Police_OrgId; 
-	police.number = $("#txtnumber").val(); 
-	police.title = $("#txttitle").val(); 
-	police.mobile = $("#txtmobile").val(); 
+	var idcardno = $("#txtidcardno").val();
+
+	// 对身份证以及警号进行验证，ajax同步
+	if (!isExistPolice(idcardno, "idCard")) {
+		$.messager.alert("错误提示", "身份证号码重复，请检查", "error");
+		$("#txtidcardno").focus();
+		return;
+	}
+	police.orgId = m_Police_OrgId;
+	police.number = $("#txtnumber").val();
+	var number = $("#txtnumber").val();
+
+	if (!isExistPolice(number, "number")) {
+		$.messager.alert("错误提示", "身份证号码重复，请检查", "error");
+		$("#txtnumber").focus();
+		return;
+	}
+	police.title = $("#txttitle").val();
+	police.mobile = $("#txtmobile").val();
 	police.mobileShort = $("#txtmobileshort").val();
- 
-	police.intercomGroup = $("#txtgroupno").combobox("getValue");  
+
+	police.intercomGroup = $("#txtgroupno").combobox("getValue");
 	police.intercomPerson = $("#txtpersonalno").val();
 	if ($("#txtgpsid").combobox("getValue") > 0
 			&& $("#txtgpsid").combobox("getValue") != "") {
@@ -322,7 +342,7 @@ function savePoliceAction() {
 	} else {
 		$.messager.alert("错误提示", "请选择GPS_ID", "error");
 		return;
-	} 
+	}
 	police.gpsName = $("#txtgpsdes").val();
 	$.ajax({
 		url : "police/savePolice.do",
@@ -331,9 +351,14 @@ function savePoliceAction() {
 		async : false,
 		data : police,
 		success : function(req) {
-			$.messager.alert("消息提示", req.Message, "info");
-			//$('#myModal').modal('hide');
-			$("#policeinfowindow").window("close");
+			// $.messager.alert("消息提示", req.Message, "info");
+			if (operationType == "add") {
+				clearForm();
+			}
+			if (operationType == "edit") {
+				operationType = "";
+				$("#policeinfowindow").window("close");
+			}
 			btnSearchAction();
 		},
 		failer : function(a, b) {
@@ -341,6 +366,21 @@ function savePoliceAction() {
 		},
 		error : function(a) {
 			$.messager.alert("消息提示", a, "error");
+		}
+	});
+}
+function isExistPolice(param, pType) {
+	$.ajax({
+		url : "police/isExistPolice.do",
+		type : "POST",
+		dataType : "json",
+		async : false,
+		data : {
+			"param" : param,
+			"paramType" : pType
+		},
+		success : function(req) {
+			return req;
 		}
 	});
 }

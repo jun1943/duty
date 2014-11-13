@@ -48,6 +48,11 @@
 			<div id="tt" class="easyui-tabs" style="width:100%;height:500px;">	
  				<div title="人员" style="padding:10px;height:100%">  
        					  <div id="source_police"></div> 
+       					  <div style="margin-top:2px"> 
+     					  		<a id="btnAddAllPolice" style="float:right; margin-right:10px"  name="btnAddAllPolice"  href="javascript:void(0);" class="easyui-linkbutton"  >一键添加</a>
+     					  		<a id="checkAllPolice" style="float:right; margin-right:5px" onclick="uncheckAllResources('source_police')"  name="checkAllPolice"  href="javascript:void(0);" class="easyui-linkbutton"  >取消选择</a>
+     					  		<a id="uncheckAllPolice" style="float:right; margin-right:5px" onclick="checkAllResources('source_police')"  name="uncheckAllPolice"  href="javascript:void(0);" class="easyui-linkbutton"  >全选</a>
+     					  </div>
        					  <div id="tb_source_police">
        					  <a id="showpoliceCondition" name="showpoliceCondition" onclick="$('#policeConditionwindow').window('open');" href="javascript:void(0);" class="easyui-linkbutton"  plain="true">过滤条件</a>
        					   
@@ -58,6 +63,11 @@
     			</div>
 				<div title="车辆" style="padding:10px;height:100%">  
        					 <div id="source_vehicle"></div> 
+       					  <div style="margin-top:2px">
+								<a id="btnCheckAllVehicle" style="float:right; margin-right:10px"  name="btnCheckAllVehicle"  href="javascript:void(0);" class="easyui-linkbutton" >一键添加</a>
+       					  		<a id="checkAllVehicle" style="float:right; margin-right:5px" onclick="uncheckAllResources('source_vehicle')"  name="checkAllVehicle"  href="javascript:void(0);" class="easyui-linkbutton"  >取消选择</a>
+     					  		<a id="uncheckAllVehicle" style="float:right; margin-right:5px" onclick="checkAllResources('source_vehicle')"  name="uncheckAllVehicle"  href="javascript:void(0);" class="easyui-linkbutton"  >全选</a>
+   					  	  </div>
        					  <div id="tb_source_vehicle">
        					  <a id="showvehicleCondition" name="showvehicleCondition" onclick="$('#vehicleConditionwindow').window('open');" href="javascript:void(0);" class="easyui-linkbutton"  plain="true">过滤条件</a>
        					  	 <input id="txtvnumber" style="width:100px" type="text"/>
@@ -67,6 +77,11 @@
     			</div>		
  				<div title="定位设备" style="padding:10px;height:100%">  
        					  <div id="source_gpsdevice"></div> 
+       					  <div style="margin-top:2px">
+								<a id="btnCheckAllGps" style="float:right; margin-right:10px" name="btnCheckAllGps"  href="javascript:void(0);" class="easyui-linkbutton" >一键添加</a>
+       					  		<a id="checkAllGps" style="float:right; margin-right:5px" onclick="uncheckAllResources('source_gpsdevice')"  name="checkAllGps"  href="javascript:void(0);" class="easyui-linkbutton"  >取消选择</a>
+     					  		<a id="uncheckAllGps" style="float:right; margin-right:5px" onclick="checkAllResources('source_gpsdevice')"  name="uncheckAllGps"  href="javascript:void(0);" class="easyui-linkbutton"  >全选</a>
+   					  	  </div>
        					  <div id="tb_source_gpsdevice">
        					  	<a id="showgpsCondition" name="showgpsCondition" onclick="$('#gpsConditionwindow').window('open');" href="javascript:void(0);" class="easyui-linkbutton"  plain="true">过滤条件</a>
        					  	 <input id="txtgname" style="width:100px" type="text"/>
@@ -76,6 +91,11 @@
     			</div>	
  				<div title="武器" style="padding:10px;height:100%">  
        					  <div id="source_weapon"></div> 
+       					  <div style="margin-top:2px"> 
+       					   		<a id="btnCheckAllWeapon" style="float:right; margin-right:10px"  name="btnCheckAllWeapon"  href="javascript:void(0);" class="easyui-linkbutton" >一键添加</a>
+       					  		<a id="checkAllWeapon" style="float:right; margin-right:5px" onclick="uncheckAllResources('source_weapon')"  name="checkAllWeapon"  href="javascript:void(0);" class="easyui-linkbutton"  >取消选择</a>
+     					  		<a id="uncheckAllWeapon" style="float:right; margin-right:5px" onclick="checkAllResources('source_weapon')"  name="uncheckAllWeapon"  href="javascript:void(0);" class="easyui-linkbutton"  >全选</a>
+   					  	  </div>
        					  <div id="tb_source_weapon">
        					  	<a id="showweaponCondition" name="showweaponCondition" onclick="$('#weaponConditionwindow').window('open');" href="javascript:void(0);" class="easyui-linkbutton"  plain="true">过滤条件</a>
        					  	 <input id="txtwnumber" style="width:100px" type="text"/>
@@ -117,15 +137,11 @@
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
 			style="width: 354px; height: 300px; padding: 10px;">
 			<div class="easyui-layout" data-options="fit:true">
-				<div data-options="region:'north',border:false"
+				<div data-options="region:'south',border:false"
 					style="padding: 2px; height: 30px;">
 					<a href="javascript:void(0);" class="easyui-linkbutton" 
-						data-options="iconCls:'icon-save',plain:true"
-						onclick="searchPoliceAction()">确定</a>  
-					 <a href="javascript:void(0);" 
-						class="easyui-linkbutton"
-						onclick="$('#policeConditionwindow').window('close');"
-						data-options="iconCls:'icon-remove',plain:true">取消</a>
+						data-options="iconCls:'icon-save',plain:true" style="float:right"
+						onclick="searchPoliceAction()">确定</a>   
 				</div>				
 				<div data-options="region:'west',border:false"
 					style="padding: 2px; width:150px; height:200px">
@@ -142,15 +158,11 @@
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
 			style="width: 354px; height: 300px; padding: 10px;">
 			<div class="easyui-layout" data-options="fit:true">
-				<div data-options="region:'north',border:false"
+				<div data-options="region:'south',border:false"
 					style="padding: 2px; height: 30px;">
 					<a href="javascript:void(0);" class="easyui-linkbutton" 
-						data-options="iconCls:'icon-save',plain:true"
+						data-options="iconCls:'icon-save',plain:true" style="float:right"
 						onclick="searchGpsAction()">确定</a>  
-					 <a href="javascript:void(0);" 
-						class="easyui-linkbutton"
-						onclick="$('#gpsConditionwindow').window('close');"
-						data-options="iconCls:'icon-remove',plain:true">取消</a>
 				</div>	 			
 				<div data-options="region:'west',border:false"
 					style="padding: 2px; width:150px; height:200px">
@@ -167,15 +179,11 @@
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
 			style="width: 354px; height: 300px; padding: 10px;">
 			<div class="easyui-layout" data-options="fit:true">
-				<div data-options="region:'north',border:false"
+				<div data-options="region:'south',border:false"
 					style="padding: 2px; height: 30px;">
 					<a href="javascript:void(0);" class="easyui-linkbutton" 
-						data-options="iconCls:'icon-save',plain:true"
-						onclick="searchWeaponAction()">确定</a>  
-					 <a href="javascript:void(0);" 
-						class="easyui-linkbutton"
-						onclick="$('#weaponConditionwindow').window('close');"
-						data-options="iconCls:'icon-remove',plain:true">取消</a>
+						data-options="iconCls:'icon-save',plain:true" style="float:right"
+						onclick="searchWeaponAction()">确定</a>   
 				</div>	 	 			
 				<div data-options="region:'west',border:false"
 					style="padding: 2px; width:150px; height:200px">
@@ -192,15 +200,11 @@
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
 			style="width: 354px; height: 300px; padding: 10px;">
 			<div class="easyui-layout" data-options="fit:true">
-				<div data-options="region:'north',border:false"
+				<div data-options="region:'south',border:false"
 					style="padding: 2px; height: 30px;">
 					<a href="javascript:void(0);" class="easyui-linkbutton"  
-						data-options="iconCls:'icon-save',plain:true"
-						onclick="searchVehicleAction()">确定</a>  
-					 <a href="javascript:void(0);"  
-						class="easyui-linkbutton"
-						onclick="$('#vehicleConditionwindow').window('close');"
-						data-options="iconCls:'icon-remove',plain:true">取消</a>
+						data-options="iconCls:'icon-save',plain:true" style="float:right"
+						onclick="searchVehicleAction()">确定</a>   
 				</div>	  	 			
 				<div data-options="region:'west',border:false"
 					style="padding: 2px; width:150px; height:200px">
@@ -215,15 +219,11 @@
 	<div id="dutyTypeSelectwindow" class="easyui-window" title="报备类型-选择" data-options="iconCls:'icon-edit'"
 			style="width: 354px; height:500px; padding: 10px;">
 		<div class="easyui-layout" data-options="fit:true">
-			<div data-options="region:'north',border:false"
+			<div data-options="region:'south',border:false"
 					style="padding: 2px; height: 30px;"> 
 					<a href="javascript:void(0);" class="easyui-linkbutton" 
-						data-options="iconCls:'icon-save',plain:true"
-						onclick="selectDutyTypeAction()">确定</a>  
-					 <a href="javascript:void(0);" 
-						class="easyui-linkbutton"
-						onclick="$('#dutyTypeSelectwindow').window('close');"
-						data-options="iconCls:'icon-remove',plain:true">取消</a>
+						data-options="iconCls:'icon-save',plain:true" style="float:right"
+						onclick="selectDutyTypeAction()">确定</a>   
 			</div>
 			<div data-options="region:'center',border:false"
 					style="padding: 2px;  width:300px; height:400px">
@@ -234,15 +234,11 @@
 	<div id="dutyTemplateSelectwindow"  class="easyui-window" title="备勤模板-选择" data-options="iconCls:'icon-edit'"
 			style="width: 354px; height:400px; padding: 10px;">
 			<div class="easyui-layout" data-options="fit:true">
-			<div data-options="region:'north',border:false"
+			<div data-options="region:'south',border:false"
 					style="padding: 2px; height: 30px;"> 
 					<a href="javascript:void(0);" class="easyui-linkbutton" 
-						data-options="iconCls:'icon-save',plain:true"
-						onclick="selectDutyTemplateAction()">确定</a>  
-					 <a href="javascript:void(0);" 
-						class="easyui-linkbutton"
-						onclick="$('#dutyTemplateSelectwindow').window('close');"
-						data-options="iconCls:'icon-remove',plain:true">取消</a>
+						data-options="iconCls:'icon-save',plain:true" style="float:right"
+						onclick="selectDutyTemplateAction()">确定</a>   
 			</div>
 			<div data-options="region:'center',border:false"
 					style="padding: 2px;  width:350px; height:350px">

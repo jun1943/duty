@@ -1,8 +1,8 @@
 var m_Vehicle_OrgId;
 var m_Vehicle_OrgCode;
 var m_Vehicle_OrgPath;
-var m_Vehicle_Query = {};
-
+var m_Vehicle_Query = {}; 
+var operationType = "";
 $(function() {
 
 	$("#vehicleinfowindow").window("close");
@@ -32,7 +32,8 @@ $(function() {
 		pageNumber : 1,
 		pageSize : 10,
 		title : '车辆列表',
-		// singleSelect: true,
+	    onDblClickRow:btnEditVehicle,
+	    singleSelect: true,
 		columns : [ [ {
 			field : 'ck',
 			checkbox : true
@@ -118,12 +119,14 @@ function getGroupNumber() {
 function getGpsID(orgId) {
 	getBaseDataCombobox("police/getGpsId.do?orgId=" + orgId, "txtgpsid");
 }
-function btnAddVehicle() {
+function btnAddVehicle(optType) {
+	operationType = optType;
 	clearForm();
 	$("#vehicleinfowindow").window("open");
 	// $('#myModal').modal('show');
 };
-function btnEditVehicle() {
+function btnEditVehicle(optType) {
+	operationType = optType;
 	var hasRows = $('#dtVehicle').datagrid('getRows');
 	if (hasRows.length == 0) {
 		$.messager.alert('操作提示', "没有可操作数据", "warning");
@@ -211,7 +214,7 @@ function deleteVehicle(id) {
 			"id" : id
 		},
 		success : function(req) {
-			$.messager.alert("消息提示", req.Message, "info");
+			//$.messager.alert("消息提示", req.Message, "info");
 			btnSearchAction();
 		},
 		failer : function(a, b) {
@@ -265,8 +268,14 @@ function saveVehicleAction() {
 		async : false,
 		data : vehicle,
 		success : function(req) {
-			$.messager.alert("消息提示", req.Message, "info");
-			$("#vehicleinfowindow").window("close");
+			//$.messager.alert("消息提示", req.Message, "info");
+			if (operationType == "add") {
+				clearForm();
+			}
+			if (operationType == "edit") {
+				operationType = "";
+				$("#vehicleinfowindow").window("close");
+			} 
 			btnSearchAction();
 		},
 		failer : function(a, b) {
