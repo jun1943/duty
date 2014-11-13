@@ -53,7 +53,8 @@ $(function() {
 
 		$("#cmtdutytype").combotree({  
 	        valueField: 'id',
-	        textField: 'name'
+	        textField: 'name',
+	        multiple:"true"
 		});
  
 	 loadTotalPolice();

@@ -19,8 +19,8 @@ $(function () {
 	
 	$('#treeDutyFrmOrg').tree(
 			{
-				onDblClick:onOrgTreeDblClick,
-				cascadeCheck : false
+				checkbox:false,
+				onDblClick:onOrgTreeDblClick
 			});
 	
 	loadFrmOrgs();
@@ -52,24 +52,38 @@ function pageSwitch(node,url){
 
 function onDutyPrepare(){
 	m_dutyFrame_func_prop.url="view/duty/dutycalendar.jsp";
-	//m_dutyFrame_func_prop.url="view/duty/dutyprepare.jsp";
-	pageSwitch();
-}
-
-
-function onDutyDataGroup(name){
-	m_dutyFrame_func_prop.url="view/duty/"+name+".jsp";
-	pageSwitch();
-}
-
-function onDutyType(){
-	m_dutyFrame_func_prop.url="view/duty/dutytype.jsp";
+	setCheckBox(m_dutyFrame_func_prop.ctl,1);
+	m_dutyFrame_func_prop.ctl=1;
 	pageSwitch();
 }
 
 function onDutyReport(){
 	m_dutyFrame_func_prop.url="view/duty/policeinquiry.jsp";
+	setCheckBox(m_dutyFrame_func_prop.ctl,2);
 	pageSwitch();
+}
+
+function onDutyDataGroup(name){
+	m_dutyFrame_func_prop.url="view/duty/"+name+".jsp";
+	setCheckBox(m_dutyFrame_func_prop.ctl,3);
+	pageSwitch();
+}
+
+function onDutyType(){
+	m_dutyFrame_func_prop.url="view/duty/dutytype.jsp";
+	setCheckBox(m_dutyFrame_func_prop.ctl,4);
+	pageSwitch();
+}
+
+function setCheckBox(ctlA,ctlB){
+	if(ctlA!=2 && ctlB==2){
+		$('#treeDutyFrmOrg').tree({'checkbox':true});
+		$('#treeDutyFrmOrg').tree('loadData',m_org_node);
+	}else if(ctlA==2 && ctlB!=2){
+		$('#treeDutyFrmOrg').tree({'checkbox':false});
+		$('#treeDutyFrmOrg').tree('loadData',m_org_node);
+	}
+	m_dutyFrame_func_prop.ctl=ctlB;
 }
 
 /*
