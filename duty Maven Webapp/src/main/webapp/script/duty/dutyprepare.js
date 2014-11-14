@@ -1107,8 +1107,8 @@ function addDutyTypeRow(value){
 	var duty={};
 	var shift={};
 	genDutyRow(value.id,value.name,100,value.typeId,value.name,duty);
-	shift.beginTime2=new Date(m_ymd.getYear(),m_ymd.getMonth(),m_ymd.getDay(),9,30);
-	shift.endTime2=new Date(m_ymd.getYear(),m_ymd.getMonth(),m_ymd.getDay(),16,30);
+	shift.beginTime2=new Date(m_ymd.getYear(),m_ymd.getMonth()-1,m_ymd.getDay(),9,30);
+	shift.endTime2=new Date(m_ymd.getYear(),m_ymd.getMonth()-1,m_ymd.getDay(),16,30);
 	genDutyRow(null,"班次",101,null,"班次",shift);
 	$('#tdDuty').treegrid('append',
 			{
@@ -1706,8 +1706,8 @@ function initDate(item){
 			alert('date diff day is error !');
 		}
 		
-		b.setFullYear(m_ymd.getYear(), m_ymd.getMonth(), m_ymd.getDay());
-		e.setFullYear(m_ymd.getYear(), m_ymd.getMonth(), m_ymd.getDay());
+		b.setFullYear(m_ymd.getYear(), m_ymd.getMonth()-1, m_ymd.getDay());
+		e.setFullYear(m_ymd.getYear(), m_ymd.getMonth()-1, m_ymd.getDay());
 		e.add('d', diffDay);
 		
 		item.beginTime2=b;

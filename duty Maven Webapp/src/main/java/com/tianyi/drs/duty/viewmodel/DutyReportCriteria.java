@@ -14,7 +14,7 @@ public class DutyReportCriteria {
 	private Integer ymd;
 	private Date beginTime;
 	private Date endTime;
-	private List<Integer> taskProperyIds;
+	private List<Integer> taskPropertyIds;
 	private List<Integer> attireTypeIds;
 	private List<Integer> policeTypeIds;
 	private List<Integer> armamentTypeIds;
@@ -45,10 +45,10 @@ public class DutyReportCriteria {
 		this.endTime = endTime;
 	}
 	public List<Integer> getTaskPropertyIds() {
-		return taskProperyIds;
+		return taskPropertyIds;
 	}
 	public void setTaskPropertyIds(List<Integer> taskPropertyIds) {
-		this.taskProperyIds = taskPropertyIds;
+		this.taskPropertyIds = taskPropertyIds;
 	}
 	public List<Integer> getAttireTypeIds() {
 		return attireTypeIds;

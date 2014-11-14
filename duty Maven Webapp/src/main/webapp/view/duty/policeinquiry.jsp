@@ -40,9 +40,9 @@
 								<div class="input-group">
 									时间范围 
 									<input id="dteBeginDate" class="easyui-datebox" style="width:200px" />
-									<input id="spnBeginTime" class="easyui-timespinner"  style="width:80px;" data-options="min:'00:00',showSeconds:true" />
+									<input id="spnBeginTime" class="easyui-timespinner"  style="width:80px;" data-options="min:'00:00',showSeconds:false,highlight:0" />
 									——
-									<input id="spnEndTime"   class="easyui-timespinner"  style="width:80px;" data-options="min:'00:00',showSeconds:true" />
+									<input id="spnEndTime"   class="easyui-timespinner"  style="width:80px;" data-options="min:'00:00',showSeconds:false,highlight:0" />
 
 								</div>
 							</div>
@@ -99,7 +99,7 @@
 					</form>
 				</div> 
 			<div id="div_totalPoliceInfo">
-				<div id="dtPolicetotal">
+				<div id="dtReportSum">
 				</div>
 			</div>
 			<div id="div_detailsPoliceInfo">
@@ -108,7 +108,7 @@
                     iconcls="icon-report"  plain="true"></a>
                     <label style="color:#ff6600; font-size:18px">详情</label>
 				</div>
-				<div id="dtPolicedetails"></div>
+				<div id="dtReport"></div>
 			</div>
 		</div> 
 	</div>

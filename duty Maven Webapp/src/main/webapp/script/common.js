@@ -169,13 +169,21 @@ Date.prototype.add=function(interval,number){
 	 } 
 };
 
-Date.prototype.toSimpleString = function () { //author: meizz 
+Date.prototype.toSimpleString = function () {
 	var y=this.getFullYear();
 	var m=this.getMonth()+1;
 	var d=this.getDate();
 	var hh=this.getHours();
 	var mm=this.getMinutes();
     return y+ "-" +m+ "-" +d+" " +hh+":"+mm ;
+};
+
+Date.prototype.toYMD = function () { 
+	var y=this.getFullYear();
+	var m=this.getMonth()+1;
+	var d=this.getDate();
+	
+    return ""+y+(m>10?m:"0"+m) +(d>10?d:"0"+d);
 };
 
 function dateAdd(interval,number,date){  

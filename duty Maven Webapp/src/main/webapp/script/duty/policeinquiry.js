@@ -1,4 +1,6 @@
 var m_policeQuery_Org = {};
+var m_report_sum={};
+
 $(function() {
 	var args = getUrlArgs();
 	m_policeQuery_Org.id = args["orgId"];
@@ -25,29 +27,28 @@ $(function() {
         multiple:true
     });
 	
-	 $('#dtPolicetotal').datagrid({ 
+	 $('#dtReportSum').treegrid({ 
 		  	pagination : false,
 			fitColumns : true,  
 	        width:'100%',
 	        height:70,
+	        idField : 'orgCount1',
+	        treeField : 'orgCount2',
 			//singleSelect: true,
 		    //title:"警力总数",
 	        columns: [[ 
-						{ title: '机构树', field: 'orgName', align: 'center', width: 80 },
-						{ title: '值班领导', field: 'shiftLeaderCount', align: 'center', width: 80 },
-						{ title: '值班主任', field: 'chiefLeaderCount', align: 'center', width: 80},
-						{ title: '值班警力', field: 'dutypoliceCount', align: 'center', width: 80},
-						{ title: '车辆', field: 'vehicleCount', align: 'center', width: 80},
-						{ title: '枪支', field: "weaponCount", align: 'center', width: 80 },
-						{ title: '单位值班', field: "unitdutyCount", align: 'center', width: 80 },
-						{ title: '接处警', field: "illuminatesCount", align: 'center', width: 80 },
-						{ title: '巡逻警力', field: "patrolpoliceCount", align: 'center', width: 80},
-						{ title: '动态卡点警力', field: "checkpointpoliceCount", align: 'center', width: 80 },
-						{ title: '巡区警力', field: "patrolareaPoliceCount", align: 'center', width: 80 } 
+	                   	{ title: '机构', field: 'orgCount2', align: 'left', width: 120,formatter:fmtOrgCount },
+	                   	{ title: '值班领导', field: 'leaderCount', align: 'right', width: 80 },
+	                   	{ title: '警力', field: 'policeCount', align: 'right', width: 80},
+	                   	{ title: '车辆', field: 'vehicleCount', align: 'right', width: 80},
+	                   	{ title: '枪支', field: "weaponCount", align: 'right', width: 80 },
+	                   	{ title: '社区', field: "communityCount", align: 'right', width: 80},
+	                   	{ title: '巡区', field: "patrolAreaCount", align: 'right', width: 80 },
+	                   	{ title: '卡点', field: "bayonetCount", align: 'right', width: 80 } 
 	              
 	        ]]
 	    });
-	 $('#dtPolicedetails').treegrid({
+	 $('#dtReport').treegrid({
 			fitColumns : true,  
 	        width:'100%',
 	        height:300,
@@ -56,14 +57,14 @@ $(function() {
 			//singleSelect: true,
 		    //title:"警力总数",
 	        columns: [[ 
-					{ title: '机构树', field: 'orgShortName', align: 'left', width: 120 },
-					{ title: '值班领导', field: 'shiftLeaderCount', align: 'left', width: 80 },
-					{ title: '警力', field: 'policeCount', align: 'center', width: 80},
-					{ title: '车辆', field: 'vehicleCount', align: 'center', width: 80},
-					{ title: '枪支', field: "weaponCount", align: 'center', width: 80 },
-					{ title: '巡逻警力', field: "patrolpoliceCount", align: 'center', width: 80},
-					{ title: '卡点警力', field: "checkpointpoliceCount", align: 'center', width: 80 },
-					{ title: '巡区警力', field: "patrolareaPoliceCount", align: 'center', width: 80 } 
+					{ title: '机构树', field: 'orgShortName', align: 'left', width: 120},
+					{ title: '值班领导', field: 'leaderNames', align: 'left', width: 80 },
+					{ title: '警力', field: 'policeCount', align: 'right', width: 80},
+					{ title: '车辆', field: 'vehicleCount', align: 'right', width: 80},
+					{ title: '枪支', field: "weaponCount", align: 'right', width: 80 },
+					{ title: '社区', field: "communityCount", align: 'right', width: 80},
+					{ title: '巡区', field: "patrolAreaCount", align: 'right', width: 80 },
+					{ title: '卡点', field: "bayonetCount", align: 'right', width: 80 } 
 	        ]] 
 	    });
 
@@ -73,48 +74,22 @@ $(function() {
 	        multiple:"true"
 		});
  
-	 loadTotalPolice();
-	 loadTotalPolicedetail();
+	var cd=new Date();
+	var dateStr=cd.toSimpleString();
+		
+	$('#dteBeginDate').datebox('setValue',dateStr);
+	$('#spnBeginTime').timespinner('setValue','00:00');
+	$('#spnEndTime').timespinner('setValue','23:00');
+	
 	 loaddutyTypeComboTree();
 	 getBaseDataCombobox("police/getPoliceType.do", "cmbpoliceType");
 	 getBaseDataCombobox("duty/getdutyProperty.do", "dutyProperty");
 });
 
-function loadTotalPolice(){
-	var beginTime ="";
-	var endTime ="";
-	
-	 $.ajax({
-	        url: "dutyCalendar/getTotalPolice.do?orgId=" + m_policeQuery_Org.id + "&orgCode=" + m_policeQuery_Org.code+"&orgPath=" + m_policeQuery_Org.path+"&beginTime="+beginTime+"&endTime="+endTime,
-	        type: "POST",
-	        dataType: "json", 
-	        success: function (req) {
-	        	if(req.isSuccess){
-	        		$('#dtPolicetotal').datagrid("loadData",req.rows);
-	        	}else
-	        		{
-	        		alert("获取数据失败");
-	        		}
-	        }
-	    });
-};
-function loadTotalPolicedetail(){
-	var beginTime ="";
-	var endTime ="";
-	 $.ajax({
-	        url: "dutyCalendar/getTotalPolicedetail.do?orgId=" + m_policeQuery_Org.id + "&orgCode=" + m_policeQuery_Org.code+"&orgPath=" + m_policeQuery_Org.path+"&beginTime="+beginTime+"&endTime="+endTime,
-	        type: "POST",
-	        dataType: "json", 
-	        success: function (req) {
-	        	if(req.isSuccess){
-	        		$('#dtPolicedetails').datagrid("loadData",req.rows);
-	        	}else
-        		{
-	        		alert("获取数据失败");
-        		}
-	        }
-	    });
-}; 
+function fmtOrgCount(value, row, index){
+	return row.orgCount2 + "/"+row.orgCount1;
+}
+
 function loaddutyTypeComboTree(){
 	$.ajax({
 		url : "dutyType/list.do",
@@ -126,6 +101,7 @@ function loaddutyTypeComboTree(){
 			if (req.isSuccess) {// 成功填充数据
 				var ss = buildDutyTypeTree(req.rows);
 				$('#cmbdutytype').combotree('loadData', ss);
+				
 			} else {
 				alert("获取数据失败");
 			}
@@ -136,11 +112,99 @@ function loaddutyTypeComboTree(){
 function btnExportDataAction(){
 	 alert("导出数据");
 };
+
 function btnSearchQueryAction(){
-	packCriteria();
+	loadReport();
+	
 };
 
+function loadReport(){
+var criteria=packCriteria();
+	
+	var s=JSON.stringify(criteria);
+	
+	$.ajax({
+		url : "dutyReport/loadDutyReport.do",
+		type : "POST",
+		dataType : "json",
+		data:{criteria:s},
+		//async : false,
+		success : function(req) {
+			if (req.isSuccess) {// 成功填充数据
+				var data=req.rows;
+				var ss=buildReportTree(data);
+				$('#dtReport').treegrid('loadData',ss);
+				var sum=[];
+				sum.push(m_report_sum);
+				$('#dtReportSum').treegrid('loadData', sum);
+			} else {
+				alert("获取数据失败");
+			}
+		}
+	});
+}
 
+
+function buildReportTree(data){
+	var ss = [];
+	
+	if(data == null || data.length==0){
+		return ss;
+	}
+    var count = data.length;    
+    /**
+     * 如果已经排过序的话，第一个肯定在根节点上
+     * 以这个parentid作为后续rog是否在根节点上的依据。
+     */
+    var rootParent=data[0].parentId;
+    m_report_sum={};
+    m_report_sum.orgCount1=data.length;
+    m_report_sum.orgCount2=0;
+    m_report_sum.leaderCount =0;
+    m_report_sum.policeCount  =0;
+    m_report_sum.vehicleCount  =0;
+    m_report_sum.weaponCount =0;
+    m_report_sum.gpsCount   =0;
+    m_report_sum.communityCount  =0;
+    m_report_sum.patrolAreaCount  =0;
+    m_report_sum.bayonetCount =0;
+    
+    for (var i = 0; i < count; i++) {
+    	var node = data[i];
+    	node.text = node.orgShortName;
+        node.children=[];
+        
+        if(node.policeCount>0){
+        	m_report_sum.orgCount2 ++;
+        }
+        m_report_sum.leaderCount +=node.leaderCount;
+        m_report_sum.policeCount +=node.policeCount;
+        m_report_sum.vehicleCount +=node.vehicleCount;
+        m_report_sum.weaponCount +=node.weaponCount;
+        m_report_sum.gpsCount  +=node.gpsCount;
+        m_report_sum.communityCount +=node.communityCount;
+        m_report_sum.patrolAreaCount +=node.patrolAreaCount;
+        m_report_sum.bayonetCount +=node.bayonetCount;
+        
+        if(node.parentId==rootParent){
+        	node.parentObj=null;
+        	node.level=1;
+        	ss.push(node);
+        }
+        
+        for (var j = i; j < count; j++) {
+        	var tmp = data[j];
+        	if (tmp.parentId == node.id){
+        		tmp.parentObj=node;
+        		tmp.level=node.level+1;
+        		node.children.push(tmp);
+        	}
+        }
+        
+    }
+    
+    return ss;
+}
 
 /**
  * 打包查询
@@ -148,8 +212,8 @@ function btnSearchQueryAction(){
 function packCriteria(){
 	var criteria={};
 	var dateStr=$("#dteBeginDate").datebox("getValue");
-	criteria.beginTime = new Date(dateStr);
-	criteria.endTime=new Date(dateStr);
+	criteria.beginTime2 = new Date(dateStr);
+	criteria.endTime2=new Date(dateStr);
 	
 	var h1=$('#spnBeginTime').timespinner('getHours');
 	var m1=$('#spnBeginTime').timespinner('getMinutes');
@@ -157,19 +221,25 @@ function packCriteria(){
 	var h2=$('#spnEndTime').timespinner('getHours');
 	var m2=$('#spnEndTime').timespinner('getMinutes');
 	
-	criteria.beginTime.setHours(h1, m1, 0, 0);
-	criteria.endTime.setHours(h2, m2, 0, 0);
+	criteria.ymd=criteria.beginTime2.toYMD();
+	criteria.beginTime2.setHours(h1, m1, 0, 0);
+	criteria.endTime2.setHours(h2, m2, 0, 0);
+	
+	criteria.beginTime=criteria.beginTime2.toSimpleString();
+	criteria.endTime=criteria.endTime2.toSimpleString();
+	criteria.beginTime2=undefined;
+	criteria.endTime2=undefined;
 	
 	var orgs=window.parent.$('#treeDutyFrmOrg').tree("getChecked");
 
 	var orgSel=OrgSelect.createNew(orgs);
 	
-	criteria.ids=orgSel.getIds();
+	criteria.orgIds=orgSel.getIds();
 	
-	criteria.taskProperyIds=[];
+	criteria.taskPropertyIds=[];
 	var ps=$("#dutyProperty").combobox('getValues');
 	$.each(ps,function(i,v){
-		criteria.taskProperyIds.push(v);
+		criteria.taskPropertyIds.push(v);
 	});
 	
 	criteria.attireTypeIds=[];
@@ -186,11 +256,21 @@ function packCriteria(){
 		criteria.policeTypeIds.push(v);
 	});
 	
+	criteria.armamentTypeIds=[];
+	if($("#ckArmamentType1").prop('checked')){
+		criteria.armamentTypeIds.push(0);
+	}
+	if($("#ckArmamentType2").prop('checked')){
+		criteria.armamentTypeIds.push(1);
+	}
+	
 	criteria.dutyTypeIds=[];
 	var dt=$("#cmbdutytype").combogrid('getValues');
 	$.each(dt,function(i,v){
 		criteria.dutyTypeIds.push(v);
 	});
+	
+	return criteria;
 }
 
 
