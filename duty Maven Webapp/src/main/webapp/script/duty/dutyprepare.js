@@ -36,6 +36,7 @@ $(document).ready(function() {
 				idField : 'id',
 				treeField : 'name',
 				toolbar : "#tb_source_police",
+				singleSelect:false,
 				columns : [ [  {
 					field : 'ck',
 					checkbox : true
@@ -1926,3 +1927,56 @@ function loadTaskTarget(taskType){
     });
 }
 
+/**
+ * 一键添加
+ */
+
+function addSelVehicles(){
+	
+}
+
+
+function addSelPolices(){
+	var row = $("#tdDuty").treegrid("getSelected");
+	var errRow=[];
+	var datas=[];
+	
+	if(row!=null){
+		if(dutyItemRelate.check(row.itemTypeId, 2)){
+			var ps=$('#source_police').treegrid('getSelections');
+			var shiftRowT=findShiftRow(row);
+			
+			$.each(ps,function(i,v){
+				var exists=existsResource(shiftRowT,v);
+				if(!exists){
+					genDutyRow(v.id, v.name, 2, v.typeId, v.typeName,v);
+					datas.push(v);
+				}else{
+					errRow.push(v);
+				}
+			});
+			
+			if(datas.length>0){
+				$("#tdDuty").treegrid('append',{
+					parent:row.xid,
+					data:datas
+				});
+				
+				$.each(datas,function(i2,v2){
+					$('#source_police').treegrid('remove',v2.id);
+				});
+				reCalcDuty();
+			}
+			
+			if(errRow.length>0){
+				
+				$.messager.alert('提示', errRow[0].name +"等在当前班次中已经存在!", "warning");
+			}
+			
+		}else{
+			
+		}
+	}else{
+		$.messager.alert('提示', "请选择要添加的节点!", "warning");
+	}
+}
