@@ -250,9 +250,12 @@
       isUsed = #{isused,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
-   <select id="findBycode" parameterType="String" resultType="com.tianyi.drs.basedata.model.Police">  
-       		select * from t_police where number = #{code}  
+   		 <select id="findBycode" parameterType="String" resultType="com.tianyi.drs.basedata.model.Police">  
+       		select * from t_police where number = #{param}  
     	 </select> 
+   		 <select id="findByidCard" parameterType="String" resultType="com.tianyi.drs.basedata.model.Police">  
+       		select * from t_police where idcardNo = #{param}  
+    	 </select>
     	 
          <select id="findByname" parameterType="String" resultType="com.tianyi.drs.basedata.model.Police">  
        		select * from t_police where name = #{name}  

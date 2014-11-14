@@ -71,7 +71,7 @@
 					style="padding: 2px; height: 30px;">
 					<a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-save',plain:true" style="float:right"
-						onclick="saveWeaponAction()">保存</a> 
+						onclick="saveWeaponAction()">保存并继续</a> 
 				</div>
 				<div data-options="region:'center',border:false"
 					style="text-align: right; margin-left: 5px;

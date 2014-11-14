@@ -57,7 +57,7 @@ public class PoliceController {
 
 			List<PoliceVM> list = new ArrayList<PoliceVM>();
 			Map<String, Object> map = new HashMap<String, Object>();
-			page = page==0?1:page;
+			page = page == 0 ? 1 : page;
 			map.put("pageStart", (page - 1) * rows);
 			map.put("pageSize", rows);
 			map.put("orgId", orgId);
@@ -176,6 +176,43 @@ public class PoliceController {
 		}
 	}
 
+	@RequestMapping(value = "isExistPolice.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	boolean isExistPolice(
+			@RequestParam(value = "param", required = false) String param,
+			@RequestParam(value = "paramType", required = false) String paramType)
+			throws Exception {
+		try {
+			if (paramType.equals("idCard")) {
+				if (!param.equals("")) {
+					Police police = policeService.findByidCard(param);
+					if (police != null) { 
+						return false;
+					} else {
+						return true;
+					}
+				} else {
+					return true;
+				}
+			} else if (paramType.equals("number")) {
+				if (!param.equals("")) {
+					Police police = policeService.findBycode(param);
+					if (police != null) {
+						return false;
+					} else {
+						return true;
+					}
+				} else {
+					return true;
+				}
+			} else {
+				return true;
+			}
+		} catch (Exception ex) {
+			return false;
+		}
+	}
+
 	@RequestMapping(value = "getPoliceType.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getPoliceType() throws Exception {
@@ -229,30 +266,30 @@ public class PoliceController {
 	}
 
 	@RequestMapping(value = "changePoliceState.do", produces = "application/json;charset=UTF-8")
-	public  @ResponseBody
-	String  changePoliceState(
+	public @ResponseBody
+	String changePoliceState(
 			@RequestParam(value = "id", required = false) Integer id,
-			@RequestParam(value = "isUsed", required = false) Integer isUsed) throws Exception {
+			@RequestParam(value = "isUsed", required = false) Integer isUsed)
+			throws Exception {
 		try {
 			Police police = new Police();
 			police = policeService.selectByPrimaryKey(id);
 			int result = id;
-			String message ="";
-			if(police!=null){
-					if(isUsed ==0){
-						police.setIsused(false);
-					}else{
-						police.setIsused(true);
-					}
-				 	//更新状态
-					police.setId(id); 
-					result = policeService.updateByPrimaryKey(police); 
-					message = "状态修改成功,result is " + result;
-			}else{
+			String message = "";
+			if (police != null) {
+				if (isUsed == 0) {
+					police.setIsused(false);
+				} else {
+					police.setIsused(true);
+				}
+				// 更新状态
+				police.setId(id);
+				result = policeService.updateByPrimaryKey(police);
+				message = "状态修改成功,result is " + result;
+			} else {
 				message = "状态修改失败,根据Id获取对象为空";
 			}
-			return "{\"success\":true,\"Message\":\"" + message
-					+ "\"}";
+			return "{\"success\":true,\"Message\":\"" + message + "\"}";
 		} catch (Exception ex) {
 			return "{\"success\":false,\"Message\":\"状态修改失败，原因："
 					+ ex.getMessage() + "\"}";

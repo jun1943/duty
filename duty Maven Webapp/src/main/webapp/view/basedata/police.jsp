@@ -23,9 +23,9 @@
 					<div class="btn-group">
 						<a id="btnAddPolice" href="javascript:void(0);"
 							class="easyui-linkbutton" iconcls="icon-add" plain="true"
-							onclick="btnAddPolice()">新增</a> <a id="btnEditPolice"
+							onclick="btnAddPolice('add')">新增</a> <a id="btnEditPolice"
 							href="javascript:void(0);" class="easyui-linkbutton"
-							iconcls="icon-edit" plain="true" onclick="btnEditPolice()">修改</a>
+							iconcls="icon-edit" plain="true" onclick="btnEditPolice('edit')">修改</a>
 							<a id="btnUnLockPolice"
 							href="javascript:void(0);" class="easyui-linkbutton"
 							iconcls="icon-edit" plain="true" onclick="btnUnLockPolice()">启用</a>
@@ -90,7 +90,7 @@
 					style="padding: 2px; height: 30px;">
 					<a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-save',plain:true" style="float:right"
-						onclick="savePoliceAction()">保存</a>  
+						onclick="savePoliceAction()">保存并继续</a>  
 				</div>
 				<div data-options="region:'center',border:false"
 					style="text-align: right; margin-left: 5px;
@@ -113,7 +113,7 @@
 						<tr>
 							<td><label>警号:</label></td>
 							<td><input id="txtnumber" type="text"
-								class="easyui-numberbox" ></td>
+								class="easyui-validatebox" ></td>
 						</tr>
 						<tr>
 							<td><label>职务:</label></td>
@@ -123,7 +123,7 @@
 						<tr>
 							<td><label>手机号码:</label></td>
 							<td><input id="txtmobile" type="text"
-								class="easyui-numberbox"></td>
+								class="easyui-validatebox"></td>
 						</tr>
 						<tr>
 							<td><label>公安短号:</label></td>

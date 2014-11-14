@@ -49,4 +49,6 @@ public interface PoliceService {
 	List<GpsBaseVM> selectGpsId(int orgId);
 
 	List<PoliceVM> loadVMListWithGroup(Map<String, Object> map);
+
+	Police findByidCard(String param);
 }

@@ -36,7 +36,10 @@ $(document).ready(function() {
 				idField : 'id',
 				treeField : 'name',
 				toolbar : "#tb_source_police",
-				columns : [ [ {
+				columns : [ [  {
+					field : 'ck',
+					checkbox : true
+				}, {
 					title : 'id',
 					field : 'id',
 					align : 'center',
@@ -74,8 +77,7 @@ $(document).ready(function() {
 					$(this).treegrid('enableDnd', row ? row.id : null);
 				},
 				onBeforeDrop : doRejectDrop
-			});
-
+			}); 
 	$('#source_vehicle').treegrid(
 			{
 //				url : "vehicle/getVehicleSource.do?orgId="
@@ -87,6 +89,9 @@ $(document).ready(function() {
 				treeField : 'number',
 				toolbar : "#tb_source_vehicle",
 				columns : [ [ {
+					field : 'ck',
+					checkbox : true
+				},  {
 					title : 'id',
 					field : 'id',
 					align : 'center',
@@ -141,7 +146,10 @@ $(document).ready(function() {
 				idField : 'id',
 				treeField : 'typeName',
 				toolbar : "#tb_source_gpsdevice",
-				columns : [ [ {
+				columns : [ [  {
+					field : 'ck',
+					checkbox : true
+				}, {
 					title : 'id',
 					field : 'id',
 					align : 'center',
@@ -189,6 +197,9 @@ $(document).ready(function() {
 				treeField : 'typeName',
 				toolbar : "#tb_source_weapon",
 				columns : [ [ {
+					field : 'ck',
+					checkbox : true
+				},  {
 					title : 'id',
 					field : 'id',
 					align : 'center',
@@ -357,7 +368,12 @@ $(document).ready(function() {
 	$('#divMember').panel({'title':title});
 	
 });
-
+function checkAllResources(gridId){
+	$("#"+gridId).treegrid("selectAll");
+};
+function uncheckAllResources(gridId){
+	$("#"+gridId).treegrid("unselectAll");
+};
 function initResourceQueryTG() {
 	$('#dt_policeType').datagrid({
 		url : "police/getPoliceTypeList.do",

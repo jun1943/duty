@@ -32,7 +32,8 @@ $(function() {
 						pageNumber : 1,
 						pageSize : 10,
 						title : '图标列表',
-						// singleSelect: true,
+					    onDblClickRow:btnEditIcons,
+					    singleSelect: true,
 						columns : [ [
 								{
 									field : 'ck',
