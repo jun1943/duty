@@ -3,13 +3,16 @@
 <mapper namespace="com.tianyi.drs.duty.dao.DutyReportMapper" >
 
 <resultMap id="BaseResultMap" type="com.tianyi.drs.duty.viewmodel.DutyReportVM" >
+	<id column="org_id" property="id" jdbcType="INTEGER" />
+	<result column="org_parent_id" property="parentId" jdbcType="INTEGER" />
     <result column="org_id" property="orgId" jdbcType="INTEGER" />
     <result column="org_name" property="orgName" jdbcType="VARCHAR" />
     <result column="org_short_name" property="orgShortName" jdbcType="VARCHAR" />
     <result column="org_code" property="orgCode" jdbcType="VARCHAR" />
     <result column="org_short_name" property="orgShortName" jdbcType="VARCHAR" />
     <result column="leader_names" property="leaderNames" jdbcType="VARCHAR" />
-    <result column="vehilce_count" property="vehilceCount" jdbcType="INTEGER" />
+    <result column="leader_count" property="leaderCount" jdbcType="INTEGER" />
+    <result column="vehicle_count" property="vehicleCount" jdbcType="INTEGER" />
     <result column="police_count" property="policeCount" jdbcType="INTEGER" />
     <result column="weapon_count" property="weaponCount" jdbcType="INTEGER" />
     <result column="gps_count" property="gpsCount" jdbcType="INTEGER" />
@@ -18,28 +21,38 @@
     <result column="bayonet_count" property="bayonetCount" jdbcType="INTEGER" />
   </resultMap>
 
-<select id="loadDutyReport" parameterType="java.util.Map" resultType="com.tianyi.drs.duty.viewmodel.DutyReportVM">
-		select 
-			org.id							as org_id,
-			org.name 						as org_name,
-			org.short_name 			as org_short_name,
-			org.code						as org_code,
-			org.path						as org_path,
+<select id="loadDutyReport" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+			org.id						as id, 
+			org.parent_id				as org_parent_id,
+			org.id						as org_id,
+			org.name 					as org_name,
+			org.short_name 				as org_short_name,
+			org.code					as org_code,
+			org.path					as org_path,
 			t.vehicleCount				as vehicle_count,
 			t.policeCount				as police_count,
 			t.weaponCount				as weapon_count,
 			t.gpsCount					as gps_count,
-			t.npname						as leader_names
+			t.npname					as leader_names,
+			t.npnameCount				as leader_count,
+			t.communityCount			as communityCount,
+			t.patrolAreaCount			as patrolAreaCount,
+			t.bayonetCount				as bayonetCount
 		from organ as org
 		left join
 		(
 			select 
 				d.org_id as org_id,
-				count(v.id) as vehicleCount,
-				count(p.id) as policeCount,
-				count(w.id)	as weaponCount,
-				count(g.id) as gpsCount,
-				GROUP_CONCAT(n.npname) as npname
+				count(v.id) 			as vehicleCount,
+				count(p.id) 			as policeCount,
+				count(w.id)				as weaponCount,
+				count(g.id) 			as gpsCount,
+				GROUP_CONCAT(n.npname) 	as npname,
+				count(n.npname)			as npnameCount,
+				count(dt1.id) 			as communityCount,
+				count(dt2.id) 			as patrolAreaCount,
+				count(dt3.id) 			as bayonetCount
 			from t_duty as d 
 			left join t_duty_item as di on d.id=di.duty_id
 			left join t_vehicle as v on di.item_id=v.id and di.item_type_id=1
@@ -60,40 +73,33 @@
 				where ndt.name like '%领导%'
 			) as n on n.nid=di.id
 			where
-				
-				d.ymd= #{ymd,jdbcType=INTEGER}											and
-				<if test=" orgIds != null" >
-        			and d.org_id in 
-        			<foreach item="item" index="index" collection="orgIds" open="(" separator="," close=")">
- 						#{item}  
-					</foreach>  
-      			</if>
-				d.is_template=false 																	and
-				di.begin_time  between #{beginTime,jdbcType=TIMESTAMP} 	and 
-				#{endTime,jdbcType=TIMESTAMP}
+				d.ymd= #{ymd,jdbcType=INTEGER}
+				and d.is_template=false
+				and di.begin_time  between #{beginTime,jdbcType=TIMESTAMP}
+				and #{endTime,jdbcType=TIMESTAMP}
 				<if test=" taskProperyIds != null" >
         			and exists (select 1 from t_duty_type_property_relate as dtpr where dtpr.duty_type_id=di.duty_type_id and dtpr.property_id in
         			<foreach item="item" index="index" collection="taskProperyIds" open="(" separator="," close=")">
  						#{item}  
-					</foreach>  
+					</foreach> )
       			</if>
       			<if test=" attireTypeIds != null" >
       				and exists (select 1 from t_duty_type as wdt where wdt.id=di.duty_type_id and wdt.attire_type in
       				<foreach item="item" index="index" collection="attireTypeIds" open="(" separator="," close=")">
  						#{item}  
-					</foreach>  
+					</foreach>)
       			</if>
 				<if test=" armamentTypeIds != null" >
       				and exists (select 1 from t_duty_type as wdt where wdt.id=di.duty_type_id and wdt.armament_type in 
       				<foreach item="item" index="index" collection="armamentTypeIds" open="(" separator="," close=")">
  						#{item}  
-					</foreach>  
+					</foreach> )
       			</if>
 				<if test=" policeTypeIds != null" >
-      				and p.type_id in
+      				and exists (select 1 from t_police as pt where pt.id=di.item_id and pt.type_id in 
       				<foreach item="item" index="index" collection="policeTypeIds" open="(" separator="," close=")">
  						#{item}  
-					</foreach>
+					</foreach> )
       			</if>
 				<if test=" dutyTypeIds != null" >
       				and di.duty_type_id in 
@@ -101,10 +107,17 @@
  						#{item}  
 					</foreach>
       			</if>
-				
-				
 			group by d.org_id
 		) as t on org.id=t.org_id
+		where
+			1=1
+			<if test=" orgIds != null" >
+        		and org.id in 
+        		<foreach item="item" index="index" collection="orgIds" open="(" separator="," close=")">
+ 					#{item}  
+				</foreach>  
+			</if>
+		order by org.id
     </select>
     
     </mapper>

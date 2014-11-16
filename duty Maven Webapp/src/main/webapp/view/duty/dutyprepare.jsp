@@ -49,7 +49,7 @@
  				<div title="人员" style="padding:10px;height:100%">  
        					  <div id="source_police"></div> 
        					  <div style="margin-top:2px"> 
-     					  		<a id="btnAddAllPolice" style="float:right; margin-right:10px"  name="btnAddAllPolice"  href="javascript:void(0);" class="easyui-linkbutton"  >一键添加</a>
+     					  		<a id="btnAddAllPolice" onclick="addSelPolices()" style="float:right; margin-right:10px"  name="btnAddAllPolice"  href="javascript:void(0);" class="easyui-linkbutton"  >一键添加</a>
      					  		<a id="checkAllPolice" style="float:right; margin-right:5px" onclick="uncheckAllResources('source_police')"  name="checkAllPolice"  href="javascript:void(0);" class="easyui-linkbutton"  >取消选择</a>
      					  		<a id="uncheckAllPolice" style="float:right; margin-right:5px" onclick="checkAllResources('source_police')"  name="uncheckAllPolice"  href="javascript:void(0);" class="easyui-linkbutton"  >全选</a>
      					  </div>
@@ -64,7 +64,7 @@
 				<div title="车辆" style="padding:10px;height:100%">  
        					 <div id="source_vehicle"></div> 
        					  <div style="margin-top:2px">
-								<a id="btnCheckAllVehicle" style="float:right; margin-right:10px"  name="btnCheckAllVehicle"  href="javascript:void(0);" class="easyui-linkbutton" >一键添加</a>
+								<a id="btnCheckAllVehicle" "style="float:right; margin-right:10px"  name="btnCheckAllVehicle"  href="javascript:void(0);" class="easyui-linkbutton" onclick="addSelVehicles()">一键添加</a>
        					  		<a id="checkAllVehicle" style="float:right; margin-right:5px" onclick="uncheckAllResources('source_vehicle')"  name="checkAllVehicle"  href="javascript:void(0);" class="easyui-linkbutton"  >取消选择</a>
      					  		<a id="uncheckAllVehicle" style="float:right; margin-right:5px" onclick="checkAllResources('source_vehicle')"  name="uncheckAllVehicle"  href="javascript:void(0);" class="easyui-linkbutton"  >全选</a>
    					  	  </div>

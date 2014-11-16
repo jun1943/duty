@@ -1,19 +1,38 @@
 package com.tianyi.drs.duty.viewmodel;
 
 public class DutyReportVM {
+	private Integer id;
+	private Integer parentId;
 	private Integer orgId;
-	private Integer orgName;
-	private Integer orgShortName;
+	private String orgName;
+	private String orgShortName;
 	private String orgCode;
 	private String orgPath;
 	private String leaderNames;
-	private Integer vehilceCount;
+	private Integer leaderCount;
+	private Integer vehicleCount;
 	private Integer policeCount;
 	private Integer weaponCount;
 	private Integer gpsCount;
 	private Integer communityCount;
 	private Integer patrolAreaCount;
 	private Integer bayonetCount;
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
+	}
 	
 	public Integer getOrgId() {
 		return orgId;
@@ -22,16 +41,16 @@ public class DutyReportVM {
 	public void setOrgId(Integer orgId) {
 		this.orgId = orgId;
 	}
-	public Integer getOrgName() {
+	public String getOrgName() {
 		return orgName;
 	}
-	public void setOrgName(Integer orgName) {
+	public void setOrgName(String orgName) {
 		this.orgName = orgName;
 	}
-	public Integer getOrgShortName() {
+	public String getOrgShortName() {
 		return orgShortName;
 	}
-	public void setOrgShortName(Integer orgShortName) {
+	public void setOrgShortName(String orgShortName) {
 		this.orgShortName = orgShortName;
 	}
 	public String getOrgCode() {
@@ -56,11 +75,19 @@ public class DutyReportVM {
 	public void setLeaderNames(String leaderNames) {
 		this.leaderNames = leaderNames;
 	}
-	public Integer getVehilceCount() {
-		return vehilceCount;
+	public Integer getLeaderCount() {
+		return leaderCount;
 	}
-	public void setVehilceCount(Integer vehilceCount) {
-		this.vehilceCount = vehilceCount;
+
+	public void setLeaderCount(Integer leaderCount) {
+		this.leaderCount = leaderCount;
+	}
+
+	public Integer getVehicleCount() {
+		return vehicleCount;
+	}
+	public void setVehicleCount(Integer vehicleCount) {
+		this.vehicleCount = vehicleCount;
 	}
 	public Integer getPoliceCount() {
 		return policeCount;
@@ -98,5 +125,7 @@ public class DutyReportVM {
 	public void setBayonetCount(Integer bayonetCount) {
 		this.bayonetCount = bayonetCount;
 	}
+
+
 	
 }
