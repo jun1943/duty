@@ -106,6 +106,7 @@
 }
 .panel-header,
 .panel-body {
+	
   border-color: #ddd;
 }
 .panel-header {
@@ -166,7 +167,7 @@
 }
 .window {
   overflow: hidden;
-  padding: 5px;
+  padding: 2px;
   border-width: 1px;
   border-style: solid;
 }
@@ -722,16 +723,16 @@
   background-color: #b3b3b3;
 }
 .layout-split-north {
-  border-bottom: 5px solid #fff;
+  border-bottom: 2px solid #333333;
 }
 .layout-split-south {
-  border-top: 5px solid #fff;
+  border-top: 2px solid #333333;
 }
 .layout-split-east {
-  border-left: 5px solid #fff;
+  border-left: 2px solid #333333;
 }
 .layout-split-west {
-  border-right: 5px solid #fff;
+  border-right: 2px solid #333333;
 }
 .layout-expand {
   background-color: #ffffff;
@@ -2244,16 +2245,16 @@
   overflow: hidden;
 }
 .tree-expanded {
-  background: url('images/tree_icons.png') no-repeat -18px 0px;
+  background: url('images/newtreeexpls.png') no-repeat 3px 5px;
 }
 .tree-expanded-hover {
-  background: url('images/tree_icons.png') no-repeat -50px 0px;
+  background: url('images/newtreeexpls.png') no-repeat 3px 5px;
 }
 .tree-collapsed {
-  background: url('images/tree_icons.png') no-repeat 0px 0px;
+  background: url('images/newtreecollsp.png') no-repeat 3px 5px;
 }
 .tree-collapsed-hover {
-  background: url('images/tree_icons.png') no-repeat -32px 0px;
+  background: url('images/newtreecollsp.png') no-repeat 3px 5px;
 }
 .tree-lines .tree-expanded,
 .tree-lines .tree-root-first .tree-expanded {
@@ -2281,13 +2282,13 @@
   background: url('images/tree_icons.png') no-repeat -160px 0;
 }
 .tree-folder {
-  background: url('images/tree_icons.png') no-repeat -208px 0;
+  background: url('images/treeRoots.png') no-repeat;
 }
 .tree-folder-open {
-  background: url('images/tree_icons.png') no-repeat -224px 0;
+  background: url('images/treeRoots.png') no-repeat;
 }
 .tree-file {
-  background: url('images/tree_icons.png') no-repeat -240px 0;
+  background: url('images/treeSubpoint.png') no-repeat;
 }
 .tree-loading {
   background: url('images/loading.gif') no-repeat center center;

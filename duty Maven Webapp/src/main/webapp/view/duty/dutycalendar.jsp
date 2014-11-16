@@ -38,6 +38,12 @@
 	                        <li><img src="asset/css/images/dateNext.png" onclick="getDateClick('next')" /></li>
                     	</ul>
 	                </div>
+	            </div>	
+	            <div class="dateBoxMainTItleTxt">
+	            	<div class="dateBoxMainTItleTxtDIv">
+	                    <a href="javascript:void(0);" onclick="clearAlldutyData()"><img src="asset/css/images/canelpast.png" alt="清楚当月所有报备数据" title="清楚当月所有报备数据" /></a>
+	                    <a href="javascript:void(0);" onclick="clearClipbord()"><img src="asset/css/images/pastno.png" alt="取消剪切板数据" title="取消剪切板数据"  /></a>
+	                </div>
 	            </div>
         	</div>
         	

@@ -123,7 +123,11 @@ public class DutyCalendarController {
 					result += "</li>";
 				}
 			} else {
-				result = "无报备";
+				result = "<li class='nobaobei' style='display: list-item;'>无报备</li>"  ;
+//						+ "<li class='baoBeiBtn'><div class='pasteBtnBox' onclick='selectPasteBox(this,'"+date+"')' style='display: none;'><a href='javascript:void(0);'>粘贴</a></div>"
+//						+ "<a href='javascript:void(0);'>粘贴</a>"
+//						+ "</div></li>";
+				//result = "无报备";
 			}
 			return result;
 		} catch (Exception ex) {

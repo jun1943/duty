@@ -203,9 +203,14 @@ function creatHtml(arr) {
 					+ '") class="dateBoxMainDateTD"><div class="dateBoxMainDateTDLib">'
 					+ arr[i][j]["d"]
 					+ '</div><div class="dateBoxMainDateTDBox"><ul><li> '
-					+ arr[i][j]["totalpolice"]
-					+ '</li> </ul></div></div>'
-
+					+ arr[i][j]["totalpolice"];
+			if (arr[i][j]["totalpolice"] == "<li class='nobaobei' style='display: list-item;'>无报备</li>") {
+				tdHtml += '<li class="baoBeiBtn">' 
+					+ '<div class="pasteBtnBox" onclick="selectPasteBox(this,'+i+','+j+')" style="display: none;"><a href="javascript:void(0);">粘贴</a></div>'
+					+ '<a href="javascript:void(0);">粘贴</a>'
+					+ '</div></li>';
+			}
+			tdHtml += '</li> </ul></div></div>' 
 					+ '<div id="calendarOpratdiv_'
 					+ y
 					+ '_'
@@ -225,35 +230,13 @@ function creatHtml(arr) {
 					+ '_'
 					+ d
 					+ '") style="width:100% ;margin-bottom:3px; color:#0000ff; font-size:12px;cursor:pointer;">'
-					+ '<a id="copylink_'
-					+ y
-					+ '_'
-					+ m
-					+ '_'
-					+ d
-					+ '"  onclick=copyDutyByDays("'
-					+ y
-					+ '-'
-					+ m
-					+ '-'
-					+ d
-					+ '")  style="float:right;margin-right:8px;">　　</a>'
-					+ '<a id="dellink_'
-					+ y
-					+ '_'
-					+ m
-					+ '_'
-					+ d
-					+ '" onclick=deleteDutyConfirm("'
-					+ y
-					+ '-'
-					+ m
-					+ '-'
-					+ d
-					+ '") style="float:right;">　　</a>'
-					+ '</div>'
-
-					+ '</td>';
+					+ '<a id="copylink_' + y + '_' + m + '_' + d
+					+ '"  onclick=copyDutyByDays("' + y + '-' + m + '-' + d
+					+ '",' + i + ',' + j
+					+ ')  style="float:right;margin-right:8px;">　　</a>'
+					+ '<a id="dellink_' + y + '_' + m + '_' + d
+					+ '" onclick=deleteDutyConfirm("' + y + '-' + m + '-' + d
+					+ '") style="float:right;">　　</a>' + '</div>' + '</td>';
 			// + arr[i][j]["dutyList"] + '</ul></div></div></td>';
 
 			trHtml = trHtml + tdHtml;
@@ -320,15 +303,18 @@ function getDateInfo(date) {
 			});
 	window.clearInterval(timeouts);
 }
-function mouseOverOpratdiv(tags){
-	$("#calendarOpratdiv_"+tags+" a[id='dellink_"+tags+"']").html("删除");
-	$("#calendarOpratdiv_"+tags+" a[id='copylink_"+tags+"']").html("　复制");
+function mouseOverOpratdiv(tags) {
+	$("#calendarOpratdiv_" + tags + " a[id='dellink_" + tags + "']").html("删除");
+	$("#calendarOpratdiv_" + tags + " a[id='copylink_" + tags + "']").html(
+			"　复制");
 }
-function mouseOutOpratdiv(tags){ 
-	$("#calendarOpratdiv_"+tags+" a[id='dellink_"+tags+"']").html("　　　");
-	$("#calendarOpratdiv_"+tags+" a[id='copylink_"+tags+"']").html("　　　");
+function mouseOutOpratdiv(tags) {
+	$("#calendarOpratdiv_" + tags + " a[id='dellink_" + tags + "']")
+			.html("　　　");
+	$("#calendarOpratdiv_" + tags + " a[id='copylink_" + tags + "']").html(
+			"　　　");
 }
-function deleteDutyConfirm(date){
+function deleteDutyConfirm(date) {
 	$.messager.confirm("系统提示", "确认删除    " + date + " 的报备数据吗？", function(r) {
 		if (r) {
 			dtime = null;
@@ -338,11 +324,24 @@ function deleteDutyConfirm(date){
 		}
 	});
 }
-function deleteDutyAction(dt){
+function deleteDutyAction(dt) {
 	alert("删除报备数据");
 }
-function copyDutyByDays(){
-	alert("复制报备数据");
+var copyX = 0;// 要复制数组的X下标
+var copyY = 0;// 要复制数组的Y下标
+var copyArray = new Array();// 初始化复制数组
+var PlanArray = new Array();// 报备情况数组，记录每天的报备情况
+function copyDutyByDays(date, i, j) {
+	copyX = i;// 更新copyX全局变量
+	copyY = j;// 更新copyY全局变量
+	$('li[class=nobaobei]').each(function() { // 隐藏没有报备的文字
+		$(this).position().top = 10;
+		$(this).hide();
+	});
+
+	$('div[class=pasteBtnBox]').each(function() { // 在每个日期格子中显示粘贴按钮
+		$(this).show();
+	});
 }
 /**
  * 汇总各级节点的数据
@@ -571,3 +570,19 @@ function btnExportAction() {
 		}
 	});
 };
+
+function clearAlldutyData() {
+	$.messager.confirm("系统提示", "确认删除    " + y + "年" + m + "月" + " 的所有报备数据吗？",
+			function(r) {
+				if (r) {
+					deleteAllDutyDataAction();
+				}
+			});
+};
+function deleteAllDutyDataAction() {
+
+};
+function clearClipbord() {
+
+};
+

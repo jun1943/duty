@@ -10,7 +10,7 @@
     
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+	-->	<link rel="stylesheet" type="text/css" href="asset/css/images/dateStyle.css"/>
 		<script src='<%=basePath%>script/duty/dutyframe.js' 	type='text/javascript'></script>
   </head>
   
@@ -27,25 +27,31 @@
     <div data-options="region:'center',title:'警务备勤'"  >
     	<iframe id="ifmWorkSpace" name="ifmWorkSpace"  scrolling='yes'  frameborder='0'  style="width:100%;height:100%"></iframe>
     </div>        
-    <div data-options="region:'east',title:'功能',split:true"  style="width:10%;">
-    	<ul style="list-style-type:none"   	>
-				<li><a href="javascript:void(0);" 
-						class="easyui-linkbutton " plain="true"
-						onclick="onDutyPrepare()">勤务报备</a>
-				</li>
-				<li><a href="javascript:void(0);" 
-						class="easyui-linkbutton " plain="true"
-						onclick="onDutyReport()">勤务综合查询</a>
-				</li>
-				<li><a href="javascript:void(0);" 
-						class="easyui-linkbutton " plain="true" 
-						onclick="onDutyDataGroup('policegroup')">分组管理</a>
-				</li>
-				<li><a href="javascript:void(0);" value="view/duty/dutytype.jsp"
-						class="easyui-linkbutton" plain="true"
-						onclick="onDutyType()">勤务类型管理</a>
-				</li>
-			</ul>
+    <div data-options="region:'east',split:true"  style="width:10%;">
+    	<!--导航目录 s-->
+		<div class="MenuBox">
+			<ul>
+		    	<li id="MenuBoxOn">
+		        	<div id="MenuBoxOnBox"><img src="asset/css/images/baobeimodel.png" /><a href="#">勤务管理</a></div>
+		        	
+		        </li>
+		        <li onclick="onDutyPrepare()">
+		        	<div doc="menu" class="MenuMouseMove"><img src="asset/css/images/little icon/qingwubaobei.png" /><a href="javascript:void(0);" onclick="onDutyPrepare()">勤务报备管理</a></div>
+		        </li>
+		        <li onclick="onDutyDataGroup('policegroup')">
+		        	<div doc="menu"><img src="asset/css/images/little icon/organize.png" /><a href="javascript:void(0);" onclick="onDutyDataGroup('policegroup')">资源分组管理</a></div>
+		        </li>
+		        <li onclick="onDutyReport()">
+		        	<div doc="menu"><img src="asset/css/images/little icon/comprehensivequery.png" /><a href="javascript:void(0);" onclick="onDutyReport()">勤务综合查询</a></div>
+		        </li>
+		        <li onclick="onDutyType()">
+		        	<div doc="menu"><img src="asset/css/images/little icon/basicdata.png" /><a href="javascript:void(0);" onclick="onDutyType()">报备类型管理</a></div>
+		        </li> 
+		    </ul>
+		</div>
+    
+    
+     
     </div>    
     
 </div>    
