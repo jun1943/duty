@@ -168,7 +168,7 @@ function creatHtml(arr) {
 	// 鏃ュ巻鏁版嵁HTML缁勮閮ㄥ垎
 	var html = "";
 	for ( var i = 0; i < 6; i++) {// 寰幆鏁扮粍锛岄噸缁刪tml
-		var trHtml = "<tr >";
+		var trHtml = "<tr  style='vertical-align:top'>";
 		for ( var j = 0; j < 7; j++) {
 
 			var tdHtml = '';
@@ -188,7 +188,7 @@ function creatHtml(arr) {
 			} else {
 				d = arr[i][j]["d"];
 			}
-			tdHtml = '<td  onmouseover=mouseOverFunction("'
+			tdHtml = '<td><div  onmouseover=mouseOverFunction("'
 					+ y
 					+ '-'
 					+ m
@@ -200,10 +200,60 @@ function creatHtml(arr) {
 					+ m
 					+ '-'
 					+ d
-					+ '")><div class="dateBoxMainDateTD"><div class="dateBoxMainDateTDLib">'
+					+ '") class="dateBoxMainDateTD"><div class="dateBoxMainDateTDLib">'
 					+ arr[i][j]["d"]
 					+ '</div><div class="dateBoxMainDateTDBox"><ul><li> '
-					+ arr[i][j]["totalpolice"] + '</li> </ul></div></div></td>';
+					+ arr[i][j]["totalpolice"]
+					+ '</li> </ul></div></div>'
+
+					+ '<div id="calendarOpratdiv_'
+					+ y
+					+ '_'
+					+ m
+					+ '_'
+					+ d
+					+ '" onmouseover=mouseOverOpratdiv("'
+					+ y
+					+ '_'
+					+ m
+					+ '_'
+					+ d
+					+ '") onmouseout=mouseOutOpratdiv("'
+					+ y
+					+ '_'
+					+ m
+					+ '_'
+					+ d
+					+ '") style="width:100% ;margin-bottom:3px; color:#0000ff; font-size:12px;cursor:pointer;">'
+					+ '<a id="copylink_'
+					+ y
+					+ '_'
+					+ m
+					+ '_'
+					+ d
+					+ '"  onclick=copyDutyByDays("'
+					+ y
+					+ '-'
+					+ m
+					+ '-'
+					+ d
+					+ '")  style="float:right;margin-right:8px;">　　</a>'
+					+ '<a id="dellink_'
+					+ y
+					+ '_'
+					+ m
+					+ '_'
+					+ d
+					+ '" onclick=deleteDutyConfirm("'
+					+ y
+					+ '-'
+					+ m
+					+ '-'
+					+ d
+					+ '") style="float:right;">　　</a>'
+					+ '</div>'
+
+					+ '</td>';
 			// + arr[i][j]["dutyList"] + '</ul></div></div></td>';
 
 			trHtml = trHtml + tdHtml;
@@ -270,7 +320,30 @@ function getDateInfo(date) {
 			});
 	window.clearInterval(timeouts);
 }
-
+function mouseOverOpratdiv(tags){
+	$("#calendarOpratdiv_"+tags+" a[id='dellink_"+tags+"']").html("删除");
+	$("#calendarOpratdiv_"+tags+" a[id='copylink_"+tags+"']").html("　复制");
+}
+function mouseOutOpratdiv(tags){ 
+	$("#calendarOpratdiv_"+tags+" a[id='dellink_"+tags+"']").html("　　　");
+	$("#calendarOpratdiv_"+tags+" a[id='copylink_"+tags+"']").html("　　　");
+}
+function deleteDutyConfirm(date){
+	$.messager.confirm("系统提示", "确认删除    " + date + " 的报备数据吗？", function(r) {
+		if (r) {
+			dtime = null;
+			var dt = date.replace(/-/gm, '');
+			dtime = dt;
+			deleteDutyAction(dtime);
+		}
+	});
+}
+function deleteDutyAction(dt){
+	alert("删除报备数据");
+}
+function copyDutyByDays(){
+	alert("复制报备数据");
+}
 /**
  * 汇总各级节点的数据
  * 
@@ -477,7 +550,7 @@ function btnExportToExcelAction() {
 	var obj = $('#tgddutydetailsforday').treegrid("getData");
 	createExcelApplication(obj);
 };
-function btnExportAction() { 
+function btnExportAction() {
 	$.ajax({
 		url : "dutyCalendar/exportDataToExcle.do",
 		type : "POST",
@@ -486,14 +559,14 @@ function btnExportAction() {
 			'orgId' : m_dutyCalendar_Org.id,
 			'orgName' : m_dutyCalendar_Org.id,
 			'ymd' : m_dutyCalendar_Org.date
-		}, 
-		success : function(req) { 
+		},
+		success : function(req) {
 			window.open(req.Data);
 		},
 		failer : function(a, b) {
 			$.messager.alert("消息提示", a, "info");
 		},
-		error : function(a) { 
+		error : function(a) {
 			$.messager.alert("消息提示", a, "error");
 		}
 	});

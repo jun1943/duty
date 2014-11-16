@@ -643,8 +643,10 @@
   color: #444;
 }
 .combobox-item-selected {
-  background-color: #CCE6FF;
-  color: #000;
+  background: #ffeeec;
+  border-bottom:#f1bcb4 solid 1px;
+  border-top:#f1bcb4 solid 1px;
+  color: #000000;
 }
 .layout {
   position: relative;
@@ -1309,8 +1311,10 @@
   cursor: default;
 }
 .datagrid-row-selected {
-  background: #CCE6FF;
-  color: #000;
+  background: #ffeeec;
+  border-bottom:#f1bcb4 solid 1px;
+  border-top:#f1bcb4 solid 1px;
+  color: #000000;
 }
 .datagrid-row-editing .textbox,
 .datagrid-row-editing .textbox-text {

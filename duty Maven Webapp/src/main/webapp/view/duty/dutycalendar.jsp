@@ -45,13 +45,13 @@
 	        	 <table id="dateTable" class="" width="100%" height="100%" >
 	                <thead>
 	                    <tr>
-	                    <th> 日</th>
-	                    <th> 一</th>
-	                    <th> 二</th>
-	                    <th> 三</th>
-	                    <th> 四 </th>
-	                    <th> 五</th>
-	                    <th> 六</th>
+	                    <th style="text-align:center;color:red"> 日</th>
+	                    <th style="text-align:center;color:black"> 一</th>
+	                    <th style="text-align:center;color:black"> 二</th>
+	                    <th style="text-align:center;color:black"> 三</th>
+	                    <th style="text-align:center;color:black"> 四 </th>
+	                    <th style="text-align:center;color:black"> 五</th>
+	                    <th style="text-align:center;color:red"> 六</th>
 	                    </tr>
 	                </thead>
 	                <tbody id="dateBody"> 
