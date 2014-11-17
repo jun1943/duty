@@ -19,20 +19,20 @@
 
 
 </head> 
-  <body class="easyui-layout"> 
+  <body class="easyui-layout" style="padding:2px"> 
     
-	<div data-options="region:'center'"style="padding:10px;"> 
+	<div data-options="region:'center'"style="padding:2px;"> 
  
 		 
 			 
-			<div id="tbIcons" class="btn-toolbar" style="height:40px; margin-top:10px">
+			<div id="tbIcons" class="btn-toolbar" style="height:30px; margin-top:3px">
   				<div class="btn-group">
   					<a id="btnAddIcons" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-add" 	onclick="btnAddIcons()">新增</a>
-                	<a id="btnEditIcons" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="btnEditIcons()">修改</a>
-                	<a id="btnDelIcons" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel" plain="true" onclick="btnDelIcons()">删除</a> 
+                	<a id="btnEditIcons" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-edit"   onclick="btnEditIcons()">修改</a>
+                	<a id="btnDelIcons" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel"  onclick="btnDelIcons()">删除</a> 
   				</div>  				
   				<div class="btn-group" style="float:right; margin-right:20px">
-  					<a id="btnSearchIcons" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"  plain="true" onclick="btnSearchIcons()">查询</a>
+  					<a id="btnSearchIcons" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"   onclick="btnSearchIcons()">查询</a>
                	</div>
   			</div>
   			<div id="my-search-box" class="panel-body" style="border:0px;display:none">
@@ -82,20 +82,20 @@
             padding: 5px 0 0;"> 
 						<table style="width:100%;height:99%; font: 12px 微软雅黑;"> 
 							<tr>
-								<td><input type="hidden" id="iconsId"><label>图片类型:</label></td>
+								<td style="text-align: right;"><input type="hidden" id="iconsId"><label>图片类型:　</label></td>
 								<td> <input id="txttype" class="easyui-combobox" name="dept"
 											data-options="valueField:'id',textField:'name',data:[{id: 0,name: '请选择图片类型'},{id: 1,name: '警员'},{id: 2,name: '车辆'},{id: 3,name: '武器'},{id: 4,name: '定位设备'}]" />
 	                         	</td>
-	                         	<td rowspan="3">
+	                         	<td style="text-align: right;" rowspan="3">
 		                         	<img id="sltImage" style="width:120px; height:120px" src="">
                   				</td>
 							</tr>
 							<tr>
-								<td><label>图标标题:</label></td>
+								<td style="text-align: right;"><label>图标标题:　</label></td>
 								<td><input type="text" class="easyui-validatebox" id="txtname"></td>
 							</tr> 
 							<tr>
-								<td><label>图标选择:</label>
+								<td style="text-align: right;"><label>图标选择:　</label>
 								</td>
 								<td><input type="text" class="easyui-validatebox" id="txtfilename"><a id="btnfindIcon"  href="javascript:void(0);" class="easyui-linkbutton"  plain="true" >选择图片</a>
 								</td>

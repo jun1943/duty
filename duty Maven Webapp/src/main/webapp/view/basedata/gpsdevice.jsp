@@ -16,12 +16,12 @@
 
 </head>
 
-<body class="easyui-layout"> 
+<body class="easyui-layout" style="padding:2px"> 
 	 
 	
-	<div data-options="region:'center'"style="padding:10px;"> 
+	<div data-options="region:'center'"style="padding:2px;"> 
 	 
-			<div id="tbGpsdevice" class="btn-toolbar" style="height:40px; margin-top:10px">
+			<div id="tbGpsdevice" class="btn-toolbar" style="height:30px; margin-top:3px">
   				<div class="btn-group">
   					<a id="btnAddGpsdevice" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-add"  onclick="btnAddGpsdevice()">创建</a>
                 	<a id="btnEditGpsdevice" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-edit"   onclick="btnEditGpsdevice()">修改</a>
@@ -80,19 +80,19 @@
             padding: 5px 0 0;">
 					<table style="width:100%;height:99%; font: 12px 微软雅黑;"> 
 						<tr>
-							<td><input type="hidden" id="gpsdeviceId"><label>GPS类型:</label></td>
+							<td style="text-align: right;"><input type="hidden" id="gpsdeviceId"><label>GPS类型:　</label></td>
 							<td><input id="txttype" class="easyui-combobox" /></td>
 						</tr>
 						<tr>
-							<td><label>GPS名称:</label></td>
+							<td style="text-align: right;"><label>GPS名称:　</label></td>
 							<td><input type="text" class="easyui-validatebox" id="txtgpsname"></td>
 						</tr>
 						<tr>
-							<td><label>GPS编号:</label></td>
+							<td style="text-align: right;"><label>GPS编号:　</label></td>
 							<td><input type="text" class="easyui-validatebox" id="txtgpsnumber"></td>
 						</tr> 
 						<tr>
-							<td><label>GPS图标:</label></td>
+							<td style="text-align: right;"><label>GPS图标:　</label></td>
 							
 							<td><input type="text"  id="txtgpsicon"><input type="hidden" id="txtIconUrl"></td>
 						</tr> 

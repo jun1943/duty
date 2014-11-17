@@ -18,13 +18,13 @@
 <div id="cc" class="easyui-layout" style="width:100%;height:100%;">
 	<div data-options="region:'west',title:'机构',split:true"  style="width:14%;">
 		<div>
-			<input id="txtOrgName" style="width:100px" type="text"/>
+			<input id="txtOrgName" style="width:80%; margin-left:4px;margin-top:2px" type="text"/>
 			<a id="btnSearchOrg" href="javascript:void(0);" class="easyui-linkbutton"
                     iconcls="icon-search" onclick="searchOrgAction()" plain="true"></a>
 		</div>
     	<ul id="treeDutyFrmOrg"></ul>
     </div>
-    <div data-options="region:'center',title:'警务备勤'"  >
+    <div data-options="region:'center'"  >
     	<iframe id="ifmWorkSpace" name="ifmWorkSpace"  scrolling='yes'  frameborder='0'  style="width:100%;height:100%"></iframe>
     </div>        
     <div data-options="region:'east',split:false"  style="width:15%;">

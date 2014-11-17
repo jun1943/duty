@@ -16,23 +16,23 @@
 
 </head>
 
-<body class="easyui-layout">
+<body class="easyui-layout" style="padding:2px">
   
 	
-	<div data-options="region:'center'"style="padding:10px;"> 
+	<div data-options="region:'center'"style="padding:2px;"> 
 		 
 		 
 				 
 			 
-				<div id="tbVehicle" class="btn-toolbar" style="height:40px; margin-top:10px">
+				<div id="tbVehicle" class="btn-toolbar" style="height:30px; margin-top:3px">
 	  				<div class="btn-group">
-	  					<a id="btnAddVehicle" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-add"  plain="true" onclick="btnAddVehicle('add')">创建</a>
-	                	<a id="btnEditVehicle" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="btnEditVehicle('edit')">修改</a>
-	                	<a id="btnDelVehicle" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel" plain="true" onclick="btnDelVehicle()">删除</a>
+	  					<a id="btnAddVehicle" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-add"   onclick="btnAddVehicle('add')">创建</a>
+	                	<a id="btnEditVehicle" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-edit"  onclick="btnEditVehicle('edit')">修改</a>
+	                	<a id="btnDelVehicle" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel"  onclick="btnDelVehicle()">删除</a>
 	                	
 	  				</div>  				
 	  				<div class="btn-group" style="float:right">
-	  					<a id="btnSearchVehicle" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"  plain="true" onclick="btnSearchVehicle()">查询</a>
+	  					<a id="btnSearchVehicle" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"   onclick="btnSearchVehicle()">查询</a>
 	                	<!-- a id="btnPrintList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-print" plain="true" onclick="btnPrintList()">打印</a>
 	                	<a id="btnExportList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-export" plain="true" onclick="btnExportList()">导出</a> -->
 	               	</div>
@@ -82,39 +82,39 @@
             padding: 5px 0 0;">
 					<table style="width:100%;height:99%; font: 12px 微软雅黑;">
 						<tr>
-							<td><label>车辆品牌</label></td>
+							<td style="text-align: right;"><label>车辆品牌:　</label></td>
 							<td><input type="text" class="easyui-validatebox" id="txtbrand" ></td>
 						</tr>
 						<tr>
-							<td><input type="hidden" id="vehicleId"><label>车辆类型:</label></td>
+							<td style="text-align: right;"><input type="hidden" id="vehicleId"><label>车辆类型:　</label></td>
 							<td><input id="txttype" class="easyui-combobox" /></td>
 						</tr>
 						<tr>
-							<td><label>座位数:</label></td>
+							<td style="text-align: right;"><label>座位数:　</label></td>
 							<td><input type="text" class="easyui-validatebox" id="txtsiteqty"></td>
 						</tr>
 						<tr>
-							<td><label>车牌号码:</label></td>
+							<td style="text-align: right;"><label>车牌号码:　</label></td>
 							<td><input type="text" class="easyui-validatebox" data-options="required:true" id="txtnumber"></td>
 						</tr>
 						<tr>
-							<td><label>车辆用途:</label></td>
+							<td style="text-align: right;"><label>车辆用途:　</label></td>
 							<td><input type="text" class="easyui-validatebox" id="txtpurpose"></td>
 						</tr>
 						<tr>
-							<td><label>组呼号:</label></td>
+							<td style="text-align: right;"><label>组呼号:　</label></td>
 							<td><input id="txtgroupno" class="easyui-combobox" > </td>
 						</tr>
 						<tr>
-							<td><label>个呼号:</label></td>
+							<td style="text-align: right;"><label>个呼号:　</label></td>
 							<td><input type="text" class="easyui-validatebox" id="txtpersonalno"></td>
 						</tr>
 						<tr>
-							<td><label>GPS_ID:</label></td>
+							<td style="text-align: right;"><label>GPS_ID:　</label></td>
 							<td><input id="txtgpsid" class="easyui-combobox" ></td>
 						</tr>
 						<tr>
-							<td><label>GPS名称:</label></td>
+							<td style="text-align: right;"><label>GPS名称:　</label></td>
 							<td><input type="text" class="easyui-validatebox" id="txtgpsname"></td>
 						</tr>
 					</table>

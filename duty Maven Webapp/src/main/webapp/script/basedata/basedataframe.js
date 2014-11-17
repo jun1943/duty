@@ -6,6 +6,7 @@ var m_basedataFrame_Org={};
 
 var m_basedataFrame_func_prop={};
 
+var m_org_node = {};
 $(function () {
 	
 	var args = getUrlArgs();
@@ -68,8 +69,45 @@ function pageSwitch(node,url){
 	
 	$("#ifmWorkSpace").attr("src",src); 
 }
+function searchOrgAction(){
+	var name = $('#txtOrgName').val();
+	var a = findOrgs(name);
+	$('#treeDutyFrmOrg').tree("loadData", a);
+}
+
+function findOrgs(name) {
+	var a = [];
+	if (m_org_node != null) {
+		$.each(m_org_node, function(index, value) {
+			var o = findOrgTree(value, name);
+			if (o != null) {
+				a.push(o);
+			}
+		});
+	}
+	return a;
+}
 
 
+function findOrgTree(org, name, array) {
+	var ls = [];
+	if (org.children != null) {
+		$.each(org.children2, function(index, value) {
+			var o = findOrgTree(value, name);
+			if (o != null) {
+				ls.push(o);
+			}
+		});
+	}
+
+	org.children = ls;
+
+	if (name = "" || org.name.indexOf(name) >= 0 || ls.length > 0) {
+		return org;
+	} else {
+		return null;
+	}
+}
 function onPoliceManage(){ 
 	m_basedataFrame_func_prop.url="view/basedata/police.jsp";
 	pageSwitch(); 
@@ -136,6 +174,7 @@ function loadFrmOrgs(){
 		success : function(req) {
 			if (req.isSuccess) {
 				var nodes=buildOrgTree(req.rows);
+				m_org_node = nodes;
 				$('#orgtree').tree("loadData",nodes);
 			} else {
 				$.messager.alert('提示', req.msg,"warning");

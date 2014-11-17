@@ -16,10 +16,10 @@
 
 </head>
 
-<body class="easyui-layout">
+<body class="easyui-layout" style="padding:2px">
 	 
-	<div data-options="region:'center'" style="padding:10px;">
-				<div id="tbPolice" class="btn-toolbar" style="height:40px; margin-top:10px">
+	<div data-options="region:'center'" style="padding:2px">
+				<div id="tbPolice" class="btn-toolbar" style="height:30px; margin-top:3px">
 					<div class="btn-group">
 						<a id="btnAddPolice" href="javascript:void(0);"
 							class="easyui-linkbutton" iconcls="icon-add" 
@@ -93,58 +93,58 @@
 						onclick="savePoliceAction()">保存并继续</a>  
 				</div>
 				<div data-options="region:'center',border:false"
-					style="text-align: right; margin-left: 5px;
+					style="text-align: right;
             padding: 5px 0 0;">
 					<table style="width:100%;height:99%; font: 12px 微软雅黑;">
 						<tr>
-							<td><input type="hidden" id="policeId"><label>人员类别:</label></td>
+							<td style="text-align: right;"><input type="hidden" id="policeId"><label>人员类别:　</label></td>
 							<td><input id="txttype" class="easyui-combobox" /></td>
 						</tr>
 						<tr>
-							<td><label>姓名:</label></td>
+							<td style="text-align: right;"><label>姓名:　</label></td>
 							<td><input id="txtname" type="text"
 								class="easyui-validatebox" data-options="required:true"></td>
 						</tr>
 						<tr>
-							<td><label>身份证号码:</label></td>
+							<td style="text-align: right;"><label>身份证号码:　</label></td>
 							<td><input id="txtidcardno" type="text" 
 								class="easyui-validatebox"></td>
 						</tr>
 						<tr>
-							<td><label>警号:</label></td>
+							<td style="text-align: right;"><label>警号:　</label></td>
 							<td><input id="txtnumber" type="text"
 								class="easyui-validatebox" ></td>
 						</tr>
 						<tr>
-							<td><label>职务:</label></td>
+							<td style="text-align: right;"><label>职务:　</label></td>
 							<td><input id="txttitle" type="text"
 								class="easyui-validatebox"></td>
 						</tr>
 						<tr>
-							<td><label>手机号码:</label></td>
+							<td style="text-align: right;"><label>手机号码:　</label></td>
 							<td><input id="txtmobile" type="text"
 								class="easyui-validatebox"></td>
 						</tr>
 						<tr>
-							<td><label>公安短号:</label></td>
+							<td style="text-align: right;"><label>公安短号:　</label></td>
 							<td><input id="txtmobileshort" type="text"
 								class="easyui-validatebox"></td>
 						</tr>
 						<tr>
-							<td><label>组呼号:</label></td>
+							<td style="text-align: right;"><label>组呼号:　</label></td>
 							<td><input id="txtgroupno" class="easyui-combobox" /></td>
 						</tr>
 						<tr>
-							<td><label>个呼号:</label></td>
+							<td style="text-align: right;"><label>个呼号:　</label></td>
 							<td><input id="txtpersonalno" type="text"
 								class="easyui-validatebox"></td>
 						</tr>
 						<tr>
-							<td><label>GPS_ID:</label></td>
+							<td style="text-align: right;"><label>GPS_ID:　</label></td>
 							<td><input id="txtgpsid" class="easyui-combobox" /></td>
 						</tr>
 						<tr>
-							<td><label>GPS备注:</label></td>
+							<td style="text-align: right;"><label>GPS备注:　</label></td>
 							<td><input id="txtgpsdes" type="text"
 								class="easyui-validatebox"></td>
 						</tr>

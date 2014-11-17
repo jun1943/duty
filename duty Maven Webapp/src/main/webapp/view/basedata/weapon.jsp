@@ -16,18 +16,18 @@
 
 </head>
 
-<body class="easyui-layout"> 
+<body class="easyui-layout" style="padding:2px"> 
 	  
-	<div data-options="region:'center'"style="padding:10px;">  
-			<div id="tbWeapon" class="btn-toolbar" style="height:40px; margin-top:10px">
+	<div data-options="region:'center'"style="padding:2px;">  
+			<div id="tbWeapon" class="btn-toolbar" style="height:30px; margin-top:3px">
   				<div class="btn-group">
-  					<a id="btnAddWeapon" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-add"  plain="true" onclick="btnAddWeapon()">创建</a>
-                	<a id="btnEditWeapon" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="btnEditWeapon()">修改</a>
-                	<a id="btnDelWeapon" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel" plain="true" onclick="btnDelWeapon()">删除</a>
+  					<a id="btnAddWeapon" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-add"  onclick="btnAddWeapon()">创建</a>
+                	<a id="btnEditWeapon" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-edit" onclick="btnEditWeapon()">修改</a>
+                	<a id="btnDelWeapon" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel"   onclick="btnDelWeapon()">删除</a>
                 	
   				</div>  				
   				<div class="btn-group" style="float:right">
-  					<a id="btnSearchWeapon" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"  plain="true" onclick="btnSearchWeapon()">查询</a>
+  					<a id="btnSearchWeapon" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"   onclick="btnSearchWeapon()">查询</a>
                 	<!-- a id="btnPrintList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-print" plain="true" onclick="btnPrintList()">打印</a>
                 	<a id="btnExportList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-export" plain="true" onclick="btnExportList()">导出</a> -->
                	</div>
@@ -78,15 +78,15 @@
             padding: 5px 0 0;">
 					<table style="width:100%;height:99%; font: 12px 微软雅黑;"> 
 						<tr>
-							<td><input type="hidden" id="weaponId"><label>武器类型:</label></td>
+							<td style="text-align: right;"><input type="hidden" id="weaponId"><label>武器类型:　</label></td>
 							<td><input id="txttype" class="easyui-combobox" /></td>
 						</tr>
 						<tr>
-							<td><label>武器编号:</label></td>
+							<td style="text-align: right;"><label>武器编号:　</label></td>
 							<td><input type="text" class="easyui-validatebox" id="txtnumber"></td>
 						</tr>
 						<tr>
-							<td><label>子弹数目:</label></td>
+							<td style="text-align: right;"><label>子弹数目:　</label></td>
 							<td><input type="text" class="easyui-validatebox" id="txtstandard"></td>
 						</tr> 
 					</table>

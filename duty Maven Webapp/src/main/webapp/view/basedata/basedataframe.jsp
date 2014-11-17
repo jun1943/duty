@@ -23,6 +23,11 @@
 				<input type="text">
 			</div> -->
 
+		<div>
+			<input id="txtOrgName" style="width:80%; margin-left:4px;margin-top:2px" type="text"/>
+			<a id="btnSearchOrg" href="javascript:void(0);" class="easyui-linkbutton"
+                    iconcls="icon-search" onclick="searchOrgAction()" plain="true"></a>
+		</div>
 		<ul id="orgtree" class="easyui-tree">
 		</ul>
 	</div>
