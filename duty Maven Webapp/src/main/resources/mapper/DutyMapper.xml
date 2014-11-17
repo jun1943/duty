@@ -29,6 +29,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.tianyi.drs.duty.model.Duty" useGeneratedKeys="true" keyProperty="id">
+   <selectKey resultType="INTEGER" keyProperty="id">  
+  SELECT LAST_INSERT_ID()  
+  </selectKey> 
     insert into t_duty (id, org_id, is_template, 
       name, ymd, create_time, 
       preparer_id, description, sync_state, 
@@ -151,6 +154,9 @@
       platform_id = #{platformId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+    <delete id="deleteByYMD" parameterType="java.lang.Integer">
+  	delete from t_duty where ymd=#{targetYmd,jdbcType=INTEGER}
+  </delete>
   
    <select id="selectdutyProperty" resultType="com.tianyi.drs.duty.model.DutyProperty">  
        		 select * from t_duty_type_property order by id asc
@@ -564,6 +570,8 @@
 		where o.path like CONCAT("%","/",#{orgCode,jdbcType=VARCHAR},"%")
     </select >
     
-    
+    <select id="loadVMListByOrgAndYmd"  parameterType="java.util.Map" resultType="com.tianyi.drs.duty.model.Duty">  
+       		select * from t_duty where org_id = #{orgId,jdbcType=INTEGER}  and ymd between #{firstYMD,jdbcType=INTEGER} and  #{lastYMD,jdbcType=INTEGER}
+     </select> 
     
 </mapper>

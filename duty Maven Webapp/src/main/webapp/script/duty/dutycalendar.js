@@ -160,6 +160,7 @@ function setDateData(result) {
 
 		}
 	}
+	PlanArray = dateArray;
 	creatHtml(dateArray);// 灏嗛噸缁勫悗鐨勬暟缁勪紶缁檋tml閲嶇粍鍔熻兘鍑芥暟锛屽苟鎻掑叆鍒癏TML涓�
 	// p(dateArray);
 }
@@ -188,13 +189,19 @@ function creatHtml(arr) {
 			} else {
 				d = arr[i][j]["d"];
 			}
-			tdHtml = '<td><div  onmouseover=mouseOverFunction("'
+			tdHtml = '<td id="date_'
 					+ y
 					+ '-'
 					+ m
 					+ '-'
 					+ d
-					+ '") onmouseout=mouseOutFunction()  onclick=onClickData("'
+					+ '"><div  onmouseover=mouseOverFunction("'
+					+ y
+					+ '-'
+					+ m
+					+ '-'
+					+ d
+					+ '") onmouseout=mouseOutFunction()  ondblclick=onClickData("'
 					+ y
 					+ '-'
 					+ m
@@ -202,15 +209,30 @@ function creatHtml(arr) {
 					+ d
 					+ '") class="dateBoxMainDateTD"><div class="dateBoxMainDateTDLib">'
 					+ arr[i][j]["d"]
-					+ '</div><div class="dateBoxMainDateTDBox"><ul><li> '
-					+ arr[i][j]["totalpolice"];
-			if (arr[i][j]["totalpolice"] == "<li class='nobaobei' style='display: list-item;'>无报备</li>") {
-				tdHtml += '<li class="baoBeiBtn">' 
-					+ '<div class="pasteBtnBox" onclick="selectPasteBox(this,'+i+','+j+')" style="display: none;"><a href="javascript:void(0);">粘贴</a></div>'
-					+ '<a href="javascript:void(0);">粘贴</a>'
-					+ '</div></li>';
-			}
-			tdHtml += '</li> </ul></div></div>' 
+					+ '</div><div class="dateBoxMainDateTDBox"><ul id="ulcontent_'
+					+ i
+					+ '_'
+					+ j
+					+ '"><li> '
+					+ arr[i][j]["totalpolice"]
+					+ '<li class="baoBeiBtn">'
+					+ '<div class="pasteBtnBox" id="pasteBtn_'
+					+ i
+					+ "_"
+					+ j
+					+ '"  onclick=selectPasteBox("'
+					+ y
+					+ '-'
+					+ m
+					+ '-'
+					+ d
+					+ '",'
+					+ i
+					+ ','
+					+ j
+					+ ') style="display: none;"><a href="javascript:void(0);">粘贴</a></div>'
+					+ '</div></li>'
+					+ '</li> </ul></div></div>'
 					+ '<div id="calendarOpratdiv_'
 					+ y
 					+ '_'
@@ -237,7 +259,6 @@ function creatHtml(arr) {
 					+ '<a id="dellink_' + y + '_' + m + '_' + d
 					+ '" onclick=deleteDutyConfirm("' + y + '-' + m + '-' + d
 					+ '") style="float:right;">　　</a>' + '</div>' + '</td>';
-			// + arr[i][j]["dutyList"] + '</ul></div></div></td>';
 
 			trHtml = trHtml + tdHtml;
 		}
@@ -247,6 +268,7 @@ function creatHtml(arr) {
 	$("#dateBody").append(html);// 鎻掑叆html
 	changeDivHeight();// 鎻掑叆html琛ㄦ牸楂樺害涓嶆槸鑷姩閫傚簲鐨勶紝璋冪敤楂樺害璋冩暣鍑芥暟锛岃嚜閫傚簲楂樺害
 }
+
 var dtime = null;
 function onClickData(date) {
 	dtime = null;
@@ -327,21 +349,60 @@ function deleteDutyConfirm(date) {
 function deleteDutyAction(dt) {
 	alert("删除报备数据");
 }
+var pasteDate = "";
 var copyX = 0;// 要复制数组的X下标
 var copyY = 0;// 要复制数组的Y下标
-var copyArray = new Array();// 初始化复制数组
 var PlanArray = new Array();// 报备情况数组，记录每天的报备情况
 function copyDutyByDays(date, i, j) {
-	copyX = i;// 更新copyX全局变量
-	copyY = j;// 更新copyY全局变量
-	$('li[class=nobaobei]').each(function() { // 隐藏没有报备的文字
-		$(this).position().top = 10;
-		$(this).hide();
+	pasteDate = "";
+	copyX = i;
+	copyY = j;
+	var dt = date.replace(/-/gm, '');
+	pasteDate = dt;
+
+	for ( var i = 0; i < PlanArray.length; i++) {
+		for ( var j = 0; j < PlanArray[i].length; j++) {
+			if (i == copyX) {// 同一行，之判断列
+				if (j > copyY) {
+					// var obj=$("#pasteBtn_" + i+"_"+j).parent().parent();
+					// $(obj).find('li[class=nobaobei]').hide();
+					$("#pasteBtn_" + i + "_" + j).show();
+				}
+			} else if (i > copyX) {// 下一行，直接追加div
+				// var obj=$("#pasteBtn_" + i+"_"+j).parent().parent();
+				// $(obj).find('li[class=nobaobei]').hide();
+				$("#pasteBtn_" + i + "_" + j).show();
+			}
+
+		}
+
+	}
+}
+function selectPasteBox(date, i, j) {
+	var dt = date.replace(/-/gm, '');
+	var pars = {
+		orgId : m_dutyCalendar_Org.id,
+		ymd : pasteDate,
+		targetYmd : dt
+	};
+	$.ajax({
+		url : "dutyCalendar/copyDutyByOrgIdAndYMD.do",
+		type : "POST",
+		dataType : "json",
+		data : pars,
+		async : false,
+		success : function(req) {
+			if (req.isSuccess) {// 成功填充数据
+				var html = $("#ulcontent_" + copyX + "_" + copyY).html();
+				$("#ulcontent_" + i + "_" + j).html(html);
+
+				$("#pasteBtn_" + i + "_" + j).hide();
+			} else {
+				alert("报备信息复制失败");
+			}
+		}
 	});
 
-	$('div[class=pasteBtnBox]').each(function() { // 在每个日期格子中显示粘贴按钮
-		$(this).show();
-	});
 }
 /**
  * 汇总各级节点的数据
@@ -545,23 +606,24 @@ var YMD = {
 	}
 };
 
-function btnExportToExcelAction() {
-	var obj = $('#tgddutydetailsforday').treegrid("getData");
-	createExcelApplication(obj);
-};
+// function btnExportToExcelAction() {
+// var obj = $('#tgddutydetailsforday').treegrid("getData");
+// createExcelApplication(obj);
+// };
 function btnExportAction() {
 	$.ajax({
 		url : "dutyCalendar/exportDataToExcle.do",
 		type : "POST",
 		dataType : "json",
-		async:false,
-		timeout:60000,
+		async : false,
+		timeout : 60000,
 		data : {
 			orgId : m_dutyCalendar_Org.id,
 			ymd : m_dutyCalendar_Org.date
 		},
 		success : function(req) {
-			window.open(req.Data);
+			var urlStr = req.Data.substring(1, req.Data.length);
+			window.open(urlStr);
 		},
 		failer : function(a, b) {
 			$.messager.alert("消息提示", a, "info");
@@ -576,12 +638,29 @@ function clearAlldutyData() {
 	$.messager.confirm("系统提示", "确认删除    " + y + "年" + m + "月" + " 的所有报备数据吗？",
 			function(r) {
 				if (r) {
-					deleteAllDutyDataAction();
+					deleteAllDutyDataAction(y, m);
 				}
 			});
 };
-function deleteAllDutyDataAction() {
-
+function deleteAllDutyDataAction(year, month) {
+	$.ajax({
+		url : "dutyCalendar/deleteAllDutyData.do",
+		type : "POST",
+		dataType : "json",
+		data : {
+			orgId : m_dutyCalendar_Org.id,
+			year : year,
+			month : month
+		},
+		success : function(req) { 
+		},
+		failer : function(a, b) {
+			$.messager.alert("消息提示", a, "info");
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			$.messager.alert("消息提示", errorThrown, "error");
+		}
+	});
 };
 function clearClipbord() {
 

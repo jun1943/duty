@@ -81,7 +81,7 @@ img { border:0px;}
 .dateBoxMainDate table{ width:100%; height:100%; border:none;border-collapse:collapse;}
 .dateBoxMainDate th{ width:10%; background-color:#8ba7c9; color:#FFF;}
 .dateBoxMainDate td{ width:10%; background-color:#e4e4e4; color:#43505b; border:1px solid #fff; border-left:none; border-top:none; height:25%;}
-.dateBoxMainDateTD{ width:100%; height:80%; overflow:hidden;}
+.dateBoxMainDateTD{ width:100%; height:80%; overflow:hidden;position:relative;}
 .dateBoxMainDateTDLib{ cursor:pointer;width:33px; height:27px; overflow:hidden; background:url(dateLib.png) no-repeat; text-align:center; color:#FFF; line-height:27px;}
 .dateBoxMainDateTDLibOff{ width:33px; height:27px; overflow:hidden; background:url(dateLibOff.png) no-repeat; text-align:center; color:#FFF; line-height:27px;}
 .dateBoxMainDateTDBox{ width:95%;  margin:5px auto; overflow:hidden; text-align:left; cursor:pointer;}
@@ -115,6 +115,29 @@ img { border:0px;}
 #MenuBoxOnBox{border:1px solid #EFEFEF; margin:1px;}
 
 .MenuMouseMove{ width:100%; height:46px; background:url(../images/menuMousemouve.png) repeat-x; cursor:pointer;}
+
+
+
+
+
+
+
+
+
+.pasteBtnBox{ display:none; width:100%; text-align:center; height:25px; background:url(../images/pastebtnbox.png) no-repeat; background-position:center; line-height:25px; cursor:pointer;position:absolute;top:20px;}
+.pasteBtnBox img{ vertical-align:middle; margin-left:3px;}
+
+.pasteBtnBox a{color:#4c4c4c;}
+
+
+
+
+
+
+
+
+
+
 
 
 

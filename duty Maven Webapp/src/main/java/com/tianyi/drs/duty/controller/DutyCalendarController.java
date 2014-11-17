@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tianyi.drs.duty.model.Duty;
+import com.tianyi.drs.duty.model.DutyItem;
 import com.tianyi.drs.duty.service.DutyService;
 import com.tianyi.drs.duty.service.DutyTypeService;
 import com.tianyi.drs.duty.service.OrgService;
@@ -126,11 +128,12 @@ public class DutyCalendarController {
 					result += "</li>";
 				}
 			} else {
-				result = "<li class='nobaobei' style='display: list-item;'>无报备</li>"  ;
-//						+ "<li class='baoBeiBtn'><div class='pasteBtnBox' onclick='selectPasteBox(this,'"+date+"')' style='display: none;'><a href='javascript:void(0);'>粘贴</a></div>"
-//						+ "<a href='javascript:void(0);'>粘贴</a>"
-//						+ "</div></li>";
-				//result = "无报备";
+				result = "<li class='nobaobei' style='display: list-item;'>无报备</li>";
+				// +
+				// "<li class='baoBeiBtn'><div class='pasteBtnBox' onclick='selectPasteBox(this,'"+date+"')' style='display: none;'><a href='javascript:void(0);'>粘贴</a></div>"
+				// + "<a href='javascript:void(0);'>粘贴</a>"
+				// + "</div></li>";
+				// result = "无报备";
 			}
 			return result;
 		} catch (Exception ex) {
@@ -257,34 +260,8 @@ public class DutyCalendarController {
 				sublist = getSubList(list);
 				isSuccess = initExcelData(sublist, realPath);
 				if (isSuccess) {
-					FileInputStream fis = null;
-					OutputStream os = null;
-					try {
-						String fileName = "警力报备明细数据表" + ymd;
-						fis = new FileInputStream(realPath);
-						os = response.getOutputStream();// 取得输出流
-						response.reset();// 清空输出流
-						response.setHeader("Content-disposition",
-								"attachment; filename=" + fileName);// 设定输出文件头
-						response.setContentType("application/x-download");
-						byte[] mybyte = new byte[8192];
-						int len = 0;
-						while ((len = fis.read(mybyte)) != -1) {
-							os.write(mybyte, 0, len);
-						}
-						os.close();
-						ExprotFileInfo finfo=new ExprotFileInfo();
-						finfo.setPath(exlPath);
-						ObjResult<ExprotFileInfo> rs=new ObjResult<ExprotFileInfo>(true,null,0,finfo);
-						
-						String json=rs.toJson();
-						
-						return json;
-						
-					} catch (IOException e) {
-						return "{\"isSuccess\":false,\"Message\":\""
-								+ e.getMessage() + "\",\"Data\":\"\"}";
-					}
+					return "{\"isSuccess\":false,\"Message\":\"" + exlPath
+							+ "\",\"Data\":\"" + exlPath + "\"}";
 				} else {
 					return "{\"isSuccess\":false,\"Message\":\"创建Excel表格失败\",\"Data\":\"\"}";
 				}
@@ -408,4 +385,103 @@ public class DutyCalendarController {
 			return isCreateSuccess;
 		}
 	}
+
+	@RequestMapping(value = "copyDutyByOrgIdAndYMD.do")
+	public @ResponseBody
+	String copyDutyByOrgIdAndYMD(
+			@RequestParam(value = "orgId", required = false) Integer orgId,
+			@RequestParam(value = "ymd", required = false) Integer ymd,
+			@RequestParam(value = "targetYmd", required = false) Integer targetYmd,
+			HttpServletResponse response, HttpServletRequest request)
+			throws IOException {
+		Duty duty = new Duty();
+		duty = dutyService.loadVMByOrgIdAndYmd(orgId, targetYmd);
+		if (duty != null) {
+			int dutyId = duty.getId();
+			dutyService.deleteByDutyId(dutyId);
+		}
+		dutyService.deleteByYMD(targetYmd);
+		Duty nduty = new Duty();
+		Duty lduty = dutyService.loadVMByOrgIdAndYmd(orgId, ymd);
+		if (lduty != null) {
+			Date now = new Date();
+			nduty.setCreateTime(now);
+			nduty.setDescription(lduty.getDescription());
+			nduty.setIsTemplate(false);
+			nduty.setName(lduty.getName());
+			nduty.setOrgId(orgId);
+			nduty.setPlatformId(1);
+			nduty.setPreparerId(lduty.getPreparerId());
+			nduty.setSyncState(true);
+			nduty.setYmd(targetYmd);
+			int ndutyId = dutyService.insert(nduty);
+			List<DutyItem> list = new ArrayList<DutyItem>();
+			list = dutyService.loadlistByDutyId(lduty.getId());
+			if (list.size() > 0) {
+				for (int i = 0; i < list.size(); i++) {
+					DutyItem di = new DutyItem();
+					di.setDescription(list.get(i).getDescription());
+					di.setDutyId(ndutyId);
+					di.setDutyTypeId(list.get(i).getDutyTypeId());
+					di.setFullIdPath(list.get(i).getFullIdPath());
+					di.setIconUrl(list.get(i).getIconUrl());
+					di.setItemId(list.get(i).getItemId());
+					// 设置其他属性，
+					dutyService.insertDutyItem(di);
+				}
+			}
+		}
+		ObjResult<DutyVM> rs = new ObjResult<DutyVM>(true, null, orgId, null);// 暂时不
+		return rs.toJson();
+	}
+
+	@RequestMapping(value = "deleteAllDutyData.do")
+	public @ResponseBody
+	String deleteAllDutyData(
+			@RequestParam(value = "orgId", required = false) Integer orgId,
+			@RequestParam(value = "year", required = false) Integer year,
+			@RequestParam(value = "month", required = false) Integer month,
+			HttpServletResponse response, HttpServletRequest request)
+			throws IOException {
+		List<Duty> dutylist = new ArrayList<Duty>();
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, year);
+		cal.set(Calendar.MONTH, month);
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		cal.add(Calendar.DAY_OF_MONTH, -1);
+
+		int firstYMD = Integer.parseInt(year.toString()
+				+ (month < 10 ? "0" + month.toString() : month.toString())
+				+ "00");
+		int lastYMD = Integer.parseInt(year.toString()
+				+ (month < 10 ? "0" + month.toString() : month.toString())
+				+ "32");
+
+		Map<String, Object> maps = new HashMap<String, Object>();
+		maps.put("orgId", orgId);
+		maps.put("firstYMD", firstYMD);
+		maps.put("lastYMD", lastYMD);
+		dutylist = dutyService.loadVMListByOrgAndYmd(maps);
+
+		if (dutylist.size() > 0) {
+			int[] ids = new int[dutylist.size()];
+			for (int i = 0; i < dutylist.size(); i++) {
+				int id = dutylist.get(i).getId();
+				ids[i] = id;
+			}
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("orgId", orgId);
+			if (ids.length > 0) {
+				map.put("ids", ids);
+				dutyService.deleteByDutyIdlist(map);
+				for (int j = 0; j < ids.length; j++) {
+					int dId = ids[j];
+					dutyService.deleteByPrimaryKey(dId);
+				}
+			}
+		}
+		ObjResult<DutyVM> rs = new ObjResult<DutyVM>(true, null, orgId, null);// 暂时不
+		return rs.toJson();
+	}
+
 }

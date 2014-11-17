@@ -38,7 +38,7 @@
 						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
 					  onclick="saveTemplate()">另存为模板</a>
 						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
-						 	onclick="onTest()">导出</a>
+						 	onclick="btnExportToExcelAction()">导出</a>
 					</div>
 			</div>
 	</div>
