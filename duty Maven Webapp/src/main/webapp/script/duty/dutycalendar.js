@@ -554,10 +554,11 @@ function btnExportAction() {
 		url : "dutyCalendar/exportDataToExcle.do",
 		type : "POST",
 		dataType : "json",
+		async:false,
+		timeout:60000,
 		data : {
-			'orgId' : m_dutyCalendar_Org.id,
-			'orgName' : m_dutyCalendar_Org.id,
-			'ymd' : m_dutyCalendar_Org.date
+			orgId : m_dutyCalendar_Org.id,
+			ymd : m_dutyCalendar_Org.date
 		},
 		success : function(req) {
 			window.open(req.Data);
@@ -565,8 +566,8 @@ function btnExportAction() {
 		failer : function(a, b) {
 			$.messager.alert("消息提示", a, "info");
 		},
-		error : function(a) {
-			$.messager.alert("消息提示", a, "error");
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			$.messager.alert("消息提示", errorThrown, "error");
 		}
 	});
 };

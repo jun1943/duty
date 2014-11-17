@@ -32,7 +32,10 @@ import com.tianyi.drs.duty.viewmodel.DutyExportVM;
 import com.tianyi.drs.duty.viewmodel.DutyItemCountVM;
 import com.tianyi.drs.duty.viewmodel.DutyItemVM;
 import com.tianyi.drs.duty.viewmodel.DutyVM;
+import com.tianyi.drs.duty.viewmodel.ExprotFileInfo;
 import com.tianyi.drs.duty.viewmodel.ListResult;
+import com.tianyi.drs.duty.viewmodel.ObjResult;
+
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -216,7 +219,7 @@ public class DutyCalendarController {
 		return rs.toJson();
 	}
 
-	@RequestMapping(value = "exportDataToExcle.do", produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "exportDataToExcle.do")
 	public @ResponseBody
 	String exportDataToExcle(
 			@RequestParam(value = "orgId", required = false) Integer orgId,
@@ -270,8 +273,14 @@ public class DutyCalendarController {
 							os.write(mybyte, 0, len);
 						}
 						os.close();
-						return "{\"isSuccess\":true,\"Message\":\"" + exlPath
-								+ "\",\"Data\":\"" + exlPath + "\"}";
+						ExprotFileInfo finfo=new ExprotFileInfo();
+						finfo.setPath(exlPath);
+						ObjResult<ExprotFileInfo> rs=new ObjResult<ExprotFileInfo>(true,null,0,finfo);
+						
+						String json=rs.toJson();
+						
+						return json;
+						
 					} catch (IOException e) {
 						return "{\"isSuccess\":false,\"Message\":\""
 								+ e.getMessage() + "\",\"Data\":\"\"}";

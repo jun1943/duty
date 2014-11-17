@@ -91,9 +91,7 @@ $(function() {
 	 loadBaseDataForCombox("duty/getdutyProperty.do", $('#dutyProperty'));
 //	 getBaseDataCombobox("police/getPoliceType.do", "cmbpoliceType");
 //	 getBaseDataCombobox("duty/getdutyProperty.do", "dutyProperty");
-	 
-	 var propDatas=$('#dutyProperty').combobox('getData');
-	 
+
 	 initCriteria();
 });
 
@@ -111,7 +109,13 @@ function loaddutyTypeComboTree(){
 		success : function(req) {
 			if (req.isSuccess) {// 成功填充数据
 				var ss = buildDutyTypeTree(req.rows);
+				var a=[];
+				
+				$.each(req.rows,function(i,v){
+					a.push(v.id);
+				});
 				$('#cmbdutytype').combotree('loadData', ss);
+				$('#cmbdutytype').combotree('setValues', a);
 				
 			} else {
 				alert("获取数据失败");
@@ -125,7 +129,6 @@ function btnExportDataAction(){
 };
 
 function btnSearchQueryAction(){
-	var propDatas=$('#dutyProperty').combobox('getData');
 	loadReport();
 	
 };
