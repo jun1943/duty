@@ -52,6 +52,10 @@ function onOrgTreeDblClick(node){
 	
 	pageSwitch();
 	$("#policemanage").attr("class", "dateBoxMenuOn");
+	$("#vehiclemanage").attr("class", "");
+	$("#weaponmanage").attr("class", "");
+	$("#gpsdevicemanage").attr("class", "");
+	$("#iconsmanage").attr("class", "");
 }
 /*
  * 页面切换

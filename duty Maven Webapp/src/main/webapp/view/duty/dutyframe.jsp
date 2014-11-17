@@ -27,25 +27,25 @@
     <div data-options="region:'center',title:'警务备勤'"  >
     	<iframe id="ifmWorkSpace" name="ifmWorkSpace"  scrolling='yes'  frameborder='0'  style="width:100%;height:100%"></iframe>
     </div>        
-    <div data-options="region:'east',split:true"  style="width:10%;">
+    <div data-options="region:'east',split:false"  style="width:15%;">
     	<!--导航目录 s-->
 		<div class="MenuBox">
 			<ul>
-		    	<li id="MenuBoxOn">
-		        	<div id="MenuBoxOnBox"><img src="asset/css/images/baobeimodel.png" /><a href="#">勤务管理</a></div>
+		    	<li style="cursor:default"  id="MenuBoxOn">
+		        	<div id="MenuBoxOnBox"><img src="asset/css/images/baobeimodel.png" /><a style="cursor:default" href="javascript:void(0);">勤务管理　　</a></div>
 		        	
 		        </li>
 		        <li onclick="onDutyPrepare()">
-		        	<div doc="menu" class="MenuMouseMove"><img src="asset/css/images/little icon/qingwubaobei.png" /><a href="javascript:void(0);" onclick="onDutyPrepare()">勤务报备管理</a></div>
+		        	<div id="divDutyPrepare" doc="menu"><img src="asset/css/images/little icon/qingwubaobei.png" /><a href="javascript:void(0);" onclick="onDutyPrepare()">勤务报备管理</a></div>
 		        </li>
 		        <li onclick="onDutyDataGroup('policegroup')">
-		        	<div doc="menu"><img src="asset/css/images/little icon/organize.png" /><a href="javascript:void(0);" onclick="onDutyDataGroup('policegroup')">资源分组管理</a></div>
+		        	<div id="divDutyDataGroup" doc="menu"><img src="asset/css/images/little icon/organize.png" /><a href="javascript:void(0);" onclick="onDutyDataGroup('policegroup')">资源分组管理</a></div>
 		        </li>
 		        <li onclick="onDutyReport()">
-		        	<div doc="menu"><img src="asset/css/images/little icon/comprehensivequery.png" /><a href="javascript:void(0);" onclick="onDutyReport()">勤务综合查询</a></div>
+		        	<div id="divDutyReport" doc="menu"><img src="asset/css/images/little icon/comprehensivequery.png" /><a href="javascript:void(0);" onclick="onDutyReport()">勤务综合查询</a></div>
 		        </li>
 		        <li onclick="onDutyType()">
-		        	<div doc="menu"><img src="asset/css/images/little icon/basicdata.png" /><a href="javascript:void(0);" onclick="onDutyType()">报备类型管理</a></div>
+		        	<div id="divDutyType" doc="menu"><img src="asset/css/images/little icon/basicdata.png" /><a href="javascript:void(0);" onclick="onDutyType()">报备类型管理</a></div>
 		        </li> 
 		    </ul>
 		</div>

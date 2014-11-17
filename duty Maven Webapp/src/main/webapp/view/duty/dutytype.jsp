@@ -25,17 +25,17 @@
 	<div id="tbDutyType" class="btn-toolbar">
 				<div class="btn-group">
 					<a href="javascript:void(0);"
-						class="easyui-linkbutton icon-camera-retro" plain="true"
+						class="easyui-linkbutton icon-camera-retro" 
 						onclick="addRootDutyType()">新建根节点</a> 
 					<a href="javascript:void(0);" class="easyui-linkbutton"
-						iconcls="icon-edit" plain="true" onclick="addChildDutyType()">新建子节点</a>
+						iconcls="icon-edit"  onclick="addChildDutyType()">新建子节点</a>
 					<a href="javascript:void(0);" class="easyui-linkbutton"
-						iconcls="icon-edit" plain="true" onclick="editDutyType()">编辑</a>
-					<a  href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel" plain="true"
+						iconcls="icon-edit"  onclick="editDutyType()">编辑</a>
+					<a  href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel" 
 						onclick="useDutyType()">启用</a>
-					<a  href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel" plain="true"
+					<a  href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel" 
 						onclick="unUseDutyType()">停用</a>
-					<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" plain="true"
+					<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
 						onclick="delDutyType()">删除</a>
 				</div>
 			</div>

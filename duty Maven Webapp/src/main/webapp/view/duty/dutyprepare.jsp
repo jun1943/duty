@@ -22,29 +22,29 @@
 </head>
 	
 <body class="easyui-layout" oncontextmenu=self.event.returnValue=false>
-		<div data-options="region:'north'"  style="height:30px">
+		<div data-options="region:'north'"  style="height:40px">
 				<div id="tbGroup" class="btn-toolbar">
-					<div class="btn-group">
+					<div class="btn-group" style="background: url(asset/css/images/dateMenuBg.png) repeat-x;width: 99.5%;line-height: 40px;overflow: hidden;height: 38px;">
 						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
-						plain="true" onclick="selectDutyType()">报备类型选择</a> 
+						  onclick="selectDutyType()">报备类型选择</a> 
 						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
-						plain="true"	onclick="showDutyTemplate()">选择模板</a>
+						 	onclick="showDutyTemplate()">选择模板</a>
 						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
-						plain="true"	onclick="showCalendar()">报备复制</a>
+						 	onclick="showCalendar()">报备复制</a>
 						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
-						plain="true"	onclick="clearDuty()">清空报备</a>
+						 onclick="clearDuty()">清空报备</a>
 						<a  href="javascript:void(0);"	class="easyui-linkbutton icon-camera-retro" 
-						plain="true"	onclick="saveDuty()">保存</a>
+					 	onclick="saveDuty()">保存</a>
 						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
-						plain="true" onclick="saveTemplate()">另存为模板</a>
+					  onclick="saveTemplate()">另存为模板</a>
 						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
-						plain="true"	onclick="onTest()">导出</a>
+						 	onclick="onTest()">导出</a>
 					</div>
 			</div>
 	</div>
 
-	<div id="divResource" data-options="region:'west',split:true" title="资源"
-			style="width:30%;height:100%">
+	<div id="divResource" data-options="region:'west',split:false" title="资源"
+			style="width:25%;height:100%">
 			<div id="tt" class="easyui-tabs" style="width:100%;height:500px;">	
  				<div title="人员" style="padding:10px;height:100%">  
        					  <div id="source_police"></div> 
@@ -64,7 +64,7 @@
 				<div title="车辆" style="padding:10px;height:100%">  
        					 <div id="source_vehicle"></div> 
        					  <div style="margin-top:2px">
-								<a id="btnCheckAllVehicle" "style="float:right; margin-right:10px"  name="btnCheckAllVehicle"  href="javascript:void(0);" class="easyui-linkbutton" onclick="addSelVehicles()">一键添加</a>
+								<a id="btnCheckAllVehicle" style="float:right; margin-right:10px"  name="btnCheckAllVehicle"  href="javascript:void(0);" class="easyui-linkbutton" onclick="addSelVehicles()">一键添加</a>
        					  		<a id="checkAllVehicle" style="float:right; margin-right:5px" onclick="uncheckAllResources('source_vehicle')"  name="checkAllVehicle"  href="javascript:void(0);" class="easyui-linkbutton"  >取消选择</a>
      					  		<a id="uncheckAllVehicle" style="float:right; margin-right:5px" onclick="checkAllResources('source_vehicle')"  name="uncheckAllVehicle"  href="javascript:void(0);" class="easyui-linkbutton"  >全选</a>
    					  	  </div>
@@ -110,19 +110,19 @@
 		<div class="easyui-layout" style="height:100%;width :100%">
 				<div data-options="region:'north'"  style="height:30px">
 					<div class="btn-toolbar">
-						<div class="btn-group">
+						<div class="btn-group" style="margin-top:1px">
 							<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
-							plain="true" onclick="addShift()">添加班次</a> 
-							<a  href="javascript:void(0);"	class="easyui-linkbutton icon-camera-retro" 
-							plain="true"	onclick="setShift()">设置班次</a>
+							 onclick="addShift()">添加班次</a> 
+							<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-edit" 
+							 onclick="setShift()">设置班次</a>
 							<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
-							plain="true" onclick="addUserNode()">添加编组</a> 
-							<a  href="javascript:void(0);"	class="easyui-linkbutton icon-camera-retro" 
-							plain="true"	onclick="setUserNode()">设置编组</a>
-							<a  href="javascript:void(0);"	class="easyui-linkbutton icon-camera-retro" 
-							plain="true"	onclick="showTaskWindow()">关联任务</a>
+							 onclick="addUserNode()">添加编组</a> 
+							<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-edit" 
+							 onclick="setUserNode()">设置编组</a>
+							<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-edit" 
+							 onclick="showTaskWindow()">关联任务</a>
 							<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
-							plain="true" onclick="deleteNode()">删除节点</a>
+							 onclick="deleteNode()">删除节点</a>
 						</div>
 					</div>
 				</div>
@@ -140,8 +140,8 @@
 				<div data-options="region:'south',border:false"
 					style="padding: 2px; height: 30px;">
 					<a href="javascript:void(0);" class="easyui-linkbutton" 
-						data-options="iconCls:'icon-save',plain:true" style="float:right"
-						onclick="searchPoliceAction()">确定</a>   
+					 style="float:right"
+						onclick="searchPoliceAction()"> 确　定  </a>   
 				</div>				
 				<div data-options="region:'west',border:false"
 					style="padding: 2px; width:150px; height:200px">
@@ -161,8 +161,8 @@
 				<div data-options="region:'south',border:false"
 					style="padding: 2px; height: 30px;">
 					<a href="javascript:void(0);" class="easyui-linkbutton" 
-						data-options="iconCls:'icon-save',plain:true" style="float:right"
-						onclick="searchGpsAction()">确定</a>  
+						 style="float:right"
+						onclick="searchGpsAction()"> 确　定 </a>  
 				</div>	 			
 				<div data-options="region:'west',border:false"
 					style="padding: 2px; width:150px; height:200px">
@@ -182,8 +182,8 @@
 				<div data-options="region:'south',border:false"
 					style="padding: 2px; height: 30px;">
 					<a href="javascript:void(0);" class="easyui-linkbutton" 
-						data-options="iconCls:'icon-save',plain:true" style="float:right"
-						onclick="searchWeaponAction()">确定</a>   
+						 style="float:right"
+						onclick="searchWeaponAction()"> 确　定 </a>   
 				</div>	 	 			
 				<div data-options="region:'west',border:false"
 					style="padding: 2px; width:150px; height:200px">
@@ -203,8 +203,8 @@
 				<div data-options="region:'south',border:false"
 					style="padding: 2px; height: 30px;">
 					<a href="javascript:void(0);" class="easyui-linkbutton"  
-						data-options="iconCls:'icon-save',plain:true" style="float:right"
-						onclick="searchVehicleAction()">确定</a>   
+						  style="float:right"
+						onclick="searchVehicleAction()"> 确　定 </a>   
 				</div>	  	 			
 				<div data-options="region:'west',border:false"
 					style="padding: 2px; width:150px; height:200px">
@@ -216,14 +216,15 @@
 				</div>
 			</div>
 	</div>
-	<div id="dutyTypeSelectwindow" class="easyui-window" title="报备类型-选择" data-options="iconCls:'icon-edit'"
+	<div id="dutyTypeSelectwindow" class="easyui-window" title="报备类型-选择" data-options="iconCls:'icon-edit'" closed="true" 
+	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
 			style="width: 354px; height:500px; padding: 10px;">
 		<div class="easyui-layout" data-options="fit:true">
 			<div data-options="region:'south',border:false"
 					style="padding: 2px; height: 30px;"> 
 					<a href="javascript:void(0);" class="easyui-linkbutton" 
-						data-options="iconCls:'icon-save',plain:true" style="float:right"
-						onclick="selectDutyTypeAction()">确定</a>   
+						  style="float:right"
+						onclick="selectDutyTypeAction()"> 确　定 </a>   
 			</div>
 			<div data-options="region:'center',border:false"
 					style="padding: 2px;  width:300px; height:400px">
@@ -231,14 +232,15 @@
 			</div>
 		</div>
 	</div>
-	<div id="dutyTemplateSelectwindow"  class="easyui-window" title="备勤模板-选择" data-options="iconCls:'icon-edit'"
+	<div id="dutyTemplateSelectwindow"  class="easyui-window" title="备勤模板-选择" data-options="iconCls:'icon-edit'" closed="true" 
+	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
 			style="width: 354px; height:400px; padding: 10px;">
 			<div class="easyui-layout" data-options="fit:true">
 			<div data-options="region:'south',border:false"
 					style="padding: 2px; height: 30px;"> 
 					<a href="javascript:void(0);" class="easyui-linkbutton" 
-						data-options="iconCls:'icon-save',plain:true" style="float:right"
-						onclick="selectDutyTemplateAction()">确定</a>   
+					  style="float:right"
+						onclick="selectDutyTemplateAction()"> 确　定 </a>   
 			</div>
 			<div data-options="region:'center',border:false"
 					style="padding: 2px;  width:350px; height:350px">
@@ -269,15 +271,15 @@
 	 <div id="userNodeWindows"  class="easyui-window" title="自定义编组"  data-options="iconCls:'icon-save',modal:true" closed="true" 
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" style="width: 300px; height:100px; padding: 2px;">
 			<div class="easyui-layout" data-options="fit:true">
-			<div data-options="region:'north',border:false"
+			<div data-options="region:'south',border:false"
 					style="padding: 2px; height: 30px;"> 
-					<a href="javascript:void(0);" class="easyui-linkbutton" 
-						data-options="iconCls:'icon-save',plain:true"
-						onclick="userNodeConfirm()">确定</a>  
-					 <a href="javascript:void(0);" 
+					<a href="javascript:void(0);" class="easyui-linkbutton"  
+					  style="float:right"
+						onclick="userNodeConfirm()"> 确　定 </a>  
+					 <!-- a href="javascript:void(0);" 
 						class="easyui-linkbutton"
 						onclick="$('#userNodeWindows').window('close');"
-						data-options="iconCls:'icon-remove',plain:true">取消</a>
+						data-options="iconCls:'icon-remove',plain:true">取消</a> -->
 			</div>
 			<div data-options="region:'center',border:false"
 					style="padding: 2px">
@@ -294,15 +296,15 @@
 	 <div id="shiftWindows"  class="easyui-window" title="班次"  data-options="iconCls:'icon-save',modal:true" closed="true" 
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" style="width: 380px; height:200px; padding: 2px;">
 			<div class="easyui-layout" data-options="fit:true">
-			<div data-options="region:'north',border:false"
+			<div data-options="region:'south',border:false"
 					style="padding: 2px; height: 30px;"> 
 					<a href="javascript:void(0);" class="easyui-linkbutton" 
-						data-options="iconCls:'icon-save',plain:true"
-						onclick="shiftConfirm()">确定</a>  
-					 <a href="javascript:void(0);" 
+					  style="float:right"
+						onclick="shiftConfirm()"> 确　定 </a>  
+					 <!-- a href="javascript:void(0);" 
 						class="easyui-linkbutton"
 						onclick="$('#shiftWindows').window('close');"
-						data-options="iconCls:'icon-remove',plain:true">取消</a>
+						data-options="iconCls:'icon-remove',plain:true">取消</a> -->
 			</div>
 			<div data-options="region:'center',border:false"
 					style="padding: 2px">
@@ -330,15 +332,15 @@
 	<div id="templateWindows"  class="easyui-window" title="备勤模板-保存"  data-options="iconCls:'icon-save',modal:true" closed="true" 
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" style="width: 300px; height:100px; padding: 2px;">
 			<div class="easyui-layout" data-options="fit:true">
-			<div data-options="region:'north',border:false"
+			<div data-options="region:'south',border:false"
 					style="padding: 2px; height: 30px;"> 
 					<a href="javascript:void(0);" class="easyui-linkbutton" 
-						data-options="iconCls:'icon-save',plain:true"
-						onclick="templateNameConfirm()">确定</a>  
-					 <a href="javascript:void(0);" 
+					  style="float:right"
+						onclick="templateNameConfirm()"> 确　定 </a>  
+					 <!--  <a href="javascript:void(0);" 
 						class="easyui-linkbutton"
 						onclick="$('#templateWindows').window('close');"
-						data-options="iconCls:'icon-remove',plain:true">取消</a>
+						data-options="iconCls:'icon-remove',plain:true">取消</a>-->
 			</div>
 			<div data-options="region:'center',border:false"
 					style="padding: 2px">
@@ -355,12 +357,13 @@
 	 <div id="calendarWindow"  class="easyui-window" title="备勤复制"  data-options="iconCls:'icon-save',modal:true" closed="true" 
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" style="width: 300px; height:300px; padding: 2px;">
 			<div class="easyui-layout" data-options="fit:true">
-				<div data-options="region:'north',border:false"
+				<div data-options="region:'south',border:false"
 					style="padding: 2px; height: 30px;"> 
-					 <a href="javascript:void(0);" 
+					<!--   <a href="javascript:void(0);" 
 						class="easyui-linkbutton"
+					  style="float:right"
 						onclick="$('#calendarWindow').window('close');"
-						data-options="iconCls:'icon-remove',plain:true">取消</a>
+						data-options="iconCls:'icon-remove'"> 取　消 </a>-->
 				</div>
 				<div data-options="region:'center',border:false"
 					style="padding: 2px">
@@ -372,15 +375,15 @@
 	 <div id="taskWindow"  class="easyui-window" title="任务关联"  data-options="iconCls:'icon-save',modal:true" closed="true" 
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" style="width: 350px; height:350px; padding: 2px;">
 			<div class="easyui-layout" data-options="fit:true">
-				<div data-options="region:'north',border:false"
+				<div data-options="region:'south',border:false"
 					style="padding: 2px; height: 30px;"> 
 					<a href="javascript:void(0);" class="easyui-linkbutton" 
-						data-options="iconCls:'icon-save',plain:true"
-						onclick="taskConfirm()">确定</a>  
-					 <a href="javascript:void(0);" 
+					  style="float:right"
+						onclick="taskConfirm()"> 确　定 </a>  
+					 <!-- a href="javascript:void(0);" 
 						class="easyui-linkbutton"
 						onclick="$('#taskWindow').window('close');"
-						data-options="iconCls:'icon-remove',plain:true">取消</a>
+						data-options="iconCls:'icon-remove',plain:true">取消</a> -->
 				</div>
 				<div data-options="region:'center',border:false"	style="padding: 2px">
 					<div id="dgtaskTarget" style="width:100%; height:100%"></div>

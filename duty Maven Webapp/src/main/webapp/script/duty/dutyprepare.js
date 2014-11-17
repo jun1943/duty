@@ -36,6 +36,7 @@ $(document).ready(function() {
 				idField : 'id',
 				treeField : 'name',
 				toolbar : "#tb_source_police",
+				width:220,
 				singleSelect:false,
 				columns : [ [  {
 					field : 'ck',
@@ -43,14 +44,14 @@ $(document).ready(function() {
 				}, {
 					title : 'id',
 					field : 'id',
-					align : 'center',
+					align : 'left',
 					width : 0,
 					hidden : true
 				}, {
 					title : '姓名',
 					field : 'name',
 					align : 'left',
-					width : 80
+					width : 50
 				}, {
 					title : '单位',
 					field : 'orgName',
@@ -65,7 +66,7 @@ $(document).ready(function() {
 				}, {
 					title : '类型',
 					field : 'itemTypeId',
-					align : 'center',
+					align : 'left',
 					width : 50,
 					hidden : true,
 					formatter : function(value, row, index) {
@@ -89,6 +90,7 @@ $(document).ready(function() {
 				idField : 'id',
 				treeField : 'number',
 				toolbar : "#tb_source_vehicle",
+				width:220,
 				singleSelect:false,
 				columns : [ [ {
 					field : 'ck',
@@ -148,6 +150,7 @@ $(document).ready(function() {
 				idField : 'id',
 				treeField : 'typeName',
 				toolbar : "#tb_source_gpsdevice",
+				width:220,
 				singleSelect:false,
 				columns : [ [  {
 					field : 'ck',
@@ -199,6 +202,7 @@ $(document).ready(function() {
 				idField : 'id',
 				treeField : 'typeName',
 				toolbar : "#tb_source_weapon",
+				width:220,
 				singleSelect:false,
 				columns : [ [ {
 					field : 'ck',

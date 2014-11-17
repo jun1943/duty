@@ -19,15 +19,15 @@
 	<div  class="easyui-layout"   style ="width:100%; height:100%">
 		 <div data-options="region:'north'" style ="width:100%; height:40px">
 		 	<div class="btn-toolbar">
-					<div class="btn-group">
+					<div class="btn-group" style="background: url(asset/css/images/dateMenuBg.png) repeat-x;width: 99.5%;line-height: 40px;overflow: hidden;height: 38px;">
 						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
-						plain="true" onclick="onPoliceManGroup('policegroup')">警员分组</a> 
+					 	onclick="onPoliceManGroup('policegroup')">警员分组</a> 
 						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
-						plain="true"	onclick="onVehicleGroup('vehiclegroup')">车辆分组</a>
+						onclick="onVehicleGroup('vehiclegroup')">车辆分组</a>
 						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
-						plain="true"	onclick="onWeaponGroup('weapongroup')">武器分组</a>
+						 onclick="onWeaponGroup('weapongroup')">武器分组</a>
 						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
-						plain="true"	onclick="onGpsDeviceGroup('gpsgroup')">定位设备分组</a> 
+						 onclick="onGpsDeviceGroup('gpsgroup')">定位设备分组</a> 
 					</div>
 			</div>
 		 </div>
@@ -40,12 +40,12 @@
 
 				<div class="btn-group">
 					<a id="btnAddGpsGroup" href="javascript:void(0);"
-						class="easyui-linkbutton icon-camera-retro" plain="true"
+						class="easyui-linkbutton icon-camera-retro" 
 						onclick="addGpsGroup()">创建</a> <a id="btnEditGpsGroup"
 						href="javascript:void(0);" class="easyui-linkbutton"
-						iconcls="icon-edit" plain="true" onclick="editGpsGroup()">修改</a>
+						iconcls="icon-edit"  onclick="editGpsGroup()">修改</a>
 					<a id="btnDelGpsGroup" href="javascript:void(0);"
-						class="easyui-linkbutton" iconcls="icon-cancel" plain="true"
+						class="easyui-linkbutton" iconcls="icon-cancel" 
 						onclick="delGpsGroup()">删除</a>
 				</div>
 			</div>
@@ -56,13 +56,13 @@
 			<div id="tbGroupMember" class="btn-toolbar">
 				<div class="btn-group">
 					<a id="btnAddGpsGroupMember" href="javascript:void(0);"
-						class="easyui-linkbutton" iconcls="icon-add" plain="true"
+						class="easyui-linkbutton" iconcls="icon-add"  
 						onclick="addGpsGroupMember()">添加</a> <a
 						id="btnEditGpsGroupMember" href="javascript:void(0);"
-						class="easyui-linkbutton" iconcls="icon-edit" plain="true"
+						class="easyui-linkbutton" iconcls="icon-edit"  
 						onclick="delGpsGroupMemeber()">删除</a> <a
 						id="btnCleanGpsGroupMember" href="javascript:void(0);"
-						class="easyui-linkbutton" iconcls="icon-cancel" plain="true"
+						class="easyui-linkbutton" iconcls="icon-cancel" 
 						onclick="cleanPGMember()">清空</a>
 				</div>
 			</div>
@@ -74,15 +74,7 @@
 	<div id="winPG" class="easyui-window" title="My Window" style="height:330px;width:320px"    
         data-options="iconCls:'icon-save',modal:true" closed="true" 
         collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false">
-			<div id="tbGroup" class="btn-toolbar">
-				<div class="btn-group">
-					<a id="btnSaveGpsGroup" href="javascript:void(0);"
-						class="easyui-linkbutton " plain="true"
-						onclick="saveGpsGroup()">保存</a> <a id="btnCloseGpsGroupDlg"
-						href="javascript:void(0);" class="easyui-linkbutton " plain="true"
-						onclick="closeWinPG()">退出</a>
-				</div>
-			</div>
+
 			<input type="hidden" id="txtGpsGroupId"></input>
 			<table style="width:100%">
 				<tr>
@@ -110,20 +102,19 @@
 					</td>
 				</tr>
 			</table>
+						<div id="tbGroup" class="btn-toolbar" style="width:100%">
+				<div class="btn-group" style="width:100%">
+					<a id="btnSaveGpsGroup" href="javascript:void(0);"
+						class="easyui-linkbutton " style="float:right; margin-right:10px"
+						onclick="saveGpsGroup()"> 保　存 </a> 
+				</div>
+			</div>
 		</div>
 
 	<div id="winPGMember" class="easyui-window" title="组成员选择" style="width:450px;height:400px"    
         data-options="iconCls:'icon-save',modal:true" closed="true" 
         collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false">    
-   	 		<div id="tbGroup" class="btn-toolbar">
-				<div class="btn-group">
-					<a id="btnSaveGpsGroup" href="javascript:void(0);"
-						class="easyui-linkbutton " plain="true"
-						onclick="appendMember()">保存</a> <a id="btnCloseGpsGroupDlg"
-						href="javascript:void(0);" class="easyui-linkbutton " plain="true"
-						onclick="closeWinPGMember()">退出</a>
-				</div>
-			</div>
+   	 		
 			<input id="txtGpsGroupId"  type="hidden"></input>
 			<table>
 				<tr>
@@ -144,6 +135,13 @@
 					</td>
 				</tr>
 			</table>   
+			<div id="tbGroup" class="btn-toolbar" style="width:100%">
+				<div class="btn-group" style="width:100%">
+					<a id="btnSaveGpsGroup" href="javascript:void(0);"
+						class="easyui-linkbutton " style="float:right; margin-right:10px"
+						onclick="appendMember()">保存</a> 
+				</div>
+			</div>
 	</div> 
 
 

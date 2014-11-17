@@ -21,17 +21,7 @@ $(function() {
 		checkbox : false,
 		cascadeCheck : true,
 		onDblClick : onOrgTreeDblClick
-	});
-	$("div[doc='menu']").each(function(){ //开始遍历
-		
-		$(this).mouseover(function(){
-				$(this).attr("class","MenuMouseMove");
-		})
-		
-		$(this).mouseleave(function(){
-				$(this).attr("class","");
-		})
-	});
+	}); 
 	loadFrmOrgs();
 });
 
@@ -43,6 +33,10 @@ function onOrgTreeDblClick(node) {
 	m_dutyFrame_func_prop.orgName = name;
 	m_dutyFrame_func_prop.url = "view/duty/dutycalendar.jsp";
 	pageSwitch();
+	$("#divDutyPrepare").attr("class","MenuMouseMove");
+	$("#divDutyType").attr("class","");
+	$("#divDutyDataGroup").attr("class","");
+	$("#divDutyReport").attr("class",""); 
 }
 /*
  * 页面切换
@@ -54,8 +48,8 @@ function pageSwitch(node, url) {
 			+ m_dutyFrame_func_prop.orgPath + "&orgName="
 			+ m_dutyFrame_func_prop.orgName;
 
-	var esrc = encodeURI(src);
-	$("#ifmWorkSpace").attr("src", esrc);
+	var esrc = encodeURI(src); 
+	$("#ifmWorkSpace").attr("src",src); 
 }
 
 function onDutyPrepare() {
@@ -63,24 +57,40 @@ function onDutyPrepare() {
 	setCheckBox(m_dutyFrame_func_prop.ctl, 1);
 	m_dutyFrame_func_prop.ctl = 1;
 	pageSwitch();
+	$("#divDutyPrepare").attr("class","MenuMouseMove");
+	$("#divDutyType").attr("class","");
+	$("#divDutyDataGroup").attr("class","");
+	$("#divDutyReport").attr("class",""); 
 }
 
 function onDutyReport() {
 	m_dutyFrame_func_prop.url = "view/duty/policeinquiry.jsp";
 	setCheckBox(m_dutyFrame_func_prop.ctl, 2);
 	pageSwitch();
+	$("#divDutyPrepare").attr("class","");
+	$("#divDutyType").attr("class","");
+	$("#divDutyDataGroup").attr("class","");
+	$("#divDutyReport").attr("class","MenuMouseMove"); 
 }
 
 function onDutyDataGroup(name) {
 	m_dutyFrame_func_prop.url = "view/duty/" + name + ".jsp";
 	setCheckBox(m_dutyFrame_func_prop.ctl, 3);
 	pageSwitch();
+	$("#divDutyPrepare").attr("class","");
+	$("#divDutyType").attr("class","");
+	$("#divDutyDataGroup").attr("class","MenuMouseMove");
+	$("#divDutyReport").attr("class",""); 
 }
 
 function onDutyType() {
 	m_dutyFrame_func_prop.url = "view/duty/dutytype.jsp";
 	setCheckBox(m_dutyFrame_func_prop.ctl, 4);
 	pageSwitch();
+	$("#divDutyPrepare").attr("class","");
+	$("#divDutyType").attr("class","MenuMouseMove");
+	$("#divDutyDataGroup").attr("class","");
+	$("#divDutyReport").attr("class",""); 
 }
 
 function setCheckBox(ctlA, ctlB) {

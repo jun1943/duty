@@ -89,7 +89,7 @@
 				<div data-options="region:'south',border:false"
 					style="padding: 2px; height: 30px;">
 					<a href="javascript:void(0);" class="easyui-linkbutton"
-						data-options="iconCls:'icon-save',plain:true" style="float:right"
+					  style="float:right"
 						onclick="savePoliceAction()">保存并继续</a>  
 				</div>
 				<div data-options="region:'center',border:false"

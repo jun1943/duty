@@ -71,7 +71,7 @@ img { border:0px;}
 .dateBoxMainTItleBoxMainTxt{ margin-left:30px; line-height:42px;}
 .dateBoxMainTItleBoxMainTxt2{  line-height:42px; margin-right:30px;}
 .dateBoxMainTItleBoxMainTxt samp{ float:left;}
-.dateBoxMainTItleBoxMain_samp{ clear:both; width:52px; height:25px; line-height:29px; color:#000; overflow:hidden; background:url(../images/dateTxtBg.png) no-repeat; background-position:center; margin-top:7px; float:left; }
+.dateBoxMainTItleBoxMain_samp{ clear:both; width:52px; height:25px; line-height:29px; color:#fff; overflow:hidden; background-position:center; margin-top:7px; float:left; }
 
 
 
