@@ -79,11 +79,17 @@ $(function() {
 		
 	$('#dteBeginDate').datebox('setValue',dateStr);
 	$('#spnBeginTime').timespinner('setValue','00:00');
-	$('#spnEndTime').timespinner('setValue','23:00');
+	$('#spnEndTime').timespinner('setValue','23:59');
 	
 	 loaddutyTypeComboTree();
-	 getBaseDataCombobox("police/getPoliceType.do", "cmbpoliceType");
-	 getBaseDataCombobox("duty/getdutyProperty.do", "dutyProperty");
+	 loadBaseDataForCombox("police/getPoliceType.do", $('#cmbpoliceType'));
+	 loadBaseDataForCombox("duty/getdutyProperty.do", $('#dutyProperty'));
+//	 getBaseDataCombobox("police/getPoliceType.do", "cmbpoliceType");
+//	 getBaseDataCombobox("duty/getdutyProperty.do", "dutyProperty");
+	 
+	 var propDatas=$('#dutyProperty').combobox('getData');
+	 
+	 initCriteria();
 });
 
 function fmtOrgCount(value, row, index){
@@ -96,7 +102,7 @@ function loaddutyTypeComboTree(){
 		type : "POST",
 		dataType : "json",
 		data:{isUsed:true},
-		//async : false,
+		async : false,
 		success : function(req) {
 			if (req.isSuccess) {// 成功填充数据
 				var ss = buildDutyTypeTree(req.rows);
@@ -114,9 +120,49 @@ function btnExportDataAction(){
 };
 
 function btnSearchQueryAction(){
+	var propDatas=$('#dutyProperty').combobox('getData');
 	loadReport();
 	
 };
+
+function loadBaseDataForCombox(url,cmb){
+	$.ajax({
+		url : url,
+		type : "POST",
+		dataType : "json",
+		async : false,
+		success : function(req) {
+			cmb.combobox('loadData', req);
+		}
+	});
+}
+
+function initCriteria(){
+	
+	var propId=[];
+	var propDatas=$('#dutyProperty').combobox('getData');
+	$.each(propDatas,function(i,v){
+		propId.push(v.id);
+	});
+	$('#dutyProperty').combobox('setValues',propId);
+	
+	var policeTypeIds=[];
+	var policeTypeDatas=$('#cmbpoliceType').combobox('getData');
+	$.each(policeTypeDatas,function(i2,v2){
+		policeTypeIds.push(v2.id);
+	});
+	$('#cmbpoliceType').combobox('setValues',policeTypeIds);
+	
+	
+	$('#ckAttireType1').prop('checked',true);
+	$('#ckAttireType2').prop('checked',true);
+	
+	$('#ckArmamentType1').prop('checked',true);
+	$('#ckArmamentType2').prop('checked',true);
+	
+	$('#cmbdutytype').combogrid('selectAll');
+	
+}
 
 function loadReport(){
 var criteria=packCriteria();

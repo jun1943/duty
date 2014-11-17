@@ -78,7 +78,7 @@
  				<div title="定位设备" style="padding:10px;height:100%">  
        					  <div id="source_gpsdevice"></div> 
        					  <div style="margin-top:2px">
-								<a id="btnCheckAllGps" style="float:right; margin-right:10px" name="btnCheckAllGps"  href="javascript:void(0);" class="easyui-linkbutton" >一键添加</a>
+								<a id="btnCheckAllGps" onclick='addSelgps()' style="float:right; margin-right:10px" name="btnCheckAllGps"  href="javascript:void(0);" class="easyui-linkbutton" >一键添加</a>
        					  		<a id="checkAllGps" style="float:right; margin-right:5px" onclick="uncheckAllResources('source_gpsdevice')"  name="checkAllGps"  href="javascript:void(0);" class="easyui-linkbutton"  >取消选择</a>
      					  		<a id="uncheckAllGps" style="float:right; margin-right:5px" onclick="checkAllResources('source_gpsdevice')"  name="uncheckAllGps"  href="javascript:void(0);" class="easyui-linkbutton"  >全选</a>
    					  	  </div>
@@ -92,7 +92,7 @@
  				<div title="武器" style="padding:10px;height:100%">  
        					  <div id="source_weapon"></div> 
        					  <div style="margin-top:2px"> 
-       					   		<a id="btnCheckAllWeapon" style="float:right; margin-right:10px"  name="btnCheckAllWeapon"  href="javascript:void(0);" class="easyui-linkbutton" >一键添加</a>
+       					   		<a id="btnCheckAllWeapon" onclick='addSelWeapons()' style="float:right; margin-right:10px"  name="btnCheckAllWeapon"  href="javascript:void(0);" class="easyui-linkbutton" >一键添加</a>
        					  		<a id="checkAllWeapon" style="float:right; margin-right:5px" onclick="uncheckAllResources('source_weapon')"  name="checkAllWeapon"  href="javascript:void(0);" class="easyui-linkbutton"  >取消选择</a>
      					  		<a id="uncheckAllWeapon" style="float:right; margin-right:5px" onclick="checkAllResources('source_weapon')"  name="uncheckAllWeapon"  href="javascript:void(0);" class="easyui-linkbutton"  >全选</a>
    					  	  </div>
