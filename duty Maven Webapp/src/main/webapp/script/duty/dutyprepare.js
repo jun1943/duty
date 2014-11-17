@@ -1939,24 +1939,37 @@ function loadTaskTarget(taskType){
  */
 
 function addSelVehicles(){
-	
+	addItems(1,$('#source_vehicle'));
 }
 
 
 function addSelPolices(){
+	addItems(2,$('#source_police'));
+}
+
+function addSelWeapons(){
+	addItems(3,$('#source_weapon'));
+}
+
+function addSelgps(){
+	addItems(4,$('#source_gpsdevice'));
+}
+
+function addItems(itemTypeId,grid){
 	var row = $("#tdDuty").treegrid("getSelected");
 	var errRow=[];
 	var datas=[];
 	
 	if(row!=null){
-		if(dutyItemRelate.check(row.itemTypeId, 2)){
-			var ps=$('#source_police').treegrid('getSelections');
+		if(dutyItemRelate.check(row.itemTypeId, itemTypeId)){
+			var ps=grid.treegrid('getSelections');
 			var shiftRowT=findShiftRow(row);
 			
 			$.each(ps,function(i,v){
 				var exists=existsResource(shiftRowT,v);
 				if(!exists){
-					genDutyRow(v.id, v.name, 2, v.typeId, v.typeName,v);
+					var name=itemTypeId==2?v.name:v.number;
+					genDutyRow(v.id, name, itemTypeId, v.typeId, v.typeName,v);
 					datas.push(v);
 				}else{
 					errRow.push(v);
@@ -1970,14 +1983,16 @@ function addSelPolices(){
 				});
 				
 				$.each(datas,function(i2,v2){
-					$('#source_police').treegrid('remove',v2.id);
+					grid.treegrid('remove',v2.id);
 				});
 				reCalcDuty();
 			}
 			
 			if(errRow.length>0){
-				
-				$.messager.alert('提示', errRow[0].name +"等在当前班次中已经存在!", "warning");
+				if(itemTypeId==2)
+					$.messager.alert('提示', errRow[0].name +"等在当前班次中已经存在!", "warning");
+				else
+					$.messager.alert('提示', errRow[0].number +"等在当前班次中已经存在!", "warning");
 			}
 			
 		}else{

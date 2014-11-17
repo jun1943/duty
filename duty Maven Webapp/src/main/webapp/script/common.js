@@ -125,6 +125,7 @@ function getBaseDataCombobox(urlStr, id){
 	$("#"+id).combobox({
         valueField: 'id',
         textField: 'name', 
+        async:false,
         url:urlStr
     });
 }
