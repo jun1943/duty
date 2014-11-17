@@ -113,7 +113,7 @@ $(document).ready(function() {
 				}, {
 					title : '车辆品牌',
 					field : 'brand',
-					align : 'center',
+					align : 'left',
 					width : 50
 				}, {
 					title : '图标',
@@ -124,7 +124,7 @@ $(document).ready(function() {
 				}, {
 					title : '类型',
 					field : 'itemTypeId',
-					align : 'center',
+					align : 'left',
 					width : 50,
 					hidden : true,
 					formatter : function(value, row, index) { 
@@ -155,28 +155,28 @@ $(document).ready(function() {
 				}, {
 					title : 'id',
 					field : 'id',
-					align : 'center',
+					align : 'left',
 					width : 0,
 					hidden : true
 				}, {
 					title : 'GPS类型',
 					field : 'typeName',
-					align : 'center',
+					align : 'left',
 					width : 80
 				}, {
 					title : 'GPS显示名称',
 					field : 'gpsName',
-					align : 'center',
+					align : 'left',
 					width : 80
 				}, {
 					title : 'GPS设备编号',
 					field : 'number',
-					align : 'center',
+					align : 'left',
 					width : 50
 				}, {
 					title : '类型',
 					field : 'itemTypeId',
-					align : 'center',
+					align : 'left',
 					width : 50,
 					hidden : true,
 					formatter : function(value, row, index) {
@@ -206,28 +206,28 @@ $(document).ready(function() {
 				},  {
 					title : 'id',
 					field : 'id',
-					align : 'center',
+					align : 'left',
 					width : 0,
 					hidden : true
 				}, {
 					title : '武器类型',
 					field : 'typeName',
-					align : 'center',
+					align : 'left',
 					width : 80
 				}, {
 					title : '武器编号',
 					field : 'number',
-					align : 'center',
+					align : 'left',
 					width : 80
 				}, {
 					title : '规格标准',
 					field : 'standard',
-					align : 'center',
+					align : 'left',
 					width : 50
 				}, {
 					title : '类型',
 					field : 'itemTypeId',
-					align : 'center',
+					align : 'left',
 					width : 50,
 					hidden : true,
 					formatter : function(value, row, index) {

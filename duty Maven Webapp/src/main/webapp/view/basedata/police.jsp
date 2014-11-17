@@ -22,23 +22,23 @@
 				<div id="tbPolice" class="btn-toolbar" style="height:40px; margin-top:10px">
 					<div class="btn-group">
 						<a id="btnAddPolice" href="javascript:void(0);"
-							class="easyui-linkbutton" iconcls="icon-add" plain="true"
+							class="easyui-linkbutton" iconcls="icon-add" 
 							onclick="btnAddPolice('add')">新增</a> <a id="btnEditPolice"
 							href="javascript:void(0);" class="easyui-linkbutton"
-							iconcls="icon-edit" plain="true" onclick="btnEditPolice('edit')">修改</a>
+							iconcls="icon-edit"  onclick="btnEditPolice('edit')">修改</a>
 							<a id="btnUnLockPolice"
 							href="javascript:void(0);" class="easyui-linkbutton"
-							iconcls="icon-edit" plain="true" onclick="btnUnLockPolice()">启用</a>
+							iconcls="icon-edit"  onclick="btnUnLockPolice()">启用</a>
 							<a id="btnLockPolice"
 							href="javascript:void(0);" class="easyui-linkbutton"
-							iconcls="icon-edit" plain="true" onclick="btnLockPolice()">停用</a>
+							iconcls="icon-edit"  onclick="btnLockPolice()">停用</a>
 						<a id="btnDelPolice" href="javascript:void(0);"
-							class="easyui-linkbutton" iconcls="icon-cancel" plain="true"
+							class="easyui-linkbutton" iconcls="icon-cancel" 
 							onclick="btnDelPolice()">删除</a>
 					</div>
 					<div class="btn-group" style="float:right; margin-right:20px">
 						<a id="btnSearchPolice" href="javascript:void(0);"
-							class="easyui-linkbutton" iconcls="icon-search" plain="true"
+							class="easyui-linkbutton" iconcls="icon-search" 
 							onclick="btnSearchPolice()">查询</a>
 						 
 					</div>
@@ -84,7 +84,7 @@
 		<div id="policeinfowindow" class="easyui-window" title="新增/编辑 警员信息"
 			data-options="iconCls:'icon-edit',modal:true" closed="true" 
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
-			style="width: 400px; height: 500px; padding: 10px;">
+			style="width: 400px; height: 500px; padding: 10px;color:white">
 			<div class="easyui-layout" data-options="fit:true">
 				<div data-options="region:'south',border:false"
 					style="padding: 2px; height: 30px;">

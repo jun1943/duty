@@ -7,7 +7,7 @@ var operationType = "";
 $(function() {
 
 	$("#policeinfowindow").window("close");
-
+	//$('.panel-header').css({ "background-color": "#FFF000" }).css({"filter":"progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF000,endColorstr=#FFFFFF,GradientType=0)"});
 	var args = getUrlArgs();
 	m_Police_OrgId = args["orgId"];
 	m_Police_OrgCode = args["orgCode"];

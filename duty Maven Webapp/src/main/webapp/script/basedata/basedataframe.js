@@ -21,6 +21,18 @@ $(function () {
 	 
 	loadFrmOrgs(); 
 	InitPage();
+	
+//	$("div[doc='dateBoxMenu']").each(function() { //开始遍历
+//
+//		$(this).mouseover(function() {
+//			$(this).attr("class", "dateBoxMenuOn");
+//
+//		});
+//
+//		$(this).mouseleave(function() {
+//			$(this).attr("class", "");
+//		});
+//	});
 });
 
 function InitPage(){
@@ -30,6 +42,7 @@ function InitPage(){
 	+"&orgPath="+m_basedataFrame_Org.path;
 
 	$("#ifmWorkSpace").attr("src",src); 
+	$("#policemanage").attr("class", "dateBoxMenuOn");
 }
 function onOrgTreeDblClick(node){
 	m_basedataFrame_func_prop.url="view/basedata/police.jsp";
@@ -38,6 +51,7 @@ function onOrgTreeDblClick(node){
 	m_basedataFrame_func_prop.orgPath=node.path;
 	
 	pageSwitch();
+	$("#policemanage").attr("class", "dateBoxMenuOn");
 }
 /*
  * 页面切换
@@ -54,51 +68,51 @@ function pageSwitch(node,url){
 
 function onPoliceManage(){ 
 	m_basedataFrame_func_prop.url="view/basedata/police.jsp";
-	pageSwitch();
-	$("#li_police").addClass("active");
-	$("#li_weapon").removeClass("active");
-	$("#li_gpsdevice").removeClass("active");
-	$("#li_vehicle").removeClass("active");
-	$("#li_icons").removeClass("active");
+	pageSwitch(); 
+	$("#policemanage").attr("class", "dateBoxMenuOn");
+	$("#vehiclemanage").attr("class", "");
+	$("#weaponmanage").attr("class", "");
+	$("#gpsdevicemanage").attr("class", "");
+	$("#iconsmanage").attr("class", "");
 }
 
 function onVehicleManage(){
 	m_basedataFrame_func_prop.url="view/basedata/vehicle.jsp";
-	pageSwitch();
-	$("#li_vehicle").addClass("active");
-	$("#li_weapon").removeClass("active");
-	$("#li_gpsdevice").removeClass("active");
-	$("#li_police").removeClass("active");
-	$("#li_icons").removeClass("active");
+	pageSwitch(); 
+	$("#vehiclemanage").attr("class", "dateBoxMenuOn");
+	$("#policemanage").attr("class", "");
+	$("#weaponmanage").attr("class", "");
+	$("#gpsdevicemanage").attr("class", "");
+	$("#iconsmanage").attr("class", "");
 }
 
 function onWeaponManage(){
 	m_basedataFrame_func_prop.url="view/basedata/weapon.jsp";
-	pageSwitch();
-	$("#li_weapon").addClass("active");
-	$("#li_vehicle").removeClass("active");
-	$("#li_gpsdevice").removeClass("active");
-	$("#li_police").removeClass("active");
-	$("#li_icons").removeClass("active");
+	pageSwitch(); 
+	$("#weaponmanage").attr("class", "dateBoxMenuOn");
+	$("#policemanage").attr("class", "");
+	$("#vehiclemanage").attr("class", "");
+	$("#gpsdevicemanage").attr("class", "");
+	$("#iconsmanage").attr("class", "");
 }
 
 function onGpsdeviceManage(){
 	m_basedataFrame_func_prop.url="view/basedata/gpsdevice.jsp";
-	pageSwitch();
-	$("#li_gpsdevice").addClass("active");
-	$("#li_vehicle").removeClass("active");
-	$("#li_weapon").removeClass("active");
-	$("#li_police").removeClass("active");
-	$("#li_icons").removeClass("active");
+	pageSwitch(); 
+	$("#gpsdevicemanage").attr("class", "dateBoxMenuOn");
+	$("#policemanage").attr("class", "");
+	$("#vehiclemanage").attr("class", "");
+	$("#weaponmanage").attr("class", "");
+	$("#iconsmanage").attr("class", "");
 }
 function onIconsManage(){
 	m_basedataFrame_func_prop.url="view/basedata/icons.jsp";
-	pageSwitch();
-	$("#li_icons").addClass("active");
-	$("#li_vehicle").removeClass("active");
-	$("#li_weapon").removeClass("active");
-	$("#li_police").removeClass("active");
-	$("#li_gpsdevice").removeClass("active");
+	pageSwitch(); 
+	$("#iconsmanage").attr("class", "dateBoxMenuOn");
+	$("#policemanage").attr("class", "");
+	$("#vehiclemanage").attr("class", "");
+	$("#weaponmanage").attr("class", "");
+	$("#gpsdevicemanage").attr("class", "");
 }
 /*
  * 读取组织机构树

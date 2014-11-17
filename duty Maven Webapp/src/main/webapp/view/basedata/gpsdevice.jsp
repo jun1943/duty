@@ -23,13 +23,13 @@
 	 
 			<div id="tbGpsdevice" class="btn-toolbar" style="height:40px; margin-top:10px">
   				<div class="btn-group">
-  					<a id="btnAddGpsdevice" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-add"  plain="true" onclick="btnAddGpsdevice()">创建</a>
-                	<a id="btnEditGpsdevice" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="btnEditGpsdevice()">修改</a>
-                	<a id="btnDelGpsdevice" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel" plain="true" onclick="btnDelGpsdevice()">删除</a>
+  					<a id="btnAddGpsdevice" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-add"  onclick="btnAddGpsdevice()">创建</a>
+                	<a id="btnEditGpsdevice" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-edit"   onclick="btnEditGpsdevice()">修改</a>
+                	<a id="btnDelGpsdevice" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel"  onclick="btnDelGpsdevice()">删除</a>
                 	
   				</div>  				
   				<div class="btn-group" style="float:right">
-  					<a id="btnSearchGpsdevice" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"  plain="true" onclick="btnSearchGpsdevice()">查询</a>
+  					<a id="btnSearchGpsdevice" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"    onclick="btnSearchGpsdevice()">查询</a>
                 	<!-- a id="btnPrintList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-print" plain="true" onclick="btnPrintList()">打印</a>
                 	<a id="btnExportList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-export" plain="true" onclick="btnExportList()">导出</a> -->
                	</div>

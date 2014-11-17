@@ -81,6 +81,11 @@ $(function() {
 	$('#spnBeginTime').timespinner('setValue','00:00');
 	$('#spnEndTime').timespinner('setValue','23:59');
 	
+	$('#ckArmamentType1').attr('checked','checked');
+	$('#ckArmamentType2').attr('checked','checked');
+	$('#ckAttireType1').attr('checked','checked');
+	$('#ckAttireType2').attr('checked','checked');
+	
 	 loaddutyTypeComboTree();
 	 loadBaseDataForCombox("police/getPoliceType.do", $('#cmbpoliceType'));
 	 loadBaseDataForCombox("duty/getdutyProperty.do", $('#dutyProperty'));

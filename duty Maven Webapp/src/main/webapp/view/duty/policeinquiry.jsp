@@ -27,75 +27,74 @@
 			<div id="tbPoliceInquiry" class="btn-toolbar" style="height:40px; margin-top:10px"> 
 				<div class="btn-group" style="float:right; margin-right:20px">
 					 <a id="exportData" name="exportData" href="javascript:void(0);" class="easyui-linkbutton"
-                   iconcls="icon-export" onclick="btnExportDataAction()" plain="true" style="float:right; margin-left:20px">导出</a>
+                   iconcls="icon-export" onclick="btnExportDataAction()" style="float:right; margin-left:20px">导出</a>
                    
                    <a id="btnsearchQueryBox" href="javascript:void(0);" class="easyui-linkbutton" 
-                   iconcls="icon-search"  plain="true" style="float:right">查询条件</a>
+                     style="float:right">展开查询</a>
 				</div>
 		 	</div>
-		 	<div id="my-search-box" class="panel-body" style="border:0px;display:none">
+		 	<div id="my-search-box" class="panel-body" style="border:1px;display:none">
 					<form class="form-inline">
 						<div class="form-group">
 							<div class="form-group">
 								<div class="input-group">
-									时间范围 
-									<input id="dteBeginDate" class="easyui-datebox" style="width:200px" />
-									<input id="spnBeginTime" class="easyui-timespinner"  style="width:80px;" data-options="min:'00:00',showSeconds:false,highlight:0" />
+									时间范围 :<input id="dteBeginDate" class="easyui-datebox" style="width:200px" />
+									<label style="color:white">——</label>
+									<input id="spnBeginTime" class="easyui-timespinner"  style="width:80px;margin-left:15px;" data-options="min:'00:00',showSeconds:false,highlight:0" />
 									——
 									<input id="spnEndTime"   class="easyui-timespinner"  style="width:80px;" data-options="min:'00:00',showSeconds:false,highlight:0" />
 
 								</div>
 							</div>
-						</div>
-						<br />
+						</div>  
+						<br>
+					 
 						<div class="form-group">
 							<div class="form-group">
 								<div class="input-group">
-									任务属性 <input id="dutyProperty" style="width:200px" />
+									任务属性 :<input id="dutyProperty" style="width:200px" />
 								</div>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="form-group">
 								<div class="input-group">
-									衣着
+									　　勤务类型 :<input id="cmbdutytype"  class="easyui-combotree" style="width:200px" >
+								</div>
+							</div>
+						</div>
+						<br>
+						<div class="form-group">
+							<div class="form-group">
+								<div class="input-group">
+									人员类别 :<input id="cmbpoliceType" style="width:200px" />
+								</div>
+							</div>
+						</div> 
+						<div class="form-group">
+							<div class="form-group">
+								<div class="input-group">
+									　 　衣着:　　
 									<input id="ckAttireType1" type="checkbox"  value="0">
-									着装
+									着装　　　
 									<input id="ckAttireType2" type="checkbox"  value="1">
 									便衣
 								</div>
 							</div>
 						</div>
-						<br />
 						<div class="form-group">
 							<div class="form-group">
 								<div class="input-group">
-									人员类别 <input id="cmbpoliceType" style="width:200px" />
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="form-group">
-								<div class="input-group">
-									武装
+									　　　　　武装:　　
 									<input id="ckArmamentType1" type="checkbox" value="0">
-									非武装
+									非武装　　
 									<input id="ckArmamentType2" type="checkbox" value="1">
-									武装
-								</div>
-							</div>
-						</div>
-						
-						<br />
-						<div class="form-group">
-							<div class="form-group">
-								<div class="input-group">
-									勤务类型 <input id="cmbdutytype"  class="easyui-combotree" style="width:200px" >
+									武装　　
 								</div>
 							</div>
 						</div>
                    <a href="javascript:void(0);" class="easyui-linkbutton"
-                   iconcls="icon-search" onclick="btnSearchQueryAction()" plain="true">查询</a> 
+                   iconcls="icon-search" onclick="btnSearchQueryAction()" >查询</a> 
 					</form>
 				</div> 
 			<div id="div_totalPoliceInfo">
