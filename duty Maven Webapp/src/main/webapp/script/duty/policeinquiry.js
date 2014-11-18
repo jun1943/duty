@@ -10,7 +10,9 @@ $(function() {
 	m_policeQuery_Org.name = decodeURI(orgName); 
 	
 	$("#btnsearchQueryBox").bind("click", function() {
+		
 		$('#my-search-box').toggle();
+		
 	});
 	
 	$("#dutyProperty").combobox({

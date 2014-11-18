@@ -254,19 +254,23 @@ public class DutyCalendarController {
 			exlPath += "/" + s + ".xls";
 
 			dvm = dutyService.loadVMByOrgIdAndYmd(orgId, ymd);
-			List<DutyItemVM> list = dvm.getItems();
-			if (list.size() > 0) {
-				List<DutyExportVM> sublist = new ArrayList<DutyExportVM>();
-				sublist = getSubList(list);
-				isSuccess = initExcelData(sublist, realPath);
-				if (isSuccess) {
-					return "{\"isSuccess\":false,\"Message\":\"" + exlPath
-							+ "\",\"Data\":\"" + exlPath + "\"}";
-				} else {
-					return "{\"isSuccess\":false,\"Message\":\"创建Excel表格失败\",\"Data\":\"\"}";
-				}
-			} else {
+			if (dvm == null) {
 				return "{\"isSuccess\":false,\"Message\":\"数据查询失败\",\"Data\":\"\"}";
+			} else {
+				List<DutyItemVM> list = dvm.getItems();
+				if (list.size() > 0) {
+					List<DutyExportVM> sublist = new ArrayList<DutyExportVM>();
+					sublist = getSubList(sublist, list);
+					isSuccess = initExcelData(sublist, realPath);
+					if (isSuccess) {
+						return "{\"isSuccess\":false,\"Message\":\"" + exlPath
+								+ "\",\"Data\":\"" + exlPath + "\"}";
+					} else {
+						return "{\"isSuccess\":false,\"Message\":\"创建Excel表格失败\",\"Data\":\"\"}";
+					}
+				} else {
+					return "{\"isSuccess\":false,\"Message\":\"获取报备详细信息子失败\",\"Data\":\"\"}";
+				}
 			}
 		} catch (Exception e) {
 			return "{\"isSuccess\":false,\"Message\":\"" + e.getMessage()
@@ -274,13 +278,15 @@ public class DutyCalendarController {
 		}
 	}
 
-	private List<DutyExportVM> getSubList(List<DutyItemVM> list) {
-		List<DutyExportVM> sList = new ArrayList<DutyExportVM>();
+	private List<DutyExportVM> getSubList(List<DutyExportVM> sList,
+			List<DutyItemVM> list) {
 		for (int i = 0; i < list.size(); i++) {
 			DutyExportVM dwm = new DutyExportVM();
 			DutyItemVM dim = list.get(i);
-			dwm.setDutyName(dim.getDisplayName());
-			dwm.setTypeName(dim.getItemInnerTypeName());
+			dwm.setDutyName(dim.getDisplayName() == null ? "" : dim
+					.getDisplayName());
+			dwm.setTypeName(dim.getItemInnerTypeName() == null ? "" : dim
+					.getItemInnerTypeName());
 			String date = "";
 			if (dim.getBeginTime() != null) {
 				date = dim.getBeginTime().toString();
@@ -289,16 +295,87 @@ public class DutyCalendarController {
 				date += "至" + dim.getEndTime().toString();
 			}
 			dwm.setTimeArea(date);
+
 			if (dim.getChildren() != null && dim.getChildren().size() > 0) {
+				int vechilecount = getVehicleCount(dim.getChildren());
+				int policecount = getPoliceCount(dim.getChildren());
+				int weaponcount = getWeaponCount(dim.getChildren());
+				int gpsdeviceCount = getGpsdeviceCount(dim.getChildren());
+
+				dwm.setVehicleCount(vechilecount);
+
+				dwm.setPoliceCount(policecount);
+
+				dwm.setWeaponCount(weaponcount);
+
+				dwm.setGpsdeviceCount(gpsdeviceCount);
+				sList.add(dwm);
+
+				getSubList(sList, dim.getChildren());
 
 			}
-			dwm.setVehicleCount("1");
-			dwm.setPoliceCount("1");
-			dwm.setWeaponCount("1");
-			dwm.setGpsdeviceCount("1");
-			sList.add(dwm);
 		}
 		return sList;
+	}
+
+	private int getGpsdeviceCount(List<DutyItemVM> list) {
+		int gpsCount = 0;
+		for (int i = 0; i < list.size(); i++) {
+			int typeId = list.get(i).getItemTypeId();
+			if (typeId == 4) {
+				gpsCount++;
+			}
+			if (list.get(i).getChildren() != null
+					&& list.get(i).getChildren().size() > 0) {
+				gpsCount += getGpsdeviceCount(list.get(i).getChildren());
+			}
+		}
+		return gpsCount;
+	}
+
+	private int getWeaponCount(List<DutyItemVM> list) {
+		int weaponCount = 0;
+		for (int i = 0; i < list.size(); i++) {
+			int typeId = list.get(i).getItemTypeId();
+			if (typeId == 3) {
+				weaponCount++;
+			}
+			if (list.get(i).getChildren() != null
+					&& list.get(i).getChildren().size() > 0) {
+				weaponCount += getWeaponCount(list.get(i).getChildren());
+			}
+		}
+		return weaponCount;
+	}
+
+	private int getPoliceCount(List<DutyItemVM> list) {
+		int policeCount = 0;
+		for (int i = 0; i < list.size(); i++) {
+			int typeId = list.get(i).getItemTypeId();
+			if (typeId == 2) {
+				policeCount++;
+			}
+			if (list.get(i).getChildren() != null
+					&& list.get(i).getChildren().size() > 0) {
+				policeCount += getPoliceCount(list.get(i).getChildren());
+			}
+		}
+		return policeCount;
+	}
+
+	private int getVehicleCount(List<DutyItemVM> list) {
+		int vehicleCount = 0;
+		for (int i = 0; i < list.size(); i++) {
+			int typeId = list.get(i).getItemTypeId();
+			if (typeId == 1) {
+				vehicleCount++;
+			}
+			if (list.get(i).getChildren() != null
+					&& list.get(i).getChildren().size() > 0) {
+				vehicleCount += getVehicleCount(list.get(i).getChildren());
+			}
+		}
+		return vehicleCount;
 	}
 
 	private Boolean initExcelData(List<DutyExportVM> sublist, String filepath) {
@@ -355,19 +432,26 @@ public class DutyCalendarController {
 					DutyExportVM devm = new DutyExportVM();
 					devm = sublist.get(rowNum - 1);
 					Cell cella = row.createCell(1, Cell.CELL_TYPE_STRING);
-					cella.setCellValue(devm.getDutyName());
+					cella.setCellValue(devm.getDutyName() == null ? "" : devm
+							.getDutyName());
 					Cell cellb = row.createCell(2, Cell.CELL_TYPE_STRING);
-					cellb.setCellValue(devm.getTypeName());
+					cellb.setCellValue(devm.getTypeName() == null ? "" : devm
+							.getTypeName());
 					Cell cellc = row.createCell(3, Cell.CELL_TYPE_STRING);
-					cellc.setCellValue(devm.getTimeArea());
-					Cell celld = row.createCell(4, Cell.CELL_TYPE_STRING);
-					celld.setCellValue(devm.getPoliceCount());
-					Cell celle = row.createCell(5, Cell.CELL_TYPE_STRING);
-					celle.setCellValue(devm.getVehicleCount());
+					cellc.setCellValue(devm.getTimeArea() == null ? "" : devm
+							.getTimeArea());
+					Cell celle = row.createCell(4, Cell.CELL_TYPE_STRING);
+					celle.setCellValue(devm.getVehicleCount() == null ? 0
+							: devm.getVehicleCount());
+					Cell celld = row.createCell(5, Cell.CELL_TYPE_STRING);
+					celld.setCellValue(devm.getPoliceCount() == null ? 0 : devm
+							.getPoliceCount());
 					Cell cellf = row.createCell(6, Cell.CELL_TYPE_STRING);
-					cellf.setCellValue(devm.getWeaponCount());
+					cellf.setCellValue(devm.getWeaponCount() == null ? 0 : devm
+							.getWeaponCount());
 					Cell cellg = row.createCell(7, Cell.CELL_TYPE_STRING);
-					cellg.setCellValue(devm.getGpsdeviceCount());
+					cellg.setCellValue(devm.getGpsdeviceCount() == null ? 0
+							: devm.getGpsdeviceCount());
 				}
 				try {
 					FileOutputStream outputStream = new FileOutputStream(
@@ -401,38 +485,41 @@ public class DutyCalendarController {
 			dutyService.deleteByDutyId(dutyId);
 		}
 		dutyService.deleteByYMD(targetYmd);
-		Duty nduty = new Duty();
-		Duty lduty = dutyService.loadVMByOrgIdAndYmd(orgId, ymd);
-		if (lduty != null) {
-			Date now = new Date();
-			nduty.setCreateTime(now);
-			nduty.setDescription(lduty.getDescription());
-			nduty.setIsTemplate(false);
-			nduty.setName(lduty.getName());
-			nduty.setOrgId(orgId);
-			nduty.setPlatformId(1);
-			nduty.setPreparerId(lduty.getPreparerId());
-			nduty.setSyncState(true);
-			nduty.setYmd(targetYmd);
-			int ndutyId = dutyService.insert(nduty);
-			List<DutyItem> list = new ArrayList<DutyItem>();
-			list = dutyService.loadlistByDutyId(lduty.getId());
-			if (list.size() > 0) {
-				for (int i = 0; i < list.size(); i++) {
-					DutyItem di = new DutyItem();
-					di.setDescription(list.get(i).getDescription());
-					di.setDutyId(ndutyId);
-					di.setDutyTypeId(list.get(i).getDutyTypeId());
-					di.setFullIdPath(list.get(i).getFullIdPath());
-					di.setIconUrl(list.get(i).getIconUrl());
-					di.setItemId(list.get(i).getItemId());
-					// 设置其他属性，
-					dutyService.insertDutyItem(di);
-				}
+		DutyVM lduty = dutyService.loadVMByOrgIdAndYmd(orgId, ymd);
+		ObjResult<DutyVM> rs = new ObjResult<DutyVM>(true, null,
+				lduty == null ? 0 : lduty.getId(), lduty);
+		DutyVM dmv = rs.getObj();
+		dmv.setId(0);
+		dmv.setIsTemplate(false);
+		dmv.setYmd(targetYmd);
+		dmv.setOrgId(orgId);
+		if (dmv.getItems() != null) {
+			for (int m = 0; m < dmv.getItems().size(); m++) {
+				DutyItemVM divm = new DutyItemVM();
+				divm = clearItemId(dmv.getItems().get(m));
+				dmv.getItems().set(m, divm);
 			}
 		}
-		ObjResult<DutyVM> rs = new ObjResult<DutyVM>(true, null, orgId, null);// 暂时不
-		return rs.toJson();
+		dutyService.save(dmv);
+		ObjResult<DutyVM> result = new ObjResult<DutyVM>(true, null,
+				dmv.getId(), null);// 暂时不
+		return result.toJson();
+	}
+
+	private DutyItemVM clearItemId(DutyItemVM dutyItemVM) {
+		// TODO Auto-generated method stub
+		dutyItemVM.setId(0);
+		if (dutyItemVM.getTargets() != null) {
+			for (int i = 0; i < dutyItemVM.getTargets().size(); i++) {
+				dutyItemVM.getTargets().get(i).setId(0);
+			}
+		}
+		if (dutyItemVM.getChildren() != null) {
+			for (int j = 0; j < dutyItemVM.getChildren().size(); j++) {
+				clearItemId(dutyItemVM.getChildren().get(j));
+			}
+		}
+		return dutyItemVM;
 	}
 
 	@RequestMapping(value = "deleteAllDutyData.do")
@@ -479,6 +566,25 @@ public class DutyCalendarController {
 					dutyService.deleteByPrimaryKey(dId);
 				}
 			}
+		}
+		ObjResult<DutyVM> rs = new ObjResult<DutyVM>(true, null, orgId, null);// 暂时不
+		return rs.toJson();
+	}
+
+	@RequestMapping(value = "deleteDutyByYMD.do")
+	public @ResponseBody
+	String deleteDutyByYMD(
+			@RequestParam(value = "orgId", required = false) Integer orgId,
+			@RequestParam(value = "ymd", required = false) Integer ymd,
+			HttpServletResponse response, HttpServletRequest request)
+			throws IOException {
+		Duty duty = new Duty();
+		duty = dutyService.loadVMByOrgIdAndYmd(orgId, ymd);
+
+		if (duty != null) {
+			int dutyId = duty.getId();
+			dutyService.deleteByDutyId(dutyId);
+			dutyService.deleteByPrimaryKey(dutyId);
 		}
 		ObjResult<DutyVM> rs = new ObjResult<DutyVM>(true, null, orgId, null);// 暂时不
 		return rs.toJson();

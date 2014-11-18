@@ -18,13 +18,13 @@
 
 <body class="easyui-layout">
 	<div data-options="region:'west',split:true,title:'组织机构导航树'"
-		style="width:16%;padding:10px;">
+		style="width:14%;padding:10px;">
 		<!-- div>
 				<input type="text">
 			</div> -->
 
 		<div>
-			<input id="txtOrgName" style="width:80%; margin-left:4px;margin-top:2px" type="text"/>
+			<input id="txtOrgName" style="width:70%; margin-left:4px;margin-top:2px" type="text"/>
 			<a id="btnSearchOrg" href="javascript:void(0);" class="easyui-linkbutton"
                     iconcls="icon-search" onclick="searchOrgAction()" plain="true"></a>
 		</div>

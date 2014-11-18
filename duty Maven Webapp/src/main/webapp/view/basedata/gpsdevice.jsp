@@ -9,6 +9,7 @@
 <!--  
 <link href='//cdn.datatables.net/plug-ins/a5734b29083/integration/jqueryui/dataTables.jqueryui.css' type='text/css' />
 -->
+	<link rel="stylesheet" type="text/css" href="asset/css/images/dateStyle.css"/>
 <script src='<%=basePath%>script/basedata/gpsdevice.js'
 	type='text/javascript'></script>
 <title>定位设备管理</title>
@@ -26,40 +27,33 @@
   					<a id="btnAddGpsdevice" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-add"  onclick="btnAddGpsdevice()">创建</a>
                 	<a id="btnEditGpsdevice" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-edit"   onclick="btnEditGpsdevice()">修改</a>
                 	<a id="btnDelGpsdevice" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel"  onclick="btnDelGpsdevice()">删除</a>
-                	
-  				</div>  				
-  				<div class="btn-group" style="float:right">
-  					<a id="btnSearchGpsdevice" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"    onclick="btnSearchGpsdevice()">查询</a>
+                
+  					<a id="btnSearchGpsdevice" href="javascript:void(0);" class="easyui-linkbutton"    style="float:right; margin-right:20px"   onclick="btnSearchGpsdevice()">展开查询</a>
                 	<!-- a id="btnPrintList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-print" plain="true" onclick="btnPrintList()">打印</a>
                 	<a id="btnExportList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-export" plain="true" onclick="btnExportList()">导出</a> -->
                	</div>
   			</div>
-  			<div id="my-search-box" class="panel-body" style="border:0px;display:none">
-  			 <form class="form-inline"> 
-                  <div class="form-group">
-                      <div class="form-group">
-                        <div class="input-group">
-                      			   　　查询范围选择	
-                          <input id="isSubOrg" class="easyui-combobox" name="dept"
-										data-options="valueField:'id',textField:'name',data:[{id: 0,name: '本級机构'},{id: 1,name: '本级及下级机构'}]" />
-
-                        </div>
-                      </div>
-                  </div>
-                  
-                  <div class="form-group">
-                      <div class="form-group">
-                        <div class="input-group">
-                           GPS名称: 
-                           <input id="txtsearchname" class="easyui-validatebox" type="text">
-                        </div>
-                      </div>
-                  </div>  
-                  
-                 <a id="btnSearchAction" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"  plain="true" onclick="btnSearchAction()">查询</a>
-				<!-- button type="submit" class="btn btn-info">查询</button -->
-				</form>
-			</div>	
+  			
+  			<div class="MySearch" id="my-search-box" style=" padding:3px;display:none; ">
+		 			<div class="MySearchMain">
+				 		<div>
+							<form>
+								<table>
+									<tr>
+										<td class="MySearchTDTitle">查询范围选择:</td>
+										<td><input id="isSubOrg" class="easyui-combobox" name="dept"
+										data-options="valueField:'id',textField:'name',data:[{id: 0,name: '本級机构'},{id: 1,name: '本级及下级机构'}]" /></td>
+										<td class="MySearchTDTitle">GPS名称:</td>
+										<td><input id="txtsearchname" class="easyui-validatebox" type="text"></td>
+										<td><a id="btnSearchAction" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"   onclick="btnSearchAction()">查询</a></td>
+									 
+									</tr> 
+								</table>
+							</form>
+						</div>	
+					</div>		
+				
+				</div> 
   			<div id="dtGpsdevice" >
   			</div> 
  

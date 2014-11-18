@@ -9,6 +9,7 @@
 <!--  
 <link href='//cdn.datatables.net/plug-ins/a5734b29083/integration/jqueryui/dataTables.jqueryui.css' type='text/css' />
 -->
+	<link rel="stylesheet" type="text/css" href="asset/css/images/dateStyle.css"/>
 <script src='<%=basePath%>script/basedata/icons.js'
 	type='text/javascript'></script>
 	<script src='<%=basePath%>script/ajaxupload.3.9.js'
@@ -30,37 +31,31 @@
   					<a id="btnAddIcons" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-add" 	onclick="btnAddIcons()">新增</a>
                 	<a id="btnEditIcons" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-edit"   onclick="btnEditIcons()">修改</a>
                 	<a id="btnDelIcons" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel"  onclick="btnDelIcons()">删除</a> 
-  				</div>  				
-  				<div class="btn-group" style="float:right; margin-right:20px">
-  					<a id="btnSearchIcons" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"   onclick="btnSearchIcons()">查询</a>
+  			 
+  					<a id="btnSearchIcons" href="javascript:void(0);" class="easyui-linkbutton"  style="float:right; margin-right:20px"   onclick="btnSearchIcons()">展开查询</a>
                	</div>
   			</div>
-  			<div id="my-search-box" class="panel-body" style="border:0px;display:none">
-  			 <form class="form-inline">  
-                  
-                  <div class="form-group">
-                      <div class="form-group">
-                        <div class="input-group">
-                         	名称	
-                           <input id="txtsearchName" class="easyui-validatebox" type="text" >
-                        </div>
-                      </div>
-                  </div> 
-                  <div class="form-group">
-                      <div class="form-group">
-                        <div class="input-group">
-                         	图片类别	
-                         	  <input id="sltType" class="easyui-combobox" name="dept"
-										data-options="valueField:'id',textField:'name',data:[{id: 0,name: '全部'},{id: 1,name: '警员'},{id: 2,name: '车辆'},{id: 3,name: '武器'},{id: 4,name: '定位设备'}]" />
-                         	
-                          
-                        </div>
-                      </div>
-                  </div>  
-                 <a id="btnSearchAction" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"  plain="true" onclick="btnSearchAction()">查询</a>
-				<!-- button type="submit" class="btn btn-info">查询</button -->
-				</form>
-			</div>	
+  			<div class="MySearch" id="my-search-box" style=" padding:3px;display:none; ">
+		 			<div class="MySearchMain">
+				 		<div>
+							<form>
+								<table>
+									<tr> 
+										<td class="MySearchTDTitle">名称:</td>
+										<td><input id="txtsearchName" class="easyui-validatebox" type="text" ></td>
+										<td class="MySearchTDTitle">图片类别 :</td>
+										<td><input id="sltType" class="easyui-combobox" name="dept"
+										data-options="valueField:'id',textField:'name',data:[{id: 0,name: '全部'},{id: 1,name: '警员'},{id: 2,name: '车辆'},{id: 3,name: '武器'},{id: 4,name: '定位设备'}]" /></td>
+										<td> <a id="btnSearchAction" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"  onclick="btnSearchAction()">查询</a></td>
+									 
+									</tr> 
+								</table>
+							</form>
+						</div>	
+					</div>		
+				
+				</div> 
+  			 
   			<div id="dtIcons" >
   			</div> 
 	</div> 

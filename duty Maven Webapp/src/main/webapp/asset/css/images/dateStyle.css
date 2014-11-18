@@ -80,7 +80,7 @@ img { border:0px;}
 .dateBoxMainDate{ width:100%; height:100%; overflow:hidden;}
 .dateBoxMainDate table{ width:100%; height:100%; border:none;border-collapse:collapse;}
 .dateBoxMainDate th{ width:10%; background-color:#8ba7c9; color:#FFF;}
-.dateBoxMainDate td{ width:10%; background-color:#e4e4e4; color:#43505b; border:1px solid #fff; border-left:none; border-top:none; height:25%;}
+.dateBoxMainDate td{overflow: hidden; width:10%; background-color:#e4e4e4; color:#43505b; border:1px solid #fff; border-left:none; border-top:none; height:25%;position:relative;}
 .dateBoxMainDateTD{ width:100%; height:80%; overflow:hidden;position:relative;}
 .dateBoxMainDateTDLib{ cursor:pointer;width:33px; height:27px; overflow:hidden; background:url(dateLib.png) no-repeat; text-align:center; color:#FFF; line-height:27px;}
 .dateBoxMainDateTDLibOff{ width:33px; height:27px; overflow:hidden; background:url(dateLibOff.png) no-repeat; text-align:center; color:#FFF; line-height:27px;}
@@ -124,30 +124,28 @@ img { border:0px;}
 
 
 
-.pasteBtnBox{ display:none; width:100%; text-align:center; height:25px; background:url(../images/pastebtnbox.png) no-repeat; background-position:center; line-height:25px; cursor:pointer;position:absolute;top:20px;}
+.DateBoxbg{ display: none;  position: absolute;  top: 0%;  left: 0%;  width: 100%;  height: 100%;   z-index:1001;  -moz-opacity: 0.7;  opacity:.70; background:url(../images/zhezhaobg.png);}
+
+.pasteBtnBox{ display: none; overflow:hidden;  text-align:center; position: absolute;    width:69px;  height: 25px; left:50px;  z-index:1002;background:url(../images/pastebtnbox.png) no-repeat;  overflow: auto;}
 .pasteBtnBox img{ vertical-align:middle; margin-left:3px;}
-
-.pasteBtnBox a{color:#4c4c4c;}
-
-
+.PasteBoxMain{ width:100%; height:15px; }
+.pasteBtnBox a{color:#4c4c4c; text-align:center;line-height:25px;}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
 
 
 #dialog{display:none; }
 .myDialogBox{ width:100%; height:100%; overflow:hidden; text-align:left;}
+
+/*************************************************************************/
+.MySearch{ width:99%px; height:auto; border:1px solid #bababc; margin-bottom:10px;}
+.MySearch{ width:99%px; height:auto; border:1px solid #bababc; background-color:#fff; margin-bottom:10px;}
+.MySearch input[type=checkbox]{ vertical-align:text-bottom; margin-bottom:1px; margin-bottom:-2px\9;}
+.MySearch td{font-size:12px; vertical-align: middle;}
+.MySearchTDTitle{text-align:right;}
+.MySearchMain{ width:90%; height:auto; margin-top:10px;margin-left:20px;}
+.MySearchLine10{ widht:100%; height:10px;}
+
+
+/*************************************************************************/
