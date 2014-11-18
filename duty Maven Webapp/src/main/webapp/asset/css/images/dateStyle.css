@@ -54,7 +54,7 @@ img { border:0px;}
 
 
 .dateBoxMenu{ width:100%;text-align:center; height:39px;overflow:hidden; background:url(../images/dateMenuBg.png) repeat-x; line-height:40px; border-bottom:1px solid #bab9ba;}
-.dateBoxMenu a{ color:#6f6f6f;}
+.dateBoxMenu a{ color:#111111;}
 .dateBoxMenu li{ float:left; width:120px; height:38px; background-position:right; color:#FFF; margin-right:10px;}
 .dateBoxMenuOn{ width:118px; height:37px; margin-top:1px; background:url(../images/dateMenuMouseOver.png);line-height:36px; border:1px solid #bab9ba; border-bottom:none; cursor:pointer;}
 

@@ -120,7 +120,7 @@
 }
 .panel-body {
   background-color: #F7F3F3;
-  color: #444;
+  color: #000000;
   font-size: 12px;
 }
 .panel-title {
@@ -416,7 +416,7 @@
   width: 32px;
 }
 .l-btn {
-  color: #777;
+  color: #000000;
   background: #ffffff;
   background-repeat: repeat-x;
   border: 1px solid #C2DEE2;
@@ -1312,7 +1312,7 @@
 .datagrid-htable,
 .datagrid-btable,
 .datagrid-ftable {
-  color: #444;
+  color: #000000;
   border-collapse: separate;
 }
 .datagrid-row-alt {

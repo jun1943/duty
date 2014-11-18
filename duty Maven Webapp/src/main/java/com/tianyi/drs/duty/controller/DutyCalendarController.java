@@ -310,8 +310,16 @@ public class DutyCalendarController {
 
 				dwm.setGpsdeviceCount(gpsdeviceCount);
 				sList.add(dwm);
-
 				getSubList(sList, dim.getChildren());
+//				if (dim.getChildren().get(i).getChildren() != null
+//						&& dim.getChildren().get(i).getChildren().size() > 0) {
+//					if(i>0){i--;}
+//					for (int m = 0; m < dim.getChildren().get(i).getChildren()
+//							.size(); m++) {
+//						getSubList(sList, dim.getChildren().get(i)
+//								.getChildren());
+//					}
+//				}
 
 			}
 		}

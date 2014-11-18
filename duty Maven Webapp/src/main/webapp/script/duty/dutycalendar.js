@@ -199,7 +199,11 @@ function creatHtml(arr) {
 					+ m
 					+ '-'
 					+ d
-					+ '"><div class="DateBoxbg"></div><div  onmouseover=mouseOverFunction("'
+					+ '"><div class="DateBoxbg" id="modeldiv_'
+					+ i
+					+ '_'
+					+ j
+					+ '"></div><div  onmouseover=mouseOverFunction("'
 					+ y
 					+ '-'
 					+ m
@@ -464,6 +468,7 @@ function selectPasteBox(date, i, j) {
 			if (req.isSuccess) {// 成功填充数据
 				var html = $("#ulcontent_" + copyX + "_" + copyY).html();
 				$("#ulcontent_" + i + "_" + j).html(html);
+				$("#modeldiv_" + i + "_" + j).css('display', 'none');
 				var obj = $("#ulcontent_" + i + "_" + j).find(
 						"div[class='pasteBtnBox']");
 				obj.attr("id", "pasteBtn_" + i + "_" + j);
@@ -695,12 +700,13 @@ function btnExportAction() {
 			ymd : m_dutyCalendar_Org.date
 		},
 		success : function(req) {
-			//if (req.isSuccess||req.isSuccess=="true") {
-				var urlStr = req.Data.substring(1, req.Data.length);
-				window.open(urlStr);
-			//} else {
-			//	$.messager.alert(req.Message);
-			//}
+			// if (req.isSuccess||req.isSuccess=="true") {
+			var urlStr = req.Data.substring(1, req.Data.length);
+			window.location.href =urlStr;
+			//window.open(urlStr);
+			// } else {
+			// $.messager.alert(req.Message);
+			// }
 		},
 		failer : function(a, b) {
 			$.messager.alert("消息提示", a, "info");
