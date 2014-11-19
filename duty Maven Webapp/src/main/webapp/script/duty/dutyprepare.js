@@ -176,7 +176,8 @@ $(document).ready(function() {
 			title : 'GPS设备编号',
 			field : 'number',
 			align : 'left',
-			width : 50
+			width : 50,
+			hidden : true
 		}, {
 			title : '类型',
 			field : 'itemTypeId',
@@ -228,7 +229,8 @@ $(document).ready(function() {
 			title : '规格标准',
 			field : 'standard',
 			align : 'left',
-			width : 50
+			width : 50,
+			hidden : true
 		}, {
 			title : '类型',
 			field : 'itemTypeId',

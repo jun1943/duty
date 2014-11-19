@@ -23,18 +23,18 @@
 				<div id="tbPolice" class="btn-toolbar" style="height:30px; margin-top:3px">
 					<div class="btn-group">
 						<a id="btnAddPolice" href="javascript:void(0);"
-							class="easyui-linkbutton" iconcls="icon-add" 
+							class="easyui-linkbutton" iconcls="icon-tianyi-add" 
 							onclick="btnAddPolice('add')">新增</a> <a id="btnEditPolice"
 							href="javascript:void(0);" class="easyui-linkbutton"
-							iconcls="icon-edit"  onclick="btnEditPolice('edit')">修改</a>
+							iconcls="icon-tianyi-edit"  onclick="btnEditPolice('edit')">修改</a>
 							<a id="btnUnLockPolice"
 							href="javascript:void(0);" class="easyui-linkbutton"
-							iconcls="icon-edit"  onclick="btnUnLockPolice()">启用</a>
+							iconcls="icon-tianyi-unlock"  onclick="btnUnLockPolice()">启用</a>
 							<a id="btnLockPolice"
 							href="javascript:void(0);" class="easyui-linkbutton"
-							iconcls="icon-edit"  onclick="btnLockPolice()">停用</a>
+							iconcls="icon-tianyi-cancel"  onclick="btnLockPolice()">停用</a>
 						<a id="btnDelPolice" href="javascript:void(0);"
-							class="easyui-linkbutton" iconcls="icon-cancel" 
+							class="easyui-linkbutton" iconcls="icon-tianyi-delete" 
 							onclick="btnDelPolice()">删除</a>
 					 
 						<a id="btnSearchPolice" href="javascript:void(0);"
@@ -59,7 +59,7 @@
 										<td class="MySearchTDTitle">人员类别 :</td>
 										<td><input id="sltType" class="easyui-combobox" /></td>
 										<td><a id="btnSearchAction" href="javascript:void(0);"
-							class="easyui-linkbutton" iconcls="icon-search"  
+							class="easyui-linkbutton" iconcls="icon-tianyi-search"  
 							onclick="btnSearchAction()">查询</a></td>
 									 
 									</tr> 
@@ -132,14 +132,14 @@
 								class="easyui-validatebox"></td>
 						</tr>
 						<tr>
-							<td style="text-align: right;"><label>GPS_ID:　</label></td>
+							<td style="text-align: right;"><label>GPS设备:　</label></td>
 							<td><input id="txtgpsid" class="easyui-combobox" /></td>
 						</tr>
-						<tr>
+						<!-- <tr>
 							<td style="text-align: right;"><label>GPS备注:　</label></td>
 							<td><input id="txtgpsdes" type="text"
 								class="easyui-validatebox"></td>
-						</tr>
+						</tr> -->
 					</table>
 				</div>
 			</div>

@@ -275,7 +275,9 @@
     	 </select> 
     	     	 
       	 <select id="selectGpsId" parameterType="Integer"  resultType="com.tianyi.drs.basedata.viewmodel.GpsBaseVM">  
-       		 select id, concat(number,";",gps_name) as name  from t_gps where org_id = #{orgId,jdbcType=INTEGER} order by id asc
+       		 select g.id, concat(gt.name,"--",gps_name,"--",number) as name  from t_gps g 
+       		 left join t_gpstype gt on g.type_id = gt.id
+       		  where g.org_id = #{orgId,jdbcType=INTEGER} order by g.id asc
     	 </select> 
   
   <select id="countByExample" parameterType="com.tianyi.drs.basedata.viewmodel.PoliceVM" resultType="java.lang.Integer">

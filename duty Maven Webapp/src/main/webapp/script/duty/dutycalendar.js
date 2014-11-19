@@ -356,24 +356,46 @@ function deleteDutyConfirm(date, i, j) {
 	});
 }
 function deleteDutyAction(dt, i, j) {
-	$.ajax({
-		url : "dutyCalendar/deleteDutyByYMD.do",
-		type : "POST",
-		dataType : "json",
-		data : {
-			"ymd" : dt,
-			"orgId" : m_dutyCalendar_Org.id
-		},
-		async : false,
-		success : function(req) {
-			if (req.isSuccess) {// 成功填充数据
-				var html = $("#ulcontent_" + copyX + "_" + copyY).html();
+	$
+			.ajax({
+				url : "dutyCalendar/deleteDutyByYMD.do",
+				type : "POST",
+				dataType : "json",
+				data : {
+					"ymd" : dt,
+					"orgId" : m_dutyCalendar_Org.id
+				},
+				async : false,
+				success : function(req) {
+					if (req.isSuccess) {// 成功填充数据
+						var y = dt.substring(0,4);
+						var m = dt.substring(4,6);
+						var d = dt.substring(6,9);
+						var html = '<li class="nobaobei" style="display: list-item;">无报备</li>';
+						html += '<li class="baoBeiBtn">'
+								+ '<div class="pasteBtnBox" id="pasteBtn_'
+								+ i
+								+ "_"
+								+ j
+								+ '"  onclick=selectPasteBox("'
+								+ y
+								+ '-'
+								+ m
+								+ '-'
+								+ d
+								+ '",'
+								+ i
+								+ ','
+								+ j
+								+ ') style="display: none;"><a href="javascript:void(0);">粘贴</a></div>'
+								+ '</div></li>';
+						$("#ulcontent_" + i + "_" + j).html(html);
 
-			} else {
-				alert("报备信息删除失败");
-			}
-		}
-	});
+					} else {
+						alert("报备信息删除失败");
+					}
+				}
+			});
 }
 var pasteDate = "";
 var copyX = 0;// 要复制数组的X下标
@@ -702,8 +724,8 @@ function btnExportAction() {
 		success : function(req) {
 			// if (req.isSuccess||req.isSuccess=="true") {
 			var urlStr = req.Data.substring(1, req.Data.length);
-			window.location.href =urlStr;
-			//window.open(urlStr);
+			window.location.href = urlStr;
+			// window.open(urlStr);
 			// } else {
 			// $.messager.alert(req.Message);
 			// }

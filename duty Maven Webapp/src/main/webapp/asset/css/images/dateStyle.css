@@ -129,7 +129,7 @@ img { border:0px;}
 .pasteBtnBox{ display: none; overflow:hidden;  text-align:center; position: absolute;    width:69px;  height: 25px; left:50px;  z-index:1002;background:url(../images/pastebtnbox.png) no-repeat;  overflow: auto;}
 .pasteBtnBox img{ vertical-align:middle; margin-left:3px;}
 .PasteBoxMain{ width:100%; height:15px; }
-.pasteBtnBox a{color:#4c4c4c; text-align:center;line-height:25px;}
+.pasteBtnBox a{color:#4c4c4c;font-size:12px; text-align:center;line-height:25px;}
 
 
   

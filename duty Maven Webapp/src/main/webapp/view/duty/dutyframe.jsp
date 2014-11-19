@@ -20,7 +20,7 @@
 		<div>
 			<input id="txtOrgName" style="width:70%; margin-left:4px;margin-top:2px" type="text"/>
 			<a id="btnSearchOrg" href="javascript:void(0);" class="easyui-linkbutton"
-                    iconcls="icon-search" onclick="searchOrgAction()" plain="true"></a>
+                    iconcls="icon-tianyi-search" onclick="searchOrgAction()" ></a>
 		</div>
     	<ul id="treeDutyFrmOrg"></ul>
     </div>

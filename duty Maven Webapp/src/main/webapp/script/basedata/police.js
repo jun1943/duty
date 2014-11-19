@@ -138,7 +138,14 @@ function getGroupNumber() {
 	getBaseDataCombobox("police/getintercomGroup.do", "txtgroupno");
 };
 function getGpsID(orgId) {
-	getBaseDataCombobox("police/getGpsId.do?orgId=" + orgId, "txtgpsid");
+	$("#txtgpsid").combobox({
+        valueField: 'id',
+        textField: 'name',  
+        panelWidth:250,
+        async:false,
+        url:"police/getGpsId.do?orgId=" + orgId
+    });
+	//getBaseDataCombobox("police/getGpsId.do?orgId=" + orgId, "txtgpsid");
 }
 // 查询按钮事件
 function btnSearchAction() {
@@ -272,7 +279,7 @@ function btnEditPolice(optType) {
 	$("#txtmobileshort").val(rows[0].mobileShort);
 	$("#txtidcardno").val(rows[0].idcardno);
 	$("#txtnumber").val(rows[0].number);
-	$("#txtgpsdes").val(rows[0].gpsName);
+//	$("#txtgpsdes").val(rows[0].gpsName);
 	$("#txtgpsid").combobox("setValue", rows[0].gpsId);
 	$("#txttype").combobox("setValue", rows[0].typeId);
 	$("#txtgroupno").combobox("setValue", rows[0].intercomGroup);
@@ -289,7 +296,7 @@ function clearForm() {
 	$("#txtmobileshort").val("");
 	$("#txtidcardno").val("");
 	$("#txtnumber").val("");
-	$("#txtgpsdes").val("");
+//	$("#txtgpsdes").val("");
 	$("#txtgpsid").combobox("setValue", "");
 	$("#txttype").combobox("setValue", "");
 	$("#txtgroupno").combobox("setValue", "");
@@ -343,7 +350,7 @@ function savePoliceAction() {
 		$.messager.alert("错误提示", "请选择GPS_ID", "error");
 		return;
 	}
-	police.gpsName = $("#txtgpsdes").val();
+//	police.gpsName = $("#txtgpsdes").val();
 	$.ajax({
 		url : "police/savePolice.do",
 		type : "POST",

@@ -24,9 +24,9 @@
 	 
 			<div id="tbGpsdevice" class="btn-toolbar" style="height:30px; margin-top:3px">
   				<div class="btn-group">
-  					<a id="btnAddGpsdevice" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-add"  onclick="btnAddGpsdevice()">创建</a>
-                	<a id="btnEditGpsdevice" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-edit"   onclick="btnEditGpsdevice()">修改</a>
-                	<a id="btnDelGpsdevice" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel"  onclick="btnDelGpsdevice()">删除</a>
+  					<a id="btnAddGpsdevice" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-add"  onclick="btnAddGpsdevice('add')">创建</a>
+                	<a id="btnEditGpsdevice" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-edit"   onclick="btnEditGpsdevice('edit')">修改</a>
+                	<a id="btnDelGpsdevice" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-delete"  onclick="btnDelGpsdevice()">删除</a>
                 
   					<a id="btnSearchGpsdevice" href="javascript:void(0);" class="easyui-linkbutton"    style="float:right; margin-right:20px"   onclick="btnSearchGpsdevice()">展开查询</a>
                 	<!-- a id="btnPrintList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-print" plain="true" onclick="btnPrintList()">打印</a>
@@ -45,7 +45,7 @@
 										data-options="valueField:'id',textField:'name',data:[{id: 0,name: '本級机构'},{id: 1,name: '本级及下级机构'}]" /></td>
 										<td class="MySearchTDTitle">GPS名称:</td>
 										<td><input id="txtsearchname" class="easyui-validatebox" type="text"></td>
-										<td><a id="btnSearchAction" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"   onclick="btnSearchAction()">查询</a></td>
+										<td><a id="btnSearchAction" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-search"   onclick="btnSearchAction()">查询</a></td>
 									 
 									</tr> 
 								</table>
@@ -75,20 +75,20 @@
 					<table style="width:100%;height:99%; font: 12px 微软雅黑;"> 
 						<tr>
 							<td style="text-align: right;"><input type="hidden" id="gpsdeviceId"><label>GPS类型:　</label></td>
-							<td><input id="txttype" class="easyui-combobox" /></td>
+							<td><input id="txttype" style="width:169px" class="easyui-combobox" /></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>GPS名称:　</label></td>
-							<td><input type="text" class="easyui-validatebox" id="txtgpsname"></td>
+							<td><input type="text" style="width:169px" class="easyui-validatebox" id="txtgpsname"></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>GPS编号:　</label></td>
-							<td><input type="text" class="easyui-validatebox" id="txtgpsnumber"></td>
+							<td><input type="text" style="width:169px" class="easyui-validatebox" id="txtgpsnumber"></td>
 						</tr> 
 						<tr>
 							<td style="text-align: right;"><label>GPS图标:　</label></td>
 							
-							<td><input type="text"  id="txtgpsicon"><input type="hidden" id="txtIconUrl"></td>
+							<td><input type="text"  style="width:169px" id="txtgpsicon"><input type="hidden" id="txtIconUrl"></td>
 						</tr> 
 					</table>
 				</div>

@@ -27,11 +27,11 @@
 			 
 				<div id="tbVehicle" class="btn-toolbar" style="height:30px; margin-top:3px">
 	  				<div class="btn-group">
-	  					<a id="btnAddVehicle" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-add"   onclick="btnAddVehicle('add')">创建</a>
-	                	<a id="btnEditVehicle" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-edit"  onclick="btnEditVehicle('edit')">修改</a>
-	                	<a id="btnDelVehicle" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel"  onclick="btnDelVehicle()">删除</a>
+	  					<a id="btnAddVehicle" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-add"   onclick="btnAddVehicle('add')">创建</a>
+	                	<a id="btnEditVehicle" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-edit"  onclick="btnEditVehicle('edit')">修改</a>
+	                	<a id="btnDelVehicle" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-delete"  onclick="btnDelVehicle()">删除</a>
 	                	 
-	  					<a id="btnSearchVehicle" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search" style="float:right;margin-right:20px"  onclick="btnSearchVehicle()">展开查询</a>
+	  					<a id="btnSearchVehicle" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-search" style="float:right;margin-right:20px"  onclick="btnSearchVehicle()">展开查询</a>
 	                	<!-- a id="btnPrintList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-print" plain="true" onclick="btnPrintList()">打印</a>
 	                	<a id="btnExportList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-export" plain="true" onclick="btnExportList()">导出</a> -->
 	               	</div>
@@ -47,7 +47,7 @@
 										data-options="valueField:'id',textField:'name',data:[{id: 0,name: '本級机构'},{id: 1,name: '本级及下级机构'}]" /></td>
 										<td class="MySearchTDTitle">车牌号码:</td>
 										<td><input id="txtsearchnumber" class="easyui-validatebox" type="text" ></td>
-										<td><a id="btnSearchAction" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"   onclick="btnSearchAction()">查询</a></td>
+										<td><a id="btnSearchAction" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-search"   onclick="btnSearchAction()">查询</a></td>
 									 
 									</tr> 
 								</table>
@@ -104,13 +104,13 @@
 							<td><input type="text" class="easyui-validatebox" id="txtpersonalno"></td>
 						</tr>
 						<tr>
-							<td style="text-align: right;"><label>GPS_ID:　</label></td>
+							<td style="text-align: right;"><label>GPS设备:　</label></td>
 							<td><input id="txtgpsid" class="easyui-combobox" ></td>
 						</tr>
-						<tr>
+						<!-- <tr>
 							<td style="text-align: right;"><label>GPS名称:　</label></td>
 							<td><input type="text" class="easyui-validatebox" id="txtgpsname"></td>
-						</tr>
+						</tr> -->
 					</table>
 				</div>
 			</div>

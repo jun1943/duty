@@ -22,9 +22,9 @@
 	<div data-options="region:'center'"style="padding:2px;">  
 			<div id="tbWeapon" class="btn-toolbar" style="height:30px; margin-top:3px">
   				<div class="btn-group">
-  					<a id="btnAddWeapon" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-add"  onclick="btnAddWeapon()">创建</a>
-                	<a id="btnEditWeapon" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-edit" onclick="btnEditWeapon()">修改</a>
-                	<a id="btnDelWeapon" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel"   onclick="btnDelWeapon()">删除</a>
+  					<a id="btnAddWeapon" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-add"  onclick="btnAddWeapon('add')">创建</a>
+                	<a id="btnEditWeapon" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-edit" onclick="btnEditWeapon('edit')">修改</a>
+                	<a id="btnDelWeapon" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-delete"   onclick="btnDelWeapon()">删除</a>
                 	 
   					<a id="btnSearchWeapon" href="javascript:void(0);" class="easyui-linkbutton"   style="float:right; margin-right:20px"  onclick="btnSearchWeapon()">展开查询</a>
                 	<!-- a id="btnPrintList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-print" plain="true" onclick="btnPrintList()">打印</a>
@@ -42,7 +42,7 @@
 										data-options="valueField:'id',textField:'name',data:[{id: 0,name: '本級机构'},{id: 1,name: '本级及下级机构'}]" /></td>
 										<td class="MySearchTDTitle">武器编号:</td>
 										<td><input id="txtsearchnumber" class="easyui-validatebox" type="text" ></td>
-										<td><a id="btnSearchAction" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-search"  onclick="btnSearchAction()">查询</a></td>
+										<td><a id="btnSearchAction" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-search"  onclick="btnSearchAction()">查询</a></td>
 									 
 									</tr> 
 								</table>

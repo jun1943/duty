@@ -25,19 +25,19 @@
 		<div data-options="region:'north'"  style="height:40px">
 				<div id="tbGroup" class="btn-toolbar">
 					<div class="btn-group" style="background: url(asset/css/images/dateMenuBg.png) repeat-x;width: 99.5%;line-height: 40px;overflow: hidden;height: 38px;">
-						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
+						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-tianyi-add" 
 						  onclick="selectDutyType()">报备类型选择</a> 
-						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
+						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-tianyi-add" 
 						 	onclick="showDutyTemplate()">选择模板</a>
-						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
+						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-tianyi-edit" 
 						 	onclick="showCalendar()">报备复制</a>
-						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
+						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-tianyi-cancel" 
 						 onclick="clearDuty()">清空报备</a>
-						<a  href="javascript:void(0);"	class="easyui-linkbutton icon-camera-retro" 
+						<a  href="javascript:void(0);"	class="easyui-linkbutton icon-camera-retro" iconcls="icon-tianyi-save" 
 					 	onclick="saveDuty()">保存</a>
-						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
+						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-tianyi-save" 
 					  onclick="saveTemplate()">另存为模板</a>
-						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
+						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-autorun" 
 						 	onclick="btnExportToExcelAction()">导出</a>
 					</div>
 			</div>
@@ -50,8 +50,8 @@
        					  <div id="source_police"></div> 
        					  <div style="margin-top:2px"> 
      					  		<a id="btnAddAllPolice" onclick="addSelPolices()" style="float:right; margin-right:10px"  name="btnAddAllPolice"  href="javascript:void(0);" class="easyui-linkbutton"  >一键添加</a>
-     					  		<a id="checkAllPolice" style="float:right; margin-right:5px" onclick="uncheckAllResources('source_police')"  name="checkAllPolice"  href="javascript:void(0);" class="easyui-linkbutton"  >取消选择</a>
-     					  		<a id="uncheckAllPolice" style="float:right; margin-right:5px" onclick="checkAllResources('source_police')"  name="uncheckAllPolice"  href="javascript:void(0);" class="easyui-linkbutton"  >全选</a>
+     					  		<!-- <a id="checkAllPolice" style="float:right; margin-right:5px" onclick="uncheckAllResources('source_police')"  name="checkAllPolice"  href="javascript:void(0);" class="easyui-linkbutton"  >取消选择</a>
+     					  		<a id="uncheckAllPolice" style="float:right; margin-right:5px" onclick="checkAllResources('source_police')"  name="uncheckAllPolice"  href="javascript:void(0);" class="easyui-linkbutton"  >全选</a> -->
      					  </div>
        					  <div id="tb_source_police">
        					  <a id="showpoliceCondition" name="showpoliceCondition" onclick="$('#policeConditionwindow').window('open');" href="javascript:void(0);" class="easyui-linkbutton"  plain="true">过滤条件</a>
@@ -65,42 +65,42 @@
        					 <div id="source_vehicle"></div> 
        					  <div style="margin-top:2px">
 								<a id="btnCheckAllVehicle" style="float:right; margin-right:10px"  name="btnCheckAllVehicle"  href="javascript:void(0);" class="easyui-linkbutton" onclick="addSelVehicles()">一键添加</a>
-       					  		<a id="checkAllVehicle" style="float:right; margin-right:5px" onclick="uncheckAllResources('source_vehicle')"  name="checkAllVehicle"  href="javascript:void(0);" class="easyui-linkbutton"  >取消选择</a>
-     					  		<a id="uncheckAllVehicle" style="float:right; margin-right:5px" onclick="checkAllResources('source_vehicle')"  name="uncheckAllVehicle"  href="javascript:void(0);" class="easyui-linkbutton"  >全选</a>
+       					  		<!-- <a id="checkAllVehicle" style="float:right; margin-right:5px" onclick="uncheckAllResources('source_vehicle')"  name="checkAllVehicle"  href="javascript:void(0);" class="easyui-linkbutton"  >取消选择</a>
+     					  		<a id="uncheckAllVehicle" style="float:right; margin-right:5px" onclick="checkAllResources('source_vehicle')"  name="uncheckAllVehicle"  href="javascript:void(0);" class="easyui-linkbutton"  >全选</a> -->
    					  	  </div>
        					  <div id="tb_source_vehicle">
        					  <a id="showvehicleCondition" name="showvehicleCondition" onclick="$('#vehicleConditionwindow').window('open');" href="javascript:void(0);" class="easyui-linkbutton"  plain="true">过滤条件</a>
        					  	 <input id="txtvnumber" style="width:100px" type="text"/>
                 <a id="searchvehicleAction" name="searchvehicleAction" href="javascript:void(0);" class="easyui-linkbutton"
-                    iconcls="icon-search" onclick="searchVehicleAction()" plain="true"></a>
+                    iconcls="icon-tianyi-search" onclick="searchVehicleAction()" ></a>
        					  </div>
     			</div>		
  				<div title="定位设备" style="padding:10px;height:100%">  
        					  <div id="source_gpsdevice"></div> 
        					  <div style="margin-top:2px">
 								<a id="btnCheckAllGps" onclick='addSelgps()' style="float:right; margin-right:10px" name="btnCheckAllGps"  href="javascript:void(0);" class="easyui-linkbutton" >一键添加</a>
-       					  		<a id="checkAllGps" style="float:right; margin-right:5px" onclick="uncheckAllResources('source_gpsdevice')"  name="checkAllGps"  href="javascript:void(0);" class="easyui-linkbutton"  >取消选择</a>
-     					  		<a id="uncheckAllGps" style="float:right; margin-right:5px" onclick="checkAllResources('source_gpsdevice')"  name="uncheckAllGps"  href="javascript:void(0);" class="easyui-linkbutton"  >全选</a>
+       					  		<!-- <a id="checkAllGps" style="float:right; margin-right:5px" onclick="uncheckAllResources('source_gpsdevice')"  name="checkAllGps"  href="javascript:void(0);" class="easyui-linkbutton"  >取消选择</a>
+     					  		<a id="uncheckAllGps" style="float:right; margin-right:5px" onclick="checkAllResources('source_gpsdevice')"  name="uncheckAllGps"  href="javascript:void(0);" class="easyui-linkbutton"  >全选</a>-->
    					  	  </div>
        					  <div id="tb_source_gpsdevice">
        					  	<a id="showgpsCondition" name="showgpsCondition" onclick="$('#gpsConditionwindow').window('open');" href="javascript:void(0);" class="easyui-linkbutton"  plain="true">过滤条件</a>
        					  	 <input id="txtgname" style="width:100px" type="text"/>
                 <a id="searchgpsdeviceAction" name="searchgpsdeviceAction" href="javascript:void(0);" class="easyui-linkbutton"
-                    iconcls="icon-search" onclick="searchGpsAction()" plain="true"></a>
+                    iconcls="icon-tianyi-search" onclick="searchGpsAction()" ></a>
        					  </div>
     			</div>	
  				<div title="武器" style="padding:10px;height:100%">  
        					  <div id="source_weapon"></div> 
        					  <div style="margin-top:2px"> 
        					   		<a id="btnCheckAllWeapon" onclick='addSelWeapons()' style="float:right; margin-right:10px"  name="btnCheckAllWeapon"  href="javascript:void(0);" class="easyui-linkbutton" >一键添加</a>
-       					  		<a id="checkAllWeapon" style="float:right; margin-right:5px" onclick="uncheckAllResources('source_weapon')"  name="checkAllWeapon"  href="javascript:void(0);" class="easyui-linkbutton"  >取消选择</a>
-     					  		<a id="uncheckAllWeapon" style="float:right; margin-right:5px" onclick="checkAllResources('source_weapon')"  name="uncheckAllWeapon"  href="javascript:void(0);" class="easyui-linkbutton"  >全选</a>
+       					  		<!-- <a id="checkAllWeapon" style="float:right; margin-right:5px" onclick="uncheckAllResources('source_weapon')"  name="checkAllWeapon"  href="javascript:void(0);" class="easyui-linkbutton"  >取消选择</a>
+     					  		<a id="uncheckAllWeapon" style="float:right; margin-right:5px" onclick="checkAllResources('source_weapon')"  name="uncheckAllWeapon"  href="javascript:void(0);" class="easyui-linkbutton"  >全选</a>-->
    					  	  </div>
        					  <div id="tb_source_weapon">
        					  	<a id="showweaponCondition" name="showweaponCondition" onclick="$('#weaponConditionwindow').window('open');" href="javascript:void(0);" class="easyui-linkbutton"  plain="true">过滤条件</a>
        					  	 <input id="txtwnumber" style="width:100px" type="text"/>
                 <a id="searchweaponAction" name="searchweaponAction" href="javascript:void(0);" class="easyui-linkbutton"
-                    iconcls="icon-search" onclick="searchWeaponAction()" plain="true"></a>
+                    iconcls="icon-tianyi-search" onclick="searchWeaponAction()" ></a>
        					  </div>
     			</div>
 			</div>
@@ -111,17 +111,17 @@
 				<div data-options="region:'north'"  style="height:30px">
 					<div class="btn-toolbar">
 						<div class="btn-group" style="margin-top:1px">
-							<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
+							<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-tianyi-add" 
 							 onclick="addShift()">添加班次</a> 
-							<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-edit" 
+							<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-tianyi-edit" 
 							 onclick="setShift()">设置班次</a>
-							<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
+							<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-tianyi-add" 
 							 onclick="addUserNode()">添加编组</a> 
-							<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-edit" 
+							<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-tianyi-edit" 
 							 onclick="setUserNode()">设置编组</a>
-							<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-edit" 
+							<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-tianyi-add" 
 							 onclick="showTaskWindow()">关联任务</a>
-							<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-edit" 
+							<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-tianyi-delete" 
 							 onclick="deleteNode()">删除节点</a>
 						</div>
 					</div>
