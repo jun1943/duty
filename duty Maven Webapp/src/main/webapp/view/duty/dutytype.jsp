@@ -111,10 +111,8 @@
 			<div id="tbGroup" class="btn-toolbar">
 				<div class="btn-group" style="text-align:right;margin-top:5px" >
 					<a  href="javascript:void(0);"
-						class="easyui-linkbutton "  
-						onclick="saveDutyType()">　保 存　</a> 
-					<a 	href="javascript:void(0);" class="easyui-linkbutton "   style="margin-left:10px"
-						onclick="$('#winDutyType').window('close');"> 退 出　</a>
+						class="easyui-linkbutton "  style="margin-rifht:20px"
+						onclick="saveDutyType()">　　保 存　　</a>  
 				</div>
 			</div>
 		</div>
