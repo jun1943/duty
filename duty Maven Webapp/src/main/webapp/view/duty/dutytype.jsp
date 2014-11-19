@@ -41,18 +41,10 @@
 			</div>
 			<div id="dtDutyType"></div>
 
-	<div id="winDutyType" class="easyui-window" title="勤务类型" style="height:330px;width:360px"    
+	<div id="winDutyType" class="easyui-window" title="勤务类型" style="height:330px;width:360px;padding:4px"    
         data-options="iconCls:'icon-save',modal:true" closed="true"  onClose="onWinDutyTypeClose"
         collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false">
-			<div id="tbGroup" class="btn-toolbar">
-				<div class="btn-group">
-					<a  href="javascript:void(0);"
-						class="easyui-linkbutton " plain="true"
-						onclick="saveDutyType()">保存</a> 
-					<a 	href="javascript:void(0);" class="easyui-linkbutton " plain="true"
-						onclick="$('#winDutyType').window('close');">退出</a>
-				</div>
-			</div>
+
 			<input type="hidden" id="txtDutyTypeId"></input>
 			<input type="hidden" id="txtDutyTypeParentId"></input>
 			<input type="hidden" id="txtDutyTypeIsUsed"></input>
@@ -116,6 +108,15 @@
 					</td>
 				</tr>
 			</table>
+			<div id="tbGroup" class="btn-toolbar">
+				<div class="btn-group" style="text-align:right;margin-top:5px" >
+					<a  href="javascript:void(0);"
+						class="easyui-linkbutton "  
+						onclick="saveDutyType()">　保 存　</a> 
+					<a 	href="javascript:void(0);" class="easyui-linkbutton "   style="margin-left:10px"
+						onclick="$('#winDutyType').window('close');"> 退 出　</a>
+				</div>
+			</div>
 		</div>
 
 </body>
