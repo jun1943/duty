@@ -29,7 +29,9 @@ $(document)
 					m_dutyprepare_Org.path = args["orgPath"];
 					m_dutyprepare_Org.name = decodeURI(args["orgName"]);
 					m_ymd = YMD.createNew((args["ymd"]));
-
+					$("#btnSearchExpendbody").bind("click", function() {
+						$('#my-search-box').toggle();
+					});
 					$('#source_police')
 							.treegrid(
 									{
@@ -350,7 +352,16 @@ $(document)
 											align : 'right',
 											width : 50,
 											formatter : fmtDigit
-										} ] ],
+										} , {
+											title : '操作',
+											field : 'operate',
+											align : 'center',
+											width : 50,
+											formatter : function(value, row, index){
+												return "<img alt='删除'  onclick='deleteNode()' style='width:16px; height:16px' src='asset/css/easyui/icons/tianyi_delete.png'>";
+												//return "<a id='btnDelete' href='javascript:void(0);' class='easyui-linkbutton'  iconcls='icon-cancel'>删除</a>";
+											}
+										}] ],
 										rowStyler : function(row, index) {
 											if (row._parentId == "undefined"
 													|| row._parentId == undefined) {
@@ -2127,4 +2138,7 @@ function btnExportToExcelAction() {
 			$.messager.alert("消息提示", errorThrown, "error");
 		}
 	});
-}
+} 
+function btnSearchAction()
+{
+	}
