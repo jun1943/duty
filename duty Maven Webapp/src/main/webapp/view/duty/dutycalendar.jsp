@@ -72,7 +72,7 @@
 			style="width:654px; height:450px; padding: 10px;"> 
 		    <div id="tbdutydetailsforday" style="height:30px"> 
                 <a id="exprotToExcel" name="exprotToExcel" href="javascript:void(0);" class="easyui-linkbutton" style="float:right"
-                    iconcls="icon-add" plain="true" onclick="btnExportAction()">导出</a>  
+                    iconcls="icon-tianyi-export" plain="true" onclick="btnExportAction()">导出</a>  
 		    </div>
 			<div id="tgddutydetailsforday" >
 			</div>

@@ -60,5 +60,7 @@ public interface PoliceMapper {
 	List<PoliceVM> loadVMListWithGroup(Map<String, Object> map);
 
 	Police findByidCard(String param);
+
+	List<PoliceVM> loadVMListWithGroupList(Map<String, Object> map);
 	 
 }

@@ -52,6 +52,7 @@ public class PoliceGroupController {
 		String orgCode=joQuery.getString("orgCode");
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		page = page == 0 ? 1 : page;
 		map.put("pageStart", (page-1) * rows);
 		map.put("pageSize", rows);
 		map.put("orgCode", orgCode);

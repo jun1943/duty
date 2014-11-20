@@ -164,6 +164,8 @@ function getGpsIconList() {
 								} ] ],
 						onSelect : function(index, data) {
 							$("#txtIconUrl").val(data.iconUrl);
+							$("#sltImage").attr("src",
+									data.iconUrl.substring(1, data.iconUrl.length));
 						}
 					});
 }
@@ -193,7 +195,10 @@ function btnEditGpsdevice(optType) {
 	$("#gpsdeviceId").val(rows[0].id);
 	$("#txttype").combobox("setValue", rows[0].typeId);
 	$("#txtgpsname").val(rows[0].gpsName);
+	$("#txtgpsicon").combogrid("setValue",rows[0].gpsName);
 	$("#txtgpsnumber").val(rows[0].number);
+	$("#sltImage").attr("src",
+			rows[0].iconUrl.substring(1, rows[0].iconUrl.length));
 	// $('#myModal').modal('show');
 	$("#gpsdeviceinfowindow").window("open");
 };
@@ -203,6 +208,8 @@ function clearForm() {
 	$("#txtgpsname").val("");
 	$("#txtgpsnumber").val("");
 	$("#txtIconUrl").val("");
+	$("#txtgpsicon").combogrid("setValue","");
+	$("#sltImage").attr("src","");
 }
 function pack_Gpsdevice_Query() {
 	m_Gpsdevice_Query.orgId = m_Gpsdevice_OrgId;

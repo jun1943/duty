@@ -24,7 +24,7 @@
 <body class="easyui-layout" oncontextmenu=self.event.returnValue=false>
 		<div data-options="region:'north'"  style="height:40px">
 				<div id="tbGroup" class="btn-toolbar">
-					<div class="btn-group" style="background: url(asset/css/images/dateMenuBg.png) repeat-x;width: 99.5%;line-height: 40px;overflow: hidden;height: 38px;">
+					<div class="btn-group" style="background: url(asset/css/images/dateMenuBg.png) repeat-x;width: 100%;line-height: 40px;overflow: hidden;height: 38px;">
 						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-tianyi-add" 
 						  onclick="selectDutyType()">报备类型选择</a> 
 						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-tianyi-add" 
@@ -37,7 +37,7 @@
 					 	onclick="saveDuty()">保存</a>
 						<a 	href="javascript:void(0);" class="easyui-linkbutton"	iconcls="icon-tianyi-save" 
 					  onclick="saveTemplate()">另存为模板</a>
-						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-autorun" 
+						<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-tianyi-export" 
 						 	onclick="btnExportToExcelAction()">导出</a>
 					</div>
 			</div>
@@ -45,7 +45,7 @@
 
 	<div id="divResource" data-options="region:'west',split:false" title="资源"
 			style="width:25%;height:100%">
-			<div id="tt" class="easyui-tabs" style="width:100%;height:500px;">	
+			<div id="tt" class="easyui-tabs" style="width:100%;height:550px;">	
  				<div title="人员" style="padding:10px;height:100%">  
        					  <div id="source_police"></div> 
        					  <div style="margin-top:2px"> 
@@ -126,7 +126,7 @@
 						</div>
 					</div>
 				</div>
-		<div data-options="region:'center'"  >
+		<div data-options="region:'center'" id="sss"  >
 				<div id="tdDuty" ></div>
 		</div>
 		</div>

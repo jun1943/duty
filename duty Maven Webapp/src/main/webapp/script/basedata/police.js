@@ -7,7 +7,8 @@ var operationType = "";
 $(function() {
 
 	$("#policeinfowindow").window("close");
-	//$('.panel-header').css({ "background-color": "#FFF000" }).css({"filter":"progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF000,endColorstr=#FFFFFF,GradientType=0)"});
+	// $('.panel-header').css({ "background-color": "#FFF000"
+	// }).css({"filter":"progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF000,endColorstr=#FFFFFF,GradientType=0)"});
 	var args = getUrlArgs();
 	m_Police_OrgId = args["orgId"];
 	m_Police_OrgCode = args["orgCode"];
@@ -139,13 +140,13 @@ function getGroupNumber() {
 };
 function getGpsID(orgId) {
 	$("#txtgpsid").combobox({
-        valueField: 'id',
-        textField: 'name',  
-        panelWidth:250,
-        async:false,
-        url:"police/getGpsId.do?orgId=" + orgId
-    });
-	//getBaseDataCombobox("police/getGpsId.do?orgId=" + orgId, "txtgpsid");
+		valueField : 'id',
+		textField : 'name',
+		panelWidth : 250,
+		async : false,
+		url : "police/getGpsId.do?orgId=" + orgId
+	});
+	// getBaseDataCombobox("police/getGpsId.do?orgId=" + orgId, "txtgpsid");
 }
 // 查询按钮事件
 function btnSearchAction() {
@@ -279,7 +280,7 @@ function btnEditPolice(optType) {
 	$("#txtmobileshort").val(rows[0].mobileShort);
 	$("#txtidcardno").val(rows[0].idcardno);
 	$("#txtnumber").val(rows[0].number);
-//	$("#txtgpsdes").val(rows[0].gpsName);
+	// $("#txtgpsdes").val(rows[0].gpsName);
 	$("#txtgpsid").combobox("setValue", rows[0].gpsId);
 	$("#txttype").combobox("setValue", rows[0].typeId);
 	$("#txtgroupno").combobox("setValue", rows[0].intercomGroup);
@@ -296,13 +297,14 @@ function clearForm() {
 	$("#txtmobileshort").val("");
 	$("#txtidcardno").val("");
 	$("#txtnumber").val("");
-//	$("#txtgpsdes").val("");
+	// $("#txtgpsdes").val("");
 	$("#txtgpsid").combobox("setValue", "");
 	$("#txttype").combobox("setValue", "");
 	$("#txtgroupno").combobox("setValue", "");
 	$("#txtpersonalno").val("");
 }
 // 保存新增或者编辑的数据
+var isExist = false;
 function savePoliceAction() {
 	var police = {};
 
@@ -323,17 +325,19 @@ function savePoliceAction() {
 	var idcardno = $("#txtidcardno").val();
 
 	// 对身份证以及警号进行验证，ajax同步
-	if (!isExistPolice(idcardno, "idCard")) {
-		$.messager.alert("错误提示", "身份证号码重复，请检查", "error");
+	isExistPolice(idcardno, "idCard");
+	if (!isExist) {
+		$.messager.alert("错误提示", "身份证号码重复，请检查", "error"); 
 		$("#txtidcardno").focus();
 		return;
 	}
 	police.orgId = m_Police_OrgId;
 	police.number = $("#txtnumber").val();
 	var number = $("#txtnumber").val();
-
-	if (!isExistPolice(number, "number")) {
-		$.messager.alert("错误提示", "身份证号码重复，请检查", "error");
+	isExistPolice(number, "number");
+	if (!isExist) {
+		$.messager.alert("错误提示", "该警号重复，请检查", "error");
+		isExist = false;
 		$("#txtnumber").focus();
 		return;
 	}
@@ -350,7 +354,7 @@ function savePoliceAction() {
 		$.messager.alert("错误提示", "请选择GPS_ID", "error");
 		return;
 	}
-//	police.gpsName = $("#txtgpsdes").val();
+	// police.gpsName = $("#txtgpsdes").val();
 	$.ajax({
 		url : "police/savePolice.do",
 		type : "POST",
@@ -377,6 +381,7 @@ function savePoliceAction() {
 	});
 }
 function isExistPolice(param, pType) {
+	isExist = false;
 	$.ajax({
 		url : "police/isExistPolice.do",
 		type : "POST",
@@ -387,7 +392,9 @@ function isExistPolice(param, pType) {
 			"paramType" : pType
 		},
 		success : function(req) {
-			return req;
+			if (req.isSuccess && req.Message == "UnExits") {
+				isExist = true;
+			}
 		}
 	});
 }

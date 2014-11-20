@@ -336,8 +336,13 @@ $(document).ready(function() {
 			width : 50,
 			formatter : fmtDigit
 		} ] ],
+		rowStyler: function(row,index){
+			if(row._parentId=="undefined"||row._parentId==undefined){
+				return "background-color:#A2C4EA;color:black;font-weight:bold";
+			}
+		},
 		onLoadSuccess : function(row) {
-			$(this).treegrid('enableDnd', row ? row.xid : null);
+			$(this).treegrid('enableDnd', row ? row.xid : null); 
 		},
 		onBeforeDrop : doBeforeDrop,
 		onDrop : doDrop
@@ -1859,8 +1864,11 @@ function createIconStyle(row, itemTypeId, iconUrl) {
 				var classId = "icon_" + itemTypeId + "_" + row.id;
 				var classId2 = m_iconCls[classId];
 				if (classId2 == undefined || classId2 == null) {
-					var style = "." + classId + "{	background:url('" + iconUrl
-							+ "'); width:25px; height:25px}";
+					var style = "."
+							+ classId
+							+ "{	background:url('"
+							+ iconUrl
+							+ "');background-size:contain; width:25px; height:25px}";
 					createStyle(style);
 					m_iconCls[classId] = classId;
 				}
@@ -2091,7 +2099,7 @@ function btnExportToExcelAction() {
 			ymd : m_ymd.ymd
 		},
 		success : function(req) {
-			var urlStr =req.Data.substring(1,req.Data.length);
+			var urlStr = req.Data.substring(1, req.Data.length);
 			window.open(urlStr);
 		},
 		failer : function(a, b) {

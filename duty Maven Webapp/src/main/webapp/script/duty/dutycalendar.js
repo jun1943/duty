@@ -71,7 +71,12 @@ $(function() {
 			align : 'right',
 			width : 50,
 			formatter : fmtDigit
-		} ] ]
+		} ] ],
+		rowStyler: function(row,index){
+			if(row._parentId=="undefined"||row._parentId==undefined){
+				return "background-color:#A2C4EA;color:black;font-weight:bold";
+			}
+		}
 	});
 });
 // 设置日历窗体的高度

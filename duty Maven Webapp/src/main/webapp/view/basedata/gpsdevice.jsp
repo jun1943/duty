@@ -76,19 +76,24 @@
 						<tr>
 							<td style="text-align: right;"><input type="hidden" id="gpsdeviceId"><label>GPS类型:　</label></td>
 							<td><input id="txttype" style="width:169px" class="easyui-combobox" /></td>
+							<td rowspan="4"><img id="sltImage" style="width:110px; height:110px" src=""></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>GPS名称:　</label></td>
 							<td><input type="text" style="width:169px" class="easyui-validatebox" id="txtgpsname"></td>
+							<td></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>GPS编号:　</label></td>
 							<td><input type="text" style="width:169px" class="easyui-validatebox" id="txtgpsnumber"></td>
+							<td></td>
 						</tr> 
 						<tr>
 							<td style="text-align: right;"><label>GPS图标:　</label></td>
 							
 							<td><input type="text"  style="width:169px" id="txtgpsicon"><input type="hidden" id="txtIconUrl"></td>
+							
+							<td></td>
 						</tr> 
 					</table>
 				</div>

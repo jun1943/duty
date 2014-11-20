@@ -25,6 +25,9 @@
 .icon-tianyi-search{
 	background:url('icons/tianyi_search2.png') no-repeat center center;
 }
+.icon-tianyi-export{
+	background:url('icons/tianyi_export.png') no-repeat center center;
+}
 .icon-add{
 	background:url('icons/add.png') no-repeat center center;
 }
@@ -36,9 +39,6 @@
 }
 .icon-report{
 	background:url('icons/reports.png') no-repeat center center;
-}
-.icon-autorun{
-	background:url('icons/autorun.png') no-repeat center center;
 }
 .icon-expand{
 	background:url('icons/expand.png') no-repeat center center;

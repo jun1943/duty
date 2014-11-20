@@ -104,16 +104,6 @@ public class PoliceController {
 			// map.put("typeId", typeId);
 			// map.put("groupId", groupId);
 
-			if (groupId != null && groupId != "") {
-				String[] gs = {};
-				gs = groupId.split(",");
-				int[] gids = new int[gs.length];
-				for (int i = 0; i < gs.length; i++) {
-					gids[i] = Integer.parseInt(String.valueOf(gs[i]));
-				}
-				map.put("gids", gids);
-			}
-
 			if (typeId != null && typeId != "") {
 				String[] s = {};
 				s = typeId.split(",");
@@ -124,7 +114,20 @@ public class PoliceController {
 				map.put("ids", ids);
 			}
 
-			list = policeService.loadVMListWithGroup(map);
+			if (groupId != null && groupId != "") {
+				String[] gs = {};
+				gs = groupId.split(",");
+				int[] gids = new int[gs.length];
+				for (int i = 0; i < gs.length; i++) {
+					gids[i] = Integer.parseInt(String.valueOf(gs[i]));
+				}
+				map.put("gids", gids);
+				list = policeService.loadVMListWithGroupList(map);
+			} else {
+				list = policeService.loadVMListWithGroup(map);
+			}
+
+			// list = policeService.loadVMListWithGroup(map);
 
 			int total = list.size();
 			ListResult<PoliceVM> rs = new ListResult<PoliceVM>(total, list);
@@ -178,7 +181,7 @@ public class PoliceController {
 
 	@RequestMapping(value = "isExistPolice.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
-	boolean isExistPolice(
+	String isExistPolice(
 			@RequestParam(value = "param", required = false) String param,
 			@RequestParam(value = "paramType", required = false) String paramType)
 			throws Exception {
@@ -186,30 +189,30 @@ public class PoliceController {
 			if (paramType.equals("idCard")) {
 				if (!param.equals("")) {
 					Police police = policeService.findByidCard(param);
-					if (police != null) { 
-						return false;
+					if (police != null) {
+						return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
 					} else {
-						return true;
+						return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
 					}
 				} else {
-					return true;
+					return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
 				}
 			} else if (paramType.equals("number")) {
 				if (!param.equals("")) {
 					Police police = policeService.findBycode(param);
 					if (police != null) {
-						return false;
+						return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
 					} else {
-						return true;
+						return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
 					}
 				} else {
-					return true;
+					return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
 				}
 			} else {
-				return true;
+				return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
 			}
 		} catch (Exception ex) {
-			return false;
+			return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
 		}
 	}
 
