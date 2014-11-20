@@ -12,418 +12,436 @@ var m_target = {};
 
 var m_iconCls = {};
 
-$(document).ready(function() {
-	$('#policeConditionwindow').window('close');
-	$('#gpsConditionwindow').window('close');
-	$('#weaponConditionwindow').window('close');
-	$('#vehicleConditionwindow').window('close');
-	$('#dutyTypeSelectwindow').window('close');
-	$('#dutyTemplateSelectwindow').window('close');
-	$('#userNodeWindows').window('close');
+$(document)
+		.ready(
+				function() {
+					$('#policeConditionwindow').window('close');
+					$('#gpsConditionwindow').window('close');
+					$('#weaponConditionwindow').window('close');
+					$('#vehicleConditionwindow').window('close');
+					$('#dutyTypeSelectwindow').window('close');
+					$('#dutyTemplateSelectwindow').window('close');
+					$('#userNodeWindows').window('close');
 
-	var args = getUrlArgs();
-	m_dutyprepare_Org.id = args["orgId"];
-	m_dutyprepare_Org.code = args["orgCode"];
-	m_dutyprepare_Org.path = args["orgPath"];
-	m_dutyprepare_Org.name = decodeURI(args["orgName"]);
-	m_ymd = YMD.createNew((args["ymd"]));
+					var args = getUrlArgs();
+					m_dutyprepare_Org.id = args["orgId"];
+					m_dutyprepare_Org.code = args["orgCode"];
+					m_dutyprepare_Org.path = args["orgPath"];
+					m_dutyprepare_Org.name = decodeURI(args["orgName"]);
+					m_ymd = YMD.createNew((args["ymd"]));
 
-	$('#source_police').treegrid({
-		dnd : true,
-		fitColumns : true,
-		resizable : true,
-		idField : 'id',
-		treeField : 'name',
-		toolbar : "#tb_source_police",
-		width : 220,
-		singleSelect : false,
-		columns : [ [ {
-			field : 'ck',
-			checkbox : true
-		}, {
-			title : 'id',
-			field : 'id',
-			align : 'left',
-			width : 0,
-			hidden : true
-		}, {
-			title : '姓名',
-			field : 'name',
-			align : 'left',
-			width : 50
-		}, {
-			title : '单位',
-			field : 'orgName',
-			align : 'left',
-			width : 50
-		}, {
-			title : '图标',
-			field : 'iconUrl',
-			align : 'left',
-			width : 50,
-			hidden : true
-		}, {
-			title : '类型',
-			field : 'itemTypeId',
-			align : 'left',
-			width : 50,
-			hidden : true,
-			formatter : function(value, row, index) {
-				row.itemTypeId = 2;
-				row.iconCls = 'icon_default_police';
-				return row.itemTypeId;
-			}
-		} ] ],
-		onLoadSuccess : function(row) {
-			$(this).treegrid('enableDnd', row ? row.id : null);
-		},
-		onBeforeDrop : doRejectDrop
-	});
-	$('#source_vehicle').treegrid({
-		// url : "vehicle/getVehicleSource.do?orgId="
-		// +
-		// m_dutyprepare_Org.id+"&orgCode="+m_dutyprepare_Org.code+"&orgPath="+m_dutyprepare_Org.path
-		// + "&number=",
-		fitColumns : true,
-		dnd : true,
-		resizable : true,
-		idField : 'id',
-		treeField : 'number',
-		toolbar : "#tb_source_vehicle",
-		width : 220,
-		singleSelect : false,
-		columns : [ [ {
-			field : 'ck',
-			checkbox : true
-		}, {
-			title : 'id',
-			field : 'id',
-			align : 'center',
-			width : 0,
-			hidden : true
-		}, {
-			title : '车牌号码',
-			field : 'number',
-			align : 'left',
-			width : 80
-		}, {
-			title : '车辆类型',
-			field : 'typeName',
-			align : 'left',
-			width : 80,
-			hidden : true
-		}, {
-			title : '车辆品牌',
-			field : 'brand',
-			align : 'left',
-			width : 50
-		}, {
-			title : '图标',
-			field : 'iconUrl',
-			align : 'left',
-			width : 50,
-			hidden : true
-		}, {
-			title : '类型',
-			field : 'itemTypeId',
-			align : 'left',
-			width : 50,
-			hidden : true,
-			formatter : function(value, row, index) {
-				row.itemTypeId = 1;
+					$('#source_police')
+							.treegrid(
+									{
+										dnd : true,
+										fitColumns : true,
+										resizable : true,
+										idField : 'id',
+										treeField : 'name',
+										toolbar : "#tb_source_police",
+									 width:220,height:400,
+										singleSelect : false,
+										columns : [ [
+												{
+													field : 'ck',
+													checkbox : true
+												},
+												{
+													title : 'id',
+													field : 'id',
+													align : 'left',
+													width : 0,
+													hidden : true
+												},
+												{
+													title : '姓名',
+													field : 'name',
+													align : 'left',
+													width : 50 
+												},
+												{
+													title : '单位',
+													field : 'orgName',
+													align : 'left',
+													width : 50 
+												},
+												{
+													title : '图标',
+													field : 'iconUrl',
+													align : 'left',
+													width : 50,
+													hidden : true
+												},
+												{
+													title : '类型',
+													field : 'itemTypeId',
+													align : 'left',
+													width : 50,
+													hidden : true,
+													formatter : function(value,
+															row, index) {
+														row.itemTypeId = 2;
+														row.iconCls = 'icon_default_police';
+														return row.itemTypeId;
+													}
+												} ] ],
+										onLoadSuccess : function(row) {
+											$(this).treegrid('enableDnd',
+													row ? row.id : null);
+										},
+										onBeforeDrop : doRejectDrop
+									});
+					$('#source_vehicle').treegrid({
+						// url : "vehicle/getVehicleSource.do?orgId="
+						// +
+						// m_dutyprepare_Org.id+"&orgCode="+m_dutyprepare_Org.code+"&orgPath="+m_dutyprepare_Org.path
+						// + "&number=",
+						fitColumns : true,
+						dnd : true,
+						resizable : true,
+						idField : 'id',
+						treeField : 'number',
+						toolbar : "#tb_source_vehicle",
 
-				return 1;
-			}
-		} ] ],
-		onLoadSuccess : function(row) {
-			$(this).treegrid('enableDnd', row ? row.id : null);
-		},
-		onBeforeDrop : doRejectDrop
-	});
-	$('#source_gpsdevice').treegrid({
-		// url : "gpsdevice/getGpsdeviceSource.do?orgId="
-		// +
-		// m_dutyprepare_Org.id+"&orgCode="+m_dutyprepare_Org.code+"&orgPath="+m_dutyprepare_Org.path
-		// + "&gpsname=",
-		fitColumns : true,
-		dnd : true,
-		resizable : true,
-		idField : 'id',
-		treeField : 'typeName',
-		toolbar : "#tb_source_gpsdevice",
-		width : 220,
-		singleSelect : false,
-		columns : [ [ {
-			field : 'ck',
-			checkbox : true
-		}, {
-			title : 'id',
-			field : 'id',
-			align : 'left',
-			width : 0,
-			hidden : true
-		}, {
-			title : 'GPS类型',
-			field : 'typeName',
-			align : 'left',
-			width : 80
-		}, {
-			title : 'GPS显示名称',
-			field : 'gpsName',
-			align : 'left',
-			width : 80
-		}, {
-			title : 'GPS设备编号',
-			field : 'number',
-			align : 'left',
-			width : 50,
-			hidden : true
-		}, {
-			title : '类型',
-			field : 'itemTypeId',
-			align : 'left',
-			width : 50,
-			hidden : true,
-			formatter : function(value, row, index) {
-				row.itemTypeId = 4;
-				return 4;
-			}
-		} ] ],
-		onLoadSuccess : function(row) {
-			$(this).treegrid('enableDnd', row ? row.id : null);
-		},
-		onBeforeDrop : doRejectDrop
-	});
-	$('#source_weapon').treegrid({
-		// url : "weapon/getweaponSource.do?orgId=" +
-		// m_dutyprepare_Org.id+"&orgCode="+m_dutyprepare_Org.code+"&orgPath="+m_dutyprepare_Org.path
-		// + "&number=",
-		fitColumns : true,
-		dnd : true,
-		resizable : true,
-		idField : 'id',
-		treeField : 'typeName',
-		toolbar : "#tb_source_weapon",
-		width : 220,
-		singleSelect : false,
-		columns : [ [ {
-			field : 'ck',
-			checkbox : true
-		}, {
-			title : 'id',
-			field : 'id',
-			align : 'left',
-			width : 0,
-			hidden : true
-		}, {
-			title : '武器类型',
-			field : 'typeName',
-			align : 'left',
-			width : 80
-		}, {
-			title : '武器编号',
-			field : 'number',
-			align : 'left',
-			width : 80
-		}, {
-			title : '规格标准',
-			field : 'standard',
-			align : 'left',
-			width : 50,
-			hidden : true
-		}, {
-			title : '类型',
-			field : 'itemTypeId',
-			align : 'left',
-			width : 50,
-			hidden : true,
-			formatter : function(value, row, index) {
-				row.itemTypeId = 3;
-				return 3;
-			}
-		} ] ],
-		onLoadSuccess : function(row) {
-			$(this).treegrid('enableDnd', row ? row.id : null);
-		},
-		onBeforeDrop : doRejectDrop
-	});
+						 width:220,height:400,
+						singleSelect : false,
+						columns : [ [ {
+							field : 'ck',
+							checkbox : true
+						}, {
+							title : 'id',
+							field : 'id',
+							align : 'center',
+							width : 0,
+							hidden : true
+						}, {
+							title : '车牌号码',
+							field : 'number',
+							align : 'left',
+							width : 80
+						}, {
+							title : '车辆类型',
+							field : 'typeName',
+							align : 'left',
+							width : 80,
+							hidden : true
+						}, {
+							title : '车辆品牌',
+							field : 'brand',
+							align : 'left',
+							width : 50
+						}, {
+							title : '图标',
+							field : 'iconUrl',
+							align : 'left',
+							width : 50,
+							hidden : true
+						}, {
+							title : '类型',
+							field : 'itemTypeId',
+							align : 'left',
+							width : 50,
+							hidden : true,
+							formatter : function(value, row, index) {
+								row.itemTypeId = 1;
 
-	$('#dtDutyType').treegrid({
-		fitColumns : true,
-		rownumbers : false,
-		resizable : true,
-		idField : 'id',
-		treeField : 'name',
-		width : '99%',
-		height : '100%',
-		singleSelect : false,
-		onlyLeafCheck : true,
-		onClickRow : isLeafSelected,
-		columns : [ [ {
-			field : 'ck',
-			checkbox : true
-		}, {
-			title : 'id',
-			field : 'id',
-			align : 'left',
-			width : 0,
-			hidden : true
-		}, {
-			title : '名称',
-			field : 'name',
-			align : 'left',
-			width : 200
-		}, {
-			title : 'parentId',
-			field : "parentId",
-			align : 'left',
-			width : 5,
-			hidden : true
-		} ] ]
-	});
+								return 1;
+							}
+						} ] ],
+						onLoadSuccess : function(row) {
+							$(this).treegrid('enableDnd', row ? row.id : null);
+						},
+						onBeforeDrop : doRejectDrop
+					});
+					$('#source_gpsdevice').treegrid({
+						// url : "gpsdevice/getGpsdeviceSource.do?orgId="
+						// +
+						// m_dutyprepare_Org.id+"&orgCode="+m_dutyprepare_Org.code+"&orgPath="+m_dutyprepare_Org.path
+						// + "&gpsname=",
+						fitColumns : true,
+						dnd : true,
+						resizable : true,
+						idField : 'id',
+						treeField : 'typeName',
+						toolbar : "#tb_source_gpsdevice",
+						 width:220,height:400,
+						singleSelect : false,
+						columns : [ [ {
+							field : 'ck',
+							checkbox : true
+						}, {
+							title : 'id',
+							field : 'id',
+							align : 'left',
+							width : 0,
+							hidden : true
+						}, {
+							title : 'GPS类型',
+							field : 'typeName',
+							align : 'left',
+							width : 80
+						}, {
+							title : 'GPS显示名称',
+							field : 'gpsName',
+							align : 'left',
+							width : 80
+						}, {
+							title : 'GPS设备编号',
+							field : 'number',
+							align : 'left',
+							width : 50,
+							hidden : true
+						}, {
+							title : '类型',
+							field : 'itemTypeId',
+							align : 'left',
+							width : 50,
+							hidden : true,
+							formatter : function(value, row, index) {
+								row.itemTypeId = 4;
+								return 4;
+							}
+						} ] ],
+						onLoadSuccess : function(row) {
+							$(this).treegrid('enableDnd', row ? row.id : null);
+						},
+						onBeforeDrop : doRejectDrop
+					});
+					$('#source_weapon').treegrid({
+						// url : "weapon/getweaponSource.do?orgId=" +
+						// m_dutyprepare_Org.id+"&orgCode="+m_dutyprepare_Org.code+"&orgPath="+m_dutyprepare_Org.path
+						// + "&number=",
+						fitColumns : true,
+						dnd : true,
+						resizable : true,
+						idField : 'id',
+						treeField : 'typeName',
+						toolbar : "#tb_source_weapon",
+						 width:220,height:400,
+						singleSelect : false,
+						columns : [ [ {
+							field : 'ck',
+							checkbox : true
+						}, {
+							title : 'id',
+							field : 'id',
+							align : 'left',
+							width : 0,
+							hidden : true
+						}, {
+							title : '武器类型',
+							field : 'typeName',
+							align : 'left',
+							width : 80
+						}, {
+							title : '武器编号',
+							field : 'number',
+							align : 'left',
+							width : 80
+						}, {
+							title : '规格标准',
+							field : 'standard',
+							align : 'left',
+							width : 50,
+							hidden : true
+						}, {
+							title : '类型',
+							field : 'itemTypeId',
+							align : 'left',
+							width : 50,
+							hidden : true,
+							formatter : function(value, row, index) {
+								row.itemTypeId = 3;
+								return 3;
+							}
+						} ] ],
+						onLoadSuccess : function(row) {
+							$(this).treegrid('enableDnd', row ? row.id : null);
+						},
+						onBeforeDrop : doRejectDrop
+					});
 
-	$('#tdDuty').treegrid({
-		fitColumns : true,
-		dnd : true,
-		resizable : true,
-		idField : 'xid',
-		treeField : 'displayName',
-		toolbar : '#tdDutyToolbar',
-		showFooter : true,
-		onDblClickRow : onSelRow,
-		columns : [ [ {
-			title : 'xid',
-			field : 'xid',
-			width : 0,
-			hidden : true
-		}, {
-			title : '名称',
-			field : 'displayName',
-			width : 200
-		}, {
-			title : '类型',
-			field : 'itemInnerTypeName',
-			align : 'left',
-			width : 70
-		}, {
-			title : '时间区间',
-			field : 'beginTime',
-			align : 'left',
-			width : 100,
-			formatter : fmtShiftPeriod
-		}, {
-			title : '车辆',
-			field : 'velicleCount',
-			align : 'right',
-			width : 50,
-			formatter : fmtDigit
-		}, {
-			title : '警员',
-			field : 'policeCount',
-			align : 'right',
-			width : 50,
-			formatter : fmtDigit
-		}, {
-			title : '武器',
-			field : 'weaponCount',
-			align : 'right',
-			width : 50,
-			formatter : fmtDigit
-		}, {
-			title : '定位',
-			field : 'gpsCount',
-			align : 'right',
-			width : 50,
-			formatter : fmtDigit
-		} ] ],
-		rowStyler: function(row,index){
-			if(row._parentId=="undefined"||row._parentId==undefined){
-				return "background-color:#A2C4EA;color:black;font-weight:bold";
-			}
-		},
-		onLoadSuccess : function(row) {
-			$(this).treegrid('enableDnd', row ? row.xid : null); 
-		},
-		onBeforeDrop : doBeforeDrop,
-		onDrop : doDrop
-	});
+					$('#dtDutyType').treegrid({
+						fitColumns : true,
+						rownumbers : false,
+						resizable : true,
+						idField : 'id',
+						treeField : 'name',
+						width : '99%',
+						height : '100%',
+						singleSelect : false,
+						onlyLeafCheck : true,
+						onClickRow : isLeafSelected,
+						columns : [ [ {
+							field : 'ck',
+							checkbox : true
+						}, {
+							title : 'id',
+							field : 'id',
+							align : 'left',
+							width : 0,
+							hidden : true
+						}, {
+							title : '名称',
+							field : 'name',
+							align : 'left',
+							width : 200
+						}, {
+							title : 'parentId',
+							field : "parentId",
+							align : 'left',
+							width : 5,
+							hidden : true
+						} ] ]
+					});
 
-	$('#dgtaskTarget').datagrid({
-		fitColumns : true,
-		pagination : false,
-		toolbar : '#tbTaskTarget',
-		columns : [ [ {
-			field : 'ck',
-			checkbox : true
-		}, {
-			title : 'targetType',
-			field : 'targetType',
-			align : 'center',
-			width : 10,
-			hidden : true
-		}, {
-			title : 'id',
-			field : 'targetId',
-			align : 'center',
-			width : 10,
-			hidden : true
-		}, {
-			title : '名称',
-			field : 'name',
-			align : 'left',
-			width : 180
-		} ] ]
-	});
+					$('#tdDuty')
+							.treegrid(
+									{
+										fitColumns : true,
+										dnd : true,
+										resizable : true,
+										idField : 'xid',
+										treeField : 'displayName',
+										toolbar : '#tdDutyToolbar',
+										showFooter : true,
+										onDblClickRow : onSelRow,
+										columns : [ [ {
+											title : 'xid',
+											field : 'xid',
+											width : 0,
+											hidden : true
+										}, {
+											title : '名称',
+											field : 'displayName',
+											width : 200
+										}, {
+											title : '类型',
+											field : 'itemInnerTypeName',
+											align : 'left',
+											width : 70
+										}, {
+											title : '时间区间',
+											field : 'beginTime',
+											align : 'left',
+											width : 100,
+											formatter : fmtShiftPeriod
+										}, {
+											title : '车辆',
+											field : 'velicleCount',
+											align : 'right',
+											width : 50,
+											formatter : fmtDigit
+										}, {
+											title : '警员',
+											field : 'policeCount',
+											align : 'right',
+											width : 50,
+											formatter : fmtDigit
+										}, {
+											title : '武器',
+											field : 'weaponCount',
+											align : 'right',
+											width : 50,
+											formatter : fmtDigit
+										}, {
+											title : '定位',
+											field : 'gpsCount',
+											align : 'right',
+											width : 50,
+											formatter : fmtDigit
+										} ] ],
+										rowStyler : function(row, index) {
+											if (row._parentId == "undefined"
+													|| row._parentId == undefined) {
+												return "background-color:#A2C4EA;color:black;font-weight:bold";
+											}
+										},
+										onLoadSuccess : function(row) {
+											$(this).treegrid('enableDnd',
+													row ? row.xid : null);
+										},
+										onBeforeDrop : doBeforeDrop,
+										onDrop : doDrop
+									});
 
-	$('#txtBeginTime').timespinner({
-		min : '00:00',
-		required : true
-	});
+					$('#dgtaskTarget').datagrid({
+						fitColumns : true,
+						pagination : false,
+						toolbar : '#tbTaskTarget',
+						columns : [ [ {
+							field : 'ck',
+							checkbox : true
+						}, {
+							title : 'targetType',
+							field : 'targetType',
+							align : 'center',
+							width : 10,
+							hidden : true
+						}, {
+							title : 'id',
+							field : 'targetId',
+							align : 'center',
+							width : 10,
+							hidden : true
+						}, {
+							title : '名称',
+							field : 'name',
+							align : 'left',
+							width : 180
+						} ] ]
+					});
 
-	$('#txtEndTime').timespinner({
-		min : '00:00',
-		required : true
-	});
+					$('#txtBeginTime').timespinner({
+						min : '00:00',
+						required : true
+					});
 
-	initResourceQueryTG();
-	loadSourcePolice({
-		"orgId" : m_dutyprepare_Org.id,
-		"orgCode" : m_dutyprepare_Org.code,
-		"orgPath" : m_dutyprepare_Org.path,
-		"name" : ""
-	});
-	loadSourceVehicle({
-		"orgId" : m_dutyprepare_Org.id,
-		"orgCode" : m_dutyprepare_Org.code,
-		"orgPath" : m_dutyprepare_Org.path,
-		"number" : ""
-	});
-	loadSourceGpsDevice({
-		"orgId" : m_dutyprepare_Org.id,
-		"orgCode" : m_dutyprepare_Org.code,
-		"orgPath" : m_dutyprepare_Org.path,
-		"gpsname" : ""
-	});
-	loadSourceWeapon({
-		"orgId" : m_dutyprepare_Org.id,
-		"orgCode" : m_dutyprepare_Org.code,
-		"orgPath" : m_dutyprepare_Org.path,
-		"number" : ""
-	});
-	loadDutyType();
-	var pars = {
-		orgId : m_dutyprepare_Org.id,
-		ymd : m_ymd.ymd
-	};
-	loadDuty(pars);
+					$('#txtEndTime').timespinner({
+						min : '00:00',
+						required : true
+					});
 
-	var title = m_dutyprepare_Org.name + '  ' + m_ymd.format();
+					initResourceQueryTG();
+					loadSourcePolice({
+						"orgId" : m_dutyprepare_Org.id,
+						"orgCode" : m_dutyprepare_Org.code,
+						"orgPath" : m_dutyprepare_Org.path,
+						"name" : ""
+					});
+					loadSourceVehicle({
+						"orgId" : m_dutyprepare_Org.id,
+						"orgCode" : m_dutyprepare_Org.code,
+						"orgPath" : m_dutyprepare_Org.path,
+						"number" : ""
+					});
+					loadSourceGpsDevice({
+						"orgId" : m_dutyprepare_Org.id,
+						"orgCode" : m_dutyprepare_Org.code,
+						"orgPath" : m_dutyprepare_Org.path,
+						"gpsname" : ""
+					});
+					loadSourceWeapon({
+						"orgId" : m_dutyprepare_Org.id,
+						"orgCode" : m_dutyprepare_Org.code,
+						"orgPath" : m_dutyprepare_Org.path,
+						"number" : ""
+					});
+					loadDutyType();
+					var pars = {
+						orgId : m_dutyprepare_Org.id,
+						ymd : m_ymd.ymd
+					};
+					loadDuty(pars);
 
-	$('#divMember').panel({
-		'title' : title
-	});
+					var title = m_dutyprepare_Org.name + '  ' + m_ymd.format();
 
-});
+					$('#divMember').panel({
+						'title' : title
+					});
+
+				});
+ 
 function checkAllResources(gridId) {
 	$("#" + gridId).treegrid("selectAll");
 };

@@ -91,6 +91,7 @@ public class PoliceController {
 			@RequestParam(value = "orgPath", required = false) String orgPath,
 			@RequestParam(value = "name", required = false) String name,
 			@RequestParam(value = "typeId", required = false) String typeId,
+			@RequestParam(value = "sort", required = false) String sort, 
 			@RequestParam(value = "groupId", required = false) String groupId)
 			throws Exception {
 		try {
@@ -101,6 +102,7 @@ public class PoliceController {
 			map.put("orgPath", orgPath);
 			map.put("orgCode", orgCode);
 			map.put("name", name);
+		 
 			// map.put("typeId", typeId);
 			// map.put("groupId", groupId);
 

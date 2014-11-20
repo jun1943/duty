@@ -15,6 +15,7 @@
 	.prop_val{
 		.width:233px
 	}
+ 
 </style>
 
 <title>勤务报备</title>
@@ -44,9 +45,9 @@
 	</div>
 
 	<div id="divResource" data-options="region:'west',split:false" title="资源"
-			style="width:25%;height:100%">
+			style="width:25%;height:100%;overflow:hidden">
 			<div id="tt" class="easyui-tabs" style="width:100%;height:550px;">	
- 				<div title="人员" style="padding:10px;height:100%">  
+ 				<div title="人员" style="padding:10px;height:100%;overflow:hidden">  
        					  <div id="source_police"></div> 
        					  <div style="margin-top:2px"> 
      					  		<a id="btnAddAllPolice" onclick="addSelPolices()" style="float:right; margin-right:10px"  name="btnAddAllPolice"  href="javascript:void(0);" class="easyui-linkbutton"  >一键添加</a>
@@ -61,7 +62,7 @@
                     iconcls="icon-search" onclick="searchPoliceAction()" plain="true"></a>
        					  </div>
     			</div>
-				<div title="车辆" style="padding:10px;height:100%">  
+				<div title="车辆" style="padding:10px;height:100%;overflow:hidden">  
        					 <div id="source_vehicle"></div> 
        					  <div style="margin-top:2px">
 								<a id="btnCheckAllVehicle" style="float:right; margin-right:10px"  name="btnCheckAllVehicle"  href="javascript:void(0);" class="easyui-linkbutton" onclick="addSelVehicles()">一键添加</a>
@@ -75,7 +76,7 @@
                     iconcls="icon-tianyi-search" onclick="searchVehicleAction()" ></a>
        					  </div>
     			</div>		
- 				<div title="定位设备" style="padding:10px;height:100%">  
+ 				<div title="定位设备" style="padding:10px;height:100%;overflow:hidden">  
        					  <div id="source_gpsdevice"></div> 
        					  <div style="margin-top:2px">
 								<a id="btnCheckAllGps" onclick='addSelgps()' style="float:right; margin-right:10px" name="btnCheckAllGps"  href="javascript:void(0);" class="easyui-linkbutton" >一键添加</a>
@@ -89,7 +90,7 @@
                     iconcls="icon-tianyi-search" onclick="searchGpsAction()" ></a>
        					  </div>
     			</div>	
- 				<div title="武器" style="padding:10px;height:100%">  
+ 				<div title="武器" style="padding:10px;height:100%;overflow:hidden">  
        					  <div id="source_weapon"></div> 
        					  <div style="margin-top:2px"> 
        					   		<a id="btnCheckAllWeapon" onclick='addSelWeapons()' style="float:right; margin-right:10px"  name="btnCheckAllWeapon"  href="javascript:void(0);" class="easyui-linkbutton" >一键添加</a>

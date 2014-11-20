@@ -424,7 +424,7 @@
 			left join organ as o on p.org_id= o.id
   		 	left join t_gps tg  on p.gps_id = tg.id
   		 where
-  		  o.id = #{orgId,jdbcType=INTEGER} and 
+  		  o.id = #{orgId,jdbcType=INTEGER} and
   		   pgo.org_id= #{orgId,jdbcType=INTEGER} 
   		    
   		<if test ="name !=null">
