@@ -42,7 +42,7 @@
 	            <div class="dateBoxMainTItleTxt">
 	            	<div class="dateBoxMainTItleTxtDIv">
 	                    <a href="javascript:void(0);" onclick="clearAlldutyData()"><img src="asset/css/images/canelpast.png" alt="清楚当月所有报备数据" title="清楚当月所有报备数据" /></a>
-	                    <a href="javascript:void(0);" onclick="clearClipbord()"><img src="asset/css/images/pastno.png" alt="取消剪切板数据" title="取消剪切板数据"  /></a>
+	                    <a href="javascript:void(0);" onclick="clearClipbord()"><img src="asset/css/images/past.png" alt="取消剪切板数据" title="取消剪切板数据"  /></a>
 	                </div>
 	            </div>
         	</div>
@@ -72,7 +72,7 @@
 			style="width:654px; height:450px; padding: 10px;"> 
 		    <div id="tbdutydetailsforday" style="height:30px"> 
                 <a id="exprotToExcel" name="exprotToExcel" href="javascript:void(0);" class="easyui-linkbutton" style="float:right"
-                    iconcls="icon-add" plain="true" onclick="btnExportAction()">导出</a>  
+                    iconcls="icon-tianyi-export" plain="true" onclick="btnExportAction()">导出</a>  
 		    </div>
 			<div id="tgddutydetailsforday" >
 			</div>

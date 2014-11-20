@@ -4,6 +4,30 @@
 /*.icon-add{
 	background:url('icons/edit_add.png') no-repeat center center;
 }*/
+.icon-tianyi-add{
+	background:url('icons/tianyi_add.png') no-repeat center center;
+}
+.icon-tianyi-edit{
+	background:url('icons/tianyi_edit.png') no-repeat center center;
+}
+.icon-tianyi-save{
+	background:url('icons/tianyi_save.png') no-repeat center center;
+}
+.icon-tianyi-delete{
+	background:url('icons/tianyi_delete.png') no-repeat center center;
+}
+.icon-tianyi-cancel{
+	background:url('icons/tianyi_cancel.png') no-repeat center center;
+}
+.icon-tianyi-unlock{
+	background:url('icons/tianyi_unlock.png') no-repeat center center;
+}
+.icon-tianyi-search{
+	background:url('icons/tianyi_search2.png') no-repeat center center;
+}
+.icon-tianyi-export{
+	background:url('icons/tianyi_export.png') no-repeat center center;
+}
 .icon-add{
 	background:url('icons/add.png') no-repeat center center;
 }
@@ -15,9 +39,6 @@
 }
 .icon-report{
 	background:url('icons/reports.png') no-repeat center center;
-}
-.icon-autorun{
-	background:url('icons/autorun.png') no-repeat center center;
 }
 .icon-expand{
 	background:url('icons/expand.png') no-repeat center center;

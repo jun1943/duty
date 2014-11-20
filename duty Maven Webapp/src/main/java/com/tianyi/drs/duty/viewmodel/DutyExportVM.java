@@ -4,10 +4,10 @@ public class DutyExportVM {
 	private String dutyName;
 	private String typeName;
 	private String timeArea;
-	private String vehicleCount;
-	private String policeCount;
-	private String weaponCount;
-	private String gpsdeviceCount;
+	private Integer vehicleCount;
+	private Integer policeCount;
+	private Integer weaponCount;
+	private Integer gpsdeviceCount;
 	
 	public String getDutyName() {
 		return dutyName;
@@ -27,28 +27,28 @@ public class DutyExportVM {
 	public void setTimeArea(String timeArea) {
 		this.timeArea = timeArea;
 	}
-	public String getVehicleCount() {
+	public Integer getVehicleCount() {
 		return vehicleCount;
 	}
-	public void setVehicleCount(String vehicleCount) {
+	public void setVehicleCount(Integer vehicleCount) {
 		this.vehicleCount = vehicleCount;
 	}
-	public String getPoliceCount() {
+	public Integer getPoliceCount() {
 		return policeCount;
 	}
-	public void setPoliceCount(String policeCount) {
+	public void setPoliceCount(Integer policeCount) {
 		this.policeCount = policeCount;
 	}
-	public String getWeaponCount() {
+	public Integer getWeaponCount() {
 		return weaponCount;
 	}
-	public void setWeaponCount(String weaponCount) {
+	public void setWeaponCount(Integer weaponCount) {
 		this.weaponCount = weaponCount;
 	}
-	public String getGpsdeviceCount() {
+	public Integer getGpsdeviceCount() {
 		return gpsdeviceCount;
 	}
-	public void setGpsdeviceCount(String gpsdeviceCount) {
+	public void setGpsdeviceCount(Integer gpsdeviceCount) {
 		this.gpsdeviceCount = gpsdeviceCount;
 	} 
 }

@@ -251,10 +251,10 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
    		 <select id="findBycode" parameterType="String" resultType="com.tianyi.drs.basedata.model.Police">  
-       		select * from t_police where number = #{param}  
+       		select  * from t_police where number = #{param}  limit 1,1 
     	 </select> 
    		 <select id="findByidCard" parameterType="String" resultType="com.tianyi.drs.basedata.model.Police">  
-       		select * from t_police where idcardNo = #{param}  
+       		select * from t_police where idcardNo = #{param}   limit 1,1
     	 </select>
     	 
          <select id="findByname" parameterType="String" resultType="com.tianyi.drs.basedata.model.Police">  
@@ -275,7 +275,9 @@
     	 </select> 
     	     	 
       	 <select id="selectGpsId" parameterType="Integer"  resultType="com.tianyi.drs.basedata.viewmodel.GpsBaseVM">  
-       		 select id, concat(number,";",gps_name) as name  from t_gps where org_id = #{orgId,jdbcType=INTEGER} order by id asc
+       		 select g.id, concat(gt.name,"--",gps_name,"--",number) as name  from t_gps g 
+       		 left join t_gpstype gt on g.type_id = gt.id
+       		  where g.org_id = #{orgId,jdbcType=INTEGER} order by g.id asc
     	 </select> 
   
   <select id="countByExample" parameterType="com.tianyi.drs.basedata.viewmodel.PoliceVM" resultType="java.lang.Integer">
@@ -393,20 +395,15 @@
   
   <select id="loadVMListWithGroup" parameterType="java.util.Map" resultMap="BaseModelMap">
   		 select distinct <include refid ="Base_Model_Column_List" />
-  		 from t_police p 
-  		 left join t_policetype pt on pt.id = p.type_id
-  		 left join organ o on o.id  = p.org_id
+  		 from t_police p   
+			left join organ as org on p.org_Id=org.id
+  		    left join t_policetype pt on pt.id = p.type_id
+			left join organ as o on p.org_id= o.id
   		 	left join t_gps tg  on p.gps_id = tg.id
-  		 <if test ="gids !=null">
-  		 	left join t_duty_police_group_member gm on gm.police_id = p.id
-  		 	left join t_duty_police_group pg on pg.id = gm.group_id
-  		 </if> 
   		 where 
-  		 (
+  		  
   		 o.id = #{orgId,jdbcType=INTEGER}
-  		  or 
-  		  o.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
-  		 )
+  		   
   		<if test ="name !=null">
   			and p.name like CONCAT('%','${name}','%' )  
   		</if>
@@ -417,14 +414,60 @@
   					#{item}  
  				</foreach>
  				
+  		</if> 
+  		 union  
+  		 select distinct <include refid ="Base_Model_Column_List" />
+ 			from t_duty_police_group_org as pgo
+			left join t_duty_police_group_member as m  on m.group_id=pgo.id
+			left join t_police as p on m.police_id=p.id 
+  		    left join t_policetype pt on pt.id = p.type_id
+			left join organ as o on p.org_id= o.id
+  		 	left join t_gps tg  on p.gps_id = tg.id
+  		 where
+  		  o.id = #{orgId,jdbcType=INTEGER} and
+  		   pgo.org_id= #{orgId,jdbcType=INTEGER} 
+  		    
+  		<if test ="name !=null">
+  			and p.name like CONCAT('%','${name}','%' )  
   		</if>
-  		<if test ="gids !=null">
-  			and pg.id  in
+  		<if test ="ids !=null">
+  			and p.type_id in
 
-				<foreach item="gitem" index="index" collection="gids" open="(" separator="," close=")">  
-  					#{gitem}  
+				<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+  					#{item}  
  				</foreach>
  				
   		</if> 
+  		 
+  </select>
+   
+  <select id="loadVMListWithGroupList" parameterType="java.util.Map" resultMap="BaseModelMap">
+  		  
+  		 select distinct <include refid ="Base_Model_Column_List" />
+ 			from t_duty_police_group_org as pgo
+			left join t_duty_police_group_member as m  on  m.group_id=pgo.id
+			left join t_police as p on m.police_id=p.id 
+  		    left join t_policetype pt on pt.id = p.type_id
+			left join organ as o on p.org_id= o.id
+  		 	left join t_gps tg  on p.gps_id = tg.id
+  		 where
+  		    pgo.org_id= #{orgId,jdbcType=INTEGER}  and 
+  		  pgo.police_group_id in 
+  		 		<foreach item="item" index="index" collection="gids" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+ 				
+  		<if test ="name !=null">
+  			and p.name like CONCAT('%','${name}','%' )  
+  		</if>
+  		<if test ="ids !=null">
+  			and p.type_id in
+
+				<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+ 				
+  		</if> 
+  		 
   </select>
 </mapper>

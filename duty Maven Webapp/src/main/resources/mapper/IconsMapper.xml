@@ -123,6 +123,7 @@
   		<if test ="typeid >0 ">
   			and c.type_id =#{typeid,jdbcType=INTEGER}
   		</if> 
+  		order by c.type_id asc
   		 <if test="pageStart !=null">
   			limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
   		</if>

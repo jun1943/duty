@@ -31,4 +31,9 @@ public interface DutyMapper {
 	List<DutyItemCountVM> loadTotalPolicedetail(Map<String, Object> map);
 
 	List<DutyProperty> selectdutyProperty();
+
+	void deleteByYMD(Integer targetYmd);
+ 
+
+	List<Duty> loadVMListByOrgAndYmd(Map<String, Object> maps);
 }

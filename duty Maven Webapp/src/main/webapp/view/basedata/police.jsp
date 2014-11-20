@@ -9,6 +9,7 @@
 <!--  
 <link href='//cdn.datatables.net/plug-ins/a5734b29083/integration/jqueryui/dataTables.jqueryui.css' type='text/css' />
 -->
+	<link rel="stylesheet" type="text/css" href="asset/css/images/dateStyle.css"/>
 <script src='<%=basePath%>script/basedata/police.js'
 	type='text/javascript'></script>
 <title>警员管理</title>
@@ -22,61 +23,52 @@
 				<div id="tbPolice" class="btn-toolbar" style="height:30px; margin-top:3px">
 					<div class="btn-group">
 						<a id="btnAddPolice" href="javascript:void(0);"
-							class="easyui-linkbutton" iconcls="icon-add" 
+							class="easyui-linkbutton" iconcls="icon-tianyi-add" 
 							onclick="btnAddPolice('add')">新增</a> <a id="btnEditPolice"
 							href="javascript:void(0);" class="easyui-linkbutton"
-							iconcls="icon-edit"  onclick="btnEditPolice('edit')">修改</a>
+							iconcls="icon-tianyi-edit"  onclick="btnEditPolice('edit')">修改</a>
 							<a id="btnUnLockPolice"
 							href="javascript:void(0);" class="easyui-linkbutton"
-							iconcls="icon-edit"  onclick="btnUnLockPolice()">启用</a>
+							iconcls="icon-tianyi-unlock"  onclick="btnUnLockPolice()">启用</a>
 							<a id="btnLockPolice"
 							href="javascript:void(0);" class="easyui-linkbutton"
-							iconcls="icon-edit"  onclick="btnLockPolice()">停用</a>
+							iconcls="icon-tianyi-cancel"  onclick="btnLockPolice()">停用</a>
 						<a id="btnDelPolice" href="javascript:void(0);"
-							class="easyui-linkbutton" iconcls="icon-cancel" 
+							class="easyui-linkbutton" iconcls="icon-tianyi-delete" 
 							onclick="btnDelPolice()">删除</a>
-					</div>
-					<div class="btn-group" style="float:right; margin-right:20px">
+					 
 						<a id="btnSearchPolice" href="javascript:void(0);"
-							class="easyui-linkbutton" iconcls="icon-search" 
-							onclick="btnSearchPolice()">查询</a>
+							class="easyui-linkbutton"  style="float:right; margin-right:20px"
+							onclick="btnSearchPolice()">展开查询</a>
 						 
 					</div>
 			 	</div>
-				<div id="my-search-box" class="panel-body" style="border:0px;display:none">
-					<form class="form-inline">
-						<div class="form-group">
-							<div class="form-group">
-								<div class="input-group">
-									　　查询范围选择 <input id="isSubOrg" class="easyui-combobox" name="dept"
-										data-options="valueField:'id',textField:'name',data:[{id: 0,name: '本級机构'},{id: 1,name: '本级及下级机构'}]" />
-
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div class="form-group">
-								<div class="input-group">
-									姓名 <input id="txtsearchName" type="text"
-										class="easyui-validatebox">
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="form-group">
-								<div class="input-group">
-									人员类别 <input id="sltType" class="easyui-combobox" />
-
-								</div>
-							</div>
-						</div>
-						<a id="btnSearchAction" href="javascript:void(0);"
-							class="easyui-linkbutton" iconcls="icon-search" plain="true"
-							onclick="btnSearchAction()"></a>
-						<!-- button type="submit" class="btn btn-info">查询</button -->
-					</form>
-				</div>
+			 	
+			 	<div class="MySearch" id="my-search-box" style=" padding:3px;display:none; ">
+		 			<div class="MySearchMain">
+				 		<div>
+							<form>
+								<table>
+									<tr>
+										<td class="MySearchTDTitle">查询范围选择:</td>
+										<td><input id="isSubOrg" class="easyui-combobox" name="dept"
+										data-options="valueField:'id',textField:'name',data:[{id: 0,name: '本級机构'},{id: 1,name: '本级及下级机构'}]" /></td>
+										<td class="MySearchTDTitle">姓名:</td>
+										<td><input id="txtsearchName" type="text"
+										class="easyui-validatebox"></td>
+										<td class="MySearchTDTitle">人员类别 :</td>
+										<td><input id="sltType" class="easyui-combobox" /></td>
+										<td><a id="btnSearchAction" href="javascript:void(0);"
+							class="easyui-linkbutton" iconcls="icon-tianyi-search"  
+							onclick="btnSearchAction()">查询</a></td>
+									 
+									</tr> 
+								</table>
+							</form>
+						</div>	
+					</div>		
+				
+				</div> 
 				<div id="dtPolice"></div>
 			 
 			 
@@ -140,14 +132,14 @@
 								class="easyui-validatebox"></td>
 						</tr>
 						<tr>
-							<td style="text-align: right;"><label>GPS_ID:　</label></td>
+							<td style="text-align: right;"><label>GPS设备:　</label></td>
 							<td><input id="txtgpsid" class="easyui-combobox" /></td>
 						</tr>
-						<tr>
+						<!-- <tr>
 							<td style="text-align: right;"><label>GPS备注:　</label></td>
 							<td><input id="txtgpsdes" type="text"
 								class="easyui-validatebox"></td>
-						</tr>
+						</tr> -->
 					</table>
 				</div>
 			</div>

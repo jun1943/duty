@@ -151,7 +151,7 @@ function btnEditVehicle(optType) {
 	$("#txtgroupno").combobox("setValue", rows[0].intercomGroup);
 	$("#txtpersonalno").val(rows[0].intercomGroup);
 	$("#txtgpsid").combobox("setValue", rows[0].gpsId);
-	$("#txtgpsname").val(rows[0].gpsName);
+	//$("#txtgpsname").val(rows[0].gpsName);
 	$("#vehicleinfowindow").window("open");
 	// $('#myModal').modal('show');
 };
@@ -165,7 +165,7 @@ function clearForm() {
 	$("#txtgroupno").combobox("setValue", "");
 	$("#txtpersonalno").val("");
 	$("#txtgpsid").combobox("setValue", "");
-	$("#txtgpsname").val("");
+	//$("#txtgpsname").val("");
 }
 function pack_Vehicle_Query() {
 	m_Vehicle_Query.orgId = m_Vehicle_OrgId;
@@ -260,7 +260,7 @@ function saveVehicleAction() {
 		$.messager.alert("错误提示", "请选择GPS_ID", "error");
 		return;
 	}
-	vehicle.gpsName = $("#txtgpsname").val();
+	//vehicle.gpsName = $("#txtgpsname").val();
 	$.ajax({
 		url : "vehicle/saveVehicle.do",
 		type : "POST",

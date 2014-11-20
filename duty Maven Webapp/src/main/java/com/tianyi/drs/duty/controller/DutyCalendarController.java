@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tianyi.drs.duty.model.Duty;
+import com.tianyi.drs.duty.model.DutyItem;
 import com.tianyi.drs.duty.service.DutyService;
 import com.tianyi.drs.duty.service.DutyTypeService;
 import com.tianyi.drs.duty.service.OrgService;
@@ -126,11 +128,12 @@ public class DutyCalendarController {
 					result += "</li>";
 				}
 			} else {
-				result = "<li class='nobaobei' style='display: list-item;'>无报备</li>"  ;
-//						+ "<li class='baoBeiBtn'><div class='pasteBtnBox' onclick='selectPasteBox(this,'"+date+"')' style='display: none;'><a href='javascript:void(0);'>粘贴</a></div>"
-//						+ "<a href='javascript:void(0);'>粘贴</a>"
-//						+ "</div></li>";
-				//result = "无报备";
+				result = "<li class='nobaobei' style='display: list-item;'>无报备</li>";
+				// +
+				// "<li class='baoBeiBtn'><div class='pasteBtnBox' onclick='selectPasteBox(this,'"+date+"')' style='display: none;'><a href='javascript:void(0);'>粘贴</a></div>"
+				// + "<a href='javascript:void(0);'>粘贴</a>"
+				// + "</div></li>";
+				// result = "无报备";
 			}
 			return result;
 		} catch (Exception ex) {
@@ -251,59 +254,44 @@ public class DutyCalendarController {
 			exlPath += "/" + s + ".xls";
 
 			dvm = dutyService.loadVMByOrgIdAndYmd(orgId, ymd);
-			List<DutyItemVM> list = dvm.getItems();
-			if (list.size() > 0) {
-				List<DutyExportVM> sublist = new ArrayList<DutyExportVM>();
-				sublist = getSubList(list);
-				isSuccess = initExcelData(sublist, realPath);
-				if (isSuccess) {
-					FileInputStream fis = null;
-					OutputStream os = null;
-					try {
-						String fileName = "警力报备明细数据表" + ymd;
-						fis = new FileInputStream(realPath);
-						os = response.getOutputStream();// 取得输出流
-						response.reset();// 清空输出流
-						response.setHeader("Content-disposition",
-								"attachment; filename=" + fileName);// 设定输出文件头
-						response.setContentType("application/x-download");
-						byte[] mybyte = new byte[8192];
-						int len = 0;
-						while ((len = fis.read(mybyte)) != -1) {
-							os.write(mybyte, 0, len);
-						}
-						os.close();
-						ExprotFileInfo finfo=new ExprotFileInfo();
-						finfo.setPath(exlPath);
-						ObjResult<ExprotFileInfo> rs=new ObjResult<ExprotFileInfo>(true,null,0,finfo);
-						
-						String json=rs.toJson();
-						
-						return json;
-						
-					} catch (IOException e) {
-						return "{\"isSuccess\":false,\"Message\":\""
-								+ e.getMessage() + "\",\"Data\":\"\"}";
+			if (dvm == null) {
+				return "{\"isSuccess\":false,\"Message\":\"数据查询失败\",\"Data\":\"\"}";
+			} else {
+				List<DutyItemVM> list = dvm.getItems();
+				// List<DutyExportVM> sublist = new ArrayList<DutyExportVM>();
+
+				// getXXX(list,sublist);
+
+				if (list.size() > 0) {
+					List<DutyExportVM> sublist = new ArrayList<DutyExportVM>();
+					sublist = getSubList(sublist, list, 0, 0, 0, 0);
+					isSuccess = initExcelData(sublist, realPath);
+					if (isSuccess) {
+						return "{\"isSuccess\":false,\"Message\":\"" + exlPath
+								+ "\",\"Data\":\"" + exlPath + "\"}";
+					} else {
+						return "{\"isSuccess\":false,\"Message\":\"创建Excel表格失败\",\"Data\":\"\"}";
 					}
 				} else {
-					return "{\"isSuccess\":false,\"Message\":\"创建Excel表格失败\",\"Data\":\"\"}";
+					return "{\"isSuccess\":false,\"Message\":\"获取报备详细信息子失败\",\"Data\":\"\"}";
 				}
-			} else {
-				return "{\"isSuccess\":false,\"Message\":\"数据查询失败\",\"Data\":\"\"}";
 			}
 		} catch (Exception e) {
 			return "{\"isSuccess\":false,\"Message\":\"" + e.getMessage()
 					+ "\",\"Data\":\"\"}";
 		}
 	}
-
-	private List<DutyExportVM> getSubList(List<DutyItemVM> list) {
-		List<DutyExportVM> sList = new ArrayList<DutyExportVM>();
+ 
+	private List<DutyExportVM> getSubList(List<DutyExportVM> sList,
+			List<DutyItemVM> list, int vechilecount, int policecount,
+			int weaponcount, int gpsdeviceCount) {
 		for (int i = 0; i < list.size(); i++) {
 			DutyExportVM dwm = new DutyExportVM();
 			DutyItemVM dim = list.get(i);
-			dwm.setDutyName(dim.getDisplayName());
-			dwm.setTypeName(dim.getItemInnerTypeName());
+			dwm.setDutyName(dim.getDisplayName() == null ? "" : dim
+					.getDisplayName());
+			dwm.setTypeName(dim.getItemInnerTypeName() == null ? "" : dim
+					.getItemInnerTypeName());
 			String date = "";
 			if (dim.getBeginTime() != null) {
 				date = dim.getBeginTime().toString();
@@ -312,16 +300,84 @@ public class DutyCalendarController {
 				date += "至" + dim.getEndTime().toString();
 			}
 			dwm.setTimeArea(date);
+
 			if (dim.getChildren() != null && dim.getChildren().size() > 0) {
 
+				sList.add(dwm);
+				getSubList(sList, dim.getChildren(), vechilecount, policecount,
+						weaponcount, gpsdeviceCount);
+				
+
+			} else {
+			
+				sList.add(dwm);
 			}
-			dwm.setVehicleCount("1");
-			dwm.setPoliceCount("1");
-			dwm.setWeaponCount("1");
-			dwm.setGpsdeviceCount("1");
-			sList.add(dwm);
+			vechilecount = getVehicleCount(dim);
+			policecount = getPoliceCount(dim);
+			weaponcount = getWeaponCount(dim);
+			gpsdeviceCount = getGpsdeviceCount(dim);
+
+			dwm.setVehicleCount(vechilecount);
+
+			dwm.setPoliceCount(policecount);
+
+			dwm.setWeaponCount(weaponcount);
+
+			dwm.setGpsdeviceCount(gpsdeviceCount);
 		}
 		return sList;
+	}
+
+	private int getGpsdeviceCount(DutyItemVM dim) {
+		int gpsCount = 0;
+		if (dim.getItemTypeId() == 4) {
+			gpsCount++;
+		}
+		if (dim.getChildren() != null && dim.getChildren().size() > 0) {
+			for (int i = 0; i < dim.getChildren().size(); i++) { 
+					gpsCount += getGpsdeviceCount(dim.getChildren().get(i)); 
+			}
+		}
+		return gpsCount;
+	}
+
+	private int getWeaponCount(DutyItemVM dim) {
+		int weaponCount = 0;
+		if (dim.getItemTypeId() == 3) {
+			weaponCount++;
+		}
+		if (dim.getChildren() != null && dim.getChildren().size() > 0) {
+			for (int i = 0; i < dim.getChildren().size(); i++) { 
+					weaponCount += getWeaponCount(dim.getChildren().get(i)); 
+			}
+		}
+		return weaponCount;
+	}
+
+	private int getPoliceCount(DutyItemVM dim) {
+		int policeCount = 0;
+		if (dim.getItemTypeId() == 2) {
+			policeCount++;
+		}
+		if (dim.getChildren() != null && dim.getChildren().size() > 0) {
+			for (int i = 0; i < dim.getChildren().size(); i++) { 
+					policeCount += getPoliceCount(dim.getChildren().get(i)); 
+			}
+		}
+		return policeCount;
+	}
+
+	private int getVehicleCount(DutyItemVM dim) {
+		int vehicleCount = 0;
+		if (dim.getItemTypeId() == 1) {
+			vehicleCount++;
+		}
+		if (dim.getChildren() != null && dim.getChildren().size() > 0) {
+			for (int i = 0; i < dim.getChildren().size(); i++) { 
+					vehicleCount += getVehicleCount(dim.getChildren().get(i)); 
+			}
+		}
+		return vehicleCount;
 	}
 
 	private Boolean initExcelData(List<DutyExportVM> sublist, String filepath) {
@@ -378,19 +434,26 @@ public class DutyCalendarController {
 					DutyExportVM devm = new DutyExportVM();
 					devm = sublist.get(rowNum - 1);
 					Cell cella = row.createCell(1, Cell.CELL_TYPE_STRING);
-					cella.setCellValue(devm.getDutyName());
+					cella.setCellValue(devm.getDutyName() == null ? "" : devm
+							.getDutyName());
 					Cell cellb = row.createCell(2, Cell.CELL_TYPE_STRING);
-					cellb.setCellValue(devm.getTypeName());
+					cellb.setCellValue(devm.getTypeName() == null ? "" : devm
+							.getTypeName());
 					Cell cellc = row.createCell(3, Cell.CELL_TYPE_STRING);
-					cellc.setCellValue(devm.getTimeArea());
-					Cell celld = row.createCell(4, Cell.CELL_TYPE_STRING);
-					celld.setCellValue(devm.getPoliceCount());
-					Cell celle = row.createCell(5, Cell.CELL_TYPE_STRING);
-					celle.setCellValue(devm.getVehicleCount());
+					cellc.setCellValue(devm.getTimeArea() == null ? "" : devm
+							.getTimeArea());
+					Cell celle = row.createCell(4, Cell.CELL_TYPE_STRING);
+					celle.setCellValue(devm.getVehicleCount() == null ? 0
+							: devm.getVehicleCount());
+					Cell celld = row.createCell(5, Cell.CELL_TYPE_STRING);
+					celld.setCellValue(devm.getPoliceCount() == null ? 0 : devm
+							.getPoliceCount());
 					Cell cellf = row.createCell(6, Cell.CELL_TYPE_STRING);
-					cellf.setCellValue(devm.getWeaponCount());
+					cellf.setCellValue(devm.getWeaponCount() == null ? 0 : devm
+							.getWeaponCount());
 					Cell cellg = row.createCell(7, Cell.CELL_TYPE_STRING);
-					cellg.setCellValue(devm.getGpsdeviceCount());
+					cellg.setCellValue(devm.getGpsdeviceCount() == null ? 0
+							: devm.getGpsdeviceCount());
 				}
 				try {
 					FileOutputStream outputStream = new FileOutputStream(
@@ -408,4 +471,125 @@ public class DutyCalendarController {
 			return isCreateSuccess;
 		}
 	}
+
+	@RequestMapping(value = "copyDutyByOrgIdAndYMD.do")
+	public @ResponseBody
+	String copyDutyByOrgIdAndYMD(
+			@RequestParam(value = "orgId", required = false) Integer orgId,
+			@RequestParam(value = "ymd", required = false) Integer ymd,
+			@RequestParam(value = "targetYmd", required = false) Integer targetYmd,
+			HttpServletResponse response, HttpServletRequest request)
+			throws IOException {
+		Duty duty = new Duty();
+		duty = dutyService.loadVMByOrgIdAndYmd(orgId, targetYmd);
+		if (duty != null) {
+			int dutyId = duty.getId();
+			dutyService.deleteByDutyId(dutyId);
+		}
+		dutyService.deleteByYMD(targetYmd);
+		DutyVM lduty = dutyService.loadVMByOrgIdAndYmd(orgId, ymd);
+		ObjResult<DutyVM> rs = new ObjResult<DutyVM>(true, null,
+				lduty == null ? 0 : lduty.getId(), lduty);
+		DutyVM dmv = rs.getObj();
+		dmv.setId(0);
+		dmv.setIsTemplate(false);
+		dmv.setYmd(targetYmd);
+		dmv.setOrgId(orgId);
+		if (dmv.getItems() != null) {
+			for (int m = 0; m < dmv.getItems().size(); m++) {
+				DutyItemVM divm = new DutyItemVM();
+				divm = clearItemId(dmv.getItems().get(m));
+				dmv.getItems().set(m, divm);
+			}
+		}
+		dutyService.save(dmv);
+		ObjResult<DutyVM> result = new ObjResult<DutyVM>(true, null,
+				dmv.getId(), null);// 暂时不
+		return result.toJson();
+	}
+
+	private DutyItemVM clearItemId(DutyItemVM dutyItemVM) {
+		// TODO Auto-generated method stub
+		dutyItemVM.setId(0);
+		if (dutyItemVM.getTargets() != null) {
+			for (int i = 0; i < dutyItemVM.getTargets().size(); i++) {
+				dutyItemVM.getTargets().get(i).setId(0);
+			}
+		}
+		if (dutyItemVM.getChildren() != null) {
+			for (int j = 0; j < dutyItemVM.getChildren().size(); j++) {
+				clearItemId(dutyItemVM.getChildren().get(j));
+			}
+		}
+		return dutyItemVM;
+	}
+
+	@RequestMapping(value = "deleteAllDutyData.do")
+	public @ResponseBody
+	String deleteAllDutyData(
+			@RequestParam(value = "orgId", required = false) Integer orgId,
+			@RequestParam(value = "year", required = false) Integer year,
+			@RequestParam(value = "month", required = false) Integer month,
+			HttpServletResponse response, HttpServletRequest request)
+			throws IOException {
+		List<Duty> dutylist = new ArrayList<Duty>();
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, year);
+		cal.set(Calendar.MONTH, month);
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		cal.add(Calendar.DAY_OF_MONTH, -1);
+
+		int firstYMD = Integer.parseInt(year.toString()
+				+ (month < 10 ? "0" + month.toString() : month.toString())
+				+ "00");
+		int lastYMD = Integer.parseInt(year.toString()
+				+ (month < 10 ? "0" + month.toString() : month.toString())
+				+ "32");
+
+		Map<String, Object> maps = new HashMap<String, Object>();
+		maps.put("orgId", orgId);
+		maps.put("firstYMD", firstYMD);
+		maps.put("lastYMD", lastYMD);
+		dutylist = dutyService.loadVMListByOrgAndYmd(maps);
+
+		if (dutylist.size() > 0) {
+			int[] ids = new int[dutylist.size()];
+			for (int i = 0; i < dutylist.size(); i++) {
+				int id = dutylist.get(i).getId();
+				ids[i] = id;
+			}
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("orgId", orgId);
+			if (ids.length > 0) {
+				map.put("ids", ids);
+				dutyService.deleteByDutyIdlist(map);
+				for (int j = 0; j < ids.length; j++) {
+					int dId = ids[j];
+					dutyService.deleteByPrimaryKey(dId);
+				}
+			}
+		}
+		ObjResult<DutyVM> rs = new ObjResult<DutyVM>(true, null, orgId, null);// 暂时不
+		return rs.toJson();
+	}
+
+	@RequestMapping(value = "deleteDutyByYMD.do")
+	public @ResponseBody
+	String deleteDutyByYMD(
+			@RequestParam(value = "orgId", required = false) Integer orgId,
+			@RequestParam(value = "ymd", required = false) Integer ymd,
+			HttpServletResponse response, HttpServletRequest request)
+			throws IOException {
+		Duty duty = new Duty();
+		duty = dutyService.loadVMByOrgIdAndYmd(orgId, ymd);
+
+		if (duty != null) {
+			int dutyId = duty.getId();
+			dutyService.deleteByDutyId(dutyId);
+			dutyService.deleteByPrimaryKey(dutyId);
+		}
+		ObjResult<DutyVM> rs = new ObjResult<DutyVM>(true, null, orgId, null);// 暂时不
+		return rs.toJson();
+	}
+
 }
