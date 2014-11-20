@@ -95,6 +95,7 @@
     <id column="id" property="targetId" jdbcType="INTEGER" />
     <result column="target_type" property="targetType" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="pa_name" property="areaName" jdbcType="VARCHAR" />
   </resultMap>
   
   <select id="loadCommunityByOrg" parameterType="java.util.Map" resultMap="TaskTargetResultMap">
@@ -114,10 +115,12 @@
       <select id="loadPatrolAreaByOrg" parameterType="java.util.Map" resultMap="TaskTargetResultMap">
   		select
   			2 			as target_type,
-  			id 			as id,
-  			name 	as	name  
+  			pp.id 			as id,
+  			pp.name 	as name,
+  			pa.name	  	as pa_name
   		from 
-  			patrol_area
+  			patrol_point as pp
+  		left join patrol_area as pa on pp.patrol_area_id=pa.id
   		where
   			1=1
   			<if test="orgId != null" >

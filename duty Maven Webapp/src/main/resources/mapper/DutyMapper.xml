@@ -564,6 +564,4 @@
 		where o.path like CONCAT("%","/",#{orgCode,jdbcType=VARCHAR},"%")
     </select >
     
-    
-    
 </mapper>
