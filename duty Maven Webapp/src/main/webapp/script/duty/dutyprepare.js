@@ -1897,7 +1897,7 @@ function createIconStyle(row, itemTypeId, iconUrl) {
 							+ classId
 							+ "{	background:url('"
 							+ iconUrl
-							+ "');background-size:contain; width:25px; height:25px}";
+							+ "');background-size:contain; width:16px; height:16px}";
 					createStyle(style);
 					m_iconCls[classId] = classId;
 				}
