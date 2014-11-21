@@ -32,7 +32,7 @@
 							iconcls="icon-tianyi-unlock"  onclick="btnUnLockPolice()">启用</a>
 							<a id="btnLockPolice"
 							href="javascript:void(0);" class="easyui-linkbutton"
-							iconcls="icon-tianyi-cancel"  onclick="btnLockPolice()">停用</a>
+							iconcls="icon-tianyi-lock"  onclick="btnLockPolice()">停用</a>
 						<a id="btnDelPolice" href="javascript:void(0);"
 							class="easyui-linkbutton" iconcls="icon-tianyi-delete" 
 							onclick="btnDelPolice()">删除</a>

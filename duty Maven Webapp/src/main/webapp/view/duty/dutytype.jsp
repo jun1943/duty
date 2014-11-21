@@ -33,7 +33,7 @@
 						iconcls="icon-tianyi-edit"  onclick="editDutyType()">编辑</a>
 					<a  href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-unlock" 
 						onclick="useDutyType()">启用</a>
-					<a  href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-cancel" 
+					<a  href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-lock" 
 						onclick="unUseDutyType()">停用</a>
 					<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-tianyi-delete" 
 						onclick="delDutyType()">删除</a>

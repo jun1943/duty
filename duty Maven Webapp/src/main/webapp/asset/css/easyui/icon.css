@@ -25,6 +25,9 @@
 .icon-tianyi-unlock{
 	background:url('icons/tianyi_unlock.png') no-repeat center center;
 }
+.icon-tianyi-lock{
+	background:url('icons/tianyi_lock.png') no-repeat center center;
+}
 .icon-tianyi-search{
 	background:url('icons/tianyi_search2.png') no-repeat center center;
 }

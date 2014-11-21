@@ -338,6 +338,7 @@
   		 	left join t_gps tg  on p.gps_id = tg.id
   		 where 
   		 (
+  		 p.isUsed = 0 and 
   		 o.id = #{orgId,jdbcType=INTEGER}
   		  or 
   		  o.code =#{orgCode,jdbcType=VARCHAR}
@@ -345,6 +346,7 @@
   			or o.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
   		</if>
   		)
+  		
   		<if test ="name !=null">
   			and p.name like CONCAT('%','${name}','%' )  
   		</if>
@@ -371,6 +373,7 @@
   	left join t_policetype as pt on p.type_id = pt.id
   	where
   		(
+  		 p.isUsed = 0 and 
   		 org.id = #{orgId,jdbcType=INTEGER}
   		   or
   		   org.code =#{orgCode,jdbcType=VARCHAR}
@@ -402,6 +405,7 @@
   		 	left join t_gps tg  on p.gps_id = tg.id
   		 where 
   		  
+  		 p.isUsed = 0 and 
   		 o.id = #{orgId,jdbcType=INTEGER}
   		   
   		<if test ="name !=null">
@@ -424,6 +428,7 @@
 			left join organ as o on p.org_id= o.id
   		 	left join t_gps tg  on p.gps_id = tg.id
   		 where
+  		 p.isUsed = 0 and 
   		  o.id = #{orgId,jdbcType=INTEGER} and
   		   pgo.org_id= #{orgId,jdbcType=INTEGER} 
   		    
@@ -451,6 +456,7 @@
 			left join organ as o on p.org_id= o.id
   		 	left join t_gps tg  on p.gps_id = tg.id
   		 where
+  		 p.isUsed = 0 and 
   		    pgo.org_id= #{orgId,jdbcType=INTEGER}  and 
   		  pgo.police_group_id in 
   		 		<foreach item="item" index="index" collection="gids" open="(" separator="," close=")">  
