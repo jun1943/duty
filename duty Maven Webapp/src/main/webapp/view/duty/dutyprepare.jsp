@@ -32,7 +32,7 @@
 					href="javascript:void(0);" class="easyui-linkbutton"
 					iconcls="icon-tianyi-add" onclick="showDutyTemplate()">选择模板</a> <a
 					href="javascript:void(0);" class="easyui-linkbutton"
-					iconcls="icon-tianyi-edit" onclick="showCalendar()">报备复制</a> <a
+					iconcls="icon-tianyi-copy" onclick="showCalendar()">报备复制</a> <a
 					href="javascript:void(0);" class="easyui-linkbutton"
 					iconcls="icon-tianyi-cancel" onclick="clearDuty()">清空报备</a> <a
 					href="javascript:void(0);"

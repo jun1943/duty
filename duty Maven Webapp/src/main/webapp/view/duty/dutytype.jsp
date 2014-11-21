@@ -24,18 +24,18 @@
 <body oncontextmenu=self.event.returnValue=false>
 	<div id="tbDutyType" class="btn-toolbar">
 				<div class="btn-group">
-					<a href="javascript:void(0);"
+					<a href="javascript:void(0);" iconcls="icon-tianyi-add"  
 						class="easyui-linkbutton icon-camera-retro" 
 						onclick="addRootDutyType()">新建根节点</a> 
 					<a href="javascript:void(0);" class="easyui-linkbutton"
-						iconcls="icon-edit"  onclick="addChildDutyType()">新建子节点</a>
+						 iconcls="icon-tianyi-add"   onclick="addChildDutyType()">新建子节点</a>
 					<a href="javascript:void(0);" class="easyui-linkbutton"
-						iconcls="icon-edit"  onclick="editDutyType()">编辑</a>
-					<a  href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel" 
+						iconcls="icon-tianyi-edit"  onclick="editDutyType()">编辑</a>
+					<a  href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-unlock" 
 						onclick="useDutyType()">启用</a>
-					<a  href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-cancel" 
+					<a  href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-cancel" 
 						onclick="unUseDutyType()">停用</a>
-					<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-cancel" 
+					<a  href="javascript:void(0);"	class="easyui-linkbutton" iconcls="icon-tianyi-delete" 
 						onclick="delDutyType()">删除</a>
 				</div>
 			</div>
