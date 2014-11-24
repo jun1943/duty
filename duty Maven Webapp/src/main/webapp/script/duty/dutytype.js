@@ -9,7 +9,7 @@ $(function () {
         valueField: 'id',
         textField: 'name',
         panelHeight: "auto",
-        multiple:true,
+        multiple:true
     });
 	
 	$("#cmbTaskType").combobox({

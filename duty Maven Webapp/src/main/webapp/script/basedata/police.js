@@ -369,7 +369,7 @@ function savePoliceAction() {
 			// $.messager.alert("消息提示", req.Message, "info");
 			if (operationType == "add") {
 				clearForm();
-			}
+			}else
 			if (operationType == "edit") {
 				operationType = "";
 				$("#policeinfowindow").window("close");
