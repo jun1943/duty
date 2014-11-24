@@ -1029,7 +1029,7 @@
   filter: none;
 }
 .tabs li.tabs-selected a.tabs-inner {
-  background-color: #fff;
+  background-color: rgb(162, 196, 234);
   color: #777;
 }
 .tabs li a.tabs-inner {
@@ -1325,7 +1325,7 @@
   cursor: default;
 }
 .datagrid-row-selected {
-  background: #ffeeec;
+  background: #FFC3C3;
   border-bottom:#f1bcb4 solid 1px;
   border-top:#f1bcb4 solid 1px;
   color: #000000;
@@ -2378,8 +2378,8 @@
   color: #444;
 }
 .tree-node-selected {
-  background: #CCE6FF;
-  color: #000;
+  background: #3FAFE0;
+  color: #1F12E5;
 }
 .validatebox-invalid {
   border-color: #ffa8a8;

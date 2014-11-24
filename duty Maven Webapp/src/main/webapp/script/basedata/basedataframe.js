@@ -72,7 +72,7 @@ function pageSwitch(node,url){
 function searchOrgAction(){
 	var name = $('#txtOrgName').val();
 	var a = findOrgs(name);
-	$('#treeDutyFrmOrg').tree("loadData", a);
+	$('#orgtree').tree("loadData", a);
 }
 
 function findOrgs(name) {

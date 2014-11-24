@@ -127,7 +127,27 @@ function loaddutyTypeComboTree(){
 };
 
 function btnExportDataAction(){
-	 alert("导出数据");
+var criteria=packCriteria();
+	
+	var s=JSON.stringify(criteria); 
+	$.ajax({
+		url : "dutyReport/exportDutyReport.do",
+		type : "POST",
+		dataType : "json",
+		data:{criteria:s}, 
+		async : false,
+		timeout : 60000, 
+		success : function(req) { 
+			var urlStr = req.Data.substring(1, req.Data.length);
+			window.location.href = urlStr; 
+		},
+		failer : function(a, b) {
+			$.messager.alert("消息提示", a, "info");
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			$.messager.alert("消息提示", errorThrown, "error");
+		}
+	});
 };
 
 function btnSearchQueryAction(){

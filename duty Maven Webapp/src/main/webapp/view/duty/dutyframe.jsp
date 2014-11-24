@@ -15,7 +15,7 @@
   </head>
   
   <body>
-<div id="cc" class="easyui-layout" style="width:100%;height:100%;">
+<div id="cc" class="easyui-layout" style="width:100%;height:100%;" oncontextmenu=self.event.returnValue=false>
 	<div data-options="region:'west',title:'组织机构导航树',split:true"  style="width:14%;padding:10px">
 		<div>
 			<input id="txtOrgName" style="width:70%; margin-left:4px;margin-top:2px" type="text"/>

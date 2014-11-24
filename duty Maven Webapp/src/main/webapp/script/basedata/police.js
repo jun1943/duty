@@ -42,7 +42,7 @@ $(function() {
 		}, {
 			title : '状态',
 			field : 'isUsed',
-			align : 'left',
+			align : 'center',
 			width : 50,
 			formatter : fmtIsUsed
 		}, {
@@ -119,9 +119,9 @@ function pack_police_Query() {
 }
 function fmtIsUsed(value, row, index) {
 	if (row.isused) {
-		return "停用";
+		return "<img alt='停用' style='width:18px; height:18px' src='asset/css/easyui/icons/tianyi_lock.png'>";
 	} else {
-		return "启用";
+		return "<img alt='启用' style='width:18px; height:18px' src='asset/css/easyui/icons/tianyi_unlock.png'>";
 	}
 }
 // 初始化下拉列表数据

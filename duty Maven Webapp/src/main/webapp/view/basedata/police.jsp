@@ -17,7 +17,7 @@
 
 </head>
 
-<body class="easyui-layout" style="padding:2px">
+<body class="easyui-layout" style="padding:2px" oncontextmenu=self.event.returnValue=false>
 	 
 	<div data-options="region:'center'" style="padding:2px">
 				<div id="tbPolice" class="btn-toolbar" style="height:30px; margin-top:3px">
@@ -32,7 +32,7 @@
 							iconcls="icon-tianyi-unlock"  onclick="btnUnLockPolice()">启用</a>
 							<a id="btnLockPolice"
 							href="javascript:void(0);" class="easyui-linkbutton"
-							iconcls="icon-tianyi-cancel"  onclick="btnLockPolice()">停用</a>
+							iconcls="icon-tianyi-lock"  onclick="btnLockPolice()">停用</a>
 						<a id="btnDelPolice" href="javascript:void(0);"
 							class="easyui-linkbutton" iconcls="icon-tianyi-delete" 
 							onclick="btnDelPolice()">删除</a>

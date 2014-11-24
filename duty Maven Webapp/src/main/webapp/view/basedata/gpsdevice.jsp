@@ -17,7 +17,7 @@
 
 </head>
 
-<body class="easyui-layout" style="padding:2px"> 
+<body class="easyui-layout" style="padding:2px" oncontextmenu=self.event.returnValue=false> 
 	 
 	
 	<div data-options="region:'center'"style="padding:2px;"> 
@@ -28,7 +28,7 @@
                 	<a id="btnEditGpsdevice" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-edit"   onclick="btnEditGpsdevice('edit')">修改</a>
                 	<a id="btnDelGpsdevice" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-delete"  onclick="btnDelGpsdevice()">删除</a>
                 
-  					<a id="btnSearchGpsdevice" href="javascript:void(0);" class="easyui-linkbutton"    style="float:right; margin-right:20px"   onclick="btnSearchGpsdevice()">展开查询</a>
+  					<a id="btnSearchGpsdevice" href="javascript:void(0);" class="easyui-linkbutton"    style="float:right; margin-right:20px"  >展开查询</a>
                 	<!-- a id="btnPrintList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-print" plain="true" onclick="btnPrintList()">打印</a>
                 	<a id="btnExportList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-export" plain="true" onclick="btnExportList()">导出</a> -->
                	</div>

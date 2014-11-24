@@ -267,7 +267,7 @@ public class DutyCalendarController {
 					sublist = getSubList(sublist, list, 0, 0, 0, 0);
 					isSuccess = initExcelData(sublist, realPath);
 					if (isSuccess) {
-						return "{\"isSuccess\":false,\"Message\":\"" + exlPath
+						return "{\"isSuccess\":true,\"Message\":\"" + exlPath
 								+ "\",\"Data\":\"" + exlPath + "\"}";
 					} else {
 						return "{\"isSuccess\":false,\"Message\":\"创建Excel表格失败\",\"Data\":\"\"}";

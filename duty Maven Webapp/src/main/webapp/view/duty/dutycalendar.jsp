@@ -21,7 +21,7 @@
 
 <title>勤务报备</title> 
 </head>
-  <body>
+  <body oncontextmenu=self.event.returnValue=false>
     
 	<!--日历 s-->
 	<div class="dateBox">
@@ -70,8 +70,11 @@
  	<div id="dutyDetailsForDaywindow" title="警务报备情况" class="easyui-window" data-options="iconCls:'icon-edit',modal:true" closed="true" 
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
 			style="width:654px; height:450px; padding: 10px;"> 
-		    <div id="tbdutydetailsforday" style="height:30px"> 
-                <a id="exprotToExcel" name="exprotToExcel" href="javascript:void(0);" class="easyui-linkbutton" style="float:right"
+		    <div id="tbdutydetailsforday" style="height:30px;float:right;background-color: #F7F3F3;"> 
+		    <label>名称:</label><input id="txttargetName" type="text" class="easyui-validatebox">
+                <a href="javascript:void(0);" class="easyui-linkbutton" 
+                    iconcls="icon-tianyi-search" plain="true" onclick="btnSearchAction()">查询</a> 
+                <a id="exprotToExcel" name="exprotToExcel" href="javascript:void(0);" class="easyui-linkbutton" 
                     iconcls="icon-tianyi-export" plain="true" onclick="btnExportAction()">导出</a>  
 		    </div>
 			<div id="tgddutydetailsforday" >

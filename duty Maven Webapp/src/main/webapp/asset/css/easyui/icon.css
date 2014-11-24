@@ -19,8 +19,14 @@
 .icon-tianyi-cancel{
 	background:url('icons/tianyi_cancel.png') no-repeat center center;
 }
+.icon-tianyi-copy{
+	background:url('icons/tianyi-copy.png') no-repeat center center;
+}
 .icon-tianyi-unlock{
 	background:url('icons/tianyi_unlock.png') no-repeat center center;
+}
+.icon-tianyi-lock{
+	background:url('icons/tianyi_lock.png') no-repeat center center;
 }
 .icon-tianyi-search{
 	background:url('icons/tianyi_search2.png') no-repeat center center;
@@ -80,7 +86,7 @@
 	background:url('icons/delete.png') no-repeat center center;
 }
 .icon-cancel{
-	background:url('icons/delete.png') no-repeat center center;
+	background:url('icons/cancel.png') no-repeat center center;
 }
 .icon-reload{
 	background:url('icons/reload.png') no-repeat center center;

@@ -23,13 +23,13 @@
 <title>勤务报备</title> 
 </head>
 
-<body class="easyui-layout">
+<body class="easyui-layout" oncontextmenu=self.event.returnValue=false>
 	<div data-options="region:'center',split:true"  >
 		 
 			<div id="tbPoliceInquiry" class="btn-toolbar" style="height:40px; margin-top:10px"> 
 				<div class="btn-group" style="float:right; margin-right:20px">
 					 <a id="exportData" name="exportData" href="javascript:void(0);" class="easyui-linkbutton"
-                   iconcls="icon-export" onclick="btnExportDataAction()" style="float:right; margin-left:20px">导出</a>
+                   iconcls="icon-tianyi-export" onclick="btnExportDataAction()" style="float:right; margin-left:20px">导出</a>
                    
                    <a id="btnsearchQueryBox" href="javascript:void(0);" class="easyui-linkbutton" 
                      style="float:right">展开查询</a>
@@ -42,23 +42,23 @@
 								<table border=0>
 									<tr>
 										<td class="MySearchTDTitle">时间范围:</td>
-										<td><input id="dteBeginDate" class="easyui-datebox" style="width:200px" /></td>
+										<td><input id="dteBeginDate" class="easyui-datebox" style="width:150px" /></td>
 										<td>&nbsp;</td>
-										<td><input id="spnBeginTime" class="easyui-timespinner"  style="width:80px;margin-left:15px;" data-options="min:'00:00',showSeconds:false,highlight:0" />&nbsp;-</td>
-										<td><input id="spnEndTime"   class="easyui-timespinner"  style="width:80px;" data-options="min:'00:00',showSeconds:false,highlight:0" /></td>
+										<td><input id="spnBeginTime" class="easyui-timespinner"  style="width:70px;margin-left:15px;" data-options="min:'00:00',showSeconds:false,highlight:0" />&nbsp;-</td>
+										<td><input id="spnEndTime"   class="easyui-timespinner"  style="width:70px;" data-options="min:'00:00',showSeconds:false,highlight:0" /></td>
 										<td colspan="3">&nbsp;</td>
 									</tr>
 									<tr>
 										<td class="MySearchTDTitle">任务属性:</td>
-										<td><input id="dutyProperty" style="width:200px" /></td>
+										<td><input id="dutyProperty" style="width:150px" /></td>
 										<td>&nbsp;</td>
 										<td class="MySearchTDTitle">勤务类型 :</td>
-										<td><input id="cmbdutytype"  class="easyui-combotree" style="width:200px" ></td>
+										<td><input id="cmbdutytype"  class="easyui-combotree" style="width:150px" ></td>
 										<td colspan="3">&nbsp;</td>
 									</tr>
 									<tr>
 										<td class="MySearchTDTitle">人员类别 :</td>
-										<td><input id="cmbpoliceType" style="width:200px" /></td>
+										<td><input id="cmbpoliceType" style="width:150px" /></td>
 										<td>&nbsp;</td>
 										<td class="MySearchTDTitle">衣着:</td>
 										<td>

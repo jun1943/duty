@@ -726,14 +726,11 @@ function btnExportAction() {
 			orgId : m_dutyCalendar_Org.id,
 			ymd : m_dutyCalendar_Org.date
 		},
-		success : function(req) {
-			// if (req.isSuccess||req.isSuccess=="true") {
-			var urlStr = req.Data.substring(1, req.Data.length);
-			window.location.href = urlStr;
-			// window.open(urlStr);
-			// } else {
-			// $.messager.alert(req.Message);
-			// }
+		success : function(req) { 
+			if(req.isSuccess){
+				var urlStr = req.Data.substring(1, req.Data.length);
+				window.location.href = urlStr; 
+			}
 		},
 		failer : function(a, b) {
 			$.messager.alert("消息提示", a, "info");
