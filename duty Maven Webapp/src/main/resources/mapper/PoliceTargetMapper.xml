@@ -8,12 +8,14 @@
     <result column="police_id" property="policeId" jdbcType="INTEGER" />
     <result column="task_type_id" property="taskTypeId" jdbcType="INTEGER" />
     <result column="target_id" property="targetId" jdbcType="INTEGER" />
+    <result column="pass_count" property="count" jdbcType="INTEGER" />
+    <result column="stay_time" property="stayTime" jdbcType="INTEGER" />
     <result column="is_pass" property="isPass" jdbcType="BIT" />
     <result column="sync_state" property="syncState" jdbcType="BIT" />
     <result column="platform_id" property="platformId" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, duty_id,duty_item_id, police_id, task_type_id, target_id, is_pass, sync_state, platform_id
+    id, duty_id,duty_item_id, police_id, task_type_id, target_id, pass_count,stay_time,is_pass, sync_state, platform_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -27,10 +29,10 @@
   </delete>
   <insert id="insert" parameterType="com.tianyi.drs.duty.model.PoliceTarget" >
     insert into t_duty_police_target (id, duty_id,duty_item_id, police_id, 
-      task_type_id, target_id, is_pass, 
+      task_type_id, target_id, pass_count,stay_time,is_pass, 
       sync_state, platform_id)
     values (#{id,jdbcType=INTEGER}, #{dutyId,jdbcType=INTEGER},#{dutyItemId,jdbcType=INTEGER}, #{policeId,jdbcType=INTEGER}, 
-      #{taskTypeId,jdbcType=INTEGER}, #{targetId,jdbcType=INTEGER}, #{isPass,jdbcType=BIT}, 
+      #{taskTypeId,jdbcType=INTEGER}, #{targetId,jdbcType=INTEGER},#{count,jdbcType=INTEGER},#{stayTime,jdbcType=INTEGER}, #{isPass,jdbcType=BIT}, 
       #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.PoliceTarget" >
@@ -53,6 +55,12 @@
       </if>
       <if test="targetId != null" >
         target_id,
+      </if>
+      <if test="count != null" >
+        pass_count,
+      </if>
+      <if test="stayTime != null" >
+        stay_time,
       </if>
       <if test="isPass != null" >
         is_pass,
@@ -79,6 +87,12 @@
       </if>
       <if test="targetId != null" >
         #{targetId,jdbcType=INTEGER},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="stayTime != null" >
+        #{isPass,jdbcType=INTEGER},
       </if>
       <if test="isPass != null" >
         #{isPass,jdbcType=BIT},
@@ -109,6 +123,12 @@
       <if test="targetId != null" >
         target_id = #{targetId,jdbcType=INTEGER},
       </if>
+      <if test="count != null" >
+        pass_count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="stayTime != null" >
+        stay_time = #{stayTime,jdbcType=INTEGER},
+      </if>
       <if test="isPass != null" >
         is_pass = #{isPass,jdbcType=BIT},
       </if>
@@ -127,6 +147,8 @@
       police_id = #{policeId,jdbcType=INTEGER},
       task_type_id = #{taskTypeId,jdbcType=INTEGER},
       target_id = #{targetId,jdbcType=INTEGER},
+      pass_count = #{count,jdbcType=INTEGER},
+      stay_time = #{stayTime,jdbcType=INTEGER},
       is_pass = #{isPass,jdbcType=BIT},
       sync_state = #{syncState,jdbcType=BIT},
       platform_id = #{platformId,jdbcType=INTEGER}

@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianyi.drs.duty.dao.DutyMapper" >
+  <resultMap id="BaseResultMap" type="com.tianyi.drs.duty.model.Duty" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="org_id" property="orgId" jdbcType="INTEGER" />
+    <result column="is_template" property="isTemplate" jdbcType="BIT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="ymd" property="ymd" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="preparer_id" property="preparerId" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="sync_state" property="syncState" jdbcType="BIT" />
+    <result column="platform_id" property="platformId" jdbcType="INTEGER" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, org_id, is_template, name, ymd, create_time, preparer_id, description, sync_state, 
+    platform_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_duty
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_duty
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tianyi.drs.duty.model.Duty" useGeneratedKeys="true" keyProperty="id">
+   <selectKey resultType="INTEGER" keyProperty="id">  
+  SELECT LAST_INSERT_ID()  
+  </selectKey> 
+    insert into t_duty (id, org_id, is_template, 
+      name, ymd, create_time, 
+      preparer_id, description, sync_state, 
+      platform_id)
+    values (#{id,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, #{isTemplate,jdbcType=BIT}, 
+      #{name,jdbcType=VARCHAR}, #{ymd,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{preparerId,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT}, 
+      #{platformId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianyi.drs.duty.model.Duty" useGeneratedKeys="true" keyProperty="id">
+    insert into t_duty
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="isTemplate != null" >
+        is_template,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="ymd != null" >
+        ymd,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="preparerId != null" >
+        preparer_id,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="syncState != null" >
+        sync_state,
+      </if>
+      <if test="platformId != null" >
+        platform_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="isTemplate != null" >
+        #{isTemplate,jdbcType=BIT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ymd != null" >
+        #{ymd,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="preparerId != null" >
+        #{preparerId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="syncState != null" >
+        #{syncState,jdbcType=BIT},
+      </if>
+      <if test="platformId != null" >
+        #{platformId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianyi.drs.duty.model.Duty" >
+    update t_duty
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="isTemplate != null" >
+        is_template = #{isTemplate,jdbcType=BIT},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ymd != null" >
+        ymd = #{ymd,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="preparerId != null" >
+        preparer_id = #{preparerId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="syncState != null" >
+        sync_state = #{syncState,jdbcType=BIT},
+      </if>
+      <if test="platformId != null" >
+        platform_id = #{platformId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianyi.drs.duty.model.Duty" >
+    update t_duty
+    set org_id = #{orgId,jdbcType=INTEGER},
+      is_template = #{isTemplate,jdbcType=BIT},
+      name = #{name,jdbcType=VARCHAR},
+      ymd = #{ymd,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      preparer_id = #{preparerId,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      sync_state = #{syncState,jdbcType=BIT},
+      platform_id = #{platformId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <delete id="deleteByYMD" parameterType="java.lang.Integer">
+  	delete from t_duty where ymd=#{targetYmd,jdbcType=INTEGER}
+  </delete>
+  
+   <select id="selectdutyProperty" resultType="com.tianyi.drs.duty.model.DutyProperty">  
+       		 select * from t_duty_type_property order by id asc
+    	 </select> 
+  
+    <resultMap id="VMResultMap" type="com.tianyi.drs.duty.viewmodel.DutyVM" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="org_id" property="orgId" jdbcType="INTEGER" />
+    <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+    <result column="is_template" property="isTemplate" jdbcType="BIT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="ymd" property="ymd" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="preparer_id" property="preparerId" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="sync_state" property="syncState" jdbcType="BIT" />
+    <result column="platform_id" property="platformId" jdbcType="INTEGER" />
+    <collection property="items" resultMap="ItemVMResultMap"/>
+  </resultMap>
+  
+  <resultMap id="TargetVMResultMap" type="com.tianyi.drs.duty.model.PoliceTarget" >
+  	<id column="target_id" property="id" jdbcType="INTEGER" />
+    <result column="target_duty_id" property="dutyId" jdbcType="INTEGER" />
+    <result column="target_duty_Item_id" property="policeId" jdbcType="INTEGER" />
+    <result column="target_task_type_id" property="taskTypeId" jdbcType="INTEGER" />
+    <result column="target_police_id" property="policeId" jdbcType="INTEGER" />
+    <result column="target_target_id" property="targetId" jdbcType="INTEGER" />
+  </resultMap>
+  
+	<resultMap id="ItemVMResultMap" type="com.tianyi.drs.duty.viewmodel.DutyItemVM" >
+    <id column="item_id" property="id" jdbcType="INTEGER" />
+    <result column="item_duty_id" property="dutyId" jdbcType="INTEGER" />
+    <result column="item_duty_type_id" property="dutyTypeId" jdbcType="INTEGER" />
+    <result column="item_duty_type_name" property="dutyTypeName" jdbcType="INTEGER" />
+    <result column="item_duty_type_taskType" property="taskType" jdbcType="VARCHAR" />
+    <result column="item_begin_time" property="beginTime" jdbcType="TIMESTAMP" />
+    <result column="item_end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="item_type_id" property="itemTypeId" jdbcType="INTEGER" />
+    <result column="item_type_name" property="itemTypeName" jdbcType="INTEGER" />
+    <result column="item_rec_id" property="itemId" jdbcType="INTEGER" />
+    <result column="item_item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="item_name" property="name" jdbcType="VARCHAR" />
+    <result column="item_display_name" property="displayName" jdbcType="VARCHAR" />
+    <result column="item_parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="item_level" property="level" jdbcType="INTEGER" />
+    <result column="item_is_leaf" property="isLeaf" jdbcType="BIT" />
+    <result column="item_full_id_path" property="fullIdPath" jdbcType="VARCHAR" />
+    <result column="item_icon_url" property="iconUrl" jdbcType="VARCHAR" />
+    <result column="item_description" property="description" jdbcType="VARCHAR" />
+    <result column="item_inner_type_name" property="itemInnerTypeName" jdbcType="VARCHAR" />
+    <collection property="targets" resultMap="TargetVMResultMap"/>
+  </resultMap>
+  
+  <select id="loadDutyVMList"  parameterType="java.util.Map" resultMap="VMResultMap">
+  	select 
+  		d.*,
+  		org.name 				as org_name,
+  		di.id						as item_id,
+  		di.duty_id				as item_duty_id,
+  		di.duty_type_id		as item_duty_type_id,
+  		dt.name				as item_duty_type_name,
+  		dt.asso_task_type	as item_duty_type_taskType,
+  		di.begin_time		as item_begin_time,
+  		di.end_time			as item_end_time,
+  		di.item_type_id		as item_type_id,
+  		di.icon_url				as item_icon_url,
+  		case di.item_type_id
+  			when	1		then	CONCAT(velt.name," : ",vel.number)
+  			when	2		then	poc.name
+  			when	3		then CONCAT(wept.name," : ",wep.number)
+  			when	4		then CONCAT(gpst.name," : ",gps.number)
+  			when	100	then	di.name
+  			when	101	then	di.name
+  			when	999	then	di.name
+  		end as item_display_name,
+  		case di.item_type_id
+  			when	1		then	velt.name
+  			when	2		then	poct.name
+  			when	3		then wept.name
+  			when	4		then gpst.name
+  			when	100	then	dt.name
+  			when	101	then	"班次"
+  			when	999	then	"自定义"
+  		end as item_inner_type_name,		
+  		dpt.id					as target_id,
+  		dpt.duty_id			as target_duty_id,
+  		dpt.duty_item_id	as target_duty_Item_id,
+  		dpt.task_type_id	as target_task_type_id,
+  		dpt.police_id			as target_police_id,
+  		dpt.target_id			as target_target_id,
+  		dit.name				as item_type_name,
+  		di.item_id				as item_rec_id,
+  		di.	item_name		as item_item_name,
+  		di.name				as item_name,
+  		di.parent_id			as item_parent_id,
+  		di.level					as item_level,
+  		di.is_leaf				as item_is_leaf,
+  		di.full_id_path		as item_full_id_path,
+  		di.description		as item_description		
+  		
+  	from 
+  		t_duty as d
+  	left join t_duty_item 					as di 		on d.id=di.duty_id
+  	left join organ 							as org 		on d.org_id=org.id
+  	left join t_duty_type 					as dt 		on di.duty_type_id= dt.id
+  	left join t_duty_item_type			as dit 		on di.item_type_id=dit.type_id
+  	left join t_vehicle						as vel		on di.item_type_id=1 and di.item_id=vel.id
+  	left join t_vehicletype				as velt		on vel.vehicle_type_id=velt.id
+  	left join t_police						as poc		on di.item_type_id=2 and di.item_id=poc.id
+  	left join t_policetype					as poct		on poc.type_id=poct.id
+  	left join t_weapon						as wep		on di.item_type_id=3 and di.item_id=wep.id
+  	left join	t_weapontype				as	wept		on wep.type_id =wept.id
+  	left join t_gps							as gps		on di.item_type_id=4 and di.item_id=gps.id
+  	left join t_gpstype						as gpst		on gps.type_id =gpst.id
+  	left join t_duty_police_target		as	dpt		on	di.id=dpt.duty_item_id and di.item_type_id=2
+  	where
+  		1=1
+  		<if test="id != null" >
+        	and d.id = #{id,jdbcType=INTEGER}
+      	</if>
+  		
+  		<if test="orgId != null" >
+        	and d.org_id = #{orgId,jdbcType=INTEGER}
+      	</if>
+  	
+		<if test="ymd != null" >
+        	and d.ymd = #{ymd,jdbcType=INTEGER}
+      	</if>
+  	
+  		<if test="isTemplate != null" >
+        	and d.is_template = #{isTemplate,jdbcType=BIT}
+      	</if>
+     order by d.id,di.id
+  </select>
+  
+  <select id="loadTemplatesWithOutItem"  parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from t_duty
+    where is_template=1 and org_id = #{orgId,jdbcType=INTEGER}
+  </select>
+  
+  
+    <select id="loadTotalPolice"   parameterType="java.util.Map"  resultType="com.tianyi.drs.duty.viewmodel.DutyItemCountVM">
+  		select concat(cast((select count(di.id) from t_duty_item   di 
+			left join t_duty         d on di.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where (o.id = #{orgId,jdbcType=INTEGER} or o.path like CONCAT("%","/",#{orgCode,jdbcType=VARCHAR},"%")) 
+			
+			<if test="beginTime >0 " >
+				 and d.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			) as char(5)),  '/', cast(
+			(select count(t.percount) from (select  count(o.id) as percount from organ as o 
+				left join t_duty d on o.id = d.org_id
+				left join t_duty_item di on di.duty_id = d.id
+			where o.path like CONCAT("%","/",#{orgCode,jdbcType=VARCHAR},"%")
+				group by o.name) as t
+			 
+			) as char(5))) as orgName ,
+
+		(select count(di.id) from t_duty_item as di 
+			left join t_duty         d on di.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER} 
+						
+			<if test="beginTime >0 " >
+				 and d.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			 and di.duty_type_id in (
+				select st.id from t_duty_type as st  where st.name like CONCAT("%","领导","%"))
+				and di.item_type_id = 2 ) as shiftLeaderCount,
+
+		(select count(di.id) from t_duty_item as di  
+			left join t_duty         d on di.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}
+			
+			<if test="beginTime >0 " >
+				 and d.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  di.item_type_id = 2 ) as chiefLeaderCount,
+
+		(select count(di.id) from t_duty_item as di 
+			left join t_duty         d on di.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}
+			
+			<if test="beginTime >0 " >
+				 and d.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			 and  di.item_type_id = 2 ) as dutypoliceCount,
+
+		(select count(t.id) from t_duty_item as t  
+			left join t_duty         d on t.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}  
+			
+			<if test="beginTime >0 " >
+				 and d.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t.item_type_id = 1 ) as vehicleCount,
+
+		(select count(t.id) from t_duty_item as t 
+			left join t_duty         d on t.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}  
+			
+			<if test="beginTime >0 " >
+				 and d.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t.item_type_id = 3 ) as weaponCount,
+
+		(select count(t.id) from t_duty_item as t  
+			left join t_duty         d on t.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}  
+			
+			<if test="beginTime >0 " >
+				 and d.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t.item_type_id = 3 ) as unitdutyCount,
+
+		(select count(t.id) from t_duty_item as t  
+			left join t_duty         d on t.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}  
+			
+			<if test="beginTime >0 " >
+				 and d.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t.item_type_id = 3 ) as illuminatesCount,
+
+		(select count(t.id) from t_duty_item as t 
+			left join t_duty         d on t.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}  
+			
+			<if test="beginTime >0 " >
+				 and d.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t.item_type_id = 3 ) as patrolpoliceCount,
+
+		(select count(t.id) from t_duty_item as t  
+			left join t_duty         d on t.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+			where o.id = #{orgId,jdbcType=INTEGER}  
+			
+			<if test="beginTime >0 " >
+				 and d.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t.item_type_id = 3 ) as checkpointpoliceCount,
+
+		(select count(t.id) from t_duty_item as t 
+			left join t_duty         d on t.duty_id = d.id
+			left join organ          o on o.id = d.org_id
+
+		where o.id = #{orgId,jdbcType=INTEGER}  
+			
+			<if test="beginTime >0 " >
+				 and d.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t.item_type_id = 3 ) as patrolareaPoliceCount
+  </select>
+  
+  <select id="loadTotalPolicedetail"    parameterType="java.util.Map"  resultType="com.tianyi.drs.duty.viewmodel.DutyItemCountVM">
+  select  o.short_name  as orgName ,
+		(select count(di1.id) from t_duty_item as di1 
+			left join t_duty         d1 on di1.duty_id = d1.id
+			left join organ          o1 on o1.id = d1.org_id
+
+			where o1.id = o.id  
+			
+			<if test="beginTime >0 " >
+				 and d1.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and di1.duty_type_id in (
+			select st1.id from t_duty_type as st1  where st1.name like CONCAT("%","领导","%"))
+			and di1.item_type_id = 2 )  as shiftLeaderCount,
+
+		(select count(di2.id) from t_duty_item as di2  
+			left join t_duty         d2 on di2.duty_id = d2.id
+			left join organ          o2 on o2.id = d2.org_id
+
+			where o2.id = o.id 
+			
+			<if test="beginTime >0 " >
+				 and d2.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  di2.item_type_id = 2 ) as chiefLeaderCount,
+
+		(select count(di3.id) from t_duty_item as di3 
+			left join t_duty         d3 on di3.duty_id = d3.id
+			left join organ          o3 on o3.id = d3.org_id
+
+			where o3.id = o.id  
+			
+			<if test="beginTime >0 " >
+				 and d3.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  di3.item_type_id = 2 ) as dutypoliceCount,
+
+		(select count(t4.id) from t_duty_item as t4  
+			left join t_duty         d4 on t4.duty_id = d4.id
+			left join organ          o4 on o4.id = d4.org_id
+
+			where o4.id = o.id  
+			
+			<if test="beginTime >0 " >
+				 and d4.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t4.item_type_id = 1 ) as vehicleCount,
+
+		(select count(t5.id) from t_duty_item as t5 
+			left join t_duty         d5 on t5.duty_id = d5.id
+			left join organ          o5 on o5.id = d5.org_id
+
+			where o5.id = o.id  
+			
+			<if test="beginTime >0 " >
+				 and d5.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t5.item_type_id = 3 ) as weaponCount,
+
+		(select count(t6.id) from t_duty_item as t6 
+			left join t_duty         d6 on t6.duty_id = d6.id
+			left join organ          o6 on o6.id = d6.org_id
+
+			where o6.id = o.id  
+			
+			<if test="beginTime >0 " >
+				 and d6.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t6.item_type_id = 3 ) as unitdutyCount,
+
+		(select count(t7.id) from t_duty_item as t7  
+			left join t_duty         d7 on t7.duty_id = d7.id
+			left join organ          o7 on o7.id = d7.org_id
+
+			where o7.id = o.id  
+			
+			<if test="beginTime >0 " >
+				 and d7.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t7.item_type_id = 3 ) as illuminatesCount,
+
+		(select count(t8.id) from t_duty_item as t8 
+			left join t_duty         d8 on t8.duty_id = d8.id
+			left join organ          o8 on o8.id = d8.org_id
+
+			where o8.id = o.id  
+			
+			<if test="beginTime >0 " >
+				 and d8.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t8.item_type_id = 3 ) as patrolpoliceCount,
+
+		(select count(t9.id) from t_duty_item as t9  
+			left join t_duty         d9 on t9.duty_id = d9.id
+			left join organ          o9 on o9.id = d9.org_id
+
+			where o9.id = o.id  
+			
+			<if test="beginTime >0 " >
+				 and d9.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t9.item_type_id = 3 ) as checkpointpoliceCount,
+
+		(select count(t11.id) from t_duty_item as t11 
+			left join t_duty         d11 on t11.duty_id = d11.id
+			left join organ          o11 on o11.id = d11.org_id
+ 
+			where o11.id = o.id  
+			
+			<if test="beginTime >0 " >
+				 and d11.ymd between #{beginTime,jdbcType=INTEGER} and  #{endTime,jdbcType=INTEGER}  
+			</if>
+			
+			and  t11.item_type_id = 3 ) as patrolareaPoliceCount
+				
+	 from organ as o 
+		where o.path like CONCAT("%","/",#{orgCode,jdbcType=VARCHAR},"%")
+    </select >
+    
+
+    <select id="loadVMListByOrgAndYmd"  parameterType="java.util.Map" resultType="com.tianyi.drs.duty.model.Duty">  
+       		select * from t_duty where org_id = #{orgId,jdbcType=INTEGER}  and ymd between #{firstYMD,jdbcType=INTEGER} and  #{lastYMD,jdbcType=INTEGER}
+     </select> 
+    
+
+</mapper>
