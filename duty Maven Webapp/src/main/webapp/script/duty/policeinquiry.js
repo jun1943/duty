@@ -41,6 +41,7 @@ $(function() {
 	        columns: [[ 
 	                   	{ title: '机构', field: 'orgCount2', align: 'left', width: 120,formatter:fmtOrgCount },
 	                   	{ title: '值班领导', field: 'leaderCount', align: 'right', width: 80 },
+	                   	{ title: '值班主任', field: 'directorCount', align: 'right', width: 80 },
 	                   	{ title: '警力', field: 'policeCount', align: 'right', width: 80},
 	                   	{ title: '车辆', field: 'vehicleCount', align: 'right', width: 80},
 	                   	{ title: '枪支', field: "weaponCount", align: 'right', width: 80 },
@@ -61,6 +62,7 @@ $(function() {
 	        columns: [[ 
 					{ title: '机构树', field: 'orgShortName', align: 'left', width: 120},
 					{ title: '值班领导', field: 'leaderNames', align: 'left', width: 80 },
+                   	{ title: '值班主任', field: 'directorName', align: 'right', width: 80 },
 					{ title: '警力', field: 'policeCount', align: 'right', width: 80},
 					{ title: '车辆', field: 'vehicleCount', align: 'right', width: 80},
 					{ title: '枪支', field: "weaponCount", align: 'right', width: 80 },
@@ -237,6 +239,7 @@ function buildReportTree(data){
     m_report_sum.orgCount1=data.length;
     m_report_sum.orgCount2=0;
     m_report_sum.leaderCount =0;
+    m_report_sum.directorCount =0;
     m_report_sum.policeCount  =0;
     m_report_sum.vehicleCount  =0;
     m_report_sum.weaponCount =0;
@@ -254,6 +257,7 @@ function buildReportTree(data){
         	m_report_sum.orgCount2 ++;
         }
         m_report_sum.leaderCount +=node.leaderCount;
+        m_report_sum.directorCount +=node.directorCount;
         m_report_sum.policeCount +=node.policeCount;
         m_report_sum.vehicleCount +=node.vehicleCount;
         m_report_sum.weaponCount +=node.weaponCount;

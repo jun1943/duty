@@ -12,6 +12,7 @@ var m_target = {};
 
 var m_iconCls = {};
 
+var m_targetPoint = {};
 $(document)
 		.ready(
 				function() {
@@ -32,67 +33,58 @@ $(document)
 					$("#btnSearchExpendbody").bind("click", function() {
 						$('#my-search-box').toggle();
 					});
-					$('#source_police')
-							.treegrid(
-									{
-										dnd : true,
-										fitColumns : true,
-										resizable : true,
-										idField : 'id',
-										treeField : 'name',
-										toolbar : "#tb_source_police",
-									 width:220,height:400,
-										singleSelect : false,
-										columns : [ [
-												{
-													field : 'ck',
-													checkbox : true
-												},
-												{
-													title : 'id',
-													field : 'id',
-													align : 'left',
-													width : 0,
-													hidden : true
-												},
-												{
-													title : '姓名',
-													field : 'name',
-													align : 'left',
-													width : 50 
-												},
-												{
-													title : '单位',
-													field : 'orgName',
-													align : 'left',
-													width : 50 
-												},
-												{
-													title : '图标',
-													field : 'iconUrl',
-													align : 'left',
-													width : 50,
-													hidden : true
-												},
-												{
-													title : '类型',
-													field : 'itemTypeId',
-													align : 'left',
-													width : 50,
-													hidden : true,
-													formatter : function(value,
-															row, index) {
-														row.itemTypeId = 2;
-														row.iconCls = 'icon_default_police';
-														return row.itemTypeId;
-													}
-												} ] ],
-										onLoadSuccess : function(row) {
-											$(this).treegrid('enableDnd',
-													row ? row.id : null);
-										},
-										onBeforeDrop : doRejectDrop
-									});
+					$('#source_police').treegrid({
+						dnd : true,
+						fitColumns : true,
+						resizable : true,
+						idField : 'id',
+						treeField : 'name',
+						toolbar : "#tb_source_police",
+						width : 220,
+						height : 400,
+						singleSelect : false,
+						columns : [ [ {
+							field : 'ck',
+							checkbox : true
+						}, {
+							title : 'id',
+							field : 'id',
+							align : 'left',
+							width : 0,
+							hidden : true
+						}, {
+							title : '姓名',
+							field : 'name',
+							align : 'left',
+							width : 50
+						}, {
+							title : '单位',
+							field : 'orgName',
+							align : 'left',
+							width : 50
+						}, {
+							title : '图标',
+							field : 'iconUrl',
+							align : 'left',
+							width : 50,
+							hidden : true
+						}, {
+							title : '类型',
+							field : 'itemTypeId',
+							align : 'left',
+							width : 50,
+							hidden : true,
+							formatter : function(value, row, index) {
+								row.itemTypeId = 2;
+								row.iconCls = 'icon_default_police';
+								return row.itemTypeId;
+							}
+						} ] ],
+						onLoadSuccess : function(row) {
+							$(this).treegrid('enableDnd', row ? row.id : null);
+						},
+						onBeforeDrop : doRejectDrop
+					});
 					$('#source_vehicle').treegrid({
 						// url : "vehicle/getVehicleSource.do?orgId="
 						// +
@@ -105,7 +97,8 @@ $(document)
 						treeField : 'number',
 						toolbar : "#tb_source_vehicle",
 
-						 width:220,height:400,
+						width : 220,
+						height : 400,
 						singleSelect : false,
 						columns : [ [ {
 							field : 'ck',
@@ -166,7 +159,8 @@ $(document)
 						idField : 'id',
 						treeField : 'typeName',
 						toolbar : "#tb_source_gpsdevice",
-						 width:220,height:400,
+						width : 220,
+						height : 400,
 						singleSelect : false,
 						columns : [ [ {
 							field : 'ck',
@@ -219,7 +213,8 @@ $(document)
 						idField : 'id',
 						treeField : 'typeName',
 						toolbar : "#tb_source_weapon",
-						 width:220,height:400,
+						width : 220,
+						height : 400,
 						singleSelect : false,
 						columns : [ [ {
 							field : 'ck',
@@ -294,6 +289,18 @@ $(document)
 							align : 'left',
 							width : 5,
 							hidden : true
+						}, {
+							title : '人数限制',
+							field : "maxPolice",
+							align : 'left',
+							width : 50,
+							formatter : function(value, row, index) {
+								if (value == 0) {
+									return "无限制";
+								} else {
+									return value + "人";
+								}
+							}
 						} ] ]
 					});
 
@@ -308,60 +315,81 @@ $(document)
 										toolbar : '#tdDutyToolbar',
 										showFooter : true,
 										onDblClickRow : onSelRow,
-										columns : [ [ {
-											title : 'xid',
-											field : 'xid',
-											width : 0,
-											hidden : true
-										}, {
-											title : '名称',
-											field : 'displayName',
-											width : 200
-										}, {
-											title : '类型',
-											field : 'itemInnerTypeName',
-											align : 'left',
-											width : 70
-										}, {
-											title : '时间区间',
-											field : 'beginTime',
-											align : 'left',
-											width : 100,
-											formatter : fmtShiftPeriod
-										}, {
-											title : '车辆',
-											field : 'velicleCount',
-											align : 'right',
-											width : 50,
-											formatter : fmtDigit
-										}, {
-											title : '警员',
-											field : 'policeCount',
-											align : 'right',
-											width : 50,
-											formatter : fmtDigit
-										}, {
-											title : '武器',
-											field : 'weaponCount',
-											align : 'right',
-											width : 50,
-											formatter : fmtDigit
-										}, {
-											title : '定位',
-											field : 'gpsCount',
-											align : 'right',
-											width : 50,
-											formatter : fmtDigit
-										} , {
-											title : '操作',
-											field : 'operate',
-											align : 'center',
-											width : 50,
-											formatter : function(value, row, index){
-												return "<img alt='删除'  onclick='deleteNode()' style='width:16px; height:16px' src='asset/css/easyui/icons/tianyi_delete.png'>";
-												//return "<a id='btnDelete' href='javascript:void(0);' class='easyui-linkbutton'  iconcls='icon-cancel'>删除</a>";
-											}
-										}] ],
+										columns : [ [
+												{
+													title : 'xid',
+													field : 'xid',
+													width : 0,
+													hidden : true
+												},
+												{
+													title : '人数限制',
+													field : 'maxpolice',
+													align : 'right',
+													width : 50,
+													hidden : true
+												},
+												{
+													title : '名称',
+													field : 'displayName',
+													width : 200
+												},
+												{
+													title : '类型',
+													field : 'itemInnerTypeName',
+													align : 'left',
+													width : 70
+												},
+												{
+													title : '时间区间',
+													field : 'beginTime',
+													align : 'left',
+													width : 100,
+													formatter : fmtShiftPeriod
+												},
+												{
+													title : '车辆',
+													field : 'velicleCount',
+													align : 'right',
+													width : 50,
+													formatter : fmtDigit
+												},
+												{
+													title : '警员',
+													field : 'policeCount',
+													align : 'right',
+													width : 50,
+													formatter : fmtDigit
+												},
+												{
+													title : '武器',
+													field : 'weaponCount',
+													align : 'right',
+													width : 50,
+													formatter : fmtDigit
+												},
+												{
+													title : '定位',
+													field : 'gpsCount',
+													align : 'right',
+													width : 50,
+													formatter : fmtDigit
+												},
+												{
+													title : '操作',
+													field : 'operate',
+													align : 'center',
+													width : 50,
+													formatter : function(value,
+															row, index) {
+														return "<img alt='删除'  onclick='deleteNode()' style='width:16px; height:16px' src='asset/css/easyui/icons/tianyi_delete.png'>";
+														// return "<a
+														// id='btnDelete'
+														// href='javascript:void(0);'
+														// class='easyui-linkbutton'
+														// iconcls='icon-cancel'>删除</a>";
+													}
+												} ] ],
 										rowStyler : function(row, index) {
 											if (row._parentId == "undefined"
 													|| row._parentId == undefined) {
@@ -452,7 +480,7 @@ $(document)
 					});
 
 				});
- 
+
 function checkAllResources(gridId) {
 	$("#" + gridId).treegrid("selectAll");
 };
@@ -813,6 +841,7 @@ function loadDuty(pars, type) {
 		success : function(req) {
 			if (req.isSuccess) {// 成功填充数据
 				var duty = req.obj;
+				m_targetPoint = req.obj;
 				if (duty == null) {
 					duty = {};
 					duty.id = 0;
@@ -831,6 +860,7 @@ function loadDuty(pars, type) {
 					break;
 				}
 				structureItemTree(duty.items);
+
 				m_duty = duty;
 				$('#tdDuty').treegrid('loadData', duty.items);
 			} else {
@@ -1216,12 +1246,13 @@ function selectDutyTypeAction() {
 function addDutyTypeRow(value) {
 	var duty = {};
 	var shift = {};
-	genDutyRow(value.id, value.name, 100, value.typeId, value.name, duty);
+	genDutyRow(value.id, value.name, 100, value.typeId, value.name,
+			value.maxPolice, duty);
 	shift.beginTime2 = new Date(m_ymd.getYear(), m_ymd.getMonth() - 1, m_ymd
 			.getDay(), 9, 30);
 	shift.endTime2 = new Date(m_ymd.getYear(), m_ymd.getMonth() - 1, m_ymd
 			.getDay(), 16, 30);
-	genDutyRow(null, "班次", 101, null, "班次", shift);
+	genDutyRow(null, "班次", 101, null, "班次", 0, shift);
 	$('#tdDuty').treegrid('append', {
 		parent : null,
 		data : [ duty ]
@@ -1327,12 +1358,14 @@ function itemRegul(item) {
 
 /** *************主菜单功能-----结束*************** */
 
-function genDutyRow(itemId, name, typeId, innerTypeId, innerTypeName, dutyRow) {
+function genDutyRow(itemId, name, typeId, innerTypeId, innerTypeName,
+		maxpolice, dutyRow) {
 	if (dutyRow.id == undefined || dutyRow.id == null)
 		dutyRow.id = 0;
 	dutyRow.xid = genXId(typeId);
 	dutyRow.name = name;
 	dutyRow.itemTypeId = typeId;
+	dutyRow.maxpolice = maxpolice;
 	dutyRow.itemId = itemId;
 	// dutyRow.itemInnerTypeId = innerTypeId;
 	dutyRow.itemInnerTypeName = innerTypeName;
@@ -1443,7 +1476,7 @@ function doDrop(tRow, sRow, point) {
 		}
 
 		genDutyRow(sRow.id, name, sRow.itemTypeId, sRow.typeId, sRow.typeName,
-				sRow);
+				0, sRow);
 	}
 	reCalcDuty();
 }
@@ -1635,7 +1668,7 @@ function userNodeConfirm() {
 	} else {
 		if (m_userNode.editType == 'new') {
 			var row = {};
-			genDutyRow(0, name, 999, 0, '编组', row);
+			genDutyRow(0, name, 999, 0, '编组', 0, row);
 			$("#tdDuty").treegrid('append', {
 				parent : m_userNode.targetRow.xid,
 				data : [ row ]
@@ -1759,7 +1792,7 @@ function shiftConfirm() {
 			row.beginTime2 = bt;
 			row.endTime2 = et;
 
-			genDutyRow(0, name, 101, 0, '班次', row);
+			genDutyRow(0, name, 101, 0, '班次', 0, row);
 			$("#tdDuty").treegrid('append', {
 				parent : m_shift.targetRow.xid,
 				data : [ row ]
@@ -2075,18 +2108,17 @@ function addItems(itemTypeId, grid) {
 			var ps = grid.treegrid('getSelections');
 			var shiftRowT = findShiftRow(row);
 
-			$.each(ps,
-					function(i, v) {
-						var exists = existsResource(shiftRowT, v);
-						if (!exists) {
-							var name = itemTypeId == 2 ? v.name : v.number;
-							genDutyRow(v.id, name, itemTypeId, v.typeId,
-									v.typeName, v);
-							datas.push(v);
-						} else {
-							errRow.push(v);
-						}
-					});
+			$.each(ps, function(i, v) {
+				var exists = existsResource(shiftRowT, v);
+				if (!exists) {
+					var name = itemTypeId == 2 ? v.name : v.number;
+					genDutyRow(v.id, name, itemTypeId, v.typeId, 0, v.typeName,
+							v);
+					datas.push(v);
+				} else {
+					errRow.push(v);
+				}
+			});
 
 			if (datas.length > 0) {
 				$("#tdDuty").treegrid('append', {
@@ -2138,7 +2170,50 @@ function btnExportToExcelAction() {
 			$.messager.alert("消息提示", errorThrown, "error");
 		}
 	});
-} 
-function btnSearchAction()
-{
+}
+function btnSearchAction() {
+	var name = $('#txtsearchname').val();
+	if (name != "") {
+		var a = findDutyPoint(name);
+		$('#tdDuty').treegrid("loadData", a);
+	} else {
+		var pars = {
+			orgId : m_dutyprepare_Org.id,
+			ymd : m_ymd.ymd
+		};
+		loadDuty(pars);
 	}
+}
+
+function findDutyPoint(name) {
+	var a = [];
+	if (m_duty.items != null) {
+		$.each(m_duty.items, function(index, value) {
+			var o = findDutyTreeGrid(value, name);
+			if (o != null) {
+				a.push(o);
+			}
+		});
+	}
+	return a;
+}
+
+function findDutyTreeGrid(item, name) {
+	var ls = [];
+	if (item.children != null) {
+		$.each(item.children, function(index, value) {
+			var o = findDutyTreeGrid(value, name);
+			if (o != null) {
+				ls.push(o);
+			}
+		});
+	}
+
+	item.children = ls;
+
+	if (name = "" || item.name.indexOf(name) >= 0 || ls.length > 0) {
+		return item;
+	} else {
+		return null;
+	}
+}

@@ -3,6 +3,7 @@ var m;
 var m_xid_max = 0; // duty的treegrid的id,必须确保
 var m_ymd = null; /* 当前年月日 */
 var m_dutyCalendar_Org = {};
+var m_duty ={};
 $(function() {
 	$("#dutyDetailsForDaywindow").window("close");
 	var args = getUrlArgs();
@@ -325,7 +326,7 @@ function getDateInfo(date) {
 						if (req.obj) {
 							var duty = req.obj;
 							structureItemTree(duty.items);
-							// m_duty = duty;
+							 m_duty = duty;
 							$('#tgddutydetailsforday').treegrid('loadData',
 									duty.items);
 						} else {
@@ -777,4 +778,45 @@ function clearClipbord() {
 		$(this).css('display', 'none');
 	});
 };
+function btnSearchAction(){
+	var name = $('#txttargetName').val();
+	if (name != "") {
+		var a = findDutyPoint(name);
+		$('#tgddutydetailsforday').treegrid("loadData", a);
+	} else {
+		getDateInfo(m_dutyCalendar_Org.date);
+	}
+};
 
+function findDutyPoint(name) {
+	var a = [];
+	if (m_duty.items != null) {
+		$.each(m_duty.items, function(index, value) {
+			var o = findDutyTreeGrid(value, name);
+			if (o != null) {
+				a.push(o);
+			}
+		});
+	}
+	return a;
+}
+
+function findDutyTreeGrid(item, name) {
+	var ls = [];
+	if (item.children != null) {
+		$.each(item.children, function(index, value) {
+			var o = findDutyTreeGrid(value, name);
+			if (o != null) {
+				ls.push(o);
+			}
+		});
+	}
+
+	item.children = ls;
+
+	if (name = "" || item.name.indexOf(name) >= 0 || ls.length > 0) {
+		return item;
+	} else {
+		return null;
+	}
+}
