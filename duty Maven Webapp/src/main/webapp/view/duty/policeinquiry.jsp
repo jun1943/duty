@@ -23,7 +23,7 @@
 <title>勤务报备</title> 
 </head>
 
-<body class="easyui-layout">
+<body class="easyui-layout" oncontextmenu=self.event.returnValue=false>
 	<div data-options="region:'center',split:true"  >
 		 
 			<div id="tbPoliceInquiry" class="btn-toolbar" style="height:40px; margin-top:10px"> 

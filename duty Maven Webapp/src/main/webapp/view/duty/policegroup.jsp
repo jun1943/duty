@@ -15,7 +15,7 @@
 
 </head>
 
-<body class="easyui-layout"  style ="width:100%; height:100%">
+<body class="easyui-layout"  style ="width:100%; height:100%" oncontextmenu=self.event.returnValue=false>
 	<div  class="easyui-layout"   style ="width:100%; height:100%">
 		 <div data-options="region:'north'" style ="width:100%; height:43px">
 		 	<div class="dateBoxMenu">

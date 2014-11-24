@@ -21,7 +21,7 @@
 
 <title>勤务报备</title> 
 </head>
-  <body>
+  <body oncontextmenu=self.event.returnValue=false>
     
 	<!--日历 s-->
 	<div class="dateBox">

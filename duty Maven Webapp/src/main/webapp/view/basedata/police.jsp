@@ -17,7 +17,7 @@
 
 </head>
 
-<body class="easyui-layout" style="padding:2px">
+<body class="easyui-layout" style="padding:2px" oncontextmenu=self.event.returnValue=false>
 	 
 	<div data-options="region:'center'" style="padding:2px">
 				<div id="tbPolice" class="btn-toolbar" style="height:30px; margin-top:3px">

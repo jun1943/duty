@@ -358,7 +358,7 @@
  				</foreach>
  				
   		</if>
-  		 
+  		  order by p.isUsed
   		 <if test="pageStart !=null">
   			limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
   		</if>
