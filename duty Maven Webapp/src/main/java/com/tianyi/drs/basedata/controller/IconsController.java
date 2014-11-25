@@ -92,24 +92,47 @@ public class IconsController extends CommonsMultipartResolver {
 
 	@RequestMapping(value = "deleteIcons.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
-	String deleteIcons(int id) throws Exception {
+	String deleteIcons(String id) throws Exception {
 		try {
 			int result = 0;
 			String realPath = getClass().getResource("/").getFile().toString();
 			realPath = realPath.substring(0, (realPath.length() - 17));
-			if (id > 0) {
-				Icons icon = new Icons();
-				icon = iconsService.loadById(id);
-				if (icon != null) {
-					String iconUrl = realPath + icon.getIconUrl();
-					File pc = new File(iconUrl);
+			Map<String, Object> map = new HashMap<String, Object>();
+			 
+			if (id != null && id != "") {
+				String[] s = {};
+				s = id.split(",");
+				int[] ids = new int[s.length];
+				for (int i = 0; i < s.length; i++) {
+					ids[i] = Integer.parseInt(String.valueOf(s[i]));
+					Icons icon = new Icons();
+					icon = iconsService.loadById(ids[i]);
+					if (icon != null) {
+						String iconUrl = realPath + icon.getIconUrl();
+						File pc = new File(iconUrl);
 
-					if (pc.exists()) {
-						pc.delete();
+						if (pc.exists()) {
+							pc.delete();
+						}
 					}
 				}
-				result = iconsService.deleteByPrimaryKey(id);
+				map.put("ids", ids);
+			 
+				iconsService.deleteByIds(map);
 			}
+//			if (id > 0) {
+//				Icons icon = new Icons();
+//				icon = iconsService.loadById(id);
+//				if (icon != null) {
+//					String iconUrl = realPath + icon.getIconUrl();
+//					File pc = new File(iconUrl);
+//
+//					if (pc.exists()) {
+//						pc.delete();
+//					}
+//				}
+//				result = iconsService.deleteByPrimaryKey(id);
+//			}
 			return "{\"success\":true,\"Message\":\"删除成功,result is " + result
 					+ "\"}";
 		} catch (Exception ex) {

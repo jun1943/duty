@@ -47,4 +47,9 @@ public class IconsServiceImpl implements IconsService  {
 		return iconsMapper.loadById(id);
 	}
 
+	public void deleteByIds(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		iconsMapper.deleteByIds(map);
+	}
+
 }

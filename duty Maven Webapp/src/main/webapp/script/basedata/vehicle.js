@@ -33,7 +33,7 @@ $(function() {
 		pageSize : 10,
 		title : '车辆列表',
 	    onDblClickRow:btnEditVehicle,
-	    singleSelect: true,
+	    //singleSelect: true,
 		columns : [ [ {
 			field : 'ck',
 			checkbox : true
@@ -191,16 +191,28 @@ function btnDelVehicle() {
 		$.messager.alert('操作提示', "请选择操作项!", "warning");
 		return;
 	}
-	if (rows.length > 1) {
-		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
-		return;
+	var ids = "";
+	if(rows.length == 1){
+		ids = rows[0].id;
+	}else{
+		for(var i = 0; i< rows.length;i++){
+			ids += rows[i].id+",";
+		}
+		if(ids.length>2){
+			ids = ids.substring(0, ids.length-1);
+		}
 	}
-	var number = rows[0].number;
-	var id = rows[0].id;
-	$.messager.confirm("系统提示", "确认删除车牌号为    " + number + " 的数据信息吗？",
+//	if (rows.length > 1) {
+//		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
+//		return;
+//	}
+	
+//	var number = rows[0].number;
+//	var id = rows[0].id;
+	$.messager.confirm("系统提示", "确认删除车辆数据信息吗？",
 			function(r) {
 				if (r) {
-					deleteVehicle(id);
+					deleteVehicle(ids);
 				}
 			});
 };
@@ -245,20 +257,30 @@ function saveVehicleAction() {
 		return;
 	}
 	vehicle.number = $("#txtnumber").val();
-	if ($("#txtpurpose").val() == "") {
-		$.messager.alert("错误提示", "请输入车辆用途", "error");
-		return;
-	}
+//	if ($("#txtpurpose").val() == "") {
+//		$.messager.alert("错误提示", "请输入车辆用途", "error");
+//		return;
+//	}
 	vehicle.purpose = $("#txtpurpose").val();
 
-	vehicle.intercomGroup = $("#txtgroupno").combobox("getValue");
-
+	//vehicle.intercomGroup = $("#txtgroupno").combobox("getValue");
+	if ($("#txtgroupno").combobox("getValue") > 0
+			&& $("#txtgroupno").combobox("getValue") != "") {
+		vehicle.intercomGroup = $("#txtgroupno").combobox("getValue");
+	} else {
+		vehicle.intercomGroup =0;
+//		$.messager.alert("错误提示", "请选择GPS_ID", "error");
+//		return;
+	}
 	if ($("#txtgpsid").combobox("getValue") > 0
 			&& $("#txtgpsid").combobox("getValue") != "") {
 		vehicle.gpsId = $("#txtgpsid").combobox("getValue");
+		vehicle.gpsName =$("#txtgpsid").combobox("getText");
 	} else {
-		$.messager.alert("错误提示", "请选择GPS_ID", "error");
-		return;
+		vehicle.gpsId =0;
+		vehicle.gpsName ="";
+//		$.messager.alert("错误提示", "请选择GPS_ID", "error");
+//		return;
 	}
 	//vehicle.gpsName = $("#txtgpsname").val();
 	$.ajax({

@@ -35,5 +35,7 @@ public interface WeaponService {
 
 	List<WeaponType> selectWeaponType();
 
-	List<WeaponVM> loadVMListWithGroup(Map<String, Object> map); 
+	List<WeaponVM> loadVMListWithGroup(Map<String, Object> map);
+
+	void deleteByIds(Map<String, Object> map); 
 }

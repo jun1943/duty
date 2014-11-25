@@ -142,6 +142,16 @@
       icon_url = #{iconUrl,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+   <delete id="deleteByIds"  parameterType="java.util.Map" >  
+       delete from t_gps where id in 
+       
+       			<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+       	
+   </delete> 
+  
 <select id="selectGpsType" resultType="com.tianyi.drs.basedata.model.GpsType">  
        		 select * from t_gpstype order by id asc
     	 </select> 

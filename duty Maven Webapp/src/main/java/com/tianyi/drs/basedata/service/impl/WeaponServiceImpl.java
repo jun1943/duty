@@ -96,6 +96,11 @@ public class WeaponServiceImpl implements WeaponService {
 	public List<WeaponVM> loadVMListWithGroup(Map<String, Object> map) {
 		List<WeaponVM> list = weaponMapper.loadVMListWithGroup(map);
 		return list;
+	}
+
+	public void deleteByIds(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		weaponMapper.deleteByIds(map);
 	} 
 	
 }

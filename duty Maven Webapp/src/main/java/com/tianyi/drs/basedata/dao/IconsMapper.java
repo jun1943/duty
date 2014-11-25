@@ -26,4 +26,6 @@ public interface IconsMapper {
 	int loadCount(Map<String, Object> map);
 
 	Icons loadById(int id);
+
+	void deleteByIds(Map<String, Object> map);
 }

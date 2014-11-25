@@ -38,7 +38,7 @@ $(function() {
 						pageSize : 10,
 						title : '定位设备列表',
 						onDblClickRow : btnEditGpsdevice,
-						singleSelect : true,
+						//singleSelect : true,
 						columns : [ [
 								{
 									field : 'ck',
@@ -235,16 +235,27 @@ function btnDelGpsdevice() {
 		$.messager.alert('操作提示', "请选择操作项!", "warning");
 		return;
 	}
-	if (rows.length > 1) {
-		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
-		return;
+	var ids = "";
+	if(rows.length == 1){
+		ids = rows[0].id;
+	}else{
+		for(var i = 0; i< rows.length;i++){
+			ids += rows[i].id+",";
+		}
+		if(ids.length>2){
+			ids = ids.substring(0, ids.length-1);
+		}
 	}
-	var gpsName = rows[0].gpsName;
-	var id = rows[0].id;
-	$.messager.confirm("系统提示", "确认删除名称号为    " + gpsName + " 的数据信息吗？", function(
+//	if (rows.length > 1) {
+//		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
+//		return;
+//	}
+//	var gpsName = rows[0].gpsName;
+//	var id = rows[0].id;
+	$.messager.confirm("系统提示", "确认删除GPS设备数据信息吗？", function(
 			r) {
 		if (r) {
-			deleteGpsdevice(id);
+			deleteGpsdevice(ids);
 		}
 	});
 };

@@ -33,7 +33,7 @@ $(function() {
 						pageSize : 10,
 						title : '图标列表',
 					    onDblClickRow:btnEditIcons,
-					    singleSelect: true,
+					    //singleSelect: true,
 						columns : [ [
 								{
 									field : 'ck',
@@ -150,15 +150,26 @@ function btnDelIcons() {
 		$.messager.alert('操作提示', "请选择操作项!", "warning");
 		return;
 	}
-	if (rows.length > 1) {
-		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
-		return;
+	var ids = "";
+	if(rows.length == 1){
+		ids = rows[0].id;
+	}else{
+		for(var i = 0; i< rows.length;i++){
+			ids += rows[i].id+",";
+		}
+		if(ids.length>2){
+			ids = ids.substring(0, ids.length-1);
+		}
 	}
-	var iconId = rows[0].id;
-	var name = rows[0].name;
-	$.messager.confirm("系统提示", "确认删除名为    " + name + " 的数据信息吗？", function(r) {
+//	if (rows.length > 1) {
+//		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
+//		return;
+//	}
+//	var iconId = rows[0].id;
+//	var name = rows[0].name;
+	$.messager.confirm("系统提示", "确认删除Icon图标信息吗？", function(r) {
 		if (r) {
-			deleteIcons(iconId);
+			deleteIcons(ids);
 		}
 	});
 }

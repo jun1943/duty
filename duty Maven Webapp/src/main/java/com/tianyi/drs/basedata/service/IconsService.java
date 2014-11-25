@@ -19,4 +19,6 @@ public interface IconsService {
 
 	Icons loadById(int id);
 
+	void deleteByIds(Map<String, Object> map);
+
 }

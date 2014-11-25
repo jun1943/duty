@@ -62,5 +62,7 @@ public interface PoliceMapper {
 	Police findByidCard(String param);
 
 	List<PoliceVM> loadVMListWithGroupList(Map<String, Object> map);
+
+	void deleteByIds(Map<String, Object> map);
 	 
 }

@@ -106,7 +106,14 @@
       platform_id = #{platformId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  
+    <delete id="deleteByIds"  parameterType="java.util.Map" >  
+       delete from t_icon where id in 
+       
+       			<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+       	
+   </delete> 
    <select id="loadById" parameterType="Integer"  resultMap="BaseResultMap">  
        		select <include refid ="Base_Column_List" /> from t_icon where id =#{id,jdbcType=INTEGER}
     	 </select> 

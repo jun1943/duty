@@ -44,6 +44,7 @@ public class PoliceController {
 			@RequestParam(value = "police_Query", required = false) String query,
 			@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "rows", required = false) Integer rows,
+			@RequestParam(value = "sort", required = false) String sort,
 			HttpServletRequest request) throws Exception {
 		try {
 			JSONObject joQuery = JSONObject.fromObject(query);
@@ -65,7 +66,13 @@ public class PoliceController {
 			map.put("orgCode", orgCode);
 			map.put("orgPath", orgPath);
 			map.put("name", name);
-
+			if (sort != null) {
+				if (!sort.equals("")) {
+					map.put("sort", "p."+sort);
+				}
+			} else {
+				map.put("sort", "p.isUsed");
+			}
 			if (typeid > 0) {
 				ids[0] = typeid;
 				map.put("ids", ids);
@@ -91,7 +98,7 @@ public class PoliceController {
 			@RequestParam(value = "orgPath", required = false) String orgPath,
 			@RequestParam(value = "name", required = false) String name,
 			@RequestParam(value = "typeId", required = false) String typeId,
-			@RequestParam(value = "sort", required = false) String sort, 
+			@RequestParam(value = "sort", required = false) String sort,
 			@RequestParam(value = "groupId", required = false) String groupId)
 			throws Exception {
 		try {
@@ -102,7 +109,7 @@ public class PoliceController {
 			map.put("orgPath", orgPath);
 			map.put("orgCode", orgCode);
 			map.put("name", name);
-		 
+
 			// map.put("typeId", typeId);
 			// map.put("groupId", groupId);
 
@@ -167,11 +174,20 @@ public class PoliceController {
 
 	@RequestMapping(value = "deletePolice.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
-	String deletePolice(int id) throws Exception {
+	String deletePolice(String id) throws Exception {
 		try {
+			Map<String, Object> map = new HashMap<String, Object>();
 			int result = 0;
-			if (id > 0) {
-				result = policeService.deleteByPrimaryKey(id);
+			if (id != null && id != "") {
+				String[] s = {};
+				s = id.split(",");
+				int[] ids = new int[s.length];
+				for (int i = 0; i < s.length; i++) {
+					ids[i] = Integer.parseInt(String.valueOf(s[i]));
+				}
+				map.put("ids", ids);
+
+				policeService.deleteByIds(map);
 			}
 			return "{\"success\":true,\"Message\":\"删除成功,result is " + result
 					+ "\"}";

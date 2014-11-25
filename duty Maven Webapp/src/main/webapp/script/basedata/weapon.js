@@ -32,7 +32,7 @@ $(function() {
 		pageSize : 10,
 		title:'武器列表',
 	    onDblClickRow:btnEditWeapon,
-	    singleSelect: true,
+	    //singleSelect: true,
 		columns : [ [ {
 			field : 'ck',
 			checkbox : true
@@ -144,16 +144,27 @@ function btnDelWeapon() {
 		$.messager.alert('操作提示', "请选择操作项!", "warning");
 		return;
 	}
-	if (rows.length > 1) {
-		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
-		return;
+	var ids = "";
+	if(rows.length == 1){
+		ids = rows[0].id;
+	}else{
+		for(var i = 0; i< rows.length;i++){
+			ids += rows[i].id+",";
+		}
+		if(ids.length>2){
+			ids = ids.substring(0, ids.length-1);
+		}
 	}
-	var number = rows[0].number;
-	var id = rows[0].id;
-	$.messager.confirm("系统提示", "确认删除编号为    " + number + " 的数据信息吗？",
+//	if (rows.length > 1) {
+//		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
+//		return;
+//	}
+//	var number = rows[0].number;
+//	var id = rows[0].id;
+	$.messager.confirm("系统提示", "确认删除武器数据信息吗？",
 			function(r) {
 				if (r) {
-					deleteWeapon(id);
+					deleteWeapon(ids);
 				}
 			});
 };
@@ -194,10 +205,10 @@ function saveWeaponAction() {
 		return;
 	}
 	weapon.number = $("#txtnumber").val();
-	if ($("#txtstandard").val() == "") {
-		$.messager.alert("错误提示", "请输入武器规格型号", "error");
-		return;
-	}
+//	if ($("#txtstandard").val() == "") {
+//		$.messager.alert("错误提示", "请输入武器规格型号", "error");
+//		return;
+//	}
 	weapon.standard = $("#txtstandard").val();
 	weapon.orgId = m_Weapon_OrgId;
 	$.ajax({

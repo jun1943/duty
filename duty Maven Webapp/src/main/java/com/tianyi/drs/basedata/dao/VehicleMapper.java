@@ -38,5 +38,7 @@ public interface VehicleMapper {
 	List<IntercomGroup> selectIntercomGroup();
 
 	List<VehicleVM> loadVMListWithGroup(Map<String, Object> map);
+
+	void deleteByIds(Map<String, Object> map);
     
 }

@@ -250,6 +250,16 @@
       isUsed = #{isused,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+     <delete id="deleteByIds"  parameterType="java.util.Map" >  
+       delete from t_police where id in 
+       
+       			<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+       	
+   </delete> 
+  
    		 <select id="findBycode" parameterType="String" resultType="com.tianyi.drs.basedata.model.Police">  
        		select  * from t_police where number = #{param}  limit 1,1 
     	 </select> 
@@ -358,7 +368,9 @@
  				</foreach>
  				
   		</if>
-  		  order by p.isUsed
+  		
+  		
+  		  order by ${sort}
   		 <if test="pageStart !=null">
   			limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
   		</if>

@@ -200,6 +200,15 @@
       platform_id = #{platformId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+   <delete id="deleteByIds"  parameterType="java.util.Map" >  
+       delete from t_vehicle where id in 
+       
+       			<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+       	
+   </delete> 
+  
   
       	 <select id="selectVehicleType" resultType="com.tianyi.drs.basedata.model.VehicleType">  
        		 select * from t_vehicletype order by id asc
@@ -284,7 +293,7 @@
  				</foreach>
  				
   			</if>
-  			order by id
+  			order by  ${sort}
   			<if test="pageStart != null">
 	          	limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
 	  		</if>

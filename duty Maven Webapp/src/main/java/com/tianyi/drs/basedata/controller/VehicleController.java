@@ -28,6 +28,12 @@ import com.tianyi.drs.duty.viewmodel.ListResult;
 @Controller
 @RequestMapping("/vehicle")
 public class VehicleController {
+
+	@RequestMapping("index")
+	public String index() {
+		return "index";
+	}
+
 	@Resource(name = "vehicleService")
 	protected VehicleService vehicleService;
 
@@ -37,6 +43,7 @@ public class VehicleController {
 			@RequestParam(value = "vehicle_Query", required = false) String query,
 			@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "rows", required = false) Integer rows,
+			@RequestParam(value = "sort", required = false) String sort,
 			HttpServletRequest request) throws Exception {
 		try {
 			JSONObject joQuery = JSONObject.fromObject(query);
@@ -57,7 +64,13 @@ public class VehicleController {
 			map.put("orgCode", orgCode);
 			map.put("orgPath", orgPath);
 			map.put("number", number);
-
+			if (sort != null) {
+				if (!sort.equals("")) {
+					map.put("sort", "v." + sort);
+				}
+			} else {
+				map.put("sort", "v.id");
+			}
 			int total = vehicleService.loadVMCount(map);
 			list = vehicleService.loadVMList(map);
 
@@ -95,11 +108,20 @@ public class VehicleController {
 
 	@RequestMapping(value = "deleteVehicle.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
-	String deleteVehicle(int id) throws Exception {
+	String deleteVehicle(String id) throws Exception {
 		try {
+			Map<String, Object> map = new HashMap<String, Object>();
 			int result = 0;
-			if (id > 0) {
-				result = vehicleService.deleteByPrimaryKey(id);
+			if (id != null && id != "") {
+				String[] s = {};
+				s = id.split(",");
+				int[] ids = new int[s.length];
+				for (int i = 0; i < s.length; i++) {
+					ids[i] = Integer.parseInt(String.valueOf(s[i]));
+				}
+				map.put("ids", ids);
+
+				vehicleService.deleteByIds(map);
 			}
 			return "{\"success\":true,\"Message\":\"删除成功,result is " + result
 					+ "\"}";
@@ -174,11 +196,11 @@ public class VehicleController {
 				}
 				map.put("gids", gids);
 			}
-			if (typeId != null&& typeId !="") {
+			if (typeId != null && typeId != "") {
 				String[] s = {};
 				s = typeId.split(",");
 				int[] ids = new int[s.length];
-				for (int i = 0; i < s.length; i++) { 
+				for (int i = 0; i < s.length; i++) {
 					ids[i] = Integer.parseInt(String.valueOf(s[i]));
 				}
 				map.put("ids", ids);
@@ -186,8 +208,8 @@ public class VehicleController {
 			map.put("orgId", orgId);
 			map.put("orgPath", orgPath);
 			map.put("orgCode", orgCode);
-			map.put("number", number); 
-			
+			map.put("number", number);
+
 			list = vehicleService.loadVMListWithGroup(map);
 			int total = list.size();
 			ListResult<VehicleVM> rs = new ListResult<VehicleVM>(total, list);

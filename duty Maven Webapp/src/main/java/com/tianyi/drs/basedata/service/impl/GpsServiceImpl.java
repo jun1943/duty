@@ -64,4 +64,9 @@ public class GpsServiceImpl implements GpsService{
 		// TODO Auto-generated method stub
 		return gpsMapper.loadVMListWithGroup(map);
 	}
+
+	public void deleteByIds(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		gpsMapper.deleteByIds(map);
+	}
 }

@@ -34,6 +34,8 @@ public interface GpsMapper {
 	List<GpsType> selectGpsType();
 
 	List<GpsVM> loadVMListWithGroup(Map<String, Object> map);
+
+	void deleteByIds(Map<String, Object> map);
 }
 
 

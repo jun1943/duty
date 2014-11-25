@@ -138,5 +138,10 @@ public class PoliceServiceImpl implements PoliceService {
 				List<PoliceVM> list = policeMapper.loadVMListWithGroupList(map);
 				return list;
 	} 
+
+	public void deleteByIds(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		policeMapper.deleteByIds(map);
+	} 
 	
 }

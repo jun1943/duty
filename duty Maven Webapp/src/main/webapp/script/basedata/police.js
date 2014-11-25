@@ -29,7 +29,7 @@ $(function() {
 		pageSize : 10,
 		title : "人员列表",
 		onDblClickRow : btnEditPolice,
-		singleSelect : true,
+		//singleSelect : true,
 		columns : [ [ {
 			field : 'ck',
 			checkbox : true
@@ -44,12 +44,19 @@ $(function() {
 			field : 'isUsed',
 			align : 'center',
 			width : 50,
-			formatter : fmtIsUsed
+			formatter : fmtIsUsed,
+			sortable:true
 		}, {
 			title : '职务',
 			field : 'title',
 			align : 'left',
 			width : 100
+		}, {
+			title : '姓名',
+			field : 'name',
+			align : 'left',
+			width : 100,
+			sortable:true
 		}, {
 			title : '警号',
 			field : 'number',
@@ -59,7 +66,8 @@ $(function() {
 			title : 'GPS名称',
 			field : 'gpsName',
 			align : 'left',
-			width : 200
+			width : 200,
+			sortable:true
 		}, {
 			title : '手机号',
 			field : 'mobile',
@@ -81,15 +89,11 @@ $(function() {
 			align : 'left',
 			width : 100
 		}, {
-			title : '姓名',
-			field : 'name',
-			align : 'left',
-			width : 100
-		}, {
 			title : '警员类别',
 			field : 'typeName',
 			align : 'left',
-			width : 100
+			width : 100,
+			sortable:true
 		} ] ]
 	});
 	$("#btnSearchPolice").bind("click", function() {
@@ -221,15 +225,26 @@ function btnDelPolice() {
 		$.messager.alert('操作提示', "请选择操作项!", "warning");
 		return;
 	}
-	if (rows.length > 1) {
-		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
-		return;
+//	if (rows.length > 1) {
+//		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
+//		return;
+//	}
+	var ids = "";
+	if(rows.length == 1){
+		ids = rows[0].id;
+	}else{
+		for(var i = 0; i< rows.length;i++){
+			ids += rows[i].id+",";
+		}
+		if(ids.length>2){
+			ids = ids.substring(0, ids.length-1);
+		}
 	}
-	var name = rows[0].name;
-	var id = rows[0].id;
-	$.messager.confirm("系统提示", "确认删除警员    " + name + " 的数据信息吗？", function(r) {
+//	var name = rows[0].name;
+//	var id = rows[0].id;
+	$.messager.confirm("系统提示", "确认删除警员数据信息吗？", function(r) {
 		if (r) {
-			deletePolice(id);
+			deletePolice(ids);
 		}
 	});
 };
@@ -349,14 +364,25 @@ function savePoliceAction() {
 	police.mobile = $("#txtmobile").val();
 	police.mobileShort = $("#txtmobileshort").val();
 
-	police.intercomGroup = $("#txtgroupno").combobox("getValue");
+	//police.intercomGroup = $("#txtgroupno").combobox("getValue");
+	if ($("#txtgroupno").combobox("getValue") > 0
+			&& $("#txtgroupno").combobox("getValue") != "") {
+		police.intercomGroup = $("#txtgroupno").combobox("getValue");
+	} else {
+		police.intercomGroup =0;
+//		$.messager.alert("错误提示", "请选择GPS_ID", "error");
+//		return;
+	}
 	police.intercomPerson = $("#txtpersonalno").val();
 	if ($("#txtgpsid").combobox("getValue") > 0
 			&& $("#txtgpsid").combobox("getValue") != "") {
 		police.gpsId = $("#txtgpsid").combobox("getValue");
+		police.gpsName = $("#txtgpsid").combobox("getText");
 	} else {
-		$.messager.alert("错误提示", "请选择GPS_ID", "error");
-		return;
+		police.gpsId =0;
+		police.gpsName ="";
+//		$.messager.alert("错误提示", "请选择GPS_ID", "error");
+//		return;
 	}
 	// police.gpsName = $("#txtgpsdes").val();
 	$.ajax({

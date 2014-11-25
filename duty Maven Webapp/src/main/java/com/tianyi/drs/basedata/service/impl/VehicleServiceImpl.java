@@ -105,5 +105,11 @@ public class VehicleServiceImpl implements VehicleService{
 		// TODO Auto-generated method stub
 		return vehicleMapper.loadVMListWithGroup(map);
 	}
+
+ 
+	public void deleteByIds(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		vehicleMapper.deleteByIds(map);
+	}
 	
 }

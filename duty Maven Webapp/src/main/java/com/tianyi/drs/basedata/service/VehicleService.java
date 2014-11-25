@@ -32,4 +32,6 @@ public interface VehicleService {
 	public List<IntercomGroup> selectIntercomGroup();
 
 	public List<VehicleVM> loadVMListWithGroup(Map<String, Object> map);
+
+	public void deleteByIds(Map<String, Object> map);
 }

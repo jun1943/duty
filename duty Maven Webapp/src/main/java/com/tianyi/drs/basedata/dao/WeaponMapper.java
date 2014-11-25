@@ -36,4 +36,6 @@ public interface WeaponMapper {
 	List<WeaponType> selectWeaponType();
 
 	List<WeaponVM> loadVMListWithGroup(Map<String, Object> map);
+
+	void deleteByIds(Map<String, Object> map);
 }
