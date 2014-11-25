@@ -198,7 +198,7 @@ function changePoliceState(pType) {
 			"isUsed" : pType
 		},
 		success : function(req) {
-			$.messager.alert("消息提示", req.Message, "info");
+			//$.messager.alert("消息提示", req.Message, "info");
 			btnSearchAction();
 		},
 		failer : function(a, b) {
@@ -325,21 +325,25 @@ function savePoliceAction() {
 	var idcardno = $("#txtidcardno").val();
 
 	// 对身份证以及警号进行验证，ajax同步
-	isExistPolice(idcardno, "idCard");
-	if (!isExist) {
-		$.messager.alert("错误提示", "身份证号码重复，请检查", "error"); 
-		$("#txtidcardno").focus();
-		return;
+	if (operationType == "add") {
+		isExistPolice(idcardno, "idCard");
+		if (!isExist) {
+			$.messager.alert("错误提示", "身份证号码重复，请检查", "error"); 
+			$("#txtidcardno").focus();
+			return;
+		}
 	}
 	police.orgId = m_Police_OrgId;
 	police.number = $("#txtnumber").val();
 	var number = $("#txtnumber").val();
-	isExistPolice(number, "number");
-	if (!isExist) {
-		$.messager.alert("错误提示", "该警号重复，请检查", "error");
-		isExist = false;
-		$("#txtnumber").focus();
-		return;
+	if (operationType == "add") {
+		isExistPolice(number, "number");
+		if (!isExist) {
+			$.messager.alert("错误提示", "该警号重复，请检查", "error");
+			isExist = false;
+			$("#txtnumber").focus();
+			return;
+		}
 	}
 	police.title = $("#txttitle").val();
 	police.mobile = $("#txtmobile").val();
@@ -365,7 +369,7 @@ function savePoliceAction() {
 			// $.messager.alert("消息提示", req.Message, "info");
 			if (operationType == "add") {
 				clearForm();
-			}
+			}else
 			if (operationType == "edit") {
 				operationType = "";
 				$("#policeinfowindow").window("close");

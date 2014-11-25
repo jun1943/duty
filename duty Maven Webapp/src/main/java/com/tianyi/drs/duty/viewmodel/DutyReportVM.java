@@ -9,7 +9,9 @@ public class DutyReportVM {
 	private String orgCode;
 	private String orgPath;
 	private String leaderNames;
+	private String directorName;
 	private Integer leaderCount;
+	private Integer directorCount;
 	private Integer vehicleCount;
 	private Integer policeCount;
 	private Integer weaponCount;
@@ -124,6 +126,22 @@ public class DutyReportVM {
 	}
 	public void setBayonetCount(Integer bayonetCount) {
 		this.bayonetCount = bayonetCount;
+	}
+ 
+	public Integer getDirectorCount() {
+		return directorCount;
+	}
+
+	public void setDirectorCount(Integer directorCount) {
+		this.directorCount = directorCount;
+	}
+
+	public String getDirectorName() {
+		return directorName;
+	}
+
+	public void setDirectorName(String directorName) {
+		this.directorName = directorName;
 	}
 
 

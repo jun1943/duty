@@ -147,7 +147,7 @@ public class PoliceController {
 	String savePolice(Police police) throws Exception {
 		try {
 			police.setPlatformId(1);
-			police.setIsused(true);
+			police.setIsused(false);
 			police.setSyncState(true);
 			int result = 0;
 			if (police.getId() > 0) {

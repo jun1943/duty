@@ -49,30 +49,35 @@ public class DutyReportController {
 	String loadDutyReport(
 			@RequestParam(value = "criteria", required = false) String criteriaJson,
 			HttpServletRequest request) {
+		try {
+			JSONObject jobj = JSONObject.fromObject(criteriaJson);
 
-		JSONObject jobj = JSONObject.fromObject(criteriaJson);
+			JSONUtils.getMorpherRegistry().registerMorpher(
+					new DateMorpher(new String[] { "yyyy-MM-dd HH:mm" }));
 
-		JSONUtils.getMorpherRegistry().registerMorpher(
-				new DateMorpher(new String[] { "yyyy-MM-dd HH:mm" }));
+			Map<String, Class<?>> classMap = new HashMap<String, Class<?>>();
 
-		Map<String, Class<?>> classMap = new HashMap<String, Class<?>>();
+			classMap.put("orgIds", Integer.class);
+			classMap.put("taskPropertyIds", Integer.class);
+			classMap.put("attireTypeIds", Integer.class);
+			classMap.put("policeTypeIds", Integer.class);
+			classMap.put("armamentTypeIds", Integer.class);
+			classMap.put("dutyTypeIds", Integer.class);
 
-		classMap.put("orgIds", Integer.class);
-		classMap.put("taskPropertyIds", Integer.class);
-		classMap.put("attireTypeIds", Integer.class);
-		classMap.put("policeTypeIds", Integer.class);
-		classMap.put("armamentTypeIds", Integer.class);
-		classMap.put("dutyTypeIds", Integer.class);
+			DutyReportCriteria drc = (DutyReportCriteria) JSONObject.toBean(
+					jobj, DutyReportCriteria.class, classMap);
 
-		DutyReportCriteria drc = (DutyReportCriteria) JSONObject.toBean(jobj,
-				DutyReportCriteria.class, classMap);
+			List<DutyReportVM> ls = dutyReportService.loadDutyReport(drc);
 
-		List<DutyReportVM> ls = dutyReportService.loadDutyReport(drc);
+			ListResult<DutyReportVM> rs = new ListResult<DutyReportVM>(
+					ls.size(), ls, true);
 
-		ListResult<DutyReportVM> rs = new ListResult<DutyReportVM>(ls.size(),
-				ls, true);
-
-		return rs.toJson();
+			return rs.toJson();
+		} catch (Exception ex) {
+			ListResult<DutyReportVM> rs = new ListResult<DutyReportVM>(0, null,
+					true);
+			return rs.toJson();
+		}
 	}
 
 	@RequestMapping(value = "exportDutyReport.do")

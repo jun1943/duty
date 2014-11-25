@@ -202,7 +202,7 @@ function saveGpsGroup() {
 			} else {
 				$.messager.alert('提示', req.msg, "warning");
 			}
-		},
+		}
 	});
 
 }

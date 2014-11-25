@@ -12,6 +12,8 @@
     <result column="org_short_name" property="orgShortName" jdbcType="VARCHAR" />
     <result column="leader_names" property="leaderNames" jdbcType="VARCHAR" />
     <result column="leader_count" property="leaderCount" jdbcType="INTEGER" />
+    <result column="director_names" property="directorName" jdbcType="VARCHAR" />
+    <result column="director_count" property="directorCount" jdbcType="INTEGER" />
     <result column="vehicle_count" property="vehicleCount" jdbcType="INTEGER" />
     <result column="police_count" property="policeCount" jdbcType="INTEGER" />
     <result column="weapon_count" property="weaponCount" jdbcType="INTEGER" />
@@ -36,6 +38,8 @@
 			t.gpsCount					as gps_count,
 			t.npname					as leader_names,
 			t.npnameCount				as leader_count,
+			t.dpname                    as director_names,
+			t.dpnameCount				as director_count,
 			t.communityCount			as communityCount,
 			t.patrolAreaCount			as patrolAreaCount,
 			t.bayonetCount				as bayonetCount
@@ -50,6 +54,8 @@
 				count(g.id) 			as gpsCount,
 				GROUP_CONCAT(n.npname) 	as npname,
 				count(n.npname)			as npnameCount,
+				GROUP_CONCAT(s.dpname) 	as dpname,
+				count(s.dpname)         as dpnameCount,
 				count(dt1.id) 			as communityCount,
 				count(dt2.id) 			as patrolAreaCount,
 				count(dt3.id) 			as bayonetCount
@@ -72,6 +78,16 @@
 				left join t_duty_type as ndt on ndt.id=ndi.duty_type_id
 				where ndt.name like '%领导%'
 			) as n on n.nid=di.id
+			left join 
+			(
+				select
+					ddi.id as did,
+					dp.name as dpname
+				from t_duty_item as ddi
+				left join t_police as dp on ddi.item_id=dp.id and ddi.item_type_id=2
+				left join t_duty_type as ddt on ddt.id=ddi.duty_type_id
+				where ddt.name like '%主任%'
+			) as s on s.did=di.id
 			where
 				d.ymd= #{ymd,jdbcType=INTEGER}
 				and d.is_template=false

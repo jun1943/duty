@@ -206,7 +206,7 @@ function saveWeaponGroup() {
 			} else {
 				$.messager.alert('提示', req.msg, "warning");
 			}
-		},
+		}
 	});
 
 }

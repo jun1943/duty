@@ -172,7 +172,7 @@ function deleteIcons(id) {
 			"id" : id
 		},
 		success : function(req) {
-			$.messager.alert("消息提示", req.Message, "info");
+			//$.messager.alert("消息提示", req.Message, "info");
 			btnSearchAction();
 		},
 		failer : function(a, b) {
