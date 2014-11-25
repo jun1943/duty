@@ -570,8 +570,10 @@
 		where o.path like CONCAT("%","/",#{orgCode,jdbcType=VARCHAR},"%")
     </select >
     
+
     <select id="loadVMListByOrgAndYmd"  parameterType="java.util.Map" resultType="com.tianyi.drs.duty.model.Duty">  
        		select * from t_duty where org_id = #{orgId,jdbcType=INTEGER}  and ymd between #{firstYMD,jdbcType=INTEGER} and  #{lastYMD,jdbcType=INTEGER}
      </select> 
     
+
 </mapper>

@@ -12,6 +12,9 @@ public class PoliceTarget {
     private Integer taskTypeId;
 
     private Integer targetId;
+    
+	private Integer count;
+	private Integer stayTime;
 
     private Boolean isPass;
 
@@ -90,4 +93,20 @@ public class PoliceTarget {
     public void setPlatformId(Integer platformId) {
         this.platformId = platformId;
     }
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
+	public Integer getStayTime() {
+		return stayTime;
+	}
+
+	public void setStayTime(Integer stayTime) {
+		this.stayTime = stayTime;
+	}
 }

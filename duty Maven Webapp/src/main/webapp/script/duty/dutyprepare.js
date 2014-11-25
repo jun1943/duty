@@ -12,7 +12,10 @@ var m_target = {};
 
 var m_iconCls = {};
 
+var pass_count=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+
 var m_targetPoint = {};
+
 $(document)
 		.ready(
 				function() {
@@ -423,12 +426,41 @@ $(document)
 							align : 'center',
 							width : 10,
 							hidden : true
-						}, {
+						},{
+							title : '巡区名称',
+							field : 'areaName',
+							align : 'left',
+							width : 180
+						},
+						{
 							title : '名称',
 							field : 'name',
 							align : 'left',
 							width : 180
-						} ] ]
+						} ,{
+							title : '经过次数',
+							field : 'count',
+							align : 'left',
+							width : 180,
+							editor: { type: 'combobox', options: { data: pass_count } }
+						} ,{
+							title : '停留时间',
+							field : 'stayTime',
+							align : 'left',
+							width : 180
+						} ] ],
+						onBeforeEdit:function(index,row){
+					        row.editing = true;
+					        $('#dgtaskTarget').datagrid('refreshRow', index);
+					    },
+					    onAfterEdit:function(index,row){
+					        row.editing = false;
+					        $('#dgtaskTarget').datagrid('refreshRow', index);
+					    },
+					    onCancelEdit:function(index,row){
+					        row.editing = false;
+					        $('#dgtaskTarget').datagrid('refreshRow', index);
+					    }
 					});
 
 					$('#txtBeginTime').timespinner({
@@ -2170,7 +2202,8 @@ function btnExportToExcelAction() {
 			$.messager.alert("消息提示", errorThrown, "error");
 		}
 	});
-}
+} 
+
 function btnSearchAction() {
 	var name = $('#txtsearchname').val();
 	if (name != "") {
@@ -2217,3 +2250,4 @@ function findDutyTreeGrid(item, name) {
 		return null;
 	}
 }
+

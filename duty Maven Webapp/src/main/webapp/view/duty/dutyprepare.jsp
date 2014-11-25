@@ -443,20 +443,15 @@
 		</div>
 	</div>
 
-	<div id="taskWindow" class="easyui-window" title="任务关联"
-		data-options="iconCls:'icon-save',modal:true" closed="true"
-		collapsible="false" minimizable="false" maximizable="false"
-		resizable="false" shadow="false"
-		style="width: 350px; height:350px; padding: 2px;">
-		<div class="easyui-layout" data-options="fit:true">
-			<div data-options="region:'south',border:false"
-				style="padding: 2px; height: 30px;">
-				<a href="javascript:void(0);" class="easyui-linkbutton"
-					style="float:right" onclick="taskConfirm()"> 确 定 </a>
-				<!-- a href="javascript:void(0);" 
-						class="easyui-linkbutton"
-						onclick="$('#taskWindow').window('close');"
-						data-options="iconCls:'icon-remove',plain:true">取消</a> -->
+	 <div id="taskWindow"  class="easyui-window" title="任务关联"  data-options="iconCls:'icon-save',modal:true" closed="true" 
+	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" style="width: 450px; height:350px; padding: 2px;">
+			<div class="easyui-layout" data-options="fit:true">
+				<div data-options="region:'south',border:false"
+					style="padding: 2px; height: 30px;"> 
+					<a href="javascript:void(0);" class="easyui-linkbutton" 
+					  style="float:right"
+						onclick="taskConfirm()"> 确　定 </a>  
+
 			</div>
 			<div data-options="region:'center',border:false" style="padding: 2px">
 				<div id="dgtaskTarget" style="width:100%; height:100%"></div>
