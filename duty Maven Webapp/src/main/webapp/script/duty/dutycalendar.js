@@ -83,15 +83,16 @@ $(function() {
 // 设置日历窗体的高度
 function changeDivHeight() {
 	var bodyHeight = document.body.clientHeight;
-	var tableContentHeight = bodyHeight - 110;
+	var tableContentHeight = bodyHeight - 60;
 	var tdHeight = parseInt(tableContentHeight / 6) - 3;
 	var dateBoxMainDateTDBoxWidht = parseInt($("#dateTable").width() * 0.14 * 0.98);
-
-	// var trObj = $("table tbody tr");
+	var tdContentHeight=tdHeight-43;
+	var trObj = $("#dateTable tbody tr");
 	var tdObj = $("#dateTable tbody tr td");
 	for ( var i = 0; i < tdObj.length; i++) {
 		$(tdObj[i]).height(tdHeight);
 		$(tdObj[i]).width(dateBoxMainDateTDBoxWidht);
+		$(tdObj[i]).find(".dateBoxMainDateTDBox").height(tdContentHeight); 
 	}
 
 	var dateBoxMainDateTDBoxS = $(".dateBoxMainDateTDBox");
@@ -132,6 +133,7 @@ function getDateData(date) {
 		// async:false,
 		success : function(req) {
 			if (req) {
+				changeDivHeight();
 				setDateData(req);
 			} else {
 				alert("获取数据失败");
@@ -209,7 +211,22 @@ function creatHtml(arr) {
 					+ i
 					+ '_'
 					+ j
-					+ '"></div><div  onmouseover=mouseOverFunction("'
+					+ '"></div>'
+					+ '<div class="pasteBtnBox" id="pasteBtn_'
+					+ i
+					+ "_"
+					+ j
+					+ '"  onclick=selectPasteBox("'
+					+ y
+					+ '-'
+					+ m
+					+ '-'
+					+ d
+					+ '",'
+					+ i
+					+ ','
+					+ j
+					+ ') style="display: none;"><a href="javascript:void(0);">粘贴</a></div><div  onmouseover=mouseOverFunction("'
 					+ y
 					+ '-'
 					+ m
@@ -227,26 +244,12 @@ function creatHtml(arr) {
 					+ i
 					+ '_'
 					+ j
-					+ '"><li> '
+					+ '">'
 					+ arr[i][j]["totalpolice"]
 					+ '<li class="baoBeiBtn">'
-					+ '<div class="pasteBtnBox" id="pasteBtn_'
-					+ i
-					+ "_"
-					+ j
-					+ '"  onclick=selectPasteBox("'
-					+ y
-					+ '-'
-					+ m
-					+ '-'
-					+ d
-					+ '",'
-					+ i
-					+ ','
-					+ j
-					+ ') style="display: none;"><a href="javascript:void(0);">粘贴</a></div>'
-					+ '</div></li>'
-					+ '</li> </ul></div></div>'
+					+'</li>'
+					+ '</div>'
+					+ ' </ul></div></div>'
 					+ '<div id="calendarOpratdiv_'
 					+ y
 					+ '_'

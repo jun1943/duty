@@ -85,7 +85,7 @@ img { border:0px;}
 .dateBoxMainDateTDLib{ cursor:pointer;width:33px; height:27px; overflow:hidden; background:url(dateLib.png) no-repeat; text-align:center; color:#FFF; line-height:27px;}
 .dateBoxMainDateTDLibOff{ width:33px; height:27px; overflow:hidden; background:url(dateLibOff.png) no-repeat; text-align:center; color:#FFF; line-height:27px;}
 .dateBoxMainDateTDBox{ width:95%;  margin:5px auto; overflow:hidden; text-align:left; cursor:pointer;}
-.dateBoxMainDateTDBox li{ line-height:15px;display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.dateBoxMainDateTDBox li{ line-height:12px;display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 
 
 
@@ -124,9 +124,13 @@ img { border:0px;}
 
 
 
-.DateBoxbg{ display: none;  position: absolute;  top: 0%;  left: 0%;  width: 100%;  height: 100%;   z-index:1001;  -moz-opacity: 0.7;  opacity:.70; background:url(../images/zhezhaobg.png);}
 
-.pasteBtnBox{ display: none; overflow:hidden;  text-align:center; position: absolute;    width:69px;  height: 25px; left:50px;  z-index:1002;background:url(../images/pastebtnbox.png) no-repeat;  overflow: auto;}
+
+
+
+
+.DateBoxbg{ display: none;  position: absolute;  top: 0%;  left: 0%;  width: 100%;  height: 100%;   z-index:1001;  -moz-opacity: 0.7;  opacity:.70; background:url(../images/zhezhaobg.png);}
+.pasteBtnBox{ display: none;  position: absolute; text-align:center;   width:69px;  height: 25px; left:50px;  z-index:1005;background:url(../images/pastebtnbox.png) no-repeat;  overflow: auto;}
 .pasteBtnBox img{ vertical-align:middle; margin-left:3px;}
 .PasteBoxMain{ width:100%; height:15px; }
 .pasteBtnBox a{color:#4c4c4c;font-size:12px; text-align:center;line-height:25px;}

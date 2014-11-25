@@ -444,7 +444,7 @@
 	</div>
 
 	 <div id="taskWindow"  class="easyui-window" title="任务关联"  data-options="iconCls:'icon-save',modal:true" closed="true" 
-	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" style="width: 450px; height:350px; padding: 2px;">
+	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" style="width: 580px; height:350px; padding: 2px;">
 			<div class="easyui-layout" data-options="fit:true">
 				<div data-options="region:'south',border:false"
 					style="padding: 2px; height: 30px;"> 

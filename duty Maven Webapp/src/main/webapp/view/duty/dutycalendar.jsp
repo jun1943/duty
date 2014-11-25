@@ -48,7 +48,7 @@
         	</div>
         	
         	<div class="dateBoxMainDate" style="overflow:auto">
-	        	 <table id="dateTable" class="" width="100%" height="100%" >
+	        	 <table id="dateTable" class="" width="100%" height="100%" style="font-size:12px" >
 	                <thead>
 	                    <tr>
 	                    <th style="text-align:center;color:red"> 日</th>

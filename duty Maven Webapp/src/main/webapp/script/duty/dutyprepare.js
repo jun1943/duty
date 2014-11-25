@@ -15,7 +15,7 @@ var m_iconCls = {};
 var pass_count=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 
 var m_targetPoint = {};
-
+var m_targetRows = {};
 $(document)
 		.ready(
 				function() {
@@ -436,30 +436,59 @@ $(document)
 							title : '名称',
 							field : 'name',
 							align : 'left',
-							width : 180
+							width : 220
 						} ,{
 							title : '经过次数',
 							field : 'count',
 							align : 'left',
 							width : 180,
-							editor: { type: 'combobox', options: { data: pass_count } }
+							editor:{  
+								type:'validatebox',height:25,width:'99%'
+				            } 
 						} ,{
 							title : '停留时间',
 							field : 'stayTime',
 							align : 'left',
-							width : 180
+							width : 180,
+							editor:{  
+								type:'validatebox',height:25,width:'99%'
+				            } 
+						} ,{
+							field:'action',title:'',width:130,align:'center',
+			                formatter:function(value,row,index){
+			                	m_targetRows = row;
+			                    if (row.editing){
+			                        var s = "<img alt='确定'  onclick='saverow(this)' style='width:16px; height:16px' src='asset/css/easyui/icons/tianyi_save.png'>";
+//			                        	<a href="javascript:void(0);" onclick="saverow(this)">确定</a> '; 
+			                        var c = "<img alt='取消'  onclick='cancelrow(this)' style='width:16px; height:16px; margin-left:10px' src='asset/css/easyui/icons/tianyi_delete.png'>"
+//			                        	<a href="javascript:void(0);" >取消</a>';
+			                        return s+c;
+			                    } else {
+			                        var e = "<img alt='编辑'  onclick='editrow(this)' style='width:16px; height:16px' src='asset/css/easyui/icons/tianyi_edit.png'>"
+//			                        	'<a href="javascript:void(0);" onclick="editrow(this)">编辑</a> '; 
+			                        return e;
+			                    }
+			                } 
 						} ] ],
+//						onClickRow:function(value,row,index){
+//						    m_targetRows = row;
+//							var rowIndex = $('#dgtaskTarget').datagrid('getRowIndex',row);
+//							$('#dgtaskTarget').datagrid('selectRow', rowIndex).datagrid('beginEdit', rowIndex); 
+//						},
 						onBeforeEdit:function(index,row){
-					        row.editing = true;
-					        $('#dgtaskTarget').datagrid('refreshRow', index);
+							m_targetRows.editing = true;
+							var rowIndex = $('#dgtaskTarget').datagrid('getRowIndex',m_targetRows);
+					        $('#dgtaskTarget').datagrid('refreshRow', rowIndex);
 					    },
 					    onAfterEdit:function(index,row){
-					        row.editing = false;
-					        $('#dgtaskTarget').datagrid('refreshRow', index);
+					    	m_targetRows.editing = false;
+							var rowIndex = $('#dgtaskTarget').datagrid('getRowIndex',m_targetRows);
+					        $('#dgtaskTarget').datagrid('refreshRow', rowIndex);
 					    },
 					    onCancelEdit:function(index,row){
-					        row.editing = false;
-					        $('#dgtaskTarget').datagrid('refreshRow', index);
+					    	m_targetRows.editing = false;
+							var rowIndex = $('#dgtaskTarget').datagrid('getRowIndex',m_targetRows);
+					        $('#dgtaskTarget').datagrid('refreshRow', rowIndex);
 					    }
 					});
 
@@ -512,7 +541,22 @@ $(document)
 					});
 
 				});
+function getRowIndex(target){ 
+    var tr = $(target).closest('tr.datagrid-row');
+    return parseInt(tr.attr('datagrid-row-index'));
+}
 
+function editrow(target){
+    $('#dgtaskTarget').datagrid('beginEdit', getRowIndex(target));
+    $('#dgtaskTarget').datagrid('checkRow',  getRowIndex(target));
+}
+function saverow(target){
+    $('#dgtaskTarget').datagrid('endEdit', getRowIndex(target));
+}
+function cancelrow(target){
+    $('#dgtaskTarget').datagrid('cancelEdit', getRowIndex(target));
+    $('#dgtaskTarget').datagrid('checkRow',  getRowIndex(target));
+}
 function checkAllResources(gridId) {
 	$("#" + gridId).treegrid("selectAll");
 };
@@ -2066,7 +2110,8 @@ function setCheckBoxOfTarget(item) {
 }
 
 function getCheckBoxOfTarget(item) {
-	var rows = $('#dgtaskTarget').datagrid('getChecked');
+	//var rows = $('#dgtaskTarget').datagrid('getChecked');
+	var rows = $('#dgtaskTarget').datagrid('getRows');
 	item.targets = [];/**/
 	$.each(rows, function(index, value) {
 		var pt = {};
@@ -2075,7 +2120,9 @@ function getCheckBoxOfTarget(item) {
 		pt.policeId = item.itemId;
 		pt.taskTypeId = item.taskType;
 		pt.targetId = value.targetId;
-		item.targets.push(pt);
+		pt.count = value.count;
+		pt.stayTime = value.stayTime;
+		item.targets.push(pt); 
 	});
 }
 
