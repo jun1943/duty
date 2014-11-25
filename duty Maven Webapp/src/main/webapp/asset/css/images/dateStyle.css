@@ -110,9 +110,10 @@ img { border:0px;}
 .MenuBox img{ vertical-align:middle; margin-right:3px;}
 .MenuBox li{ text-align:center; height:46px; background:url(../images/menuBg.png) repeat-x;margin-bottom:-1px;background-color:#262626;}
 .MenuBox li a{ line-height:51px; color:#FFF; }
+.MenuBox div{ width:100%; height:46px; line-height:46px;}
 #MenuBoxOn{ background:url(../images/baobeibgv2.png); overflow:hidden; width:100%; height:51px;}
 
-#MenuBoxOnBox{border:1px solid #EFEFEF; margin:1px;}
+#MenuBoxOnBox{border:1px solid #EFEFEF; height:46px; margin:1px;}
 
 .MenuMouseMove{ width:100%; height:46px; background:url(../images/menuMousemouve.png) repeat-x; cursor:pointer;}
 

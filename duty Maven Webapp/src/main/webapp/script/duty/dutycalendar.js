@@ -82,6 +82,7 @@ $(function() {
 });
 // 设置日历窗体的高度
 function changeDivHeight() {
+	
 	var bodyHeight = document.body.clientHeight;
 	var tableContentHeight = bodyHeight - 60;
 	var tdHeight = parseInt(tableContentHeight / 6) - 3;
