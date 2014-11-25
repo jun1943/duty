@@ -2003,7 +2003,7 @@ function showTaskWindow() {
 			var taskType = dutyTypeRow.taskType;
 			if (taskType > 0) {
 				loadTaskTarget(taskType);
-				$('#lblPoliceInfo').text(row.name);
+				$('#lblPoliceInfo').text(row.name+" 关联任务");
 				m_target = row;
 				setCheckBoxOfTarget(row);
 				$('#taskWindow').window('open');
