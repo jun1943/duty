@@ -43,7 +43,7 @@
 								<table>
 									<tr>
 										<td class="MySearchTDTitle">查询范围选择:</td>
-										<td><input id="isSubOrg" class="easyui-combobox" name="dept"
+										<td><input id="isSubOrg" class="easyui-combobox" name="dept" style="width:104px"
 										data-options="valueField:'id',textField:'name',data:[{id: 0,name: '本級机构'},{id: 1,name: '本级及下级机构'}]" /></td>
 										<td class="MySearchTDTitle">车牌号码:</td>
 										<td><input id="txtsearchnumber" class="easyui-validatebox" type="text" ></td>

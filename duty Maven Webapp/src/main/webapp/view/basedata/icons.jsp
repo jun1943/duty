@@ -44,7 +44,7 @@
 										<td class="MySearchTDTitle">名称:</td>
 										<td><input id="txtsearchName" class="easyui-validatebox" type="text" ></td>
 										<td class="MySearchTDTitle">图片类别 :</td>
-										<td><input id="sltType" class="easyui-combobox" name="dept"
+										<td><input id="sltType" class="easyui-combobox" name="dept" style="width:104px"
 										data-options="valueField:'id',textField:'name',data:[{id: 0,name: '全部'},{id: 1,name: '警员'},{id: 2,name: '车辆'},{id: 3,name: '武器'},{id: 4,name: '定位设备'}]" /></td>
 										<td> <a id="btnSearchAction" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-search"  onclick="btnSearchAction()">查询</a></td>
 									 
