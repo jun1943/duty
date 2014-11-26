@@ -44,6 +44,7 @@ public class VehicleController {
 			@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "rows", required = false) Integer rows,
 			@RequestParam(value = "sort", required = false) String sort,
+			@RequestParam(value = "order", required = false) String order,
 			HttpServletRequest request) throws Exception {
 		try {
 			JSONObject joQuery = JSONObject.fromObject(query);
@@ -70,6 +71,13 @@ public class VehicleController {
 				}
 			} else {
 				map.put("sort", "v.id");
+			}
+			if (order != null) {
+				if (!order.equals("")) {
+					map.put("order", order);
+				}
+			} else {
+				map.put("order", "asc");
 			}
 			int total = vehicleService.loadVMCount(map);
 			list = vehicleService.loadVMList(map);

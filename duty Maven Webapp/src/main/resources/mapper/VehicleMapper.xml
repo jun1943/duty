@@ -293,7 +293,7 @@
  				</foreach>
  				
   			</if>
-  			order by  ${sort}
+  			order by  ${sort} ${order}
   			<if test="pageStart != null">
 	          	limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
 	  		</if>

@@ -57,7 +57,7 @@ $(function() {
 			title : '车牌号码',
 			field : 'number',
 			align : 'center',
-			width : 100
+			width : 100,sortable:true
 		}, {
 			title : '车辆用途',
 			field : 'purpose',
@@ -80,9 +80,12 @@ $(function() {
 			width : 80
 		}, {
 			title : 'GPS名称',
-			field : 'gpsName',
+			field : 'gps_name',
 			align : 'center',
-			width : 80
+			width : 80,
+			formatter:function(value, row, index){
+				return row.gpsName;
+			},sortable:true
 		}, {
 			title : '组呼号',
 			field : 'intercomGroup',

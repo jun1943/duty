@@ -64,10 +64,13 @@ $(function() {
 			width : 80
 		}, {
 			title : 'GPS名称',
-			field : 'gpsName',
+			field : 'gps_name',
 			align : 'left',
 			width : 200,
-			sortable:true
+			sortable:true,
+			formatter:function(value, row, index){
+				return row.gpsName;
+			}
 		}, {
 			title : '手机号',
 			field : 'mobile',
@@ -90,10 +93,12 @@ $(function() {
 			width : 100
 		}, {
 			title : '警员类别',
-			field : 'typeName',
+			field : 'type_id',
 			align : 'left',
 			width : 100,
-			sortable:true
+			sortable:true,formatter:function(value,row,index){
+				return row.typeName;
+			}
 		} ] ]
 	});
 	$("#btnSearchPolice").bind("click", function() {

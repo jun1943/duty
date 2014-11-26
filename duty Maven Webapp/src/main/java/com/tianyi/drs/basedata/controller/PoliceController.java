@@ -45,6 +45,7 @@ public class PoliceController {
 			@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "rows", required = false) Integer rows,
 			@RequestParam(value = "sort", required = false) String sort,
+			@RequestParam(value = "order", required = false) String order,
 			HttpServletRequest request) throws Exception {
 		try {
 			JSONObject joQuery = JSONObject.fromObject(query);
@@ -72,6 +73,13 @@ public class PoliceController {
 				}
 			} else {
 				map.put("sort", "p.isUsed");
+			}
+			if (order != null) {
+				if (!order.equals("")) {
+					map.put("order", order);
+				}
+			} else {
+				map.put("order", "asc");
 			}
 			if (typeid > 0) {
 				ids[0] = typeid;
