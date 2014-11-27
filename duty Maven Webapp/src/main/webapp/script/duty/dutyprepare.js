@@ -2110,6 +2110,16 @@ function showTaskWindow() {
 			var dutyTypeRow = getDutyTypeRow(row);
 			var taskType = dutyTypeRow.taskType;
 			if (taskType > 0) {
+				if(taskType==1){
+					$("#dgtaskTarget").datagrid("hideColumn","stayTime");
+					$("#dgtaskTarget").datagrid("hideColumn","count");
+				}else if(taskType ==2){
+					$("#dgtaskTarget").datagrid("showColumn","stayTime");
+					$("#dgtaskTarget").datagrid("showColumn","count");
+				}else if(taskType==3){
+					$("#dgtaskTarget").datagrid("hideColumn","stayTime");
+					$("#dgtaskTarget").datagrid("hideColumn","count");
+				}
 				loadTaskTarget(taskType);
 				$('#lblPoliceInfo').text(row.name+" 关联任务");
 				m_target = row;
