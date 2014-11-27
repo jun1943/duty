@@ -11,6 +11,7 @@ $(function() {
 	m_dutyCalendar_Org.code = args["orgCode"];
 	m_dutyCalendar_Org.path = args["orgPath"];
 	m_dutyCalendar_Org.name = args["orgName"];
+	m_dutyCalendar_Org.userId = args["userId"];
 	var date = new Date();
 	y = date.getFullYear();
 	m = date.getMonth() + 1;

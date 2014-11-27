@@ -1,6 +1,7 @@
 var m_Gpsdevice_OrgId;
 var m_Gpsdevice_OrgCode;
 var m_Gpsdevice_OrgPath;
+var m_Gpsdevice_UserId;
 var m_Gpsdevice_Query = {};
 var m_Icons_Query = {};
 var operationType = "";
@@ -12,6 +13,8 @@ $(function() {
 	m_Gpsdevice_OrgId = args["orgId"];
 	m_Gpsdevice_OrgCode = args["orgCode"];
 	m_Gpsdevice_OrgPath = args["orgPath"];
+	m_Gpsdevice_UserId = args["userId"];
+	
 	pack_Gpsdevice_Query();
 	m_Icons_Query.name = "";
 	m_Icons_Query.typeid = 0;

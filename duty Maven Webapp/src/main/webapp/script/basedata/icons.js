@@ -1,6 +1,7 @@
 var m_Icons_OrgId;
 var m_Icons_OrgCode;
 var m_Icons_OrgPath;
+var m_Icons_UserId;
 var m_Icons_Query = {};
 $(function() {
 
@@ -10,6 +11,7 @@ $(function() {
 	m_Icons_OrgId = args["orgId"];
 	m_Icons_OrgCode = args["orgCode"];
 	m_Icons_OrgPath = args["orgPath"];
+	m_Icons_UserId = args["userId"];
 	pack_Icons_Query();
 
 	// $("#orgtree").tree({

@@ -31,6 +31,7 @@ $(document)
 					m_dutyprepare_Org.id = args["orgId"];
 					m_dutyprepare_Org.code = args["orgCode"];
 					m_dutyprepare_Org.path = args["orgPath"];
+					m_dutyprepare_Org.userId = args["userId"];
 					m_dutyprepare_Org.name = decodeURI(args["orgName"]);
 					m_ymd = YMD.createNew((args["ymd"]));
 					$("#btnSearchExpendbody").bind("click", function() {
