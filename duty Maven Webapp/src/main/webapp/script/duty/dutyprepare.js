@@ -1322,13 +1322,12 @@ function selectDutyTypeAction() {
 function addDutyTypeRow(value) {
 	var duty = {};
 	var shift = {};
-	genDutyRow(value.id, value.name, 100, value.typeId, value.name,
-			value.maxPolice, duty);
+	genDutyRow(value.id, value.name, 100, value.typeId, value.name,	duty);
 	shift.beginTime2 = new Date(m_ymd.getYear(), m_ymd.getMonth() - 1, m_ymd
 			.getDay(), 9, 30);
 	shift.endTime2 = new Date(m_ymd.getYear(), m_ymd.getMonth() - 1, m_ymd
 			.getDay(), 16, 30);
-	genDutyRow(null, "班次", 101, null, "班次", 0, shift);
+	genDutyRow(null, "班次", 101, null, "班次", shift);
 	$('#tdDuty').treegrid('append', {
 		parent : null,
 		data : [ duty ]
@@ -1434,14 +1433,12 @@ function itemRegul(item) {
 
 /** *************主菜单功能-----结束*************** */
 
-function genDutyRow(itemId, name, typeId, innerTypeId, innerTypeName,
-		maxpolice, dutyRow) {
+function genDutyRow(itemId, name, typeId, innerTypeId, innerTypeName, dutyRow) {
 	if (dutyRow.id == undefined || dutyRow.id == null)
 		dutyRow.id = 0;
 	dutyRow.xid = genXId(typeId);
 	dutyRow.name = name;
 	dutyRow.itemTypeId = typeId;
-	dutyRow.maxpolice = maxpolice;
 	dutyRow.itemId = itemId;
 	// dutyRow.itemInnerTypeId = innerTypeId;
 	dutyRow.itemInnerTypeName = innerTypeName;
@@ -1470,12 +1467,16 @@ function doBeforeDrop(tRow, sRow, point) {
 	} else {
 		var shiftRowT = null;
 		var shiftRowS = null;
+		var dutyTypeRow=null;
 		var exists = false;
+		var isMaxPolice=false;
 		if (sRow.xid != undefined) {
 			shiftRowT = findShiftRow(tRow);
 			shiftRowS = findShiftRow(sRow);
+			dutyTypeRow=findDutyTypeRow(tRow);
 			if (shiftRowT.xid != shiftRowS.xid) {
 				exists = existsResource(shiftRowT, sRow);
+				isMaxPolice=checkMaxPolice(dutyTypeRow,shiftRowT,sRow);
 			}
 		} else {
 			shiftRowT = findShiftRow(tRow);
@@ -1486,7 +1487,12 @@ function doBeforeDrop(tRow, sRow, point) {
 			$.messager.alert('提示', name + ' 在班次 ' + shiftRowT.name + '中已经存在!',
 					"warning");
 		}
-		return !exists;
+		
+		if(isMaxPolice){
+			$.messager.alert('提示', '勤务类型: '+dutyTypeRow.name +' 警察数量上限是:'+dutyTypeRow.maxPolice,"warning");
+		}
+		
+		return !exists && !isMaxPolice;
 	}
 }
 
@@ -1497,6 +1503,19 @@ function findShiftRow(tRow) {
 		return findShiftRow(tRow.getParent());
 }
 
+function findDutyTypeRow(tRow){
+	if (tRow.itemTypeId == 100)
+		return tRow;
+	else
+		return findDutyTypeRow(tRow.getParent());
+}
+
+/**
+ * 判断资源是否在班次中重复
+ * @param p
+ * @param row
+ * @returns {Boolean}
+ */
 function existsResource(p, row) {
 	var exists = false;
 	if (row.xid == undefined && p.itemTypeId == row.itemTypeId
@@ -1514,6 +1533,18 @@ function existsResource(p, row) {
 		});
 	}
 	return exists;
+}
+/**
+ * 检查警察数量上限
+ * @param dutyTypeRow
+ * @param shiftRow
+ * @param row
+ * @returns {Boolean}
+ */
+function checkMaxPolice(dutyTypeRow,shiftRow,row){
+	if(row.itemTypeId==2 && dutyTypeRow.maxPolice>0 && shiftRow.policeCount>=dutyTypeRow.maxPolice){
+		return true;
+	}
 }
 
 /**
@@ -1551,8 +1582,7 @@ function doDrop(tRow, sRow, point) {
 			break;
 		}
 
-		genDutyRow(sRow.id, name, sRow.itemTypeId, sRow.typeId, sRow.typeName,
-				0, sRow);
+		genDutyRow(sRow.id, name, sRow.itemTypeId, sRow.typeId, sRow.typeName,sRow);
 	}
 	reCalcDuty();
 }
@@ -1744,7 +1774,7 @@ function userNodeConfirm() {
 	} else {
 		if (m_userNode.editType == 'new') {
 			var row = {};
-			genDutyRow(0, name, 999, 0, '编组', 0, row);
+			genDutyRow(0, name, 999, 0, '编组', row);
 			$("#tdDuty").treegrid('append', {
 				parent : m_userNode.targetRow.xid,
 				data : [ row ]
@@ -1868,7 +1898,7 @@ function shiftConfirm() {
 			row.beginTime2 = bt;
 			row.endTime2 = et;
 
-			genDutyRow(0, name, 101, 0, '班次', 0, row);
+			genDutyRow(0, name, 101, 0, '班次', row);
 			$("#tdDuty").treegrid('append', {
 				parent : m_shift.targetRow.xid,
 				data : [ row ]
@@ -2180,22 +2210,25 @@ function addSelgps() {
 function addItems(itemTypeId, grid) {
 	var row = $("#tdDuty").treegrid("getSelected");
 	var errRow = [];
+	var errRow2=[];
 	var datas = [];
 
 	if (row != null) {
 		if (dutyItemRelate.check(row.itemTypeId, itemTypeId)) {
 			var ps = grid.treegrid('getSelections');
 			var shiftRowT = findShiftRow(row);
-
+			var dutyType=findDutyTypeRow(row);
+			
 			$.each(ps, function(i, v) {
 				var exists = existsResource(shiftRowT, v);
-				if (!exists) {
+				var isMaxPolice=checkMaxPolice(dutyType,shiftRowT,v);
+				if (!exists && !isMaxPolice) {
 					var name = itemTypeId == 2 ? v.name : v.number;
-					genDutyRow(v.id, name, itemTypeId, v.typeId, 0, v.typeName,
-							v);
+					genDutyRow(v.id, name, itemTypeId, v.typeId, v.typeName,v);
 					datas.push(v);
 				} else {
 					errRow.push(v);
+					errRow2.push(v);
 				}
 			});
 
@@ -2220,6 +2253,10 @@ function addItems(itemTypeId, grid) {
 							"warning");
 			}
 
+			if (errRow2.length > 0) {
+				$.messager.alert('提示', '勤务类型: '+dutyTypeRow.name +' 警察数量上限是:'+dutyTypeRow.maxPolice,"warning");
+			}
+			
 		} else {
 
 		}
