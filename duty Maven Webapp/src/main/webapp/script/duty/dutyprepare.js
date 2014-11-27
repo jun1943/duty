@@ -1886,8 +1886,8 @@ function shiftConfirm() {
 
 	var ds = gYmdToStr(m_ymd.ymd);
 	var name = $('#txtShiftName').val();
-	var bt = new Date(ds + " " + $('#txtBeginTime').timespinner("getValue"));
-	var et = new Date(ds + " " + $('#txtEndTime').timespinner("getValue"));
+	var bt = gCreateDate(ds + " " + $('#txtBeginTime').timespinner("getValue"));
+	var et = gCreateDate(ds + " " + $('#txtEndTime').timespinner("getValue"));
 
 	if ($('#chkDayType').prop('checked')) {
 		et.add('d', 1);
@@ -1950,7 +1950,7 @@ function getMergeDate(ymd, dateStr) {
 	;
 
 	if (dateStr != undefined && dateStr != null) {
-		var d2 = new Date(dateStr);
+		var d2 = gCreateDate(dateStr);
 		HH = d2.getHours();
 		mm = d2.getMinutes();
 	}
@@ -1966,8 +1966,8 @@ function getMergeDate(ymd, dateStr) {
 function initDate(item) {
 
 	if (item.beginTime2 == undefined || item.endTime2 == undefined) {
-		var b = new Date(item.beginTime);
-		var e = new Date(item.endTime);
+		var b = gCreateDate(item.beginTime);
+		var e = gCreateDate(item.endTime);
 
 		var diffDay = b.dateDiffOfDay(e);
 
