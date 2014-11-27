@@ -22,7 +22,9 @@ import com.tianyi.drs.basedata.model.GpsType;
 import com.tianyi.drs.basedata.service.GpsService;
 import com.tianyi.drs.basedata.viewmodel.GpsVM;
 import com.tianyi.drs.duty.viewmodel.ListResult; 
-
+/*
+ * 定位设备控制器，mark by liqinag
+ */
 @Scope("prototype")
 @Controller
 @RequestMapping("/gpsdevice")
@@ -30,7 +32,13 @@ public class GpsController {
 	@Resource(name = "gpsService")
 	protected GpsService gpsService;
 
-
+	/*
+	 * 获取定位设备列表
+	 * 参数：
+	 * query：前台查询条件打包参数，包括组织机构信息，名称
+	 * page：当前页
+	 * rows：每页数据量
+	 */
 	@RequestMapping(value = "getGpsdeviceList.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getGpsdeviceList(
@@ -70,7 +78,13 @@ public class GpsController {
 			return "{\"total\":0,\"rows\":[]}";
 		}
 	}
-
+	/*
+	 * 获取定位设备資源列表，用于报备页面显示；
+	 * 参数：
+	 * orgId、orgCode、orgPath ：前台查询条件打包参数，包括组织机构信息
+	 * typeId：类型集
+	 * groupId：所属群组集 
+	 */
 	@RequestMapping(value = "getGpsdeviceSource.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getGpsdeviceSource( 
@@ -122,6 +136,11 @@ public class GpsController {
 			return "{\"total\":0,\"rows\":[]}";
 		}
 	}
+	/*
+	 * 保存定位设备列表
+	 * 参数：gps:传入后台保存对象
+	 *  
+	 */
 	@RequestMapping(value = "saveGpsdevice.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String saveGpsdevice(Gps gps) throws Exception {
@@ -144,7 +163,11 @@ public class GpsController {
 		}
 	}
 	
-
+	/*
+	 * 删除定位设备
+	 * 参数：
+	 * id:前台选择的数据id集
+	 */
 	@RequestMapping(value = "deleteGpsdevice.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String deleteGpsdevice(String id) throws Exception {
@@ -161,17 +184,17 @@ public class GpsController {
 				map.put("ids", ids);
 			 
 				gpsService.deleteByIds(map);
-			}
-//			int result =0;
-//			if(id>0){
-//				result = gpsService.deleteByPrimaryKey(id);
-//			}
+			} 
 			return "{\"success\":true,\"Message\":\"删除成功,result is " + result + "\"}";
 		} catch (Exception ex) {
 			return "{\"success\":false,\"Message\":\"删除失败，原因：" + ex.getMessage() + "\"}";
 		}
 	}
-
+	/*
+	 * 获取定位设备类型
+	 * 参数：
+	 * id:前台选择的数据id集
+	 */
 	@RequestMapping(value="getGpsType.do",produces="application/json;charset=UTF-8")
 	public @ResponseBody String getGpsType() throws Exception {
 		try
@@ -184,6 +207,11 @@ public class GpsController {
 			return "";
 		}
 	}
+	/*
+	 * 获取定位设备类型，列表形式
+	 * 参数：
+	 * id:前台选择的数据id集
+	 */
 	@RequestMapping(value="getGpsTypelist.do",produces="application/json;charset=UTF-8")
 	public @ResponseBody String getGpsTypelist() throws Exception {
 		try

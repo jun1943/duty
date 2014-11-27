@@ -476,19 +476,19 @@ $(document)
 //							$('#dgtaskTarget').datagrid('selectRow', rowIndex).datagrid('beginEdit', rowIndex); 
 //						},
 						onBeforeEdit:function(index,row){
-							m_targetRows.editing = true;
-							var rowIndex = $('#dgtaskTarget').datagrid('getRowIndex',m_targetRows);
-					        $('#dgtaskTarget').datagrid('refreshRow', rowIndex);
+							row.editing = true;updateActions(index);
+							//var rowIndex = $('#dgtaskTarget').datagrid('getRowIndex',m_targetRows);
+					        //$('#dgtaskTarget').datagrid('refreshRow', rowIndex);
 					    },
 					    onAfterEdit:function(index,row){
-					    	m_targetRows.editing = false;
-							var rowIndex = $('#dgtaskTarget').datagrid('getRowIndex',m_targetRows);
-					        $('#dgtaskTarget').datagrid('refreshRow', rowIndex);
+					    	row.editing = false;updateActions(index);
+//							var rowIndex = $('#dgtaskTarget').datagrid('getRowIndex',m_targetRows);
+//					        $('#dgtaskTarget').datagrid('refreshRow', rowIndex);
 					    },
 					    onCancelEdit:function(index,row){
-					    	m_targetRows.editing = false;
-							var rowIndex = $('#dgtaskTarget').datagrid('getRowIndex',m_targetRows);
-					        $('#dgtaskTarget').datagrid('refreshRow', rowIndex);
+					    	row.editing = false;updateActions(index);
+//							var rowIndex = $('#dgtaskTarget').datagrid('getRowIndex',m_targetRows);
+//					        $('#dgtaskTarget').datagrid('refreshRow', rowIndex);
 					    }
 					});
 
@@ -545,7 +545,12 @@ function getRowIndex(target){
     var tr = $(target).closest('tr.datagrid-row');
     return parseInt(tr.attr('datagrid-row-index'));
 }
-
+function updateActions(index){
+    $('#dgtaskTarget').datagrid('updateRow',{
+        index: index,
+        row:{}
+    });
+}
 function editrow(target){
     $('#dgtaskTarget').datagrid('beginEdit', getRowIndex(target));
     $('#dgtaskTarget').datagrid('checkRow',  getRowIndex(target));

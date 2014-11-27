@@ -18,7 +18,7 @@
 
 <body class="easyui-layout" oncontextmenu=self.event.returnValue=false>
 	<div data-options="region:'west',split:true,title:'组织机构导航树'"
-		style="width:14%;padding:10px;">
+		style="width:14%;padding:10px;overflow:hidden">
 		<!-- div>
 				<input type="text">
 			</div> -->
@@ -57,7 +57,7 @@
 				</div>
 				
 			</div>
-			<div data-options="region:'center'" style="padding:10px;">
+			<div data-options="region:'center'" style="padding:3px;overflow:hidden">
 				<iframe id="ifmWorkSpace" name="ifmWorkSpace" scrolling='yes'
 					frameborder='0' style="width:100%;height:100%"></iframe>
 			</div>

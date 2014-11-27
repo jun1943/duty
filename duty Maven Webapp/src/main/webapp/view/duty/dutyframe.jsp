@@ -14,9 +14,9 @@
 		<script src='<%=basePath%>script/duty/dutyframe.js' 	type='text/javascript'></script>
   </head>
   
-  <body>
+  <body style="overflow:hidden">
 <div id="cc" class="easyui-layout" style="width:100%;height:100%;" oncontextmenu=self.event.returnValue=false>
-	<div data-options="region:'west',title:'组织机构导航树',split:true"  style="width:14%;padding:10px">
+	<div data-options="region:'west',title:'组织机构导航树',split:true"  style="width:14%;padding:10px;overflow:hidden">
 		<div>
 			<input id="txtOrgName" style="width:70%; margin-left:4px;margin-top:2px" type="text"/>
 			<a id="btnSearchOrg" href="javascript:void(0);" class="easyui-linkbutton"
@@ -24,10 +24,10 @@
 		</div>
     	<ul id="treeDutyFrmOrg"></ul>
     </div>
-    <div data-options="region:'center'"  >
+    <div data-options="region:'center'" style="overflow:hidden" >
     	<iframe id="ifmWorkSpace" name="ifmWorkSpace"  scrolling='yes'  frameborder='0'  style="width:100%;height:100%"></iframe>
     </div>        
-    <div data-options="region:'east',split:false"  style="width:15%;">
+    <div data-options="region:'east',split:false"  style="width:15%;overflow:hidden">
     	<!--导航目录 s-->
 		<div class="MenuBox">
 			<ul>
