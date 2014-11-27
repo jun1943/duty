@@ -2173,8 +2173,8 @@ function getCheckBoxOfTarget(item) {
 		pt.policeId = item.itemId;
 		pt.taskTypeId = item.taskType;
 		pt.targetId = value.targetId;
-		pt.count = value.count;
-		pt.stayTime = value.stayTime;
+		pt.count = value.count==null?0:value.count==null==undefined?0:value.count;
+		pt.stayTime = value.stayTime==null?0:value.stayTime==null==undefined?0:value.stayTime;
 		item.targets.push(pt); 
 	});
 }
