@@ -162,7 +162,7 @@ public class PoliceController {
 	String savePolice(Police police) throws Exception {
 		try {
 			police.setPlatformId(1);
-			police.setIsused(false);
+			police.setIsused(true);
 			police.setSyncState(true);
 			int result = 0;
 			if (police.getId() > 0) {
@@ -307,9 +307,9 @@ public class PoliceController {
 			String message = "";
 			if (police != null) {
 				if (isUsed == 0) {
-					police.setIsused(false);
-				} else {
 					police.setIsused(true);
+				} else {
+					police.setIsused(false);
 				}
 				// 更新状态
 				police.setId(id);

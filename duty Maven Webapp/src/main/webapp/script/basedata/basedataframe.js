@@ -3,17 +3,24 @@
  */
 
 var m_basedataFrame_Org={};
-
+var m_basedataFrame_User={};
 var m_basedataFrame_func_prop={};
 
 var m_org_node = {};
 $(function () {
 	
 	var args = getUrlArgs();
+	m_basedataFrame_User.userName =window.atob(args["user"]);
+	m_basedataFrame_User.pwd = args["pwd"]; 
+	m_basedataFrame_User.css = args["css"];
+	m_basedataFrame_User.config = args["config"];
+	
+	
+	
+	
 	m_basedataFrame_Org.id = args["orgId"];
 	m_basedataFrame_Org.code = args["orgCode"];
 	m_basedataFrame_Org.path = args["orgPath"];
-	 
 	$('#orgtree').tree(
 			{
 				onDblClick:onOrgTreeDblClick,

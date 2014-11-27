@@ -128,9 +128,9 @@ function pack_police_Query() {
 }
 function fmtIsUsed(value, row, index) {
 	if (row.isused) {
-		return "<img alt='停用' style='width:18px; height:18px' src='asset/css/easyui/icons/tianyi_lock.png'>";
-	} else {
 		return "<img alt='启用' style='width:18px; height:18px' src='asset/css/easyui/icons/tianyi_unlock.png'>";
+	} else {
+		return "<img alt='停用' style='width:18px; height:18px' src='asset/css/easyui/icons/tianyi_lock.png'>";
 	}
 }
 // 初始化下拉列表数据
@@ -176,10 +176,10 @@ function btnAddPolice(optType) {
 };
 
 function btnUnLockPolice() {
-	changePoliceState(0);
+	changePoliceState(1);
 };
 function btnLockPolice() {
-	changePoliceState(1);
+	changePoliceState(0);
 };
 function changePoliceState(pType) {
 	var hasRows = $('#dtPolice').datagrid('getRows');
