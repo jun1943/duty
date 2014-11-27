@@ -13,8 +13,9 @@ $(document).ready(function() {
 	var args = getUrlArgs();
 	m_gpsGroup_Org.id = args["orgId"];
 	m_gpsGroup_Org.code = args["orgCode"];
-	m_gpsGroup_Org.path = args["orgPath"];
-
+	m_gpsGroup_Org.path = args["orgPath"]; 
+	m_gpsGroup_Org.userId = args["userId"];
+	
 	pack_gpsGroup_Query();
 	$('#dtGpsGroup').datagrid({
 		url : 'gpsGroup/list.do',

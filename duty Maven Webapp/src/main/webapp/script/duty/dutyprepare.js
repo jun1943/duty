@@ -31,6 +31,7 @@ $(document)
 					m_dutyprepare_Org.id = args["orgId"];
 					m_dutyprepare_Org.code = args["orgCode"];
 					m_dutyprepare_Org.path = args["orgPath"];
+					m_dutyprepare_Org.userId = args["userId"];
 					m_dutyprepare_Org.name = decodeURI(args["orgName"]);
 					m_ymd = YMD.createNew((args["ymd"]));
 					$("#btnSearchExpendbody").bind("click", function() {
@@ -802,8 +803,9 @@ function loadSourcePolice(par) {
 						itemiconCls = createIconStyle(value, value.itemTypeId,
 								iconUrl);
 					});
-					$('#source_police').treegrid('loadData', req.rows);
 				}
+				$('#source_police').treegrid('loadData', req.rows);
+				 
 			} else {
 				alert("获取数据失败");
 			}
@@ -826,8 +828,9 @@ function loadSourceVehicle(par) {
 						itemiconCls = createIconStyle(value, value.itemTypeId,
 								iconUrl);
 					});
-					$('#source_vehicle').treegrid('loadData', req.rows);
 				}
+					$('#source_vehicle').treegrid('loadData', req.rows);
+				 
 			} else {
 				alert("获取数据失败");
 			}
@@ -849,8 +852,9 @@ function loadSourceGpsDevice(par) {
 						itemiconCls = createIconStyle(value, value.itemTypeId,
 								iconUrl);
 					});
-					$('#source_gpsdevice').treegrid('loadData', req.rows);
 				}
+					$('#source_gpsdevice').treegrid('loadData', req.rows);
+				 
 			} else {
 				alert("获取数据失败");
 			}
@@ -870,8 +874,9 @@ function loadSourceWeapon(par) {
 					$.each(req.rows, function(index, value) {
 						value.iconCls = 'icon_default_weapon';
 					});
-					$('#source_weapon').treegrid('loadData', req.rows);
 				}
+					$('#source_weapon').treegrid('loadData', req.rows);
+				 
 			} else {
 				alert("获取数据失败");
 			}
@@ -2109,6 +2114,16 @@ function showTaskWindow() {
 			var dutyTypeRow = getDutyTypeRow(row);
 			var taskType = dutyTypeRow.taskType;
 			if (taskType > 0) {
+				if(taskType==1){
+					$("#dgtaskTarget").datagrid("hideColumn","stayTime");
+					$("#dgtaskTarget").datagrid("hideColumn","count");
+				}else if(taskType ==2){
+					$("#dgtaskTarget").datagrid("showColumn","stayTime");
+					$("#dgtaskTarget").datagrid("showColumn","count");
+				}else if(taskType==3){
+					$("#dgtaskTarget").datagrid("hideColumn","stayTime");
+					$("#dgtaskTarget").datagrid("hideColumn","count");
+				}
 				loadTaskTarget(taskType);
 				$('#lblPoliceInfo').text(row.name+" 关联任务");
 				m_target = row;
@@ -2134,6 +2149,9 @@ function setCheckBoxOfTarget(item) {
 		$.each(data.rows, function(index2, val2) {
 			if (val.targetId == val2.targetId) {
 				$('#dgtaskTarget').datagrid('checkRow', index2);
+//				val2.count = val.count;
+//				val2.stayTime = val.stayTime;
+				$('#dgtaskTarget').datagrid('updateRow',{index:index2, row:{count:val.count,stayTime:val.stayTime}});
 				return false;
 			}
 		});
@@ -2141,8 +2159,12 @@ function setCheckBoxOfTarget(item) {
 }
 
 function getCheckBoxOfTarget(item) {
-	//var rows = $('#dgtaskTarget').datagrid('getChecked');
-	var rows = $('#dgtaskTarget').datagrid('getRows');
+	var rows = $('#dgtaskTarget').datagrid('getChecked');
+	if(rows.length==0){
+		$.messager.alert("请选择要保存的必到点数据信息！");
+		return;
+	}
+	//var rows = $('#dgtaskTarget').datagrid('getRows');
 	item.targets = [];/**/
 	$.each(rows, function(index, value) {
 		var pt = {};
@@ -2151,8 +2173,8 @@ function getCheckBoxOfTarget(item) {
 		pt.policeId = item.itemId;
 		pt.taskTypeId = item.taskType;
 		pt.targetId = value.targetId;
-		pt.count = value.count;
-		pt.stayTime = value.stayTime;
+		pt.count = value.count==null?0:value.count==null==undefined?0:value.count;
+		pt.stayTime = value.stayTime==null?0:value.stayTime==null==undefined?0:value.stayTime;
 		item.targets.push(pt); 
 	});
 }

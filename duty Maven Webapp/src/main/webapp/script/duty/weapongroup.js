@@ -14,6 +14,7 @@ $(document).ready(function() {
 	m_weaponGroup_Org.id = args["orgId"];
 	m_weaponGroup_Org.code = args["orgCode"];
 	m_weaponGroup_Org.path = args["orgPath"];
+	m_weaponGroup_Org.userId = args["userId"];
 
 	pack_weaponGroup_Query();
 	$('#dtWeaponGroup').datagrid({

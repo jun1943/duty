@@ -16,6 +16,7 @@ $(function() {
 	m_Police_Org.id = m_Police_OrgId;
 	m_Police_Org.code = m_Police_OrgCode;
 	m_Police_Org.path = m_Police_OrgPath;
+	m_Police_Org.userId = args["userId"];
 	pack_police_Query();
 
 	$('#dtPolice').datagrid({

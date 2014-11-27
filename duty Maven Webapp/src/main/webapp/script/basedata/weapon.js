@@ -12,6 +12,7 @@ $(function() {
 	m_Weapon_OrgId =  args["orgId"];
 	m_Weapon_OrgCode =   args["orgCode"];
 	m_Weapon_OrgPath =   args["orgPath"];
+	m_Weapon_UserId = args["userId"];
 	pack_Weapon_Query();
 
 	$("#orgtree").tree({

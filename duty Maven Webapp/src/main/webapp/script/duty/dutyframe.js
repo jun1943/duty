@@ -14,7 +14,8 @@ $(function() {
 
 	var args = getUrlArgs();
 
-	m_dutyFrame_User.userName = window.atob(args["user"]);
+	//m_dutyFrame_User.userName = window.atob(args["user"]);
+	m_dutyFrame_User.userName = args["user"];
 	m_dutyFrame_User.pwd = args["pwd"];
 	m_dutyFrame_User.css = args["css"];
 	m_dutyFrame_User.config = args["config"];
@@ -73,6 +74,7 @@ function onOrgTreeDblClick(node) {
 	m_dutyFrame_func_prop.orgId = node.id;
 	m_dutyFrame_func_prop.orgCode = node.code;
 	m_dutyFrame_func_prop.orgPath = node.path;
+	m_dutyFrame_func_prop.userId = m_dutyFrame_User.id;
 	var name = node.text;
 	m_dutyFrame_func_prop.orgName = name;
 	m_dutyFrame_func_prop.url = "view/duty/dutycalendar.jsp";
@@ -90,7 +92,7 @@ function pageSwitch(node, url) {
 			+ m_dutyFrame_func_prop.orgId + "&orgCode="
 			+ m_dutyFrame_func_prop.orgCode + "&orgPath="
 			+ m_dutyFrame_func_prop.orgPath + "&orgName="
-			+ m_dutyFrame_func_prop.orgName;
+			+ m_dutyFrame_func_prop.orgName + "&userId="+m_dutyFrame_User.id;
 
 	var esrc = encodeURI(src);
 	$("#ifmWorkSpace").attr("src", src);

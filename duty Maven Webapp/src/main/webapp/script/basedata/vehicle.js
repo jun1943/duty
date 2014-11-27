@@ -11,6 +11,7 @@ $(function() {
 	m_Vehicle_OrgId = args["orgId"];
 	m_Vehicle_OrgCode = args["orgCode"];
 	m_Vehicle_OrgPath = args["orgPath"];
+	m_Vehicle_UserId = args["userId"];
 	pack_Vehicle_Query();
 
 	$("#orgtree").tree(

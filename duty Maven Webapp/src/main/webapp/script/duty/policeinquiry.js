@@ -6,6 +6,7 @@ $(function() {
 	m_policeQuery_Org.id = args["orgId"];
 	m_policeQuery_Org.code = args["orgCode"];
 	m_policeQuery_Org.path = args["orgPath"];
+	m_policeQuery_Org.userId = args["userId"];
 	var orgName = args["orgName"];
 	m_policeQuery_Org.name = decodeURI(orgName);
 

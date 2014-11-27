@@ -14,7 +14,7 @@ $(document).ready(function() {
 	m_policeGroup_Org.id = args["orgId"];
 	m_policeGroup_Org.code = args["orgCode"];
 	m_policeGroup_Org.path = args["orgPath"];
-
+	m_policeGroup_Org.userId = args["userId"];
 	pack_policeGroup_Query();
 	$('#dtPoliceGroup').datagrid({
 		url : 'policeGroup/list.do',

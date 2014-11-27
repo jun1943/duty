@@ -184,6 +184,8 @@
     <result column="target_task_type_id" property="taskTypeId" jdbcType="INTEGER" />
     <result column="target_police_id" property="policeId" jdbcType="INTEGER" />
     <result column="target_target_id" property="targetId" jdbcType="INTEGER" />
+    <result column="target_target_count" property="count" jdbcType="INTEGER" />
+    <result column="target_target_stayTime" property="stayTime" jdbcType="INTEGER" />
   </resultMap>
   
 	<resultMap id="ItemVMResultMap" type="com.tianyi.drs.duty.viewmodel.DutyItemVM" >
@@ -247,6 +249,8 @@
   		dpt.task_type_id	as target_task_type_id,
   		dpt.police_id			as target_police_id,
   		dpt.target_id			as target_target_id,
+  		dpt.pass_count          as target_target_count,
+  		dpt.stay_time           as target_target_stayTime, 
   		dit.name				as item_type_name,
   		di.item_id				as item_rec_id,
   		di.	item_name		as item_item_name,

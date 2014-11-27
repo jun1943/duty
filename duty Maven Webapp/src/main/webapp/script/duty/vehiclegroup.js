@@ -14,6 +14,7 @@ $(document).ready(function() {
 	m_vehicleGroup_Org.id = args["orgId"];
 	m_vehicleGroup_Org.code = args["orgCode"];
 	m_vehicleGroup_Org.path = args["orgPath"];
+	m_vehicleGroup_Org.userId = args["userId"];
 
 	pack_vehicleGroup_Query();
 	$('#dtVehicleGroup').datagrid({
