@@ -1326,8 +1326,10 @@ function selectDutyTypeAction() {
 
 function addDutyTypeRow(value) {
 	var duty = {};
+	duty.maxPolice=value.maxPolice;
 	var shift = {};
 	genDutyRow(value.id, value.name, 100, value.typeId, value.name,	duty);
+	shift.getParent=function(){return duty;};
 	shift.beginTime2 = new Date(m_ymd.getYear(), m_ymd.getMonth() - 1, m_ymd
 			.getDay(), 9, 30);
 	shift.endTime2 = new Date(m_ymd.getYear(), m_ymd.getMonth() - 1, m_ymd
@@ -1449,6 +1451,7 @@ function genDutyRow(itemId, name, typeId, innerTypeId, innerTypeName, dutyRow) {
 	dutyRow.itemInnerTypeName = innerTypeName;
 	dutyRow.displayName = genDisplayName(typeId, innerTypeName, name);
 	dutyRow.itemTypeName = genItemTypeName(typeId);
+
 }
 
 /**
@@ -1472,19 +1475,21 @@ function doBeforeDrop(tRow, sRow, point) {
 	} else {
 		var shiftRowT = null;
 		var shiftRowS = null;
-		var dutyTypeRow=null;
+		var dutyTypeRow=findDutyTypeRow(tRow);;
 		var exists = false;
 		var isMaxPolice=false;
+		
 		if (sRow.xid != undefined) {
 			shiftRowT = findShiftRow(tRow);
 			shiftRowS = findShiftRow(sRow);
-			dutyTypeRow=findDutyTypeRow(tRow);
+			isMaxPolice=checkMaxPolice(dutyTypeRow,shiftRowT,sRow);
 			if (shiftRowT.xid != shiftRowS.xid) {
 				exists = existsResource(shiftRowT, sRow);
-				isMaxPolice=checkMaxPolice(dutyTypeRow,shiftRowT,sRow);
+				
 			}
 		} else {
 			shiftRowT = findShiftRow(tRow);
+			isMaxPolice=checkMaxPolice(dutyTypeRow,shiftRowT,sRow);
 			exists = existsResource(shiftRowT, sRow);
 		}
 		if (exists) {
@@ -1494,7 +1499,7 @@ function doBeforeDrop(tRow, sRow, point) {
 		}
 		
 		if(isMaxPolice){
-			$.messager.alert('提示', '勤务类型: '+dutyTypeRow.name +' 警察数量上限是:'+dutyTypeRow.maxPolice,"warning");
+			$.messager.alert('提示', '勤务类型: '+dutyTypeRow.name +' 警员数量上限是:'+dutyTypeRow.maxPolice,"warning");
 		}
 		
 		return !exists && !isMaxPolice;
@@ -1549,6 +1554,8 @@ function existsResource(p, row) {
 function checkMaxPolice(dutyTypeRow,shiftRow,row){
 	if(row.itemTypeId==2 && dutyTypeRow.maxPolice>0 && shiftRow.policeCount>=dutyTypeRow.maxPolice){
 		return true;
+	}else{
+		return false;
 	}
 }
 
@@ -2222,18 +2229,19 @@ function addItems(itemTypeId, grid) {
 		if (dutyItemRelate.check(row.itemTypeId, itemTypeId)) {
 			var ps = grid.treegrid('getSelections');
 			var shiftRowT = findShiftRow(row);
-			var dutyType=findDutyTypeRow(row);
+			var dutyTypeRow=findDutyTypeRow(row);
 			
 			$.each(ps, function(i, v) {
 				var exists = existsResource(shiftRowT, v);
-				var isMaxPolice=checkMaxPolice(dutyType,shiftRowT,v);
-				if (!exists && !isMaxPolice) {
+				var isMaxPolice=checkMaxPolice(dutyTypeRow,shiftRowT,v);
+				if(exists){
+					errRow.push(v);
+				}else if(isMaxPolice){
+					errRow2.push(v);
+				}else{
 					var name = itemTypeId == 2 ? v.name : v.number;
 					genDutyRow(v.id, name, itemTypeId, v.typeId, v.typeName,v);
 					datas.push(v);
-				} else {
-					errRow.push(v);
-					errRow2.push(v);
 				}
 			});
 
