@@ -33,9 +33,9 @@
 	            	<div class="dateBoxMainTItleBoxMain">
 	                	<ul>
 	                    	<li><img src="asset/css/images/dateLast.png" onclick="getDateClick('last')" /></li>
-	                        <li><div class="dateBoxMainTItleBoxMainTxt"><div class="dateBoxMainTItleBoxMain_samp" id="dateY"><span id="sp_years"></span></div>&nbsp;年</div></li>
-	                        <li><div class="dateBoxMainTItleBoxMainTxt2">&nbsp;<div class="dateBoxMainTItleBoxMain_samp" id="dateM"><span id="sp_month"></span></div>&nbsp;月</div></li>
-	                        <li><img src="asset/css/images/dateNext.png" onclick="getDateClick('next')" /></li>
+	                        <li><span style="margin-left:20px;margin-right:15px" id="sp_years"></span>年</li>
+	                        <li><span style="margin-left:20px;margin-right:15px" id="sp_month"></span>月</li>
+	                        <li><img  style="margin-left:20px;" src="asset/css/images/dateNext.png" onclick="getDateClick('next')" /></li>
                     	</ul>
 	                </div>
 	            </div>	

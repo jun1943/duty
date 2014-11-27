@@ -120,9 +120,8 @@ function getDateClick(action) {
 		}
 	}
 	var date = y + "-" + m + "-" + 1;
-	$("#dateY").text(y);
-	$("#dateM").text(m);
-
+	$("#sp_years").text(y);
+	$("#sp_month").text(m);
 	getDateData(date);
 }
 // 根据日期，获取后台数据
