@@ -1938,7 +1938,7 @@ function getMergeDate(ymd, dateStr) {
 	var str = ymd.toString();
 	var str2 = str.substr(0, 4) + "-" + str.substr(4, 2) + "-"
 			+ str.substr(6, 2);
-	var d = new Date(str2);
+	var d = gCreateDate(str2);
 
 	var HH = 0;
 	var mm = 0;

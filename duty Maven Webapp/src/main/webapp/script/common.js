@@ -214,3 +214,6 @@ function DateHelp(){
 	}
 };
 
+function gCreateDate(dateStr){
+	return new Date(Date.parse(dateStr.replace(/-/g, "/")));
+}

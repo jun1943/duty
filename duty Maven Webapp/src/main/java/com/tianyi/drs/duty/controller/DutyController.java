@@ -48,9 +48,6 @@ public class DutyController {
 			@RequestParam(value = "ymd", required = false) Integer ymd,
 			HttpServletRequest request
 			){
-		
-		
-		
 		return null;
 	}
 	
