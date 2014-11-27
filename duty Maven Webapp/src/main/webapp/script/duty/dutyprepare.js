@@ -2151,7 +2151,7 @@ function setCheckBoxOfTarget(item) {
 				$('#dgtaskTarget').datagrid('checkRow', index2);
 //				val2.count = val.count;
 //				val2.stayTime = val.stayTime;
-				$('#dgtaskTarget').datagrid('updateRow',{index:index2, row:{count:val2.count,stayTime:val2.stayTime}});
+				$('#dgtaskTarget').datagrid('updateRow',{index:index2, row:{count:val.count,stayTime:val.stayTime}});
 				return false;
 			}
 		});
