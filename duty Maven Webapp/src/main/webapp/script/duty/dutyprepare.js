@@ -803,8 +803,9 @@ function loadSourcePolice(par) {
 						itemiconCls = createIconStyle(value, value.itemTypeId,
 								iconUrl);
 					});
-					$('#source_police').treegrid('loadData', req.rows);
 				}
+				$('#source_police').treegrid('loadData', req.rows);
+				 
 			} else {
 				alert("获取数据失败");
 			}
@@ -827,8 +828,9 @@ function loadSourceVehicle(par) {
 						itemiconCls = createIconStyle(value, value.itemTypeId,
 								iconUrl);
 					});
-					$('#source_vehicle').treegrid('loadData', req.rows);
 				}
+					$('#source_vehicle').treegrid('loadData', req.rows);
+				 
 			} else {
 				alert("获取数据失败");
 			}
@@ -850,8 +852,9 @@ function loadSourceGpsDevice(par) {
 						itemiconCls = createIconStyle(value, value.itemTypeId,
 								iconUrl);
 					});
-					$('#source_gpsdevice').treegrid('loadData', req.rows);
 				}
+					$('#source_gpsdevice').treegrid('loadData', req.rows);
+				 
 			} else {
 				alert("获取数据失败");
 			}
@@ -871,8 +874,9 @@ function loadSourceWeapon(par) {
 					$.each(req.rows, function(index, value) {
 						value.iconCls = 'icon_default_weapon';
 					});
-					$('#source_weapon').treegrid('loadData', req.rows);
 				}
+					$('#source_weapon').treegrid('loadData', req.rows);
+				 
 			} else {
 				alert("获取数据失败");
 			}
@@ -2145,6 +2149,9 @@ function setCheckBoxOfTarget(item) {
 		$.each(data.rows, function(index2, val2) {
 			if (val.targetId == val2.targetId) {
 				$('#dgtaskTarget').datagrid('checkRow', index2);
+//				val2.count = val.count;
+//				val2.stayTime = val.stayTime;
+				$('#dgtaskTarget').datagrid('updateRow',{index:index2, row:{count:val2.count,stayTime:val2.stayTime}});
 				return false;
 			}
 		});
@@ -2152,8 +2159,12 @@ function setCheckBoxOfTarget(item) {
 }
 
 function getCheckBoxOfTarget(item) {
-	//var rows = $('#dgtaskTarget').datagrid('getChecked');
-	var rows = $('#dgtaskTarget').datagrid('getRows');
+	var rows = $('#dgtaskTarget').datagrid('getChecked');
+	if(rows.length==0){
+		$.messager.alert("请选择要保存的必到点数据信息！");
+		return;
+	}
+	//var rows = $('#dgtaskTarget').datagrid('getRows');
 	item.targets = [];/**/
 	$.each(rows, function(index, value) {
 		var pt = {};
