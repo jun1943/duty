@@ -10,7 +10,7 @@ var m_org_node = {};
 $(function() {
 
 	var args = getUrlArgs();
-	m_basedataFrame_User.userName = window.atob(args["user"]);
+	m_basedataFrame_User.userName = args["user"];
 	m_basedataFrame_User.pwd = args["pwd"];
 	m_basedataFrame_User.css = args["css"];
 	m_basedataFrame_User.config = args["config"];

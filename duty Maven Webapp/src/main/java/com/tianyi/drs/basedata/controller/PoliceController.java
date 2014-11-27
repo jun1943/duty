@@ -28,6 +28,9 @@ import com.tianyi.drs.duty.viewmodel.ListResult;
 import com.tianyi.drs.duty.viewmodel.ObjResult;
 import com.tianyi.drs.duty.viewmodel.UserObjectVM;
 
+import sun.misc.BASE64Decoder; 
+
+
 @Scope("prototype")
 @Controller
 @RequestMapping("/police")
@@ -371,6 +374,11 @@ public class PoliceController {
 		try {
 			UserObjectVM uvm = new UserObjectVM();
 			Map<String, Object> map = new HashMap<String, Object>();
+			userName = new String(new BASE64Decoder().decodeBuffer(userName));
+			if(userName.endsWith("-"))
+			{
+				userName = userName.substring(0, userName.length()-1);
+			}
 			map.put("userName", userName);
 			map.put("password", password);
 			uvm = policeService.getUserAuthorization(map);

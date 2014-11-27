@@ -14,7 +14,8 @@ $(function() {
 
 	var args = getUrlArgs();
 
-	m_dutyFrame_User.userName = window.atob(args["user"]);
+	//m_dutyFrame_User.userName = window.atob(args["user"]);
+	m_dutyFrame_User.userName = args["user"];
 	m_dutyFrame_User.pwd = args["pwd"];
 	m_dutyFrame_User.css = args["css"];
 	m_dutyFrame_User.config = args["config"];
