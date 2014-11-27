@@ -488,4 +488,29 @@
   		</if> 
   		 
   </select>
+  
+   <select id="getUserAuthorization" resultType="com.tianyi.drs.duty.viewmodel.UserObjectVM" parameterType="java.util.Map">  
+   	select 
+		u.id                    as id,
+		u.login_name            as loginName,
+		u.login_type            as loginType,
+		u.password 				as password,
+		o.id  					as orgId,
+		o.path          		as orgPath,
+		o.code 					as orgCode,
+		o.short_name			as orgName,
+		u.bind_police_user		as bindPoliceUserId
+ 
+	from user u 
+		left join organ o on u.organ_id = o.id
+
+	where u.login_name = #{userName,jdbcType=VARCHAR} and u.password = #{password,jdbcType=VARCHAR}
+		
+		 limit 0,1;
+   </select> 
+  
+  
+  
+  
+  
 </mapper>

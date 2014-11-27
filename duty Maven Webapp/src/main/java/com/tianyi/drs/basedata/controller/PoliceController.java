@@ -23,7 +23,10 @@ import com.tianyi.drs.basedata.model.PoliceType;
 import com.tianyi.drs.basedata.service.PoliceService;
 import com.tianyi.drs.basedata.viewmodel.GpsBaseVM;
 import com.tianyi.drs.basedata.viewmodel.PoliceVM;
+import com.tianyi.drs.duty.viewmodel.DutyVM;
 import com.tianyi.drs.duty.viewmodel.ListResult;
+import com.tianyi.drs.duty.viewmodel.ObjResult;
+import com.tianyi.drs.duty.viewmodel.UserObjectVM;
 
 @Scope("prototype")
 @Controller
@@ -69,7 +72,7 @@ public class PoliceController {
 			map.put("name", name);
 			if (sort != null) {
 				if (!sort.equals("")) {
-					map.put("sort", "p."+sort);
+					map.put("sort", "p." + sort);
 				}
 			} else {
 				map.put("sort", "p.isUsed");
@@ -355,4 +358,33 @@ public class PoliceController {
 			System.out.println("select failed");
 		}
 	}
+
+	/*
+	 * 用户信息验证 userName：用户名 password：用户密码
+	 */
+	@RequestMapping(value = "batchGetUserAuthorization.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String batchGetUserAuthorization(
+			@RequestParam(value = "userName", required = false) String userName,
+			@RequestParam(value = "password", required = false) String password)
+			throws Exception {
+		try {
+			UserObjectVM uvm = new UserObjectVM();
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("userName", userName);
+			map.put("password", password);
+			uvm = policeService.getUserAuthorization(map);
+
+			ObjResult<UserObjectVM> rs = new ObjResult<UserObjectVM>(true,
+					null, uvm == null ? 0 : uvm.getId(), uvm);
+
+			String s = rs.toJson();
+
+			return s;
+
+		} catch (Exception ex) {
+			return "{\"isSuccess\":false,\"Data\":null}";
+		}
+	}
+
 }

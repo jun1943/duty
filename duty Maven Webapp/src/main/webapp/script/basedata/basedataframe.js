@@ -2,62 +2,95 @@
  * 勤务管理主页面
  */
 
-var m_basedataFrame_Org={};
-var m_basedataFrame_User={};
-var m_basedataFrame_func_prop={};
+var m_basedataFrame_Org = {};
+var m_basedataFrame_User = {};
+var m_basedataFrame_func_prop = {};
 
 var m_org_node = {};
-$(function () {
-	
+$(function() {
+
 	var args = getUrlArgs();
-	m_basedataFrame_User.userName =window.atob(args["user"]);
-	m_basedataFrame_User.pwd = args["pwd"]; 
+	m_basedataFrame_User.userName = window.atob(args["user"]);
+	m_basedataFrame_User.pwd = args["pwd"];
 	m_basedataFrame_User.css = args["css"];
 	m_basedataFrame_User.config = args["config"];
-	
-	
-	
-	
-	m_basedataFrame_Org.id = args["orgId"];
-	m_basedataFrame_Org.code = args["orgCode"];
-	m_basedataFrame_Org.path = args["orgPath"];
-	$('#orgtree').tree(
-			{
-				onDblClick:onOrgTreeDblClick,
-				cascadeCheck : false
-			});
-	 
-	loadFrmOrgs(); 
+
+	if (m_basedataFrame_User.userName == ''
+			|| m_basedataFrame_User.userName == null
+			|| m_basedataFrame_User.userName == undefined
+			|| m_basedataFrame_User.pwd == ''
+			|| m_basedataFrame_User.pwd == null
+			|| m_basedataFrame_User.pwd == undefined) {
+		$.messager.alert("传入数据信息为空，请检测是否登录！");
+		return;
+	} else {
+		batchGetUserAuthorization(m_basedataFrame_User.userName,
+				m_basedataFrame_User.pwd);
+	}
+
+	$('#orgtree').tree({
+		onDblClick : onOrgTreeDblClick,
+		cascadeCheck : false
+	});
+
+	loadFrmOrgs();
 	InitPage();
-	
-//	$("div[doc='dateBoxMenu']").each(function() { //开始遍历
-//
-//		$(this).mouseover(function() {
-//			$(this).attr("class", "dateBoxMenuOn");
-//
-//		});
-//
-//		$(this).mouseleave(function() {
-//			$(this).attr("class", "");
-//		});
-//	});
+
+	// $("div[doc='dateBoxMenu']").each(function() { //开始遍历
+	//
+	// $(this).mouseover(function() {
+	// $(this).attr("class", "dateBoxMenuOn");
+	//
+	// });
+	//
+	// $(this).mouseleave(function() {
+	// $(this).attr("class", "");
+	// });
+	// });
 });
+function batchGetUserAuthorization(userName, pwd) {
+	$.ajax({
+		url : "police/batchGetUserAuthorization.do",
+		type : "POST",
+		dataType : "json",
+		async : false,
+		data : {
+			"userName" : userName,
+			"password" : pwd
+		},
+		success : function(req) {
+			if (req.isSuccess) {
+				m_basedataFrame_User.id= req.obj.id;
+				m_basedataFrame_Org.id = req.obj.orgId;// args["orgId"];
+				m_basedataFrame_Org.code = req.obj.orgCode;// args["orgCode"];
+				m_basedataFrame_Org.path = req.obj.orgPath;// args["orgPath"];
+			} else {
+				$.messager.alert("用户信息验证失败");
+			}
+		},
+		failer : function(a, b) {
+			$.messager.alert("消息提示", a, "info");
+		},
+		error : function(a) {
+			$.messager.alert("消息提示", a, "error");
+		}
+	});
+};
 
-function InitPage(){
-	var src="view/basedata/police.jsp"
-	+"?orgId="+m_basedataFrame_Org.id
-	+"&orgCode="+m_basedataFrame_Org.code
-	+"&orgPath="+m_basedataFrame_Org.path;
+function InitPage() {
+	var src = "view/basedata/police.jsp" + "?orgId=" + m_basedataFrame_Org.id
+			+ "&orgCode=" + m_basedataFrame_Org.code + "&orgPath="
+			+ m_basedataFrame_Org.path+"&userId="+m_basedataFrame_User.id;
 
-	$("#ifmWorkSpace").attr("src",src); 
+	$("#ifmWorkSpace").attr("src", src);
 	$("#policemanage").attr("class", "dateBoxMenuOn");
 }
-function onOrgTreeDblClick(node){
-	m_basedataFrame_func_prop.url="view/basedata/police.jsp";
-	m_basedataFrame_func_prop.orgId=node.id;
-	m_basedataFrame_func_prop.orgCode=node.code;
-	m_basedataFrame_func_prop.orgPath=node.path;
-	
+function onOrgTreeDblClick(node) {
+	m_basedataFrame_func_prop.url = "view/basedata/police.jsp";
+	m_basedataFrame_func_prop.orgId = node.id;
+	m_basedataFrame_func_prop.orgCode = node.code;
+	m_basedataFrame_func_prop.orgPath = node.path;
+
 	pageSwitch();
 	$("#policemanage").attr("class", "dateBoxMenuOn");
 	$("#vehiclemanage").attr("class", "");
@@ -68,15 +101,15 @@ function onOrgTreeDblClick(node){
 /*
  * 页面切换
  */
-function pageSwitch(node,url){
-	var src=m_basedataFrame_func_prop.url
-		+"?orgId="+m_basedataFrame_func_prop.orgId
-		+"&orgCode="+m_basedataFrame_func_prop.orgCode
-		+"&orgPath="+m_basedataFrame_func_prop.orgPath;
-	
-	$("#ifmWorkSpace").attr("src",src); 
+function pageSwitch(node, url) {
+	var src = m_basedataFrame_func_prop.url + "?orgId="
+			+ m_basedataFrame_func_prop.orgId + "&orgCode="
+			+ m_basedataFrame_func_prop.orgCode + "&orgPath="
+			+ m_basedataFrame_func_prop.orgPath+"&userId="+m_basedataFrame_User.id;
+
+	$("#ifmWorkSpace").attr("src", src);
 }
-function searchOrgAction(){
+function searchOrgAction() {
 	var name = $('#txtOrgName').val();
 	var a = findOrgs(name);
 	$('#orgtree').tree("loadData", a);
@@ -94,7 +127,6 @@ function findOrgs(name) {
 	}
 	return a;
 }
-
 
 function findOrgTree(org, name, array) {
 	var ls = [];
@@ -115,9 +147,9 @@ function findOrgTree(org, name, array) {
 		return null;
 	}
 }
-function onPoliceManage(){ 
-	m_basedataFrame_func_prop.url="view/basedata/police.jsp";
-	pageSwitch(); 
+function onPoliceManage() {
+	m_basedataFrame_func_prop.url = "view/basedata/police.jsp";
+	pageSwitch();
 	$("#policemanage").attr("class", "dateBoxMenuOn");
 	$("#vehiclemanage").attr("class", "");
 	$("#weaponmanage").attr("class", "");
@@ -125,9 +157,9 @@ function onPoliceManage(){
 	$("#iconsmanage").attr("class", "");
 }
 
-function onVehicleManage(){
-	m_basedataFrame_func_prop.url="view/basedata/vehicle.jsp";
-	pageSwitch(); 
+function onVehicleManage() {
+	m_basedataFrame_func_prop.url = "view/basedata/vehicle.jsp";
+	pageSwitch();
 	$("#vehiclemanage").attr("class", "dateBoxMenuOn");
 	$("#policemanage").attr("class", "");
 	$("#weaponmanage").attr("class", "");
@@ -135,9 +167,9 @@ function onVehicleManage(){
 	$("#iconsmanage").attr("class", "");
 }
 
-function onWeaponManage(){
-	m_basedataFrame_func_prop.url="view/basedata/weapon.jsp";
-	pageSwitch(); 
+function onWeaponManage() {
+	m_basedataFrame_func_prop.url = "view/basedata/weapon.jsp";
+	pageSwitch();
 	$("#weaponmanage").attr("class", "dateBoxMenuOn");
 	$("#policemanage").attr("class", "");
 	$("#vehiclemanage").attr("class", "");
@@ -145,18 +177,18 @@ function onWeaponManage(){
 	$("#iconsmanage").attr("class", "");
 }
 
-function onGpsdeviceManage(){
-	m_basedataFrame_func_prop.url="view/basedata/gpsdevice.jsp";
-	pageSwitch(); 
+function onGpsdeviceManage() {
+	m_basedataFrame_func_prop.url = "view/basedata/gpsdevice.jsp";
+	pageSwitch();
 	$("#gpsdevicemanage").attr("class", "dateBoxMenuOn");
 	$("#policemanage").attr("class", "");
 	$("#vehiclemanage").attr("class", "");
 	$("#weaponmanage").attr("class", "");
 	$("#iconsmanage").attr("class", "");
 }
-function onIconsManage(){
-	m_basedataFrame_func_prop.url="view/basedata/icons.jsp";
-	pageSwitch(); 
+function onIconsManage() {
+	m_basedataFrame_func_prop.url = "view/basedata/icons.jsp";
+	pageSwitch();
 	$("#iconsmanage").attr("class", "dateBoxMenuOn");
 	$("#policemanage").attr("class", "");
 	$("#vehiclemanage").attr("class", "");
@@ -166,25 +198,25 @@ function onIconsManage(){
 /*
  * 读取组织机构树
  */
-function loadFrmOrgs(){
-	
+function loadFrmOrgs() {
+
 	$.ajax({
 		url : "org/list.do",
 		type : "POST",
 		dataType : "json",
 		data : {
-			orgId:m_basedataFrame_Org.id,
-			orgCode :m_basedataFrame_Org.code,
-			orgPath: m_basedataFrame_Org.path
+			orgId : m_basedataFrame_Org.id,
+			orgCode : m_basedataFrame_Org.code,
+			orgPath : m_basedataFrame_Org.path
 		},
 		async : false,
 		success : function(req) {
 			if (req.isSuccess) {
-				var nodes=buildOrgTree(req.rows);
+				var nodes = buildOrgTree(req.rows);
 				m_org_node = nodes;
-				$('#orgtree').tree("loadData",nodes);
+				$('#orgtree').tree("loadData", nodes);
 			} else {
-				$.messager.alert('提示', req.msg,"warning");
+				$.messager.alert('提示', req.msg, "warning");
 			}
 		}
 	});

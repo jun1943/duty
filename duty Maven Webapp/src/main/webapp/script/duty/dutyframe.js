@@ -3,7 +3,7 @@
  */
 
 var m_dutyFrame_Org = {};
-
+var m_dutyFrame_User = {};
 var m_dutyFrame_func_prop = {};
 
 var m_org_map = {};
@@ -13,18 +13,62 @@ var m_org_node = {};
 $(function() {
 
 	var args = getUrlArgs();
-	m_dutyFrame_Org.id = args["orgId"];
-	m_dutyFrame_Org.code = args["orgCode"];
-	m_dutyFrame_Org.path = args["orgPath"];
+
+	m_dutyFrame_User.userName = window.atob(args["user"]);
+	m_dutyFrame_User.pwd = args["pwd"];
+	m_dutyFrame_User.css = args["css"];
+	m_dutyFrame_User.config = args["config"];
+
+	if (m_dutyFrame_User.userName == '' || m_dutyFrame_User.userName == null
+			|| m_dutyFrame_User.userName == undefined
+			|| m_dutyFrame_User.pwd == '' || m_dutyFrame_User.pwd == null
+			|| m_dutyFrame_User.pwd == undefined) {
+		$.messager.alert("传入数据信息为空，请检测是否登录！");
+		return;
+	} else {
+		batchGetUserAuthorization(m_dutyFrame_User.userName,
+				m_dutyFrame_User.pwd);
+	}
+	// m_dutyFrame_Org.id = args["orgId"];
+	// m_dutyFrame_Org.code = args["orgCode"];
+	// m_dutyFrame_Org.path = args["orgPath"];
 
 	$('#treeDutyFrmOrg').tree({
 		checkbox : false,
 		cascadeCheck : true,
 		onDblClick : onOrgTreeDblClick
-	}); 
+	});
 	loadFrmOrgs();
 });
-
+function batchGetUserAuthorization(userName, pwd) {
+	$.ajax({
+		url : "police/batchGetUserAuthorization.do",
+		type : "POST",
+		dataType : "json",
+		async : false,
+		data : {
+			"userName" : userName,
+			"password" : pwd
+		},
+		success : function(req) {
+			if (req.isSuccess) {
+				m_dutyFrame_User.id = req.obj.id;
+				m_dutyFrame_Org.id = req.obj.orgId;
+				;
+				m_dutyFrame_Org.code = req.obj.orgCode;
+				m_dutyFrame_Org.path = req.obj.orgPath;
+			} else {
+				$.messager.alert("用户信息验证失败");
+			}
+		},
+		failer : function(a, b) {
+			$.messager.alert("消息提示", a, "info");
+		},
+		error : function(a) {
+			$.messager.alert("消息提示", a, "error");
+		}
+	});
+};
 function onOrgTreeDblClick(node) {
 	m_dutyFrame_func_prop.orgId = node.id;
 	m_dutyFrame_func_prop.orgCode = node.code;
@@ -33,10 +77,10 @@ function onOrgTreeDblClick(node) {
 	m_dutyFrame_func_prop.orgName = name;
 	m_dutyFrame_func_prop.url = "view/duty/dutycalendar.jsp";
 	pageSwitch();
-	$("#divDutyPrepare").attr("class","MenuMouseMove");
-	$("#divDutyType").attr("class","");
-	$("#divDutyDataGroup").attr("class","");
-	$("#divDutyReport").attr("class",""); 
+	$("#divDutyPrepare").attr("class", "MenuMouseMove");
+	$("#divDutyType").attr("class", "");
+	$("#divDutyDataGroup").attr("class", "");
+	$("#divDutyReport").attr("class", "");
 }
 /*
  * 页面切换
@@ -48,8 +92,8 @@ function pageSwitch(node, url) {
 			+ m_dutyFrame_func_prop.orgPath + "&orgName="
 			+ m_dutyFrame_func_prop.orgName;
 
-	var esrc = encodeURI(src); 
-	$("#ifmWorkSpace").attr("src",src); 
+	var esrc = encodeURI(src);
+	$("#ifmWorkSpace").attr("src", src);
 }
 
 function onDutyPrepare() {
@@ -57,40 +101,40 @@ function onDutyPrepare() {
 	setCheckBox(m_dutyFrame_func_prop.ctl, 1);
 	m_dutyFrame_func_prop.ctl = 1;
 	pageSwitch();
-	$("#divDutyPrepare").attr("class","MenuMouseMove");
-	$("#divDutyType").attr("class","");
-	$("#divDutyDataGroup").attr("class","");
-	$("#divDutyReport").attr("class",""); 
+	$("#divDutyPrepare").attr("class", "MenuMouseMove");
+	$("#divDutyType").attr("class", "");
+	$("#divDutyDataGroup").attr("class", "");
+	$("#divDutyReport").attr("class", "");
 }
 
 function onDutyReport() {
 	m_dutyFrame_func_prop.url = "view/duty/policeinquiry.jsp";
 	setCheckBox(m_dutyFrame_func_prop.ctl, 2);
 	pageSwitch();
-	$("#divDutyPrepare").attr("class","");
-	$("#divDutyType").attr("class","");
-	$("#divDutyDataGroup").attr("class","");
-	$("#divDutyReport").attr("class","MenuMouseMove"); 
+	$("#divDutyPrepare").attr("class", "");
+	$("#divDutyType").attr("class", "");
+	$("#divDutyDataGroup").attr("class", "");
+	$("#divDutyReport").attr("class", "MenuMouseMove");
 }
 
 function onDutyDataGroup(name) {
 	m_dutyFrame_func_prop.url = "view/duty/" + name + ".jsp";
 	setCheckBox(m_dutyFrame_func_prop.ctl, 3);
 	pageSwitch();
-	$("#divDutyPrepare").attr("class","");
-	$("#divDutyType").attr("class","");
-	$("#divDutyDataGroup").attr("class","MenuMouseMove");
-	$("#divDutyReport").attr("class",""); 
+	$("#divDutyPrepare").attr("class", "");
+	$("#divDutyType").attr("class", "");
+	$("#divDutyDataGroup").attr("class", "MenuMouseMove");
+	$("#divDutyReport").attr("class", "");
 }
 
 function onDutyType() {
 	m_dutyFrame_func_prop.url = "view/duty/dutytype.jsp";
 	setCheckBox(m_dutyFrame_func_prop.ctl, 4);
 	pageSwitch();
-	$("#divDutyPrepare").attr("class","");
-	$("#divDutyType").attr("class","MenuMouseMove");
-	$("#divDutyDataGroup").attr("class","");
-	$("#divDutyReport").attr("class",""); 
+	$("#divDutyPrepare").attr("class", "");
+	$("#divDutyType").attr("class", "MenuMouseMove");
+	$("#divDutyDataGroup").attr("class", "");
+	$("#divDutyReport").attr("class", "");
 }
 
 function setCheckBox(ctlA, ctlB) {

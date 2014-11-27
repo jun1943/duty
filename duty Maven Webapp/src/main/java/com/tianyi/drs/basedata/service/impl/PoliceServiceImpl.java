@@ -15,6 +15,7 @@ import com.tianyi.drs.basedata.model.PoliceType;
 import com.tianyi.drs.basedata.service.PoliceService;
 import com.tianyi.drs.basedata.viewmodel.GpsBaseVM;
 import com.tianyi.drs.basedata.viewmodel.PoliceVM;
+import com.tianyi.drs.duty.viewmodel.UserObjectVM;
 import com.tianyi.util.PaginationData;
 
 @Service("policeService")
@@ -142,6 +143,11 @@ public class PoliceServiceImpl implements PoliceService {
 	public void deleteByIds(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		policeMapper.deleteByIds(map);
+	}
+
+	public UserObjectVM getUserAuthorization(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return policeMapper.getUserAuthorization(map);
 	} 
 	
 }

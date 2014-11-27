@@ -8,6 +8,7 @@ import com.tianyi.drs.basedata.model.PoliceType;
 import com.tianyi.drs.basedata.viewmodel.GpsBaseVM;
 import com.tianyi.drs.basedata.viewmodel.PoliceVM;
 import com.tianyi.drs.duty.dao.core.MyBatisRepository;
+import com.tianyi.drs.duty.viewmodel.UserObjectVM;
 import com.tianyi.util.PaginationData;
 
 import java.util.Map;
@@ -64,5 +65,7 @@ public interface PoliceMapper {
 	List<PoliceVM> loadVMListWithGroupList(Map<String, Object> map);
 
 	void deleteByIds(Map<String, Object> map);
+
+	UserObjectVM getUserAuthorization(Map<String, Object> map);
 	 
 }
