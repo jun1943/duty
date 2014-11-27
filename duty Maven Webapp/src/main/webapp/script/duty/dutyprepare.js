@@ -2159,9 +2159,9 @@ function setCheckBoxOfTarget(item) {
 }
 
 function getCheckBoxOfTarget(item) {
-	var rows = $('#dgtaskTarget').datagrid('getChecked');
+	var rows = $('#dgtaskTarget').datagrid('getSelections');
 	if(rows.length==0){
-		$.messager.alert("请选择要保存的必到点数据信息！");
+		$.messager.alert("消息提示","请选择要保存的必到点数据信息！","warning");
 		return;
 	}
 	//var rows = $('#dgtaskTarget').datagrid('getRows');
