@@ -469,26 +469,15 @@ $(document)
 			                        return e;
 			                    }
 			                } 
-						} ] ],
-//						onClickRow:function(value,row,index){
-//						    m_targetRows = row;
-//							var rowIndex = $('#dgtaskTarget').datagrid('getRowIndex',row);
-//							$('#dgtaskTarget').datagrid('selectRow', rowIndex).datagrid('beginEdit', rowIndex); 
-//						},
+						} ] ], 
 						onBeforeEdit:function(index,row){
-							row.editing = true;updateActions(index);
-							//var rowIndex = $('#dgtaskTarget').datagrid('getRowIndex',m_targetRows);
-					        //$('#dgtaskTarget').datagrid('refreshRow', rowIndex);
+							row.editing = true;updateActions(index); 
 					    },
 					    onAfterEdit:function(index,row){
-					    	row.editing = false;updateActions(index);
-//							var rowIndex = $('#dgtaskTarget').datagrid('getRowIndex',m_targetRows);
-//					        $('#dgtaskTarget').datagrid('refreshRow', rowIndex);
+					    	row.editing = false;updateActions(index); 
 					    },
 					    onCancelEdit:function(index,row){
-					    	row.editing = false;updateActions(index);
-//							var rowIndex = $('#dgtaskTarget').datagrid('getRowIndex',m_targetRows);
-//					        $('#dgtaskTarget').datagrid('refreshRow', rowIndex);
+					    	row.editing = false;updateActions(index); 
 					    }
 					});
 
