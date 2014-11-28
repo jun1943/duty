@@ -52,7 +52,7 @@
 									<tr>
 										<td class="MySearchTDTitle">查询范围选择:</td>
 										<td><input id="isSubOrg" class="easyui-combobox" name="dept" style="width:104px"
-										data-options="valueField:'id',textField:'name',data:[{id: 0,name: '本級机构'},{id: 1,name: '本级及下级机构'}]" /></td>
+										data-options="editable:false,valueField:'id',textField:'name',data:[{id: 0,name: '本級机构'},{id: 1,name: '本级及下级机构'}]" /></td>
 										<td class="MySearchTDTitle">姓名:</td>
 										<td><input id="txtsearchName" type="text"
 										class="easyui-validatebox"></td>
@@ -80,9 +80,12 @@
 			<div class="easyui-layout" data-options="fit:true">
 				<div data-options="region:'south',border:false"
 					style="padding: 2px; height: 30px;">
-					<a href="javascript:void(0);" class="easyui-linkbutton"
+					<a id="btnsavePoliceCon" href="javascript:void(0);" class="easyui-linkbutton"
 					  style="float:right"
 						onclick="savePoliceAction()">保存并继续</a>  
+					<a  href="javascript:void(0);" class="easyui-linkbutton"
+					  style="float:right;margin-right:15px"
+						onclick="savePoliceActionExit()">　　保　存　　</a> 
 				</div>
 				<div data-options="region:'center',border:false"
 					style="text-align: right;
@@ -90,12 +93,12 @@
 					<table style="width:100%;height:99%; font: 12px 微软雅黑;">
 						<tr>
 							<td style="text-align: right;"><input type="hidden" id="policeId"><label>人员类别:　</label></td>
-							<td><input id="txttype" class="easyui-combobox" /></td>
+							<td><input id="txttype" class="easyui-combobox"  data-options="editable:false,required:true"/><span style="color:red">*</span></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>姓名:　</label></td>
 							<td><input id="txtname" type="text"
-								class="easyui-validatebox" data-options="required:true"></td>
+								class="easyui-validatebox" data-options="required:true"><span style="color:red">*</span></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>身份证号码:　</label></td>
@@ -124,7 +127,7 @@
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>组呼号:　</label></td>
-							<td><input id="txtgroupno" class="easyui-combobox" /></td>
+							<td><input id="txtgroupno" class="easyui-combobox"  data-options="editable:false"/></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>个呼号:　</label></td>
@@ -133,7 +136,7 @@
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>GPS设备:　</label></td>
-							<td><input id="txtgpsid" class="easyui-combobox" /></td>
+							<td><input id="txtgpsid" class="easyui-combobox" data-options="editable:false"/></td>
 						</tr>
 						<!-- <tr>
 							<td style="text-align: right;"><label>GPS备注:　</label></td>

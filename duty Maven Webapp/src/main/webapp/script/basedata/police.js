@@ -91,7 +91,8 @@ $(function() {
 			title : '机构',
 			field : 'orgName',
 			align : 'left',
-			width : 100
+			width : 100,
+			hidden : true
 		}, {
 			title : '警员类别',
 			field : 'type_id',
@@ -100,6 +101,16 @@ $(function() {
 			sortable:true,formatter:function(value,row,index){
 				return row.typeName;
 			}
+		}, {
+			title : '组呼号',
+			field : 'intercomGroup',
+			align : 'left',
+			width : 80
+		}, {
+			title : '个呼号',
+			field : 'intercomPerson',
+			align : 'left',
+			width : 80
 		} ] ]
 	});
 	$("#btnSearchPolice").bind("click", function() {
@@ -173,14 +184,15 @@ function btnAddPolice(optType) {
 	operationType = optType;
 	$("#policeinfowindow").window("open");
 	clearForm();
+	 $('#btnsavePoliceCon').show();
 	// $('#myModal').modal('show');
 };
 
 function btnUnLockPolice() {
-	changePoliceState(1);
+	changePoliceState(0);
 };
 function btnLockPolice() {
-	changePoliceState(0);
+	changePoliceState(1);
 };
 function changePoliceState(pType) {
 	var hasRows = $('#dtPolice').datagrid('getRows');
@@ -307,7 +319,7 @@ function btnEditPolice(optType) {
 	$("#txtgroupno").combobox("setValue", rows[0].intercomGroup);
 	$("#txtpersonalno").val(rows[0].intercomPerson);
 	$("#policeinfowindow").window("open");
-	// $('#myModal').modal('show');
+	 $('#btnsavePoliceCon').hide();
 }
 // 清空form表单
 function clearForm() {
@@ -326,7 +338,12 @@ function clearForm() {
 }
 // 保存新增或者编辑的数据
 var isExist = false;
-function savePoliceAction() {
+var isComplete = true;
+function savePoliceAction(){
+	savePoliceModel();
+}
+
+function savePoliceModel() {
 	var police = {};
 
 	police.id = $("#policeId").val();
@@ -335,10 +352,12 @@ function savePoliceAction() {
 		police.typeId = $("#txttype").combobox("getValue");
 	} else {
 		$.messager.alert("错误提示", "请选择人员类别", "error");
+		isComplete = false;
 		return;
 	}
 	if ($("#txtname").val() == "") {
 		$.messager.alert("错误提示", "请输入警员名称", "error");
+		isComplete = false;
 		return;
 	}
 	police.name = $("#txtname").val();
@@ -351,6 +370,7 @@ function savePoliceAction() {
 		if (!isExist) {
 			$.messager.alert("错误提示", "身份证号码重复，请检查", "error"); 
 			$("#txtidcardno").focus();
+			isComplete = false;
 			return;
 		}
 	}
@@ -362,6 +382,7 @@ function savePoliceAction() {
 		if (!isExist) {
 			$.messager.alert("错误提示", "该警号重复，请检查", "error");
 			isExist = false;
+			isComplete = false;
 			$("#txtnumber").focus();
 			return;
 		}
@@ -397,15 +418,9 @@ function savePoliceAction() {
 		dataType : "json",
 		async : false,
 		data : police,
-		success : function(req) {
-			// $.messager.alert("消息提示", req.Message, "info");
-			if (operationType == "add") {
-				clearForm();
-			}else
-			if (operationType == "edit") {
-				operationType = "";
-				$("#policeinfowindow").window("close");
-			}
+		success : function(req) { 
+			isComplete = true;
+				clearForm();  
 			btnSearchAction();
 		},
 		failer : function(a, b) {
@@ -415,6 +430,13 @@ function savePoliceAction() {
 			$.messager.alert("消息提示", a, "error");
 		}
 	});
+}
+
+function savePoliceActionExit(){
+	savePoliceModel();
+	if(isComplete){
+		$("#policeinfowindow").window("close");
+	}
 }
 function isExistPolice(param, pType) {
 	isExist = false;

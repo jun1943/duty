@@ -1,7 +1,7 @@
 var m_Vehicle_OrgId;
 var m_Vehicle_OrgCode;
 var m_Vehicle_OrgPath;
-var m_Vehicle_Query = {}; 
+var m_Vehicle_Query = {};
 var operationType = "";
 $(function() {
 
@@ -33,8 +33,8 @@ $(function() {
 		pageNumber : 1,
 		pageSize : 10,
 		title : '车辆列表',
-	    onDblClickRow:btnEditVehicle,
-	    //singleSelect: true,
+		onDblClickRow : btnEditVehicle,
+		// singleSelect: true,
 		columns : [ [ {
 			field : 'ck',
 			checkbox : true
@@ -48,7 +48,8 @@ $(function() {
 			title : '机构',
 			field : 'orgName',
 			align : 'center',
-			width : 100
+			width : 100,
+			hidden : true
 		}, {
 			title : '车辆类型',
 			field : 'typeName',
@@ -58,7 +59,8 @@ $(function() {
 			title : '车牌号码',
 			field : 'number',
 			align : 'center',
-			width : 100,sortable:true
+			width : 100,
+			sortable : true
 		}, {
 			title : '车辆用途',
 			field : 'purpose',
@@ -84,11 +86,17 @@ $(function() {
 			field : 'gps_name',
 			align : 'center',
 			width : 80,
-			formatter:function(value, row, index){
+			formatter : function(value, row, index) {
 				return row.gpsName;
-			},sortable:true
+			},
+			sortable : true
 		}, {
 			title : '组呼号',
+			field : 'intercomGroup',
+			align : 'center',
+			width : 200
+		}, {
+			title : '个呼号',
 			field : 'intercomGroup',
 			align : 'center',
 			width : 200
@@ -127,7 +135,7 @@ function btnAddVehicle(optType) {
 	operationType = optType;
 	clearForm();
 	$("#vehicleinfowindow").window("open");
-	// $('#myModal').modal('show');
+	$('#btnsaveVehicleCon').show();
 };
 function btnEditVehicle(optType) {
 	operationType = optType;
@@ -155,8 +163,9 @@ function btnEditVehicle(optType) {
 	$("#txtgroupno").combobox("setValue", rows[0].intercomGroup);
 	$("#txtpersonalno").val(rows[0].intercomGroup);
 	$("#txtgpsid").combobox("setValue", rows[0].gpsId);
-	//$("#txtgpsname").val(rows[0].gpsName);
+	// $("#txtgpsname").val(rows[0].gpsName);
 	$("#vehicleinfowindow").window("open");
+	$('#btnsaveVehicleCon').hide();
 	// $('#myModal').modal('show');
 };
 function clearForm() {
@@ -169,7 +178,7 @@ function clearForm() {
 	$("#txtgroupno").combobox("setValue", "");
 	$("#txtpersonalno").val("");
 	$("#txtgpsid").combobox("setValue", "");
-	//$("#txtgpsname").val("");
+	// $("#txtgpsname").val("");
 }
 function pack_Vehicle_Query() {
 	m_Vehicle_Query.orgId = m_Vehicle_OrgId;
@@ -196,29 +205,28 @@ function btnDelVehicle() {
 		return;
 	}
 	var ids = "";
-	if(rows.length == 1){
+	if (rows.length == 1) {
 		ids = rows[0].id;
-	}else{
-		for(var i = 0; i< rows.length;i++){
-			ids += rows[i].id+",";
+	} else {
+		for ( var i = 0; i < rows.length; i++) {
+			ids += rows[i].id + ",";
 		}
-		if(ids.length>2){
-			ids = ids.substring(0, ids.length-1);
+		if (ids.length > 2) {
+			ids = ids.substring(0, ids.length - 1);
 		}
 	}
-//	if (rows.length > 1) {
-//		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
-//		return;
-//	}
-	
-//	var number = rows[0].number;
-//	var id = rows[0].id;
-	$.messager.confirm("系统提示", "确认删除车辆数据信息吗？",
-			function(r) {
-				if (r) {
-					deleteVehicle(ids);
-				}
-			});
+	// if (rows.length > 1) {
+	// $.messager.alert('操作提示', "只能选择单个操作项!", "warning");
+	// return;
+	// }
+
+	// var number = rows[0].number;
+	// var id = rows[0].id;
+	$.messager.confirm("系统提示", "确认删除车辆数据信息吗？", function(r) {
+		if (r) {
+			deleteVehicle(ids);
+		}
+	});
 };
 function deleteVehicle(id) {
 	$.ajax({
@@ -230,7 +238,7 @@ function deleteVehicle(id) {
 			"id" : id
 		},
 		success : function(req) {
-			//$.messager.alert("消息提示", req.Message, "info");
+			// $.messager.alert("消息提示", req.Message, "info");
 			btnSearchAction();
 		},
 		failer : function(a, b) {
@@ -241,7 +249,11 @@ function deleteVehicle(id) {
 		}
 	});
 };
+var isComplete = true;
 function saveVehicleAction() {
+	saveVehicleModel();
+};
+function saveVehicleModel() {
 	var vehicle = {};
 
 	vehicle.id = $("#vehicleId").val();
@@ -251,6 +263,7 @@ function saveVehicleAction() {
 		vehicle.vehicleTypeId = $("#txttype").combobox("getValue");
 	} else {
 		$.messager.alert("错误提示", "请选择车辆类型", "error");
+		isComplete = false;
 		return;
 	}
 	vehicle.brand = $("#txtbrand").val();
@@ -258,35 +271,36 @@ function saveVehicleAction() {
 	vehicle.orgId = m_Vehicle_OrgId;
 	if ($("#txtnumber").val() == "") {
 		$.messager.alert("错误提示", "请输入车牌号码", "error");
+		isComplete = false;
 		return;
 	}
 	vehicle.number = $("#txtnumber").val();
-//	if ($("#txtpurpose").val() == "") {
-//		$.messager.alert("错误提示", "请输入车辆用途", "error");
-//		return;
-//	}
+	// if ($("#txtpurpose").val() == "") {
+	// $.messager.alert("错误提示", "请输入车辆用途", "error");
+	// return;
+	// }
 	vehicle.purpose = $("#txtpurpose").val();
 
-	//vehicle.intercomGroup = $("#txtgroupno").combobox("getValue");
+	// vehicle.intercomGroup = $("#txtgroupno").combobox("getValue");
 	if ($("#txtgroupno").combobox("getValue") > 0
 			&& $("#txtgroupno").combobox("getValue") != "") {
 		vehicle.intercomGroup = $("#txtgroupno").combobox("getValue");
 	} else {
-		vehicle.intercomGroup =0;
-//		$.messager.alert("错误提示", "请选择GPS_ID", "error");
-//		return;
+		vehicle.intercomGroup = 0;
+		// $.messager.alert("错误提示", "请选择GPS_ID", "error");
+		// return;
 	}
 	if ($("#txtgpsid").combobox("getValue") > 0
 			&& $("#txtgpsid").combobox("getValue") != "") {
 		vehicle.gpsId = $("#txtgpsid").combobox("getValue");
-		vehicle.gpsName =$("#txtgpsid").combobox("getText");
+		vehicle.gpsName = $("#txtgpsid").combobox("getText");
 	} else {
-		vehicle.gpsId =0;
-		vehicle.gpsName ="";
-//		$.messager.alert("错误提示", "请选择GPS_ID", "error");
-//		return;
+		vehicle.gpsId = 0;
+		vehicle.gpsName = "";
+		// $.messager.alert("错误提示", "请选择GPS_ID", "error");
+		// return;
 	}
-	//vehicle.gpsName = $("#txtgpsname").val();
+	// vehicle.gpsName = $("#txtgpsname").val();
 	$.ajax({
 		url : "vehicle/saveVehicle.do",
 		type : "POST",
@@ -294,14 +308,9 @@ function saveVehicleAction() {
 		async : false,
 		data : vehicle,
 		success : function(req) {
-			//$.messager.alert("消息提示", req.Message, "info");
-			if (operationType == "add") {
-				clearForm();
-			}
-			if (operationType == "edit") {
-				operationType = "";
-				$("#vehicleinfowindow").window("close");
-			} 
+			isComplete = true;
+			clearForm();
+
 			btnSearchAction();
 		},
 		failer : function(a, b) {
@@ -311,4 +320,9 @@ function saveVehicleAction() {
 			$.messager.alert("消息提示", a, "error");
 		}
 	});
-};
+}
+function saveVehicleActionExit() {
+	saveVehicleModel();
+	if(isComplete){	
+		$("#vehicleinfowindow").window("close");
+}}

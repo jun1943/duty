@@ -45,7 +45,7 @@
 										<td><input id="txtsearchName" class="easyui-validatebox" type="text" ></td>
 										<td class="MySearchTDTitle">图片类别 :</td>
 										<td><input id="sltType" class="easyui-combobox" name="dept" style="width:104px"
-										data-options="valueField:'id',textField:'name',data:[{id: 0,name: '全部'},{id: 1,name: '警员'},{id: 2,name: '车辆'},{id: 3,name: '武器'},{id: 4,name: '定位设备'}]" /></td>
+										data-options="editable:false,valueField:'id',textField:'name',data:[{id: 0,name: '全部'},{id: 1,name: '警员'},{id: 2,name: '车辆'},{id: 3,name: '武器'},{id: 4,name: '定位设备'}]" /></td>
 										<td> <a id="btnSearchAction" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-search"  onclick="btnSearchAction()">查询</a></td>
 									 
 									</tr> 
@@ -68,9 +68,12 @@
 			<div class="easyui-layout" data-options="fit:true">
 				<div data-options="region:'south',border:false"
 					style="padding: 2px; height: 30px;"> 
-					 <a href="javascript:void(0);" class="easyui-linkbutton"
+					 <a id="btnsaveIconsCon" href="javascript:void(0);" class="easyui-linkbutton"
 						 style="float:right"
 						onclick="saveIconsAction()">保存并继续</a>  
+					 <a href="javascript:void(0);" class="easyui-linkbutton"
+						 style="float:right;margin-right:15px"
+						onclick="saveIconsActionExit()">　　保　存　　</a> 
 				</div>
 				<div data-options="region:'center',border:false"
 					style="text-align: right; margin-left: 5px;
@@ -79,8 +82,8 @@
 							<tr>
 								<td style="text-align: right;"><input type="hidden" id="iconsId"><label style="width:45px">图片类型:　</label></td>
 								<td> <input id="txttype" class="easyui-combobox" name="dept"
-											data-options="valueField:'id',textField:'name',data:[{id: 0,name: '请选择图片类型'},{id: 1,name: '警员'},{id: 2,name: '车辆'},{id: 3,name: '武器'},{id: 4,name: '定位设备'}]" />
-	                         	</td>
+											data-options="editable:false,required:true,valueField:'id',textField:'name',data:[{id: 0,name: '请选择图片类型'},{id: 1,name: '警员'},{id: 2,name: '车辆'},{id: 3,name: '武器'},{id: 4,name: '定位设备'}]" /><span style="color:red">*</span>
+	                         	</td>  
 	                         	<td style="text-align: right;" rowspan="3">
 		                         	<img id="sltImage" style="width:110px; height:110px" src="">
                   				</td>

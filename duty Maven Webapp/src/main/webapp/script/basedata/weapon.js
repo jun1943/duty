@@ -5,22 +5,23 @@ var m_Weapon_Query = {};
 var operationType = "";
 $(function() {
 
-
 	$("#weaponinfowindow").window("close");
-	
+
 	var args = getUrlArgs();
-	m_Weapon_OrgId =  args["orgId"];
-	m_Weapon_OrgCode =   args["orgCode"];
-	m_Weapon_OrgPath =   args["orgPath"];
+	m_Weapon_OrgId = args["orgId"];
+	m_Weapon_OrgCode = args["orgCode"];
+	m_Weapon_OrgPath = args["orgPath"];
 	m_Weapon_UserId = args["userId"];
 	pack_Weapon_Query();
 
-	$("#orgtree").tree({
-		url:  "org/list.do?orgCode=" + m_Weapon_OrgCode + "&orgPath=" + m_Weapon_OrgPath,
-		loadFilter : function(data) {
-			return buildOrgTree(data);
-		}
-	});
+	$("#orgtree").tree(
+			{
+				url : "org/list.do?orgCode=" + m_Weapon_OrgCode + "&orgPath="
+						+ m_Weapon_OrgPath,
+				loadFilter : function(data) {
+					return buildOrgTree(data);
+				}
+			});
 
 	$('#dtWeapon').datagrid({
 		url : "weapon/getWeaponList.do",
@@ -31,9 +32,9 @@ $(function() {
 		fitColumns : true,
 		pageNumber : 1,
 		pageSize : 10,
-		title:'武器列表',
-	    onDblClickRow:btnEditWeapon,
-	    //singleSelect: true,
+		title : '武器列表',
+		onDblClickRow : btnEditWeapon,
+		// singleSelect: true,
 		columns : [ [ {
 			field : 'ck',
 			checkbox : true
@@ -47,7 +48,8 @@ $(function() {
 			title : '机构',
 			field : 'orgName',
 			align : 'center',
-			width : 100
+			width : 100,
+			hidden : true
 		}, {
 			title : '武器类型',
 			field : 'typeName',
@@ -76,20 +78,20 @@ function btnSearchAction() {
 	$('#dtWeapon').datagrid("reload", {
 		'weapon_Query' : JSON.stringify(m_Weapon_Query)
 	});
-	$("#isSubOrg").combobox("setValue","");
+	$("#isSubOrg").combobox("setValue", "");
 	$("#txtsearchnumber").val("");
 };
-function InitData() { 
+function InitData() {
 	getWeaponType();
 };
-function getWeaponType(){
-	getBaseDataCombobox( "weapon/getWeaponType.do","txttype");  
+function getWeaponType() {
+	getBaseDataCombobox("weapon/getWeaponType.do", "txttype");
 };
 function btnAddWeapon(optType) {
 	operationType = optType;
 	clearForm();
 	$("#weaponinfowindow").window("open");
-	//$('#myModal').modal('show');
+	$('#btnsaveWeaponCon').show();
 };
 function btnEditWeapon(optType) {
 	operationType = optType;
@@ -109,16 +111,17 @@ function btnEditWeapon(optType) {
 	}
 	clearForm();
 	$("#weaponId").val(rows[0].id);
-	$("#txttype").combobox("setValue",rows[0].typeId);
+	$("#txttype").combobox("setValue", rows[0].typeId);
 	$("#txtnumber").val(rows[0].number);
 	$("#txtstandard").val(rows[0].standard);
 
-	//$('#myModal').modal('show');
+	// $('#myModal').modal('show');
 	$("#weaponinfowindow").window("open");
+	$('#btnsaveWeaponCon').hide();
 };
 function clearForm() {
 	$("#weaponId").val(0);
-	$("#txttype").combobox("setValue","");
+	$("#txttype").combobox("setValue", "");
 	$("#txtnumber").val("");
 	$("#txtstandard").val("");
 }
@@ -126,11 +129,12 @@ function pack_Weapon_Query() {
 	m_Weapon_Query.orgId = m_Weapon_OrgId;
 	m_Weapon_Query.orgCode = m_Weapon_OrgCode;
 	m_Weapon_Query.orgPath = m_Weapon_OrgPath;
-	if($("#isSubOrg").combobox("getValue")!=""&&$("#isSubOrg").combobox("getValue")>0){
+	if ($("#isSubOrg").combobox("getValue") != ""
+			&& $("#isSubOrg").combobox("getValue") > 0) {
 		m_Weapon_Query.isSubOrg = $("#isSubOrg").combobox("getValue");
-	}else{
+	} else {
 		m_Weapon_Query.isSubOrg = 0;
-	} 
+	}
 	m_Weapon_Query.number = $("#txtsearchnumber").val();
 };
 
@@ -146,28 +150,27 @@ function btnDelWeapon() {
 		return;
 	}
 	var ids = "";
-	if(rows.length == 1){
+	if (rows.length == 1) {
 		ids = rows[0].id;
-	}else{
-		for(var i = 0; i< rows.length;i++){
-			ids += rows[i].id+",";
+	} else {
+		for ( var i = 0; i < rows.length; i++) {
+			ids += rows[i].id + ",";
 		}
-		if(ids.length>2){
-			ids = ids.substring(0, ids.length-1);
+		if (ids.length > 2) {
+			ids = ids.substring(0, ids.length - 1);
 		}
 	}
-//	if (rows.length > 1) {
-//		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
-//		return;
-//	}
-//	var number = rows[0].number;
-//	var id = rows[0].id;
-	$.messager.confirm("系统提示", "确认删除武器数据信息吗？",
-			function(r) {
-				if (r) {
-					deleteWeapon(ids);
-				}
-			});
+	// if (rows.length > 1) {
+	// $.messager.alert('操作提示', "只能选择单个操作项!", "warning");
+	// return;
+	// }
+	// var number = rows[0].number;
+	// var id = rows[0].id;
+	$.messager.confirm("系统提示", "确认删除武器数据信息吗？", function(r) {
+		if (r) {
+			deleteWeapon(ids);
+		}
+	});
 };
 function deleteWeapon(id) {
 	$.ajax({
@@ -179,7 +182,7 @@ function deleteWeapon(id) {
 			"id" : id
 		},
 		success : function(req) {
-			//$.messager.alert("消息提示", req.Message, "info");
+			// $.messager.alert("消息提示", req.Message, "info");
 			btnSearchAction();
 		},
 		failer : function(a, b) {
@@ -190,26 +193,35 @@ function deleteWeapon(id) {
 		}
 	});
 };
+
+var isComplete = true;
 function saveWeaponAction() {
+	saveWeaponModel();
+};
+
+function saveWeaponModel() {
 	var weapon = {};
 
 	weapon.id = $("#weaponId").val();
 
-	if ($("#txttype").combobox("getValue") > 0&&$("#txttype").combobox("getValue")!=null) {
+	if ($("#txttype").combobox("getValue") > 0
+			&& $("#txttype").combobox("getValue") != null) {
 		weapon.typeId = $("#txttype").combobox("getValue");
 	} else {
 		$.messager.alert("错误提示", "请选择武器类别", "error");
+		isComplete= false;
 		return;
 	}
 	if ($("#txtnumber").val() == "") {
 		$.messager.alert("错误提示", "请输入武器编号", "error");
+		isComplete= false;
 		return;
 	}
 	weapon.number = $("#txtnumber").val();
-//	if ($("#txtstandard").val() == "") {
-//		$.messager.alert("错误提示", "请输入武器规格型号", "error");
-//		return;
-//	}
+	// if ($("#txtstandard").val() == "") {
+	// $.messager.alert("错误提示", "请输入武器规格型号", "error");
+	// return;
+	// }
 	weapon.standard = $("#txtstandard").val();
 	weapon.orgId = m_Weapon_OrgId;
 	$.ajax({
@@ -219,15 +231,10 @@ function saveWeaponAction() {
 		async : false,
 		data : weapon,
 		success : function(req) {
-			//$.messager.alert("消息提示", req.Message, "info");
-			if (operationType == "add") {
-				clearForm();
-			}
-			if (operationType == "edit") {
-				operationType = "";
-				$("#weaponinfowindow").window("close");
-			} 
-			
+			// $.messager.alert("消息提示", req.Message, "info");
+			isComplete = true;
+			clearForm();
+
 			btnSearchAction();
 		},
 		failer : function(a, b) {
@@ -237,4 +244,10 @@ function saveWeaponAction() {
 			$.messager.alert("消息提示", a, "error");
 		}
 	});
-};
+}
+function saveWeaponActionExit() {
+	saveWeaponModel();
+	if(isComplete){
+		$("#weaponinfowindow").window("close");
+	}
+}

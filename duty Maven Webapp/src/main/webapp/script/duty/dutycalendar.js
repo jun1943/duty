@@ -313,6 +313,7 @@ function mouseOutFunction() {
 }
 // 点击具体日期，加载详细信息对话框
 function getDateInfo(date) {
+	$("#txttargetName").val("");
 	m_dutyCalendar_Org.date = date;
 	m_ymd = YMD.createNew(date);
 	$
@@ -539,7 +540,7 @@ function structureItem(item, parent) {
 	if (item.itemTypeId == 101) {
 		initDate(item);
 	}
-
+	 
 	itemiconCls = createIconStyle(item, item.itemTypeId, item.iconUrl);
 
 	switch (item.itemTypeId) {
@@ -677,8 +678,8 @@ function fmtShiftPeriod(value, row, index) {
 function initDate(item) {
 
 	if (item.beginTime2 == undefined || item.endTime2 == undefined) {
-		var b = new Date(item.beginTime);
-		var e = new Date(item.endTime);
+		var b = gCreateDate(item.beginTime);
+		var e = gCreateDate(item.endTime);
 
 		var diffDay = b.dateDiffOfDay(e);
 
@@ -686,8 +687,8 @@ function initDate(item) {
 			alert('date diff day is error !');
 		}
 
-		b.setFullYear(m_ymd.getYear(), m_ymd.getMonth(), m_ymd.getDay());
-		e.setFullYear(m_ymd.getYear(), m_ymd.getMonth(), m_ymd.getDay());
+		b.setFullYear(m_ymd.getYear(), m_ymd.getMonth() - 1, m_ymd.getDay());
+		e.setFullYear(m_ymd.getYear(), m_ymd.getMonth() - 1, m_ymd.getDay());
 		e.add('d', diffDay);
 
 		item.beginTime2 = b;

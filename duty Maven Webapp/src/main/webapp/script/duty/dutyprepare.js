@@ -47,6 +47,7 @@ $(document)
 						width : 220,
 						height : 400,
 						singleSelect : false,
+						collapsible:true,
 						columns : [ [ {
 							field : 'ck',
 							checkbox : true
@@ -60,7 +61,8 @@ $(document)
 							title : '姓名',
 							field : 'name',
 							align : 'left',
-							width : 50
+							width : 50,
+							sortable:true
 						}, {
 							title : '单位',
 							field : 'orgName',
@@ -99,8 +101,8 @@ $(document)
 						resizable : true,
 						idField : 'id',
 						treeField : 'number',
-						toolbar : "#tb_source_vehicle",
-
+						toolbar : "#tb_source_vehicle", 
+						collapsible:true,
 						width : 220,
 						height : 400,
 						singleSelect : false,
@@ -163,6 +165,7 @@ $(document)
 						idField : 'id',
 						treeField : 'typeName',
 						toolbar : "#tb_source_gpsdevice",
+						collapsible:true,
 						width : 220,
 						height : 400,
 						singleSelect : false,
@@ -217,6 +220,7 @@ $(document)
 						idField : 'id',
 						treeField : 'typeName',
 						toolbar : "#tb_source_weapon",
+						collapsible:true,
 						width : 220,
 						height : 400,
 						singleSelect : false,

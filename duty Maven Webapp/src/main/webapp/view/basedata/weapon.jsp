@@ -39,7 +39,7 @@
 									<tr>
 										<td class="MySearchTDTitle">查询范围选择:</td>
 										<td><input id="isSubOrg" class="easyui-combobox" name="dept" style="width:104px"
-										data-options="valueField:'id',textField:'name',data:[{id: 0,name: '本級机构'},{id: 1,name: '本级及下级机构'}]" /></td>
+										data-options="editable:false,valueField:'id',textField:'name',data:[{id: 0,name: '本級机构'},{id: 1,name: '本级及下级机构'}]" /></td>
 										<td class="MySearchTDTitle">武器编号:</td>
 										<td><input id="txtsearchnumber" class="easyui-validatebox" type="text" ></td>
 										<td><a id="btnSearchAction" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-search"  onclick="btnSearchAction()">查询</a></td>
@@ -63,9 +63,12 @@
 			<div class="easyui-layout" data-options="fit:true">
 				<div data-options="region:'south',border:false"
 					style="padding: 2px; height: 30px;">
-					<a href="javascript:void(0);" class="easyui-linkbutton"
+					<a id="btnsaveWeaponCon" href="javascript:void(0);" class="easyui-linkbutton"
 						 style="float:right"
 						onclick="saveWeaponAction()">保存并继续</a> 
+					<a href="javascript:void(0);" class="easyui-linkbutton"
+						 style="float:right;margin-right:15px"
+						onclick="saveWeaponActionExit()">　　保　存　　</a> 
 				</div>
 				<div data-options="region:'center',border:false"
 					style="text-align: right; margin-left: 5px;
@@ -73,11 +76,11 @@
 					<table style="width:100%;height:99%; font: 12px 微软雅黑;"> 
 						<tr>
 							<td style="text-align: right;"><input type="hidden" id="weaponId"><label>武器类型:　</label></td>
-							<td><input id="txttype" class="easyui-combobox" /></td>
+							<td><input id="txttype" class="easyui-combobox"  data-options="editable:false,required:true"/></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>武器编号:　</label></td>
-							<td><input type="text" class="easyui-validatebox" id="txtnumber"></td>
+							<td><input type="text" class="easyui-validatebox" id="txtnumber" data-options="required:true"></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>子弹数目:　</label></td>

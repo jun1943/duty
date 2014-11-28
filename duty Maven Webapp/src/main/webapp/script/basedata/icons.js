@@ -34,8 +34,8 @@ $(function() {
 						pageNumber : 1,
 						pageSize : 10,
 						title : '图标列表',
-					    onDblClickRow:btnEditIcons,
-					    //singleSelect: true,
+						onDblClickRow : btnEditIcons,
+						// singleSelect: true,
 						columns : [ [
 								{
 									field : 'ck',
@@ -115,6 +115,7 @@ function btnAddIcons() {
 	clearForm();
 	// $('#myModal').modal('show');
 	$("#iconsinfowindow").window("open");
+	$("#btnsaveIconsCon").show();
 };
 function btnEditIcons() {
 	var hasRows = $('#dtIcons').datagrid('getRows');
@@ -135,11 +136,12 @@ function btnEditIcons() {
 
 	$("#iconsId").val(rows[0].id);
 	$("#txttype").combobox("setValue", rows[0].typeId);
-	$("#txtname").val(rows[0].name); 
+	$("#txtname").val(rows[0].name);
 	$("#txtfilename").val(rows[0].iconUrl.substring(1, rows[0].iconUrl.length));
 	$("#sltImage").attr("src",
 			rows[0].iconUrl.substring(1, rows[0].iconUrl.length));
 	$("#iconsinfowindow").window("open");
+	$("#btnsaveIconsCon").hide();
 };
 function btnDelIcons() {
 	var hasRows = $('#dtIcons').datagrid('getRows');
@@ -153,22 +155,22 @@ function btnDelIcons() {
 		return;
 	}
 	var ids = "";
-	if(rows.length == 1){
+	if (rows.length == 1) {
 		ids = rows[0].id;
-	}else{
-		for(var i = 0; i< rows.length;i++){
-			ids += rows[i].id+",";
+	} else {
+		for ( var i = 0; i < rows.length; i++) {
+			ids += rows[i].id + ",";
 		}
-		if(ids.length>2){
-			ids = ids.substring(0, ids.length-1);
+		if (ids.length > 2) {
+			ids = ids.substring(0, ids.length - 1);
 		}
 	}
-//	if (rows.length > 1) {
-//		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
-//		return;
-//	}
-//	var iconId = rows[0].id;
-//	var name = rows[0].name;
+	// if (rows.length > 1) {
+	// $.messager.alert('操作提示', "只能选择单个操作项!", "warning");
+	// return;
+	// }
+	// var iconId = rows[0].id;
+	// var name = rows[0].name;
 	$.messager.confirm("系统提示", "确认删除Icon图标信息吗？", function(r) {
 		if (r) {
 			deleteIcons(ids);
@@ -185,7 +187,7 @@ function deleteIcons(id) {
 			"id" : id
 		},
 		success : function(req) {
-			//$.messager.alert("消息提示", req.Message, "info");
+			// $.messager.alert("消息提示", req.Message, "info");
 			btnSearchAction();
 		},
 		failer : function(a, b) {
@@ -209,4 +211,11 @@ function saveIconsAction() {
 	$("#txttype").combobox("setValue", 0);
 	$("#txtname").val("");
 	$("#txtfilename").val("");
+}
+function saveIconsActionExit() {
+	$("#iconsId").val(0);
+	$("#txttype").combobox("setValue", 0);
+	$("#txtname").val("");
+	$("#txtfilename").val("");
+	$("#iconsinfowindow").window("close");
 }
