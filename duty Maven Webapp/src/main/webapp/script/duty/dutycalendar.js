@@ -3,7 +3,7 @@ var m;
 var m_xid_max = 0; // duty的treegrid的id,必须确保
 var m_ymd = null; /* 当前年月日 */
 var m_dutyCalendar_Org = {};
-var m_duty ={};
+var m_duty = {};
 $(function() {
 	$("#dutyDetailsForDaywindow").window("close");
 	var args = getUrlArgs();
@@ -74,8 +74,8 @@ $(function() {
 			width : 50,
 			formatter : fmtDigit
 		} ] ],
-		rowStyler: function(row,index){
-			if(row._parentId=="undefined"||row._parentId==undefined){
+		rowStyler : function(row, index) {
+			if (row._parentId == "undefined" || row._parentId == undefined) {
 				return "background-color:#A2C4EA;color:black;font-weight:bold";
 			}
 		}
@@ -83,18 +83,18 @@ $(function() {
 });
 // 设置日历窗体的高度
 function changeDivHeight() {
-	
+
 	var bodyHeight = document.body.clientHeight;
 	var tableContentHeight = bodyHeight - 60;
 	var tdHeight = parseInt(tableContentHeight / 6) - 3;
 	var dateBoxMainDateTDBoxWidht = parseInt($("#dateTable").width() * 0.14 * 0.98);
-	var tdContentHeight=tdHeight-43;
+	var tdContentHeight = tdHeight - 43;
 	var trObj = $("#dateTable tbody tr");
 	var tdObj = $("#dateTable tbody tr td");
 	for ( var i = 0; i < tdObj.length; i++) {
 		$(tdObj[i]).height(tdHeight);
 		$(tdObj[i]).width(dateBoxMainDateTDBoxWidht);
-		$(tdObj[i]).find(".dateBoxMainDateTDBox").height(tdContentHeight); 
+		$(tdObj[i]).find(".dateBoxMainDateTDBox").height(tdContentHeight);
 	}
 
 	var dateBoxMainDateTDBoxS = $(".dateBoxMainDateTDBox");
@@ -242,42 +242,39 @@ function creatHtml(arr) {
 					+ '") class="dateBoxMainDateTD"><div class="dateBoxMainDateTDLib">'
 					+ arr[i][j]["d"]
 					+ '</div><div class="dateBoxMainDateTDBox"><ul id="ulcontent_'
-					+ i
-					+ '_'
-					+ j
-					+ '">'
-					+ arr[i][j]["totalpolice"]
-					+ '<li class="baoBeiBtn">'
-					+'</li>'
-					+ '</div>'
-					+ ' </ul></div></div>'
-					+ '<div id="calendarOpratdiv_'
-					+ y
-					+ '_'
-					+ m
-					+ '_'
-					+ d
-					+ '" onmouseover=mouseOverOpratdiv("'
-					+ y
-					+ '_'
-					+ m
-					+ '_'
-					+ d
-					+ '") onmouseout=mouseOutOpratdiv("'
-					+ y
-					+ '_'
-					+ m
-					+ '_'
-					+ d
-					+ '") style="width:100% ;margin-bottom:3px; color:#0000ff; font-size:12px;cursor:pointer;">'
-					+ '<a id="copylink_' + y + '_' + m + '_' + d
-					+ '"  onclick=copyDutyByDays("' + y + '-' + m + '-' + d
-					+ '",' + i + ',' + j
-					+ ')  style="float:right;margin-right:8px;">　　</a>'
-					+ '<a id="dellink_' + y + '_' + m + '_' + d
-					+ '" onclick=deleteDutyConfirm("' + y + '-' + m + '-' + d
-					+ '",' + i + ',' + j + ') style="float:right;">　　</a>'
-					+ '</div>' + '</td>';
+					+ i + '_' + j + '">' + arr[i][j]["totalpolice"]
+					+ '<li class="baoBeiBtn">' + '</li>' + '</div>'
+					+ ' </ul></div></div>';
+			if (arr[i][j]["totalpolice"] != "<li class='nobaobei' style='display: list-item;'>无报备</li>") {
+				tdHtml += '<div id="calendarOpratdiv_'
+						+ y
+						+ '_'
+						+ m
+						+ '_'
+						+ d
+						+ '" onmouseover=mouseOverOpratdiv("'
+						+ y
+						+ '_'
+						+ m
+						+ '_'
+						+ d
+						+ '") onmouseout=mouseOutOpratdiv("'
+						+ y
+						+ '_'
+						+ m
+						+ '_'
+						+ d
+						+ '") style="width:100% ;margin-bottom:3px; color:#0000ff; font-size:12px;cursor:pointer;">'
+						+ '<a id="copylink_' + y + '_' + m + '_' + d
+						+ '"  onclick=copyDutyByDays("' + y + '-' + m + '-' + d
+						+ '",' + i + ',' + j
+						+ ')  style="float:right;margin-right:8px;">　　</a>'
+						+ '<a id="dellink_' + y + '_' + m + '_' + d
+						+ '" onclick=deleteDutyConfirm("' + y + '-' + m + '-'
+						+ d + '",' + i + ',' + j
+						+ ') style="float:right;">　　</a>' + '</div>';
+			}
+			tdHtml += '</td>';
 
 			trHtml = trHtml + tdHtml;
 		}
@@ -331,7 +328,7 @@ function getDateInfo(date) {
 						if (req.obj) {
 							var duty = req.obj;
 							structureItemTree(duty.items);
-							 m_duty = duty;
+							m_duty = duty;
 							$('#tgddutydetailsforday').treegrid('loadData',
 									duty.items);
 						} else {
@@ -379,27 +376,27 @@ function deleteDutyAction(dt, i, j) {
 				async : false,
 				success : function(req) {
 					if (req.isSuccess) {// 成功填充数据
-						var y = dt.substring(0,4);
-						var m = dt.substring(4,6);
-						var d = dt.substring(6,9);
+						var y = dt.substring(0, 4);
+						var m = dt.substring(4, 6);
+						var d = dt.substring(6, 9);
 						var html = '<li class="nobaobei" style="display: list-item;">无报备</li>';
-						html += '<li class="baoBeiBtn">'
-								+ '<div class="pasteBtnBox" id="pasteBtn_'
-								+ i
-								+ "_"
-								+ j
-								+ '"  onclick=selectPasteBox("'
-								+ y
-								+ '-'
-								+ m
-								+ '-'
-								+ d
-								+ '",'
-								+ i
-								+ ','
-								+ j
-								+ ') style="display: none;"><a href="javascript:void(0);">粘贴</a></div>'
-								+ '</div></li>';
+//						html += '<li class="baoBeiBtn">'
+//								+ '<div class="pasteBtnBox" id="pasteBtn_'
+//								+ i
+//								+ "_"
+//								+ j
+//								+ '"  onclick=selectPasteBox("'
+//								+ y
+//								+ '-'
+//								+ m
+//								+ '-'
+//								+ d
+//								+ '",'
+//								+ i
+//								+ ','
+//								+ j
+//								+ ') style="display: none;"><a href="javascript:void(0);">粘贴</a></div>'
+//								+ '</div></li>';
 						$("#ulcontent_" + i + "_" + j).html(html);
 
 					} else {
@@ -540,7 +537,7 @@ function structureItem(item, parent) {
 	if (item.itemTypeId == 101) {
 		initDate(item);
 	}
-	 
+
 	itemiconCls = createIconStyle(item, item.itemTypeId, item.iconUrl);
 
 	switch (item.itemTypeId) {
@@ -732,10 +729,10 @@ function btnExportAction() {
 			orgId : m_dutyCalendar_Org.id,
 			ymd : m_dutyCalendar_Org.date
 		},
-		success : function(req) { 
-			if(req.isSuccess){
+		success : function(req) {
+			if (req.isSuccess) {
 				var urlStr = req.Data.substring(1, req.Data.length);
-				window.location.href = urlStr; 
+				window.location.href = urlStr;
 			}
 		},
 		failer : function(a, b) {
@@ -783,7 +780,7 @@ function clearClipbord() {
 		$(this).css('display', 'none');
 	});
 };
-function btnSearchAction(){
+function btnSearchAction() {
 	var name = $('#txttargetName').val();
 	if (name != "") {
 		var a = findDutyPoint(name);
