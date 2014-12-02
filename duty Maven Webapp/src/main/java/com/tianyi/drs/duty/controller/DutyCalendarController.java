@@ -281,7 +281,7 @@ public class DutyCalendarController {
 					+ "\",\"Data\":\"\"}";
 		}
 	}
- 
+
 	private List<DutyExportVM> getSubList(List<DutyExportVM> sList,
 			List<DutyItemVM> list, int vechilecount, int policecount,
 			int weaponcount, int gpsdeviceCount) {
@@ -306,10 +306,9 @@ public class DutyCalendarController {
 				sList.add(dwm);
 				getSubList(sList, dim.getChildren(), vechilecount, policecount,
 						weaponcount, gpsdeviceCount);
-				
 
 			} else {
-			
+
 				sList.add(dwm);
 			}
 			vechilecount = getVehicleCount(dim);
@@ -334,8 +333,8 @@ public class DutyCalendarController {
 			gpsCount++;
 		}
 		if (dim.getChildren() != null && dim.getChildren().size() > 0) {
-			for (int i = 0; i < dim.getChildren().size(); i++) { 
-					gpsCount += getGpsdeviceCount(dim.getChildren().get(i)); 
+			for (int i = 0; i < dim.getChildren().size(); i++) {
+				gpsCount += getGpsdeviceCount(dim.getChildren().get(i));
 			}
 		}
 		return gpsCount;
@@ -347,8 +346,8 @@ public class DutyCalendarController {
 			weaponCount++;
 		}
 		if (dim.getChildren() != null && dim.getChildren().size() > 0) {
-			for (int i = 0; i < dim.getChildren().size(); i++) { 
-					weaponCount += getWeaponCount(dim.getChildren().get(i)); 
+			for (int i = 0; i < dim.getChildren().size(); i++) {
+				weaponCount += getWeaponCount(dim.getChildren().get(i));
 			}
 		}
 		return weaponCount;
@@ -360,8 +359,8 @@ public class DutyCalendarController {
 			policeCount++;
 		}
 		if (dim.getChildren() != null && dim.getChildren().size() > 0) {
-			for (int i = 0; i < dim.getChildren().size(); i++) { 
-					policeCount += getPoliceCount(dim.getChildren().get(i)); 
+			for (int i = 0; i < dim.getChildren().size(); i++) {
+				policeCount += getPoliceCount(dim.getChildren().get(i));
 			}
 		}
 		return policeCount;
@@ -373,8 +372,8 @@ public class DutyCalendarController {
 			vehicleCount++;
 		}
 		if (dim.getChildren() != null && dim.getChildren().size() > 0) {
-			for (int i = 0; i < dim.getChildren().size(); i++) { 
-					vehicleCount += getVehicleCount(dim.getChildren().get(i)); 
+			for (int i = 0; i < dim.getChildren().size(); i++) {
+				vehicleCount += getVehicleCount(dim.getChildren().get(i));
 			}
 		}
 		return vehicleCount;
@@ -491,21 +490,27 @@ public class DutyCalendarController {
 		ObjResult<DutyVM> rs = new ObjResult<DutyVM>(true, null,
 				lduty == null ? 0 : lduty.getId(), lduty);
 		DutyVM dmv = rs.getObj();
-		dmv.setId(0);
-		dmv.setIsTemplate(false);
-		dmv.setYmd(targetYmd);
-		dmv.setOrgId(orgId);
-		if (dmv.getItems() != null) {
-			for (int m = 0; m < dmv.getItems().size(); m++) {
-				DutyItemVM divm = new DutyItemVM();
-				divm = clearItemId(dmv.getItems().get(m));
-				dmv.getItems().set(m, divm);
+		if (dmv != null) {
+			dmv.setId(0);
+			dmv.setIsTemplate(false);
+			dmv.setYmd(targetYmd);
+			dmv.setOrgId(orgId);
+			if (dmv.getItems() != null) {
+				for (int m = 0; m < dmv.getItems().size(); m++) {
+					DutyItemVM divm = new DutyItemVM();
+					divm = clearItemId(dmv.getItems().get(m));
+					dmv.getItems().set(m, divm);
+				}
 			}
+			dutyService.save(dmv);
+			ObjResult<DutyVM> result = new ObjResult<DutyVM>(true, null,
+					dmv.getId(), null);// 暂时不
+			return result.toJson();
+		} else {
+			ObjResult<DutyVM> result = new ObjResult<DutyVM>(false, null, 0,
+					null);// 暂时不
+			return result.toJson();
 		}
-		dutyService.save(dmv);
-		ObjResult<DutyVM> result = new ObjResult<DutyVM>(true, null,
-				dmv.getId(), null);// 暂时不
-		return result.toJson();
 	}
 
 	private DutyItemVM clearItemId(DutyItemVM dutyItemVM) {
