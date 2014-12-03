@@ -396,7 +396,7 @@ $(document)
 													width : 50,
 													formatter : function(value,
 															row, index) {
-														return "<img alt='删除'  onclick=deleteThisNode("+row.id+",'"+row.displayName+"')  style='width:16px; height:16px' src='asset/css/easyui/icons/tianyi_delete.png'>";
+														return "<img alt='删除'  onclick=deleteThisNode("+row.id+",'"+row.name+"')  style='width:16px; height:16px' src='asset/css/easyui/icons/tianyi_delete.png'>";
 														// return "<a
 														// id='btnDelete'
 														// href='javascript:void(0);'
