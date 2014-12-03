@@ -23,13 +23,13 @@ import com.tianyi.drs.basedata.model.PoliceType;
 import com.tianyi.drs.basedata.service.PoliceService;
 import com.tianyi.drs.basedata.viewmodel.GpsBaseVM;
 import com.tianyi.drs.basedata.viewmodel.PoliceVM;
+import com.tianyi.drs.duty.util.HttpclientUtils;
 import com.tianyi.drs.duty.viewmodel.DutyVM;
 import com.tianyi.drs.duty.viewmodel.ListResult;
 import com.tianyi.drs.duty.viewmodel.ObjResult;
 import com.tianyi.drs.duty.viewmodel.UserObjectVM;
 
-import sun.misc.BASE64Decoder; 
-
+import sun.misc.BASE64Decoder;
 
 @Scope("prototype")
 @Controller
@@ -54,6 +54,11 @@ public class PoliceController {
 			@RequestParam(value = "order", required = false) String order,
 			HttpServletRequest request) throws Exception {
 		try {
+//
+//			String s = HttpclientUtils.postXML(
+//					"http://25.30.5.105:8080/drs/home/cacheMonitor",
+//					"<><><><><>");
+//			s = s + "";
 			JSONObject joQuery = JSONObject.fromObject(query);
 			int orgId = Integer.parseInt(joQuery.getString("orgId"));
 			int isSubOrg = Integer.parseInt(joQuery.getString("isSubOrg"));
@@ -375,9 +380,8 @@ public class PoliceController {
 			UserObjectVM uvm = new UserObjectVM();
 			Map<String, Object> map = new HashMap<String, Object>();
 			userName = new String(new BASE64Decoder().decodeBuffer(userName));
-			if(userName.endsWith("-"))
-			{
-				userName = userName.substring(0, userName.length()-1);
+			if (userName.endsWith("-")) {
+				userName = userName.substring(0, userName.length() - 1);
 			}
 			map.put("userName", userName);
 			map.put("password", password);
