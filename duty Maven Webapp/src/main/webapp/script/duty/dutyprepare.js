@@ -318,7 +318,7 @@ $(document)
 										fitColumns : true,
 										dnd : true,
 										resizable : true,
-										idField : 'xid',
+										idField : 'id',
 										treeField : 'displayName',
 										toolbar : '#tdDutyToolbar',
 										showFooter : true,
@@ -327,6 +327,12 @@ $(document)
 												{
 													title : 'xid',
 													field : 'xid',
+													width : 0,
+													hidden : true
+												},
+												{
+													title : 'id',
+													field : 'id',
 													width : 0,
 													hidden : true
 												},
@@ -390,7 +396,7 @@ $(document)
 													width : 50,
 													formatter : function(value,
 															row, index) {
-														return "<img alt='删除'  onclick='deleteNode()' style='width:16px; height:16px' src='asset/css/easyui/icons/tianyi_delete.png'>";
+														return "<img alt='删除'  onclick=deleteThisNode("+row.id+",'"+row.displayName+"')  style='width:16px; height:16px' src='asset/css/easyui/icons/tianyi_delete.png'>";
 														// return "<a
 														// id='btnDelete'
 														// href='javascript:void(0);'
@@ -1862,7 +1868,22 @@ function deleteNode() {
 		}
 	}
 }
-
+function deleteThisNode(id,name){
+	var children = $("#tdDuty").treegrid("getChildren",id);
+	if (children != undefined && children != null
+			&& children.length > 0) {
+		$.messager.confirm('操作提示', "确定要清空[ " +name
+				+ " ]及下级所有节点?", function(r) {
+			if (r) {
+				$("#tdDuty").treegrid("remove", id);
+				reCalcDuty();
+			}
+		});
+	} else {
+		$("#tdDuty").treegrid("remove", id);
+		reCalcDuty();
+	}
+}
 /**
  * 双击选择
  * 

@@ -114,7 +114,7 @@ function loadOrgs(){
 			orgCode :m_vehicleGroup_Org.code,
 			orgPath: m_vehicleGroup_Org.path
 		},
-		async : false,
+		//async : false,
 		success : function(req) {
 			if (req.isSuccess) {
 				var nodes=buildOrgTree(req.rows);
@@ -277,7 +277,7 @@ function loadVehicleGroup(id, callback) {
 		data : {
 			'vehicleGroupId' : id
 		},
-		async : false,
+		//async : false,
 		success : function(req) {
 			callback(req);
 		}

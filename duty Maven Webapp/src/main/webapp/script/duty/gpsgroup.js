@@ -114,7 +114,7 @@ function loadOrgs(){
 			orgCode :m_gpsGroup_Org.code,
 			orgPath: m_gpsGroup_Org.path
 		},
-		async : false,
+		//async : false,
 		success : function(req) {
 			if (req.isSuccess) {
 				var nodes=buildOrgTree(req.rows);
@@ -277,7 +277,7 @@ function loadGpsGroup(id, callback) {
 		data : {
 			'gpsGroupId' : id
 		},
-		async : false,
+		//async : false,
 		success : function(req) {
 			callback(req);
 		}

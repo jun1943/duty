@@ -227,13 +227,17 @@ function creatHtml(arr) {
 					+ i
 					+ ','
 					+ j
-					+ ') style="display: none;"><a href="javascript:void(0);">粘贴</a></div><div  onmouseover=mouseOverFunction("'
+					+ ') style="display: none;"><a href="javascript:void(0);">粘贴</a></div><div ';
+			if (arr[i][j]["totalpolice"] != "<li class='nobaobei' style='display: list-item;'>无报备</li>") {
+			tdHtml+=  ' onmouseover=mouseOverFunction("'
 					+ y
 					+ '-'
 					+ m
 					+ '-'
 					+ d
-					+ '") onmouseout=mouseOutFunction()  ondblclick=onClickData("'
+					+ '") onmouseout=mouseOutFunction() ;';
+			}
+			tdHtml+=  ' onclick=onClickData("'
 					+ y
 					+ '-'
 					+ m
@@ -322,7 +326,7 @@ function getDateInfo(date) {
 					'orgId' : m_dutyCalendar_Org.id,
 					'ymd' : date
 				},
-				async : false,
+				//async : false,
 				success : function(req) {
 					if (req.isSuccess) {// 成功填充数据
 						if (req.obj) {
@@ -493,7 +497,7 @@ function selectPasteBox(date, i, j) {
 		type : "POST",
 		dataType : "json",
 		data : pars,
-		async : false,
+		//async : false,
 		success : function(req) {
 			if (req.isSuccess) {// 成功填充数据
 				var html = $("#ulcontent_" + copyX + "_" + copyY).html();

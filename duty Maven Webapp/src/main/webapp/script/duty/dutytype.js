@@ -371,7 +371,7 @@ function  updateUsedState(id,isUsed){
         data:{
         	id:id,isUsed:isUsed
         },
-        async:false,
+        //async:false,
         success: function (req) {
             if (req.isSuccess) {//成功填充数据
             	loadDutyType();

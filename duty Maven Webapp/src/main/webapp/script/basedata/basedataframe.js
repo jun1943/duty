@@ -29,7 +29,7 @@ $(function() {
 	}
 
 	$('#orgtree').tree({
-		onDblClick : onOrgTreeDblClick,
+		onClick : onOrgTreeDblClick,
 		cascadeCheck : false
 	});
 
@@ -215,6 +215,10 @@ function loadFrmOrgs() {
 				var nodes = buildOrgTree(req.rows);
 				m_org_node = nodes;
 				$('#orgtree').tree("loadData", nodes);
+				var nodess = $('#orgtree').tree('find', m_basedataFrame_Org.id);
+				$('#orgtree').tree('select', nodess.target);
+				onOrgTreeDblClick(nodess);
+ 
 			} else {
 				$.messager.alert('提示', req.msg, "warning");
 			}

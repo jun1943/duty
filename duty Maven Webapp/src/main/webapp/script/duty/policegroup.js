@@ -114,7 +114,7 @@ function loadOrgs(){
 			orgCode :m_policeGroup_Org.code,
 			orgPath: m_policeGroup_Org.path
 		},
-		async : false,
+		//async : false,
 		success : function(req) {
 			if (req.isSuccess) {
 				var nodes=buildOrgTree(req.rows);
@@ -277,7 +277,7 @@ function loadPoliceGroup(id, callback) {
 		data : {
 			'policeGroupId' : id
 		},
-		async : false,
+		//async : false,
 		success : function(req) {
 			callback(req);
 		}

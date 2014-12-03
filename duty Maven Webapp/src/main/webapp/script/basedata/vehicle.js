@@ -94,10 +94,15 @@ $(function() {
 			title : '组呼号',
 			field : 'intercomGroup',
 			align : 'center',
-			width : 200
+			width : 200,formatter:function(value,row,index){
+				if(value==0){
+					return "";
+				}else
+					{return value;}
+			}
 		}, {
 			title : '个呼号',
-			field : 'intercomGroup',
+			field : 'personalno',
 			align : 'center',
 			width : 200
 		} ] ]
@@ -160,9 +165,11 @@ function btnEditVehicle(optType) {
 	$("#txtsiteqty").val(rows[0].siteQty);
 	$("#txtnumber").val(rows[0].number);
 	$("#txtpurpose").val(rows[0].purpose);
-	$("#txtgroupno").combobox("setValue", rows[0].intercomGroup);
-	$("#txtpersonalno").val(rows[0].intercomGroup);
-	$("#txtgpsid").combobox("setValue", rows[0].gpsId);
+	$("#txtgroupno").combobox("setValue",
+			rows[0].intercomGroup == 0 ? "" : rows[0].intercomGroup);
+	$("#txtpersonalno").val("");
+	$("#txtgpsid")
+			.combobox("setValue", rows[0].gpsId == 0 ? "" : rows[0].gpsId);
 	// $("#txtgpsname").val(rows[0].gpsName);
 	$("#vehicleinfowindow").window("open");
 	$('#btnsaveVehicleCon').hide();
@@ -323,6 +330,7 @@ function saveVehicleModel() {
 }
 function saveVehicleActionExit() {
 	saveVehicleModel();
-	if(isComplete){	
+	if (isComplete) {
 		$("#vehicleinfowindow").window("close");
-}}
+	}
+}

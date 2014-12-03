@@ -184,7 +184,7 @@ function loaddutyTypeComboTree() {
 		data : {
 			isUsed : true
 		},
-		async : false,
+		//async : false,
 		success : function(req) {
 			if (req.isSuccess) {// 成功填充数据
 				var ss = buildDutyTypeTree(req.rows);
@@ -239,7 +239,7 @@ function loadBaseDataForCombox(url, cmb) {
 		url : url,
 		type : "POST",
 		dataType : "json",
-		async : false,
+		//async : false,
 		success : function(req) {
 			cmb.combobox('loadData', req);
 		}

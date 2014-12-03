@@ -114,7 +114,7 @@ function loadOrgs(){
 			orgCode :m_weaponGroup_Org.code,
 			orgPath: m_weaponGroup_Org.path
 		},
-		async : false,
+		//async : false,
 		success : function(req) {
 			if (req.isSuccess) {
 				var nodes=buildOrgTree(req.rows);
@@ -281,7 +281,7 @@ function loadWeaponGroup(id, callback) {
 		data : {
 			'weaponGroupId' : id
 		},
-		async : false,
+		//async : false,
 		success : function(req) {
 			callback(req);
 		}

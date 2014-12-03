@@ -37,7 +37,7 @@ $(function() {
 	$('#treeDutyFrmOrg').tree({
 		checkbox : false,
 		cascadeCheck : true,
-		onDblClick : onOrgTreeDblClick
+		onClick : onOrgTreeDblClick
 	});
 	loadFrmOrgs();
 });
@@ -55,7 +55,7 @@ function batchGetUserAuthorization(userName, pwd) {
 			if (req.isSuccess) {
 				m_dutyFrame_User.id = req.obj.id;
 				m_dutyFrame_Org.id = req.obj.orgId;
-				;
+				 
 				m_dutyFrame_Org.code = req.obj.orgCode;
 				m_dutyFrame_Org.path = req.obj.orgPath;
 			} else {
@@ -173,6 +173,9 @@ function loadFrmOrgs() {
 				var nodes = buildOrgTree(req.rows);
 				m_org_node = nodes;
 				$('#treeDutyFrmOrg').tree("loadData", nodes);
+				var nodess = $('#treeDutyFrmOrg').tree('find', m_dutyFrame_Org.id);
+				$('#treeDutyFrmOrg').tree('select', nodess.target);
+				onOrgTreeDblClick(nodess);
 			} else {
 				$.messager.alert('提示', req.msg, "warning");
 			}

@@ -30,7 +30,7 @@ $(function() {
 		pageSize : 10,
 		title : "人员列表",
 		onDblClickRow : btnEditPolice,
-		//singleSelect : true,
+		// singleSelect : true,
 		columns : [ [ {
 			field : 'ck',
 			checkbox : true
@@ -46,7 +46,7 @@ $(function() {
 			align : 'center',
 			width : 50,
 			formatter : fmtIsUsed,
-			sortable:true
+			sortable : true
 		}, {
 			title : '职务',
 			field : 'title',
@@ -57,7 +57,7 @@ $(function() {
 			field : 'name',
 			align : 'left',
 			width : 100,
-			sortable:true
+			sortable : true
 		}, {
 			title : '警号',
 			field : 'number',
@@ -68,8 +68,8 @@ $(function() {
 			field : 'gps_name',
 			align : 'left',
 			width : 200,
-			sortable:true,
-			formatter:function(value, row, index){
+			sortable : true,
+			formatter : function(value, row, index) {
 				return row.gpsName;
 			}
 		}, {
@@ -98,7 +98,8 @@ $(function() {
 			field : 'type_id',
 			align : 'left',
 			width : 100,
-			sortable:true,formatter:function(value,row,index){
+			sortable : true,
+			formatter : function(value, row, index) {
 				return row.typeName;
 			}
 		}, {
@@ -184,7 +185,7 @@ function btnAddPolice(optType) {
 	operationType = optType;
 	$("#policeinfowindow").window("open");
 	clearForm();
-	 $('#btnsavePoliceCon').show();
+	$('#btnsavePoliceCon').show();
 	// $('#myModal').modal('show');
 };
 
@@ -220,7 +221,7 @@ function changePoliceState(pType) {
 			"isUsed" : pType
 		},
 		success : function(req) {
-			//$.messager.alert("消息提示", req.Message, "info");
+			// $.messager.alert("消息提示", req.Message, "info");
 			btnSearchAction();
 		},
 		failer : function(a, b) {
@@ -243,23 +244,23 @@ function btnDelPolice() {
 		$.messager.alert('操作提示', "请选择操作项!", "warning");
 		return;
 	}
-//	if (rows.length > 1) {
-//		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
-//		return;
-//	}
+	// if (rows.length > 1) {
+	// $.messager.alert('操作提示', "只能选择单个操作项!", "warning");
+	// return;
+	// }
 	var ids = "";
-	if(rows.length == 1){
+	if (rows.length == 1) {
 		ids = rows[0].id;
-	}else{
-		for(var i = 0; i< rows.length;i++){
-			ids += rows[i].id+",";
+	} else {
+		for ( var i = 0; i < rows.length; i++) {
+			ids += rows[i].id + ",";
 		}
-		if(ids.length>2){
-			ids = ids.substring(0, ids.length-1);
+		if (ids.length > 2) {
+			ids = ids.substring(0, ids.length - 1);
 		}
 	}
-//	var name = rows[0].name;
-//	var id = rows[0].id;
+	// var name = rows[0].name;
+	// var id = rows[0].id;
 	$.messager.confirm("系统提示", "确认删除警员数据信息吗？", function(r) {
 		if (r) {
 			deletePolice(ids);
@@ -314,12 +315,14 @@ function btnEditPolice(optType) {
 	$("#txtidcardno").val(rows[0].idcardno);
 	$("#txtnumber").val(rows[0].number);
 	// $("#txtgpsdes").val(rows[0].gpsName);
-	$("#txtgpsid").combobox("setValue", rows[0].gpsId);
+	$("#txtgpsid")
+			.combobox("setValue", rows[0].gpsId == 0 ? "" : rows[0].gpsId);
 	$("#txttype").combobox("setValue", rows[0].typeId);
-	$("#txtgroupno").combobox("setValue", rows[0].intercomGroup);
+	$("#txtgroupno").combobox("setValue",
+			rows[0].intercomGroup == 0 ? "" : rows[0].intercomGroup);
 	$("#txtpersonalno").val(rows[0].intercomPerson);
 	$("#policeinfowindow").window("open");
-	 $('#btnsavePoliceCon').hide();
+	$('#btnsavePoliceCon').hide();
 }
 // 清空form表单
 function clearForm() {
@@ -339,8 +342,10 @@ function clearForm() {
 // 保存新增或者编辑的数据
 var isExist = false;
 var isComplete = true;
-function savePoliceAction(){
+function savePoliceAction() {
 	savePoliceModel();
+	clearForm();
+	btnSearchAction();
 }
 
 function savePoliceModel() {
@@ -368,7 +373,7 @@ function savePoliceModel() {
 	if (operationType == "add") {
 		isExistPolice(idcardno, "idCard");
 		if (!isExist) {
-			$.messager.alert("错误提示", "身份证号码重复，请检查", "error"); 
+			$.messager.alert("错误提示", "身份证号码重复，请检查", "error");
 			$("#txtidcardno").focus();
 			isComplete = false;
 			return;
@@ -391,14 +396,14 @@ function savePoliceModel() {
 	police.mobile = $("#txtmobile").val();
 	police.mobileShort = $("#txtmobileshort").val();
 
-	//police.intercomGroup = $("#txtgroupno").combobox("getValue");
+	// police.intercomGroup = $("#txtgroupno").combobox("getValue");
 	if ($("#txtgroupno").combobox("getValue") > 0
 			&& $("#txtgroupno").combobox("getValue") != "") {
 		police.intercomGroup = $("#txtgroupno").combobox("getValue");
 	} else {
-		police.intercomGroup =0;
-//		$.messager.alert("错误提示", "请选择GPS_ID", "error");
-//		return;
+		police.intercomGroup = 0;
+		// $.messager.alert("错误提示", "请选择GPS_ID", "error");
+		// return;
 	}
 	police.intercomPerson = $("#txtpersonalno").val();
 	if ($("#txtgpsid").combobox("getValue") > 0
@@ -406,10 +411,10 @@ function savePoliceModel() {
 		police.gpsId = $("#txtgpsid").combobox("getValue");
 		police.gpsName = $("#txtgpsid").combobox("getText");
 	} else {
-		police.gpsId =0;
-		police.gpsName ="";
-//		$.messager.alert("错误提示", "请选择GPS_ID", "error");
-//		return;
+		police.gpsId = 0;
+		police.gpsName = "";
+		// $.messager.alert("错误提示", "请选择GPS_ID", "error");
+		// return;
 	}
 	// police.gpsName = $("#txtgpsdes").val();
 	$.ajax({
@@ -418,10 +423,8 @@ function savePoliceModel() {
 		dataType : "json",
 		async : false,
 		data : police,
-		success : function(req) { 
+		success : function(req) {
 			isComplete = true;
-				clearForm();  
-			btnSearchAction();
 		},
 		failer : function(a, b) {
 			$.messager.alert("消息提示", a, "info");
@@ -432,10 +435,12 @@ function savePoliceModel() {
 	});
 }
 
-function savePoliceActionExit(){
+function savePoliceActionExit() {
 	savePoliceModel();
-	if(isComplete){
+	if (isComplete) {
 		$("#policeinfowindow").window("close");
+		clearForm();
+		btnSearchAction();
 	}
 }
 function isExistPolice(param, pType) {
