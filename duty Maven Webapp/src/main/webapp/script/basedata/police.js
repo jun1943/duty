@@ -29,7 +29,10 @@ $(function() {
 		pageNumber : 1,
 		pageSize : 10,
 		title : "人员列表",
-		onDblClickRow : btnEditPolice,
+		onDblClickRow : dblClickRow,
+//	    checkOnSelect: false,
+//	    selectOnCheck: true, 
+	    onClickRow: clickRow,
 		// singleSelect : true,
 		columns : [ [ {
 			field : 'ck',
@@ -119,6 +122,10 @@ $(function() {
 	});
 	InitData();
 });
+//取消点击行选中
+function clickRow(index, data) {
+    $("#dtPolice").datagrid("unselectRow", index);
+}
 // 打包查询条件
 function pack_police_Query() {
 	m_police_Query.orgId = m_Police_OrgId;
@@ -289,6 +296,29 @@ function deletePolice(id) {
 		}
 	});
 }
+function dblClickRow(index,rowData){
+	editPoliceModel(rowData);
+}
+function editPoliceModel(rows){
+	clearForm();
+	$("#policeId").val(rows.id);
+	$("#txtname").val(rows.name);
+	$("#txttitle").val(rows.title);
+	$("#txtmobile").val(rows.mobile);
+	$("#txtmobileshort").val(rows.mobileShort);
+	$("#txtidcardno").val(rows.idcardno);
+	$("#txtnumber").val(rows.number);
+	// $("#txtgpsdes").val(rows.gpsName);
+	$("#txtgpsid")
+			.combobox("setValue", rows.gpsId == 0 ? "" : rows.gpsId);
+	$("#txttype").combobox("setValue", rows.typeId);
+	$("#txtgroupno").combobox("setValue",
+			rows.intercomGroup == 0 ? "" : rows.intercomGroup);
+	$("#txtpersonalno").val(rows.intercomPerson);
+	$("#policeinfowindow").window("open");
+	$('#btnsavePoliceCon').hide();
+}
+
 // 编辑开始
 function btnEditPolice(optType) {
 	operationType = optType;
@@ -305,24 +335,8 @@ function btnEditPolice(optType) {
 	if (rows.length > 1) {
 		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
 		return;
-	}
-	clearForm();
-	$("#policeId").val(rows[0].id);
-	$("#txtname").val(rows[0].name);
-	$("#txttitle").val(rows[0].title);
-	$("#txtmobile").val(rows[0].mobile);
-	$("#txtmobileshort").val(rows[0].mobileShort);
-	$("#txtidcardno").val(rows[0].idcardno);
-	$("#txtnumber").val(rows[0].number);
-	// $("#txtgpsdes").val(rows[0].gpsName);
-	$("#txtgpsid")
-			.combobox("setValue", rows[0].gpsId == 0 ? "" : rows[0].gpsId);
-	$("#txttype").combobox("setValue", rows[0].typeId);
-	$("#txtgroupno").combobox("setValue",
-			rows[0].intercomGroup == 0 ? "" : rows[0].intercomGroup);
-	$("#txtpersonalno").val(rows[0].intercomPerson);
-	$("#policeinfowindow").window("open");
-	$('#btnsavePoliceCon').hide();
+	} 
+	editPoliceModel(rows[0]);
 }
 // 清空form表单
 function clearForm() {

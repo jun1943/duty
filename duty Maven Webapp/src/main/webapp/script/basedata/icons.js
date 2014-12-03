@@ -34,7 +34,8 @@ $(function() {
 						pageNumber : 1,
 						pageSize : 10,
 						title : '图标列表',
-						onDblClickRow : btnEditIcons,
+						onDblClickRow :  dblClickRow,
+					    onClickRow: clickRow,
 						// singleSelect: true,
 						columns : [ [
 								{
@@ -88,7 +89,10 @@ $(function() {
 		$('#my-search-box').toggle();
 	});
 	InitUploadFun();
-});
+});//取消点击行选中
+function clickRow(index, data) {
+	  $("#dtIcons").datagrid("unselectRow", index);
+	}
 // 打包查询条件
 function pack_Icons_Query() {
 	m_Icons_Query.name = $("#txtsearchName").val();
@@ -117,6 +121,22 @@ function btnAddIcons() {
 	$("#iconsinfowindow").window("open");
 	$("#btnsaveIconsCon").show();
 };
+
+
+function dblClickRow(index,rowData){
+	editIconsModel(rowData);
+}
+function editIconsModel(rows){
+	clearForm();
+	$("#iconsId").val(rows.id);
+	$("#txttype").combobox("setValue", rows.typeId);
+	$("#txtname").val(rows.name);
+	$("#txtfilename").val(rows.iconUrl.substring(1, rows.iconUrl.length));
+	$("#sltImage").attr("src",
+			rows.iconUrl.substring(1, rows.iconUrl.length));
+	$("#iconsinfowindow").window("open");
+	$("#btnsaveIconsCon").hide();
+}
 function btnEditIcons() {
 	var hasRows = $('#dtIcons').datagrid('getRows');
 	if (hasRows.length == 0) {
@@ -132,16 +152,7 @@ function btnEditIcons() {
 		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
 		return;
 	}
-	clearForm();
-
-	$("#iconsId").val(rows[0].id);
-	$("#txttype").combobox("setValue", rows[0].typeId);
-	$("#txtname").val(rows[0].name);
-	$("#txtfilename").val(rows[0].iconUrl.substring(1, rows[0].iconUrl.length));
-	$("#sltImage").attr("src",
-			rows[0].iconUrl.substring(1, rows[0].iconUrl.length));
-	$("#iconsinfowindow").window("open");
-	$("#btnsaveIconsCon").hide();
+	editIconsModel(rows[0]);
 };
 function btnDelIcons() {
 	var hasRows = $('#dtIcons').datagrid('getRows');

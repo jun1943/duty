@@ -40,7 +40,8 @@ $(function() {
 						pageNumber : 1,
 						pageSize : 10,
 						title : '定位设备列表',
-						onDblClickRow : btnEditGpsdevice,
+						onDblClickRow : dblClickRow,
+					    onClickRow: clickRow,
 						// singleSelect : true,
 						columns : [ [
 								{
@@ -98,6 +99,10 @@ $(function() {
 	InitData();
 });
 
+//取消点击行选中
+function clickRow(index, data) {
+  $("#dtGpsdevice").datagrid("unselectRow", index);
+}
 function btnSearchAction() {
 	pack_Gpsdevice_Query();
 	$('#dtGpsdevice').datagrid("reload", {
@@ -182,6 +187,24 @@ function btnAddGpsdevice(optType) {
 	$("#gpsdeviceinfowindow").window("open");
 	$("#btnsaveDeviceCon").show();
 };
+
+
+function dblClickRow(index,rowData){
+	editGpsdeviceModel(rowData);
+}
+function editGpsdeviceModel(rows){
+	clearForm();
+	$("#gpsdeviceId").val(rows.id);
+	$("#txttype").combobox("setValue", rows.typeId);
+	$("#txtgpsname").val(rows.gpsName);
+	$("#txtgpsicon").combogrid("setValue", rows.gpsName);
+	$("#txtgpsnumber").val(rows.number);
+	$("#sltImage").attr("src",
+			rows.iconUrl.substring(1, rows.iconUrl.length));
+	// $('#myModal').modal('show');
+	$("#gpsdeviceinfowindow").window("open");
+	$("#btnsaveDeviceCon").hide();
+}
 function btnEditGpsdevice(optType) {
 	operationType = optType;
 	var hasRows = $('#dtGpsdevice').datagrid('getRows');
@@ -198,17 +221,9 @@ function btnEditGpsdevice(optType) {
 		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
 		return;
 	}
-	clearForm();
-	$("#gpsdeviceId").val(rows[0].id);
-	$("#txttype").combobox("setValue", rows[0].typeId);
-	$("#txtgpsname").val(rows[0].gpsName);
-	$("#txtgpsicon").combogrid("setValue", rows[0].gpsName);
-	$("#txtgpsnumber").val(rows[0].number);
-	$("#sltImage").attr("src",
-			rows[0].iconUrl.substring(1, rows[0].iconUrl.length));
+	 
+	editGpsdeviceModel(rows[0]);
 	// $('#myModal').modal('show');
-	$("#gpsdeviceinfowindow").window("open");
-	$("#btnsaveDeviceCon").hide();
 };
 function clearForm() {
 	$("#gpsdeviceId").val(0);

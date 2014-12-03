@@ -33,7 +33,8 @@ $(function() {
 		pageNumber : 1,
 		pageSize : 10,
 		title : '车辆列表',
-		onDblClickRow : btnEditVehicle,
+		onDblClickRow : dblClickRow,
+	    onClickRow: clickRow,
 		// singleSelect: true,
 		columns : [ [ {
 			field : 'ck',
@@ -112,7 +113,10 @@ $(function() {
 	});
 	InitData();
 });
-
+//取消点击行选中
+function clickRow(index, data) {
+    $("#dtVehicle").datagrid("unselectRow", index);
+}
 function btnSearchAction() {
 	pack_Vehicle_Query();
 	$('#dtVehicle').datagrid("reload", {
@@ -142,6 +146,28 @@ function btnAddVehicle(optType) {
 	$("#vehicleinfowindow").window("open");
 	$('#btnsaveVehicleCon').show();
 };
+
+
+
+function dblClickRow(index,rowData){
+	editVehicleModel(rowData);
+}
+function editVehicleModel(rows){
+	clearForm();
+	$("#vehicleId").val(rows.id);
+	$("#txtbrand").val(rows.brand);
+	$("#txttype").combobox("setValue", rows.vehicleTypeId);
+	$("#txtsiteqty").val(rows.siteQty);
+	$("#txtnumber").val(rows.number);
+	$("#txtpurpose").val(rows.purpose);
+	$("#txtgroupno").combobox("setValue",
+			rows.intercomGroup == 0 ? "" : rows.intercomGroup);
+	$("#txtpersonalno").val("");
+	$("#txtgpsid")
+			.combobox("setValue", rows.gpsId == 0 ? "" : rows.gpsId);
+	$("#vehicleinfowindow").window("open");
+	$('#btnsaveVehicleCon').hide();
+}
 function btnEditVehicle(optType) {
 	operationType = optType;
 	var hasRows = $('#dtVehicle').datagrid('getRows');
@@ -158,22 +184,7 @@ function btnEditVehicle(optType) {
 		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
 		return;
 	}
-	clearForm();
-	$("#vehicleId").val(rows[0].id);
-	$("#txtbrand").val(rows[0].brand);
-	$("#txttype").combobox("setValue", rows[0].vehicleTypeId);
-	$("#txtsiteqty").val(rows[0].siteQty);
-	$("#txtnumber").val(rows[0].number);
-	$("#txtpurpose").val(rows[0].purpose);
-	$("#txtgroupno").combobox("setValue",
-			rows[0].intercomGroup == 0 ? "" : rows[0].intercomGroup);
-	$("#txtpersonalno").val("");
-	$("#txtgpsid")
-			.combobox("setValue", rows[0].gpsId == 0 ? "" : rows[0].gpsId);
-	// $("#txtgpsname").val(rows[0].gpsName);
-	$("#vehicleinfowindow").window("open");
-	$('#btnsaveVehicleCon').hide();
-	// $('#myModal').modal('show');
+	editVehicleModel(rows[0]);
 };
 function clearForm() {
 	$("#vehicleId").val(0);

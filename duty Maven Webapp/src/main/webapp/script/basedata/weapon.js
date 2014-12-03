@@ -33,7 +33,8 @@ $(function() {
 		pageNumber : 1,
 		pageSize : 10,
 		title : '武器列表',
-		onDblClickRow : btnEditWeapon,
+		onDblClickRow : dblClickRow,
+	    onClickRow: clickRow,
 		// singleSelect: true,
 		columns : [ [ {
 			field : 'ck',
@@ -72,7 +73,10 @@ $(function() {
 	});
 	InitData();
 });
-
+//取消点击行选中
+function clickRow(index, data) {
+    $("#dtWeapon").datagrid("unselectRow", index);
+}
 function btnSearchAction() {
 	pack_Weapon_Query();
 	$('#dtWeapon').datagrid("reload", {
@@ -93,6 +97,23 @@ function btnAddWeapon(optType) {
 	$("#weaponinfowindow").window("open");
 	$('#btnsaveWeaponCon').show();
 };
+
+
+function dblClickRow(index,rowData){
+	editWeaponModel(rowData);
+}
+function editWeaponModel(rows){
+	clearForm();
+	$("#weaponId").val(rows.id);
+	$("#txttype").combobox("setValue", rows.typeId);
+	$("#txtnumber").val(rows.number);
+	$("#txtstandard").val(rows.standard);
+
+	// $('#myModal').modal('show');
+	$("#weaponinfowindow").window("open");
+	$('#btnsaveWeaponCon').hide();
+}
+
 function btnEditWeapon(optType) {
 	operationType = optType;
 	var hasRows = $('#dtWeapon').datagrid('getRows');
@@ -108,16 +129,8 @@ function btnEditWeapon(optType) {
 	if (rows.length > 1) {
 		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
 		return;
-	}
-	clearForm();
-	$("#weaponId").val(rows[0].id);
-	$("#txttype").combobox("setValue", rows[0].typeId);
-	$("#txtnumber").val(rows[0].number);
-	$("#txtstandard").val(rows[0].standard);
-
-	// $('#myModal').modal('show');
-	$("#weaponinfowindow").window("open");
-	$('#btnsaveWeaponCon').hide();
+	} 
+	editWeaponModel(rows[0]);
 };
 function clearForm() {
 	$("#weaponId").val(0);
