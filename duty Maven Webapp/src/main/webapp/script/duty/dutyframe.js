@@ -5,6 +5,8 @@
 var m_dutyFrame_Org = {};
 var m_dutyFrame_User = {};
 var m_dutyFrame_func_prop = {};
+var year = null;
+var month = null;
 
 var m_org_map = {};
 
@@ -14,7 +16,11 @@ $(function() {
 
 	var args = getUrlArgs();
 
-	//m_dutyFrame_User.userName = window.atob(args["user"]);
+	var nowsdate = new Date();
+	year = nowsdate.getFullYear();
+	month = nowsdate.getMonth() + 1;
+
+	// m_dutyFrame_User.userName = window.atob(args["user"]);
 	m_dutyFrame_User.userName = args["user"];
 	m_dutyFrame_User.pwd = args["pwd"];
 	m_dutyFrame_User.css = args["css"];
@@ -55,7 +61,7 @@ function batchGetUserAuthorization(userName, pwd) {
 			if (req.isSuccess) {
 				m_dutyFrame_User.id = req.obj.id;
 				m_dutyFrame_Org.id = req.obj.orgId;
-				 
+
 				m_dutyFrame_Org.code = req.obj.orgCode;
 				m_dutyFrame_Org.path = req.obj.orgPath;
 			} else {
@@ -77,6 +83,7 @@ function onOrgTreeDblClick(node) {
 	m_dutyFrame_func_prop.userId = m_dutyFrame_User.id;
 	var name = node.text;
 	m_dutyFrame_func_prop.orgName = name;
+
 	m_dutyFrame_func_prop.url = "view/duty/dutycalendar.jsp";
 	pageSwitch();
 	$("#divDutyPrepare").attr("class", "MenuMouseMove");
@@ -92,9 +99,21 @@ function pageSwitch(node, url) {
 			+ m_dutyFrame_func_prop.orgId + "&orgCode="
 			+ m_dutyFrame_func_prop.orgCode + "&orgPath="
 			+ m_dutyFrame_func_prop.orgPath + "&orgName="
-			+ m_dutyFrame_func_prop.orgName + "&userId="+m_dutyFrame_User.id;
+			+ m_dutyFrame_func_prop.orgName + "&userId=" + m_dutyFrame_User.id
+			+ "&year=" + year + "&month=" + month;
 
-	var esrc = encodeURI(src);
+//	var esrc = encodeURI(src);
+	$("#ifmWorkSpace").attr("src", src);
+}
+
+function onDutycalendar(years,months){
+	m_dutyFrame_func_prop.url = "view/duty/dutycalendar.jsp";
+	var src = m_dutyFrame_func_prop.url + "?orgId="
+	+ m_dutyFrame_func_prop.orgId + "&orgCode="
+	+ m_dutyFrame_func_prop.orgCode + "&orgPath="
+	+ m_dutyFrame_func_prop.orgPath + "&orgName="
+	+ m_dutyFrame_func_prop.orgName + "&userId=" + m_dutyFrame_User.id
+	+ "&year=" + years + "&month=" + months;
 	$("#ifmWorkSpace").attr("src", src);
 }
 
@@ -173,7 +192,8 @@ function loadFrmOrgs() {
 				var nodes = buildOrgTree(req.rows);
 				m_org_node = nodes;
 				$('#treeDutyFrmOrg').tree("loadData", nodes);
-				var nodess = $('#treeDutyFrmOrg').tree('find', m_dutyFrame_Org.id);
+				var nodess = $('#treeDutyFrmOrg').tree('find',
+						m_dutyFrame_Org.id);
 				$('#treeDutyFrmOrg').tree('select', nodess.target);
 				onOrgTreeDblClick(nodess);
 			} else {

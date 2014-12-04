@@ -1,4 +1,5 @@
 var y;
+var m_date = null;
 var m;
 var m_xid_max = 0; // duty的treegrid的id,必须确保
 var m_ymd = null; /* 当前年月日 */
@@ -12,9 +13,15 @@ $(function() {
 	m_dutyCalendar_Org.path = args["orgPath"];
 	m_dutyCalendar_Org.name = args["orgName"];
 	m_dutyCalendar_Org.userId = args["userId"];
-	var date = new Date();
-	y = date.getFullYear();
-	m = date.getMonth() + 1;
+
+	m_year = args["year"];
+	m_month = args["month"];
+
+	// var date = new Date();
+	// y = date.getFullYear();
+	// m = date.getMonth() + 1;
+	y = m_year;
+	m = m_month;
 	$("#sp_years").text(y);
 	$("#sp_month").text(m);
 	changeDivHeight(); // 表格自动高度设置
@@ -229,15 +236,10 @@ function creatHtml(arr) {
 					+ j
 					+ ') style="display: none;"><a href="javascript:void(0);">粘贴</a></div><div ';
 			if (arr[i][j]["totalpolice"] != "<li class='nobaobei' style='display: list-item;'>无报备</li>") {
-			tdHtml+=  ' onmouseover=mouseOverFunction("'
-					+ y
-					+ '-'
-					+ m
-					+ '-'
-					+ d
-					+ '") onmouseout=mouseOutFunction() ;';
+				tdHtml += ' onmouseover=mouseOverFunction("' + y + '-' + m
+						+ '-' + d + '") onmouseout=mouseOutFunction() ;';
 			}
-			tdHtml+=  ' onclick=onClickData("'
+			tdHtml += ' onclick=onClickData("'
 					+ y
 					+ '-'
 					+ m
@@ -293,6 +295,9 @@ var dtime = null;
 function onClickData(date) {
 	dtime = null;
 	var dt = date.replace(/-/gm, '');
+	if (dt.length == 7) {
+		dt = dt.substr(0, 4) + "0" + dt.substr(4, 7);
+	}
 	dtime = dt;
 	parent.onClickData(dtime);
 };
@@ -301,6 +306,9 @@ var timer = 1500;
 function mouseOverFunction(date) {
 	dtime = null;
 	var dt = date.replace(/-/gm, '');
+	if (dt.length == 7) {
+		dt = dt.substr(0, 4) + "0" + dt.substr(4, 7);
+	}
 	dtime = dt;
 	timeouts = setTimeout('getDateInfo("' + dt + '")', timer);
 	// timeouts=setTimeout(function(){
@@ -326,7 +334,7 @@ function getDateInfo(date) {
 					'orgId' : m_dutyCalendar_Org.id,
 					'ymd' : date
 				},
-				//async : false,
+				// async : false,
 				success : function(req) {
 					if (req.isSuccess) {// 成功填充数据
 						if (req.obj) {
@@ -384,23 +392,24 @@ function deleteDutyAction(dt, i, j) {
 						var m = dt.substring(4, 6);
 						var d = dt.substring(6, 9);
 						var html = '<li class="nobaobei" style="display: list-item;">无报备</li>';
-//						html += '<li class="baoBeiBtn">'
-//								+ '<div class="pasteBtnBox" id="pasteBtn_'
-//								+ i
-//								+ "_"
-//								+ j
-//								+ '"  onclick=selectPasteBox("'
-//								+ y
-//								+ '-'
-//								+ m
-//								+ '-'
-//								+ d
-//								+ '",'
-//								+ i
-//								+ ','
-//								+ j
-//								+ ') style="display: none;"><a href="javascript:void(0);">粘贴</a></div>'
-//								+ '</div></li>';
+						// html += '<li class="baoBeiBtn">'
+						// + '<div class="pasteBtnBox" id="pasteBtn_'
+						// + i
+						// + "_"
+						// + j
+						// + '" onclick=selectPasteBox("'
+						// + y
+						// + '-'
+						// + m
+						// + '-'
+						// + d
+						// + '",'
+						// + i
+						// + ','
+						// + j
+						// + ') style="display: none;"><a
+						// href="javascript:void(0);">粘贴</a></div>'
+						// + '</div></li>';
 						$("#ulcontent_" + i + "_" + j).html(html);
 
 					} else {
@@ -497,7 +506,7 @@ function selectPasteBox(date, i, j) {
 		type : "POST",
 		dataType : "json",
 		data : pars,
-		//async : false,
+		// async : false,
 		success : function(req) {
 			if (req.isSuccess) {// 成功填充数据
 				var html = $("#ulcontent_" + copyX + "_" + copyY).html();

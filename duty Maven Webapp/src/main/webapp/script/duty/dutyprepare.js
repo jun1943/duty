@@ -1,5 +1,6 @@
 var m_dutyprepare_Org = {}; /* 当前组织机构 */
 var m_ymd = null; /* 当前年月日 */
+var m_date= null;
 var m_duty = {}; /* 备勤记录 */
 
 var m_xid_max = 0; // duty的treegrid的id,必须确保
@@ -34,6 +35,7 @@ $(document)
 					m_dutyprepare_Org.userId = args["userId"];
 					m_dutyprepare_Org.name = decodeURI(args["orgName"]);
 					m_ymd = YMD.createNew((args["ymd"]));
+					m_date=args["ymd"];
 					$("#btnSearchExpendbody").bind("click", function() {
 						$('#my-search-box').toggle();
 					});
@@ -2383,4 +2385,17 @@ function findDutyTreeGrid(item, name) {
 		return null;
 	}
 }
+
+function btnBackToCalendarAction(){
+	var dateY = m_date.substring(0,4);
+	var dateM = "";
+	var dateMs = m_date.substring(4,5);
+	var dateMe = m_date.substring(5,6);
+	if(dateMs =="0"){
+		dateM = dateMe;
+	}else{
+		dateM = m_date.substring(4,6);
+	}
+	parent.onDutycalendar(dateY,dateM);
+};
 

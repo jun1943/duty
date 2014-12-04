@@ -43,7 +43,7 @@
 					href="javascript:void(0);" class="easyui-linkbutton"
 					iconcls="icon-tianyi-export" onclick="btnExportToExcelAction()">导出</a> <a
 					href="javascript:void(0);" class="easyui-linkbutton" style="float:right;margin-right:20px;margin-top:8px"
-					iconcls="icon-tianyi-back" >返回</a>
+					iconcls="icon-tianyi-back" onclick="btnBackToCalendarAction()" >返回</a>
 			</div>
 		</div>
 	</div>
