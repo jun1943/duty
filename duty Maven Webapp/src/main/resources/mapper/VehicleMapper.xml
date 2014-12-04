@@ -13,7 +13,7 @@
     <result column="brand" jdbcType="VARCHAR" property="brand" />
     <result column="site_qty" jdbcType="VARCHAR" property="siteQty" />
     <result column="sync_state" jdbcType="BIT" property="syncState" />
-    <result column="platform_id" jdbcType="VARCHAR" property="platformId" />
+    <result column="platform_id" jdbcType="INTEGER" property="platformId" />
   </resultMap>
   
   <resultMap id="ViewResultMap" type="com.tianyi.drs.basedata.viewmodel.VehicleVM">
@@ -64,7 +64,7 @@
     values (#{id,jdbcType=INTEGER}, #{vehicleTypeId,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, 
       #{number,jdbcType=VARCHAR}, #{intercomGroup,jdbcType=VARCHAR}, #{gpsId,jdbcType=INTEGER}, 
       #{gpsName,jdbcType=VARCHAR}, #{purpose,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, 
-      #{siteQty,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT}, #{platformId,jdbcType=VARCHAR}
+      #{siteQty,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tianyi.drs.basedata.model.Vehicle">
@@ -142,7 +142,7 @@
         #{syncState,jdbcType=BIT},
       </if>
       <if test="platformId != null">
-        #{platformId,jdbcType=VARCHAR},
+        #{platformId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -180,7 +180,7 @@
         sync_state = #{syncState,jdbcType=BIT},
       </if>
       <if test="platformId != null">
-        platform_id = #{platformId,jdbcType=VARCHAR},
+        platform_id = #{platformId,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -197,7 +197,7 @@
       brand = #{brand,jdbcType=VARCHAR},
       site_qty = #{siteQty,jdbcType=VARCHAR},
       sync_state = #{syncState,jdbcType=BIT},
-      platform_id = #{platformId,jdbcType=VARCHAR}
+      platform_id = #{platformId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
    <delete id="deleteByIds"  parameterType="java.util.Map" >  
