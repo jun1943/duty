@@ -318,7 +318,7 @@ $(document)
 										fitColumns : true,
 										dnd : true,
 										resizable : true,
-										idField : 'id',
+										idField : 'xid',
 										treeField : 'displayName',
 										toolbar : '#tdDutyToolbar',
 										showFooter : true,
@@ -396,7 +396,7 @@ $(document)
 													width : 50,
 													formatter : function(value,
 															row, index) {
-														return "<img alt='删除'  onclick=deleteThisNode("+row.id+",'"+row.name+"')  style='width:16px; height:16px' src='asset/css/easyui/icons/tianyi_delete.png'>";
+														return "<img alt='删除'  onclick=deleteThisNode('"+row.xid+"','"+row.name+"')  style='width:16px; height:16px' src='asset/css/easyui/icons/tianyi_delete.png'>";
 														// return "<a
 														// id='btnDelete'
 														// href='javascript:void(0);'
@@ -1334,10 +1334,8 @@ function addDutyTypeRow(value) {
 	var shift = {};
 	genDutyRow(value.id, value.name, 100, value.typeId, value.name,	duty);
 	shift.getParent=function(){return duty;};
-	shift.beginTime2 = new Date(m_ymd.getYear(), m_ymd.getMonth() - 1, m_ymd
-			.getDay(), 9, 30);
-	shift.endTime2 = new Date(m_ymd.getYear(), m_ymd.getMonth() - 1, m_ymd
-			.getDay(), 16, 30);
+	shift.beginTime2 = new Date(m_ymd.getYear(), m_ymd.getMonth() - 1, m_ymd.getDay(), 9, 30);
+	shift.endTime2 = new Date(m_ymd.getYear(), m_ymd.getMonth() - 1, m_ymd.getDay(), 16, 30);
 	genDutyRow(null, "班次", 101, null, "班次", shift);
 	$('#tdDuty').treegrid('append', {
 		parent : null,
@@ -1809,7 +1807,7 @@ function userNodeConfirm() {
 function addShift() {
 	var row = $("#tdDuty").treegrid("getSelected");
 	if (row == null) {
-		$.messager.alert('提示', "请选择父节点", "warning");
+		$.messager.alert('提示', "请选择备勤类型", "warning");
 	} else {
 		if (dutyItemRelate.check(row.itemTypeId, 101)) {
 			$('#txtShiftName').val('');
@@ -1868,19 +1866,19 @@ function deleteNode() {
 		}
 	}
 }
-function deleteThisNode(id,name){
-	var children = $("#tdDuty").treegrid("getChildren",id);
+function deleteThisNode(xid,name){
+	var children = $("#tdDuty").treegrid("getChildren",xid);
 	if (children != undefined && children != null
 			&& children.length > 0) {
 		$.messager.confirm('操作提示', "确定要清空[ " +name
 				+ " ]及下级所有节点?", function(r) {
 			if (r) {
-				$("#tdDuty").treegrid("remove", id);
+				$("#tdDuty").treegrid("remove", xid);
 				reCalcDuty();
 			}
 		});
 	} else {
-		$("#tdDuty").treegrid("remove", id);
+		$("#tdDuty").treegrid("remove", xid);
 		reCalcDuty();
 	}
 }
@@ -1935,6 +1933,7 @@ function shiftConfirm() {
 				data : [ row ]
 			});
 			$('#tdDuty').treegrid('enableDnd', row.xid);
+			reCalcDuty();
 		} else {
 			m_shift.targetRow.name = name;
 			m_shift.targetRow.displayName = name;
