@@ -16,7 +16,7 @@
 	type='text/javascript'></script>
 	<script src='<%=basePath%>script/basedata/uploadIcon.js'
 	type='text/javascript'></script>
-<title>图标管理</title>
+<title>基础数据——图标管理</title>
 
 
 </head> 

@@ -1,3 +1,12 @@
+/*
+ *定位设备管理
+ *
+ *包括增、删、改、查
+ *
+ *
+ */
+
+
 var m_Gpsdevice_OrgId;
 var m_Gpsdevice_OrgCode;
 var m_Gpsdevice_OrgPath;
@@ -115,10 +124,11 @@ function InitData() {
 	getGpsType();
 	getGpsIconList();
 };
+//获取GPS类型列表
 function getGpsType() {
 	getBaseDataCombobox("gpsdevice/getGpsType.do", "txttype");
 };
-
+//获取相关上传图标列表，以下拉列表的形式
 function getGpsIconList() {
 	$("#txtgpsicon")
 			.combogrid(
@@ -281,6 +291,7 @@ function btnDelGpsdevice() {
 		}
 	});
 };
+//删除事件
 function deleteGpsdevice(id) {
 	$.ajax({
 		url : "gpsdevice/deleteGpsdevice.do",
@@ -306,6 +317,7 @@ var isComplete = true;
 function saveGpsdeviceAction() {
 	saveGpsModel();
 };
+//保存方法模块
 function saveGpsModel() {
 	var gpsdevice = {};
 	gpsdevice.id = $("#gpsdeviceId").val();

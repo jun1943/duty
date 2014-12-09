@@ -12,7 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="asset/css/images/dateStyle.css"/>
 <script src='<%=basePath%>script/basedata/police.js'
 	type='text/javascript'></script>
-<title>警员管理</title>
+<title>基础数据——警员管理</title>
 
 
 </head>

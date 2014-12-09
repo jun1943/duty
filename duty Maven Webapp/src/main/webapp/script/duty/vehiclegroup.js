@@ -1,6 +1,12 @@
-
+ 
 /*
- * 警员组
+ * 车辆分组；
+ * 
+ * 包括分组的增删改查
+ * 
+ * 小组是否共享到下级
+ * 
+ * 以及组成员的添加删除
  * 
  */
 var m_vehicleGroup_Org = {};
@@ -35,7 +41,7 @@ $(document).ready(function() {
 		              {	title : '共享类型',	field : 'shareTypeDesc',	align : 'left',width : 200} 
 		              ] ]
 	});
-
+	//组成员的加载
 	$('#dtGroupMember').datagrid({
 		url:'vehicleGroup/loadMemberByGroupId.do',
 		queryParams : {

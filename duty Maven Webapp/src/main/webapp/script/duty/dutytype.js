@@ -1,9 +1,14 @@
 
 /*
-备勤
+*请勿类型管理页面；
+*
+*增加、珊瑚、修改、启用锁定操作；
 */
 
 $(function () {
+	
+	
+	//加载勤务类型相关属性，以下拉列表的形式呈现；
 	
 	$("#cmbProperty").combobox({
         valueField: 'id',
@@ -50,7 +55,7 @@ $(function () {
     loadDutyType();
     loadDutyProperties();
 });
-
+//设置人数上限；
 function changeUnMax(){
 	if($('#chkUnMax').prop("checked")){
 		$('#txtMaxPolice').val("");
@@ -61,7 +66,7 @@ function changeUnMax(){
 	}
 		
 }
-
+//设置显示内容，名称还是刷量
 function getDutyTypeDisplayType(value, rowData, index){
 	if(rowData!=null){
 		if(rowData.isShowname)
@@ -144,7 +149,7 @@ function getDutyTypeUsed(value, rowData, index){
 			return "停用";
 	}
 }
-
+//加载勤务类型属性；
 function loadDutyProperties(){
 	$.ajax({
         url: "dutyType/loadProperties.do",
@@ -164,7 +169,7 @@ function loadDutyProperties(){
 }
 
 
-
+//获取勤务类型列表
 function loadDutyType() {
     $.ajax({
         url: "dutyType/list.do",
@@ -287,7 +292,7 @@ function editDutyType(){
 		$("#winDutyType").window("open");
 	}
 }
-
+//删除勤务类型，只能删除最末级节点
 function delDutyType(){
 	var row = $("#dtDutyType").datagrid("getSelected");
 	if(row !=null){
@@ -383,7 +388,7 @@ function  updateUsedState(id,isUsed){
     });
 }
 
-
+//曹村勤务类型模块事件
 
 function saveDutyType(){
 	var dt={};

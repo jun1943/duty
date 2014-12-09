@@ -1,3 +1,10 @@
+/*
+ * 车辆管理；
+ * 
+ * 包括车辆的增删改查
+ */
+
+
 var m_Vehicle_OrgId;
 var m_Vehicle_OrgCode;
 var m_Vehicle_OrgPath;
@@ -117,6 +124,7 @@ $(function() {
 function clickRow(index, data) {
     $("#dtVehicle").datagrid("unselectRow", index);
 }
+//查询条件筛选
 function btnSearchAction() {
 	pack_Vehicle_Query();
 	$('#dtVehicle').datagrid("reload", {
@@ -130,7 +138,7 @@ function InitData() {
 	getGroupNumber();
 	getGpsID(m_Vehicle_OrgId);
 };
-
+//获取车辆属性、以下拉列表的形式呈现；
 function getVehicleType() {
 	getBaseDataCombobox("vehicle/getVehicleType.do", "txttype");
 };
@@ -210,7 +218,7 @@ function pack_Vehicle_Query() {
 	}
 	m_Vehicle_Query.number = $("#txtsearchnumber").val();
 };
-
+//删除模块
 function btnDelVehicle() {
 	var hasRows = $('#dtVehicle').datagrid('getRows');
 	if (hasRows.length == 0) {
@@ -246,6 +254,8 @@ function btnDelVehicle() {
 		}
 	});
 };
+
+//删除事件
 function deleteVehicle(id) {
 	$.ajax({
 		url : "vehicle/deleteVehicle.do",
@@ -271,6 +281,7 @@ var isComplete = true;
 function saveVehicleAction() {
 	saveVehicleModel();
 };
+//保存模块事件
 function saveVehicleModel() {
 	var vehicle = {};
 

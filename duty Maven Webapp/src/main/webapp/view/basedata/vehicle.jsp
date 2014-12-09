@@ -12,7 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="asset/css/images/dateStyle.css"/>
 <script src='<%=basePath%>script/basedata/vehicle.js'
 	type='text/javascript'></script>
-<title>车辆管理</title>
+<title>基础数据——车辆管理</title>
 
 
 </head>

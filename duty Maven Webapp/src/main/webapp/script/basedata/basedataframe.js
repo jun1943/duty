@@ -1,5 +1,9 @@
 /*
- * 勤务管理主页面
+ * 基础数据管理初始-主页面
+ * 
+ * 包括页面跳转、
+ * 组织机构数的加载、
+ * 以及权限的控制
  */
 
 var m_basedataFrame_Org = {};
@@ -48,6 +52,8 @@ $(function() {
 	// });
 	// });
 });
+
+//验证用户有效性，加载相关组织机构信息
 function batchGetUserAuthorization(userName, pwd) {
 	$.ajax({
 		url : "police/batchGetUserAuthorization.do",
@@ -85,6 +91,8 @@ function InitPage() {
 	$("#ifmWorkSpace").attr("src", src);
 	$("#policemanage").attr("class", "dateBoxMenuOn");
 }
+
+//树点击事件
 function onOrgTreeDblClick(node) {
 	m_basedataFrame_func_prop.url = "view/basedata/police.jsp";
 	m_basedataFrame_func_prop.orgId = node.id;

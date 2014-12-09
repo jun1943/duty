@@ -1,3 +1,10 @@
+/*
+ * 
+ * 武器管理业务逻辑
+ * 
+ * 包括武器的增删改查等操作；
+ */
+
 var m_Weapon_OrgId;
 var m_Weapon_OrgCode;
 var m_Weapon_OrgPath;
@@ -102,6 +109,8 @@ function btnAddWeapon(optType) {
 function dblClickRow(index,rowData){
 	editWeaponModel(rowData);
 }
+
+//编辑模块事件
 function editWeaponModel(rows){
 	clearForm();
 	$("#weaponId").val(rows.id);
@@ -185,6 +194,7 @@ function btnDelWeapon() {
 		}
 	});
 };
+//删除事件
 function deleteWeapon(id) {
 	$.ajax({
 		url : "weapon/deleteWeapon.do",
@@ -211,7 +221,7 @@ var isComplete = true;
 function saveWeaponAction() {
 	saveWeaponModel();
 };
-
+//保存事件模块
 function saveWeaponModel() {
 	var weapon = {};
 

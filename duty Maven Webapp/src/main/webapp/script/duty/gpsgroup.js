@@ -1,6 +1,12 @@
 
 /*
- * 警员组
+ * 定期设备分组；
+ * 
+ * 包括分组的增删改查
+ * 
+ * 小组是否共享到下级
+ * 
+ * 以及组成员的添加删除
  * 
  */
 var m_gpsGroup_Org = {};
@@ -67,14 +73,14 @@ $(document).ready(function() {
 //					return buildOrgTree(data);
 //				}
 			});
-
+	//加载组织机构树
 	$('#treeOrgWithGps').tree(
 			{
 				url : "org/listWithGps.do?rootId="+m_gpsGroup_Org.id,
 				checkbox : false,
 				cascadeCheck : false
 			});
-	
+	//组成员列表加载
 	$('#dtSelGroupMember').datagrid({
 		idField : 'id',
 		singleSelect : true,

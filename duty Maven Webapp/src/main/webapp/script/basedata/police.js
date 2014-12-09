@@ -1,3 +1,12 @@
+/*
+ * 
+ * 警员管理
+ * 
+ * 包括警员的增删改查、以及启用锁定；
+ * 
+ * 
+ */
+
 var m_Police_Org = {};
 var m_Police_OrgId;
 var m_Police_OrgCode;
@@ -160,6 +169,8 @@ function InitData() {
 	getGpsID(m_Police_OrgId);
 };
 
+//获取警员相关属性，以下拉列表形式呈现；
+
 function getPoliceType() {
 	getBaseDataCombobox("police/getPoliceType.do", "txttype");
 	getBaseDataCombobox("police/getPoliceType.do", "sltType");
@@ -202,6 +213,8 @@ function btnUnLockPolice() {
 function btnLockPolice() {
 	changePoliceState(1);
 };
+
+//修改警员启用或锁定状态；
 function changePoliceState(pType) {
 	var hasRows = $('#dtPolice').datagrid('getRows');
 	if (hasRows.length == 0) {
@@ -457,6 +470,8 @@ function savePoliceActionExit() {
 		btnSearchAction();
 	}
 }
+
+//判断警员是否存在
 function isExistPolice(param, pType) {
 	isExist = false;
 	$.ajax({

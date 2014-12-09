@@ -1,3 +1,9 @@
+/*
+ * 
+ * 警务综合查询，查询显示时间范围内的报备统计以及明细
+ */
+
+
 var m_policeQuery_Org = {};
 var m_report_sum = {};
 

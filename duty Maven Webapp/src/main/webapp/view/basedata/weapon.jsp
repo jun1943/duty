@@ -12,7 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="asset/css/images/dateStyle.css"/>
 <script src='<%=basePath%>script/basedata/weapon.js'
 	type='text/javascript'></script>
-<title>武器管理</title>
+<title>基础数据——武器管理</title>
 
 
 </head>

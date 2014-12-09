@@ -12,7 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="asset/css/images/dateStyle.css"/>
 <script src='<%=basePath%>script/basedata/gpsdevice.js'
 	type='text/javascript'></script>
-<title>定位设备管理</title>
+<title>基础数据——定位设备管理</title>
 
 
 </head>
@@ -33,7 +33,7 @@
                 	<a id="btnExportList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-export" plain="true" onclick="btnExportList()">导出</a> -->
                	</div>
   			</div>
-  			
+  			<!-- 查询条件 -->
   			<div class="MySearch" id="my-search-box" style=" padding:3px;display:none; ">
 		 			<div class="MySearchMain">
 				 		<div>
@@ -54,6 +54,7 @@
 					</div>		
 				
 				</div> 
+				<!-- 定位设备列表 -->
   			<div id="dtGpsdevice" >
   			</div> 
  

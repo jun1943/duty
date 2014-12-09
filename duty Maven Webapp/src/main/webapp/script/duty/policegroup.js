@@ -1,6 +1,11 @@
-
 /*
- * 警员组
+ * 警员分组；
+ * 
+ * 包括分组的增删改查
+ * 
+ * 小组是否共享到下级
+ * 
+ * 以及组成员的添加删除
  * 
  */
 var m_policeGroup_Org = {};
@@ -73,7 +78,7 @@ $(document).ready(function() {
 				checkbox : false,
 				cascadeCheck : false
 			});
-	
+	//组成员列表加载
 	$('#dtSelGroupMember').datagrid({
 		idField : 'id',
 		singleSelect : true,

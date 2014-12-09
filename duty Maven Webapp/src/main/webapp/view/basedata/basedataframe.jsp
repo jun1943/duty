@@ -6,7 +6,7 @@
 <head>
 <base href="<%=basePath%>">
 
-<title>基础数据管理</title>
+<title>基础数据主页面管理</title>
 
 <!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
@@ -22,7 +22,7 @@
 		<!-- div>
 				<input type="text">
 			</div> -->
-
+		<!-- 左边组织结构树 -->
 		<div>
 			<input id="txtOrgName" style="width:70%; margin-left:4px;margin-top:2px" type="text"/>
 			<a id="btnSearchOrg" href="javascript:void(0);" class="easyui-linkbutton"

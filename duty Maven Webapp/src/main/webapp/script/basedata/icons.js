@@ -1,3 +1,12 @@
+/*
+ * 图标管理
+ * 
+ * 包括图标的增删改查等相关操作；
+ * 
+ * 图片的上传；
+ */
+
+
 var m_Icons_OrgId;
 var m_Icons_OrgCode;
 var m_Icons_OrgPath;
@@ -188,6 +197,8 @@ function btnDelIcons() {
 		}
 	});
 }
+
+//删除事件
 function deleteIcons(id) {
 	$.ajax({
 		url : "icons/deleteIcons.do",

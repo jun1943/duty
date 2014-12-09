@@ -1,3 +1,7 @@
+/*
+ * 上传插件应用；
+ */
+
 function InitUploadFun() {
 	var button = $('#btnfindIcon'), interval;
 	var fileType = "all", fileNum = "one";

@@ -1,6 +1,11 @@
-
 /*
- * 警员组
+ * 武器分组；
+ * 
+ * 包括分组的增删改查
+ * 
+ * 小组是否共享到下级
+ * 
+ * 以及组成员的添加删除
  * 
  */
 var m_weaponGroup_Org = {};
@@ -74,7 +79,7 @@ $(document).ready(function() {
 				checkbox : false,
 				cascadeCheck : false
 			});
-	
+	//分组成员加载
 	$('#dtSelGroupMember').datagrid({
 		idField : 'id',
 		singleSelect : true,
