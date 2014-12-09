@@ -30,7 +30,10 @@ import com.tianyi.drs.duty.viewmodel.ObjResult;
 import com.tianyi.drs.duty.viewmodel.UserObjectVM;
 
 import sun.misc.BASE64Decoder;
-
+/*
+ * 警员管理逻辑控制器
+ * 
+ */
 @Scope("prototype")
 @Controller
 @RequestMapping("/police")
@@ -44,6 +47,16 @@ public class PoliceController {
 		return "index";
 	}
 
+
+	/*
+	 * 获取警员列表信息
+	 * 
+	 * police_Query：查询条件包
+	 * sort：排序列
+	 * order：排序方式
+	 * page：当前页
+	 * rows：每页条数
+	 */
 	@RequestMapping(value = "getPoliceList.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getPoliceList(
@@ -108,7 +121,12 @@ public class PoliceController {
 			return "{\"total\":0,\"rows\":[]}";
 		}
 	}
-
+	/*
+	 * 获取警员资源列表
+	 * 
+	 * 判断是否有分组id传入，如果有分组，则从分组里面选择警员
+	 * 若传入分组id为空，则从polie表里面抽取数据
+	 */
 	@RequestMapping(value = "getPoliceSource.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getPoliceSource(
@@ -168,6 +186,9 @@ public class PoliceController {
 		}
 	}
 
+	/*
+	 * 保存警员信息逻辑
+	 */
 	@RequestMapping(value = "savePolice.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String savePolice(Police police) throws Exception {
@@ -191,6 +212,11 @@ public class PoliceController {
 		}
 	}
 
+	/*
+	 * 删除警员id
+	 * 
+	 * 批量删除
+	 */
 	@RequestMapping(value = "deletePolice.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String deletePolice(String id) throws Exception {
@@ -216,6 +242,13 @@ public class PoliceController {
 		}
 	}
 
+	/*
+	 * 判断是否有有警员存在
+	 * 
+	 * 判断是否身份证号重复；
+	 * 
+	 * 判断是否警号重复；
+	 */
 	@RequestMapping(value = "isExistPolice.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String isExistPolice(
@@ -253,6 +286,9 @@ public class PoliceController {
 		}
 	}
 
+	/*
+	 * 获取警员类型列表，以下拉列表形式呈现；
+	 */
 	@RequestMapping(value = "getPoliceType.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getPoliceType() throws Exception {
@@ -265,6 +301,9 @@ public class PoliceController {
 		}
 	}
 
+	/*
+	 * 获取警员类型列表，一数据列表的形式展现；
+	 */
 	@RequestMapping(value = "getPoliceTypeList.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getPoliceTypeList() throws Exception {
@@ -281,6 +320,12 @@ public class PoliceController {
 		}
 	}
 
+	
+	/*
+	 * 获取警员分组列表，以数据列表的形式展现
+	 * 
+	 * 用于报备类型警员过滤条件筛选；
+	 */
 	@RequestMapping(value = "getintercomGroup.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getintercomGroup() throws Exception {
@@ -293,6 +338,12 @@ public class PoliceController {
 		}
 	}
 
+	/*
+	 * 获取当前组织机构下面所属的所有GPS列表
+	 * 
+	 * 以下拉列表的形式展现；
+	 */
+	
 	@RequestMapping(value = "getGpsId.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getGpsId(int orgId) throws Exception {
@@ -305,6 +356,14 @@ public class PoliceController {
 		}
 	}
 
+	
+	/*
+	 * 
+	 * 修改警员的启用与锁定状态；
+	 * 
+	 * 启用为true
+	 * 锁定为false；
+	 */
 	@RequestMapping(value = "changePoliceState.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String changePoliceState(
@@ -336,6 +395,9 @@ public class PoliceController {
 		}
 	}
 
+	/*
+	 * 查询警员列表
+	 */
 	@RequestMapping(value = "selectPolice.do", produces = "application/json;charset=UTF-8")
 	public void selectPolice() throws Exception {
 		try {

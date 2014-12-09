@@ -5,6 +5,9 @@ import java.util.Map;
 
 import com.tianyi.drs.basedata.model.Icons;
 import com.tianyi.drs.duty.dao.core.MyBatisRepository;
+/*
+ * 系统图标映射文件
+ */
 @MyBatisRepository
 public interface IconsMapper {
     int deleteByPrimaryKey(Integer id);

@@ -25,7 +25,7 @@
 	<div data-options="region:'center'"style="padding:2px;"> 
  
 		 
-			 
+			 <!-- 工具条 -->
 			<div id="tbIcons" class="btn-toolbar" style="height:30px; margin-top:3px">
   				<div class="btn-group">
   					<a id="btnAddIcons" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-add" 	onclick="btnAddIcons('add')">新增</a>
@@ -35,6 +35,7 @@
   					<a id="btnSearchIcons" href="javascript:void(0);" class="easyui-linkbutton"  style="float:right; margin-right:20px"   onclick="btnSearchIcons()">展开查询</a>
                	</div>
   			</div>
+  			<!-- 查询条件 -->
   			<div class="MySearch" id="my-search-box" style=" padding:3px;display:none; ">
 		 			<div class="MySearchMain">
 				 		<div>
@@ -55,12 +56,12 @@
 					</div>		
 				
 				</div> 
-  			 
+  			 <!-- 图标列表 -->
   			<div id="dtIcons" >
   			</div> 
 	</div> 
 	 
-	
+	<!-- 编辑窗体内容 -->
 	 <div id="iconsinfowindow" class="easyui-window" title="新增/编辑武器信息"
 			data-options="iconCls:'icon-edit',modal:true" closed="true" 
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 

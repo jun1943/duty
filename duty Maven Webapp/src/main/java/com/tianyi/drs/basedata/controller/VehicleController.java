@@ -24,6 +24,9 @@ import com.tianyi.drs.basedata.service.VehicleService;
 import com.tianyi.drs.basedata.viewmodel.VehicleVM;
 import com.tianyi.drs.duty.viewmodel.ListResult;
 
+/*
+ * 车辆管理逻辑控制器；
+ */
 @Scope("prototype")
 @Controller
 @RequestMapping("/vehicle")
@@ -37,6 +40,15 @@ public class VehicleController {
 	@Resource(name = "vehicleService")
 	protected VehicleService vehicleService;
 
+	/*
+	 * 获取车辆列表信息
+	 * 
+	 * vehicle_Query：查询条件包
+	 * sort：排序列
+	 * order：排序方式
+	 * page：当前页
+	 * rows：每页条数
+	 */
 	@RequestMapping(value = "getVehicleList.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getVehicleList(
@@ -92,6 +104,11 @@ public class VehicleController {
 		}
 	}
 
+	/*
+	 * 
+	 * 保存车辆信息；
+	 * 
+	 */
 	@RequestMapping(value = "saveVehicle.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String saveVehicle(Vehicle vehicle) throws Exception {
@@ -114,6 +131,12 @@ public class VehicleController {
 		}
 	}
 
+	/*
+	 * 
+	 * 删除车辆，
+	 * 
+	 * id：传入选择车辆的id；
+	 */
 	@RequestMapping(value = "deleteVehicle.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String deleteVehicle(String id) throws Exception {
@@ -139,6 +162,11 @@ public class VehicleController {
 		}
 	}
 
+	
+	/*
+	 * 
+	 * 获取车辆类型列表，以下拉框的形式展现；
+	 */
 	@RequestMapping(value = "getVehicleType.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getVehicleType() throws Exception {
@@ -151,6 +179,13 @@ public class VehicleController {
 		}
 	}
 
+	
+	/*
+	 * 
+	 * 获取车辆类型列表数据，以数据列表的形式展现
+	 * 
+	 * 用于报备中车辆资源的过滤条件筛选；
+	 */
 	@RequestMapping(value = "getvehicleTypelist.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getvehicleTypelist() throws Exception {
@@ -168,6 +203,11 @@ public class VehicleController {
 		}
 	}
 
+	
+	/*
+	 * 
+	 * 获取车辆对应的组呼号；
+	 */
 	@RequestMapping(value = "getintercomGroup.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getintercomGroup() throws Exception {
@@ -180,6 +220,11 @@ public class VehicleController {
 		}
 	}
 
+	/*
+	 * 获取车辆资源类表
+	 * 
+	 * 用于报备页面资源元素的展示
+	 */
 	@RequestMapping(value = "getVehicleSource.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getVehicleSource(

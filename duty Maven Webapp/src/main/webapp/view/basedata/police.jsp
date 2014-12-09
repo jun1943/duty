@@ -20,6 +20,7 @@
 <body class="easyui-layout" style="padding:2px" oncontextmenu=self.event.returnValue=false>
 	 
 	<div data-options="region:'center'" style="padding:2px">
+				<!-- 工具条 -->	
 				<div id="tbPolice" class="btn-toolbar" style="height:30px; margin-top:3px">
 					<div class="btn-group">
 						<a id="btnAddPolice" href="javascript:void(0);"
@@ -43,7 +44,7 @@
 						 
 					</div>
 			 	</div>
-			 	
+			 	<!-- 查询条件 -->
 			 	<div class="MySearch" id="my-search-box" style=" padding:3px;display:none; ">
 		 			<div class="MySearchMain">
 				 		<div>
@@ -67,12 +68,13 @@
 							</form>
 						</div>	
 					</div>		
-				
+				<!-- 警员列表 -->
 				</div> 
 				<div id="dtPolice"></div>
 			 
 			 
 		</div>
+		<!-- 编辑窗体内容 -->
 		<div id="policeinfowindow" class="easyui-window" title="新增/编辑 警员信息"
 			data-options="iconCls:'icon-edit',modal:true" closed="true" 
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 

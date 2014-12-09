@@ -23,6 +23,10 @@ import com.tianyi.drs.basedata.service.WeaponService;
 import com.tianyi.drs.basedata.viewmodel.WeaponVM;
 import com.tianyi.drs.duty.viewmodel.ListResult; 
 
+/*
+ * 
+ * 武器管理逻辑控制器；
+ */
 @Scope("prototype")
 @Controller
 @RequestMapping("/weapon")
@@ -30,7 +34,13 @@ public class WeaponController {
 		
 	@Resource(name="weaponService")
 	protected WeaponService weaponService;
-
+	/*
+	 * 获取武器列表信息
+	 * 
+	 * weapon_Query：查询条件包 
+	 * page：当前页
+	 * rows：每页条数
+	 */
 	@RequestMapping(value = "getWeaponList.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getWeaponList(
@@ -72,6 +82,13 @@ public class WeaponController {
 			return "{\"total\":0,\"rows\":[]}";
 		}
 	}
+	
+	/*
+	 * 
+	 * 获取武器资源列表，
+	 * 
+	 * 用于报备资源元素展示；
+	 */
 	@RequestMapping(value = "getweaponSource.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getweaponSource(  
@@ -124,7 +141,10 @@ public class WeaponController {
 			return "{\"total\":0,\"rows\":[]}";
 		}
 	}
-
+	/*
+	 * 
+	 * 保存武器信息；
+	 */
 	@RequestMapping(value = "saveWeapon.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String saveWeapon(Weapon weapon) throws Exception {
@@ -147,7 +167,10 @@ public class WeaponController {
 		}
 	}
 	
-
+	/*
+	 * 删除武器信息
+	 * id：页面选择的武器id；
+	 */
 	@RequestMapping(value = "deleteWeapon.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String deleteWeapon(String id) throws Exception {
@@ -174,7 +197,9 @@ public class WeaponController {
 			return "{\"success\":false,\"Message\":\"删除失败，原因：" + ex.getMessage() + "\"}";
 		}
 	}
-
+	/*
+	 * 获取武器类型下拉列表；
+	 */
 	@RequestMapping(value="getWeaponType.do",produces="application/json;charset=UTF-8")
 	public @ResponseBody String getWeaponType() throws Exception {
 		try
@@ -187,6 +212,9 @@ public class WeaponController {
 			return "";
 		}
 	}
+	/*
+	 * 获取武器类型列表数据，
+	 */
 	@RequestMapping(value="getWeaponTypelist.do",produces="application/json;charset=UTF-8")
 	public @ResponseBody String getWeaponTypelist() throws Exception {
 		try

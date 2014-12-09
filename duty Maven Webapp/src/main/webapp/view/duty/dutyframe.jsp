@@ -6,7 +6,7 @@
   <head>
     <base href="<%=basePath%>">
     
-    <title>勤务备勤</title>
+    <title>勤务管理——跳转主页</title>
     
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
@@ -17,6 +17,7 @@
   <body style="overflow:hidden">
 <div id="cc" class="easyui-layout" style="width:100%;height:100%;" oncontextmenu=self.event.returnValue=false>
 	<div data-options="region:'west',title:'组织机构导航树',split:true"  style="width:14%;padding:10px;overflow:hidden">
+		<!-- 左边导航树 -->
 		<div>
 			<input id="txtOrgName" style="width:70%; margin-left:4px;margin-top:2px" type="text"/>
 			<a id="btnSearchOrg" href="javascript:void(0);" class="easyui-linkbutton"
@@ -24,11 +25,13 @@
 		</div>
     	<ul id="treeDutyFrmOrg"></ul>
     </div>
+    
+    <!-- 内容区域，采用iframe方式切入 -->
     <div data-options="region:'center'" style="overflow:hidden" >
     	<iframe id="ifmWorkSpace" name="ifmWorkSpace"  scrolling='yes'  frameborder='0'  style="width:100%;height:100%"></iframe>
     </div>        
     <div data-options="region:'east',split:false"  style="width:15%;overflow:hidden">
-    	<!--导航目录 s-->
+    	<!--右边导航目录 s-->
 		<div class="MenuBox">
 			<ul>
 		    	<li style="cursor:default"  id="MenuBoxOn">

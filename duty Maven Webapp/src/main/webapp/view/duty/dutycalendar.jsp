@@ -19,7 +19,7 @@
 	<link href='<%=basePath%>asset/css/images/dutycalendar.css' media='all'
 	rel='stylesheet' type='text/css' /> 
 
-<title>勤务报备</title> 
+<title>勤务管理——工作日历</title> 
 </head>
   <body oncontextmenu=self.event.returnValue=false>
     
@@ -39,6 +39,7 @@
                     	</ul>
 	                </div>
 	            </div>	
+	            <!-- 清楚本月报备数据以及清空剪切板 -->
 	            <div class="dateBoxMainTItleTxt">
 	            	<div class="dateBoxMainTItleTxtDIv">
 	                    <a href="javascript:void(0);" onclick="clearAlldutyData()"><img src="asset/css/images/canelpast.png" alt="清楚当月所有报备数据" title="清楚当月所有报备数据" /></a>
@@ -46,7 +47,7 @@
 	                </div>
 	            </div>
         	</div>
-        	
+        	<!-- 日历主界面 -->
         	<div class="dateBoxMainDate" style="overflow:auto">
 	        	 <table id="dateTable" class="" width="100%" height="100%" style="font-size:12px" >
 	                <thead>
@@ -66,7 +67,7 @@
         	</div>
     	</div>
 	</div>
-	 
+	 <!-- 报备详细明细窗体内容 -->
  	<div id="dutyDetailsForDaywindow" title="警务报备情况" class="easyui-window" data-options="iconCls:'icon-edit',modal:true" closed="true" 
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
 			style="width:654px; height:450px; padding: 10px;"> 

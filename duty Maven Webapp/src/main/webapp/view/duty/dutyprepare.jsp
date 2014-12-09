@@ -13,17 +13,18 @@
 	type='text/javascript'></script>
 
 <style type="text/css">
-.prop_val { .
+.prop_val { 
 	width: 233px
 }
 </style>
 
-<title>勤务报备</title>
+<title>勤务管理——报备</title>
 
 </head>
 
 <body class="easyui-layout" oncontextmenu=self.event.returnValue=false>
 	<div data-options="region:'north'" style="height:40px">
+	<!-- 导航工具条 -->
 		<div id="tbGroup" class="btn-toolbar">
 			<div class="btn-group"
 				style="background: url(asset/css/images/dateMenuBg.png) repeat-x;width: 100%;line-height: 40px;overflow: hidden;height: 38px;">
@@ -47,11 +48,12 @@
 			</div>
 		</div>
 	</div>
-
+	<!-- 内容区域左侧人员、车辆、武器定位设备导航栏 -->
 	<div id="divResource" data-options="region:'west',split:false"
 		title="资源" style="width:25%;height:100%;overflow:hidden">
 		<div id="tt" class="easyui-tabs" style="width:100%;height:550px;">
 			<div title="人员" style="padding:10px;height:100%;overflow:hidden">
+				<!-- 警员列表 -->
 				<div id="source_police"></div>
 				<div style="margin-top:2px">
 					<a id="btnAddAllPolice" onclick="addSelPolices()"
@@ -72,6 +74,7 @@
 				</div>
 			</div>
 			<div title="车辆" style="padding:10px;height:100%;overflow:hidden">
+				<!-- 车辆列表 -->
 				<div id="source_vehicle"></div>
 				<div style="margin-top:2px">
 					<a id="btnCheckAllVehicle" style="float:right; margin-right:10px"
@@ -91,6 +94,7 @@
 				</div>
 			</div>
 			<div title="定位设备" style="padding:10px;height:100%;overflow:hidden">
+				<!-- 定位设备列表 -->
 				<div id="source_gpsdevice"></div>
 				<div style="margin-top:2px">
 					<a id="btnCheckAllGps" onclick='addSelgps()'
@@ -110,6 +114,7 @@
 				</div>
 			</div>
 			<div title="武器" style="padding:10px;height:100%;overflow:hidden">
+				<!-- 武器列表 -->
 				<div id="source_weapon"></div>
 				<div style="margin-top:2px">
 					<a id="btnCheckAllWeapon" onclick='addSelWeapons()'
@@ -130,7 +135,7 @@
 			</div>
 		</div>
 	</div>
-
+	<!-- 报备区域导航 -->
 	<div id="divMember" data-options="region:'center'" title="备勤">
 		<div class="easyui-layout" style="height:100%;width :100%">
 			<div data-options="region:'north'" style="height:30px">
@@ -179,11 +184,12 @@
 					</div>
 
 				</div>
+				<!-- 报备详细列表树 -->
 				<div id="tdDuty"></div>
 			</div>
 		</div>
 	</div>
-
+	<!-- 警员过滤筛选条件 -->
 	<div id="policeConditionwindow" class="easyui-window" title="人员选择过滤条件"
 		data-options="iconCls:'icon-edit',modal:true" closed="true"
 		collapsible="false" minimizable="false" maximizable="false"
@@ -205,6 +211,7 @@
 			</div>
 		</div>
 	</div>
+		<!-- 定位设备筛选过滤条件 -->
 	<div id="gpsConditionwindow" class="easyui-window" title="定位设备选择过滤条件"
 		data-options="iconCls:'icon-edit',modal:true" closed="true"
 		collapsible="false" minimizable="false" maximizable="false"
@@ -226,6 +233,7 @@
 			</div>
 		</div>
 	</div>
+	<!-- 武器过滤筛选条件 -->
 	<div id="weaponConditionwindow" class="easyui-window" title="武器选择过滤条件"
 		data-options="iconCls:'icon-edit',modal:true" closed="true"
 		collapsible="false" minimizable="false" maximizable="false"
@@ -247,6 +255,7 @@
 			</div>
 		</div>
 	</div>
+	<!-- 车辆过滤筛选条件 -->
 	<div id="vehicleConditionwindow" class="easyui-window" title="车辆选择过滤条件"
 		data-options="iconCls:'icon-edit',modal:true" closed="true"
 		collapsible="false" minimizable="false" maximizable="false"
@@ -268,6 +277,8 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- 勤务类型选择框 -->
 	<div id="dutyTypeSelectwindow" class="easyui-window" title="报备类型-选择"
 		data-options="iconCls:'icon-edit'" closed="true" collapsible="false"
 		minimizable="false" maximizable="false" resizable="false"
@@ -284,6 +295,7 @@
 			</div>
 		</div>
 	</div>
+	<!-- 模板选择框 -->
 	<div id="dutyTemplateSelectwindow" class="easyui-window"
 		title="备勤模板-选择" data-options="iconCls:'icon-edit'" closed="true"
 		collapsible="false" minimizable="false" maximizable="false"
@@ -301,7 +313,7 @@
 			</div>
 		</div>
 	</div>
-
+	<!-- 班次设置对话框 -->
 	<div style="display:none">
 		<div id="div_worksheet">
 			<div id="tb_worksheet" class="btn-toolbar">
@@ -329,7 +341,7 @@
 			</div>
 		</div>
 	</div>
-
+	<!-- 自定义编组对话框 -->
 	<div id="userNodeWindows" class="easyui-window" title="自定义编组"
 		data-options="iconCls:'icon-save',modal:true" closed="true"
 		collapsible="false" minimizable="false" maximizable="false"
@@ -356,7 +368,7 @@
 			</div>
 		</div>
 	</div>
-
+	<!-- 班次添加对话框 -->
 	<div id="shiftWindows" class="easyui-window" title="班次"
 		data-options="iconCls:'icon-save',modal:true" closed="true"
 		collapsible="false" minimizable="false" maximizable="false"
@@ -397,7 +409,7 @@
 			</div>
 		</div>
 	</div>
-
+	<!-- 保存模板对话框 -->
 	<div id="templateWindows" class="easyui-window" title="备勤模板-保存"
 		data-options="iconCls:'icon-save',modal:true" closed="true"
 		collapsible="false" minimizable="false" maximizable="false"
@@ -424,7 +436,7 @@
 			</div>
 		</div>
 	</div>
-
+	<!-- 报备复制日历显示框 -->
 	<div id="calendarWindow" class="easyui-window" title="备勤复制"
 		data-options="iconCls:'icon-save',modal:true" closed="true"
 		collapsible="false" minimizable="false" maximizable="false"
@@ -444,7 +456,7 @@
 			</div>
 		</div>
 	</div>
-
+	<!-- 关联任务对话框 -->
 	 <div id="taskWindow"  class="easyui-window" title="任务关联"  data-options="iconCls:'icon-save',modal:true" closed="true" 
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" style="width: 580px; height:350px; padding: 2px;">
 			<div class="easyui-layout" data-options="fit:true">

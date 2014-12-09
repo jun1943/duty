@@ -24,7 +24,7 @@
 		 
 		 
 				 
-			 
+			 <!-- 工具条 -->
 				<div id="tbVehicle" class="btn-toolbar" style="height:30px; margin-top:3px">
 	  				<div class="btn-group">
 	  					<a id="btnAddVehicle" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-add"   onclick="btnAddVehicle('add')">创建</a>
@@ -36,6 +36,7 @@
 	                	<a id="btnExportList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-export" plain="true" onclick="btnExportList()">导出</a> -->
 	               	</div>
 	  			</div>
+	  			<!-- 查询框 -->
 	  			<div class="MySearch" id="my-search-box" style=" padding:3px;display:none; ">
 		 			<div class="MySearchMain">
 				 		<div>
@@ -56,10 +57,11 @@
 					</div>		
 				
 				</div>
-	  			 
+	  			 <!-- 车辆列表 -->
 	  			<div id="dtVehicle" >
   				</div> 
   			</div>  
+  			<!-- 编辑窗体内容 -->
   <div id="vehicleinfowindow" class="easyui-window" title="新增/编辑车辆信息"
 			data-options="iconCls:'icon-edit',modal:true" closed="true" 
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 

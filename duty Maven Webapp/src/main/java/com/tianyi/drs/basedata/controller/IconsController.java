@@ -44,6 +44,11 @@ import com.tianyi.drs.duty.viewmodel.DutyTypeVM;
 import com.tianyi.drs.duty.viewmodel.ListResult;
 import com.tianyi.drs.duty.viewmodel.ObjResult;
 
+/*'
+ *图标管理逻辑控制器
+ *
+ */
+
 @Scope("prototype")
 @Controller
 @RequestMapping("/icons")
@@ -55,7 +60,15 @@ public class IconsController extends CommonsMultipartResolver {
 	public IconsController() {
 		super();
 	}
-
+	
+	/*
+	 * 获取图标列表信息
+	 * 
+	 * param：query查询条件包
+	 * 
+	 * page：当前页
+	 * rows：每页条数
+	 */
 	@RequestMapping(value = "getIconsList.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getIconsList(
@@ -90,6 +103,11 @@ public class IconsController extends CommonsMultipartResolver {
 		}
 	}
 
+	/*
+	 * 删除图标信息
+	 *  
+	 * id：删除对象的id
+	 */
 	@RequestMapping(value = "deleteIcons.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String deleteIcons(String id) throws Exception {
@@ -141,6 +159,10 @@ public class IconsController extends CommonsMultipartResolver {
 		}
 	}
 
+	/*
+	 * 上传控件后台接受地址
+	 * file：上传控件的输入流数据
+	 */
 	@RequestMapping(value = "uploadIcon.do")
 	public @ResponseBody
 	String uploadIcon(
