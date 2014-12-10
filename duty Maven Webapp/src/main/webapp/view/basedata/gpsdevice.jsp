@@ -60,7 +60,7 @@
  
 	</div>   
 	<!-- 编辑窗体内容 -->
-	 <div id="gpsdeviceinfowindow" class="easyui-window" title="新增/编辑武器信息"
+	 <div id="gpsdeviceinfowindow" class="easyui-window" title="新增/编辑定位设备信息"
 			data-options="iconCls:'icon-edit',modal:true" closed="true" 
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
 			style="width: 400px; height: 240px; padding: 10px;">

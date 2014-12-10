@@ -1,12 +1,23 @@
 package com.tianyi.drs.basedata.model;
-
+/*
+ * 武器类型实体类
+ */
 public class WeaponType {
+	/*
+	 * 主键值id
+	 */
     private Integer id;
-
+    /*
+	 * 武器类型名称
+	 */
     private String name;
-
+    /*
+	 * 平台标识
+	 */
     private Boolean syncState;
-
+    /*
+	 * 平台id
+	 */
     private Integer platformId;
 
     public Integer getId() {

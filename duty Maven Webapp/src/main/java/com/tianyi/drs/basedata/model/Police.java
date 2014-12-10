@@ -1,36 +1,71 @@
 package com.tianyi.drs.basedata.model;
-
+/*
+ * 警员 实体类
+ */
 public class Police {
+	/*
+	 * 主键值id
+	 */
     private Integer id;
-
+    /*
+	 * 警员类型id
+	 */
     private Integer typeId;
-
+    /*
+	 * 警员姓名
+	 */
     private String name;
-
+    /*
+	 * 所属组织机构id
+	 */
     private Integer orgId;
-
+    /*
+	 * 身份证号码
+	 */
     private String idcardno;
-
+    /*
+	 * 警号
+	 */
     private String number;
-
+    /*
+	 * 职位
+	 */
     private String title;
-
+    /*
+	 * 手机号码
+	 */
     private String mobile;
-
+    /*
+	 * 公安短号
+	 */
     private String mobileShort;
-
+    /*
+	 * 对讲机组呼号
+	 */
     private String intercomGroup;
-
+    /*
+	 * 对讲机个呼号
+	 */
     private String intercomPerson;
-
+    /*
+	 * 对应gpsId
+	 */
     private Integer gpsId;
-
+    /*
+	 * 对应GPS名称
+	 */
     private String gpsName;
-
+    /*
+	 * 平台标识
+	 */
     private Boolean syncState;
-
+    /*
+	 * 平台id
+	 */
     private Integer platformId;
-
+    /*
+	 * 是否启用
+	 */
     private Boolean isused;
 
     public Integer getId() {

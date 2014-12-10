@@ -2125,8 +2125,9 @@ var YMD = {
 function templateNameConfirm() {
 	var name = $('#txtTemplateName').val();
 
-	if (name == null || name.lenght == 0) {
+	if (name == null || name.lenght == 0||name ==""||name ==undefined) {
 		$.messager.alert('提示', "请输入模板名称!", "warning");
+		return;
 	} else {
 		save(true, name);
 		$('#templateWindows').window('close');

@@ -18,7 +18,7 @@
 
 <body class="easyui-layout" oncontextmenu=self.event.returnValue=false>
 	<div data-options="region:'west',split:true,title:'组织机构导航树'"
-		style="width:14%;padding:10px;overflow:hidden">
+		style="width:14%;padding:10px;overflow-x:hidden;">
 		<!-- div>
 				<input type="text">
 			</div> -->

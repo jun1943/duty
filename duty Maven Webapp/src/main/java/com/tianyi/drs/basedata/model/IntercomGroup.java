@@ -1,14 +1,25 @@
 package com.tianyi.drs.basedata.model;
-
+/*
+ * 对讲机组呼号实体类
+ */
 public class IntercomGroup {
+	/*
+	 * 主键值id
+	 */
     private Integer id;
-
+    /*
+	 * 组呼号名称
+	 */
     private String name;
-
+    /*
+	 * 平台标识
+	 */
     private Boolean syncState;
-
+    /*
+	 * 平台id
+	 */
     private Integer platformId;
-
+  
     public Integer getId() {
         return id;
     }

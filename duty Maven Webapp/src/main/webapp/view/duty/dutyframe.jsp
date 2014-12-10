@@ -16,7 +16,7 @@
   
   <body style="overflow:hidden">
 <div id="cc" class="easyui-layout" style="width:100%;height:100%;" oncontextmenu=self.event.returnValue=false>
-	<div data-options="region:'west',title:'组织机构导航树',split:true"  style="width:14%;padding:10px;overflow:hidden">
+	<div data-options="region:'west',title:'组织机构导航树',split:true"  style="width:14%;padding:10px;overflow-x:hidden;">
 		<!-- 左边导航树 -->
 		<div>
 			<input id="txtOrgName" style="width:70%; margin-left:4px;margin-top:2px" type="text"/>
@@ -35,21 +35,22 @@
 		<div class="MenuBox">
 			<ul>
 		    	<li style="cursor:default"  id="MenuBoxOn">
-		        	<div id="MenuBoxOnBox"><img src="asset/css/images/baobeimodel.png" /><a style="cursor:default" href="javascript:void(0);">勤务管理　　</a></div>
+		        	<div id="MenuBoxOnBox"><div class="MenuBoxSmall"><img src="asset/css/images/baobeimodel.png" /><a style="cursor:default" href="javascript:void(0);">勤务管理　　</a></div></div>
 		        	
 		        </li>
 		        <li onclick="onDutyPrepare()">
-		        	<div id="divDutyPrepare" doc="menu"><img src="asset/css/images/little icon/qingwubaobei.png" /><a href="javascript:void(0);" onclick="onDutyPrepare()">勤务报备管理</a></div>
+		        	<div id="divDutyPrepare" doc="menu"><div class="MenuBoxSmall"><img src="asset/css/images/little icon/qingwubaobei.png" /><a href="javascript:void(0);" onclick="onDutyPrepare()">勤务报备管理</a></div></div>
 		        </li>
 		        <li onclick="onDutyDataGroup('policegroup')">
-		        	<div id="divDutyDataGroup" doc="menu"><img src="asset/css/images/little icon/organize.png" /><a href="javascript:void(0);" onclick="onDutyDataGroup('policegroup')">资源分组管理</a></div>
+		        	<div id="divDutyDataGroup" doc="menu"><div class="MenuBoxSmall"><img src="asset/css/images/little icon/organize.png" /><a href="javascript:void(0);" onclick="onDutyDataGroup('policegroup')">资源分组管理</a></div></div>
 		        </li>
 		        <li onclick="onDutyReport()">
-		        	<div id="divDutyReport" doc="menu"><img src="asset/css/images/little icon/comprehensivequery.png" /><a href="javascript:void(0);" onclick="onDutyReport()">勤务综合查询</a></div>
+		        	<div id="divDutyReport" doc="menu"><div class="MenuBoxSmall"><img src="asset/css/images/little icon/comprehensivequery.png" /><a href="javascript:void(0);" onclick="onDutyReport()">勤务综合查询</a></div></div>
 		        </li>
 		        <li onclick="onDutyType()">
-		        	<div id="divDutyType" doc="menu"><img src="asset/css/images/little icon/basicdata.png" /><a href="javascript:void(0);" onclick="onDutyType()">报备类型管理</a></div>
-		        </li> 
+		        	<div id="divDutyType" doc="menu"><div class="MenuBoxSmall"><img src="asset/css/images/little icon/basicdata.png" /><a href="javascript:void(0);" onclick="onDutyType()">报备类型管理</a></div></div>
+		        </li>
+		        
 		    </ul>
 		</div>
     

@@ -42,15 +42,15 @@
 	            <!-- 清楚本月报备数据以及清空剪切板 -->
 	            <div class="dateBoxMainTItleTxt">
 	            	<div class="dateBoxMainTItleTxtDIv">
-	                    <a href="javascript:void(0);" onclick="clearAlldutyData()"><img src="asset/css/images/canelpast.png" alt="清楚当月所有报备数据" title="清楚当月所有报备数据" /></a>
-	                    <a href="javascript:void(0);" onclick="clearClipbord()"><img src="asset/css/images/past.png" alt="取消剪切板数据" title="取消剪切板数据"  /></a>
+	                    <a href="javascript:void(0);" onclick="clearAlldutyData()"><img src="asset/css/images/canelpast.png" alt="清除当月所有报备数据" title="清除当月所有报备数据" /></a>
+	                    <a href="javascript:void(0);" onclick="clearClipbord()"><img src="asset/css/images/past.png" alt="取消剪贴板数据" title="取消剪贴板数据"  /></a>
 	                </div>
 	            </div>
         	</div>
         	<!-- 日历主界面 -->
         	<div class="dateBoxMainDate" style="overflow:auto">
 	        	 <table id="dateTable" class="" width="100%" height="100%" style="font-size:12px" >
-	                <thead>
+	                <thead style="height:15px">
 	                    <tr>
 	                    <th style="text-align:center;color:red"> 日</th>
 	                    <th style="text-align:center;color:black"> 一</th>

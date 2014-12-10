@@ -22,9 +22,7 @@ import com.tianyi.drs.basedata.model.Police;
 import com.tianyi.drs.basedata.model.PoliceType;
 import com.tianyi.drs.basedata.service.PoliceService;
 import com.tianyi.drs.basedata.viewmodel.GpsBaseVM;
-import com.tianyi.drs.basedata.viewmodel.PoliceVM;
-import com.tianyi.drs.duty.util.HttpclientUtils;
-import com.tianyi.drs.duty.viewmodel.DutyVM;
+import com.tianyi.drs.basedata.viewmodel.PoliceVM; 
 import com.tianyi.drs.duty.viewmodel.ListResult;
 import com.tianyi.drs.duty.viewmodel.ObjResult;
 import com.tianyi.drs.duty.viewmodel.UserObjectVM;
@@ -34,6 +32,7 @@ import sun.misc.BASE64Decoder;
  * 警员管理逻辑控制器
  * 
  */
+@SuppressWarnings("restriction")
 @Scope("prototype")
 @Controller
 @RequestMapping("/police")

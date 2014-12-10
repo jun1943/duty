@@ -1,28 +1,55 @@
 package com.tianyi.drs.basedata.model;
-
+/*
+ * 车辆实体类
+ */
 public class Vehicle {
+	/*
+	 * 主键值id
+	 */
     private int id;
-
+    /*
+	 * 车辆类型id
+	 */
     private int vehicleTypeId;
-
+    /*
+	 * 车辆所属组织机构id
+	 */
     private int orgId;
-
+    /*
+	 * 车牌号码
+	 */
     private String number;
-
+    /*
+	 * 对讲机组呼号
+	 */
     private String intercomGroup;
-
+    /*
+	 * 对应gpsid
+	 */
     private int gpsId;
-
+    /*
+	 * 对饮gps名称
+	 */
     private String gpsName;
-
+    /*
+	 * 车辆用途
+	 */
     private String purpose;
-
+    /*
+	 * 车辆品牌
+	 */
     private String brand;
-
+    /*
+	 * 座位数
+	 */
     private String siteQty;
-
+    /*
+	 *平台标识 
+	 */
     private Boolean syncState;
-
+    /*
+	 * 平台id
+	 */
     private int platformId;
 
     public int getId() {

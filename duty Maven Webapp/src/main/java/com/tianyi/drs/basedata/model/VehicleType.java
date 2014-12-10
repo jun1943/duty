@@ -1,12 +1,23 @@
 package com.tianyi.drs.basedata.model;
-
+/*
+ * 车辆类型实体类
+ */
 public class VehicleType {
+	/*
+	 * 主键值id
+	 */
     private Integer id;
-
+    /*
+	 * 车辆类型名称
+	 */
     private String name;
-
+    /*
+	 *平台标识 
+	 */
     private Boolean syncState;
-
+    /*
+	 * 平台id
+	 */
     private Integer platformId;
 
     public Integer getId() {

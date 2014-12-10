@@ -1,19 +1,35 @@
 package com.tianyi.drs.basedata.viewmodel;
 
 import com.tianyi.drs.basedata.model.Police;
-
+/**
+ * 警员虚拟类，继承警员实体类，用于前台显示
+ * @author lq
+ *
+ */
 public class PoliceVM extends Police {
-	 
+	/**
+	 * 警员类型名称
+	 */
     private String typeName;
-  
+    /**
+     * 组织机构名称
+     */
     private String orgName;
-
+    /**
+     * 组织机构代码
+     */
 	private String orgCode;
-	
+	/**
+	 * 组织机构路径
+	 */
 	private String orgPath;
-
+	/**
+	 * 页面显示名称
+	 */
 	private String displayName;
-	
+	/**
+	 * 警员关联图标路径
+	 */
 	private String iconUrl;
 	
 	public String getTypeName() {

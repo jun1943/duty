@@ -1,13 +1,27 @@
 package com.tianyi.drs.basedata.viewmodel;
 
 import com.tianyi.drs.basedata.model.Gps;
-
+/**
+ * GPS虚拟类，集成gps实体类，用于前台显示
+ * @author lq
+ *
+ */
 public class GpsVM extends Gps {
-
+	/**
+	 * 类型名称
+	 */
 	private String typeName;
+	/**
+	 * 组织结构名称
+	 */
 	private String orgName;
- 
+	/**
+	 * 组织结构编码
+	 */
 	private String orgCode;
+	/**
+	 * 组织机构路径
+	 */
 	private String orgPath; 
 	
 	public String getOrgName() {

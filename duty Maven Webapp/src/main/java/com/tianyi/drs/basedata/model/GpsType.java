@@ -1,12 +1,23 @@
 package com.tianyi.drs.basedata.model;
-
+/*
+ * 定位设备类型实体类
+ */
 public class GpsType {
+	/*
+	 * 主键值id
+	 */
     private Integer id;
-
+    /*
+	 * 定位设备类型名称
+	 */
     private String name;
-
+    /*
+	 * 平台标识
+	 */
     private Boolean syncState;
-
+    /*
+	 * 平台id
+	 */
     private Integer platformId;
 
     public Integer getId() {
