@@ -1,17 +1,56 @@
 package com.tianyi.drs.duty.viewmodel;
 
+/**
+ * 报备明细model类，用作前台显示使用
+ */
 public class DutyItemCountVM {
+	/**
+	 * 组织机构名称
+	 */
 	private String orgName;
+	/**
+	 * 报备明细类型名称
+	 */
 	private String itemTypeName;
+	/**
+	 * 值班领导总人数
+	 */
 	private String shiftLeaderCount;
+	/**
+	 * 值班主任总人数
+	 */
 	private String chiefLeaderCount;
+	/**
+	 * 值班警力总数
+	 */
 	private String dutypoliceCount;
+	/**
+	 * 投入车辆总数
+	 */
 	private String vehicleCount;
+	/**
+	 * 投入武器总数
+	 */
 	private String weaponCount;
+	/**
+	 * 单位值班总数
+	 */
 	private String unitdutyCount;
+	/**
+	 * 枪支总数
+	 */
 	private String illuminatesCount;
+	/**
+	 * 巡逻总警力数
+	 */
 	private String patrolpoliceCount;
+	/**
+	 * 必到点警力数
+	 */
 	private String checkpointpoliceCount;
+	/**
+	 * 巡区总警力
+	 */
 	private String patrolareaPoliceCount; 
 	
 	public String getorgName() {

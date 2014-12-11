@@ -1,36 +1,70 @@
 package com.tianyi.drs.duty.model;
-
+/**
+ * 报备类型实体类
+ * @author lq
+ *
+ */
 public class DutyType {
 
-
+	/**
+	 * id值，默认为0
+	 */
 	private Integer id=0;
-
+	/**
+	 * 勤务类型名称
+	 */
     private String name;
-
+    /**
+	 * 上级节点id
+	 */
     private Integer parentId;
-
+    /**
+	 * 节点层级，默认为0 
+	 */
     private Integer level =0;
-
+    /**
+	 * 是否子节点
+	 */
     private Boolean isLeaf;
-
+    /**
+	 * 节点全路径
+	 */
     private String fullpath;
-
+    /**
+	 * 是否显示名称
+	 */
     private Boolean isShowname;
-
+    /**
+	 * 最大警员数目
+	 */
     private Integer maxPolice;
-
+    /**
+	 * 附加属性
+	 */
     private Integer attireType;
-
+    /**
+	 * 属性id
+	 */
     private Integer dutyPropertyId;
-
+    /**
+	 * 着装方式id
+	 */
     private Integer assoTaskType;
-
+    /**
+	 * 平台标识
+	 */
     private Boolean syncState;
-
+    /**
+	 * 平台id
+	 */
     private Integer platformId;
-
+    /**
+	 * 武装方式id
+	 */
     private Integer armamentType;
-    
+    /**
+	 * 是否启用
+	 */
     private boolean isUsed;
     
     public Integer getId() {

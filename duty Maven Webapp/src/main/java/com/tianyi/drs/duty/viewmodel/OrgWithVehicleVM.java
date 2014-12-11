@@ -1,11 +1,28 @@
 package com.tianyi.drs.duty.viewmodel;
-
+/**
+ * 组织机构对应车辆model类，用户前台显示
+ * @author lq
+ */
 public class OrgWithVehicleVM {
-	
+	/**
+	 * 标识id'
+	 */
 	private String  id;
+	/**
+	 * 对象id
+	 */
 	private int rid;
+	/**
+	 * 名称
+	 */
 	private String name;
+	/**
+	 * 数据类型
+	 */
 	private int dataType;
+	/**
+	 * 编码
+	 */
 	private String code;
 
 	public String getId() {

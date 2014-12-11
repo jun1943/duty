@@ -22,13 +22,16 @@ import com.tianyi.drs.duty.model.WeaponGroup;
 import com.tianyi.drs.duty.model.WeaponGroupMember;
 import com.tianyi.drs.duty.model.WeaponGroupOrg;
 import com.tianyi.drs.duty.service.OrgService; 
-import com.tianyi.drs.duty.service.WeaponGroupService;
-import com.tianyi.drs.duty.viewmodel.GpsGroupVM;
+import com.tianyi.drs.duty.service.WeaponGroupService; 
 import com.tianyi.drs.duty.viewmodel.ListResult;
 import com.tianyi.drs.duty.viewmodel.ObjResult; 
 import com.tianyi.drs.duty.viewmodel.WeaponGroupMemberVM;
 import com.tianyi.drs.duty.viewmodel.WeaponGroupVM;
-
+/**
+ * 武器设备分组逻辑控制器
+ * @author lq
+ *
+ */
 @Scope("prototype")
 @Controller
 @RequestMapping("/weaponGroup")
@@ -40,7 +43,14 @@ public class WeaponGroupController {
 	@Resource(name = "orgService")
 	protected OrgService orgService;
 	
-
+	/**
+	 * 获取武器分组列表
+	 * @param query
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "list.do")
 	public @ResponseBody String List(
 			@RequestParam(value = "weaponGroup_Query", required = false) String query,
@@ -74,7 +84,12 @@ public class WeaponGroupController {
 		
 	}
 	
-
+	/**
+	 * 获取当前组织机构及下级机构
+	 * @param weaponGroupId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "getShareOrgs.do")
 	public @ResponseBody String getShareOrgs(
 			@RequestParam(value = "weaponGroupId", required = false) Integer weaponGroupId,
@@ -90,7 +105,14 @@ public class WeaponGroupController {
 		
 	}
 	
-
+	/**
+	 * 根据分组id，获取组成员列表
+	 * @param query
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "loadMemberByGroupId.do")
 	public @ResponseBody String loadMemberByGroupId(
 			@RequestParam(value = "member_Query", required = false) String query,
@@ -117,7 +139,12 @@ public class WeaponGroupController {
 		
 		return ss;
 	}
-
+	/**
+	 * 添加组成员
+	 * @param members
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "appendMember.do")
 	public @ResponseBody String appendMember(
 			@RequestParam(value = "members", required = false) String members,
@@ -145,7 +172,12 @@ public class WeaponGroupController {
 		return rs.toString();
 	}
 	
-	
+	/**
+	 * 保存武器分组信息
+	 * @param weaponGroup
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "saveWeaponGroup.do")
 	public @ResponseBody String saveWeaponGroup(
 			@RequestParam(value = "weaponGroup", required = false) String weaponGroup,
@@ -173,8 +205,8 @@ public class WeaponGroupController {
 		return rs.toString();
 	}
 	/**
-	 * 删除警员组
-	 * @param policeGroupId
+	 * 删除武器分组
+	 * @param weaponGroupId
 	 * @param request
 	 * @return
 	 */
@@ -192,7 +224,12 @@ public class WeaponGroupController {
 		 	
 		return rs.toString();
 	 }
-	
+	/**
+	 * 获取武器分组详细信息
+	 * @param weaponGroupId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "loadWeaponGroup.do")
 		public  @ResponseBody String loadWeaponGroup(
 				@RequestParam(value="weaponGroupId",required=false) Integer weaponGroupId,
@@ -212,7 +249,12 @@ public class WeaponGroupController {
 			return rs;
 		}
 	
-
+	/**
+	 * 删除组成员
+	 * @param memberId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "delMemberById.do")
 	public @ResponseBody String delMemberById(
 			@RequestParam(value = "memberId", required = false) Integer memberId,
@@ -226,7 +268,12 @@ public class WeaponGroupController {
 		
 		return rs.toString();
 	}
-	
+	/**
+	 * 清空组成员列表
+	 * @param weaponGroupId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "cleanMemberByGroupId.do")
 	public @ResponseBody String cleanMemberByGroupId(
 			@RequestParam(value = "weaponGroupId", required = false) Integer weaponGroupId,
@@ -240,7 +287,12 @@ public class WeaponGroupController {
 		return rs.toJson();
 	}
 
-
+	/**
+	 * 获取武器分组列表，用于报备资源费祖筛选查询
+	 * @param orgId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "getWeaponGrouplist.do")
 	public @ResponseBody
 	String getWeaponGrouplist(@RequestParam(value = "orgId", required = false) Integer orgId,

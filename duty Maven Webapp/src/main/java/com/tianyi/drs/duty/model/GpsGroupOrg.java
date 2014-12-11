@@ -1,10 +1,19 @@
 package com.tianyi.drs.duty.model;
-
+/**
+ * GPS分组、组织机构关联中间表
+ */
 public class GpsGroupOrg {
+	/**
+	 * 主键id
+	 */
     private Integer id;
-
+    /**
+	 * GPS分组id
+	 */
     private Integer gpsGroupId;
-
+    /**
+	 * 组织机构id
+	 */
     private Integer orgId;
 
     public Integer getId() {

@@ -26,19 +26,33 @@ import com.tianyi.drs.duty.service.GpsGroupService;
 import com.tianyi.drs.duty.viewmodel.GpsGroupMemberVM;
 import com.tianyi.drs.duty.viewmodel.GpsGroupVM;
 import com.tianyi.drs.duty.viewmodel.ListResult;
-import com.tianyi.drs.duty.viewmodel.ObjResult;
-import com.tianyi.drs.duty.viewmodel.PoliceGroupVM;
-
+import com.tianyi.drs.duty.viewmodel.ObjResult; 
+/**
+ * 定位设备分组逻辑控制器
+ * @author lq
+ *
+ */
 @Scope("prototype")
 @Controller
 @RequestMapping("/gpsGroup")
 public class GpsGroupController {
 
+	/**
+	 * 初始化服务接口
+	 */
 	@Resource(name = "gpsGroupService")
 	protected GpsGroupService gpsGroupService;
 	@Resource(name = "orgService")
 	protected OrgService orgService;
 
+	/**
+	 * 获取左右翼分组列表
+	 * @param query 组织结构信息
+	 * @param page  当前页
+	 * @param rows  每页条数
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "list.do")
 	public @ResponseBody
 	String List(
@@ -72,7 +86,12 @@ public class GpsGroupController {
 		return ss;
 
 	}
-
+	/**
+	 * 获取当前组织结构以及下级机构
+	 * @param gpsGroupId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "getShareOrgs.do")
 	public @ResponseBody
 	String getShareOrgs(
@@ -86,7 +105,14 @@ public class GpsGroupController {
 		return rs;
 
 	}
-
+	/**
+	 * 根据分组id获取组成员
+	 * @param query
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "loadMemberByGroupId.do")
 	public @ResponseBody
 	String loadMemberByGroupId(
@@ -115,7 +141,12 @@ public class GpsGroupController {
 
 		return ss;
 	}
-
+	/**
+	 * 添加组成员
+	 * @param members 组成员列表
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "appendMember.do")
 	public @ResponseBody
 	String appendMember(
@@ -145,7 +176,12 @@ public class GpsGroupController {
 
 		return rs.toString();
 	}
-
+	/**
+	 * 保存定位设备分组
+	 * @param gpsGroup
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "saveGpsGroup.do")
 	public @ResponseBody
 	String saveGpsGroup(
@@ -174,9 +210,9 @@ public class GpsGroupController {
 	}
 
 	/**
-	 * 删除警员组
+	 * 删除定位设备分组
 	 * 
-	 * @param policeGroupId
+	 * @param GpsGroupId
 	 * @param request
 	 * @return
 	 */
@@ -194,7 +230,12 @@ public class GpsGroupController {
 
 		return rs.toString();
 	}
-
+	/**
+	 * 加载定位设备分组列表
+	 * @param gpsGroupId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "loadGpsGroup.do")
 	public @ResponseBody
 	String loadGpsGroup(
@@ -213,7 +254,12 @@ public class GpsGroupController {
 		String rs = joPG.toString();
 		return rs;
 	}
-
+	/**
+	 * 删除组成员
+	 * @param memberId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "delMemberById.do")
 	public @ResponseBody
 	String delMemberById(
@@ -227,7 +273,12 @@ public class GpsGroupController {
 
 		return rs.toString();
 	}
-
+	/**
+	 * 清空组成员
+	 * @param gpsGroupId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "cleanMemberByGroupId.do")
 	public @ResponseBody
 	String cleanMemberByGroupId(
@@ -241,7 +292,12 @@ public class GpsGroupController {
 		return rs.toJson();
 	}
 	
-
+	/**
+	 * 获取定位设备分组，用于GPS资源分组查询
+	 * @param orgId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "getGpsGrouplist.do")
 	public @ResponseBody
 	String getGpsGrouplist(@RequestParam(value = "orgId", required = false) Integer orgId,

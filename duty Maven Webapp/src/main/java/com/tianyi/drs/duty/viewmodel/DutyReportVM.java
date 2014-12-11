@@ -1,23 +1,81 @@
 package com.tianyi.drs.duty.viewmodel;
 
+/**
+ * 报备综合统计model类，用作前台显示
+ * @author lq
+ */
 public class DutyReportVM {
+	/**
+	 * 主键值id
+	 */
 	private Integer id;
+	/**
+	 * 父级节点id
+	 */
 	private Integer parentId;
+	/**
+	 * 组织机构id
+	 */
 	private Integer orgId;
+	/**
+	 * 组织结构名称
+	 */
 	private String orgName;
+	/**
+	 * 组织机构名称缩写
+	 */
 	private String orgShortName;
+	/**
+	 * 组织机构编码
+	 */
 	private String orgCode;
+	/**
+	 * 组织结构路径
+	 */
 	private String orgPath;
+	/**
+	 * 领导名称
+	 */
 	private String leaderNames;
+	/**
+	 * 主任名称
+	 */
 	private String directorName;
+	/**
+	 * 领导报备总数
+	 */
 	private Integer leaderCount;
+	/**
+	 * 主任报备总数
+	 */
 	private Integer directorCount;
+	/**
+	 * 车辆报备总数
+	 */
 	private Integer vehicleCount;
+	/**
+	 * 警员报备总数
+	 */
 	private Integer policeCount;
+	/**
+	 * 武器报备总数
+	 */
 	private Integer weaponCount;
+	/**
+	 * 定位设备报备总数
+	 */
 	private Integer gpsCount;
+	/**
+	 * 社区报备总数
+	 */
 	private Integer communityCount;
+	/**
+	 * 巡区报备总数
+	 */
 	private Integer patrolAreaCount;
+	/**
+	 * 卡点报备总数
+	 */
 	private Integer bayonetCount;
 	
 	public Integer getId() {

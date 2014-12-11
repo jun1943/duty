@@ -1,40 +1,79 @@
 package com.tianyi.drs.duty.model;
 
 import java.util.Date;
-
+/**
+ * 报备明细实体类
+ * @author lq
+ *
+ */
 public class DutyItem {
+	/**
+	 * 主键id
+	 */
     private Integer id;
-
+    /**
+     * 报备id
+     */
     private Integer dutyId;
-
+    /**
+	 * 勤务类型id
+	 */
     private Integer dutyTypeId;
-
+    /**
+	 * 班次开始时间
+	 */
     private Date beginTime;
-
+    /**
+	 * 班次结束时间
+	 */
     private Date endTime;
-
+    /**
+	 * 报备节点类型id
+	 */
     private Integer itemTypeId;
-
+    /**
+	 * 报备节点id
+	 */
     private Integer itemId;
-
+    /**
+	 * 报备节点名称
+	 */
     private String itemName;
-
+    /**
+	 * 报备节点名称
+	 */
     private String name;
-
+    /**
+	 * 上级节点id
+	 */
     private Integer parentId;
-
+    /**
+	 * 节点层级
+	 */
     private Integer level;
-
+    /**
+	 * 是否子节点
+	 */
     private Boolean isLeaf;
-
+    /**
+	 * 节点全路径
+	 */
     private String fullIdPath;
-
+    /**
+	 * 平台标识
+	 */
     private Boolean syncState;
-
+    /**
+	 * 平台id
+	 */
     private Integer platformId;
-
+    /**
+	 * 描述
+	 */
     private String description;
-
+    /**
+	 * 路径地址
+	 */
     private String iconUrl;
     
     public Integer getId() {

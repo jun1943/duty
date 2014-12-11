@@ -1,12 +1,37 @@
 package com.tianyi.drs.duty.viewmodel;
 
+
+/**
+ * 报备数据导出虚拟类，用作前台显示使用
+ */
 public class DutyExportVM {
+	/**
+	 * 报备类型名称
+	 */
 	private String dutyName;
+	/**
+	 * 类型名称
+	 */
 	private String typeName;
+	/**
+	 * 班次时间范围
+	 */
 	private String timeArea;
+	/**
+	 * 车辆统计汇总数目
+	 */
 	private Integer vehicleCount;
+	/**
+	 * 警员统计汇总数目
+	 */
 	private Integer policeCount;
+	/**
+	 * 武器统计汇总数目
+	 */
 	private Integer weaponCount;
+	/**
+	 * 定位设备统计汇总数据
+	 */
 	private Integer gpsdeviceCount;
 	
 	public String getDutyName() {

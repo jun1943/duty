@@ -1,14 +1,27 @@
 package com.tianyi.drs.duty.model;
-
+/**
+ * 警员分组成员实体类
+ */
 public class PoliceGroupMember {
+	/**
+	 * 主键值id
+	 */
     private Integer id;
-
+    /**
+	 * 警员分组id
+	 */
     private Integer groupId;
-
+    /**
+	 * 警员id
+	 */
     private Integer policeId;
-
+    /**
+	 * 平台标识
+	 */
     private Boolean syncState;
-
+    /**
+	 * 平台id
+	 */
     private Integer platformId;
 
     public Integer getId() {

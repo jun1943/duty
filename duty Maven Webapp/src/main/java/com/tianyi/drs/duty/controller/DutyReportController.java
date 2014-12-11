@@ -1,8 +1,7 @@
 package com.tianyi.drs.duty.controller;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
+import java.io.FileOutputStream; 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,17 +25,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.tianyi.drs.duty.model.PoliceTarget;
+ 
 import com.tianyi.drs.duty.service.DutyReportService;
-import com.tianyi.drs.duty.util.ExcelPortUtil;
-import com.tianyi.drs.duty.viewmodel.DutyExportVM;
-import com.tianyi.drs.duty.viewmodel.DutyItemVM;
+import com.tianyi.drs.duty.util.ExcelPortUtil; 
 import com.tianyi.drs.duty.viewmodel.DutyReportCriteria;
 import com.tianyi.drs.duty.viewmodel.DutyReportVM;
-import com.tianyi.drs.duty.viewmodel.ListResult;
-import com.tianyi.drs.duty.viewmodel.TaskTargetVM;
-
+import com.tianyi.drs.duty.viewmodel.ListResult; 
+/**
+ * 警务综合查询逻辑控制器
+ * @author lq
+ *
+ */
 @Scope("prototype")
 @Controller
 @RequestMapping("/dutyReport")
@@ -44,6 +43,12 @@ public class DutyReportController {
 	@Resource(name = "dutyReportService")
 	protected DutyReportService dutyReportService;
 
+	/**
+	 * 根据调价加载备勤警力汇总数据
+	 * @param criteriaJson
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "loadDutyReport.do")
 	public @ResponseBody
 	String loadDutyReport(
@@ -79,7 +84,12 @@ public class DutyReportController {
 			return rs.toJson();
 		}
 	}
-
+	/**
+	 * 导出数据到Excel
+	 * @param criteriaJson
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "exportDutyReport.do")
 	public @ResponseBody
 	String exportDutyReport(
@@ -144,7 +154,12 @@ public class DutyReportController {
 					+ "\",\"Data\":\"\"}";
 		}
 	}
-
+	/**
+	 * 初始化excel组件，创建Excel单据
+	 * @param rows
+	 * @param realPath
+	 * @return
+	 */
 	private boolean initExcelData(List<DutyReportVM> rows, String realPath) {
 		File file = new File(realPath);
 		if (!file.exists()) {

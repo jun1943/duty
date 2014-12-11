@@ -1,10 +1,27 @@
 package com.tianyi.drs.duty.viewmodel;
-
+/**
+ * 组织机构对应武器model类，用于前台显示
+ */
 public class OrgWithWeaponVM {
+	/**
+	 * 标识id
+	 */
 	private String  id;
+	/**
+	 * 对象id
+	 */
 	private int rid;
+	/**
+	 * 名称
+	 */
 	private String name;
+	/**
+	 * 数据类型
+	 */
 	private int dataType;
+	/**
+	 * 编码
+	 */
 	private String code;
 
 	public String getId() {

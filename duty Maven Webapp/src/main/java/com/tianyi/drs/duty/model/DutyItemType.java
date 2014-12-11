@@ -1,10 +1,22 @@
 package com.tianyi.drs.duty.model;
 
+/**
+ * 节点属性实体类
+ * @author lq
+ *
+ */
 public class DutyItemType {
+	/**
+	 * 主键id
+	 */
     private Integer id;
-
+    /**
+	 * 属性类型id
+	 */
     private Integer typeId;
-
+    /**
+	 * 属性名称
+	 */
     private String name;
 
     public Integer getId() {

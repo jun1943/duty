@@ -1,11 +1,26 @@
 package com.tianyi.drs.duty.viewmodel;
 
 import com.tianyi.drs.duty.model.PoliceGroup;
-
+/**
+ * 警员分组model类，继承警员分组实体类，用于前台显示使用
+ * @author lq
+ */
 public class PoliceGroupVM extends PoliceGroup{
+	/**
+	 * 组织结构名称
+	 */
 	private String orgName;
+	/**
+	 * 组织机构编码
+	 */
 	private String orgCode;
+	/**
+	 * 组织机构路径
+	 */
 	private String orgPath;
+	/**
+	 * 是否共享到下级
+	 */
 	private String shareTypeDesc;
 	
 	public String getOrgName() {

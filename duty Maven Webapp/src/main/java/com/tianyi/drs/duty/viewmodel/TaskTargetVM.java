@@ -1,11 +1,32 @@
 package com.tianyi.drs.duty.viewmodel;
-
+/**
+ * 关联任务model类，用做前台显示用
+ * @author lq
+ */
 public class TaskTargetVM {
+	/**
+	 * 关联任务类型
+	 */
 	private Integer targetType;
+	/**
+	 * 关联任务id
+	 */
 	private Integer targetId;
+	/**
+	 * 名称
+	 */
 	private String name;
+	/**
+	 * 区域名称
+	 */
 	private String areaName;
+	/**
+	 * 经过次数
+	 */
 	private Integer count;
+	/**
+	 * 停留时间
+	 */
 	private Integer stayTime;
 	
 	public Integer getCount() {

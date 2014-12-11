@@ -2,25 +2,51 @@ package com.tianyi.drs.duty.model;
 
 import java.util.Date;
 
+/**
+ * 报备实体类
+ * @author lq
+ *
+ */
 public class Duty {
+	/**
+	 * 主键值id
+	 */
     private Integer id;
-
+    /**
+	 * 组织机构id
+	 */
     private Integer orgId;
-
+    /**
+	 * 是否是模板
+	 */
     private Boolean isTemplate;
-
+    /**
+	 * 报备名称
+	 */
     private String name;
-
+    /**
+	 * 报备日期：20140101 
+	 */
     private Integer ymd;
-
+    /**
+	 * 创建时间
+	 */
     private Date createTime;
-
+    /**
+	 * 属性id
+	 */
     private Integer preparerId;
-
+    /**
+	 * 描述
+	 */
     private String description;
-
+    /**
+	 * 平台标识
+	 */
     private Boolean syncState;
-
+    /**
+	 * 平台id
+	 */
     private Integer platformId;
 
     public Integer getId() {

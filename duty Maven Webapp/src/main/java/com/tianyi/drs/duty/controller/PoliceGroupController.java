@@ -27,7 +27,11 @@ import com.tianyi.drs.duty.viewmodel.ObjResult;
 import com.tianyi.drs.duty.viewmodel.PoliceGroupMemberVM;
 import com.tianyi.drs.duty.viewmodel.PoliceGroupVM;  
 import com.tianyi.drs.duty.viewmodel.ListResult; 
-
+/**
+ * 警员分组逻辑控制器
+ * @author lq
+ *
+ */
 @Scope("prototype")
 @Controller
 @RequestMapping("/policeGroup")
@@ -38,7 +42,14 @@ public class PoliceGroupController {
 	@Resource(name = "orgService")
 	protected OrgService orgService;
 	
-	
+	/**
+	 * 获取警员分组列表
+	 * @param query
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "list.do")
 	public @ResponseBody String List(
 			@RequestParam(value = "policeGroup_Query", required = false) String query,
@@ -72,6 +83,12 @@ public class PoliceGroupController {
 		
 	}
 	
+	/**
+	 * 获取当前组织结构集下级附属机构
+	 * @param policeGroupId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "getShareOrgs.do")
 	public @ResponseBody String getShareOrgs(
 			@RequestParam(value = "policeGroupId", required = false) Integer policeGroupId,
@@ -87,6 +104,12 @@ public class PoliceGroupController {
 		
 	}
 	
+	/**
+	 * 获取警员分组信息
+	 * @param policeGroupId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "loadPoliceGroup.do")
 	public  @ResponseBody String loadPoliceGroup(
 			@RequestParam(value="policeGroupId",required=false) Integer policeGroupId,
@@ -106,6 +129,12 @@ public class PoliceGroupController {
 		return rs;
 	}
 	
+	/**
+	 * 保存警员分组信息
+	 * @param policeGroup
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "savePoliceGroup.do")
 	public @ResponseBody String savePoliceGroup(
 			@RequestParam(value = "policeGroup", required = false) String policeGroup,
@@ -153,6 +182,14 @@ public class PoliceGroupController {
 		return rs.toString();
 	 }
 	
+	/**
+	 * 根据分组id，加载组成员
+	 * @param query
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "loadMemberByGroupId.do")
 	public @ResponseBody String loadMemberByGroupId(
 			@RequestParam(value = "member_Query", required = false) String query,
@@ -180,6 +217,12 @@ public class PoliceGroupController {
 		return ss;
 	}
 	
+	/**
+	 * 增加组成员
+	 * @param members
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "appendMember.do")
 	public @ResponseBody String appendMember(
 			@RequestParam(value = "members", required = false) String members,
@@ -207,7 +250,12 @@ public class PoliceGroupController {
 		return rs.toString();
 	}
 	
-	
+	/**
+	 * 删除组成员
+	 * @param memberId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "delMemberById.do")
 	public @ResponseBody String delMemberById(
 			@RequestParam(value = "memberId", required = false) Integer memberId,
@@ -221,7 +269,12 @@ public class PoliceGroupController {
 		
 		return rs.toString();
 	}
-	
+	/**
+	 * 清除组成员
+	 * @param policeGroupId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "cleanMemberByGroupId.do")
 	public @ResponseBody String cleanMemberByGroupId(
 			@RequestParam(value = "policeGroupId", required = false) Integer policeGroupId,
@@ -235,7 +288,12 @@ public class PoliceGroupController {
 		return rs.toJson();
 	}
 	
-
+	/**
+	 * 获取警员分组，用于报备资源分组查询
+	 * @param orgId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "getPoliceGrouplist.do")
 	public @ResponseBody
 	String getPoliceGrouplist(@RequestParam(value = "orgId", required = false) Integer orgId,

@@ -22,7 +22,11 @@ import com.tianyi.drs.duty.viewmodel.OrgWithGpsVM;
 import com.tianyi.drs.duty.viewmodel.OrgWithPoliceVM;
 import com.tianyi.drs.duty.viewmodel.OrgWithVehicleVM;
 import com.tianyi.drs.duty.viewmodel.OrgWithWeaponVM;
-
+/**
+ * 组织机构逻辑控制器
+ * @author lq
+ *
+ */
 @Scope("prototype")
 @Controller
 @RequestMapping("/org")
@@ -30,7 +34,13 @@ public class OrgController {
 
 	@Resource(name = "orgService")
 	protected OrgService orgService;
-	
+	/**
+	 * 根据传入的组织结构信息，获取所有组织结构信息
+	 * @param orgCode
+	 * @param orgPath
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "list.do")
 	public @ResponseBody String  List(
 			@RequestParam(value = "orgCode", required = false) String orgCode,
@@ -49,6 +59,13 @@ public class OrgController {
 			return rs;
 		
 	}
+	
+	/**
+	 * 根据名称获取列表对象
+	 * @param name
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "loadListByName.do")
 	public @ResponseBody String  loadListByName(
 			@RequestParam(value = "name", required = false) String name,

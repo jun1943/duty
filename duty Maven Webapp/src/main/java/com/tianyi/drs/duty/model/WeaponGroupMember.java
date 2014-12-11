@@ -1,14 +1,27 @@
 package com.tianyi.drs.duty.model;
-
+/**
+ * 武器分组成员实体类
+ */
 public class WeaponGroupMember {
-    private Integer id;
-
+	/**
+	 * 主键id
+	 */
+	private Integer id;
+	/**
+	 * 武器分组id
+	 */
     private Integer groupId;
-
+    /**
+	 * 武器id
+	 */
     private Integer weaponId;
-
+    /**
+	 * 平台标识
+	 */
     private Boolean syncState;
-
+    /**
+	 * 平台id
+	 */
     private Integer platformId;
 
     public Integer getId() {

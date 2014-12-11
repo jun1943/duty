@@ -1,9 +1,7 @@
 package com.tianyi.drs.duty.util;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.IOException; 
+import java.util.ArrayList; 
 import java.util.List;
 import java.util.Map;
 
@@ -31,11 +29,9 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
-import org.apache.log4j.Logger;
+import org.apache.http.util.EntityUtils; 
 
-public class HttpclientUtils {
-	static private Logger log = Logger.getLogger(HttpclientUtils.class);
+public class HttpclientUtils { 
 	private static HttpParams httpParams;
 	private static ThreadSafeClientConnManager cm;
 	static {
@@ -155,7 +151,7 @@ public class HttpclientUtils {
 		// String
 		// url="http://192.168.4.95:8181/TaskManager/videoRetrievalController/start?supportInputStream";
 
-		String url = "http://192.168.4.95:8181/TaskManager/videoRetrieval/gainRetrievalTaskId";
+		//String url = "http://192.168.4.95:8181/TaskManager/videoRetrieval/gainRetrievalTaskId";
 		System.out.println(postXML("http://25.30.5.105:8080/drs/home/cacheMonitor", "<><><><><>"));
 	}
  

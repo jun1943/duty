@@ -1,16 +1,31 @@
 package com.tianyi.drs.duty.model;
-
+/**
+ * gps分组管理实体类
+ */
 public class GpsGroup {
+	/**
+	 * 主键值id
+	 */
     private Integer id;
-
+    /**
+	 * 组织机构id
+	 */
     private Integer orgId;
-
+    /**
+	 * 分组名称
+	 */
     private String name;
-
+    /**
+	 * 是否共享到下级
+	 */
     private Integer shareType;
-
+    /**
+	 * 平台标识
+	 */
     private Boolean syncState;
-
+    /**
+	 * 平台id
+	 */
     private Integer platformId;
 
     public Integer getId() {

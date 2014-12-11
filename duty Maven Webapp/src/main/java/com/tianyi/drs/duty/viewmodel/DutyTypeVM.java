@@ -7,10 +7,22 @@ import java.util.List;
  * 
  */
 import com.tianyi.drs.duty.model.DutyType;
-
+/**
+ * 勤务类型model类，集成勤务类型实体类，用于前台显示操作
+ * @author lq
+ */
 public class DutyTypeVM extends DutyType {
+	/**
+	 * 属性列表
+	 */
 	private List<DutyTypePropertyVM> properties;
+	/**
+	 * 上级节点名称
+	 */
 	private String parentName;
+	/**
+	 * 上级节点全路径
+	 */
 	private String parentFullPath;
 	
 	public List<DutyTypePropertyVM> getProperties() {

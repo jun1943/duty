@@ -10,14 +10,41 @@ import java.util.List;
  */
 public class DutyReportCriteria {
 	
+	/**
+	 * 组织机构id集
+	 */
 	private List<Integer> orgIds;
+	/**
+	 * 时间日期
+	 */
 	private Integer ymd;
+	/**
+	 * 开始时间
+	 */
 	private Date beginTime;
+	/**
+	 * 结束时间
+	 */
 	private Date endTime;
+	/**
+	 * 勤务类型属性id集
+	 */
 	private List<Integer> taskPropertyIds;
+	/**
+	 * 衣着方式
+	 */
 	private List<Integer> attireTypeIds;
+	/**
+	 * 警员类型id集
+	 */
 	private List<Integer> policeTypeIds;
+	/**
+	 * 武装方式
+	 */
 	private List<Integer> armamentTypeIds;
+	/**
+	 * 勤务类型id集
+	 */
 	private List<Integer> dutyTypeIds;
 	
 	public List<Integer> getOrgIds() {

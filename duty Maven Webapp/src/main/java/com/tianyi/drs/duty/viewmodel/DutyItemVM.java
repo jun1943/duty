@@ -4,16 +4,44 @@ import java.util.List;
 
 import com.tianyi.drs.duty.model.DutyItem;
 import com.tianyi.drs.duty.model.PoliceTarget;
-
+/**
+ * 报备明细model类，继承报备明细实体类，用作前台显示使用
+ * @author lq
+ *
+ */
 public class DutyItemVM extends DutyItem{
+	/**
+	 * 勤务类型名称
+	 */
 	private String dutyTypeName;
+	/**
+	 * 明细类型名称
+	 */
 	private String itemTypeName;
+	/**
+	 * 报备明细显示名称
+	 */
 	private String displayName;
+	/**
+	 * 报备明细名称
+	 */
 	private String itemName;
+	/**
+	 * 报备明细内容名称
+	 */
 	private String itemInnerTypeName;
+	/**
+	 * 报备类型关联任务类型名称
+	 */
 	private Integer taskType;
+	/**
+	 * 报备子节点，内循环
+	 */
 	private List<DutyItemVM> children;
 
+	/**
+	 * 警员关联任务
+	 */
 	private List<PoliceTarget> targets;
 	
 	public String getDutyTypeName() {

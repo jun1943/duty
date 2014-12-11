@@ -6,8 +6,13 @@ package com.tianyi.drs.duty.viewmodel;
  *
  */
 public class DutyTypePropertyVM {
-	
+	/**
+	 * id值
+	 */
 	private int id;
+	/**
+	 * 名称
+	 */
 	private String name;
 	
 	public int getId() {

@@ -26,9 +26,13 @@ import com.tianyi.drs.duty.service.VehicleGroupService;
 import com.tianyi.drs.duty.viewmodel.ListResult;  
 import com.tianyi.drs.duty.viewmodel.ObjResult;
 import com.tianyi.drs.duty.viewmodel.VehicleGroupMemberVM;
-import com.tianyi.drs.duty.viewmodel.VehicleGroupVM;
-import com.tianyi.drs.duty.viewmodel.WeaponGroupVM;
+import com.tianyi.drs.duty.viewmodel.VehicleGroupVM; 
 
+/**
+ * 车辆分组逻辑控制器
+ * @author lq
+ *
+ */
 @Scope("prototype")
 @Controller
 @RequestMapping("/vehicleGroup")
@@ -39,6 +43,14 @@ public class VehicleGroupController {
 	@Resource(name = "orgService")
 	protected OrgService orgService;
 
+	/**
+	 * 查询车辆分组列表
+	 * @param query
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "list.do")
 	public @ResponseBody String List(
 			@RequestParam(value = "vehicleGroup_Query", required = false) String query,
@@ -72,7 +84,12 @@ public class VehicleGroupController {
 		
 	}
 	
-
+	/**
+	 * 获取当前组织机构及下级机构
+	 * @param vehicleGroupId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "getShareOrgs.do")
 	public @ResponseBody String getShareOrgs(
 			@RequestParam(value = "vehicleGroupId", required = false) Integer vehicleGroupId,
@@ -88,7 +105,14 @@ public class VehicleGroupController {
 		
 	}
 	
-
+	/**
+	 * 根据分组id，获取组成员列表
+	 * @param query
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "loadMemberByGroupId.do")
 	public @ResponseBody String loadMemberByGroupId(
 			@RequestParam(value = "member_Query", required = false) String query,
@@ -116,6 +140,12 @@ public class VehicleGroupController {
 		return ss;
 	}
 
+	/**
+	 * 增加组成员
+	 * @param members
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "appendMember.do")
 	public @ResponseBody String appendMember(
 			@RequestParam(value = "members", required = false) String members,
@@ -143,7 +173,12 @@ public class VehicleGroupController {
 		return rs.toString();
 	}
 	
-	
+	/**
+	 * 保存车辆分组信息
+	 * @param vehicleGroup
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "saveVehicleGroup.do")
 	public @ResponseBody String saveVehicleGroup(
 			@RequestParam(value = "vehicleGroup", required = false) String vehicleGroup,
@@ -171,8 +206,8 @@ public class VehicleGroupController {
 		return rs.toString();
 	}
 	/**
-	 * 删除警员组
-	 * @param policeGroupId
+	 * 删除车辆组
+	 * @param vehicleGroupId
 	 * @param request
 	 * @return
 	 */
@@ -191,6 +226,12 @@ public class VehicleGroupController {
 		return rs.toString();
 	 }
 	
+	/**
+	 * 获取车辆分组信息
+	 * @param vehicleGroupId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "loadVehicleGroup.do")
 		public  @ResponseBody String loadVehicleGroup(
 				@RequestParam(value="vehicleGroupId",required=false) Integer vehicleGroupId,
@@ -210,7 +251,12 @@ public class VehicleGroupController {
 			return rs;
 		}
 	
-
+	/**
+	 * 删除组成员
+	 * @param memberId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "delMemberById.do")
 	public @ResponseBody String delMemberById(
 			@RequestParam(value = "memberId", required = false) Integer memberId,
@@ -225,6 +271,12 @@ public class VehicleGroupController {
 		return rs.toString();
 	}
 	
+	/**
+	 * 清空组成员列表
+	 * @param vehicleGroupId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "cleanMemberByGroupId.do")
 	public @ResponseBody String cleanMemberByGroupId(
 			@RequestParam(value = "vehicleGroupId", required = false) Integer vehicleGroupId,
@@ -238,6 +290,12 @@ public class VehicleGroupController {
 		return rs.toJson();
 	}
 
+	/**
+	 * 获取车辆分组列表，用于报备资源分组条件筛选
+	 * @param orgId
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "getVehicleGrouplist.do")
 	public @ResponseBody
 	String getVehicleGrouplist(@RequestParam(value = "orgId", required = false) Integer orgId,

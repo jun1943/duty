@@ -1,10 +1,8 @@
 package com.tianyi.drs.duty.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.File; 
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.IOException; 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,8 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tianyi.drs.duty.model.Duty;
-import com.tianyi.drs.duty.model.DutyItem;
+import com.tianyi.drs.duty.model.Duty; 
 import com.tianyi.drs.duty.service.DutyService;
 import com.tianyi.drs.duty.service.DutyTypeService;
 import com.tianyi.drs.duty.service.OrgService;
@@ -33,25 +30,29 @@ import com.tianyi.drs.duty.util.ExcelPortUtil;
 import com.tianyi.drs.duty.viewmodel.DutyExportVM;
 import com.tianyi.drs.duty.viewmodel.DutyItemCountVM;
 import com.tianyi.drs.duty.viewmodel.DutyItemVM;
-import com.tianyi.drs.duty.viewmodel.DutyVM;
-import com.tianyi.drs.duty.viewmodel.ExprotFileInfo;
+import com.tianyi.drs.duty.viewmodel.DutyVM; 
 import com.tianyi.drs.duty.viewmodel.ListResult;
 import com.tianyi.drs.duty.viewmodel.ObjResult;
-
-import org.apache.poi.hssf.util.HSSFColor;
+ 
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.CellStyle; 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+/**
+ * 备勤日历逻辑控制器
+ * @author lq
+ *
+ */
 @Scope("prototype")
 @Controller
 @RequestMapping("/dutyCalendar")
 public class DutyCalendarController {
-
+	/**
+	 * 初始化需要的服务层接口
+	 */
 	@Resource(name = "dutyService")
 	protected DutyService dutyService;
 
@@ -60,7 +61,16 @@ public class DutyCalendarController {
 
 	@Resource(name = "orgService")
 	protected OrgService orgService;
-
+	
+	
+	/**
+	 * 根据月份，获取日历，并加载备勤汇总数据信息
+	 * @param date  日期：2014-12-01
+	 * @param orgId  组织机构id
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "getCalender.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getCalender(
@@ -101,8 +111,12 @@ public class DutyCalendarController {
 		return result;
 	}
 
-	/*
-	 * 根据日期，组织，获取报备类型
+	 
+	/**
+	 * 根据日期、组织，获取报备类型列表
+	 * @param date
+	 * @param orgId
+	 * @return
 	 */
 	private String getTotalPolice(String date, Integer orgId) {
 		try {
@@ -154,7 +168,16 @@ public class DutyCalendarController {
 		int intWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
 		return weekDaysCode[intWeek];
 	}
-
+	/**
+	 * 根据参数数据，获取警务综合查询统计--汇总信息
+	 * @param orgId  组织机构id
+	 * @param orgPath  组织机构路径
+	 * @param orgCode  组织机构编码
+	 * @param beginTime  开始时间
+	 * @param endTime    结束时间
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "getTotalPolice.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getTotalPolice(
@@ -187,7 +210,16 @@ public class DutyCalendarController {
 
 		return rs.toJson();
 	}
-
+	/**
+	 * 根据参数数据，获取警务综合查询统计--各组织机构详细信息
+	 * @param orgId       组织机构id
+	 * @param orgPath     组织机构路径
+	 * @param orgCode     组织机构编码
+	 * @param beginTime   开始时间
+	 * @param endTime     结束时间
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "getTotalPolicedetail.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getTotalPolicedetail(
@@ -221,7 +253,15 @@ public class DutyCalendarController {
 
 		return rs.toJson();
 	}
-
+	/**
+	 * 导出报备明细数据到Excel
+	 * @param orgId    组织机构id
+	 * @param ymd      日期：20141205
+	 * @param response
+	 * @param request
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "exportDataToExcle.do")
 	public @ResponseBody
 	String exportDataToExcle(
@@ -281,7 +321,16 @@ public class DutyCalendarController {
 					+ "\",\"Data\":\"\"}";
 		}
 	}
-
+	/**
+	 * 遍历子节点
+	 * @param sList
+	 * @param list
+	 * @param vechilecount
+	 * @param policecount
+	 * @param weaponcount
+	 * @param gpsdeviceCount
+	 * @return
+	 */
 	private List<DutyExportVM> getSubList(List<DutyExportVM> sList,
 			List<DutyItemVM> list, int vechilecount, int policecount,
 			int weaponcount, int gpsdeviceCount) {
@@ -378,7 +427,12 @@ public class DutyCalendarController {
 		}
 		return vehicleCount;
 	}
-
+	/**
+	 * 初始化Excel组件，创建excle表格
+	 * @param sublist
+	 * @param filepath
+	 * @return
+	 */
 	private Boolean initExcelData(List<DutyExportVM> sublist, String filepath) {
 		File file = new File(filepath);
 		if (!file.exists()) {
@@ -470,7 +524,16 @@ public class DutyCalendarController {
 			return isCreateSuccess;
 		}
 	}
-
+	/**
+	 * 报备日历复制报备信息到其他日期
+	 * @param orgId      组织机构id
+	 * @param ymd        复制内容的日期
+	 * @param targetYmd  粘贴内容的日期
+	 * @param response
+	 * @param request
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "copyDutyByOrgIdAndYMD.do")
 	public @ResponseBody
 	String copyDutyByOrgIdAndYMD(
@@ -512,7 +575,7 @@ public class DutyCalendarController {
 			return result.toJson();
 		}
 	}
-
+	
 	private DutyItemVM clearItemId(DutyItemVM dutyItemVM) {
 		// TODO Auto-generated method stub
 		dutyItemVM.setId(0);
@@ -528,7 +591,16 @@ public class DutyCalendarController {
 		}
 		return dutyItemVM;
 	}
-
+	/**
+	 * 清除当月所有报备数据信息
+	 * @param orgId  组织机构id
+	 * @param year   年
+	 * @param month  月
+	 * @param response
+	 * @param request
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "deleteAllDutyData.do")
 	public @ResponseBody
 	String deleteAllDutyData(
@@ -577,7 +649,15 @@ public class DutyCalendarController {
 		ObjResult<DutyVM> rs = new ObjResult<DutyVM>(true, null, orgId, null);// 暂时不
 		return rs.toJson();
 	}
-
+	/**
+	 * 删除选择日期的数据信息
+	 * @param orgId   组织机构id
+	 * @param ymd     日期
+	 * @param response 
+	 * @param request
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "deleteDutyByYMD.do")
 	public @ResponseBody
 	String deleteDutyByYMD(

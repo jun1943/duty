@@ -2,11 +2,25 @@ package com.tianyi.drs.duty.viewmodel;
 
 import com.tianyi.drs.duty.model.VehicleGroup;
  
-
+/**
+ * 车辆分组model类，继承车辆分组实体类，用于前台操作显示
+ */
 public class VehicleGroupVM extends VehicleGroup {
+	/**
+	 * 组织机构名称
+	 */
 	private String orgName;
+	/**
+	 * 组织机构编码
+	 */
 	private String orgCode;
+	/**
+	 * 组织机构路径
+	 */
 	private String orgPath;
+	/**
+	 * 是否共享到下级
+	 */
 	private String shareTypeDesc;
 
 	public String getOrgName() {

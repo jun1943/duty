@@ -1,11 +1,26 @@
 package com.tianyi.drs.duty.viewmodel;
 
 import com.tianyi.drs.duty.model.WeaponGroup;
-
+/**
+ * 武器分组model类，继承武器分组实体类
+ * @author lq
+ */
 public class WeaponGroupVM extends WeaponGroup  {
+	/**
+	 * 组织机构名称
+	 */
 	private String orgName;
+	/**
+	 * 组织机构编码
+	 */
 	private String orgCode;
+	/**
+	 * 组织机构路径
+	 */
 	private String orgPath;
+	/**
+	 * 是否共享到下级
+	 */
 	private String shareTypeDesc;
 
 	public String getOrgName() {

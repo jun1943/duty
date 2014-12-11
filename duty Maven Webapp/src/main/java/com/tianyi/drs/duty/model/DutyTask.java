@@ -1,14 +1,27 @@
 package com.tianyi.drs.duty.model;
-
+/**
+ * 报备关联任务
+ */
 public class DutyTask {
+	/**
+	 * 主键值id
+	 */
     private Integer id;
-
+    /**
+	 * 关联任务名称
+	 */
     private String name;
-
+    /**
+	 * 任务标识
+	 */
     private String key;
-
+    /**
+	 * 平台标识
+	 */
     private Boolean syncState;
-
+    /**
+	 * 平台id
+	 */
     private Integer platformId;
 
     public Integer getId() {

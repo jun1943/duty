@@ -1,25 +1,51 @@
 package com.tianyi.drs.duty.model;
-
+/**
+ * 警员任务实体类
+ */
 public class PoliceTarget {
+	/**
+	 * 主键值id
+	 */
     private Integer id;
-
+    /**
+	 * 报备id
+	 */
     private Integer dutyId;
-    
+    /**
+	 * 报备明细id
+	 */
     private Integer dutyItemId;
-
+    /**
+	 * 警员id
+	 */
     private Integer policeId;
-
+    /**
+	 * 任务类型id
+	 */
     private Integer taskTypeId;
-
+    /**
+	 * 区域id
+	 */
     private Integer targetId;
-    
+    /**
+	 * 经过次数
+	 */
 	private Integer count;
+	/**
+	 * 停留时间
+	 */
 	private Integer stayTime;
-
+	/**
+	 * 是否经过
+	 */
     private Boolean isPass;
-
+    /**
+	 * 平台标识
+	 */
     private Boolean syncState;
-
+    /**
+	 * 平台id
+	 */
     private Integer platformId;
 
     public Integer getId() {

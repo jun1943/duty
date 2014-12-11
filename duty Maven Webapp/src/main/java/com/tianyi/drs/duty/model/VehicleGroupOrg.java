@@ -1,10 +1,19 @@
 package com.tianyi.drs.duty.model;
-
+/**
+ * 车辆分组、组织机构实体类
+ */
 public class VehicleGroupOrg {
-    private Integer id;
-
+	/**
+	 * 主键id
+	 */
+	private Integer id;
+	/**
+	 * 车辆分组id
+	 */
     private Integer vehicleGroupId;
-
+    /**
+	 * 组织机构id
+	 */
     private Integer orgId;
 
     public Integer getId() {

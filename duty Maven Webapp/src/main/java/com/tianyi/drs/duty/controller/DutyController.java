@@ -18,8 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
-import com.tianyi.drs.basedata.model.PoliceType;
+ 
 import com.tianyi.drs.duty.model.Duty;
 import com.tianyi.drs.duty.model.DutyProperty;
 import com.tianyi.drs.duty.model.Org;
@@ -31,17 +30,31 @@ import com.tianyi.drs.duty.viewmodel.DutyVM;
 import com.tianyi.drs.duty.viewmodel.ListResult;
 import com.tianyi.drs.duty.viewmodel.ObjResult;
 import com.tianyi.drs.duty.viewmodel.TaskTargetVM;
-
+/**
+ * 报备详细操作逻辑控制器
+ * @author lq
+ *
+ */
 @Scope("prototype")
 @Controller
 @RequestMapping("/duty")
 public class DutyController {
+	/**
+	 * 初始化需要的服务层接口
+	 */
 	@Resource(name = "dutyService")
 	protected DutyService dutyService;
 	
 	@Resource(name = "dutyTaskService")
 	protected DutyTaskService dutyTaskService;
 	
+	/**
+	 * 根据组织机构id和日期，获取详细的报备数据，以树形结构显示
+	 * @param orgId 组织机构id
+	 * @param ymd  日期
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "load.do")
 	public @ResponseBody String load(
 			@RequestParam(value = "orgId", required = false) Integer orgId,
@@ -51,6 +64,14 @@ public class DutyController {
 		return null;
 	}
 	
+	/**
+	 * 报备模板的加载获取赋值报备数据信息
+	 * @param orgId    组织机构id
+	 * @param ymd      日期
+	 * @param id       传入的id值，若id不等于空，则是通过模板选择来加载报备数据，若id为空，则通过报备复制加载报备数据
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "loadDutyByOrgIdAndYMD.do")
 	public @ResponseBody String loadDutyByOrgIdAndYMD(
 			@RequestParam(value = "orgId", required = false) Integer orgId,
@@ -72,7 +93,12 @@ public class DutyController {
 		
 		return s;
 	}
-	
+	/**
+	 * 保存报备明细数据
+	 * @param dvm  前台构建对象
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "save.do")
 	public @ResponseBody String save(
 			@RequestParam(value = "duty", required = false) String dvm,
@@ -100,7 +126,12 @@ public class DutyController {
 		
 		return rs.toJson();
 	}
-	
+	/**
+	 * 加载当前组织机构下已保存的模板
+	 * @param orgId   组织机构id
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "loadTemplateByOrgId.do")
 	public @ResponseBody String loadTemplateByOrgId(
 			@RequestParam(value = "orgId", required = false) Integer orgId,
@@ -113,6 +144,14 @@ public class DutyController {
 		
 		return rs.toJson();
 	}
+	/**
+	 * 加载当前勤务类型的关联任务属性
+	 * @param orgId
+	 * @param orgCode
+	 * @param taskType
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "loadTaskTargetByOrg.do")
 	public @ResponseBody String loadTaskTargetByOrg(
 			@RequestParam(value = "orgId", required = false) Integer orgId,
@@ -132,6 +171,12 @@ public class DutyController {
 		
 		return rs.toJson();
 	}
+	
+	/**
+	 * 获取勤务类型关联属性
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "getdutyProperty.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getdutyProperty() throws Exception {

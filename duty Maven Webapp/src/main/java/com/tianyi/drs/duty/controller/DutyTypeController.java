@@ -1,14 +1,12 @@
 package com.tianyi.drs.duty.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-
-import net.sf.json.JSONArray;
+ 
 import net.sf.json.JSONObject;
 
 import org.springframework.context.annotation.Scope;
@@ -17,25 +15,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tianyi.drs.basedata.service.PoliceService;
-import com.tianyi.drs.basedata.viewmodel.PoliceVM;
-import com.tianyi.drs.duty.model.DutyType;
-import com.tianyi.drs.duty.model.Org;
-import com.tianyi.drs.duty.service.DutyTypeService;
-import com.tianyi.drs.duty.service.OrgService;
+import com.tianyi.drs.basedata.service.PoliceService; 
+import com.tianyi.drs.duty.service.DutyTypeService; 
 import com.tianyi.drs.duty.service.PoliceGroupService;
 import com.tianyi.drs.duty.util.ResultMsg;
 import com.tianyi.drs.duty.viewmodel.DutyTypePropertyVM;
 import com.tianyi.drs.duty.viewmodel.DutyTypeVM;
 import com.tianyi.drs.duty.viewmodel.ListResult;
-import com.tianyi.drs.duty.viewmodel.ObjResult;
-import com.tianyi.drs.duty.viewmodel.PoliceGroupVM;
+import com.tianyi.drs.duty.viewmodel.ObjResult; 
 
+/**
+ * 勤务类型管理逻辑控制器
+ * @author lq
+ *
+ */
 @Scope("prototype")
 @Controller
 @RequestMapping("/dutyType")
 public class DutyTypeController {
-
+	
+	/**
+	 * 初始化服务层接口
+	 */
 	@Resource(name = "dutyTypeService")
 	protected DutyTypeService dutyTypeService;
 
@@ -44,7 +45,13 @@ public class DutyTypeController {
 
 	@Resource(name = "policeGroupService")
 	protected PoliceGroupService policeGroupService;
-
+	
+	/**
+	 * 获取勤务类型列表，非模板，并且是启用状态的模板
+	 * @param isUsed
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "list.do")
 	public @ResponseBody
 	String List(
@@ -71,6 +78,12 @@ public class DutyTypeController {
 		return result;
 	}
 
+	/**
+	 * 保存勤务类型；
+	 * @param dutyType
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "saveDutyType.do")
 	public @ResponseBody
 	String saveDutyType(
@@ -92,7 +105,13 @@ public class DutyTypeController {
 		String result = rs.toJson();
 		return result;
 	}
-
+	/**
+	 * 修改勤务类型的启用与锁定状态
+	 * @param id
+	 * @param isUsed
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "changeDutyTypeUseState.do")
 	public @ResponseBody
 	String changeDutyTypeUseState(
@@ -111,7 +130,12 @@ public class DutyTypeController {
 		String result = rs.toJson();
 		return result;
 	}
-
+	/**
+	 * 删除勤务类型
+	 * @param id
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "deleteDutyType.do")
 	public @ResponseBody
 	String deleteDutyType(

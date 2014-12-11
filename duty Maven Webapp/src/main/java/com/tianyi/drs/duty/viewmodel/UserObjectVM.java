@@ -1,14 +1,46 @@
 package com.tianyi.drs.duty.viewmodel;
 
+/**
+ * 用户model类，用作地址栏有效用户信息验证
+ * @author lq
+ */
+
 public class UserObjectVM {
+	/**
+	 * 标识id
+	 */
 	private Integer id;
+	/**
+	 * 登录名
+	 */
 	private String loginName;
+	/**
+	 * 登录类型
+	 */
 	private String loginType;
+	/**
+	 * 密码
+	 */
 	private String password;
+	/**
+	 * 所属组织机构id
+	 */
 	private Integer orgId;
+	/**
+	 * 组织机构路径
+	 */
 	private String orgPath;
+	/**
+	 * 组织机构编码
+	 */
 	private String orgCode;
-	private String orgName; 
+	/**
+	 * 组织机构名称
+	 */
+	private String orgName;
+	/**
+	 * 绑定警员id
+	 */
 	private Integer bindPoliceUserId;
 	public Integer getId() {
 		return id;
