@@ -295,20 +295,26 @@ function saveVehicleModel() {
 		isComplete = false;
 		return;
 	}
-	vehicle.brand = $("#txtbrand").val();
-	vehicle.siteQty = $("#txtsiteqty").val();
+	vehicle.brand = $.trim($("#txtbrand").val());
+	vehicle.siteQty = $.trim($("#txtsiteqty").val());
 	vehicle.orgId = m_Vehicle_OrgId;
-	if ($("#txtnumber").val() == "") {
+	var carnumber = $.trim($("#txtnumber").val());
+	if (carnumber == "") {
 		$.messager.alert("错误提示", "请输入车牌号码", "error");
 		isComplete = false;
 		return;
 	}
-	vehicle.number = $("#txtnumber").val();
+	if(carnumber.length>30){
+		$.messager.alert("错误提示", "车牌号码长度过长，限制长度为30！", "error");
+		isComplete = false;
+		return;
+	}
+	vehicle.number = carnumber;
 	// if ($("#txtpurpose").val() == "") {
 	// $.messager.alert("错误提示", "请输入车辆用途", "error");
 	// return;
 	// }
-	vehicle.purpose = $("#txtpurpose").val();
+	vehicle.purpose = $.trim($("#txtpurpose").val());
 
 	// vehicle.intercomGroup = $("#txtgroupno").combobox("getValue");
 	if ($("#txtgroupno").combobox("getValue") > 0

@@ -51,6 +51,11 @@ $(function() {
 	// $(this).attr("class", "");
 	// });
 	// });
+	$('#txtOrgName').keydown(function(e){
+		if(e.keyCode==13){
+			searchOrgAction();
+		}
+	});
 });
 
 //验证用户有效性，加载相关组织机构信息
@@ -118,7 +123,10 @@ function pageSwitch(node, url) {
 	$("#ifmWorkSpace").attr("src", src);
 }
 function searchOrgAction() {
-	var name = $('#txtOrgName').val();
+	var name = $.trim($('#txtOrgName').val());
+	if(name==""){
+		return;
+	}
 	var a = findOrgs(name);
 	$('#orgtree').tree("loadData", a);
 }

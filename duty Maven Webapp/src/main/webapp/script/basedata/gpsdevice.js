@@ -335,13 +335,13 @@ function saveGpsModel() {
 		isComplete = false;
 		return;
 	}
-	gpsdevice.gpsName = $("#txtgpsname").val();
+	gpsdevice.gpsName = $.trim($("#txtgpsname").val());
 	if ($("#txtgpsnumber").val() == "") {
 		$.messager.alert("错误提示", "请输入GPS设别编号", "error");
 		isComplete = false;
 		return;
 	}
-	gpsdevice.number = $("#txtgpsnumber").val();
+	gpsdevice.number = $.trim($("#txtgpsnumber").val());
 	gpsdevice.orgId = m_Gpsdevice_OrgId;
 	if ($("#txtIconUrl").val() == "") {
 		$.messager.alert("错误提示", "请选择GPS图标", "error");

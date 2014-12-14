@@ -49,6 +49,12 @@ $(function() {
 		onClick : onOrgTreeDblClick
 	});
 	loadFrmOrgs();
+	
+	$('#txtOrgName').keydown(function(e){
+		if(e.keyCode==13){
+			searchOrgAction();
+		}
+	});
 });
 
 //获取地址栏参数，判断用户的有效性，获取相关组织机构信息；
@@ -211,7 +217,10 @@ function loadFrmOrgs() {
 }
 
 function searchOrgAction() {
-	var name = $('#txtOrgName').val();
+	var name = $.trim($('#txtOrgName').val());
+	if(name ==""){
+		return;
+	}
 	var a = findOrgs(name);
 	$('#treeDutyFrmOrg').tree("loadData", a);
 }

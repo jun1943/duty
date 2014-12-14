@@ -240,12 +240,12 @@ function saveWeaponModel() {
 		isComplete= false;
 		return;
 	}
-	weapon.number = $("#txtnumber").val();
+	weapon.number = $.trim($("#txtnumber").val());
 	// if ($("#txtstandard").val() == "") {
 	// $.messager.alert("错误提示", "请输入武器规格型号", "error");
 	// return;
 	// }
-	weapon.standard = $("#txtstandard").val();
+	weapon.standard = $.trim($("#txtstandard").val());
 	weapon.orgId = m_Weapon_OrgId;
 	$.ajax({
 		url : "weapon/saveWeapon.do",

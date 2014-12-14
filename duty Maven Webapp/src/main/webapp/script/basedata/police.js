@@ -39,9 +39,9 @@ $(function() {
 		pageSize : 10,
 		title : "人员列表",
 		onDblClickRow : dblClickRow,
-//	    checkOnSelect: false,
-//	    selectOnCheck: true, 
-	    onClickRow: clickRow,
+		// checkOnSelect: false,
+		// selectOnCheck: true,
+		onClickRow : clickRow,
 		// singleSelect : true,
 		columns : [ [ {
 			field : 'ck',
@@ -131,9 +131,9 @@ $(function() {
 	});
 	InitData();
 });
-//取消点击行选中
+// 取消点击行选中
 function clickRow(index, data) {
-    $("#dtPolice").datagrid("unselectRow", index);
+	$("#dtPolice").datagrid("unselectRow", index);
 }
 // 打包查询条件
 function pack_police_Query() {
@@ -169,7 +169,7 @@ function InitData() {
 	getGpsID(m_Police_OrgId);
 };
 
-//获取警员相关属性，以下拉列表形式呈现；
+// 获取警员相关属性，以下拉列表形式呈现；
 
 function getPoliceType() {
 	getBaseDataCombobox("police/getPoliceType.do", "txttype");
@@ -214,7 +214,7 @@ function btnLockPolice() {
 	changePoliceState(1);
 };
 
-//修改警员启用或锁定状态；
+// 修改警员启用或锁定状态；
 function changePoliceState(pType) {
 	var hasRows = $('#dtPolice').datagrid('getRows');
 	if (hasRows.length == 0) {
@@ -309,10 +309,10 @@ function deletePolice(id) {
 		}
 	});
 }
-function dblClickRow(index,rowData){
+function dblClickRow(index, rowData) {
 	editPoliceModel(rowData);
 }
-function editPoliceModel(rows){
+function editPoliceModel(rows) {
 	clearForm();
 	$("#policeId").val(rows.id);
 	$("#txtname").val(rows.name);
@@ -322,8 +322,7 @@ function editPoliceModel(rows){
 	$("#txtidcardno").val(rows.idcardno);
 	$("#txtnumber").val(rows.number);
 	// $("#txtgpsdes").val(rows.gpsName);
-	$("#txtgpsid")
-			.combobox("setValue", rows.gpsId == 0 ? "" : rows.gpsId);
+	$("#txtgpsid").combobox("setValue", rows.gpsId == 0 ? "" : rows.gpsId);
 	$("#txttype").combobox("setValue", rows.typeId);
 	$("#txtgroupno").combobox("setValue",
 			rows.intercomGroup == 0 ? "" : rows.intercomGroup);
@@ -348,7 +347,7 @@ function btnEditPolice(optType) {
 	if (rows.length > 1) {
 		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
 		return;
-	} 
+	}
 	editPoliceModel(rows[0]);
 }
 // 清空form表单
@@ -387,15 +386,26 @@ function savePoliceModel() {
 		isComplete = false;
 		return;
 	}
-	if ($("#txtname").val() == "") {
+	var policename = $.trim($("#txtname").val());
+	if (policename == "") {
 		$.messager.alert("错误提示", "请输入警员名称", "error");
 		isComplete = false;
 		return;
 	}
-	police.name = $("#txtname").val();
-	police.idcardno = $("#txtidcardno").val();
-	var idcardno = $("#txtidcardno").val();
+	if (policename.length > 30) {
+		$.messager.alert("错误提示", "警员名称长度过长，限制长度为30！", "error");
+		isComplete = false;
+		return;
+	}
+	police.name = policename;
 
+	police.idcardno = $.trim($("#txtidcardno").val());
+	var idcardno = $.trim($("#txtidcardno").val());
+	if (idcardno.length > 18) {
+		$.messager.alert("错误提示", "警员身份证号码长度过长，限制长度为18！", "error");
+		isComplete = false;
+		return;
+	}
 	// 对身份证以及警号进行验证，ajax同步
 	if (operationType == "add") {
 		isExistPolice(idcardno, "idCard");
@@ -407,8 +417,14 @@ function savePoliceModel() {
 		}
 	}
 	police.orgId = m_Police_OrgId;
-	police.number = $("#txtnumber").val();
-	var number = $("#txtnumber").val();
+	police.number = $.trim($("#txtnumber").val());
+	var number = $.trim($("#txtnumber").val());
+	if (number.length > 16) {
+		$.messager.alert("错误提示", "警员警号长度过长，限制长度为16！", "error");
+		isComplete = false;
+		return;
+	}
+
 	if (operationType == "add") {
 		isExistPolice(number, "number");
 		if (!isExist) {
@@ -419,9 +435,28 @@ function savePoliceModel() {
 			return;
 		}
 	}
-	police.title = $("#txttitle").val();
-	police.mobile = $("#txtmobile").val();
-	police.mobileShort = $("#txtmobileshort").val();
+	var titles = $.trim($("#txttitle").val());
+
+	if (titles.length > 30) {
+		$.messager.alert("错误提示", "警员职位长度过长，限制长度为30！", "error");
+		isComplete = false;
+		return;
+	}
+	police.title = titles;
+	var mobiles = $.trim($("#txtmobile").val());
+	if (mobiles.length > 13) {
+		$.messager.alert("错误提示", "警员手机号码长度过长，限制长度为13！", "error");
+		isComplete = false;
+		return;
+	}
+	police.mobile = mobiles;
+	var mobileShorts = $.trim($("#txtmobileshort").val());
+	if (mobileShorts.length > 13) {
+		$.messager.alert("错误提示", "警员公安短号长度过长，限制长度为13！", "error");
+		isComplete = false;
+		return;
+	}
+	police.mobileShort = mobileShorts;
 
 	// police.intercomGroup = $("#txtgroupno").combobox("getValue");
 	if ($("#txtgroupno").combobox("getValue") > 0
@@ -471,7 +506,7 @@ function savePoliceActionExit() {
 	}
 }
 
-//判断警员是否存在
+// 判断警员是否存在
 function isExistPolice(param, pType) {
 	isExist = false;
 	$.ajax({
