@@ -258,9 +258,9 @@ function loadFrmOrgs() {
 
 function searchOrgAction() {
 	var name = $.trim($('#txtOrgName').val());
-	if (name == "") {
-		return;
-	}
+//	if (name == "") {
+//		return;
+//	}
 	var a = findOrgs(name);
 	$('#treeDutyFrmOrg').tree("loadData", a);
 }
