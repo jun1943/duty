@@ -19,10 +19,17 @@ import com.tianyi.drs.duty.service.WeaponGroupService;
 import com.tianyi.drs.duty.viewmodel.WeaponGroupMemberVM;
 import com.tianyi.drs.duty.viewmodel.WeaponGroupVM;
  
-
+/**
+ * 武器分组接口实现
+ * @author lq
+ *
+ */
 @Service("weaponGroupService")
 public class WeaponGroupServiceImpl implements WeaponGroupService  {
 
+	/**
+	 * 初始化武器分无映射
+	 */
 	@Resource(name="weaponGroupMapper")
 	private WeaponGroupMapper weaponGroupMapper;
 	
@@ -32,20 +39,32 @@ public class WeaponGroupServiceImpl implements WeaponGroupService  {
 	@Resource(name="weaponGroupMemberMapper")
 	private WeaponGroupMemberMapper weaponGroupMemberMapper;
 	
+	/**
+	 * 根据组织机构id，获取武器分组记录总数
+	 */
 	public int loadVMCountByOrgId(Map<String, Object> map) {
 		int count=weaponGroupMapper.countByOrgId(map);
 		return count;
 	}
 
+	/**
+	 * 根据组织机构id，获取武器分组记录列表
+	 */
 	public List<WeaponGroupVM> loadVMListByOrgId(Map<String, Object> map) {
 		List<WeaponGroupVM> ls=weaponGroupMapper.loadVMListByOrgId(map);
 		return ls;
 	}
 
+	/**
+	 * 获取当前组织机构的下级机构，用于共享到下级
+	 */
 	public List<WeaponGroupOrg> loadShareOrgList(int pgid) {
 		List<WeaponGroupOrg> ls=weaponGroupOrgMapper.loadWeaponGroupOrgByPGId(pgid);
 		return ls;
 	}
+	/**
+	 * 保存武器分组信息
+	 */
 	@Transactional
 	public void saveWeaponGroup(WeaponGroup pg, Object[] orgIds) {
 		 
@@ -56,6 +75,9 @@ public class WeaponGroupServiceImpl implements WeaponGroupService  {
 			weaponGroupOrgMapper.deleteByPGId(pg.getId());
 		}
 
+		/**
+		 * 保存武器分组组织机构对应关系
+		 */
 		for(Object oid : orgIds){
 			Integer id=(Integer)oid;
 			
@@ -68,27 +90,42 @@ public class WeaponGroupServiceImpl implements WeaponGroupService  {
 		
 	}
 
+	/**
+	 * 根据id获取武器分组对象信息
+	 */
 	public WeaponGroup loadById(Integer id) {
 		return weaponGroupMapper.selectByPrimaryKey(id);
 	}
 
+	/**
+	 * 根据id，删除武器分组
+	 */
 	public void deleteById(Integer id) {
 		weaponGroupMapper.deleteByPrimaryKey(id);
 		weaponGroupOrgMapper.deleteByPGId(id); //删除对应共享的机构
 		
 	}
 
+	/**
+	 * 根据分组id，获取分组成员总记录数
+	 */
 	public int countMemberByGroupId(Integer groupId) {
 		int total=weaponGroupMemberMapper.countMemberByGroupId(groupId);
 		return total;
 	}
 
+	/**
+	 * 根据分组id，获取分组成员列表记录
+	 */
 	public List<WeaponGroupMemberVM> loadMemberByGroupId(
 			Map<String, Object> map) {
 		List<WeaponGroupMemberVM> ls=weaponGroupMemberMapper.loadMemberByGroupId(map);
 
 		return ls;
 	}
+	/**
+	 * 增加武器分组成员
+	 */
 	@Transactional
 	public void appendMemeber(List<WeaponGroupMember> ls) {
 		for(WeaponGroupMember pgm : ls){

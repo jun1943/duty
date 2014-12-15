@@ -21,6 +21,11 @@ import com.tianyi.drs.duty.viewmodel.DutyTypePropertyVM;
 import com.tianyi.drs.duty.viewmodel.DutyTypeVM;
 
 
+/**
+ * 勤务类型服务接口实现
+ * @author lq
+ *
+ */
 @Service("dutyTypeService")
 public class DutyTypeServiceImpl implements DutyTypeService {
 
@@ -31,17 +36,26 @@ public class DutyTypeServiceImpl implements DutyTypeService {
 	private DutyTypePropertyRelateMapper dtprMapper;
 	
 
+	/**
+	 * 获取勤务类型属性列表
+	 */
 	public List<DutyTypePropertyVM> loadProperties() {
 		
 		return dutyTypeMapper.loadProperties();
 	}
 
+	/**
+	 * 获取勤务类型列表数据
+	 */
 	public List<DutyTypeVM> loadDutyTypeVM(Boolean isUsed) {
 		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("isUsed", isUsed);
 		return dutyTypeMapper.loadDutyTypeVM(map);
 	}
 
+	/**
+	 * 保存新增的勤务类型数据
+	 */
 	@Transactional
 	public void save(DutyTypeVM vm) {
 		DutyType parent=null;
@@ -94,7 +108,11 @@ public class DutyTypeServiceImpl implements DutyTypeService {
 		
 	}
 
-	
+	/**
+	 * 更新勤务类型状态，启用或者锁定
+	 * 启用，只能一级一级启用，
+	 * 锁定，锁定上级节点，一并锁定下级节点
+	 */
 	public void updateUseStateByFullPath(Integer id,Boolean isUsed){
 		Map<String,Object> map=new HashMap<String,Object>();
 		
@@ -110,6 +128,9 @@ public class DutyTypeServiceImpl implements DutyTypeService {
 		}
 	}
 
+	/**
+	 * 根据id，删除勤务类型数据
+	 */
 	@Transactional
 	public ResultMsg deleteNode(Integer id) {
 		
@@ -133,10 +154,16 @@ public class DutyTypeServiceImpl implements DutyTypeService {
 	}
  
 
+	/**
+	 * 获取勤务类型列表数据，用于勤务类型选择
+	 */
 	public List<DutyType> loadDutyType(Map<String, Object> map) {
 		return dutyTypeMapper.loadDutyType(map);
 	}
 
+	/**
+	 * 获取勤务类型下级节点属性
+	 */
 	public List<DutyItemCountVM> loadDutyItemCount(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return dutyTypeMapper.loadDutyItemCount(map);

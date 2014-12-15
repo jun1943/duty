@@ -13,12 +13,29 @@ import com.tianyi.drs.duty.service.DutyReportService;
 import com.tianyi.drs.duty.viewmodel.DutyReportCriteria;
 import com.tianyi.drs.duty.viewmodel.DutyReportVM;
 
+/**
+ * 警务综合查询，接口实现
+ * @author lq
+ *
+ */
 @Service("dutyReportService")
 public class DutyReportServiceImpl implements DutyReportService{
 
+	/**
+	 * 初始化警务综合查询映射
+	 */
 	@Resource(name = "dutyReportMapper")
 	private DutyReportMapper dutyReportMapper;
 	
+	/**
+	 * 根据查询报条件，查询警务综合查询数据
+	 * param：组织机构id
+	 * 日期
+	 * 开始时间、结束时间
+	 * 着装
+	 * 武器
+	 * 属性等
+	 */
 	public List<DutyReportVM> loadDutyReport(DutyReportCriteria criteria) {
 		Map<String,Object> map=new HashMap<String,Object>();
 		if(criteria.getOrgIds().size()>0){

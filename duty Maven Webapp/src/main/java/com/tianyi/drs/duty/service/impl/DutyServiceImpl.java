@@ -23,6 +23,11 @@ import com.tianyi.drs.duty.viewmodel.DutyItemCountVM;
 import com.tianyi.drs.duty.viewmodel.DutyItemVM;
 import com.tianyi.drs.duty.viewmodel.DutyVM;
 
+/**
+ * 勤务报备服务接口实现
+ * @author lq
+ *
+ */
 @Service("dutyService")
 public class DutyServiceImpl implements DutyService {
 
@@ -35,12 +40,18 @@ public class DutyServiceImpl implements DutyService {
 	@Resource(name = "policeTargetMapper")
 	private PoliceTargetMapper policeTargetMapper;
 
+	/**
+	 * 获取勤务报备数据列表，
+	 */
 	public List<DutyVM> loadVMList(Map<String, Object> map) {
 		List<DutyVM> dvms = dutyMapper.loadDutyVMList(map);
 		itemToTreeOfList(dvms);
 		return dvms;
 	}
 
+	/**
+	 * 根据组织机构id，日期，获取勤务报备数据以及明细
+	 */
 	public DutyVM loadVMByOrgIdAndYmd(Integer orgId, Integer ymd) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("orgId", orgId);
@@ -56,6 +67,9 @@ public class DutyServiceImpl implements DutyService {
 		return dvm;
 	}
 
+	/**
+	 * 根据id，获取勤务报备信息
+	 */
 	public DutyVM loadById(Integer id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
@@ -69,6 +83,10 @@ public class DutyServiceImpl implements DutyService {
 		return dvm;
 	}
 
+	/**
+	 * 将报备数据明细构建为树状结构列表
+	 * @param dvms
+	 */
 	private void itemToTreeOfList(List<DutyVM> dvms) {
 		for (DutyVM dvm : dvms) {
 			Map<Integer, DutyItemVM> map = new HashMap<Integer, DutyItemVM>();
@@ -89,11 +107,17 @@ public class DutyServiceImpl implements DutyService {
 
 	}
 
+	/**
+	 * 获取报备模板，用于报备模板选择
+	 */
 	public List<Duty> loadTemplatesWithOutItem(Integer orgId) {
 		List<Duty> vms = dutyMapper.loadTemplatesWithOutItem(orgId);
 		return vms;
 	}
 
+	/**
+	 * 保存勤务报备数据信息
+	 */
 	@Transactional
 	public void save(DutyVM vm) {
 		vm.setCreateTime(new Date());
@@ -112,6 +136,12 @@ public class DutyServiceImpl implements DutyService {
 		}
 	}
 
+	/**
+	 * 保存勤务报备数据明细
+	 * @param ivm
+	 * @param pivm
+	 * @param vm
+	 */
 	private void saveItem(DutyItemVM ivm, DutyItemVM pivm, DutyVM vm) {
 
 		ivm.setId(0);
@@ -167,56 +197,89 @@ public class DutyServiceImpl implements DutyService {
 		}
 	}
 
+	/**
+	 * 获取勤务报备警力统计汇总
+	 */
 	public List<DutyItemCountVM> loadTotalPolice(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return dutyMapper.loadTotalPolice(map);
 	}
 
+	/**
+	 * 获取勤务报备警力详细数据信息
+	 */
 	public List<DutyItemCountVM> loadTotalPolicedetail(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return dutyMapper.loadTotalPolicedetail(map);
 	}
 
+	/**
+	 * 查询勤务类型属性列表
+	 */
 	public List<DutyProperty> selectdutyProperty() {
 		// TODO Auto-generated method stub
 		return dutyMapper.selectdutyProperty();
 	}
 
+	/**
+	 * 根据报备id，删除报备数据
+	 */
 	public void deleteByDutyId(int dutyId) {
 		// TODO Auto-generated method stub
 		dutyItemMapper.deleteByDutyId(dutyId);
 	}
 
+	/**
+	 * 根据日期，删除报备数据
+	 */
 	public void deleteByYMD(Integer targetYmd) {
 		// TODO Auto-generated method stub
 		dutyMapper.deleteByYMD(targetYmd);
 	}
 
+	/**
+	 * 插入报备数据
+	 */
 	public int insert(Duty nduty) {
 		// TODO Auto-generated method stub
 		return dutyMapper.insert(nduty);
 	}
 
+	/**
+	 * 根据报备id，获取报备明细数据
+	 */
 	public List<DutyItem> loadlistByDutyId(Integer id) {
 		// TODO Auto-generated method stub
 		return dutyItemMapper.loadlistByDutyId(id);
 	}
 
+	/**
+	 * 插入报备明细数据
+	 */
 	public int insertDutyItem(DutyItem di) {
 		// TODO Auto-generated method stub
 		return dutyItemMapper.insert(di);
 	}
 
+	/**
+	 * 根据组织机构id，日期，获取勤务报备数据，用于报备日历页面显示详细数据
+	 */
 	public List<Duty> loadVMListByOrgAndYmd(Map<String, Object> maps) {
 		// TODO Auto-generated method stub
 		return dutyMapper.loadVMListByOrgAndYmd(maps);
 	}
 
+	/**
+	 * 清除所有报备数据信息
+	 */
 	public void deleteByDutyIdlist(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		dutyItemMapper.deleteByDutyIdlist(map);
 	}
 
+	/**
+	 * 根据id，删除报备数据对象
+	 */
 	public void deleteByPrimaryKey(int dId) {
 		// TODO Auto-generated method stub
 		dutyMapper.deleteByPrimaryKey(dId);
