@@ -10,10 +10,12 @@ var m_dutyFrame_Org = {};
 var m_dutyFrame_User = {};
 var m_dutyFrame_func_prop = {};
 var year = null;
-var month = null; 
+var month = null;
 var m_org_map = {};
 
 var m_org_node = {};
+
+var pagemodel = "dutycalendar";
 
 $(function() {
 
@@ -49,15 +51,15 @@ $(function() {
 		onClick : onOrgTreeDblClick
 	});
 	loadFrmOrgs();
-	
-	$('#txtOrgName').keydown(function(e){
-		if(e.keyCode==13){
+
+	$('#txtOrgName').keydown(function(e) {
+		if (e.keyCode == 13) {
 			searchOrgAction();
 		}
 	});
 });
 
-//获取地址栏参数，判断用户的有效性，获取相关组织机构信息；
+// 获取地址栏参数，判断用户的有效性，获取相关组织机构信息；
 function batchGetUserAuthorization(userName, pwd) {
 	$.ajax({
 		url : "police/batchGetUserAuthorization.do",
@@ -87,21 +89,51 @@ function batchGetUserAuthorization(userName, pwd) {
 		}
 	});
 };
-//树节点点击事件；
-function onOrgTreeDblClick(node) { 
-		m_dutyFrame_func_prop.orgId = node.id;
-		m_dutyFrame_func_prop.orgCode = node.code;
-		m_dutyFrame_func_prop.orgPath = node.path;
-		m_dutyFrame_func_prop.userId = m_dutyFrame_User.id;
-		var name = node.text;
-		m_dutyFrame_func_prop.orgName = name;
-
+// 树节点点击事件；
+function onOrgTreeDblClick(node) {
+	m_dutyFrame_func_prop.orgId = node.id;
+	m_dutyFrame_func_prop.orgCode = node.code;
+	m_dutyFrame_func_prop.orgPath = node.path;
+	m_dutyFrame_func_prop.userId = m_dutyFrame_User.id;
+	var name = node.text;
+	m_dutyFrame_func_prop.orgName = name;
+	switch (pagemodel) {
+	case "dutycalendar":
 		m_dutyFrame_func_prop.url = "view/duty/dutycalendar.jsp";
 		pageSwitch();
 		$("#divDutyPrepare").attr("class", "MenuMouseMove");
 		$("#divDutyType").attr("class", "");
 		$("#divDutyDataGroup").attr("class", "");
-		$("#divDutyReport").attr("class", ""); 
+		$("#divDutyReport").attr("class", "");
+		break;
+	case "dutyreport":
+		m_dutyFrame_func_prop.url = "view/duty/policeinquiry.jsp";
+		setCheckBox(m_dutyFrame_func_prop.ctl, 2);
+		pageSwitch();
+		$("#divDutyPrepare").attr("class", "");
+		$("#divDutyType").attr("class", "");
+		$("#divDutyDataGroup").attr("class", "");
+		$("#divDutyReport").attr("class", "MenuMouseMove");
+		break;
+	case "dutydatagroup":
+		m_dutyFrame_func_prop.url = "view/duty/policegroup.jsp";
+		setCheckBox(m_dutyFrame_func_prop.ctl, 3);
+		pageSwitch();
+		$("#divDutyPrepare").attr("class", "");
+		$("#divDutyType").attr("class", "");
+		$("#divDutyDataGroup").attr("class", "MenuMouseMove");
+		$("#divDutyReport").attr("class", "");
+		break;
+	case "dutytype":
+		m_dutyFrame_func_prop.url = "view/duty/dutytype.jsp";
+		setCheckBox(m_dutyFrame_func_prop.ctl, 4);
+		pageSwitch();
+		$("#divDutyPrepare").attr("class", "");
+		$("#divDutyType").attr("class", "MenuMouseMove");
+		$("#divDutyDataGroup").attr("class", "");
+		$("#divDutyReport").attr("class", "");
+		break;
+	}
 }
 /*
  * 页面切换
@@ -117,8 +149,9 @@ function pageSwitch(node, url) {
 	// var esrc = encodeURI(src);
 	$("#ifmWorkSpace").attr("src", src);
 }
-//跳转到日历页面
+// 跳转到日历页面
 function onDutycalendar(years, months) {
+	pagemodel = "dutycalendar";
 	m_dutyFrame_func_prop.url = "view/duty/dutycalendar.jsp";
 	var src = m_dutyFrame_func_prop.url + "?orgId="
 			+ m_dutyFrame_func_prop.orgId + "&orgCode="
@@ -128,49 +161,56 @@ function onDutycalendar(years, months) {
 			+ "&year=" + years + "&month=" + months;
 	$("#ifmWorkSpace").attr("src", src);
 }
-//跳转到点击日历，跳转到详细报备页面
-function onDutyPrepare() { 
-		m_dutyFrame_func_prop.url = "view/duty/dutycalendar.jsp";
-		setCheckBox(m_dutyFrame_func_prop.ctl, 1);
-		m_dutyFrame_func_prop.ctl = 1;
-		pageSwitch();
-		$("#divDutyPrepare").attr("class", "MenuMouseMove");
-		$("#divDutyType").attr("class", "");
-		$("#divDutyDataGroup").attr("class", "");
-		$("#divDutyReport").attr("class", ""); 
+// 跳转到点击日历，跳转到详细报备页面
+function onDutyPrepare() {
+	pagemodel = "dutycalendar";
+	m_dutyFrame_func_prop.url = "view/duty/dutycalendar.jsp";
+	setCheckBox(m_dutyFrame_func_prop.ctl, 1);
+	m_dutyFrame_func_prop.ctl = 1;
+	pageSwitch();
+	$("#divDutyPrepare").attr("class", "MenuMouseMove");
+	$("#divDutyType").attr("class", "");
+	$("#divDutyDataGroup").attr("class", "");
+	$("#divDutyReport").attr("class", "");
 }
-//跳转到报备查询页面
-function onDutyReport() { 
-		m_dutyFrame_func_prop.url = "view/duty/policeinquiry.jsp";
-		setCheckBox(m_dutyFrame_func_prop.ctl, 2);
-		pageSwitch();
-		$("#divDutyPrepare").attr("class", "");
-		$("#divDutyType").attr("class", "");
-		$("#divDutyDataGroup").attr("class", "");
-		$("#divDutyReport").attr("class", "MenuMouseMove"); 
+// 跳转到报备查询页面
+function onDutyReport() {
+
+	pagemodel = "dutyreport";
+	m_dutyFrame_func_prop.url = "view/duty/policeinquiry.jsp";
+	setCheckBox(m_dutyFrame_func_prop.ctl, 2);
+	pageSwitch();
+	$("#divDutyPrepare").attr("class", "");
+	$("#divDutyType").attr("class", "");
+	$("#divDutyDataGroup").attr("class", "");
+	$("#divDutyReport").attr("class", "MenuMouseMove");
 }
-//跳转到分组页面
-function onDutyDataGroup(name) { 
-		m_dutyFrame_func_prop.url = "view/duty/" + name + ".jsp";
-		setCheckBox(m_dutyFrame_func_prop.ctl, 3);
-		pageSwitch();
-		$("#divDutyPrepare").attr("class", "");
-		$("#divDutyType").attr("class", "");
-		$("#divDutyDataGroup").attr("class", "MenuMouseMove");
-		$("#divDutyReport").attr("class", ""); 
+// 跳转到分组页面
+function onDutyDataGroup(name) {
+
+	pagemodel = "dutydatagroup";
+	m_dutyFrame_func_prop.url = "view/duty/" + name + ".jsp";
+	setCheckBox(m_dutyFrame_func_prop.ctl, 3);
+	pageSwitch();
+	$("#divDutyPrepare").attr("class", "");
+	$("#divDutyType").attr("class", "");
+	$("#divDutyDataGroup").attr("class", "MenuMouseMove");
+	$("#divDutyReport").attr("class", "");
 
 }
-//跳转到勤务类型管理页面
-function onDutyType() { 
-		m_dutyFrame_func_prop.url = "view/duty/dutytype.jsp";
-		setCheckBox(m_dutyFrame_func_prop.ctl, 4);
-		pageSwitch();
-		$("#divDutyPrepare").attr("class", "");
-		$("#divDutyType").attr("class", "MenuMouseMove");
-		$("#divDutyDataGroup").attr("class", "");
-		$("#divDutyReport").attr("class", ""); 
+// 跳转到勤务类型管理页面
+function onDutyType() {
+
+	pagemodel = "dutytype";
+	m_dutyFrame_func_prop.url = "view/duty/dutytype.jsp";
+	setCheckBox(m_dutyFrame_func_prop.ctl, 4);
+	pageSwitch();
+	$("#divDutyPrepare").attr("class", "");
+	$("#divDutyType").attr("class", "MenuMouseMove");
+	$("#divDutyDataGroup").attr("class", "");
+	$("#divDutyReport").attr("class", "");
 }
-//跳转到详细统计也难的时候，将左侧的树，增加显示复选框
+// 跳转到详细统计也难的时候，将左侧的树，增加显示复选框
 function setCheckBox(ctlA, ctlB) {
 	if (ctlA != 2 && ctlB == 2) {
 		$('#treeDutyFrmOrg').tree({
@@ -218,7 +258,7 @@ function loadFrmOrgs() {
 
 function searchOrgAction() {
 	var name = $.trim($('#txtOrgName').val());
-	if(name ==""){
+	if (name == "") {
 		return;
 	}
 	var a = findOrgs(name);
@@ -257,7 +297,7 @@ function findOrgTree(org, name, array) {
 		return null;
 	}
 }
-//跳转静茹详细报备页面；
+// 跳转静茹详细报备页面；
 function onClickData(date) {
 	m_dutyFrame_func_prop.url = "view/duty/dutyprepare.jsp";
 	var src = m_dutyFrame_func_prop.url + "?orgId="

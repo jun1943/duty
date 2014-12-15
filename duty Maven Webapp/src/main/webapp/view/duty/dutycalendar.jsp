@@ -68,7 +68,7 @@
     	</div>
 	</div>
 	 <!-- 报备详细明细窗体内容 -->
- 	<div id="dutyDetailsForDaywindow" title="警务报备情况" class="easyui-window" data-options="iconCls:'icon-edit',modal:true" closed="true" 
+ 	<div id="dutyDetailsForDaywindow" onmousemove="mouseOut()" onmousemove="mousemove()" title="警务报备情况" class="easyui-window" data-options="iconCls:'icon-edit',modal:true" closed="true" 
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
 			style="width:654px; height:450px; padding: 10px;"> 
 		    <div id="tbdutydetailsforday" style="height:30px;float:right;background-color: #F7F3F3;"> 

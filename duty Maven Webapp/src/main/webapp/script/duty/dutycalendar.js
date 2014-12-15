@@ -861,3 +861,10 @@ function findDutyTreeGrid(item, name) {
 		return null;
 	}
 }
+
+function mouseOut(){
+	$("#dutyDetailsForDaywindow").window("close");
+}
+function mousemove(){
+	
+}
