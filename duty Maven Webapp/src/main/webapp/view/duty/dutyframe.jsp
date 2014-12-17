@@ -16,10 +16,10 @@
   
   <body style="overflow:hidden">
 <div id="cc" class="easyui-layout" style="width:100%;height:100%;" oncontextmenu=self.event.returnValue=false>
-	<div data-options="region:'west',title:'组织机构导航树',split:true"  style="width:14%;padding:10px;overflow-x:hidden;">
+	<div data-options="region:'west',title:'组织机构导航树',split:true" class="dtytreeArea">
 		<!-- 左边导航树 -->
 		<div>
-			<input id="txtOrgName" style="width:70%; margin-left:4px;margin-top:2px" type="text"/>
+			<input id="txtOrgName" class="dtytreesearch" type="text"/>
 			<a id="btnSearchOrg" href="javascript:void(0);" class="easyui-linkbutton"
                     iconcls="icon-tianyi-search" onclick="searchOrgAction()" ></a>
 		</div>
@@ -30,7 +30,7 @@
     <div data-options="region:'center'" style="overflow:hidden" >
     	<iframe id="ifmWorkSpace" name="ifmWorkSpace"  scrolling='yes'  frameborder='0'  style="width:100%;height:100%"></iframe>
     </div>        
-    <div data-options="region:'east',split:false"  style="width:15%;overflow:hidden">
+    <div data-options="region:'east',split:false" class="dtyeastArea">
     	<!--右边导航目录 s-->
 		<div class="MenuBox">
 			<ul>

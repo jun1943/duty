@@ -17,33 +17,33 @@
 
 </head>
 
-<body class="easyui-layout" style="padding:2px" oncontextmenu=self.event.returnValue=false> 
+<body class="easyui-layout weaponlayout"  oncontextmenu=self.event.returnValue=false> 
  
-	<div data-options="region:'center'"style="padding:2px;">  
+	<div data-options="region:'center'" class="weaponcenter" >  
 			<!-- 工具条 -->
-			<div id="tbWeapon" class="btn-toolbar" style="height:30px; margin-top:3px">
+			<div id="tbWeapon" class="btn-toolbar weapontoolbar" >
   				<div class="btn-group">
   					<a id="btnAddWeapon" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-add"  onclick="btnAddWeapon('add')">创建</a>
                 	<a id="btnEditWeapon" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-edit" onclick="btnEditWeapon('edit')">修改</a>
                 	<a id="btnDelWeapon" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-delete"   onclick="btnDelWeapon()">删除</a>
                 	 
-  					<a id="btnSearchWeapon" href="javascript:void(0);" class="easyui-linkbutton"   style="float:right; margin-right:20px"  onclick="btnSearchWeapon()">展开查询</a>
+  					<a id="btnSearchWeapon" href="javascript:void(0);" class="easyui-linkbutton weaponsearchbtn"     onclick="btnSearchWeapon()">展开查询</a>
                 	<!-- a id="btnPrintList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-print" plain="true" onclick="btnPrintList()">打印</a>
                 	<a id="btnExportList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-export" plain="true" onclick="btnExportList()">导出</a> -->
                	</div>
   			</div>
   			<!-- 查询条件 -->
-  			<div class="MySearch" id="my-search-box" style=" padding:3px;display:none; ">
+  			<div class="MySearch" id="my-search-box">
 		 		<div class="MySearchMain">
 				 	<div>
 							<form>
 								<table>
 									<tr>
 										<td class="MySearchTDTitle">查询范围选择:</td>
-										<td><input id="isSubOrg" class="easyui-combobox" name="dept" style="width:104px"
+										<td><input id="isSubOrg" class="easyui-combobox weaponsearchinput" name="dept"  
 										data-options="editable:false,valueField:'id',textField:'name',data:[{id: 0,name: '本級机构'},{id: 1,name: '本级及下级机构'}]" /></td>
 										<td class="MySearchTDTitle">武器编号:</td>
-										<td><input id="txtsearchnumber" class="easyui-validatebox" type="text" ></td>
+										<td><input id="txtsearchnumber" class="easyui-validatebox weaponsearchinput" type="text" ></td>
 										<td><a id="btnSearchAction" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-search"  onclick="btnSearchAction()">查询</a></td>
 									 
 									</tr> 
@@ -60,24 +60,23 @@
 	</div>   
 	
 	<!-- 编辑窗体内容 -->
-	 <div id="weaponinfowindow" class="easyui-window" title="新增/编辑武器信息"
-			data-options="iconCls:'icon-edit',modal:true" closed="true" 
+	 <div id="weaponinfowindow" class="easyui-window weaponwindow" title="新增/编辑武器信息"
+			data-options="iconCls:'icon-tianyi-edit',modal:true" closed="true" 
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
-			style="width: 400px; height: 240px; padding: 10px;">
+			 >
 			<div class="easyui-layout" data-options="fit:true">
 				<div data-options="region:'south',border:false"
-					style="padding: 2px; height: 30px;">
-					<a id="btnsaveWeaponCon" href="javascript:void(0);" class="easyui-linkbutton"
-						 style="float:right"
+					class="weaponwindowsouth">
+					<a id="btnsaveWeaponCon" href="javascript:void(0);" class="easyui-linkbutton weaponwindowbtnExit"
+						 
 						onclick="saveWeaponAction()">保存并继续</a> 
-					<a href="javascript:void(0);" class="easyui-linkbutton"
-						 style="float:right;margin-right:15px"
+					<a href="javascript:void(0);" class="easyui-linkbutton weaponwindowbtn"
+						 
 						onclick="saveWeaponActionExit()">　　保　存　　</a> 
 				</div>
 				<div data-options="region:'center',border:false"
-					style="text-align: right; margin-left: 5px;
-            padding: 5px 0 0;">
-					<table style="width:100%;height:99%; font: 12px 微软雅黑;"> 
+					 class="weaponwindowcenter">
+					<table class="weaponwindowtable"> 
 						<tr>
 							<td style="text-align: right;"><input type="hidden" id="weaponId"><label>武器类型:　</label></td>
 							<td><input id="txttype" class="easyui-combobox"  data-options="editable:false,required:true"/></td>

@@ -13,52 +13,46 @@
 	rel='stylesheet' type='text/css' />
 <script src='<%=basePath%>script/duty/policeinquiry.js'
 	type='text/javascript'></script>
-
-<style type="text/css">
-.prop_val { .
-	width: 233px
-}
-</style>
-
+ 
 <title>勤务报备</title> 
 </head>
 
 <body class="easyui-layout" oncontextmenu=self.event.returnValue=false>
 	<div data-options="region:'center',split:true"  >
 		 
-			<div id="tbPoliceInquiry" class="btn-toolbar" style="height:40px; margin-top:10px"> 
-				<div class="btn-group" style="float:right; margin-right:20px">
-					 <a id="exportData" name="exportData" href="javascript:void(0);" class="easyui-linkbutton"
-                   iconcls="icon-tianyi-export" onclick="btnExportDataAction()" style="float:right; margin-left:20px">导出</a>
+			<div id="tbPoliceInquiry" class="btn-toolbar dtyinquirytoolbar"> 
+				<div class="btn-group dtyinquirybtngroup">
+					 <a id="exportData" name="exportData" href="javascript:void(0);" class="easyui-linkbutton dtyinquirybtn"
+                   iconcls="icon-tianyi-export" onclick="btnExportDataAction()" >导出</a>
                    
                    <a id="btnsearchQueryBox" href="javascript:void(0);" class="easyui-linkbutton" 
                      style="float:right">展开查询</a>
 				</div>
 		 	</div>
-		 	<div class="MySearch" id="my-search-box" style=" padding:3px;display:none; ">
+		 	<div class="MySearch" id="my-search-box">
 		 		<div class="MySearchMain">
 				 	<div>
 							<form>
 								<table border=0>
 									<tr>
 										<td class="MySearchTDTitle">时间范围:</td>
-										<td><input id="dteBeginDate" class="easyui-datebox" style="width:150px" /></td>
+										<td><input id="dteBeginDate" class="easyui-datebox dtyinquiryinput" /></td>
 										<td>&nbsp;</td>
-										<td><input id="spnBeginTime" class="easyui-timespinner"  style="width:70px;margin-left:15px;" data-options="min:'00:00',showSeconds:false,highlight:0" />&nbsp;-</td>
-										<td><input id="spnEndTime"   class="easyui-timespinner"  style="width:70px;" data-options="min:'00:00',showSeconds:false,highlight:0" /></td>
+										<td><input id="spnBeginTime" class="easyui-timespinner dtyinquirytimespan" data-options="min:'00:00',showSeconds:false,highlight:0" />&nbsp;-</td>
+										<td><input id="spnEndTime"   class="easyui-timespinner dtyinquirytimespaner"  data-options="min:'00:00',showSeconds:false,highlight:0" /></td>
 										<td colspan="3">&nbsp;</td>
 									</tr>
 									<tr>
 										<td class="MySearchTDTitle">任务属性:</td>
-										<td><input id="dutyProperty" style="width:150px" /></td>
+										<td><input id="dutyProperty" class="dtyinquiryinput"/></td>
 										<td>&nbsp;</td>
 										<td class="MySearchTDTitle">勤务类型 :</td>
-										<td><input id="cmbdutytype"  class="easyui-combotree" style="width:150px" ></td>
+										<td><input id="cmbdutytype"  class="easyui-combotree dtyinquiryinput" ></td>
 										<td colspan="3">&nbsp;</td>
 									</tr>
 									<tr>
 										<td class="MySearchTDTitle">人员类别 :</td>
-										<td><input id="cmbpoliceType" style="width:150px" /></td>
+										<td><input id="cmbpoliceType"  class="dtyinquiryinput" /></td>
 										<td>&nbsp;</td>
 										<td class="MySearchTDTitle">衣着:</td>
 										<td>
@@ -86,7 +80,7 @@
 				<div>
 				<a href="javascript:void(0);" class="easyui-linkbutton"
                     iconcls="icon-report"  plain="true"></a>
-                    <label style="color:#ff6600; font-size:18px">详情</label>
+                    <label class="dtyinquirylabel">详情</label>
 				</div>
 				<div id="dtReport"></div>
 			</div>

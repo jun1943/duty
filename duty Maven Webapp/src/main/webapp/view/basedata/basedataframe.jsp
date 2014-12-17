@@ -17,14 +17,13 @@
 </head>
 
 <body class="easyui-layout" oncontextmenu=self.event.returnValue=false>
-	<div data-options="region:'west',split:true,title:'组织机构导航树'"
-		style="width:14%;padding:10px;overflow-x:hidden;">
+	<div data-options="region:'west',split:true,title:'组织机构导航树'" class="bfmtreeArea">
 		<!-- div>
 				<input type="text">
 			</div> -->
 		<!-- 左边组织结构树 -->
 		<div>
-			<input id="txtOrgName" style="width:70%; margin-left:4px;margin-top:2px" type="text"/>
+			<input id="txtOrgName" class="bfmtreesearch"  type="text"/>
 			<a id="btnSearchOrg" href="javascript:void(0);" class="easyui-linkbutton"
                     iconcls="icon-tianyi-search" onclick="searchOrgAction()" ></a>
 		</div>
@@ -33,8 +32,7 @@
 	</div>
 	<div data-options="region:'center'">
 		<div class="easyui-layout" data-options="fit:true">
-			<div data-options="region:'north',border:false"
-				style="padding: 2px; height: 43px;overflow:hidden">
+			<div data-options="region:'north',border:false" class="bfmtopmenu" >
 				<div class="dateBoxMenu">
 					<ul>
 						<li><div id="policemanage" doc="dateBoxMenu">
@@ -57,7 +55,7 @@
 				</div>
 				
 			</div>
-			<div data-options="region:'center'" style="padding:3px;overflow:hidden">
+			<div data-options="region:'center'" class="bfmcontentArea">
 				<iframe id="ifmWorkSpace" name="ifmWorkSpace" scrolling='yes'
 					frameborder='0' style="width:100%;height:100%"></iframe>
 			</div>

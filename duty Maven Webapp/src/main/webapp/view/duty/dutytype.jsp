@@ -10,13 +10,7 @@
 <link href='//cdn.datatables.net/plug-ins/a5734b29083/integration/jqueryui/dataTables.jqueryui.css' type='text/css' />
 -->
 <script src='<%=basePath%>script/duty/dutytype.js' 	type='text/javascript'></script>
-
-<style type="text/css">
-	.prop_val{
-		.width:233px
-	}
-</style>
-
+ 
 <title>备勤类型</title>
 
 </head>
@@ -41,15 +35,15 @@
 			</div>
 			<div id="dtDutyType"></div>
 
-	<div id="winDutyType" class="easyui-window" title="勤务类型" style="height:330px;width:360px;padding:4px"    
-        data-options="iconCls:'icon-save',modal:true" closed="true"  onClose="onWinDutyTypeClose"
+	<div id="winDutyType" class="easyui-window dtypewindow" title="勤务类型" 
+        data-options="iconCls:'icon-tianyi-save',modal:true" closed="true"  onClose="onWinDutyTypeClose"
         collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false">
 
 			<input type="hidden" id="txtDutyTypeId"></input>
 			<input type="hidden" id="txtDutyTypeParentId"></input>
 			<input type="hidden" id="txtDutyTypeIsUsed"></input>
 			<input type="hidden" id="txtDutyTypeIsLeaf"></input>
-			<table >
+			<table class="dtypewindowtable">
 				<tr >
 					<td style="text-align:right"><lable>上级名称:</lable></td>
 					<td ><input id="txtDutyTypeParentName" type="text" disabled="disabled"
@@ -109,10 +103,10 @@
 				</tr>
 			</table>
 			<div id="tbGroup" class="btn-toolbar">
-				<div class="btn-group" style="text-align:right;margin-top:5px" >
-					<a  href="javascript:void(0);"
-						class="easyui-linkbutton "  style="margin-rifht:20px"
-						onclick="saveDutyType()">　　保 存　　</a>  
+				<div class="dtypewindowbtngroup">
+					<a  href="javascript:void(0);" style="float:right;margin-right:15px; margin-bottom:5px"
+						class="easyui-linkbutton" 
+						onclick="saveDutyType()">　　保 　存　　</a>  
 				</div>
 			</div>
 		</div>

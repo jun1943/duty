@@ -33,9 +33,9 @@
 	            	<div class="dateBoxMainTItleBoxMain">
 	                	<ul>
 	                    	<li><img src="asset/css/images/dateLast.png" onclick="getDateClick('last')" /></li>
-	                        <li><span style="margin-left:20px;margin-right:15px" id="sp_years"></span>年</li>
-	                        <li><span style="margin-left:20px;margin-right:15px" id="sp_month"></span>月</li>
-	                        <li><img  style="margin-left:20px;" src="asset/css/images/dateNext.png" onclick="getDateClick('next')" /></li>
+	                        <li><span class="lispan" id="sp_years"></span>年</li>
+	                        <li><span class="lispan" id="sp_month"></span>月</li>
+	                        <li><img  class="liimg" src="asset/css/images/dateNext.png" onclick="getDateClick('next')" /></li>
                     	</ul>
 	                </div>
 	            </div>	
@@ -68,10 +68,9 @@
     	</div>
 	</div>
 	 <!-- 报备详细明细窗体内容 -->
- 	<div id="dutyDetailsForDaywindow"  title="警务报备情况" class="easyui-window" data-options="iconCls:'icon-edit',modal:true" closed="true" 
-	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
-			style="width:654px; height:450px; padding: 10px;"> 
-		    <div id="tbdutydetailsforday" style="height:30px;float:right;background-color: #F7F3F3;"> 
+ 	<div id="dutyDetailsForDaywindow"  title="警务报备情况" class="easyui-window clddtywindow" data-options="iconCls:'icon-tianyi-edit',modal:true" closed="true" 
+	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false"  > 
+		    <div id="tbdutydetailsforday" class="tbdutydetailsfordays"> 
 		    <label>名称:</label><input id="txttargetName" type="text" class="easyui-validatebox">
                 <a href="javascript:void(0);" class="easyui-linkbutton" 
                     iconcls="icon-tianyi-search" plain="true" onclick="btnSearchAction()">查询</a> 
