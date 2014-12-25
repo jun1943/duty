@@ -94,4 +94,8 @@ public class GpsServiceImpl implements GpsService{
 		// TODO Auto-generated method stub
 		gpsMapper.deleteByIds(map);
 	}
+	public List<Gps> findByNumber(String param) {
+		// TODO Auto-generated method stub
+		return gpsMapper.findByNumber(param);
+	}
 }

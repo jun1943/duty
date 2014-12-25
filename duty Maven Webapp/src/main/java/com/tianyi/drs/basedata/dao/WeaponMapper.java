@@ -72,4 +72,10 @@ public interface WeaponMapper {
 	 * 批量删除武器对象
 	 */
 	void deleteByIds(Map<String, Object> map);
+	/**
+	 * 判断是否存在武器
+	 * @param param
+	 * @return
+	 */
+	List<Weapon> findByNumber(String param);
 }

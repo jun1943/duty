@@ -73,5 +73,11 @@ public interface VehicleMapper {
 	 * 批量删除车辆对象
 	 */
 	void deleteByIds(Map<String, Object> map);
+	/**
+	 * 根据车牌号码，判断是否存在
+	 * @param param
+	 * @return
+	 */
+	List<Vehicle> findByNumber(String param);
     
 }

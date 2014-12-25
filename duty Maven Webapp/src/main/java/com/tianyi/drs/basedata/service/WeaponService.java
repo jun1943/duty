@@ -95,5 +95,12 @@ public interface WeaponService {
 	 * 批量删除武器对象
 	 * @param map
 	 */
-	void deleteByIds(Map<String, Object> map); 
+	void deleteByIds(Map<String, Object> map);
+	
+	/**
+	 * 根据武器编号，查询武器是否存在
+	 * @param param
+	 * @return
+	 */
+	List<Weapon> findByNumber(String param); 
 }

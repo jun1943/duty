@@ -259,12 +259,25 @@
  				</foreach>
        	
    </delete> 
+   
+        <update id="changePoliceStateByIds"  parameterType="java.util.Map" >  
+       update t_police set isUsed =${isUsed}  where id in 
+       
+       			<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+  					#{item}  
+ 				</foreach>
+       	
+   </update> 
   
    		 <select id="findBycode" parameterType="String" resultType="com.tianyi.drs.basedata.model.Police">  
-       		select  * from t_police where number = #{param}  limit 1,1 
+       		select  * from t_police where number = #{param}  
     	 </select> 
    		 <select id="findByidCard" parameterType="String" resultType="com.tianyi.drs.basedata.model.Police">  
-       		select * from t_police where idcardNo = #{param}   limit 1,1
+       		select * from t_police where idcardNo = #{param}  
+    	 </select>
+    	 
+    	 <select id="findByintercomPerson" parameterType="String" resultType="com.tianyi.drs.basedata.model.Police">  
+       		select * from t_police where intercom_person = #{param}   
     	 </select>
     	 
          <select id="findByname" parameterType="String" resultType="com.tianyi.drs.basedata.model.Police">  
@@ -352,7 +365,7 @@
   		 o.id = #{orgId,jdbcType=INTEGER}
   		  or 
   		  o.code =#{orgCode,jdbcType=VARCHAR}
-  		<if test ="inSubOrg ==1">
+  		<if test ="isSubOrg ==1">
   			or o.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
   		</if>
   		)
@@ -389,7 +402,7 @@
   		 org.id = #{orgId,jdbcType=INTEGER}
   		   or
   		   org.code =#{orgCode,jdbcType=VARCHAR}
-  		<if test ="inSubOrg ==1">
+  		<if test ="isSubOrg ==1">
   			or org.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
   		</if>
   		)

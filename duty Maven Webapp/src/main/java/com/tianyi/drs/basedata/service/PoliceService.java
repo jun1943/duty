@@ -57,7 +57,7 @@ public interface PoliceService {
      * @param code
      * @return
      */
-    Police findBycode(String code);
+    List<Police> findBycode(String code);
     /**
      * 根据姓名查询警员对象
      * @param name
@@ -133,7 +133,7 @@ public interface PoliceService {
 	  * @param param
 	  * @return
 	  */
-	 Police findByidCard(String param);
+	 List<Police> findByidCard(String param);
 	 /**
 	  * 查询分组警员对象列表
 	  * @param map
@@ -151,4 +151,16 @@ public interface PoliceService {
 	  * @return
 	  */
 	 UserObjectVM getUserAuthorization(Map<String, Object> map);
+	 /**
+	  * 批量更改警员的状态
+	  * 启用或者锁定
+	  * @param map
+	  */
+	void changePoliceStateByIds(Map<String, Object> map);
+	/**
+	 * 根据个呼号，查询是否已存在警员
+	 * @param param
+	 * @return
+	 */
+	List<Police> findByintercomPerson(String param);
 }

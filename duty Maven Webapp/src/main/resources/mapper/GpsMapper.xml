@@ -151,7 +151,10 @@
  				</foreach>
        	
    </delete> 
-  
+  	<select id="findByNumber" parameterType="String" resultType="com.tianyi.drs.basedata.model.Gps">  
+       		select * from t_gps where number = #{param}  
+    	 </select>
+    	 
 <select id="selectGpsType" resultType="com.tianyi.drs.basedata.model.GpsType">  
        		 select * from t_gpstype order by id asc
     	 </select> 

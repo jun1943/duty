@@ -67,6 +67,12 @@ public interface GpsMapper {
 	 * 根据id集，批量删除对象
 	 */
 	void deleteByIds(Map<String, Object> map);
+	/**
+	 * 根据编号，判断是否存在武器
+	 * @param param
+	 * @return
+	 */
+	List<Gps> findByNumber(String param);
 }
 
 

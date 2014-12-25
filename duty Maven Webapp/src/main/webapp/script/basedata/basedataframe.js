@@ -10,6 +10,7 @@ var m_basedataFrame_Org = {};
 var m_basedataFrame_User = {};
 var m_basedataFrame_func_prop = {};
 
+var pagemodel = "police";
 var m_org_node = {};
 $(function() {
 
@@ -51,14 +52,14 @@ $(function() {
 	// $(this).attr("class", "");
 	// });
 	// });
-	$('#txtOrgName').keydown(function(e){
-		if(e.keyCode==13){
+	$('#txtOrgName').keydown(function(e) {
+		if (e.keyCode == 13) {
 			searchOrgAction();
 		}
 	});
 });
 
-//验证用户有效性，加载相关组织机构信息
+// 验证用户有效性，加载相关组织机构信息
 function batchGetUserAuthorization(userName, pwd) {
 	$.ajax({
 		url : "police/batchGetUserAuthorization.do",
@@ -71,7 +72,7 @@ function batchGetUserAuthorization(userName, pwd) {
 		},
 		success : function(req) {
 			if (req.isSuccess) {
-				m_basedataFrame_User.id= req.obj.id;
+				m_basedataFrame_User.id = req.obj.id;
 				m_basedataFrame_Org.id = req.obj.orgId;// args["orgId"];
 				m_basedataFrame_Org.code = req.obj.orgCode;// args["orgCode"];
 				m_basedataFrame_Org.path = req.obj.orgPath;// args["orgPath"];
@@ -91,25 +92,67 @@ function batchGetUserAuthorization(userName, pwd) {
 function InitPage() {
 	var src = "view/basedata/police.jsp" + "?orgId=" + m_basedataFrame_Org.id
 			+ "&orgCode=" + m_basedataFrame_Org.code + "&orgPath="
-			+ m_basedataFrame_Org.path+"&userId="+m_basedataFrame_User.id;
+			+ m_basedataFrame_Org.path + "&userId=" + m_basedataFrame_User.id;
 
 	$("#ifmWorkSpace").attr("src", src);
 	$("#policemanage").attr("class", "dateBoxMenuOn");
 }
 
-//树点击事件
+// 树点击事件
 function onOrgTreeDblClick(node) {
-	m_basedataFrame_func_prop.url = "view/basedata/police.jsp";
 	m_basedataFrame_func_prop.orgId = node.id;
 	m_basedataFrame_func_prop.orgCode = node.code;
 	m_basedataFrame_func_prop.orgPath = node.path;
-
-	pageSwitch();
-	$("#policemanage").attr("class", "dateBoxMenuOn");
-	$("#vehiclemanage").attr("class", "");
-	$("#weaponmanage").attr("class", "");
-	$("#gpsdevicemanage").attr("class", "");
-	$("#iconsmanage").attr("class", "");
+	m_basedataFrame_func_prop.userId = m_basedataFrame_User.id;
+	var name = node.text;
+	m_basedataFrame_func_prop.orgName = name;
+	switch (pagemodel) {
+	case "police":
+		m_basedataFrame_func_prop.url = "view/basedata/police.jsp";
+		pageSwitch();
+		$("#policemanage").attr("class", "dateBoxMenuOn");
+		$("#vehiclemanage").attr("class", "");
+		$("#weaponmanage").attr("class", "");
+		$("#gpsdevicemanage").attr("class", "");
+		$("#iconsmanage").attr("class", "");
+		break;
+	case "vehicle":
+		m_basedataFrame_func_prop.url = "view/basedata/vehicle.jsp";
+		pageSwitch();
+		$("#vehiclemanage").attr("class", "dateBoxMenuOn");
+		$("#policemanage").attr("class", "");
+		$("#weaponmanage").attr("class", "");
+		$("#gpsdevicemanage").attr("class", "");
+		$("#iconsmanage").attr("class", "");
+		break;
+	case "weapon":
+		m_basedataFrame_func_prop.url = "view/basedata/weapon.jsp";
+		pageSwitch();
+		$("#vehiclemanage").attr("class", "");
+		$("#policemanage").attr("class", "");
+		$("#weaponmanage").attr("class", "dateBoxMenuOn");
+		$("#gpsdevicemanage").attr("class", "");
+		$("#iconsmanage").attr("class", "");
+		break;
+	case "gpsdevice":
+		m_basedataFrame_func_prop.url = "view/basedata/gpsdevice.jsp";
+		pageSwitch();
+		$("#vehiclemanage").attr("class", "");
+		$("#policemanage").attr("class", "");
+		$("#weaponmanage").attr("class", "");
+		$("#gpsdevicemanage").attr("class", "dateBoxMenuOn");
+		$("#iconsmanage").attr("class", "");
+		break;
+	case "icons":
+		m_basedataFrame_func_prop.url = "view/basedata/icons.jsp";
+		pageSwitch();
+		$("#vehiclemanage").attr("class", "");
+		$("#policemanage").attr("class", "");
+		$("#weaponmanage").attr("class", "");
+		$("#gpsdevicemanage").attr("class", "");
+		$("#iconsmanage").attr("class", "dateBoxMenuOn");
+		break;
+	}
 }
 /*
  * 页面切换
@@ -118,15 +161,16 @@ function pageSwitch(node, url) {
 	var src = m_basedataFrame_func_prop.url + "?orgId="
 			+ m_basedataFrame_func_prop.orgId + "&orgCode="
 			+ m_basedataFrame_func_prop.orgCode + "&orgPath="
-			+ m_basedataFrame_func_prop.orgPath+"&userId="+m_basedataFrame_User.id;
+			+ m_basedataFrame_func_prop.orgPath + "&userId="
+			+ m_basedataFrame_User.id;
 
 	$("#ifmWorkSpace").attr("src", src);
 }
 function searchOrgAction() {
 	var name = $.trim($('#txtOrgName').val());
-//	if(name==""){
-//		return;
-//	}
+	// if(name==""){
+	// return;
+	// }
 	var a = findOrgs(name);
 	$('#orgtree').tree("loadData", a);
 }
@@ -164,6 +208,7 @@ function findOrgTree(org, name, array) {
 	}
 }
 function onPoliceManage() {
+	pagemodel = "police";
 	m_basedataFrame_func_prop.url = "view/basedata/police.jsp";
 	pageSwitch();
 	$("#policemanage").attr("class", "dateBoxMenuOn");
@@ -174,6 +219,7 @@ function onPoliceManage() {
 }
 
 function onVehicleManage() {
+	pagemodel = "vehicle";
 	m_basedataFrame_func_prop.url = "view/basedata/vehicle.jsp";
 	pageSwitch();
 	$("#vehiclemanage").attr("class", "dateBoxMenuOn");
@@ -184,6 +230,7 @@ function onVehicleManage() {
 }
 
 function onWeaponManage() {
+	pagemodel = "weapon";
 	m_basedataFrame_func_prop.url = "view/basedata/weapon.jsp";
 	pageSwitch();
 	$("#weaponmanage").attr("class", "dateBoxMenuOn");
@@ -194,6 +241,7 @@ function onWeaponManage() {
 }
 
 function onGpsdeviceManage() {
+	pagemodel = "gpsdevice";
 	m_basedataFrame_func_prop.url = "view/basedata/gpsdevice.jsp";
 	pageSwitch();
 	$("#gpsdevicemanage").attr("class", "dateBoxMenuOn");
@@ -203,6 +251,7 @@ function onGpsdeviceManage() {
 	$("#iconsmanage").attr("class", "");
 }
 function onIconsManage() {
+	pagemodel = "icons";
 	m_basedataFrame_func_prop.url = "view/basedata/icons.jsp";
 	pageSwitch();
 	$("#iconsmanage").attr("class", "dateBoxMenuOn");
@@ -216,28 +265,30 @@ function onIconsManage() {
  */
 function loadFrmOrgs() {
 
-	$.ajax({
-		url : "org/list.do",
-		type : "POST",
-		dataType : "json",
-		data : {
-			orgId : m_basedataFrame_Org.id,
-			orgCode : m_basedataFrame_Org.code,
-			orgPath : m_basedataFrame_Org.path
-		},
-		async : false,
-		success : function(req) {
-			if (req.isSuccess) {
-				var nodes = buildOrgTree(req.rows);
-				m_org_node = nodes;
-				$('#orgtree').tree("loadData", nodes);
-				var nodess = $('#orgtree').tree('find', m_basedataFrame_Org.id);
-				$('#orgtree').tree('select', nodess.target);
-				onOrgTreeDblClick(nodess);
- 
-			} else {
-				$.messager.alert('提示', req.msg, "warning");
-			}
-		}
-	});
+	$
+			.ajax({
+				url : "org/list.do",
+				type : "POST",
+				dataType : "json",
+				data : {
+					orgId : m_basedataFrame_Org.id,
+					orgCode : m_basedataFrame_Org.code,
+					orgPath : m_basedataFrame_Org.path
+				},
+				async : false,
+				success : function(req) {
+					if (req.isSuccess) {
+						var nodes = buildOrgTree(req.rows);
+						m_org_node = nodes;
+						$('#orgtree').tree("loadData", nodes);
+						var nodess = $('#orgtree').tree('find',
+								m_basedataFrame_Org.id);
+						$('#orgtree').tree('select', nodess.target);
+						onOrgTreeDblClick(nodess);
+
+					} else {
+						$.messager.alert('提示', req.msg, "warning");
+					}
+				}
+			});
 }

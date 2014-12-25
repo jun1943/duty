@@ -29,7 +29,7 @@
 	                	<a id="btnEditVehicle" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-edit"  onclick="btnEditVehicle('edit')">修改</a>
 	                	<a id="btnDelVehicle" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-delete"  onclick="btnDelVehicle()">删除</a>
 	                	 
-	  					<a id="btnSearchVehicle" href="javascript:void(0);" class="easyui-linkbutton vehiclesearchbtn"  iconcls="icon-tianyi-search"  onclick="btnSearchVehicle()">展开查询</a>
+	  					<a id="btnSearchVehicle" href="javascript:void(0);" class="easyui-linkbutton vehiclesearchbtn"  iconcls="icon-tianyi-search" >展开查询</a>
 	                	<!-- a id="btnPrintList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-print" plain="true" onclick="btnPrintList()">打印</a>
 	                	<a id="btnExportList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-export" plain="true" onclick="btnExportList()">导出</a> -->
 	               	</div>
@@ -79,23 +79,23 @@
 					<table class="vehiclewindowtable">
 						<tr>
 							<td style="text-align: right;"><label>车辆品牌:　</label></td>
-							<td><input type="text" class="easyui-validatebox" id="txtbrand" ></td>
+							<td><input type="text" class="easyui-validatebox" id="txtbrand" data-options="validType:['length[0,45]']" ></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><input type="hidden" id="vehicleId"><label>车辆类型:　</label></td>
-							<td><input id="txttype" class="easyui-combobox" data-options="required:true,editable:false"  /><span style="color:red">*</span></td>
+							<td><input id="txttype" class="easyui-combobox" data-options="required:true,editable:false"  /><span style="color:red;font-size:16px;width:15px">*</span></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>座位数:　</label></td>
-							<td><input type="text" class="easyui-validatebox" id="txtsiteqty"></td>
+							<td><input type="text" class="easyui-validatebox" id="txtsiteqty"  data-options="validType:['length[0,20]']" ></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>车牌号码:　</label></td>
-							<td><input type="text" class="easyui-validatebox" data-options="required:true" id="txtnumber"><span style="color:red">*</span></td>
+							<td><input type="text" class="easyui-validatebox" data-options="required:true,validType:['length[0,20]']" id="txtnumber"><span style="color:red;font-size:16px;width:15px">*</span></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>车辆用途:　</label></td>
-							<td><input type="text" class="easyui-validatebox" id="txtpurpose"></td>
+							<td><input type="text" class="easyui-validatebox" id="txtpurpose" data-options="validType:['length[0,100]']" ></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>组呼号:　</label></td>
@@ -103,7 +103,7 @@
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>个呼号:　</label></td>
-							<td><input type="text" class="easyui-validatebox" id="txtpersonalno"></td>
+							<td><input type="text" class="easyui-validatebox" id="txtpersonalno" data-options="validType:['length[0,20]']" ></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>GPS设备:　</label></td>

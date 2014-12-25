@@ -133,6 +133,10 @@ public class WeaponServiceImpl implements WeaponService {
 	public void deleteByIds(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		weaponMapper.deleteByIds(map);
+	}
+	public List<Weapon> findByNumber(String param) {
+		// TODO Auto-generated method stub
+		return weaponMapper.findByNumber(param);
 	} 
 	
 }

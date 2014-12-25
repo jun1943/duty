@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tianyi.drs.basedata.model.IntercomGroup;
+import com.tianyi.drs.basedata.model.IntercomGroup; 
 import com.tianyi.drs.basedata.model.Vehicle;
 import com.tianyi.drs.basedata.model.VehicleType;
 import com.tianyi.drs.basedata.service.VehicleService;
@@ -272,6 +272,34 @@ public class VehicleController {
 			return result;
 		} catch (Exception ex) {
 			return "{\"total\":0,\"rows\":[]}";
+		}
+	}
+
+	/**
+	 * 判断是否有有车辆存在 
+	 * 
+	 * 判断是否车牌号码重复；
+	 */
+	@RequestMapping(value = "isExistVehicle.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String isExistVehicle(
+			@RequestParam(value = "param", required = false) String param)
+			throws Exception {
+		try {
+			 
+				if (!param.equals("")) {
+					List<Vehicle> vehicle = vehicleService.findByNumber(param);
+					if (vehicle.size()>0) {
+						return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
+					} else {
+						return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
+					}
+				} else {
+					return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
+				}
+			 
+		} catch (Exception ex) {
+			return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
 		}
 	}
 }

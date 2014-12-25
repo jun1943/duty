@@ -22,12 +22,13 @@ import com.tianyi.drs.basedata.model.Police;
 import com.tianyi.drs.basedata.model.PoliceType;
 import com.tianyi.drs.basedata.service.PoliceService;
 import com.tianyi.drs.basedata.viewmodel.GpsBaseVM;
-import com.tianyi.drs.basedata.viewmodel.PoliceVM; 
+import com.tianyi.drs.basedata.viewmodel.PoliceVM;
 import com.tianyi.drs.duty.viewmodel.ListResult;
 import com.tianyi.drs.duty.viewmodel.ObjResult;
 import com.tianyi.drs.duty.viewmodel.UserObjectVM;
 
 import sun.misc.BASE64Decoder;
+
 /*
  * 警员管理逻辑控制器
  * 
@@ -46,15 +47,10 @@ public class PoliceController {
 		return "index";
 	}
 
-
 	/*
 	 * 获取警员列表信息
 	 * 
-	 * police_Query：查询条件包
-	 * sort：排序列
-	 * order：排序方式
-	 * page：当前页
-	 * rows：每页条数
+	 * police_Query：查询条件包 sort：排序列 order：排序方式 page：当前页 rows：每页条数
 	 */
 	@RequestMapping(value = "getPoliceList.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
@@ -66,11 +62,11 @@ public class PoliceController {
 			@RequestParam(value = "order", required = false) String order,
 			HttpServletRequest request) throws Exception {
 		try {
-//
-//			String s = HttpclientUtils.postXML(
-//					"http://25.30.5.105:8080/drs/home/cacheMonitor",
-//					"<><><><><>");
-//			s = s + "";
+			//
+			// String s = HttpclientUtils.postXML(
+			// "http://25.30.5.105:8080/drs/home/cacheMonitor",
+			// "<><><><><>");
+			// s = s + "";
 			JSONObject joQuery = JSONObject.fromObject(query);
 			int orgId = Integer.parseInt(joQuery.getString("orgId"));
 			int isSubOrg = Integer.parseInt(joQuery.getString("isSubOrg"));
@@ -120,11 +116,11 @@ public class PoliceController {
 			return "{\"total\":0,\"rows\":[]}";
 		}
 	}
+
 	/*
 	 * 获取警员资源列表
 	 * 
-	 * 判断是否有分组id传入，如果有分组，则从分组里面选择警员
-	 * 若传入分组id为空，则从polie表里面抽取数据
+	 * 判断是否有分组id传入，如果有分组，则从分组里面选择警员 若传入分组id为空，则从polie表里面抽取数据
 	 */
 	@RequestMapping(value = "getPoliceSource.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
@@ -257,8 +253,8 @@ public class PoliceController {
 		try {
 			if (paramType.equals("idCard")) {
 				if (!param.equals("")) {
-					Police police = policeService.findByidCard(param);
-					if (police != null) {
+					List<Police> police = policeService.findByidCard(param);
+					if (police.size() > 0) {
 						return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
 					} else {
 						return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
@@ -268,8 +264,20 @@ public class PoliceController {
 				}
 			} else if (paramType.equals("number")) {
 				if (!param.equals("")) {
-					Police police = policeService.findBycode(param);
-					if (police != null) {
+					List<Police> police = policeService.findBycode(param);
+					if (police.size() > 0) {
+						return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
+					} else {
+						return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
+					}
+				} else {
+					return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
+				}
+			} else if (paramType.equals("intercomPerson")) {
+				if (!param.equals("")) {
+					List<Police> police = policeService
+							.findByintercomPerson(param);
+					if (police.size() > 0) {
 						return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
 					} else {
 						return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
@@ -319,7 +327,6 @@ public class PoliceController {
 		}
 	}
 
-	
 	/*
 	 * 获取警员分组列表，以数据列表的形式展现
 	 * 
@@ -342,7 +349,7 @@ public class PoliceController {
 	 * 
 	 * 以下拉列表的形式展现；
 	 */
-	
+
 	@RequestMapping(value = "getGpsId.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getGpsId(int orgId) throws Exception {
@@ -355,38 +362,52 @@ public class PoliceController {
 		}
 	}
 
-	
 	/*
 	 * 
 	 * 修改警员的启用与锁定状态；
 	 * 
-	 * 启用为true
-	 * 锁定为false；
+	 * 启用为true 锁定为false；
 	 */
 	@RequestMapping(value = "changePoliceState.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String changePoliceState(
-			@RequestParam(value = "id", required = false) Integer id,
+			@RequestParam(value = "id", required = false) String id,
 			@RequestParam(value = "isUsed", required = false) Integer isUsed)
 			throws Exception {
 		try {
-			Police police = new Police();
-			police = policeService.selectByPrimaryKey(id);
-			int result = id;
+			Map<String, Object> map = new HashMap<String, Object>();
 			String message = "";
-			if (police != null) {
-				if (isUsed == 0) {
-					police.setIsused(true);
-				} else {
-					police.setIsused(false);
+			if (id != null && id != "") {
+				String[] s = {};
+				s = id.split(",");
+				int[] ids = new int[s.length];
+				for (int i = 0; i < s.length; i++) {
+					ids[i] = Integer.parseInt(String.valueOf(s[i]));
 				}
-				// 更新状态
-				police.setId(id);
-				result = policeService.updateByPrimaryKey(police);
-				message = "状态修改成功,result is " + result;
+				map.put("ids", ids);
+				map.put("isUsed", isUsed);
+				policeService.changePoliceStateByIds(map);
+				message = "状态修改成功";
 			} else {
-				message = "状态修改失败,根据Id获取对象为空";
+				message = "传入后台id为空";
 			}
+			// Police police = new Police();
+			// police = policeService.selectByPrimaryKey(id);
+			// int result = id;
+
+			// if (police != null) {
+			// if (isUsed == 0) {
+			// police.setIsused(true);
+			// } else {
+			// police.setIsused(false);
+			// }
+			// // 更新状态
+			// police.setId(id);
+			// result = policeService.updateByPrimaryKey(police);
+			// message = "状态修改成功,result is " + result;
+			// } else {
+			// message = "状态修改失败,根据Id获取对象为空";
+			// }
 			return "{\"success\":true,\"Message\":\"" + message + "\"}";
 		} catch (Exception ex) {
 			return "{\"success\":false,\"Message\":\"状态修改失败，原因："

@@ -25,7 +25,7 @@
 		<div>
 			<input id="txtOrgName" class="bfmtreesearch"  type="text"/>
 			<a id="btnSearchOrg" href="javascript:void(0);" class="easyui-linkbutton"
-                    iconcls="icon-tianyi-search" onclick="searchOrgAction()" ></a>
+                    iconcls="icon-tianyi-search" onclick="searchOrgAction()" plain="true" ></a>
 		</div>
 		<ul id="orgtree" class="easyui-tree">
 		</ul>

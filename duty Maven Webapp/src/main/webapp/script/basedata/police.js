@@ -28,104 +28,131 @@ $(function() {
 	m_Police_Org.userId = args["userId"];
 	pack_police_Query();
 
-	$('#dtPolice').datagrid({
-		url : "police/getPoliceList.do",
-		queryParams : {
-			'police_Query' : JSON.stringify(m_police_Query)
-		},
-		pagination : true,
-		fitColumns : true,
-		pageNumber : 1,
-		pageSize : 10,
-		title : "人员列表",
-		onDblClickRow : dblClickRow,
-		// checkOnSelect: false,
-		// selectOnCheck: true,
-		onClickRow : clickRow,
-		// singleSelect : true,
-		columns : [ [ {
-			field : 'ck',
-			checkbox : true
-		}, {
-			title : 'Id',
-			field : 'id',
-			align : 'left',
-			width : 10,
-			hidden : true
-		}, {
-			title : '状态',
-			field : 'isUsed',
-			align : 'center',
-			width : 50,
-			formatter : fmtIsUsed,
-			sortable : true
-		}, {
-			title : '职务',
-			field : 'title',
-			align : 'left',
-			width : 100
-		}, {
-			title : '姓名',
-			field : 'name',
-			align : 'left',
-			width : 100,
-			sortable : true
-		}, {
-			title : '警号',
-			field : 'number',
-			align : 'left',
-			width : 80
-		}, {
-			title : 'GPS名称',
-			field : 'gps_name',
-			align : 'left',
-			width : 200,
-			sortable : true,
-			formatter : function(value, row, index) {
-				return row.gpsName;
-			}
-		}, {
-			title : '手机号',
-			field : 'mobile',
-			align : 'left',
-			width : 100
-		}, {
-			title : '公安短号',
-			field : 'mobileShort',
-			align : 'left',
-			width : 150
-		}, {
-			title : '身份证号码',
-			field : 'idcardno',
-			align : 'left',
-			width : 80
-		}, {
-			title : '机构',
-			field : 'orgName',
-			align : 'left',
-			width : 100,
-			hidden : true
-		}, {
-			title : '警员类别',
-			field : 'type_id',
-			align : 'left',
-			width : 100,
-			sortable : true,
-			formatter : function(value, row, index) {
-				return row.typeName;
-			}
-		}, {
-			title : '组呼号',
-			field : 'intercomGroup',
-			align : 'left',
-			width : 80
-		}, {
-			title : '个呼号',
-			field : 'intercomPerson',
-			align : 'left',
-			width : 80
-		} ] ]
-	});
+	$('#dtPolice')
+			.datagrid(
+					{
+						url : "police/getPoliceList.do",
+						queryParams : {
+							'police_Query' : JSON.stringify(m_police_Query)
+						},
+						pagination : true,
+						fitColumns : true,
+						pageNumber : 1,
+						pageSize : 10,
+						title : "人员列表",
+						onDblClickRow : dblClickRow,
+						// checkOnSelect: false,
+						// selectOnCheck: true,
+						onClickRow : clickRow,
+						// singleSelect : true,
+						columns : [ [
+								{
+									field : 'ck',
+									checkbox : true
+								},
+								{
+									title : 'Id',
+									field : 'id',
+									align : 'left',
+									width : 10,
+									hidden : true
+								},
+								{
+									title : '状态',
+									field : 'isUsed',
+									align : 'center',
+									width : 50,
+									formatter : fmtIsUsed,
+									sortable : true
+								},
+								{
+									title : '职务',
+									field : 'title',
+									align : 'left',
+									width : 100
+								},
+								{
+									title : '姓名',
+									field : 'name',
+									align : 'left',
+									width : 100,
+									sortable : true
+								},
+								{
+									title : '警号',
+									field : 'number',
+									align : 'left',
+									width : 80
+								},
+								{
+									title : 'GPS名称',
+									field : 'gps_name',
+									align : 'left',
+									width : 200,
+									sortable : true,
+									formatter : function(value, row, index) {
+										return row.gpsName;
+									}
+								},
+								{
+									title : '手机号',
+									field : 'mobile',
+									align : 'left',
+									width : 100
+								},
+								{
+									title : '公安短号',
+									field : 'mobileShort',
+									align : 'left',
+									width : 150
+								},
+								{
+									title : '身份证号码',
+									field : 'idcardno',
+									align : 'left',
+									width : 80
+								},
+								{
+									title : '机构',
+									field : 'orgName',
+									align : 'left',
+									width : 100,
+									hidden : true
+								},
+								{
+									title : '警员类别',
+									field : 'type_id',
+									align : 'left',
+									width : 100,
+									sortable : true,
+									formatter : function(value, row, index) {
+										return row.typeName;
+									}
+								},
+								{
+									title : '组呼号',
+									field : 'intercomGroup',
+									align : 'left',
+									width : 80
+								},
+								{
+									title : '个呼号',
+									field : 'intercomPerson',
+									align : 'left',
+									width : 80
+								},
+								{
+									title : '操作项',
+									aligh : 'center',
+									field : 'operator',
+									width : 80,
+									formatter : function(value, row, index) {
+										return '<a  href="javascript:void(0);" class="easyui-linkbutton"'
+												+ 'iconcls="icon-tianyi-edit" style="color:blue"  onclick="btnCellClick('
+												+ index + ')">修改</a>';
+									}
+								} ] ]
+					});
 	$("#btnSearchPolice").bind("click", function() {
 		$('#my-search-box').toggle();
 	});
@@ -194,9 +221,9 @@ function btnSearchAction() {
 	$('#dtPolice').datagrid("reload", {
 		'police_Query' : JSON.stringify(m_police_Query)
 	});
-	$("#isSubOrg").combobox("setValue", 0);
-	$("#txtsearchName").combobox("setValue", 0);
-	$("#sltType").combobox("setValue", "");
+//	$("#isSubOrg").combobox("setValue", 0);
+//	$("#txtsearchName").combobox("setValue", 0);
+//	$("#sltType").combobox("setValue", "");
 };
 // 新增开始
 function btnAddPolice(optType) {
@@ -208,10 +235,10 @@ function btnAddPolice(optType) {
 };
 
 function btnUnLockPolice() {
-	changePoliceState(0);
+	changePoliceState(1);
 };
 function btnLockPolice() {
-	changePoliceState(1);
+	changePoliceState(0);
 };
 
 // 修改警员启用或锁定状态；
@@ -226,18 +253,29 @@ function changePoliceState(pType) {
 		$.messager.alert('操作提示', "请选择操作项!", "warning");
 		return;
 	}
-	if (rows.length > 1) {
-		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
-		return;
+	// if (rows.length > 1) {
+	// $.messager.alert('操作提示', "只能选择单个操作项!", "warning");
+	// return;
+	// }
+	// var pId = rows[0].id;
+	var ids = "";
+	if (rows.length == 1) {
+		ids = rows[0].id;
+	} else {
+		for ( var i = 0; i < rows.length; i++) {
+			ids += rows[i].id + ",";
+		}
+		if (ids.length > 2) {
+			ids = ids.substring(0, ids.length - 1);
+		}
 	}
-	var pId = rows[0].id;
 	$.ajax({
 		url : "police/changePoliceState.do",
 		type : "POST",
 		dataType : "json",
 		async : false,
 		data : {
-			"id" : pId,
+			"id" : ids,
 			"isUsed" : pType
 		},
 		success : function(req) {
@@ -308,6 +346,10 @@ function deletePolice(id) {
 			$.messager.alert("消息提示", a, "error");
 		}
 	});
+}
+function btnCellClick(index) {
+	var row = $("#dtPolice").datagrid('getData').rows[index];
+	editPoliceModel(row);
 }
 function dblClickRow(index, rowData) {
 	editPoliceModel(rowData);
@@ -467,7 +509,20 @@ function savePoliceModel() {
 		// $.messager.alert("错误提示", "请选择GPS_ID", "error");
 		// return;
 	}
-	police.intercomPerson = $("#txtpersonalno").val();
+	var intercomPerson = $.trim($("#txtpersonalno").val());
+	if(intercomPerson!=""&&intercomPerson!=undefined){
+		if (operationType == "add") {
+			isExistPolice(intercomPerson, "intercomPerson");
+			if (!isExist) {
+				$.messager.alert("错误提示", "个呼号为  "+intercomPerson+" 的警员已存在，请检查！", "error");
+				$("#txtpersonalno").focus();
+				isComplete = false;
+				return;
+			}
+		} 
+	}
+	police.intercomPerson = intercomPerson;
+	
 	if ($("#txtgpsid").combobox("getValue") > 0
 			&& $("#txtgpsid").combobox("getValue") != "") {
 		police.gpsId = $("#txtgpsid").combobox("getValue");

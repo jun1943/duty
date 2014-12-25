@@ -7,6 +7,7 @@
     <result column="org_id" jdbcType="INTEGER" property="orgId" />
     <result column="number" jdbcType="VARCHAR" property="number" />
     <result column="intercom_group" jdbcType="VARCHAR" property="intercomGroup" />
+    <result column="intercom_person" jdbcType="VARCHAR" property="intercomPerson" />
     <result column="gps_id" jdbcType="INTEGER" property="gpsId" />
     <result column="gps_name" jdbcType="VARCHAR" property="gpsName" />
     <result column="purpose" jdbcType="VARCHAR" property="purpose" />
@@ -22,6 +23,7 @@
     <result column="org_id" jdbcType="INTEGER" property="orgId" />
     <result column="number" jdbcType="VARCHAR" property="number" />
     <result column="intercom_group" jdbcType="VARCHAR" property="intercomGroup" />
+    <result column="intercom_person" jdbcType="VARCHAR" property="intercomPerson" />
     <result column="gps_id" jdbcType="INTEGER" property="gpsId" />
     <result column="gps_name" jdbcType="VARCHAR" property="gpsName" />
     <result column="purpose" jdbcType="VARCHAR" property="purpose" />
@@ -39,7 +41,7 @@
   
   
   <sql id="Base_Column_List">
-    id, vehicle_type_id, org_id, number, intercom_group, gps_id, gps_name, purpose, brand, 
+    id, vehicle_type_id, org_id, number, intercom_group,intercom_person, gps_id, gps_name, purpose, brand, 
     site_qty, sync_state, platform_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -57,12 +59,12 @@
   SELECT LAST_INSERT_ID()  
   </selectKey> 
     insert into t_vehicle (id, vehicle_type_id, org_id, 
-      number, intercom_group, gps_id, 
+      number, intercom_group, intercom_person,gps_id, 
       gps_name, purpose, brand, 
       site_qty, sync_state, platform_id
       )
     values (#{id,jdbcType=INTEGER}, #{vehicleTypeId,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, 
-      #{number,jdbcType=VARCHAR}, #{intercomGroup,jdbcType=VARCHAR}, #{gpsId,jdbcType=INTEGER}, 
+      #{number,jdbcType=VARCHAR}, #{intercomGroup,jdbcType=VARCHAR},#{intercomPerson,jdbcType=VARCHAR}, #{gpsId,jdbcType=INTEGER}, 
       #{gpsName,jdbcType=VARCHAR}, #{purpose,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, 
       #{siteQty,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT}, #{platformId,jdbcType=INTEGER}
       )
@@ -84,6 +86,9 @@
       </if>
       <if test="intercomGroup != null">
         intercom_group,
+      </if>
+      <if test="intercomPerson != null">
+        intercom_person,
       </if>
       <if test="gpsId != null">
         gps_id,
@@ -123,6 +128,9 @@
       <if test="intercomGroup != null">
         #{intercomGroup,jdbcType=VARCHAR},
       </if>
+      <if test="intercomPerson != null">
+        #{intercomPerson,jdbcType=VARCHAR},
+      </if>
       <if test="gpsId != null">
         #{gpsId,jdbcType=INTEGER},
       </if>
@@ -161,6 +169,9 @@
       <if test="intercomGroup != null">
         intercom_group = #{intercomGroup,jdbcType=VARCHAR},
       </if>
+      <if test="intercomPerson != null">
+        intercom_person = #{intercomPerson,jdbcType=VARCHAR},
+      </if>
       <if test="gpsId != null">
         gps_id = #{gpsId,jdbcType=INTEGER},
       </if>
@@ -191,6 +202,7 @@
       org_id = #{orgId,jdbcType=INTEGER},
       number = #{number,jdbcType=VARCHAR},
       intercom_group = #{intercomGroup,jdbcType=VARCHAR},
+      intercom_person = #{intercomPerson,jdbcType=VARCHAR},
       gps_id = #{gpsId,jdbcType=INTEGER},
       gps_name = #{gpsName,jdbcType=VARCHAR},
       purpose = #{purpose,jdbcType=VARCHAR},
@@ -209,7 +221,11 @@
        	
    </delete> 
   
-  
+   		<select id="findByNumber" parameterType="String" resultType="com.tianyi.drs.basedata.model.Vehicle">  
+       		select * from t_vehicle where number = #{param}  
+    	 </select>
+    	 
+    	 
       	 <select id="selectVehicleType" resultType="com.tianyi.drs.basedata.model.VehicleType">  
        		 select * from t_vehicletype order by id asc
     	 </select> 
@@ -253,6 +269,7 @@
   			v.org_id, 
   			v.number, 
   			v.intercom_group, 
+  			v.intercom_person,
   			v.gps_id, 
   			v.gps_name, 
   			v.purpose, 
@@ -338,6 +355,7 @@
     		v.org_id  as orgId,
     		v.number,
     		v.intercom_group as intercomgroup,
+    		v.intercom_person as intercomperson,
     		v.gps_id as gpsId,
     		v.gps_name as gpsName,
     		v.purpose,

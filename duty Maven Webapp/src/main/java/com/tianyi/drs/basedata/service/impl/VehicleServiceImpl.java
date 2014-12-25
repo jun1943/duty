@@ -137,5 +137,12 @@ public class VehicleServiceImpl implements VehicleService{
 		// TODO Auto-generated method stub
 		vehicleMapper.deleteByIds(map);
 	}
+	/** (non-Javadoc)
+	 * @see com.tianyi.drs.basedata.service.VehicleService#findByNumber(String)
+	 */
+	public List<Vehicle> findByNumber(String param) {
+		// TODO Auto-generated method stub
+		return vehicleMapper.findByNumber(param);
+	}
 	
 }

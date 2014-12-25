@@ -72,7 +72,7 @@ public class PoliceServiceImpl implements PoliceService {
 	/** (non-Javadoc)
 	 * @see com.tianyi.drs.basedata.service.PoliceService#
 	 */
-	public Police findBycode(String code) {
+	public List<Police> findBycode(String code) {
 		// TODO Auto-generated method stub
 		return policeMapper.findBycode(code);
 	}
@@ -171,7 +171,7 @@ public class PoliceServiceImpl implements PoliceService {
 	/** (non-Javadoc)
 	 * @see com.tianyi.drs.basedata.service.PoliceService#findByidCard(String param)
 	 */
-	public Police findByidCard(String param) {
+	public List<Police> findByidCard(String param) {
 		// TODO Auto-generated method stub
 		return policeMapper.findByidCard(param);
 	}
@@ -196,6 +196,20 @@ public class PoliceServiceImpl implements PoliceService {
 	public UserObjectVM getUserAuthorization(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return policeMapper.getUserAuthorization(map);
+	}
+	/** (non-Javadoc)
+	 * @see com.tianyi.drs.basedata.service.PoliceService#changePoliceStateByIds(Map)
+	 */
+	public void changePoliceStateByIds(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		policeMapper.changePoliceStateByIds(map);
+	}
+	/** (non-Javadoc)
+	 * @see com.tianyi.drs.basedata.service.PoliceService#findByintercomPerson(String)
+	 */
+	public List<Police> findByintercomPerson(String param) {
+		// TODO Auto-generated method stub
+		return policeMapper.findByintercomPerson(param);
 	} 
 	
 }

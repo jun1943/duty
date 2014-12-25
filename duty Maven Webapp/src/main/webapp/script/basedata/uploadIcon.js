@@ -11,7 +11,7 @@ function InitUploadFun() {
 		name : 'file',
 		onSubmit : function(file, ext) {
 			if (!(ext && /^(png)$/.test(ext))) {
-				alert('图片格式不正确,请选择 png 格式的文件!', '系统提示');
+				$.messager.alert("操作提示", "图片格式不正确,请选择 png 格式的文件!", 'error');
 				return false;
 			}
 			var text = "文件上传中";
@@ -40,7 +40,6 @@ function InitUploadFun() {
 			this.enable();
 
 			// $.messager.alert('提示', response.split(";")[0]);
-			$("#txtfilename").val(response.split(";")[0]);
 			$("#iconsId").val(response.split(";")[1]);
 			var urlStr = response.split(";")[2];
 			var srcUrl = "";
@@ -48,6 +47,14 @@ function InitUploadFun() {
 				srcUrl = urlStr.substring(1, urlStr.length);
 			}
 			$("#sltImage").attr("src", srcUrl);
+			if (response.split(";")[0] == ""
+					|| response.split(";")[0] == undefined) {
+				$("#txtfilename").val(response.split(";")[2]);
+				$("#txtname").val(response.split(";")[2]);
+			} else {
+				$("#txtfilename").val(response.split(";")[0]);
+				$("#txtname").val(response.split(";")[0]);
+			}
 			button.text('选择图片');
 			btnSearchAction();
 		}
@@ -63,7 +70,11 @@ function getData() {
 		return null;
 	}
 	var typeId = $("#txttype").combobox("getValue");
-	var name = $("#txtname").val();
+	var name = $.trim($("#txtname").val());
+//	if (name == "" || name == undefined) {
+//		$.messager.alert("错误提示", "请输入图片标题", "error");
+//		return null;
+//	}
 	return {
 		"id" : id,
 		"typeId" : typeId,

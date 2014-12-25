@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianyi.drs.basedata.model.Gps;
-import com.tianyi.drs.basedata.model.GpsType; 
+import com.tianyi.drs.basedata.model.GpsType;  
 import com.tianyi.drs.basedata.service.GpsService;
 import com.tianyi.drs.basedata.viewmodel.GpsVM;
 import com.tianyi.drs.duty.viewmodel.ListResult; 
@@ -225,6 +225,34 @@ public class GpsController {
 			return result;
 		} catch (Exception ex) {
 			return "{\"total\":0,\"rows\":[]}";
+		}
+	}
+	
+	/**
+	 * 判断是否有有车辆存在 
+	 * 
+	 * 判断是否车牌号码重复；
+	 */
+	@RequestMapping(value = "isExistGpsDevice.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String isExistGpsDevice(
+			@RequestParam(value = "param", required = false) String param)
+			throws Exception {
+		try {
+			 
+				if (!param.equals("")) {
+					List<Gps> gps = gpsService.findByNumber(param);
+					if (gps.size()>0) {
+						return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
+					} else {
+						return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
+					}
+				} else {
+					return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
+				}
+			 
+		} catch (Exception ex) {
+			return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
 		}
 	}
 }

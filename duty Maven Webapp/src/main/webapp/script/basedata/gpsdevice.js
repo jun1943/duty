@@ -100,6 +100,17 @@ $(function() {
 										return "<img style='width:25px; height:25px' src='"
 												+ src + "' />";
 									}
+								},
+								{
+									title : '操作项',
+									aligh : 'center',
+									field : 'operator',
+									width : 80,
+									formatter : function(value, row, index) {
+										return '<a href="javascript:void(0);" class="easyui-linkbutton"'
+												+ 'iconcls="icon-tianyi-edit" style="color:blue"  onclick="btnCellClick('
+												+ index + ')">修改</a>';
+									}
 								} ] ]
 					});
 	$("#btnSearchGpsdevice").bind("click", function() {
@@ -117,8 +128,8 @@ function btnSearchAction() {
 	$('#dtGpsdevice').datagrid("reload", {
 		'gpsdevice_Query' : JSON.stringify(m_Gpsdevice_Query)
 	});
-	$("#isSubOrg").combobox("setValue", "");
-	$("#txtsearchname").val("");
+//	$("#isSubOrg").combobox("setValue", "");
+//	$("#txtsearchname").val("");
 };
 function InitData() {
 	getGpsType();
@@ -193,12 +204,16 @@ function getGpsIconList() {
 function btnAddGpsdevice(optType) {
 	operationType = optType;
 	clearForm();
-	// $('#myModal').modal('show');
+	//$('#myModal').modal('show');
 	$("#gpsdeviceinfowindow").window("open");
 	$("#btnsaveDeviceCon").show();
 };
 
 
+function btnCellClick(index) {
+	var row = $("#dtGpsdevice").datagrid('getData').rows[index];
+	editGpsdeviceModel(row);
+}
 function dblClickRow(index,rowData){
 	editGpsdeviceModel(rowData);
 }
@@ -341,7 +356,17 @@ function saveGpsModel() {
 		isComplete = false;
 		return;
 	}
-	gpsdevice.number = $.trim($("#txtgpsnumber").val());
+	var gpsnumber = $.trim($("#txtgpsnumber").val());
+	if (operationType == "add") {
+		isExistGpsdevice(gpsnumber);
+		if (!isExist) {
+			$.messager.alert("错误提示", "编号为   "+gpsnumber+" 的定位设备已存在，请检查！", "error");
+			$("#txtgpsnumber").focus();
+			isComplete = false;
+			return;
+		}
+	}  
+	gpsdevice.number = gpsnumber;
 	gpsdevice.orgId = m_Gpsdevice_OrgId;
 	if ($("#txtIconUrl").val() == "") {
 		$.messager.alert("错误提示", "请选择GPS图标", "error");
@@ -375,4 +400,24 @@ function saveGpsdeviceActionExit() {
 	if (isComplete) {
 		$("#gpsdeviceinfowindow").window("close");
 	}
+}
+
+
+//判断警员是否存在
+function isExistGpsdevice(param) {
+	isExist = false;
+	$.ajax({
+		url : "gpsdevice/isExistGpsDevice.do",
+		type : "POST",
+		dataType : "json",
+		async : false,
+		data : {
+			"param" : param
+		},
+		success : function(req) {
+			if (req.isSuccess && req.Message == "UnExits") {
+				isExist = true;
+			}
+		}
+	});
 }

@@ -24,6 +24,10 @@ public class Vehicle {
 	 */
     private String intercomGroup;
     /*
+	 * 对讲机个呼号
+	 */
+    private String intercomPerson;
+    /*
 	 * 对应gpsid
 	 */
     private int gpsId;
@@ -147,4 +151,12 @@ public class Vehicle {
     public void setPlatformId(int platformId) {
         this.platformId = platformId;
     }
+
+	public String getIntercomPerson() {
+		return intercomPerson;
+	}
+
+	public void setIntercomPerson(String intercomPerson) {
+		this.intercomPerson = intercomPerson;
+	}
 }

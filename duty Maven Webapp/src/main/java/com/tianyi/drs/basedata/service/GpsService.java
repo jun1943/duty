@@ -72,4 +72,11 @@ public interface GpsService {
 	 * @param map
 	 */
 	public void deleteByIds(Map<String, Object> map);
+	
+	/**
+	 * 判断是否存在编号的定位设备
+	 * @param param
+	 * @return
+	 */
+	public List<Gps> findByNumber(String param);
 }

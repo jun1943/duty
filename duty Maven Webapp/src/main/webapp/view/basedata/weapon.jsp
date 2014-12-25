@@ -27,7 +27,7 @@
                 	<a id="btnEditWeapon" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-edit" onclick="btnEditWeapon('edit')">修改</a>
                 	<a id="btnDelWeapon" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-delete"   onclick="btnDelWeapon()">删除</a>
                 	 
-  					<a id="btnSearchWeapon" href="javascript:void(0);" class="easyui-linkbutton weaponsearchbtn"     onclick="btnSearchWeapon()">展开查询</a>
+  					<a id="btnSearchWeapon" href="javascript:void(0);" class="easyui-linkbutton weaponsearchbtn"  >展开查询</a>
                 	<!-- a id="btnPrintList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-print" plain="true" onclick="btnPrintList()">打印</a>
                 	<a id="btnExportList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-export" plain="true" onclick="btnExportList()">导出</a> -->
                	</div>
@@ -79,15 +79,15 @@
 					<table class="weaponwindowtable"> 
 						<tr>
 							<td style="text-align: right;"><input type="hidden" id="weaponId"><label>武器类型:　</label></td>
-							<td><input id="txttype" class="easyui-combobox"  data-options="editable:false,required:true"/></td>
+							<td><input id="txttype" class="easyui-combobox"  data-options="editable:false,required:true"/><span style="color:red">*</span></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>武器编号:　</label></td>
-							<td><input type="text" class="easyui-validatebox" id="txtnumber" data-options="required:true"></td>
+							<td><input type="text" class="easyui-validatebox" id="txtnumber" data-options="required:true,validType:['length[1,20]']"><span style="color:red">*</span></td>
 						</tr>
 						<tr>
-							<td style="text-align: right;"><label>子弹数目:　</label></td>
-							<td><input type="text" class="easyui-validatebox" id="txtstandard"></td>
+							<td style="text-align: right;"><label>规格标准:　</label></td>
+							<td><input type="text" class="easyui-validatebox" id="txtstandard" data-options="validType:['length[0,20]']"></td>
 						</tr> 
 					</table>
 				</div>

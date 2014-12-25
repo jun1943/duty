@@ -148,7 +148,9 @@
     	 <select id="selectAll" resultType="com.tianyi.drs.basedata.model.Weapon">  
        		 select * from t_weapon order by number asc
     	 </select> 
-    	 
+    	 <select id="findByNumber" parameterType="String" resultType="com.tianyi.drs.basedata.model.Weapon">  
+       		select * from t_weapon where number = #{param}  
+    	 </select>
    
  
   <sql id="Where_example">

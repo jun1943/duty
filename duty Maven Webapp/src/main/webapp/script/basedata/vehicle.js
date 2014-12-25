@@ -102,18 +102,24 @@ $(function() {
 			title : '组呼号',
 			field : 'intercomGroup',
 			align : 'center',
-			width : 200,formatter:function(value,row,index){
-				if(value==0){
-					return "";
-				}else
-					{return value;}
-			}
+			width : 200
 		}, {
 			title : '个呼号',
-			field : 'personalno',
+			field : 'intercomPerson',
 			align : 'center',
 			width : 200
-		} ] ]
+		} ,
+		{
+			title : '操作项',
+			aligh : 'center',
+			field : 'operator',
+			width : 80,
+			formatter : function(value, row, index) {
+				return '<a href="javascript:void(0);" class="easyui-linkbutton"'
+						+ 'iconcls="icon-tianyi-edit" style="color:blue"  onclick="btnCellClick('
+						+ index + ')">修改</a>';
+			}
+		}] ]
 	});
 	$("#btnSearchVehicle").bind("click", function() {
 		$('#my-search-box').toggle();
@@ -130,8 +136,8 @@ function btnSearchAction() {
 	$('#dtVehicle').datagrid("reload", {
 		'vehicle_Query' : JSON.stringify(m_Vehicle_Query)
 	});
-	$("#isSubOrg").combobox("setValue", 0);
-	$("#txtsearchnumber").val("");
+//	$("#isSubOrg").combobox("setValue", "");
+//	$("#txtsearchnumber").val("");
 };
 function InitData() {
 	getVehicleType();
@@ -157,6 +163,10 @@ function btnAddVehicle(optType) {
 
 
 
+function btnCellClick(index) {
+	var row = $("#dtVehicle").datagrid('getData').rows[index];
+	editVehicleModel(row);
+}
 function dblClickRow(index,rowData){
 	editVehicleModel(rowData);
 }
@@ -282,6 +292,7 @@ function saveVehicleAction() {
 	saveVehicleModel();
 };
 //保存模块事件
+var isExist = false;
 function saveVehicleModel() {
 	var vehicle = {};
 
@@ -308,7 +319,16 @@ function saveVehicleModel() {
 		$.messager.alert("错误提示", "车牌号码长度过长，限制长度为30！", "error");
 		isComplete = false;
 		return;
-	}
+	}  
+		if (operationType == "add") {
+			isExistVehicle(carnumber);
+			if (!isExist) {
+				$.messager.alert("错误提示", "车牌号为  "+carnumber+" 的车辆已存在，请检查！", "error");
+				$("#txtnumber").focus();
+				isComplete = false;
+				return;
+			}
+		}  
 	vehicle.number = carnumber;
 	// if ($("#txtpurpose").val() == "") {
 	// $.messager.alert("错误提示", "请输入车辆用途", "error");
@@ -320,21 +340,13 @@ function saveVehicleModel() {
 	if ($("#txtgroupno").combobox("getValue") > 0
 			&& $("#txtgroupno").combobox("getValue") != "") {
 		vehicle.intercomGroup = $("#txtgroupno").combobox("getValue");
-	} else {
-		vehicle.intercomGroup = 0;
-		// $.messager.alert("错误提示", "请选择GPS_ID", "error");
-		// return;
-	}
+	} 
 	if ($("#txtgpsid").combobox("getValue") > 0
 			&& $("#txtgpsid").combobox("getValue") != "") {
 		vehicle.gpsId = $("#txtgpsid").combobox("getValue");
 		vehicle.gpsName = $("#txtgpsid").combobox("getText");
-	} else {
-		vehicle.gpsId = 0;
-		vehicle.gpsName = "";
-		// $.messager.alert("错误提示", "请选择GPS_ID", "error");
-		// return;
-	}
+	}  
+	vehicle.intercomPerson = $("#txtpersonalno").val();
 	// vehicle.gpsName = $("#txtgpsname").val();
 	$.ajax({
 		url : "vehicle/saveVehicle.do",
@@ -361,4 +373,25 @@ function saveVehicleActionExit() {
 	if (isComplete) {
 		$("#vehicleinfowindow").window("close");
 	}
+}
+
+
+
+//判断警员是否存在
+function isExistVehicle(param) {
+	isExist = false;
+	$.ajax({
+		url : "vehicle/isExistVehicle.do",
+		type : "POST",
+		dataType : "json",
+		async : false,
+		data : {
+			"param" : param
+		},
+		success : function(req) {
+			if (req.isSuccess && req.Message == "UnExits") {
+				isExist = true;
+			}
+		}
+	});
 }

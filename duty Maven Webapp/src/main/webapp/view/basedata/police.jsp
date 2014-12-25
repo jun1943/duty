@@ -40,7 +40,7 @@
 					 
 						<a id="btnSearchPolice" href="javascript:void(0);"
 							class="easyui-linkbutton policesearchbtn"  
-							onclick="btnSearchPolice()">展开查询</a>
+							  >展开查询</a>
 						 
 					</div>
 			 	</div>
@@ -58,7 +58,7 @@
 										<td><input id="txtsearchName" type="text"  
 										class="easyui-validatebox policesearchinput"></td>
 										<td class="MySearchTDTitle">人员类别 :</td>
-										<td><input id="sltType" class="easyui-combobox policesearchinput"   /></td>
+										<td><input id="sltType" class="easyui-combobox policesearchinput" data-options="editable:false"  /></td>
 										<td><a id="btnSearchAction" href="javascript:void(0);"
 							class="easyui-linkbutton" iconcls="icon-tianyi-search"  
 							onclick="btnSearchAction()">查询</a></td>
@@ -99,32 +99,32 @@
 						<tr>
 							<td style="text-align: right;"><label>姓名:　</label></td>
 							<td><input id="txtname" type="text"
-								class="easyui-validatebox" data-options="required:true"><span style="color:red">*</span></td>
+								class="easyui-validatebox" data-options="required:true,validType:['length[1,20]']"><span style="color:red">*</span></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>身份证号码:　</label></td>
 							<td><input id="txtidcardno" type="text" 
-								class="easyui-validatebox"></td>
+								class="easyui-validatebox" data-options="validType:['length[15,18]']"></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>警号:　</label></td>
 							<td><input id="txtnumber" type="text"
-								class="easyui-validatebox" ></td>
+								class="easyui-validatebox"  data-options="validType:['length[6,20]']"></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>职务:　</label></td>
 							<td><input id="txttitle" type="text"
-								class="easyui-validatebox"></td>
+								class="easyui-validatebox" data-options="validType:['length[1,20]']"></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>手机号码:　</label></td>
 							<td><input id="txtmobile" type="text"
-								class="easyui-validatebox"></td>
+								class="easyui-validatebox" data-options="validType:['length[1,30]']"></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>公安短号:　</label></td>
 							<td><input id="txtmobileshort" type="text"
-								class="easyui-validatebox"></td>
+								class="easyui-validatebox" data-options="validType:['length[1,20]']"></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>组呼号:　</label></td>
@@ -133,7 +133,7 @@
 						<tr>
 							<td style="text-align: right;"><label>个呼号:　</label></td>
 							<td><input id="txtpersonalno" type="text"
-								class="easyui-validatebox"></td>
+								class="easyui-validatebox"  data-options="validType:['length[1,20]']"></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>GPS设备:　</label></td>

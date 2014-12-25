@@ -87,12 +87,13 @@
 							</tr>
 							<tr>
 								<td class="iconswindowtabletd"><label class="iconswindowlabel">图标标题:　</label></td>
-								<td><input type="text" class="easyui-validatebox" id="txtname"></td>
+								<td><input type="text" class="easyui-validatebox" id="txtname" data-options="validType:['length[0,50]']"></td>
 							</tr> 
 							<tr>
 								<td class="iconswindowtabletd"><label class="iconswindowlabel">图标选择:　</label>
 								</td>
-								<td><input type="text" class="easyui-validatebox" id="txtfilename"><a id="btnfindIcon"  href="javascript:void(0);" class="easyui-linkbutton"  plain="true" >选择图片</a>
+								<td><input type="text" class="easyui-validatebox" readonly="readonly" id="txtfilename"><a id="btnfindIcon"  href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-add"   >选择图片</a>
+								<br /><label style="font-size:10px;color:blue">图标对象为：不超过2M的png格式图标</label>
 								</td>
 							</tr>
 						</table>

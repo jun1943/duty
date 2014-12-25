@@ -81,4 +81,11 @@ public interface VehicleService {
 	 * @param map
 	 */
 	public void deleteByIds(Map<String, Object> map);
+	
+	/**
+	 * 根据车牌号码判断是否存在该车辆
+	 * @param param
+	 * @return
+	 */
+	public List<Vehicle> findByNumber(String param);
 }

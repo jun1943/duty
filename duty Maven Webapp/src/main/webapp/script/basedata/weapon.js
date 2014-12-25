@@ -73,6 +73,17 @@ $(function() {
 			field : 'standard',
 			align : 'center',
 			width : 100
+		},
+		{
+			title : '操作项',
+			aligh : 'center',
+			field : 'operator',
+			width : 80,
+			formatter : function(value, row, index) {
+				return '<a href="javascript:void(0);" class="easyui-linkbutton"'
+						+ 'iconcls="icon-tianyi-edit" style="color:blue"  onclick="btnCellClick('
+						+ index + ')">修改</a>';
+			}
 		} ] ]
 	});
 	$("#btnSearchWeapon").bind("click", function() {
@@ -89,8 +100,8 @@ function btnSearchAction() {
 	$('#dtWeapon').datagrid("reload", {
 		'weapon_Query' : JSON.stringify(m_Weapon_Query)
 	});
-	$("#isSubOrg").combobox("setValue", "");
-	$("#txtsearchnumber").val("");
+//	$("#isSubOrg").combobox("setValue", "");
+//	$("#txtsearchnumber").val("");
 };
 function InitData() {
 	getWeaponType();
@@ -106,6 +117,10 @@ function btnAddWeapon(optType) {
 };
 
 
+function btnCellClick(index) {
+	var row = $("#dtWeapon").datagrid('getData').rows[index];
+	editWeaponModel(row);
+}
 function dblClickRow(index,rowData){
 	editWeaponModel(rowData);
 }
@@ -222,6 +237,7 @@ function saveWeaponAction() {
 	saveWeaponModel();
 };
 //保存事件模块
+var isExist = false;
 function saveWeaponModel() {
 	var weapon = {};
 
@@ -240,7 +256,17 @@ function saveWeaponModel() {
 		isComplete= false;
 		return;
 	}
-	weapon.number = $.trim($("#txtnumber").val());
+	var weaponumber = $.trim($("#txtnumber").val());
+	if (operationType == "add") {
+		isExistWeapon(weaponumber);
+		if (!isExist) {
+			$.messager.alert("错误提示", "编号为   "+weaponumber+" 的武器已存在，请检查！", "error");
+			$("#txtnumber").focus();
+			isComplete = false;
+			return;
+		}
+	}  
+	weapon.number = weaponumber;
 	// if ($("#txtstandard").val() == "") {
 	// $.messager.alert("错误提示", "请输入武器规格型号", "error");
 	// return;
@@ -273,4 +299,23 @@ function saveWeaponActionExit() {
 	if(isComplete){
 		$("#weaponinfowindow").window("close");
 	}
+} 
+
+//判断警员是否存在
+function isExistWeapon(param) {
+	isExist = false;
+	$.ajax({
+		url : "weapon/isExistWeapon.do",
+		type : "POST",
+		dataType : "json",
+		async : false,
+		data : {
+			"param" : param
+		},
+		success : function(req) {
+			if (req.isSuccess && req.Message == "UnExits") {
+				isExist = true;
+			}
+		}
+	});
 }

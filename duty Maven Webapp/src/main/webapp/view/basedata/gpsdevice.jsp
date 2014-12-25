@@ -73,7 +73,7 @@
 						onclick="saveGpsdeviceActionExit()">　　保　存　　</a> 
 				</div>
 				<div data-options="region:'center',border:false" class="gpswindowcenter">
-					<table class="gpswindowtable"> 
+					<table class="gpswindowtable">  
 						<tr>
 							<td style="text-align: right;"><input type="hidden" id="gpsdeviceId"><label>GPS类型:　</label></td>
 							<td><input id="txttype"   class="easyui-combobox gpswindowinput"  data-options="editable:false,required:true"/><span style="color:red">*</span></td>
@@ -81,18 +81,18 @@
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>GPS名称:　</label></td>
-							<td><input type="text" class="easyui-validatebox gpswindowinput" id="txtgpsname" data-options="required:true"><span style="color:red">*</span></td>
+							<td><input type="text" class="easyui-validatebox gpswindowinput" id="txtgpsname" data-options="required:true,validType:['length[1,20]']"><span style="color:red">*</span></td>
 							<td></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>GPS编号:　</label></td>
-							<td><input type="text" class="easyui-validatebox gpswindowinput" id="txtgpsnumber" data-options="required:true"><span style="color:red">*</span></td>
+							<td><input type="text" class="easyui-validatebox gpswindowinput" id="txtgpsnumber" data-options="required:true,validType:['length[1,20]']"><span style="color:red">*</span></td>
 							<td></td>
 						</tr> 
 						<tr>
 							<td style="text-align: right;"><label>GPS图标:　</label></td>
 							
-							<td><input type="text" class="easyui-validatebox gpswindowinput" id="txtgpsicon" data-options="required:true"><span style="color:red">*</span><input type="hidden" id="txtIconUrl"></td>
+							<td><input type="text" class="easyui-validatebox gpswindowinput" id="txtgpsicon" data-options="editable:false,required:true"><span style="color:red">*</span><input type="hidden" id="txtIconUrl"></td>
 							
 							<td></td>
 						</tr> 

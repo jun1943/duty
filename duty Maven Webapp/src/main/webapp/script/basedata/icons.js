@@ -119,9 +119,9 @@ function btnSearchAction() {
 	$('#dtIcons').datagrid("reload", {
 		'icons_Query' : JSON.stringify(m_Icons_Query)
 	});
-	$("#isSubOrg").combobox("setValue", 0);
-	$("#txtsearchName").val("");
-	$("#sltType").combobox("setValue", 0);
+//	$("#isSubOrg").combobox("setValue", 0);
+//	$("#txtsearchName").val("");
+//	$("#sltType").combobox("setValue", 0);
 };
 // 新增开始
 function btnAddIcons() {
@@ -132,6 +132,10 @@ function btnAddIcons() {
 };
 
 
+function btnCellClick(index) {
+	var row = $("#dtIcons").datagrid('getData').rows[index];
+	editIconsModel(row);
+}
 function dblClickRow(index,rowData){
 	editIconsModel(rowData);
 }
@@ -229,12 +233,20 @@ function clearForm() {
 	$("#sltImage").attr("src", "");
 };
 function saveIconsAction() {
+	if($("#txtfilename").val()==""||$("#txtfilename").val()==undefined){
+		$.messager.alert("操作提示","请选择图标之后保存","error");
+		return;
+	}
 	$("#iconsId").val(0);
 	$("#txttype").combobox("setValue", 0);
 	$("#txtname").val("");
 	$("#txtfilename").val("");
 }
 function saveIconsActionExit() {
+	if($("#txtfilename").val()==""||$("#txtfilename").val()==undefined){
+		$.messager.alert("操作提示","请选择图标之后保存","error");
+		return;
+	}
 	$("#iconsId").val(0);
 	$("#txttype").combobox("setValue", 0);
 	$("#txtname").val("");
