@@ -30,6 +30,7 @@
 	                	<a id="btnDelVehicle" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-delete"  onclick="btnDelVehicle()">删除</a>
 	                	 
 	  					<a id="btnSearchVehicle" href="javascript:void(0);" class="easyui-linkbutton vehiclesearchbtn"  iconcls="icon-tianyi-search" >展开查询</a>
+	                	<a href="javascript:void(0);" class="easyui-linkbutton policeexportorinport"  iconcls="icon-tianyi-export"  onclick="btnExportAction()">导出数据</a>
 	                	<!-- a id="btnPrintList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-print" plain="true" onclick="btnPrintList()">打印</a>
 	                	<a id="btnExportList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-export" plain="true" onclick="btnExportList()">导出</a> -->
 	               	</div>

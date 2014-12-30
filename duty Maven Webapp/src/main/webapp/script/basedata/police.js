@@ -580,3 +580,34 @@ function isExistPolice(param, pType) {
 		}
 	});
 }
+
+//导出事件
+function btnExportAction(){
+	pack_police_Query();
+	$.ajax({
+		url : "police/exportDataToExcle.do",
+		type : "POST",
+		dataType : "json",
+		async : false,
+		timeout : 60000,
+		data : {
+			'police_Query' : JSON.stringify(m_police_Query)
+		},
+		success : function(req) {
+			if (req.isSuccess) {
+				var urlStr = req.Data.substring(1, req.Data.length);
+				window.location.href = urlStr;
+			}
+		},
+		failer : function(a, b) {
+			$.messager.alert("消息提示", a, "info");
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			$.messager.alert("消息提示", errorThrown, "error");
+		}
+	});
+}
+//导入事件
+function btnInportAction(){
+	
+}

@@ -134,5 +134,11 @@ public interface PoliceMapper {
 	 * @return
 	 */
 	List<Police> findByintercomPerson(String param);
+	/**
+	 * 根据组织机构id，查询所有警员列表数据
+	 * @param orgId
+	 * @return
+	 */
+	List<PoliceVM> loadVMListWithOrgId(Integer orgId);
 	 
 }

@@ -163,4 +163,10 @@ public interface PoliceService {
 	 * @return
 	 */
 	List<Police> findByintercomPerson(String param);
+	/**
+	 * 根据组织机构，查询所有数据
+	 * @param orgId
+	 * @return
+	 */
+	List<PoliceVM> loadVMListWithOrgId(Integer orgId);
 }

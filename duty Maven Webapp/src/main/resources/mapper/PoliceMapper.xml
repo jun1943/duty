@@ -349,9 +349,7 @@
 	        AND number like CONCAT( '%',#{number,jdbcType=VARCHAR},'%')  
 	   </if> 
     </where>
-  </sql>
-  
-  
+  </sql> 
   
   <select id="loadVMList" parameterType="java.util.Map" resultMap="BaseModelMap">
   		 select <include refid ="Base_Model_Column_List" />

@@ -210,6 +210,13 @@ public class PoliceServiceImpl implements PoliceService {
 	public List<Police> findByintercomPerson(String param) {
 		// TODO Auto-generated method stub
 		return policeMapper.findByintercomPerson(param);
+	}
+	/** (non-Javadoc)
+	 * @see com.tianyi.drs.basedata.service.PoliceService#loadVMListWithOrgId(Integer)
+	 */
+	public List<PoliceVM> loadVMListWithOrgId(Integer orgId) {
+		// TODO Auto-generated method stub
+		return policeMapper.loadVMListWithOrgId(orgId);
 	} 
 	
 }

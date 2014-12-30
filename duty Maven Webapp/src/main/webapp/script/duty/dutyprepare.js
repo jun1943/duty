@@ -2434,17 +2434,24 @@ function btnExportToExcelAction() {
 }
 
 function btnSearchAction() {
+	var pars = {
+			orgId : m_dutyprepare_Org.id,
+			ymd : m_ymd.ymd
+		};
+	loadDuty(pars);
+	
 	var name = $('#txtsearchname').val();
 	if (name != "") {
 		var a = findDutyPoint(name);
 		$('#tdDuty').treegrid("loadData", a);
-	} else {
-		var pars = {
-			orgId : m_dutyprepare_Org.id,
-			ymd : m_ymd.ymd
-		};
-		loadDuty(pars);
 	}
+//	else {
+//		var pars = {
+//			orgId : m_dutyprepare_Org.id,
+//			ymd : m_ymd.ymd
+//		};
+//		loadDuty(pars);
+//	}
 }
 
 function findDutyPoint(name) {

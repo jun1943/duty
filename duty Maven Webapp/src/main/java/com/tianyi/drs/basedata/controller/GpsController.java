@@ -1,16 +1,27 @@
 package com.tianyi.drs.basedata.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +31,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.tianyi.drs.basedata.model.Gps;
 import com.tianyi.drs.basedata.model.GpsType;  
 import com.tianyi.drs.basedata.service.GpsService;
-import com.tianyi.drs.basedata.viewmodel.GpsVM;
+import com.tianyi.drs.basedata.viewmodel.GpsVM; 
+import com.tianyi.drs.duty.util.ExcelPortUtil;
 import com.tianyi.drs.duty.viewmodel.ListResult; 
 /*
  * 定位设备控制器，mark by liqinag
@@ -253,6 +265,144 @@ public class GpsController {
 			 
 		} catch (Exception ex) {
 			return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
+		}
+	}
+	
+	@RequestMapping(value="exportDataToExcle.do",produces="application/json;charset=UTF-8")
+	public @ResponseBody String exportDataToExcle(
+			@RequestParam(value = "gpsdevice_Query", required = false) String query,
+			HttpServletResponse response, HttpServletRequest request)
+	{
+		try {
+			JSONObject joQuery = JSONObject.fromObject(query);
+			int orgId = Integer.parseInt(joQuery.getString("orgId"));
+			int isSubOrg = Integer.parseInt(joQuery.getString("isSubOrg"));
+			String gpsname = joQuery.getString("gpsname");  
+
+			String orgCode = joQuery.getString("orgCode");
+			String orgPath = joQuery.getString("orgPath");
+
+			List<GpsVM> list = new ArrayList<GpsVM>();
+			Map<String, Object> map = new HashMap<String, Object>();
+		 
+			map.put("pageStart",1); 
+			map.put("pageSize", 65530);
+			map.put("orgId", orgId);
+			map.put("isSubOrg", isSubOrg);
+			map.put("orgCode", orgCode);
+			map.put("orgPath", orgPath);
+			map.put("gpsname", gpsname);  
+			boolean isSuccess = false;
+			// 取服务器地址，默认指向bin目录
+			String realPath = getClass().getResource("/").getFile().toString();
+			// 将地址截取，指向resouse目录
+			realPath = realPath.substring(0, (realPath.length() - 16));
+			realPath += "resource";
+			String exlPath = "/resource";
+			File sF = new File(realPath);
+			if (!sF.exists()) {
+				sF.mkdir();
+			}
+			realPath += "/" + "excels";
+			exlPath += "/" + "excels";
+			File iconF = new File(realPath);
+			if (!iconF.exists()) {
+				iconF.mkdir();
+			}
+			String s = UUID.randomUUID().toString();
+			s = s.replace("-", "");
+			realPath += "/" + s + ".xls";
+			exlPath += "/" + s + ".xls"; 
+			list = gpsService.loadVMList(map);
+			if (list.size() > 0) {
+				isSuccess = initExcelData(list, realPath);
+				if (isSuccess) {
+					return "{\"isSuccess\":true,\"Message\":\"" + exlPath
+							+ "\",\"Data\":\"" + exlPath + "\"}";
+				} else {
+					return "{\"isSuccess\":false,\"Message\":\"创建Excel表格失败\",\"Data\":\"\"}";
+				}
+			} else {
+				return "{\"isSuccess\":false,\"Message\":\"获取报备详细信息子失败\",\"Data\":\"\"}";
+			}
+		} catch (Exception e) {
+			return "{\"isSuccess\":false,\"Message\":\"" + e.getMessage()
+					+ "\",\"Data\":\"\"}";
+		}
+	}
+	private boolean initExcelData(List<GpsVM> list, String realPath) {
+		File file = new File(realPath);
+		if (!file.exists()) {
+			file.delete();
+		}
+		boolean isCreateSuccess = false;
+		Workbook workbook = null;
+		try {
+			// XSSFWork used for .xslx (>= 2007), HSSWorkbook for 03 .xsl
+			workbook = new XSSFWorkbook();// HSSFWorkbook();//WorkbookFactory.create(inputStream);
+			if (workbook != null) {
+				Sheet sheet = workbook.createSheet("定位设备基础数据");
+				Row row0 = sheet.createRow(0);
+				String title = "定位设备基础数据汇总信息";
+				if (list.size() > 0) {
+					title = list.get(0).getOrgName() + title;
+				}
+				Cell cell_0 = row0.createCell(0, Cell.CELL_TYPE_STRING);
+				CellStyle style = ExcelPortUtil.getStyle(workbook);
+				cell_0.setCellStyle(style);
+
+				cell_0.setCellValue(title);
+				sheet.addMergedRegion(new CellRangeAddress(0, 0, 2, 0));
+			 
+				Row row1 = sheet.createRow(1);
+
+				Cell cell_1 = row1.createCell(0, Cell.CELL_TYPE_STRING); 
+				cell_1.setCellStyle(style);
+				cell_1.setCellValue("定位设备类型");
+				sheet.autoSizeColumn(0);
+
+				Cell cell_2 = row1.createCell(1, Cell.CELL_TYPE_STRING);
+				cell_2.setCellStyle(style);
+				cell_2.setCellValue("显示名称");
+				sheet.autoSizeColumn(1);
+
+				Cell cell_3 = row1.createCell(2, Cell.CELL_TYPE_STRING);
+				cell_3.setCellStyle(style);
+				cell_3.setCellValue("设备编号");
+				sheet.autoSizeColumn(2);
+
+				Cell cell_4 = row1.createCell(3, Cell.CELL_TYPE_STRING);
+				cell_4.setCellStyle(style);
+				cell_4.setCellValue("图片链接地址");
+				sheet.autoSizeColumn(3);
+ 
+				for (int rowNum = 2; rowNum <= list.size(); rowNum++) {
+					Row row = sheet.createRow(rowNum);
+					GpsVM gps = new GpsVM();
+					gps = list.get(rowNum - 2);
+					Cell cella = row.createCell(0, Cell.CELL_TYPE_STRING);
+					cella.setCellValue(gps.getTypeName() == null ? "" : gps.getTypeName());
+					Cell cellb = row.createCell(1, Cell.CELL_TYPE_STRING);
+					cellb.setCellValue(gps.getGpsName() == null ? "" : gps.getGpsName());
+					Cell cellc = row.createCell(2, Cell.CELL_TYPE_STRING);
+					cellc.setCellValue(gps.getNumber() == null ? "" : gps.getNumber());
+					Cell celle = row.createCell(3, Cell.CELL_TYPE_STRING);
+					celle.setCellValue(gps.getIconUrl() == null ? "" : gps.getIconUrl()); 
+				}
+			}
+			try {
+				FileOutputStream outputStream = new FileOutputStream(
+						realPath);
+				workbook.write(outputStream);
+				outputStream.flush();
+				outputStream.close();
+				isCreateSuccess = true;
+			} catch (Exception e) {
+				isCreateSuccess = false;
+			}
+			return isCreateSuccess;
+		} catch (Exception ex) {
+			return isCreateSuccess;
 		}
 	}
 }

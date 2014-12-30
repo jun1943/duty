@@ -311,10 +311,11 @@ function delDutyType(){
 	                    async:false,
 	                    success: function (req) {
 	                        if (req.isSuccess) {//成功填充数据
+	                        	$("#winDutyType").window("close");
 	                        	loadDutyType();
 	                        }
 	                        else {
-	                        	$.messager.alert('错误',req.msg);
+	                        	$.messager.alert('错误',req.msg,'error');
 	                        }
 	                    }
 	                });
@@ -332,13 +333,13 @@ function useDutyType(){
 	var row = $("#dtDutyType").datagrid("getSelected");
 	if(row !=null){
 		if(row.isUsed){
-			$.messager.alert('提示', '该勤务类型已经启用!');
+			$.messager.alert('提示', '该勤务类型已经启用!','error');
 			return;
 		}
 		updateUsedState(row.id,!row.isUsed);
 
 	}else{
-		$.messager.alert('提示', '请先选择勤务类型!');
+		$.messager.alert('提示', '请先选择勤务类型!','error');
 	}
 }
 
@@ -429,10 +430,11 @@ function saveDutyType(){
             if (req.isSuccess) {//成功填充数据
             	loadDutyType();
             	$('#txtDutyTypeId').val(req.id);//回写保存后的id
-            	$.messager.alert('提示', '保存成功!');
+            	$.messager.alert('提示', '保存成功!','info');
+            	$("#winDutyType").window("close");
             }
             else {
-            	$.messager.alert('提示', '保存失败!'+req.msg);
+            	$.messager.alert('提示', '保存失败!'+req.msg,'error');
             }
         }
     });

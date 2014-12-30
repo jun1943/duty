@@ -147,7 +147,7 @@ public class DutyTypeServiceImpl implements DutyTypeService {
 			rm=new ResultMsg(false,"只能删除末级节点!");
 		}else{
 			dutyTypeMapper.deleteByPrimaryKey(id);
-			rm=new ResultMsg(false,null);
+			rm=new ResultMsg(true,null);
 		}
 		
 		return rm;

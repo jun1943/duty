@@ -41,7 +41,9 @@
 						<a id="btnSearchPolice" href="javascript:void(0);"
 							class="easyui-linkbutton policesearchbtn"  
 							  >展开查询</a>
-						 
+							  <!-- <a href="javascript:void(0);" class="easyui-linkbutton policeexportorinport"  iconcls="icon-tianyi-add"  onclick="btnInportAction()">导入数据</a> -->
+						<a href="javascript:void(0);" class="easyui-linkbutton policeexportorinport"  iconcls="icon-tianyi-export"  onclick="btnExportAction()">导出数据</a>
+						
 					</div>
 			 	</div>
 			 	<!-- 查询条件 -->
@@ -70,13 +72,12 @@
 					</div>		
 				<!-- 警员列表 -->
 				</div> 
-				<div id="dtPolice"></div>
-			 
-			 
+				<div id="dtPolice"></div> 
 		</div>
 		<!-- 编辑窗体内容 -->
-		<div id="policeinfowindow" class="easyui-window policewindow" title="新增/编辑 警员信息"
+		<div id="policeinfowindow" class="easyui-window " title="新增/编辑 警员信息"
 			data-options="iconCls:'icon-tianyi-edit',modal:true" closed="true" 
+			style="width: 400px; height: 500px; padding: 10px;color:white;"
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
 		 >
 			<div class="easyui-layout" data-options="fit:true">

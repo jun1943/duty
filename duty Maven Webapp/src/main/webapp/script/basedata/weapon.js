@@ -319,3 +319,31 @@ function isExistWeapon(param) {
 		}
 	});
 }
+/**
+ * 导出数据
+ */
+function btnExportAction(){
+	pack_Weapon_Query();
+	$.ajax({
+		url : "weapon/exportDataToExcle.do",
+		type : "POST",
+		dataType : "json",
+		async : false,
+		timeout : 60000,
+		data : {
+			'weapon_Query' : JSON.stringify(m_Weapon_Query)
+		},
+		success : function(req) {
+			if (req.isSuccess) {
+				var urlStr = req.Data.substring(1, req.Data.length);
+				window.location.href = urlStr;
+			}
+		},
+		failer : function(a, b) {
+			$.messager.alert("消息提示", a, "info");
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			$.messager.alert("消息提示", errorThrown, "error");
+		}
+	});
+}

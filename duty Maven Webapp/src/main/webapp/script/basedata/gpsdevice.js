@@ -421,3 +421,31 @@ function isExistGpsdevice(param) {
 		}
 	});
 }
+/**
+ * 导出数据
+ */
+function btnExportAction(){
+	pack_Gpsdevice_Query();
+	$.ajax({
+		url : "gpsdevice/exportDataToExcle.do",
+		type : "POST",
+		dataType : "json",
+		async : false,
+		timeout : 60000,
+		data : {
+			'gpsdevice_Query' : JSON.stringify(m_Gpsdevice_Query)
+		},
+		success : function(req) {
+			if (req.isSuccess) {
+				var urlStr = req.Data.substring(1, req.Data.length);
+				window.location.href = urlStr;
+			}
+		},
+		failer : function(a, b) {
+			$.messager.alert("消息提示", a, "info");
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			$.messager.alert("消息提示", errorThrown, "error");
+		}
+	});
+}

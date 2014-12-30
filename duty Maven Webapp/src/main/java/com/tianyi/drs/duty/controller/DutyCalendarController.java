@@ -461,7 +461,7 @@ public class DutyCalendarController {
 				Cell cell_3 = row0.createCell(3, Cell.CELL_TYPE_STRING);
 				cell_3.setCellStyle(style);
 				cell_3.setCellValue("时间区间");
-				sheet.autoSizeColumn(2);
+				sheet.autoSizeColumn(3);
 
 				Cell cell_4 = row0.createCell(4, Cell.CELL_TYPE_STRING);
 				cell_4.setCellStyle(style);
