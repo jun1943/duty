@@ -97,4 +97,11 @@ public interface VehicleGroupService {
 	java.util.List<VehicleGroupVM> loadVMListByOrgIdShared(
 			Map<String, Object> map);
 
+	/**
+	 * 判断是否分组已存在
+	 * @param map
+	 * @return
+	 */
+	java.util.List<VehicleGroup> findByNameAndOrg(Map<String, Object> map);
+
 }

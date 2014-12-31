@@ -158,6 +158,13 @@ public class WeaponGroupServiceImpl implements WeaponGroupService  {
 		List<WeaponGroupVM> ls=weaponGroupMapper.loadVMListByOrgIdShared(map);
 		return ls;
 	}
+	/**
+	 * 判断分组是否已经存在
+	 */
+	public List<WeaponGroup> findByNameAndOrg(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return weaponGroupMapper.findByNameAndOrg(map);
+	}
  
 
 }

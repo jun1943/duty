@@ -95,4 +95,12 @@ public interface WeaponGroupService {
 	 */
 	java.util.List<WeaponGroupVM> loadVMListByOrgIdShared(
 			Map<String, Object> map);
+
+	
+	/**
+	 * 判断分组是否已经存在
+	 * @param map
+	 * @return
+	 */
+	java.util.List<WeaponGroup> findByNameAndOrg(Map<String, Object> map);
 }

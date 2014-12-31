@@ -76,4 +76,11 @@ public interface WeaponGroupMapper {
 	 * @return
 	 */
 	List<WeaponGroupVM> loadVMListByOrgId(Map<String, Object> map);
+
+	/**
+	 * 判断分组是否已经存在
+	 * @param map
+	 * @return
+	 */
+	List<WeaponGroup> findByNameAndOrg(Map<String, Object> map);
 }

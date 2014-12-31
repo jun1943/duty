@@ -175,7 +175,22 @@ function savePoliceGroup() {
 
 	pg.orgId = m_policeGroup_Org.id;
 	pg.id = $('#txtPoliceGroupId').val();
-	pg.name = $('#txtPoliceGroupName').val();
+	//pg.name = $('#txtPoliceGroupName').val();
+	var groupName = $.trim($('#txtPoliceGroupName').val());
+	if(groupName==""&&groupName==undefined){
+		$.messager.alert("操作提示","请填写分组名称","error");
+		$('#txtPoliceGroupName').focus();
+		return;
+	}
+
+	isExistGroup(groupName,m_policeGroup_Org.id);
+	if(!isExist){
+		$.messager.alert("错误提示","该分组名称已存在，请重新填写分组名称","error");
+		$('#txtPoliceGroupName').focus();
+		return;
+	}
+
+	pg.name = groupName; 
 	pg.shareType = $('input:radio[name="shareType"]:checked').val();
 
 	/**
@@ -204,6 +219,8 @@ function savePoliceGroup() {
 			if (req.isSuccess) {
 				$('#dtPoliceGroup').datagrid('reload');
 				$('#txtPoliceGroupId').val(req.id);//回写保存后的id
+
+				$('#winPG').window('close'); 
 				$.messager.alert('提示', '保存成功!');
 			} else {
 				$.messager.alert('提示', req.msg, "warning");
@@ -474,3 +491,21 @@ function displayGroupMember(member){
 	
 }
 
+function isExistGroup(name,orgId){
+	isExist = false;
+	$.ajax({
+		url : "policeGroup/isExistGroup.do",
+		type : "POST",
+		dataType : "json",
+		async : false,
+		data : {
+			"name" : name,
+			"orgId" : orgId
+		},
+		success : function(req) {
+			if (req.isSuccess && req.Message == "UnExits") {
+				isExist = true;
+			}
+		}
+	});
+}

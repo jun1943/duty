@@ -161,5 +161,12 @@ public class PoliceGroupServiceImpl implements PoliceGroupService{
 		List<PoliceGroupVM> ls=policeGroupMapper.loadVMListByOrgIdShared(map);
 		return ls;
 	}
+	/**
+	 * 根据分组名称和组织机构，判断分组是否存在
+	 */
+	public List<PoliceGroup> findByNameAndOrg(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return policeGroupMapper.findByNameAndOrg(map);
+	}
 
 }

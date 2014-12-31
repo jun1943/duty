@@ -21,9 +21,9 @@ $(function() {
 
 	var args = getUrlArgs();
 
-	var nowsdate = new Date();
-	year = nowsdate.getFullYear();
-	month = nowsdate.getMonth() + 1;
+//	var nowsdate = new Date();
+//	year = nowsdate.getFullYear();
+//	month = nowsdate.getMonth() + 1;
 
 	// m_dutyFrame_User.userName = window.atob(args["user"]);
 	m_dutyFrame_User.userName = args["user"];
@@ -77,6 +77,9 @@ function batchGetUserAuthorization(userName, pwd) {
 
 				m_dutyFrame_Org.code = req.obj.orgCode;
 				m_dutyFrame_Org.path = req.obj.orgPath;
+
+				year = req.obj.serverYears;
+				month = req.obj.serverMonth;
 			} else {
 				$.messager.alert("用户信息验证失败");
 			}
@@ -217,6 +220,8 @@ function setCheckBox(ctlA, ctlB) {
 			'checkbox' : true
 		});
 		$('#treeDutyFrmOrg').tree('loadData', m_org_node);
+		var node=  $('#treeDutyFrmOrg').tree('find', m_dutyFrame_func_prop.orgId);
+		$('#treeDutyFrmOrg').tree('check', node.target); 
 	} else if (ctlA == 2 && ctlB != 2) {
 		$('#treeDutyFrmOrg').tree({
 			'checkbox' : false

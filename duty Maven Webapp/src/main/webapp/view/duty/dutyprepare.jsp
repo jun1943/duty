@@ -36,7 +36,7 @@
 					iconcls="icon-tianyi-save" onclick="saveTemplate()">另存为模板</a> <a
 					href="javascript:void(0);" class="easyui-linkbutton"
 					iconcls="icon-tianyi-export" onclick="btnExportToExcelAction()">导出</a> <a
-					href="javascript:void(0);" class="easyui-linkbutton dtyprebtnback" 
+					href="javascript:void(0);" class="easyui-linkbutton" style="margin-left:200px"
 					iconcls="icon-tianyi-back" onclick="btnBackToCalendarAction()" >返回</a>
 			</div>
 		</div>
@@ -144,7 +144,7 @@
 							href="javascript:void(0);" class="easyui-linkbutton"
 							iconcls="icon-tianyi-delete" onclick="deleteNode()">删除节点</a> 
 							<a id="btnSearchExpendbody"
-							href="javascript:void(0);" class="easyui-linkbutton dtypredutybtnsearch" 
+							href="javascript:void(0);" class="easyui-linkbutton" style="margin-left:100px"
 							>展开查询</a>
 							 
 					</div>
@@ -251,7 +251,8 @@
 	</div>
 	
 	<!-- 勤务类型选择框 -->
-	<div id="dutyTypeSelectwindow" class="easyui-window dtypredtypeQywindow" title="报备类型-选择"
+	<div id="dutyTypeSelectwindow" class="easyui-window" title="报备类型-选择"
+	style="width: 354px; height:500px; padding: 10px;"
 		data-options="iconCls:'icon-tianyi-edit'" closed="true" collapsible="false"
 		minimizable="false" maximizable="false" resizable="false"
 		shadow="false" >
@@ -266,7 +267,8 @@
 		</div>
 	</div>
 	<!-- 模板选择框 -->
-	<div id="dutyTemplateSelectwindow" class="easyui-window dtypredtempQywindow"
+	<div id="dutyTemplateSelectwindow" class="easyui-window"
+	style="width: 354px; height:400px; padding: 10px;"
 		title="备勤模板-选择" data-options="iconCls:'icon-tianyi-edit'" closed="true"
 		collapsible="false" minimizable="false" maximizable="false"
 		resizable="false" shadow="false" >
@@ -296,7 +298,7 @@
 				</div>
 			</div>
 			<div id="contentTab" class="easyui-tabs"
-				data-options="tools:'#contentTab-tools'" class="dtypredutysheettab"></div>
+				data-options="tools:'#contentTab-tools'" style="width:500px;height:300px;"></div>
 			<div id="contentTab-tools">
 				<a href="javascript:void(0)" class="easyui-linkbutton"
 					data-options="plain:true,iconCls:'icon-add'" onclick="addPanel()"></a>
@@ -307,7 +309,8 @@
 		</div>
 	</div>
 	<!-- 自定义编组对话框 -->
-	<div id="userNodeWindows" class="easyui-window dtypredutyusernodewindow"  title="自定义编组"
+	<div id="userNodeWindows" class="easyui-window"  title="自定义编组"
+	style="width: 300px; height:100px; padding: 2px;"
 		data-options="iconCls:'icon-tianyi-edit',modal:true" closed="true"
 		collapsible="false" minimizable="false" maximizable="false"
 		resizable="false" shadow="false" >
@@ -332,7 +335,8 @@
 		</div>
 	</div>
 	<!-- 班次添加对话框 -->
-	<div id="shiftWindows" class="easyui-window dtypredutyshiftWindows" title="班次"
+	<div id="shiftWindows" class="easyui-window" title="班次"
+	style="width: 380px; height:200px; padding: 2px;"
 		data-options="iconCls:'icon-tianyi-edit',modal:true" closed="true"
 		collapsible="false" minimizable="false" maximizable="false"
 		resizable="false" shadow="false" >
@@ -371,7 +375,8 @@
 		</div>
 	</div>
 	<!-- 保存模板对话框 -->
-	<div id="templateWindows" class="easyui-window dtypredtempsavewindow" title="备勤模板-保存"
+	<div id="templateWindows" class="easyui-window" title="备勤模板-保存"
+	style="width: 300px; height:100px; padding: 2px;"
 		data-options="iconCls:'icon-tianyi-save',modal:true" closed="true"
 		collapsible="false" minimizable="false" maximizable="false"
 		resizable="false" shadow="false" >
@@ -396,7 +401,8 @@
 		</div>
 	</div>
 	<!-- 报备复制日历显示框 -->
-	<div id="calendarWindow" class="easyui-window dtypredcopywindow" title="备勤复制"
+	<div id="calendarWindow" class="easyui-window" title="备勤复制"
+	style="width: 300px; height:300px; padding: 2px;"
 		data-options="iconCls:'icon-tianyi-save',modal:true" closed="true"
 		collapsible="false" minimizable="false" maximizable="false"
 		resizable="false" shadow="false" >
@@ -414,7 +420,8 @@
 		</div>
 	</div>
 	<!-- 关联任务对话框 -->
-	 <div id="taskWindow"  class="easyui-window dtypredtaskwindow" title="任务关联"  data-options="iconCls:'icon-tianyi-edit',modal:true" closed="true" 
+	 <div id="taskWindow"  class="easyui-window" title="任务关联"  data-options="iconCls:'icon-tianyi-edit',modal:true" closed="true"
+	 style="width: 580px; height:350px; padding: 2px;" 
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" >
 			<div class="easyui-layout" data-options="fit:true">
 				<div data-options="region:'south',border:false" class="dtypreresourceQywindowbtn"> 

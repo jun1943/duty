@@ -95,7 +95,15 @@ public interface PoliceGroupService {
 	 * @param map
 	 * @return
 	 */
-	java.util.List<PoliceGroupVM> loadVMListByOrgIdShared(
+	List<PoliceGroupVM> loadVMListByOrgIdShared(
 			Map<String, Object> map);
+
+	/**
+	 * 根据分组名称，判断分组是否已经存在，不存在，则可添加，存在则不能添加
+	 * @param name
+	 * @param orgId
+	 * @return
+	 */ 
+	java.util.List<PoliceGroup> findByNameAndOrg(Map<String, Object> map);
 
 }

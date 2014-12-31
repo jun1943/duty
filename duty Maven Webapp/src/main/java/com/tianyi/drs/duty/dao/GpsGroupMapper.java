@@ -77,4 +77,12 @@ public interface GpsGroupMapper {
 	 * @return
 	 */
 	List<GpsGroupVM> loadVMListByOrgIdShared(Map<String, Object> map);
+
+	
+	/**
+	 * 判断分组是否存在
+	 * @param map
+	 * @return
+	 */
+	List<GpsGroup> findByNameAndOrg(Map<String, Object> map);
 }

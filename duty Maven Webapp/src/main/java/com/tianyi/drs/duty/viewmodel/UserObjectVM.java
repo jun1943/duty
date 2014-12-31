@@ -42,6 +42,10 @@ public class UserObjectVM {
 	 * 绑定警员id
 	 */
 	private Integer bindPoliceUserId;
+	
+	private Integer serverYears;
+	private Integer serverMonth;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -95,5 +99,17 @@ public class UserObjectVM {
 	}
 	public void setOrgName(String orgName) {
 		this.orgName = orgName;
+	}
+	public Integer getServerYears() {
+		return serverYears;
+	}
+	public void setServerYears(Integer serverYears) {
+		this.serverYears = serverYears;
+	}
+	public Integer getServerMonth() {
+		return serverMonth;
+	}
+	public void setServerMonth(Integer serverMonth) {
+		this.serverMonth = serverMonth;
 	} 
 }

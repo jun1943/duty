@@ -15,7 +15,7 @@
 
 </head>
 	
-<body oncontextmenu=self.event.returnValue=false>
+<body oncontextmenu=self.event.returnValue=false >
 	<div id="tbDutyType" class="btn-toolbar">
 				<div class="btn-group">
 					<a href="javascript:void(0);" iconcls="icon-tianyi-add"  
@@ -35,7 +35,8 @@
 			</div>
 			<div id="dtDutyType"></div>
 
-	<div id="winDutyType" class="easyui-window dtypewindow" title="勤务类型" 
+	<div id="winDutyType" class="easyui-window" title="勤务类型" 
+	style="height:330px;width:360px;padding:4px;"
         data-options="iconCls:'icon-tianyi-save',modal:true" closed="true"  onClose="onWinDutyTypeClose"
         collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false">
 

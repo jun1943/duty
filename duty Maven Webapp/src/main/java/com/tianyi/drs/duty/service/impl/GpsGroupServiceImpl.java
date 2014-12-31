@@ -160,6 +160,14 @@ public class GpsGroupServiceImpl implements GpsGroupService {
 		List<GpsGroupVM> ls=gpsGroupMapper.loadVMListByOrgIdShared(map);
 		return ls;
 	}
+	
+	/**
+	 * 判断分组是否已经存在
+	 */
+	public List<GpsGroup> findByNameAndOrg(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return gpsGroupMapper.findByNameAndOrg(map);
+	}
  
 
 }

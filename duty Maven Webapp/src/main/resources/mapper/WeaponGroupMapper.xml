@@ -120,6 +120,10 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   
+    
+         <select id="findByNameAndOrg" resultType="com.tianyi.drs.duty.model.WeaponGroup" parameterType="java.util.Map">  
+       		select * from t_duty_weapon_group where name = #{name} and org_id = #{orgId}
+    	 </select> 
   
   
   

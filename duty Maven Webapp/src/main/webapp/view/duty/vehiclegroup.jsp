@@ -38,7 +38,7 @@
 		   
 		 </div>
 		 <div data-options="region:'center'" class="grouplayoutcenter">
-		 	<div  class="easyui-layout grouplayout"  >
+		 	<div  class="easyui-layout"  style="width:100%; height:100%;">
 		 		
 		<div id="divPG" data-options="region:'west'" title="车辆分组" class="groupwestArea">
 			<div id="tbGroup" class="btn-toolbar grouptoolbar"  >
@@ -76,7 +76,8 @@
 	</div>
 			 </div>
 	</div>
-	<div id="winPG" class="easyui-window groupwindow" title="车辆分组管理" 
+	<div id="winPG" class="easyui-window" title="车辆分组管理" 
+	style="width:330px;height:320px;"
         data-options="iconCls:'icon-tianyi-save',modal:true" closed="true" 
         collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false">
 			
@@ -116,7 +117,8 @@
 			</div>
 		</div>
 
-	<div id="winPGMember" class="easyui-window groupmemberwindow" title="组成员选择"  
+	<div id="winPGMember" class="easyui-window" title="组成员选择" 
+	style="width:450px;height:400px;" 
         data-options="iconCls:'icon-save',modal:true" closed="true" 
         collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false">    
 

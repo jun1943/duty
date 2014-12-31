@@ -176,7 +176,23 @@ function saveGpsGroup() {
 
 	pg.orgId = m_gpsGroup_Org.id;
 	pg.id = $('#txtGpsGroupId').val();
-	pg.name = $('#txtGpsGroupName').val();
+	//pg.name = $('#txtGpsGroupName').val();
+	var groupName = $.trim($('#txtGpsGroupName').val());
+	if(groupName==""&&groupName==undefined){
+		$.messager.alert("操作提示","请填写分组名称","error");
+		$('#txtGpsGroupName').focus();
+		return;
+	}
+
+	isExistGroup(groupName,m_gpsGroup_Org.id);
+	if(!isExist){
+		$.messager.alert("错误提示","该分组名称已存在，请重新填写分组名称","error");
+		$('#txtGpsGroupName').focus();
+		return;
+	}
+
+	pg.name = groupName; 
+	
 	pg.shareType = $('input:radio[name="shareType"]:checked').val();
 
 	/**
@@ -205,6 +221,7 @@ function saveGpsGroup() {
 			if (req.isSuccess) {
 				$('#dtGpsGroup').datagrid('reload');
 				$('#txtGpsGroupId').val(req.id);//回写保存后的id
+				$('#winPG').window('close'); 
 				$.messager.alert('提示', '保存成功!');
 			} else {
 				$.messager.alert('提示', req.msg, "warning");
@@ -475,3 +492,21 @@ function displayGroupMember(member){
 	
 }
 
+function isExistGroup(name,orgId){
+	isExist = false;
+	$.ajax({
+		url : "gpsGroup/isExistGroup.do",
+		type : "POST",
+		dataType : "json",
+		async : false,
+		data : {
+			"name" : name,
+			"orgId" : orgId
+		},
+		success : function(req) {
+			if (req.isSuccess && req.Message == "UnExits") {
+				isExist = true;
+			}
+		}
+	});
+}

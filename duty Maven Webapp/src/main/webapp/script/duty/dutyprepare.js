@@ -50,11 +50,11 @@ $(document)
 						$('#my-search-box').toggle();
 					});
 					
-					window.onbeforeunload = isChangeStates; 
+//					window.onbeforeunload = isChangeStates; 
 					//加载警员资源列表
 					$('#source_police').treegrid({
 						dnd : true,
-						fitColumns : true,
+						//fitColumns : true,
 						resizable : true,
 						idField : 'id',
 						treeField : 'name',
@@ -63,26 +63,27 @@ $(document)
 						height : 400,
 						singleSelect : false,
 						collapsible : true,
-						columns : [ [ {
+						frozenColumns:[[  {
 							field : 'ck',
 							checkbox : true
-						}, {
+						}, 
+						                 {title : '姓名',
+												field : 'name',
+												align : 'left',
+												width : 90,
+												sortable : true} 
+						                ]] ,
+						columns : [ [{
 							title : 'id',
 							field : 'id',
 							align : 'left',
 							width : 0,
 							hidden : true
-						}, {
-							title : '姓名',
-							field : 'name',
-							align : 'left',
-							width : 50,
-							sortable : true
-						}, {
+						},  {
 							title : '单位',
 							field : 'orgName',
 							align : 'left',
-							width : 50
+							width : 130
 						}, {
 							title : '图标',
 							field : 'iconUrl',
@@ -112,7 +113,7 @@ $(document)
 						// +
 						// m_dutyprepare_Org.id+"&orgCode="+m_dutyprepare_Org.code+"&orgPath="+m_dutyprepare_Org.path
 						// + "&number=",
-						fitColumns : true,
+						//fitColumns : true,
 						dnd : true,
 						resizable : true,
 						idField : 'id',
@@ -122,31 +123,33 @@ $(document)
 						width : 220,
 						height : 400,
 						singleSelect : false,
-						columns : [ [ {
+						frozenColumns:[[  {
 							field : 'ck',
 							checkbox : true
-						}, {
+						}, 
+						                 {title : '车牌号码',
+												field : 'number',
+												align : 'left',
+												width : 110,
+												sortable : true} 
+						                ]] ,
+						columns : [ [  {
 							title : 'id',
 							field : 'id',
 							align : 'center',
 							width : 0,
 							hidden : true
-						}, {
-							title : '车牌号码',
-							field : 'number',
-							align : 'left',
-							width : 80
-						}, {
+						} , {
 							title : '车辆类型',
 							field : 'typeName',
 							align : 'left',
-							width : 80,
+							width : 200,
 							hidden : true
 						}, {
 							title : '车辆品牌',
 							field : 'brand',
 							align : 'left',
-							width : 50
+							width : 100
 						}, {
 							title : '图标',
 							field : 'iconUrl',
@@ -176,7 +179,7 @@ $(document)
 						// +
 						// m_dutyprepare_Org.id+"&orgCode="+m_dutyprepare_Org.code+"&orgPath="+m_dutyprepare_Org.path
 						// + "&gpsname=",
-						fitColumns : true,
+						//fitColumns : true,
 						dnd : true,
 						resizable : true,
 						idField : 'id',
@@ -186,25 +189,28 @@ $(document)
 						width : 220,
 						height : 400,
 						singleSelect : false,
-						columns : [ [ {
+						frozenColumns:[[  {
 							field : 'ck',
 							checkbox : true
-						}, {
+						}, 
+						 {
+							title : 'GPS类型',
+							field : 'typeName',
+							align : 'left',
+							width : 100
+						}
+						                ]] ,
+						columns : [ [  {
 							title : 'id',
 							field : 'id',
 							align : 'left',
 							width : 0,
 							hidden : true
 						}, {
-							title : 'GPS类型',
-							field : 'typeName',
-							align : 'left',
-							width : 80
-						}, {
 							title : 'GPS显示名称',
 							field : 'gpsName',
 							align : 'left',
-							width : 80
+							width : 150
 						}, {
 							title : 'GPS设备编号',
 							field : 'number',
@@ -232,7 +238,7 @@ $(document)
 						// url : "weapon/getweaponSource.do?orgId=" +
 						// m_dutyprepare_Org.id+"&orgCode="+m_dutyprepare_Org.code+"&orgPath="+m_dutyprepare_Org.path
 						// + "&number=",
-						fitColumns : true,
+						//fitColumns : true,
 						dnd : true,
 						resizable : true,
 						idField : 'id',
@@ -242,25 +248,28 @@ $(document)
 						width : 220,
 						height : 400,
 						singleSelect : false,
-						columns : [ [ {
+						frozenColumns:[[  {
 							field : 'ck',
 							checkbox : true
-						}, {
+						}, 
+						 {
+							title : '武器类型',
+							field : 'typeName',
+							align : 'left',
+							width : 120
+						}
+						                ]] ,
+						columns : [ [  {
 							title : 'id',
 							field : 'id',
 							align : 'left',
 							width : 0,
 							hidden : true
 						}, {
-							title : '武器类型',
-							field : 'typeName',
-							align : 'left',
-							width : 80
-						}, {
 							title : '武器编号',
 							field : 'number',
 							align : 'left',
-							width : 80
+							width : 150
 						}, {
 							title : '规格标准',
 							field : 'standard',
@@ -285,7 +294,7 @@ $(document)
 					});
 					//加载勤务类型列表，供选择使用；
 					$('#dtDutyType').treegrid({
-						fitColumns : true,
+						//fitColumns : true,
 						rownumbers : false,
 						resizable : true,
 						idField : 'id',
@@ -295,10 +304,8 @@ $(document)
 						singleSelect : false,
 						onlyLeafCheck : true,
 						onClickRow : isLeafSelected,
-						columns : [ [ {
-							field : 'ck',
-							checkbox : true
-						}, {
+					
+						columns : [ [  {
 							title : 'id',
 							field : 'id',
 							align : 'left',
@@ -308,26 +315,32 @@ $(document)
 							title : '名称',
 							field : 'name',
 							align : 'left',
-							width : 200
+							width : 500
 						}, {
 							title : 'parentId',
 							field : "parentId",
 							align : 'left',
 							width : 5,
 							hidden : true
-						}, {
-							title : '人数限制',
-							field : "maxPolice",
-							align : 'left',
-							width : 50,
-							formatter : function(value, row, index) {
-								if (value == 0) {
-									return "无限制";
-								} else {
-									return value + "人";
-								}
-							}
-						} ] ]
+						}] ],
+					frozenColumns:[[ {
+						field : 'ck',
+						checkbox : true
+					}, 
+									{
+										title : '人数限制',
+										field : "maxPolice",
+										align : 'left',
+										width : 80,
+										formatter : function(value, row, index) {
+											if (value == 0) {
+												return "无限制";
+											} else {
+												return value + "人";
+											}
+										}
+									} 
+					                ]] 
 					});
 					//根据传入时间，组织机构信息，获取当天的详细报备信息
 					$('#tdDuty')
@@ -1879,6 +1892,8 @@ function userNodeConfirm() {
 		} else {
 			m_userNode.targetRow.name = name;
 			m_userNode.targetRow.displayName = name;
+			$("#tdDuty").treegrid('refresh', m_userNode.targetRow.xid);
+			
 			$("#tdDuty").treegrid('reload', m_userNode.targetRow.xid);
 		}
 		$('#userNodeWindows').window('close');
@@ -2499,8 +2514,8 @@ function btnBackToCalendarAction() {
 		}
 		parent.onDutycalendar(dateY, dateM); 
 };
-function isChangeStates (){  
-    if(m_changestates=="0"&&m_changestates!=undefined){  
-    	return ("您的报备数据信息还没有保存，是否跳转到其他模块?");
-    }  
-}; 
+//function isChangeStates (){  
+//    if(m_changestates=="0"&&m_changestates!=undefined){  
+//    	return ("您的报备数据信息还没有保存，是否跳转到其他模块?");
+//    }  
+//}; 

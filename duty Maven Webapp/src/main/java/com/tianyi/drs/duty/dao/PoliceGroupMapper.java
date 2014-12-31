@@ -76,6 +76,15 @@ public interface PoliceGroupMapper {
      * @return
      */
 	List<PoliceGroupVM> loadVMListByOrgIdShared(Map<String, Object> map);
+
+	
+	/**
+	 * 判断分组是否存在
+	 * @param name
+	 * @param orgId
+	 * @return
+	 */
+	List<PoliceGroup> findByNameAndOrg(Map<String, Object> map); 
     
     
 }

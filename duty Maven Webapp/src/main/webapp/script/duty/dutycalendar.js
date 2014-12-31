@@ -348,6 +348,7 @@ function getDateInfo(date) {
 				url : "duty/loadDutyByOrgIdAndYMD.do",
 				type : "POST",
 				dataType : "json",
+				async : false,
 				data : {
 					'orgId' : m_dutyCalendar_Org.id,
 					'ymd' : date
@@ -821,7 +822,8 @@ function clearClipbord() {
 };
 function btnSearchAction() {
 	var name = $('#txttargetName').val();
-	if (name != "") {
+	if (name != "") { 
+		getDateInfo(m_dutyCalendar_Org.date);
 		var a = findDutyPoint(name);
 		$('#tgddutydetailsforday').treegrid("loadData", a);
 	} else {

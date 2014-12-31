@@ -3,6 +3,8 @@ package com.tianyi.drs.basedata.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -480,7 +482,13 @@ public class PoliceController {
 			map.put("userName", userName);
 			map.put("password", password);
 			uvm = policeService.getUserAuthorization(map);
-
+			Date date = new Date();
+			// Calendar canlandar = Calendar.getInstance();
+			// canlandar.setTime(date);
+			int years = date.getYear() + 1900;
+			int month = date.getMonth() + 1;
+			uvm.setServerYears(years);
+			uvm.setServerMonth(month);
 			ObjResult<UserObjectVM> rs = new ObjResult<UserObjectVM>(true,
 					null, uvm == null ? 0 : uvm.getId(), uvm);
 
@@ -582,10 +590,9 @@ public class PoliceController {
 
 				cell_0.setCellValue(title);
 				sheet.addMergedRegion(new CellRangeAddress(0, 0, 9, 0));
-			 
 
 				Row row1 = sheet.createRow(1);
-				Cell cell_1 = row1.createCell(0, Cell.CELL_TYPE_STRING); 
+				Cell cell_1 = row1.createCell(0, Cell.CELL_TYPE_STRING);
 				cell_1.setCellStyle(style);
 				cell_1.setCellValue("职务");
 				sheet.autoSizeColumn(0);

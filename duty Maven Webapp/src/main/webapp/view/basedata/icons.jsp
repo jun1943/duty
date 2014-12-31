@@ -62,8 +62,9 @@
 	</div> 
 	 
 	<!-- 编辑窗体内容 -->
-	 <div id="iconsinfowindow" class="easyui-window iconswindow" title="新增/编辑图标信息"
+	 <div id="iconsinfowindow" class="easyui-window" title="新增/编辑图标信息"
 			data-options="iconCls:'icon-tianyi-edit',modal:true" closed="true" 
+			style="width: 500px; height: 240px; padding: 10px;"
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" >
 			<div class="easyui-layout" data-options="fit:true">
 				<div data-options="region:'south',border:false" class="iconswindowsouth" > 

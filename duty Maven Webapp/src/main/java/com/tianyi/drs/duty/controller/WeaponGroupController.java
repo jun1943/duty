@@ -17,7 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-  
+   
 import com.tianyi.drs.duty.model.WeaponGroup;
 import com.tianyi.drs.duty.model.WeaponGroupMember;
 import com.tianyi.drs.duty.model.WeaponGroupOrg;
@@ -313,5 +313,31 @@ public class WeaponGroupController {
 			return "{'total':0,rows:[]}";
 		}
 		
+	}
+	
+	/**
+	 * 判断是否有有分组存在
+	 * 
+	 * 判断是否分组名称重复；
+	 */
+	@RequestMapping(value = "isExistGroup.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String isExistGroup(
+			@RequestParam(value = "name", required = false) String name,
+			@RequestParam(value = "orgId", required = false) Integer orgId)
+			throws Exception {
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("name", name);
+			map.put("orgId", orgId);
+			List<WeaponGroup> weaponGroup =weaponGroupService.findByNameAndOrg(map);
+			if (weaponGroup.size() > 0) {
+				return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
+			} else {
+				return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
+			}
+		} catch (Exception ex) {
+			return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
+		}
 	}
 }

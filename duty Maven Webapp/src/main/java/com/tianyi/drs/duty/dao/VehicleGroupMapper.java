@@ -77,4 +77,11 @@ public interface VehicleGroupMapper {
 	 * @return
 	 */
 	List<VehicleGroupVM> loadVMListByOrgIdShared(Map<String, Object> map);
+
+	/**
+	 * 判断分组是否存在
+	 * @param map
+	 * @return
+	 */
+	List<VehicleGroup> findByNameAndOrg(Map<String, Object> map);
 }

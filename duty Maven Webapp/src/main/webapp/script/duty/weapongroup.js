@@ -172,14 +172,27 @@ function editWeaponGroup() {
 		showWeaponGroupDlg();
 	}
 }
-
+var isExist = false;
 function saveWeaponGroup() {
 	var pg = {};
 	pg.shareOrgIds = [];
 
 	pg.orgId = m_weaponGroup_Org.id;
 	pg.id = $('#txtWeaponGroupId').val();
-	pg.name = $('#txtWeaponGroupName').val();
+	var groupName = $.trim($('#txtWeaponGroupName').val());
+	if(groupName==""&&groupName==undefined){
+		$.messager.alert("操作提示","请填写分组名称","error");
+		$('#txtWeaponGroupName').focus();
+		return;
+	}
+	isExistGroup(groupName,m_weaponGroup_Org.id);
+	if(!isExist){
+		$.messager.alert("错误提示","该分组名称已存在，请重新填写分组名称","error");
+		$('#txtWeaponGroupName').focus();
+		return;
+	}
+
+	pg.name = groupName;
 	pg.shareType = $('input:radio[name="shareType"]:checked').val();
 
 	/**
@@ -208,6 +221,7 @@ function saveWeaponGroup() {
 			if (req.isSuccess) {
 				$('#dtWeaponGroup').datagrid('reload');
 				$('#txtWeaponGroupId').val(req.id);//回写保存后的id
+				$('#winPG').window('close'); 
 				$.messager.alert('提示', '保存成功!');
 			} else {
 				$.messager.alert('提示', req.msg, "warning");
@@ -478,3 +492,22 @@ function displayGroupMember(member){
 	
 }
 
+
+function isExistGroup(name,orgId){
+	isExist = false;
+	$.ajax({
+		url : "weaponGroup/isExistGroup.do",
+		type : "POST",
+		dataType : "json",
+		async : false,
+		data : {
+			"name" : name,
+			"orgId" : orgId
+		},
+		success : function(req) {
+			if (req.isSuccess && req.Message == "UnExits") {
+				isExist = true;
+			}
+		}
+	});
+}

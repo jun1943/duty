@@ -7,11 +7,11 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Transactional; 
  
 import com.tianyi.drs.duty.dao.VehicleGroupMapper;
 import com.tianyi.drs.duty.dao.VehicleGroupMemberMapper;
-import com.tianyi.drs.duty.dao.VehicleGroupOrgMapper; 
+import com.tianyi.drs.duty.dao.VehicleGroupOrgMapper;  
 import com.tianyi.drs.duty.model.VehicleGroup;
 import com.tianyi.drs.duty.model.VehicleGroupMember;
 import com.tianyi.drs.duty.model.VehicleGroupOrg;
@@ -152,6 +152,14 @@ public class VehicleGroupServiceImpl implements VehicleGroupService {
 		List<VehicleGroupVM> ls=vehicleGroupMapper.loadVMListByOrgIdShared(map);
 		return ls;
 	}
- 
+
+	/**
+	 * 判断法分组是否已存在
+	 */
+	public List<VehicleGroup> findByNameAndOrg(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return vehicleGroupMapper.findByNameAndOrg(map);
+	}
+
 
 }

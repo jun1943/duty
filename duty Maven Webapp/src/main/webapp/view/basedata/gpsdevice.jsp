@@ -61,8 +61,9 @@
  
 	</div>   
 	<!-- 编辑窗体内容 -->
-	 <div id="gpsdeviceinfowindow" class="easyui-window gpswindow" title="新增/编辑定位设备信息"
+	 <div id="gpsdeviceinfowindow" class="easyui-window" title="新增/编辑定位设备信息"
 			data-options="iconCls:'icon-tianyi-edit',modal:true" closed="true" 
+			style="width: 400px; height: 240px; padding: 10px;"
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false">
 			<div class="easyui-layout" data-options="fit:true">
 				<div data-options="region:'south',border:false" class="gpswindowsouth"> 

@@ -96,4 +96,12 @@ public interface GpsGroupService {
 	 */
 	java.util.List<GpsGroupVM> loadVMListByOrgIdShared(
 			Map<String, Object> map);
+
+	
+	/**
+	 * 判断分组是否已经存在
+	 * @param map
+	 * @return
+	 */
+	java.util.List<GpsGroup> findByNameAndOrg(Map<String, Object> map);
 }

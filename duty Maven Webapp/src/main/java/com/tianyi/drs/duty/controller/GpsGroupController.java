@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianyi.drs.duty.model.GpsGroup;
 import com.tianyi.drs.duty.model.GpsGroupMember;
-import com.tianyi.drs.duty.model.GpsGroupOrg;
+import com.tianyi.drs.duty.model.GpsGroupOrg; 
 import com.tianyi.drs.duty.service.OrgService;
 import com.tianyi.drs.duty.service.GpsGroupService;
 import com.tianyi.drs.duty.viewmodel.GpsGroupMemberVM;
@@ -318,5 +318,31 @@ public class GpsGroupController {
 			return "{'total':0,rows:[]}";
 		}
 		
+	}
+	
+	/**
+	 * 判断是否有有分组存在
+	 * 
+	 * 判断是否分组名称重复；
+	 */
+	@RequestMapping(value = "isExistGroup.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String isExistGroup(
+			@RequestParam(value = "name", required = false) String name,
+			@RequestParam(value = "orgId", required = false) Integer orgId)
+			throws Exception {
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("name", name);
+			map.put("orgId", orgId);
+			List<GpsGroup> gpsGroup =gpsGroupService.findByNameAndOrg(map);
+			if (gpsGroup.size() > 0) {
+				return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
+			} else {
+				return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
+			}
+		} catch (Exception ex) {
+			return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
+		}
 	}
 }

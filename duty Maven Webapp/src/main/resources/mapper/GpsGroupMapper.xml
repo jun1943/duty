@@ -22,6 +22,7 @@
     <result column="orgcode" jdbcType="VARCHAR" property="orgCode" />
     <result column="orgpath" jdbcType="VARCHAR" property="orgPath" />
   </resultMap>
+    
   
   
   <sql id="Base_Column_List" >
@@ -118,6 +119,11 @@
       platform_id = #{platformId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+    
+         <select id="findByNameAndOrg" resultType="com.tianyi.drs.duty.model.GpsGroup" parameterType="java.util.Map">  
+       		select * from t_duty_gps_group where name = #{name} and org_id = #{orgId}
+    	 </select> 
   
   
   
