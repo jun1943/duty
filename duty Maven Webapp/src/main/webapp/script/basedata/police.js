@@ -491,6 +491,12 @@ function savePoliceModel() {
 		isComplete = false;
 		return;
 	}
+	var pattern = /\D/ig;
+	if(pattern.test(mobiles)){
+		$.messager.alert("错误提示", "警员手机号码只能为数字！", "error");
+		isComplete = false;
+		return;
+	}
 	police.mobile = mobiles;
 	var mobileShorts = $.trim($("#txtmobileshort").val());
 	if (mobileShorts.length > 13) {

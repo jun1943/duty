@@ -78,6 +78,7 @@ $(document).ready(function() {
 			{
 				url : "org/listWithVehicle.do?rootId="+m_vehicleGroup_Org.id,
 				checkbox : false,
+				onDblClick : dbClickVehicle,
 				cascadeCheck : false
 			});
 	
@@ -85,6 +86,7 @@ $(document).ready(function() {
 		idField : 'id',
 		singleSelect : true,
 		resizable : true,
+		onDblClickRow : ondbClickRow,
 		fitColumns : true,
 		columns : [ [
 		            {title : 'id',field : 'id',align : 'left',width : 10,hidden : true}, 
@@ -447,8 +449,15 @@ function closeWinPGMember(){
 	$('#winPGMember').window("close");
 }
 
-function selectMember(){
-	var node=$('#treeOrgWithVehicle').tree('getSelected');
+function dbClickVehicle(node) {
+	selectMemberModel(node);
+}
+function selectMember() {
+	var node = $('#treeOrgWithVehicle').tree('getSelected');
+	selectMemberModel(node);
+}
+function selectMemberModel(node){
+	 
 	if(node !=null && node.dataType==2){
 		
 		var datas=$('#dtSelGroupMember').datagrid('getData');
@@ -471,10 +480,33 @@ function selectMember(){
 				name: node.name,
 				code: node.code
 			});
+
+			var targets = node.target;
+			$('#treeOrgWithVehicle').tree('remove', targets);
 		}
+
 	}
 }
 
+function ondbClickRow(index, rowData) {
+	var row = $('#dtSelGroupMember').datagrid('getSelected');
+	if (row != null) {
+		var selected = $('#treeOrgWithVehicle').tree('getRoot');
+
+		// $('#treeOrgWithVehicle').tree('getChildren',selected.target);
+		$('#treeOrgWithVehicle').tree('insert', {
+			before : selected.target,
+			data : [ {
+				"rid" : row.id,
+				"name" : row.name,
+				"code" : row.code,
+				"text" : row.name,
+				"dataType" : 2
+			} ]
+		});
+		$('#dtSelGroupMember').datagrid('deleteRow', index);
+	}
+}
 function unselectMember(){
 	var row=$('#dtSelGroupMember').datagrid('getSelected');
 	

@@ -77,6 +77,7 @@ $(document).ready(function() {
 			{
 				url : "org/listWithWeapon.do?rootId="+m_weaponGroup_Org.id,
 				checkbox : false,
+				onDblClick : dbClickWeapon,
 				cascadeCheck : false
 			});
 	//分组成员加载
@@ -84,6 +85,7 @@ $(document).ready(function() {
 		idField : 'id',
 		singleSelect : true,
 		resizable : true,
+		onDblClickRow : ondbClickRow,
 		fitColumns : true,
 		columns : [ [
 		            {title : 'id',field : 'id',align : 'left',width : 10,hidden : true}, 
@@ -446,8 +448,15 @@ function closeWinPGMember(){
 	$('#winPGMember').window("close");
 }
 
-function selectMember(){
-	var node=$('#treeOrgWithWeapon').tree('getSelected');
+function dbClickWeapon(node) {
+	selectMemberModel(node);
+}
+function selectMember() {
+	var node = $('#treeOrgWithWeapon').tree('getSelected');
+	selectMemberModel(node);
+}
+function selectMemberModel(node){
+	 
 	if(node !=null && node.dataType==2){
 		
 		var datas=$('#dtSelGroupMember').datagrid('getData');
@@ -470,10 +479,31 @@ function selectMember(){
 				name: node.name,
 				code: node.code
 			});
+			var targets = node.target;
+			$('#treeOrgWithWeapon').tree('remove', targets);
 		}
 	}
 }
 
+function ondbClickRow(index, rowData) {
+	var row = $('#dtSelGroupMember').datagrid('getSelected');
+	if (row != null) {
+		var selected = $('#treeOrgWithWeapon').tree('getRoot');
+
+		// $('#treeOrgWithWeapon').tree('getChildren',selected.target);
+		$('#treeOrgWithWeapon').tree('insert', {
+			before : selected.target,
+			data : [ {
+				"rid" : row.id,
+				"name" : row.name,
+				"code" : row.code,
+				"text" : row.name,
+				"dataType" : 2
+			} ]
+		});
+		$('#dtSelGroupMember').datagrid('deleteRow', index);
+	}
+}
 function unselectMember(){
 	var row=$('#dtSelGroupMember').datagrid('getSelected');
 	
