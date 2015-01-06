@@ -25,7 +25,7 @@
 			<div id="tbGpsdevice" class="btn-toolbar gpstoolbar" >
   				<div class="btn-group">
   					<a id="btnAddGpsdevice" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-add"  onclick="btnAddGpsdevice('add')">创建</a>
-                	<a id="btnEditGpsdevice" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-edit"   onclick="btnEditGpsdevice('edit')">修改</a>
+                	<!-- <a id="btnEditGpsdevice" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-edit"   onclick="btnEditGpsdevice('edit')">修改</a> -->
                 	<a id="btnDelGpsdevice" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-delete"  onclick="btnDelGpsdevice()">删除</a>
                 
   					<a id="btnSearchGpsdevice" href="javascript:void(0);" class="easyui-linkbutton gpssearchbtn"   >展开查询</a>

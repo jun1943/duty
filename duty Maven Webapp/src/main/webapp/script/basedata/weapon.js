@@ -30,78 +30,86 @@ $(function() {
 				}
 			});
 
-	$('#dtWeapon').datagrid({
-		url : "weapon/getWeaponList.do",
-		queryParams : {
-			'weapon_Query' : JSON.stringify(m_Weapon_Query)
-		},
-		pagination : true,
-		fitColumns : true,
-		pageNumber : 1,
-		pageSize : 10,
-		title : '武器列表',
-		onDblClickRow : dblClickRow,
-	    onClickRow: clickRow,
-		// singleSelect: true,
-		columns : [ [ {
-			field : 'ck',
-			checkbox : true
-		}, {
-			title : 'Id',
-			field : 'Id',
-			align : 'center',
-			width : 10,
-			hidden : true
-		}, {
-			title : '机构',
-			field : 'orgName',
-			align : 'center',
-			width : 100,
-			hidden : true
-		}, {
-			title : '武器类型',
-			field : 'typeName',
-			align : 'center',
-			width : 100
-		}, {
-			title : '武器编号',
-			field : 'number',
-			align : 'center',
-			width : 100
-		}, {
-			title : '标准规格',
-			field : 'standard',
-			align : 'center',
-			width : 100
-		},
-		{
-			title : '操作项',
-			aligh : 'center',
-			field : 'operator',
-			width : 80,
-			formatter : function(value, row, index) {
-				return '<a href="javascript:void(0);" class="easyui-linkbutton"'
-						+ 'iconcls="icon-tianyi-edit" style="color:blue"  onclick="btnCellClick('
-						+ index + ')">修改</a>';
-			}
-		} ] ]
-	});
+	$('#dtWeapon')
+			.datagrid(
+					{
+						url : "weapon/getWeaponList.do",
+						queryParams : {
+							'weapon_Query' : JSON.stringify(m_Weapon_Query)
+						},
+						pagination : true,
+						fitColumns : true,
+						pageNumber : 1,
+						pageSize : 10,
+						title : '武器列表',
+						onDblClickRow : dblClickRow,
+						onClickRow : clickRow,
+						// singleSelect: true,
+						columns : [ [
+								{
+									field : 'ck',
+									checkbox : true
+								},
+								{
+									title : 'Id',
+									field : 'Id',
+									align : 'center',
+									width : 10,
+									hidden : true
+								},
+								{
+									title : '机构',
+									field : 'orgName',
+									align : 'center',
+									width : 100,
+									hidden : true
+								},
+								{
+									title : '武器类型',
+									field : 'typeName',
+									align : 'center',
+									width : 100
+								},
+								{
+									title : '武器编号',
+									field : 'number',
+									align : 'center',
+									width : 100
+								},
+								{
+									title : '子弹数目',
+									field : 'standard',
+									align : 'center',
+									width : 100
+								},
+								{
+									title : '操作项',
+									aligh : 'center',
+									field : 'operator',
+									width : 80,
+									formatter : function(value, row, index) {
+										return '<a href="javascript:void(0);" class="easyui-linkbutton"'
+												+ 'iconcls="icon-tianyi-edit" style="color:blue"  onclick="btnCellClick('
+												+ index + ')">修改</a>';
+									}
+								} ] ]
+					});
 	$("#btnSearchWeapon").bind("click", function() {
 		$('#my-search-box').toggle();
 	});
 	InitData();
 });
-//取消点击行选中
+// 取消点击行选中
 function clickRow(index, data) {
-    $("#dtWeapon").datagrid("unselectRow", index);
+	$("#dtWeapon").datagrid("unselectRow", index);
 }
 function btnSearchAction() {
 	pack_Weapon_Query();
 	$('#dtWeapon').datagrid("reload", {
 		'weapon_Query' : JSON.stringify(m_Weapon_Query)
 	});
-//	$("#isSubOrg").combobox("setValue", "");
-//	$("#txtsearchnumber").val("");
+	// $("#isSubOrg").combobox("setValue", "");
+	// $("#txtsearchnumber").val("");
 };
 function InitData() {
 	getWeaponType();
@@ -116,17 +124,16 @@ function btnAddWeapon(optType) {
 	$('#btnsaveWeaponCon').show();
 };
 
-
 function btnCellClick(index) {
 	var row = $("#dtWeapon").datagrid('getData').rows[index];
 	editWeaponModel(row);
 }
-function dblClickRow(index,rowData){
+function dblClickRow(index, rowData) {
 	editWeaponModel(rowData);
 }
 
-//编辑模块事件
-function editWeaponModel(rows){
+// 编辑模块事件
+function editWeaponModel(rows) {
 	clearForm();
 	$("#weaponId").val(rows.id);
 	$("#txttype").combobox("setValue", rows.typeId);
@@ -153,7 +160,7 @@ function btnEditWeapon(optType) {
 	if (rows.length > 1) {
 		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
 		return;
-	} 
+	}
 	editWeaponModel(rows[0]);
 };
 function clearForm() {
@@ -209,7 +216,7 @@ function btnDelWeapon() {
 		}
 	});
 };
-//删除事件
+// 删除事件
 function deleteWeapon(id) {
 	$.ajax({
 		url : "weapon/deleteWeapon.do",
@@ -236,7 +243,7 @@ var isComplete = true;
 function saveWeaponAction() {
 	saveWeaponModel();
 };
-//保存事件模块
+// 保存事件模块
 var isExist = false;
 function saveWeaponModel() {
 	var weapon = {};
@@ -248,29 +255,40 @@ function saveWeaponModel() {
 		weapon.typeId = $("#txttype").combobox("getValue");
 	} else {
 		$.messager.alert("错误提示", "请选择武器类别", "error");
-		isComplete= false;
+		isComplete = false;
 		return;
 	}
 	if ($("#txtnumber").val() == "") {
 		$.messager.alert("错误提示", "请输入武器编号", "error");
-		isComplete= false;
+		isComplete = false;
 		return;
 	}
 	var weaponumber = $.trim($("#txtnumber").val());
+	if (weaponumber.length > 20) {
+		$.messager.alert("错误提示", "武器编号长度过长，限制长度1--20！", "error");
+		isComplete = false;
+		return;
+	}
 	if (operationType == "add") {
 		isExistWeapon(weaponumber);
 		if (!isExist) {
-			$.messager.alert("错误提示", "编号为   "+weaponumber+" 的武器已存在，请检查！", "error");
+			$.messager.alert("错误提示", "编号为   " + weaponumber + " 的武器已存在，请检查！",
+					"error");
 			$("#txtnumber").focus();
 			isComplete = false;
 			return;
 		}
-	}  
+	}
 	weapon.number = weaponumber;
 	// if ($("#txtstandard").val() == "") {
 	// $.messager.alert("错误提示", "请输入武器规格型号", "error");
 	// return;
 	// }
+	if ($.trim($("#txtstandard").val()).length > 20) {
+		$.messager.alert("错误提示", "武器子弹数目信息长度过长，限制长度0--20！", "error");
+		isComplete = false;
+		return;
+	}
 	weapon.standard = $.trim($("#txtstandard").val());
 	weapon.orgId = m_Weapon_OrgId;
 	$.ajax({
@@ -296,12 +314,12 @@ function saveWeaponModel() {
 }
 function saveWeaponActionExit() {
 	saveWeaponModel();
-	if(isComplete){
+	if (isComplete) {
 		$("#weaponinfowindow").window("close");
 	}
-} 
+}
 
-//判断警员是否存在
+// 判断警员是否存在
 function isExistWeapon(param) {
 	isExist = false;
 	$.ajax({
@@ -322,7 +340,7 @@ function isExistWeapon(param) {
 /**
  * 导出数据
  */
-function btnExportAction(){
+function btnExportAction() {
 	pack_Weapon_Query();
 	$.ajax({
 		url : "weapon/exportDataToExcle.do",

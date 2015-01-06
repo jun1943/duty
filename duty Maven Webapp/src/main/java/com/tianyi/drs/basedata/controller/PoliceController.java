@@ -104,14 +104,14 @@ public class PoliceController {
 					map.put("sort", "p." + sort);
 				}
 			} else {
-				map.put("sort", "p.isUsed");
+				map.put("sort", "p.id");
 			}
 			if (order != null) {
 				if (!order.equals("")) {
 					map.put("order", order);
 				}
 			} else {
-				map.put("order", "asc");
+				map.put("order", "desc");
 			}
 			if (typeid > 0) {
 				ids[0] = typeid;

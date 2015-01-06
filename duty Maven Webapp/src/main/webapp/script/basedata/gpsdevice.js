@@ -345,14 +345,24 @@ function saveGpsModel() {
 		isComplete = false;
 		return;
 	}
-	if ($("#txtgpsname").val() == "") {
+	if ($.trim($("#txtgpsname").val()) == "") {
 		$.messager.alert("错误提示", "请输入GPS设备名称", "error");
 		isComplete = false;
 		return;
 	}
+	if ($.trim($("#txtgpsname").val()).length>20) {
+		$.messager.alert("错误提示", "GPS设备名称长度过长，限制长度1--20！", "error");
+		isComplete = false;
+		return;
+	}
 	gpsdevice.gpsName = $.trim($("#txtgpsname").val());
-	if ($("#txtgpsnumber").val() == "") {
+	if ($.trim($("#txtgpsnumber").val()) == "") {
 		$.messager.alert("错误提示", "请输入GPS设别编号", "error");
+		isComplete = false;
+		return;
+	}
+	if ($.trim($("#txtgpsnumber").val()).length>20) {
+		$.messager.alert("错误提示", "GPS设备编号长度过长，限制长度1--20！", "error");
 		isComplete = false;
 		return;
 	}

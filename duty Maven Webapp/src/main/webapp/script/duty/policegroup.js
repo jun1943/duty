@@ -391,11 +391,16 @@ function addPoliceGroupMember() {
 	var row = $('#dtPoliceGroup').datagrid("getSelected");
 	if (row != null) {
 		$('#txtPoliceGroupId').val(row.id);
-		showGroupMemberDlg();
-		$('#dtSelGroupMember').datagrid('loadData', {
-			total : 0,
-			rows : []
-		});
+		showGroupMemberDlg();	
+		$('#dtSelGroupMember').datagrid('loadData',{total:0,rows:[]});
+		var existdata = $("#dtGroupMember").datagrid("getRows");
+		for ( var i = 0; i < existdata.length; i++) {
+			$('#dtSelGroupMember').datagrid('appendRow', {
+				id : existdata[i].id,
+				name : existdata[i].name,
+				code : existdata[i].number
+			}); 
+		}
 	} else {
 		$.messager.alert('提示', '请先选择组!');
 	}
@@ -479,7 +484,7 @@ function appendMember() {
 		success : function(req) {
 			if (req.isSuccess) {
 				$.messager.alert('提示', '保存成功!');
-				$('#dtGroupMember').datagrid('reload');
+				$('#dtGroupMember').datagrid('reload');  
 				$('#winPGMember').window("close");
 			} else {
 				$.messager.alert('提示', req.msg, "warning");
@@ -519,10 +524,9 @@ function selectMemberModel(node) {
 				name : node.name,
 				code : node.code
 			});
-			var targets = node.target;
-			$('#treeOrgWithPolice').tree('remove', targets);
 		}
-
+		var targets = node.target;
+		$('#treeOrgWithPolice').tree('remove', targets);
 	}
 }
 function dbClickPolice(node) {

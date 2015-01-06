@@ -26,7 +26,7 @@
 				<div id="tbVehicle" class="btn-toolbar vehicletoolbar" >
 	  				<div class="btn-group">
 	  					<a id="btnAddVehicle" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-add"   onclick="btnAddVehicle('add')">创建</a>
-	                	<a id="btnEditVehicle" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-edit"  onclick="btnEditVehicle('edit')">修改</a>
+	                	<!-- <a id="btnEditVehicle" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-edit"  onclick="btnEditVehicle('edit')">修改</a> -->
 	                	<a id="btnDelVehicle" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-delete"  onclick="btnDelVehicle()">删除</a>
 	                	 
 	  					<a id="btnSearchVehicle" href="javascript:void(0);" class="easyui-linkbutton vehiclesearchbtn"  iconcls="icon-tianyi-search" >展开查询</a>
@@ -81,7 +81,7 @@
 					<table class="vehiclewindowtable">
 						<tr>
 							<td style="text-align: right;"><label>车辆品牌:　</label></td>
-							<td><input type="text" class="easyui-validatebox" id="txtbrand" data-options="validType:['length[0,45]']" ></td>
+							<td><input type="text" class="easyui-validatebox" id="txtbrand" data-options="validType:['length[0,30]']" ></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><input type="hidden" id="vehicleId"><label>车辆类型:　</label></td>
@@ -97,7 +97,7 @@
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>车辆用途:　</label></td>
-							<td><input type="text" class="easyui-validatebox" id="txtpurpose" data-options="validType:['length[0,100]']" ></td>
+							<td><input type="text" class="easyui-validatebox" id="txtpurpose" data-options="validType:['length[0,50]']" ></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>组呼号:　</label></td>

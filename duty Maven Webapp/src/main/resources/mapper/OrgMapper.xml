@@ -63,7 +63,7 @@
 	 (    
 		select    id as rid,short_name as name,  1 as data_type,CONCAT("org_",id) as id,code  from organ as org    where     org.parent_id= #{id,jdbcType=INTEGER}  
 		union    
-		select     id as rid,name, 2 as data_type,CONCAT("pol_",id) as id,number as code    from t_police as p    where p.org_id=#{id,jdbcType=INTEGER}  
+		select     id as rid,name, 2 as data_type,CONCAT("pol_",id) as id,number as code    from t_police as p    where p.isUsed = 1 and p.org_id=#{id,jdbcType=INTEGER}  
 	 ) as t    
 	order by t.data_type desc,t.rid
   </select>

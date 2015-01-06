@@ -50,7 +50,7 @@ img { border:0px;}
  /**********************************************************/
  .vehiclelayout{padding:2px}
  .vehiclecenter{padding:2px}
- .vehicletoolbar{height:30px; margin-top:3px;text-align:center;}
+ .vehicletoolbar{height:30px; margin-top:3px;}
  .vehiclesearchbtn{float:right; margin-right:20px}
  .vehiclesearchinput{width:104px;}
  .vehiclewindow{width: 400px; height: 500px; padding: 10px;color:white;}
@@ -212,9 +212,9 @@ img { border:0px;}
 .dtyprebtnback{float:right;margin-right:20px;margin-top:8px;}
 
 /*****资源列表******/
-.dtypreresource{width:26.5%;height:100%;overflow:hidden;}
+.dtypreresource{width:28%;height:100%;overflow:hidden;}
 .dtypreresourcetab{width:100%;height:550px;overflow-x:hidden}
-.dtypreresourceitem{padding:10px;height:100%;overflow-y:hidden;}
+.dtypreresourceitem{padding:10px;width:100%;height:100%;overflow-y:hidden;}
 .dtypreresourcediv{margin-top:2px;}
 .dtypreresourcetb{float:right; margin-right:10px;}
 .dtypreresourceinput{width:100px;}

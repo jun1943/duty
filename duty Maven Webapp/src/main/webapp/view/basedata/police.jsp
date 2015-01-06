@@ -25,9 +25,9 @@
 					<div class="btn-group">
 						<a id="btnAddPolice" href="javascript:void(0);"
 							class="easyui-linkbutton" iconcls="icon-tianyi-add" 
-							onclick="btnAddPolice('add')">新增</a> <a id="btnEditPolice"
+							onclick="btnAddPolice('add')">新增</a> <!-- <a id="btnEditPolice"
 							href="javascript:void(0);" class="easyui-linkbutton"
-							iconcls="icon-tianyi-edit"  onclick="btnEditPolice('edit')">修改</a>
+							iconcls="icon-tianyi-edit"  onclick="btnEditPolice('edit')">修改</a> -->
 							<a id="btnUnLockPolice"
 							href="javascript:void(0);" class="easyui-linkbutton"
 							iconcls="icon-tianyi-unlock"  onclick="btnUnLockPolice()">启用</a>
@@ -120,7 +120,7 @@
 						<tr>
 							<td style="text-align: right;"><label>手机号码:　</label></td>
 							<td><input id="txtmobile" type="text"
-								class="easyui-validatebox" data-options="validType:['length[1,30]']"></td>
+								class="easyui-validatebox" data-options="validType:['length[1,20]']"></td>
 						</tr>
 						<tr>
 							<td style="text-align: right;"><label>公安短号:　</label></td>

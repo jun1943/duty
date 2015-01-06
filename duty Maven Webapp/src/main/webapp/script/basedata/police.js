@@ -434,8 +434,8 @@ function savePoliceModel() {
 		isComplete = false;
 		return;
 	}
-	if (policename.length > 30) {
-		$.messager.alert("错误提示", "警员名称长度过长，限制长度为30！", "error");
+	if (policename.length > 20) {
+		$.messager.alert("错误提示", "警员名称长度过长，限制长度为20！", "error");
 		isComplete = false;
 		return;
 	}
@@ -443,8 +443,8 @@ function savePoliceModel() {
 
 	police.idcardno = $.trim($("#txtidcardno").val());
 	var idcardno = $.trim($("#txtidcardno").val());
-	if (idcardno.length > 18) {
-		$.messager.alert("错误提示", "警员身份证号码长度过长，限制长度为18！", "error");
+	if (idcardno.length > 18||idcardno.length <15) {
+		$.messager.alert("错误提示", "警员身份证号码长度出错，限制长度为15--18！", "error");
 		isComplete = false;
 		return;
 	}
@@ -461,8 +461,8 @@ function savePoliceModel() {
 	police.orgId = m_Police_OrgId;
 	police.number = $.trim($("#txtnumber").val());
 	var number = $.trim($("#txtnumber").val());
-	if (number.length > 16) {
-		$.messager.alert("错误提示", "警员警号长度过长，限制长度为16！", "error");
+	if (number.length > 20||number.length < 6) {
+		$.messager.alert("错误提示", "警员警号长度出错，限制长度为6--20！", "error");
 		isComplete = false;
 		return;
 	}
@@ -479,15 +479,15 @@ function savePoliceModel() {
 	}
 	var titles = $.trim($("#txttitle").val());
 
-	if (titles.length > 30) {
-		$.messager.alert("错误提示", "警员职位长度过长，限制长度为30！", "error");
+	if (titles.length > 20) {
+		$.messager.alert("错误提示", "警员职位长度过长，限制长度为20！", "error");
 		isComplete = false;
 		return;
 	}
 	police.title = titles;
 	var mobiles = $.trim($("#txtmobile").val());
-	if (mobiles.length > 13) {
-		$.messager.alert("错误提示", "警员手机号码长度过长，限制长度为13！", "error");
+	if (mobiles.length > 20) {
+		$.messager.alert("错误提示", "警员手机号码长度过长，限制长度为1--20！", "error");
 		isComplete = false;
 		return;
 	}
@@ -499,8 +499,8 @@ function savePoliceModel() {
 	}
 	police.mobile = mobiles;
 	var mobileShorts = $.trim($("#txtmobileshort").val());
-	if (mobileShorts.length > 13) {
-		$.messager.alert("错误提示", "警员公安短号长度过长，限制长度为13！", "error");
+	if (mobileShorts.length > 20) {
+		$.messager.alert("错误提示", "警员公安短号长度过长，限制长度为1--20！", "error");
 		isComplete = false;
 		return;
 	}

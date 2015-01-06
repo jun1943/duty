@@ -42,7 +42,7 @@
 		</div>
 	</div>
 	<!-- 内容区域左侧人员、车辆、武器定位设备导航栏 -->
-	<div id="divResource" data-options="region:'west',split:false"
+	<div id="divResource" data-options="region:'west',split:true"
 		title="资源" class="dtypreresource">
 		<div id="tt" class="easyui-tabs" class="dtypreresourcetab" >
 			<div title="人员" class="dtypreresourceitem">
@@ -326,7 +326,7 @@
 			<div data-options="region:'center',border:false" class="dtypredutyusernodeArea">
 				<table class="dtypredutyusernodeAreatable">
 					<tr>
-						<td style="text-align:right"><lable>编组名称:</lable></td>
+						<td style="text-align:right"><label>编组名称:</label></td>
 						<td><input id="txtUserNodeName" type="text"
 							class="easyui-validatebox"></input></td>
 					</tr>
@@ -358,17 +358,17 @@
 						<td class="dtypredutyshiftWindowstdt"></td>
 					</tr>
 					<tr>
-						<td style="text-align:right"><lable>开始时间:</lable></td>
+						<td style="text-align:right"><label>开始时间:</label></td>
 						<td><input id="txtBeginTime" type="text"
 							class="easyui-timespinner"></input></td>
 						<td></td>
 					</tr>
 					<tr>
-						<td style="text-align:right"><lable>结束时间:</lable></td>
+						<td style="text-align:right"><label>结束时间:</label></td>
 						<td><input id="txtEndTime" type="text"
 							class="easyui-timespinner"></input></td>
-						<td><lable>
-							<input type="checkbox" id="chkDayType"></input>第二天</lable></td>
+						<td><label>
+							<input type="checkbox" id="chkDayType"></input>第二天</label></td>
 					</tr>
 				</table>
 			</div>
@@ -392,7 +392,7 @@
 			<div data-options="region:'center',border:false" class="dtypredutyusernodeArea">
 				<table class="dtypredutyusernodeAreatable">
 					<tr>
-						<td style="text-align:right"><lable>模板名称:</lable></td>
+						<td style="text-align:right"><label>模板名称:</label></td>
 						<td><input id="txtTemplateName" type="text"
 							class="easyui-validatebox"></input></td>
 					</tr>

@@ -29,7 +29,7 @@
 			<div id="tbIcons" class="btn-toolbar iconstoolbar" >
   				<div class="btn-group">
   					<a id="btnAddIcons" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-add" 	onclick="btnAddIcons('add')">新增</a>
-                	<a id="btnEditIcons" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-edit"   onclick="btnEditIcons('edit')">修改</a>
+                	<!-- <a id="btnEditIcons" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-edit"   onclick="btnEditIcons('edit')">修改</a> -->
                 	<a id="btnDelIcons" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-delete"  onclick="btnDelIcons()">删除</a> 
   			 
   					<a id="btnSearchIcons" href="javascript:void(0);" class="easyui-linkbutton iconssearchbtn"    onclick="btnSearchIcons()">展开查询</a>

@@ -351,6 +351,14 @@ function addVehicleGroupMember(){
 		$('#txtVehicleGroupId').val(row.id);
 		showGroupMemberDlg();
 		$('#dtSelGroupMember').datagrid('loadData',{total:0,rows:[]});
+		var existdata = $("#dtGroupMember").datagrid("getRows");
+		for ( var i = 0; i < existdata.length; i++) {
+			$('#dtSelGroupMember').datagrid('appendRow', {
+				id : existdata[i].id,
+				name : existdata[i].typeName,
+				code : existdata[i].number
+			});
+		}
 	}else{
 		$.messager.alert('提示', '请先选择组!');
 	}
@@ -479,12 +487,10 @@ function selectMemberModel(node){
 				id:node.rid,
 				name: node.name,
 				code: node.code
-			});
-
-			var targets = node.target;
-			$('#treeOrgWithVehicle').tree('remove', targets);
+			}); 
 		}
-
+		var targets = node.target;
+		$('#treeOrgWithVehicle').tree('remove', targets);
 	}
 }
 

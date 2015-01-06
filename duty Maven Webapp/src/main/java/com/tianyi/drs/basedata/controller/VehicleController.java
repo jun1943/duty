@@ -101,7 +101,7 @@ public class VehicleController {
 					map.put("order", order);
 				}
 			} else {
-				map.put("order", "asc");
+				map.put("order", "desc");
 			}
 			int total = vehicleService.loadVMCount(map);
 			list = vehicleService.loadVMList(map);

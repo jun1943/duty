@@ -71,6 +71,10 @@ function getData() {
 	}
 	var typeId = $("#txttype").combobox("getValue");
 	var name = $.trim($("#txtname").val());
+	if($.trim($("#txtname").val()).length>50){
+		$.messager.alert("错误提示", "图片标题长度过长，限制长度为0--50！", "error");
+		return null;
+	}
 //	if (name == "" || name == undefined) {
 //		$.messager.alert("错误提示", "请输入图片标题", "error");
 //		return null;

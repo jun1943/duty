@@ -24,7 +24,7 @@
 			<div id="tbWeapon" class="btn-toolbar weapontoolbar" >
   				<div class="btn-group">
   					<a id="btnAddWeapon" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-add"  onclick="btnAddWeapon('add')">创建</a>
-                	<a id="btnEditWeapon" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-edit" onclick="btnEditWeapon('edit')">修改</a>
+                	<!-- <a id="btnEditWeapon" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-edit" onclick="btnEditWeapon('edit')">修改</a> -->
                 	<a id="btnDelWeapon" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-delete"   onclick="btnDelWeapon()">删除</a>
                 	 
   					<a id="btnSearchWeapon" href="javascript:void(0);" class="easyui-linkbutton weaponsearchbtn"  >展开查询</a>
@@ -88,7 +88,7 @@
 							<td><input type="text" class="easyui-validatebox" id="txtnumber" data-options="required:true,validType:['length[1,20]']"><span style="color:red">*</span></td>
 						</tr>
 						<tr>
-							<td style="text-align: right;"><label>规格标准:　</label></td>
+							<td style="text-align: right;"><label>子弹数目:　</label></td>
 							<td><input type="text" class="easyui-validatebox" id="txtstandard" data-options="validType:['length[0,20]']"></td>
 						</tr> 
 					</table>

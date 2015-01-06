@@ -126,7 +126,7 @@ $(document).ready(function() {
 			width : 10,
 			hidden : true
 		}, {
-			title : '设备名称',
+			title : '设备类型',
 			field : 'name',
 			align : 'left',
 			width : 100
@@ -396,6 +396,14 @@ function addGpsGroupMember() {
 			total : 0,
 			rows : []
 		});
+		var existdata = $("#dtGroupMember").datagrid("getRows");
+		for ( var i = 0; i < existdata.length; i++) {
+			$('#dtSelGroupMember').datagrid('appendRow', {
+				id : existdata[i].id,
+				name : existdata[i].typeName,
+				code : existdata[i].number
+			}); 
+		}
 	} else {
 		$.messager.alert('提示', '请先选择组!');
 	}
@@ -517,10 +525,9 @@ function selectMemberModel(node) {
 				name : node.name,
 				code : node.code
 			});
-			var targets = node.target;
-			$('#treeOrgWithGps').tree('remove', targets);
 		}
-
+		var targets = node.target;
+		$('#treeOrgWithGps').tree('remove', targets);
 	}
 }
 function selectMember() {

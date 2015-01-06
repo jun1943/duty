@@ -6,7 +6,6 @@
  * 
  */
 
-
 var m_dutyprepare_Org = {}; /* 当前组织机构 */
 var m_ymd = null; /* 当前年月日 */
 var m_date = null;
@@ -37,7 +36,7 @@ $(document)
 					$('#vehicleConditionwindow').window('close');
 					$('#dutyTypeSelectwindow').window('close');
 					$('#dutyTemplateSelectwindow').window('close');
-					$('#userNodeWindows').window('close'); 
+					$('#userNodeWindows').window('close');
 					var args = getUrlArgs();
 					m_dutyprepare_Org.id = args["orgId"];
 					m_dutyprepare_Org.code = args["orgCode"];
@@ -49,37 +48,37 @@ $(document)
 					$("#btnSearchExpendbody").bind("click", function() {
 						$('#my-search-box').toggle();
 					});
-					
-//					window.onbeforeunload = isChangeStates; 
-					//加载警员资源列表
+
+					// window.onbeforeunload = isChangeStates;
+					// 加载警员资源列表
 					$('#source_police').treegrid({
 						dnd : true,
-						//fitColumns : true,
+						fitColumns : true,
 						resizable : true,
 						idField : 'id',
 						treeField : 'name',
 						toolbar : "#tb_source_police",
-						width : 220,
+						width : '99%',
 						height : 400,
 						singleSelect : false,
 						collapsible : true,
-						frozenColumns:[[  {
+						frozenColumns : [ [ {
 							field : 'ck',
 							checkbox : true
-						}, 
-						                 {title : '姓名',
-												field : 'name',
-												align : 'left',
-												width : 90,
-												sortable : true} 
-						                ]] ,
-						columns : [ [{
+						}, {
+							title : '姓名',
+							field : 'name',
+							align : 'left',
+							width : 90,
+							sortable : true
+						} ] ],
+						columns : [ [ {
 							title : 'id',
 							field : 'id',
 							align : 'left',
 							width : 0,
 							hidden : true
-						},  {
+						}, {
 							title : '单位',
 							field : 'orgName',
 							align : 'left',
@@ -107,39 +106,39 @@ $(document)
 						},
 						onBeforeDrop : doRejectDrop
 					});
-					//加载车辆资源列表
+					// 加载车辆资源列表
 					$('#source_vehicle').treegrid({
 						// url : "vehicle/getVehicleSource.do?orgId="
 						// +
 						// m_dutyprepare_Org.id+"&orgCode="+m_dutyprepare_Org.code+"&orgPath="+m_dutyprepare_Org.path
 						// + "&number=",
-						//fitColumns : true,
+						fitColumns : true,
 						dnd : true,
 						resizable : true,
 						idField : 'id',
 						treeField : 'number',
 						toolbar : "#tb_source_vehicle",
 						collapsible : true,
-						width : 220,
+						width : '99%',
 						height : 400,
 						singleSelect : false,
-						frozenColumns:[[  {
+						frozenColumns : [ [ {
 							field : 'ck',
 							checkbox : true
-						}, 
-						                 {title : '车牌号码',
-												field : 'number',
-												align : 'left',
-												width : 110,
-												sortable : true} 
-						                ]] ,
-						columns : [ [  {
+						}, {
+							title : '车牌号码',
+							field : 'number',
+							align : 'left',
+							width : 110,
+							sortable : true
+						} ] ],
+						columns : [ [ {
 							title : 'id',
 							field : 'id',
 							align : 'center',
 							width : 0,
 							hidden : true
-						} , {
+						}, {
 							title : '车辆类型',
 							field : 'typeName',
 							align : 'left',
@@ -173,34 +172,32 @@ $(document)
 						},
 						onBeforeDrop : doRejectDrop
 					});
-					//加载定位设备资源列表
+					// 加载定位设备资源列表
 					$('#source_gpsdevice').treegrid({
 						// url : "gpsdevice/getGpsdeviceSource.do?orgId="
 						// +
 						// m_dutyprepare_Org.id+"&orgCode="+m_dutyprepare_Org.code+"&orgPath="+m_dutyprepare_Org.path
 						// + "&gpsname=",
-						//fitColumns : true,
+						fitColumns : true,
 						dnd : true,
 						resizable : true,
 						idField : 'id',
 						treeField : 'typeName',
 						toolbar : "#tb_source_gpsdevice",
 						collapsible : true,
-						width : 220,
+						width : '99%',
 						height : 400,
 						singleSelect : false,
-						frozenColumns:[[  {
+						frozenColumns : [ [ {
 							field : 'ck',
 							checkbox : true
-						}, 
-						 {
+						}, {
 							title : 'GPS类型',
 							field : 'typeName',
 							align : 'left',
 							width : 100
-						}
-						                ]] ,
-						columns : [ [  {
+						} ] ],
+						columns : [ [ {
 							title : 'id',
 							field : 'id',
 							align : 'left',
@@ -233,33 +230,31 @@ $(document)
 						},
 						onBeforeDrop : doRejectDrop
 					});
-					//加载武器资源列表；
+					// 加载武器资源列表；
 					$('#source_weapon').treegrid({
 						// url : "weapon/getweaponSource.do?orgId=" +
 						// m_dutyprepare_Org.id+"&orgCode="+m_dutyprepare_Org.code+"&orgPath="+m_dutyprepare_Org.path
 						// + "&number=",
-						//fitColumns : true,
+						fitColumns : true,
 						dnd : true,
 						resizable : true,
 						idField : 'id',
 						treeField : 'typeName',
 						toolbar : "#tb_source_weapon",
 						collapsible : true,
-						width : 220,
+						width : '99%',
 						height : 400,
 						singleSelect : false,
-						frozenColumns:[[  {
+						frozenColumns : [ [ {
 							field : 'ck',
 							checkbox : true
-						}, 
-						 {
+						}, {
 							title : '武器类型',
 							field : 'typeName',
 							align : 'left',
 							width : 120
-						}
-						                ]] ,
-						columns : [ [  {
+						} ] ],
+						columns : [ [ {
 							title : 'id',
 							field : 'id',
 							align : 'left',
@@ -292,9 +287,9 @@ $(document)
 						},
 						onBeforeDrop : doRejectDrop
 					});
-					//加载勤务类型列表，供选择使用；
+					// 加载勤务类型列表，供选择使用；
 					$('#dtDutyType').treegrid({
-						//fitColumns : true,
+						// fitColumns : true,
 						rownumbers : false,
 						resizable : true,
 						idField : 'id',
@@ -304,8 +299,8 @@ $(document)
 						singleSelect : false,
 						onlyLeafCheck : true,
 						onClickRow : isLeafSelected,
-					
-						columns : [ [  {
+
+						columns : [ [ {
 							title : 'id',
 							field : 'id',
 							align : 'left',
@@ -322,27 +317,25 @@ $(document)
 							align : 'left',
 							width : 5,
 							hidden : true
-						}] ],
-					frozenColumns:[[ {
-						field : 'ck',
-						checkbox : true
-					}, 
-									{
-										title : '人数限制',
-										field : "maxPolice",
-										align : 'left',
-										width : 80,
-										formatter : function(value, row, index) {
-											if (value == 0) {
-												return "无限制";
-											} else {
-												return value + "人";
-											}
-										}
-									} 
-					                ]] 
+						} ] ],
+						frozenColumns : [ [ {
+							field : 'ck',
+							checkbox : true
+						}, {
+							title : '人数限制',
+							field : "maxPolice",
+							align : 'left',
+							width : 80,
+							formatter : function(value, row, index) {
+								if (value == 0) {
+									return "无限制";
+								} else {
+									return value + "人";
+								}
+							}
+						} ] ]
 					});
-					//根据传入时间，组织机构信息，获取当天的详细报备信息
+					// 根据传入时间，组织机构信息，获取当天的详细报备信息
 					$('#tdDuty')
 							.treegrid(
 									{
@@ -353,6 +346,7 @@ $(document)
 										treeField : 'displayName',
 										toolbar : '#tdDutyToolbar',
 										showFooter : true,
+										width : '100%',
 										onDblClickRow : onSelRow,
 										columns : [ [
 												{
@@ -431,7 +425,9 @@ $(document)
 																+ row.xid
 																+ "','"
 																+ row.name
-																+ "',"+row.itemTypeId+")  style='width:16px; height:16px' src='asset/css/easyui/icons/tianyi_delete.png'>";
+																+ "',"
+																+ row.itemTypeId
+																+ ")  style='width:16px; height:16px' src='asset/css/easyui/icons/tianyi_delete.png'>";
 
 														// return "<a
 														// id='btnDelete'
@@ -453,7 +449,7 @@ $(document)
 										onBeforeDrop : doBeforeDrop,
 										onDrop : doDrop
 									});
-					//加载关联任务，若相关任务节点，则选中；
+					// 加载关联任务，若相关任务节点，则选中；
 					$('#dgtaskTarget')
 							.datagrid(
 									{
@@ -567,36 +563,36 @@ $(document)
 					});
 
 					initResourceQueryTG();
-					
-					//加载资源列表相关属性；
+
+					// 加载资源列表相关属性；
 					loadSourcePolice({
 						"orgId" : m_dutyprepare_Org.id,
 						"orgCode" : m_dutyprepare_Org.code,
 						"orgPath" : m_dutyprepare_Org.path,
 						"name" : ""
-					});	
-					//加载资源列表相关属性；
+					});
+					// 加载资源列表相关属性；
 					loadSourceVehicle({
 						"orgId" : m_dutyprepare_Org.id,
 						"orgCode" : m_dutyprepare_Org.code,
 						"orgPath" : m_dutyprepare_Org.path,
 						"number" : ""
-					});	
-					//加载资源列表相关属性；
+					});
+					// 加载资源列表相关属性；
 					loadSourceGpsDevice({
 						"orgId" : m_dutyprepare_Org.id,
 						"orgCode" : m_dutyprepare_Org.code,
 						"orgPath" : m_dutyprepare_Org.path,
 						"gpsname" : ""
-					});	
-					//加载资源列表相关属性；
+					});
+					// 加载资源列表相关属性；
 					loadSourceWeapon({
 						"orgId" : m_dutyprepare_Org.id,
 						"orgCode" : m_dutyprepare_Org.code,
 						"orgPath" : m_dutyprepare_Org.path,
 						"number" : ""
-					});	
-					//加载资源列表相关属性；
+					});
+					// 加载资源列表相关属性；
 					loadDutyType();
 					var pars = {
 						orgId : m_dutyprepare_Org.id,
@@ -612,8 +608,7 @@ $(document)
 
 				});
 
-
-//加载关联任务列表；其中相关逻辑操作
+// 加载关联任务列表；其中相关逻辑操作
 function getRowIndex(target) {
 	var tr = $(target).closest('tr.datagrid-row');
 	return parseInt(tr.attr('datagrid-row-index'));
@@ -625,7 +620,7 @@ function updateActions(index) {
 	});
 }
 
-//编辑行信息
+// 编辑行信息
 
 function editrow(target) {
 	$('#dgtaskTarget').datagrid('beginEdit', getRowIndex(target));
@@ -645,7 +640,7 @@ function uncheckAllResources(gridId) {
 	$("#" + gridId).treegrid("unselectAll");
 };
 
-//加载警员、车辆、武器、定位设备资源过滤条件
+// 加载警员、车辆、武器、定位设备资源过滤条件
 function initResourceQueryTG() {
 	$('#dt_policeType').datagrid({
 		url : "police/getPoliceTypeList.do",
@@ -830,7 +825,7 @@ function initResourceQueryTG() {
 			});
 
 }
-//修改节点名称
+// 修改节点名称
 function fmtDisplayTypeName(value, row, index) {
 	switch (row.itemTypeId) {
 	case 101:
@@ -856,17 +851,37 @@ function fmtShiftPeriod(value, row, index) {
 
 	if (row.itemTypeId == 101 && row.beginTime2 != undefined
 			&& row.beginTime2 != null) {
-		result = row.beginTime2.getHours() + ":" + row.beginTime2.getMinutes()
-				+ "至";
+		var bstr = row.beginTime2.getMinutes();
+		var bs = parseInt(row.beginTime2.getMinutes());
+		if (bs < 10) {
+			result = row.beginTime2.getHours() + ":0"
+			+ bstr + "至";
+		} else {
+			result = row.beginTime2.getHours() + ":"
+					+ row.beginTime2.getMinutes() + "至";
+		}
 		var diff = row.beginTime2.dateDiffOfDay(row.endTime2);
 
 		switch (diff) {
 		case 0:
-			result += row.endTime2.getHours() + ":" + row.endTime2.getMinutes();
+			var str = row.endTime2.getMinutes();
+			var s = parseInt(row.endTime2.getMinutes());
+			if (s < 10) {
+				result += row.endTime2.getHours() + ":0" + str;
+			} else {
+				result += row.endTime2.getHours() + ":"
+						+ row.endTime2.getMinutes();
+			}
 			break;
 		case 1:
-			result += "明日" + row.endTime2.getHours() + ":"
-					+ row.endTime2.getMinutes();
+			var str = row.endTime2.getMinutes();
+			var s = parseInt(row.endTime2.getMinutes());
+			if (s < 10) {
+				result += "明日" + row.endTime2.getHours() + ":0" + str;
+			} else {
+				result += "明日" + row.endTime2.getHours() + ":"
+						+ row.endTime2.getMinutes();
+			}
 			break;
 		default:
 			result = "起止时间错误!";
@@ -875,7 +890,7 @@ function fmtShiftPeriod(value, row, index) {
 		return result;
 	}
 }
-//加载警员资源
+// 加载警员资源
 function loadSourcePolice(par) {
 	$.ajax({
 		url : "police/getPoliceSource.do",
@@ -900,7 +915,7 @@ function loadSourcePolice(par) {
 		}
 	});
 }
-//加载车辆资源
+// 加载车辆资源
 function loadSourceVehicle(par) {
 	$.ajax({
 		url : "vehicle/getVehicleSource.do",
@@ -925,7 +940,7 @@ function loadSourceVehicle(par) {
 		}
 	});
 }
-//加载定位设备资源
+// 加载定位设备资源
 function loadSourceGpsDevice(par) {
 	$.ajax({
 		url : "gpsdevice/getGpsdeviceSource.do",
@@ -950,7 +965,7 @@ function loadSourceGpsDevice(par) {
 		}
 	});
 }
-//加载武器资源
+// 加载武器资源
 function loadSourceWeapon(par) {
 	$.ajax({
 		url : "weapon/getweaponSource.do",
@@ -973,7 +988,7 @@ function loadSourceWeapon(par) {
 		}
 	});
 }
-//加载勤务类型
+// 加载勤务类型
 function loadDutyType() {
 	$.ajax({
 		url : "dutyType/list.do",
@@ -1349,7 +1364,7 @@ function showCalendar() {
 				// width:280,
 				// height:280,
 				current : new Date(),
-				onSelect : function(date) { 
+				onSelect : function(date) {
 					var y = date.getFullYear();
 					var m = date.getMonth() + 1;
 					var d = date.getDate();
@@ -1401,13 +1416,13 @@ function selectDutyTypeAction() {
 			if (row.children == null || row.children.length == 0) {
 				addDutyTypeRow(row);
 			}
-		}); 
+		});
 		$('#dtDutyType').treegrid('unselectAll');
-		$('#dutyTypeSelectwindow').window('close'); 
+		$('#dutyTypeSelectwindow').window('close');
 	}
 
 };
-//当资源节点拖入报备页面时候，增加行数据
+// 当资源节点拖入报备页面时候，增加行数据
 function addDutyTypeRow(value) {
 	var duty = {};
 	duty.maxPolice = value.maxPolice;
@@ -1474,9 +1489,9 @@ function save(isTemplate, name) {
 		async : false,
 		success : function(req) {
 			if (req.isSuccess) {// 成功填充数据
-				m_duty.id = req.id; 
+				m_duty.id = req.id;
 
-				m_changestates =undefined;
+				m_changestates = undefined;
 				$.messager.alert('提示', "保存成功!", "info");
 			} else {
 				$.messager.alert('提示', "保存失败!", "info");
@@ -1695,10 +1710,10 @@ function doDrop(tRow, sRow, point) {
 /* 从新计算并加载数据 */
 function reCalcDuty() {
 	/* 从新计算并加载数据 */
-	var items = $('#tdDuty').treegrid('getData'); 
-	structureItemTree(items); 
+	var items = $('#tdDuty').treegrid('getData');
+	structureItemTree(items);
 	$('#tdDuty').treegrid('loadData', items);
-	m_changestates="0";
+	m_changestates = "0";
 }
 
 function genXId(itemTypeId, itemId) {
@@ -1831,8 +1846,8 @@ function selectDutyTemplateAction() {
 	} else {
 		var pars = {
 			id : row.id
-		}; 
- 
+		};
+
 		loadDuty(pars, 1);
 		$('#dutyTemplateSelectwindow').window('close');
 	}
@@ -1893,7 +1908,7 @@ function userNodeConfirm() {
 			m_userNode.targetRow.name = name;
 			m_userNode.targetRow.displayName = name;
 			$("#tdDuty").treegrid('refresh', m_userNode.targetRow.xid);
-			
+
 			$("#tdDuty").treegrid('reload', m_userNode.targetRow.xid);
 		}
 		$('#userNodeWindows').window('close');
@@ -1962,7 +1977,7 @@ function deleteNode() {
 		}
 	}
 }
-function deleteThisNode(xid, name,typeId) {
+function deleteThisNode(xid, name, typeId) {
 	var children = $("#tdDuty").treegrid("getChildren", xid);
 	if (children != undefined && children != null && children.length > 0) {
 		$.messager.confirm('操作提示', "确定要清空[ " + name + " ]及下级所有节点?",
@@ -1976,10 +1991,15 @@ function deleteThisNode(xid, name,typeId) {
 		$("#tdDuty").treegrid("remove", xid);
 		reCalcDuty();
 	}
-	if(typeId ==1){searchVehicleAction();}
-	else if(typeId ==2){searchPoliceAction();}
-	else if(typeId ==3){searchWeaponAction();}
-	else if(typeId ==4){searchGpsAction();} 
+	if (typeId == 1) {
+		searchVehicleAction();
+	} else if (typeId == 2) {
+		searchPoliceAction();
+	} else if (typeId == 3) {
+		searchWeaponAction();
+	} else if (typeId == 4) {
+		searchGpsAction();
+	}
 }
 /**
  * 双击选择
@@ -2140,7 +2160,7 @@ var YMD = {
 function templateNameConfirm() {
 	var name = $('#txtTemplateName').val();
 
-	if (name == null || name.lenght == 0||name ==""||name ==undefined) {
+	if (name == null || name.lenght == 0 || name == "" || name == undefined) {
 		$.messager.alert('提示', "请输入模板名称!", "warning");
 		return;
 	} else {
@@ -2450,23 +2470,23 @@ function btnExportToExcelAction() {
 
 function btnSearchAction() {
 	var pars = {
-			orgId : m_dutyprepare_Org.id,
-			ymd : m_ymd.ymd
-		};
+		orgId : m_dutyprepare_Org.id,
+		ymd : m_ymd.ymd
+	};
 	loadDuty(pars);
-	
+
 	var name = $('#txtsearchname').val();
 	if (name != "") {
 		var a = findDutyPoint(name);
 		$('#tdDuty').treegrid("loadData", a);
 	}
-//	else {
-//		var pars = {
-//			orgId : m_dutyprepare_Org.id,
-//			ymd : m_ymd.ymd
-//		};
-//		loadDuty(pars);
-//	}
+	// else {
+	// var pars = {
+	// orgId : m_dutyprepare_Org.id,
+	// ymd : m_ymd.ymd
+	// };
+	// loadDuty(pars);
+	// }
 }
 
 function findDutyPoint(name) {
@@ -2502,20 +2522,20 @@ function findDutyTreeGrid(item, name) {
 	}
 }
 
-function btnBackToCalendarAction() { 
-		var dateY = m_date.substring(0, 4);
-		var dateM = "";
-		var dateMs = m_date.substring(4, 5);
-		var dateMe = m_date.substring(5, 6);
-		if (dateMs == "0") {
-			dateM = dateMe;
-		} else {
-			dateM = m_date.substring(4, 6);
-		}
-		parent.onDutycalendar(dateY, dateM); 
+function btnBackToCalendarAction() {
+	var dateY = m_date.substring(0, 4);
+	var dateM = "";
+	var dateMs = m_date.substring(4, 5);
+	var dateMe = m_date.substring(5, 6);
+	if (dateMs == "0") {
+		dateM = dateMe;
+	} else {
+		dateM = m_date.substring(4, 6);
+	}
+	parent.onDutycalendar(dateY, dateM);
 };
-//function isChangeStates (){  
-//    if(m_changestates=="0"&&m_changestates!=undefined){  
-//    	return ("您的报备数据信息还没有保存，是否跳转到其他模块?");
-//    }  
-//}; 
+// function isChangeStates (){
+// if(m_changestates=="0"&&m_changestates!=undefined){
+// return ("您的报备数据信息还没有保存，是否跳转到其他模块?");
+// }
+// };
