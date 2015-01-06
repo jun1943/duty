@@ -88,7 +88,7 @@
 							</tr>
 							<tr>
 								<td class="iconswindowtabletd"><label class="iconswindowlabel">图标标题:　</label></td>
-								<td><input type="text" class="easyui-validatebox" id="txtname" data-options="validType:['length[0,50]']"></td>
+								<td><input type="text" class="easyui-validatebox" id="txtname" data-options="required:true,validType:['length[0,50]']"></td>
 							</tr> 
 							<tr>
 								<td class="iconswindowtabletd"><label class="iconswindowlabel">图标选择:　</label>
