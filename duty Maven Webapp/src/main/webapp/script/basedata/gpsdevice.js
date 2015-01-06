@@ -224,6 +224,7 @@ function editGpsdeviceModel(rows){
 	$("#txtgpsname").val(rows.gpsName);
 	$("#txtgpsicon").combogrid("setValue", rows.gpsName);
 	$("#txtgpsnumber").val(rows.number);
+	$("#txtIconUrl").val(rows.iconUrl);
 	$("#sltImage").attr("src",
 			rows.iconUrl.substring(1, rows.iconUrl.length));
 	// $('#myModal').modal('show');
