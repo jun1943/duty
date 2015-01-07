@@ -441,11 +441,24 @@ function savePoliceModel() {
 	}
 	police.name = policename;
 
-	police.idcardno = $.trim($("#txtidcardno").val());
+	var pattern = /\D/ig;
 	var idcardno = $.trim($("#txtidcardno").val());
 	if (idcardno.length > 0) {
-		if (idcardno.length > 18 || idcardno.length < 15) {
-			$.messager.alert("错误提示", "警员身份证号码长度出错，限制长度为15--18！", "error");
+		if (idcardno.length != 18 && idcardno.length != 15) {
+			$.messager.alert("错误提示", "警员身份证号码长度出错，限制长度为15位或者18位！", "error");
+			isComplete = false;
+			return;
+		}	
+
+		var Regx =  /^[A-Za-z0-9]+$/;
+		if(!Regx.test(idcardno)){
+			$.messager.alert("错误提示", "警员身份证号码格式出错，只能是全部数字或者最后一位是字母！", "error");
+			isComplete = false;
+			return;
+		}
+		var subIdCard = idcardno.substring(0, idcardno.length - 1);
+		if (pattern.test(subIdCard)) {
+			$.messager.alert("错误提示", "警员身份证号码格式出错，请检查前面14位或者17位！", "error");
 			isComplete = false;
 			return;
 		}
@@ -460,6 +473,7 @@ function savePoliceModel() {
 			return;
 		}
 	}
+	police.idcardno = $.trim($("#txtidcardno").val());
 	police.orgId = m_Police_OrgId;
 	police.number = $.trim($("#txtnumber").val());
 	var number = $.trim($("#txtnumber").val());
@@ -495,7 +509,6 @@ function savePoliceModel() {
 		isComplete = false;
 		return;
 	}
-	var pattern = /\D/ig;
 	if (pattern.test(mobiles)) {
 		$.messager.alert("错误提示", "警员手机号码只能为数字！", "error");
 		isComplete = false;
