@@ -40,6 +40,8 @@ function InitUploadFun() {
 			this.enable();
 
 			// $.messager.alert('提示', response.split(";")[0]);
+			response = response.replace("<pre style=\"word-wrap: break-word; white-space: pre-wrap;\">","");
+			response = response.replace("</pre>","");
 			$("#iconsId").val(response.split(";")[1]);
 			var urlStr = response.split(";")[2];
 			var srcUrl = "";
@@ -52,7 +54,7 @@ function InitUploadFun() {
 				$("#txtfilename").val(response.split(";")[2]);
 				$("#txtname").val(response.split(";")[2]);
 			} else {
-				$("#txtfilename").val(response.split(";")[0]);
+				$("#txtfilename").val(response.split(";")[2]);
 				$("#txtname").val(response.split(";")[0]);
 			}
 			button.text('选择图片');

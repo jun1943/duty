@@ -147,7 +147,7 @@ public class IconsController extends CommonsMultipartResolver {
 	 * 上传控件后台接受地址
 	 * file：上传控件的输入流数据
 	 */
-	@RequestMapping(value = "uploadIcon.do")
+	@RequestMapping(value = "uploadIcon.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String uploadIcon(
 			@RequestParam("file") CommonsMultipartFile cmFile, // 请求参数一定要与form中的参数名对应

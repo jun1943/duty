@@ -23,7 +23,7 @@
 			<!-- 工具条 -->
 			<div id="tbWeapon" class="btn-toolbar weapontoolbar" >
   				<div class="btn-group">
-  					<a id="btnAddWeapon" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-add"  onclick="btnAddWeapon('add')">创建</a>
+  					<a id="btnAddWeapon" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-add"  onclick="btnAddWeapon('add')">新增</a>
                 	<!-- <a id="btnEditWeapon" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-edit" onclick="btnEditWeapon('edit')">修改</a> -->
                 	<a id="btnDelWeapon" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-delete"   onclick="btnDelWeapon()">删除</a>
                 	 

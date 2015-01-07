@@ -336,6 +336,7 @@ function mouseOverFunction(date) {
 }
 //鼠标移开事件，清楚定时器；
 function mouseOutFunction() {
+	$("#dutyDetailsForDaywindow").window("close");
 	window.clearTimeout(timeouts);
 }
 // 点击具体日期，加载详细信息对话框

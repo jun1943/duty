@@ -910,7 +910,7 @@ function loadSourcePolice(par) {
 				$('#source_police').treegrid('loadData', req.rows);
 
 			} else {
-				alert("获取数据失败");
+				alert("获取警员资源数据失败");
 			}
 		}
 	});
@@ -935,7 +935,7 @@ function loadSourceVehicle(par) {
 				$('#source_vehicle').treegrid('loadData', req.rows);
 
 			} else {
-				alert("获取数据失败");
+				alert("获取车辆资源数据失败");
 			}
 		}
 	});
@@ -960,7 +960,7 @@ function loadSourceGpsDevice(par) {
 				$('#source_gpsdevice').treegrid('loadData', req.rows);
 
 			} else {
-				alert("获取数据失败");
+				alert("获取定位设备资源数据失败");
 			}
 		}
 	});
@@ -983,7 +983,7 @@ function loadSourceWeapon(par) {
 				$('#source_weapon').treegrid('loadData', req.rows);
 
 			} else {
-				alert("获取数据失败");
+				alert("获取武器资源数据失败");
 			}
 		}
 	});
@@ -1003,7 +1003,7 @@ function loadDutyType() {
 				var ss = buildDutyTypeTree(req.rows);
 				$('#dtDutyType').treegrid('loadData', ss);
 			} else {
-				alert("获取数据失败");
+				alert("获取报备类型数据失败");
 			}
 		}
 	});
@@ -1045,7 +1045,7 @@ function loadDuty(pars, type) {
 				m_duty = duty;
 				$('#tdDuty').treegrid('loadData', duty.items);
 			} else {
-				alert("获取数据失败");
+				alert("获取报备明细数据信息失败");
 			}
 		}
 	});
@@ -1402,7 +1402,7 @@ function InitDutyTypeTreeGrid() {
 				var ss = buildDutyTypeTree(req.rows);
 				$('#dtDutyType').treegrid('loadData', ss);
 			} else {
-				alert("获取数据失败");
+				alert("获取勤务类型数据失败");
 			}
 		}
 	});
@@ -2356,7 +2356,7 @@ function loadTaskTarget(taskType) {
 			if (req.isSuccess) {// 成功填充数据
 				$('#dgtaskTarget').datagrid('loadData', req.rows);
 			} else {
-				alert("获取数据失败");
+				alert("获取关联任务数据信息失败");
 			}
 		}
 	});

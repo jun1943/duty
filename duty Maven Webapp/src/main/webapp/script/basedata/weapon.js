@@ -284,7 +284,7 @@ function saveWeaponModel() {
 	// $.messager.alert("错误提示", "请输入武器规格型号", "error");
 	// return;
 	// }
-	if ($.trim($("#txtstandard").val()).length > 20) {
+	if ($.trim($("#txtstandard").val()).length > 0 && $.trim($("#txtstandard").val()).length > 20) {
 		$.messager.alert("错误提示", "武器子弹数目信息长度过长，限制长度0--20！", "error");
 		isComplete = false;
 		return;

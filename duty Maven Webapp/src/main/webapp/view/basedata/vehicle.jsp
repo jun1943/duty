@@ -25,7 +25,7 @@
 			 <!-- 工具条 -->
 				<div id="tbVehicle" class="btn-toolbar vehicletoolbar" >
 	  				<div class="btn-group">
-	  					<a id="btnAddVehicle" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-add"   onclick="btnAddVehicle('add')">创建</a>
+	  					<a id="btnAddVehicle" href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-add"   onclick="btnAddVehicle('add')">新增</a>
 	                	<!-- <a id="btnEditVehicle" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-edit"  onclick="btnEditVehicle('edit')">修改</a> -->
 	                	<a id="btnDelVehicle" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-delete"  onclick="btnDelVehicle()">删除</a>
 	                	 

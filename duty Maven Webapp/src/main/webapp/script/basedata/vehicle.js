@@ -4,7 +4,6 @@
  * 包括车辆的增删改查
  */
 
-
 var m_Vehicle_OrgId;
 var m_Vehicle_OrgCode;
 var m_Vehicle_OrgPath;
@@ -30,121 +29,135 @@ $(function() {
 				}
 			});
 
-	$('#dtVehicle').datagrid({
-		url : "vehicle/getVehicleList.do",
-		queryParams : {
-			'vehicle_Query' : JSON.stringify(m_Vehicle_Query)
-		},
-		pagination : true,
-		fitColumns : true,
-		pageNumber : 1,
-		pageSize : 10,
-		title : '车辆列表',
-		onDblClickRow : dblClickRow,
-	    onClickRow: clickRow,
-		// singleSelect: true,
-		columns : [ [ {
-			field : 'ck',
-			checkbox : true
-		}, {
-			title : 'Id',
-			field : 'Id',
-			align : 'center',
-			width : 10,
-			hidden : true
-		}, {
-			title : '机构',
-			field : 'orgName',
-			align : 'center',
-			width : 100,
-			hidden : true
-		}, {
-			title : '车辆类型',
-			field : 'typeName',
-			align : 'center',
-			width : 100
-		}, {
-			title : '车牌号码',
-			field : 'number',
-			align : 'center',
-			width : 100,
-			sortable : true
-		}, {
-			title : '车辆用途',
-			field : 'purpose',
-			align : 'center',
-			width : 100
-		}, {
-			title : '车辆品牌',
-			field : 'brand',
-			align : 'center',
-			width : 150
-		}, {
-			title : '座位数',
-			field : 'siteQty',
-			align : 'center',
-			width : 150
-		}, {
-			title : 'GPS设备ID',
-			field : 'gpsId',
-			align : 'center',
-			width : 80
-		}, {
-			title : 'GPS名称',
-			field : 'gps_name',
-			align : 'center',
-			width : 80,
-			formatter : function(value, row, index) {
-				return row.gpsName;
-			},
-			sortable : true
-		}, {
-			title : '组呼号',
-			field : 'intercomGroup',
-			align : 'center',
-			width : 200
-		}, {
-			title : '个呼号',
-			field : 'intercomPerson',
-			align : 'center',
-			width : 200
-		} ,
-		{
-			title : '操作项',
-			aligh : 'center',
-			field : 'operator',
-			width : 80,
-			formatter : function(value, row, index) {
-				return '<a href="javascript:void(0);" class="easyui-linkbutton"'
-						+ 'iconcls="icon-tianyi-edit" style="color:blue"  onclick="btnCellClick('
-						+ index + ')">修改</a>';
-			}
-		}] ]
-	});
+	$('#dtVehicle')
+			.datagrid(
+					{
+						url : "vehicle/getVehicleList.do",
+						queryParams : {
+							'vehicle_Query' : JSON.stringify(m_Vehicle_Query)
+						},
+						pagination : true,
+						fitColumns : true,
+						pageNumber : 1,
+						pageSize : 10,
+						title : '车辆列表',
+						onDblClickRow : dblClickRow,
+						onClickRow : clickRow,
+						// singleSelect: true,
+						columns : [ [
+								{
+									field : 'ck',
+									checkbox : true
+								},
+								{
+									title : 'Id',
+									field : 'Id',
+									align : 'center',
+									width : 10,
+									hidden : true
+								},
+								{
+									title : '机构',
+									field : 'orgName',
+									align : 'center',
+									width : 100,
+									hidden : true
+								},
+								{
+									title : '车辆类型',
+									field : 'typeName',
+									align : 'center',
+									width : 100
+								},
+								{
+									title : '车牌号码',
+									field : 'number',
+									align : 'center',
+									width : 100,
+									sortable : true
+								},
+								{
+									title : '车辆用途',
+									field : 'purpose',
+									align : 'center',
+									width : 100
+								},
+								{
+									title : '车辆品牌',
+									field : 'brand',
+									align : 'center',
+									width : 150
+								},
+								{
+									title : '座位数',
+									field : 'siteQty',
+									align : 'center',
+									width : 150
+								},
+								{
+									title : 'GPS设备ID',
+									field : 'gpsId',
+									align : 'center',
+									width : 80
+								},
+								{
+									title : 'GPS名称',
+									field : 'gps_name',
+									align : 'center',
+									width : 80,
+									formatter : function(value, row, index) {
+										return row.gpsName;
+									},
+									sortable : true
+								},
+								{
+									title : '组呼号',
+									field : 'intercomGroup',
+									align : 'center',
+									width : 200
+								},
+								{
+									title : '个呼号',
+									field : 'intercomPerson',
+									align : 'center',
+									width : 200
+								},
+								{
+									title : '操作项',
+									aligh : 'center',
+									field : 'operator',
+									width : 80,
+									formatter : function(value, row, index) {
+										return '<a href="javascript:void(0);" class="easyui-linkbutton"'
+												+ 'iconcls="icon-tianyi-edit" style="color:blue"  onclick="btnCellClick('
+												+ index + ')">修改</a>';
+									}
+								} ] ]
+					});
 	$("#btnSearchVehicle").bind("click", function() {
 		$('#my-search-box').toggle();
 	});
 	InitData();
 });
-//取消点击行选中
+// 取消点击行选中
 function clickRow(index, data) {
-    $("#dtVehicle").datagrid("unselectRow", index);
+	$("#dtVehicle").datagrid("unselectRow", index);
 }
-//查询条件筛选
+// 查询条件筛选
 function btnSearchAction() {
 	pack_Vehicle_Query();
 	$('#dtVehicle').datagrid("reload", {
 		'vehicle_Query' : JSON.stringify(m_Vehicle_Query)
 	});
-//	$("#isSubOrg").combobox("setValue", "");
-//	$("#txtsearchnumber").val("");
+	// $("#isSubOrg").combobox("setValue", "");
+	// $("#txtsearchnumber").val("");
 };
 function InitData() {
 	getVehicleType();
 	getGroupNumber();
 	getGpsID(m_Vehicle_OrgId);
 };
-//获取车辆属性、以下拉列表的形式呈现；
+// 获取车辆属性、以下拉列表的形式呈现；
 function getVehicleType() {
 	getBaseDataCombobox("vehicle/getVehicleType.do", "txttype");
 };
@@ -161,16 +174,14 @@ function btnAddVehicle(optType) {
 	$('#btnsaveVehicleCon').show();
 };
 
-
-
 function btnCellClick(index) {
 	var row = $("#dtVehicle").datagrid('getData').rows[index];
 	editVehicleModel(row);
 }
-function dblClickRow(index,rowData){
+function dblClickRow(index, rowData) {
 	editVehicleModel(rowData);
 }
-function editVehicleModel(rows){
+function editVehicleModel(rows) {
 	clearForm();
 	$("#vehicleId").val(rows.id);
 	$("#txtbrand").val(rows.brand);
@@ -181,8 +192,7 @@ function editVehicleModel(rows){
 	$("#txtgroupno").combobox("setValue",
 			rows.intercomGroup == 0 ? "" : rows.intercomGroup);
 	$("#txtpersonalno").val("");
-	$("#txtgpsid")
-			.combobox("setValue", rows.gpsId == 0 ? "" : rows.gpsId);
+	$("#txtgpsid").combobox("setValue", rows.gpsId == 0 ? "" : rows.gpsId);
 	$("#vehicleinfowindow").window("open");
 	$('#btnsaveVehicleCon').hide();
 }
@@ -228,7 +238,7 @@ function pack_Vehicle_Query() {
 	}
 	m_Vehicle_Query.number = $("#txtsearchnumber").val();
 };
-//删除模块
+// 删除模块
 function btnDelVehicle() {
 	var hasRows = $('#dtVehicle').datagrid('getRows');
 	if (hasRows.length == 0) {
@@ -265,7 +275,7 @@ function btnDelVehicle() {
 	});
 };
 
-//删除事件
+// 删除事件
 function deleteVehicle(id) {
 	$.ajax({
 		url : "vehicle/deleteVehicle.do",
@@ -291,7 +301,7 @@ var isComplete = true;
 function saveVehicleAction() {
 	saveVehicleModel();
 };
-//保存模块事件
+// 保存模块事件
 var isExist = false;
 function saveVehicleModel() {
 	var vehicle = {};
@@ -306,13 +316,15 @@ function saveVehicleModel() {
 		isComplete = false;
 		return;
 	}
-	if($.trim($("#txtbrand").val()).length>30){
+	if ($.trim($("#txtbrand").val()).length > 0
+			&& $.trim($("#txtbrand").val()).length > 30) {
 		$.messager.alert("错误提示", "车辆品牌内容过长，限制长度为0--30！", "error");
 		isComplete = false;
 		return;
 	}
 	vehicle.brand = $.trim($("#txtbrand").val());
-	if($.trim($("#txtsiteqty").val()).length>20){
+	if ($.trim($("#txtsiteqty").val()).length > 0
+			&& $.trim($("#txtsiteqty").val()).length > 20) {
 		$.messager.alert("错误提示", "车辆座位信息内容过长，限制长度为0--20！", "error");
 		isComplete = false;
 		return;
@@ -325,26 +337,27 @@ function saveVehicleModel() {
 		isComplete = false;
 		return;
 	}
-	if(carnumber.length>20){
+	if (carnumber.length > 20) {
 		$.messager.alert("错误提示", "车牌号码长度过长，限制长度为20！", "error");
 		isComplete = false;
 		return;
-	}  
-		if (operationType == "add") {
-			isExistVehicle(carnumber);
-			if (!isExist) {
-				$.messager.alert("错误提示", "车牌号为  "+carnumber+" 的车辆已存在，请检查！", "error");
-				$("#txtnumber").focus();
-				isComplete = false;
-				return;
-			}
-		}  
+	}
+	if (operationType == "add") {
+		isExistVehicle(carnumber);
+		if (!isExist) {
+			$.messager.alert("错误提示", "车牌号为  " + carnumber + " 的车辆已存在，请检查！",
+					"error");
+			$("#txtnumber").focus();
+			isComplete = false;
+			return;
+		}
+	}
 	vehicle.number = carnumber;
 	// if ($("#txtpurpose").val() == "") {
 	// $.messager.alert("错误提示", "请输入车辆用途", "error");
 	// return;
 	// }
-	if($.trim($("#txtpurpose").val()).length>50){
+	if ($.trim($("#txtpurpose").val()).length > 0 && $.trim($("#txtpurpose").val()).length > 50) {
 		$.messager.alert("错误提示", "车辆用途内容过长，限制长度为0--50！", "error");
 		isComplete = false;
 		return;
@@ -355,13 +368,13 @@ function saveVehicleModel() {
 	if ($("#txtgroupno").combobox("getValue") > 0
 			&& $("#txtgroupno").combobox("getValue") != "") {
 		vehicle.intercomGroup = $("#txtgroupno").combobox("getValue");
-	} 
+	}
 	if ($("#txtgpsid").combobox("getValue") > 0
 			&& $("#txtgpsid").combobox("getValue") != "") {
 		vehicle.gpsId = $("#txtgpsid").combobox("getValue");
 		vehicle.gpsName = $("#txtgpsid").combobox("getText");
-	}  
-	if($.trim($("#txtpersonalno").val()).length>20){
+	}
+	if ($.trim($("#txtpersonalno").val()).length > 0 && $.trim($("#txtpersonalno").val()).length > 20) {
 		$.messager.alert("错误提示", "车辆个呼号内容过长，限制长度为0--20！", "error");
 		isComplete = false;
 		return;
@@ -395,9 +408,7 @@ function saveVehicleActionExit() {
 	}
 }
 
-
-
-//判断警员是否存在
+// 判断警员是否存在
 function isExistVehicle(param) {
 	isExist = false;
 	$.ajax({
@@ -418,7 +429,7 @@ function isExistVehicle(param) {
 /**
  * 导出数据
  */
-function btnExportAction(){
+function btnExportAction() {
 	pack_Vehicle_Query();
 	$.ajax({
 		url : "vehicle/exportDataToExcle.do",
