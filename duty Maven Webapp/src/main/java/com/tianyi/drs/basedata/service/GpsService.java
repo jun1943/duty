@@ -79,4 +79,11 @@ public interface GpsService {
 	 * @return
 	 */
 	public List<Gps> findByNumber(String param);
+	/**
+	 * 判断是否存在定位设备关联数据
+	 * @param param
+	 * @return
+	 */
+	
+	public List<Gps> findByIdAndDtyId(String param);
 }

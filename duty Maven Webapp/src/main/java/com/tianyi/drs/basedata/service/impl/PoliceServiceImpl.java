@@ -217,6 +217,13 @@ public class PoliceServiceImpl implements PoliceService {
 	public List<PoliceVM> loadVMListWithOrgId(Integer orgId) {
 		// TODO Auto-generated method stub
 		return policeMapper.loadVMListWithOrgId(orgId);
+	}
+	/** (non-Javadoc)
+	 * @see com.tianyi.drs.basedata.service.PoliceService#findByIdAndDtyId(String)
+	 */
+	public List<Police> findByIdAndDtyId(String param) {
+		// TODO Auto-generated method stub
+		return policeMapper.findByIdAndDtyId(param);
 	} 
 	
 }

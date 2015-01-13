@@ -73,6 +73,13 @@ public interface GpsMapper {
 	 * @return
 	 */
 	List<Gps> findByNumber(String param);
+	
+	/**
+	 * 判斷是否存在定位设备关联数据
+	 * @param param
+	 * @return
+	 */
+	List<Gps> findByIdAndDtyId(String param); 
 }
 
 

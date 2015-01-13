@@ -78,4 +78,10 @@ public interface WeaponMapper {
 	 * @return
 	 */
 	List<Weapon> findByNumber(String param);
+	/**
+	 * 判断是否武器存在关联数据
+	 * @param param
+	 * @return
+	 */
+	List<Weapon> findByIdAndDtyId(String param);
 }

@@ -175,10 +175,12 @@ function btnAddVehicle(optType) {
 };
 
 function btnCellClick(index) {
+	operationType = "edit";
 	var row = $("#dtVehicle").datagrid('getData').rows[index];
 	editVehicleModel(row);
 }
 function dblClickRow(index, rowData) {
+	operationType = "edit";
 	editVehicleModel(rowData);
 }
 function editVehicleModel(rows) {
@@ -286,7 +288,7 @@ function deleteVehicle(id) {
 			"id" : id
 		},
 		success : function(req) {
-			// $.messager.alert("消息提示", req.Message, "info");
+			$.messager.alert("消息提示", req.Message, "info");
 			btnSearchAction();
 		},
 		failer : function(a, b) {

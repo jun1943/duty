@@ -102,5 +102,11 @@ public interface WeaponService {
 	 * @param param
 	 * @return
 	 */
-	List<Weapon> findByNumber(String param); 
+	List<Weapon> findByNumber(String param);
+	/**
+	 * 判断是否有武器关联数据
+	 * @param string
+	 * @return
+	 */
+	List<Weapon> findByIdAndDtyId(String param); 
 }

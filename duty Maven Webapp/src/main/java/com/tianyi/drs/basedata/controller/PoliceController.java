@@ -2,7 +2,7 @@ package com.tianyi.drs.basedata.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.ArrayList; 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -231,19 +231,30 @@ public class PoliceController {
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
 			int result = 0;
+			String Message = "";
 			if (id != null && id != "") {
 				String[] s = {};
 				s = id.split(",");
 				int[] ids = new int[s.length];
+				int m = 0;
 				for (int i = 0; i < s.length; i++) {
-					ids[i] = Integer.parseInt(String.valueOf(s[i]));
+					List<Police> list = policeService.findByIdAndDtyId(s[i]);
+					if (list.size() == 0) {
+						ids[i] = Integer.parseInt(String.valueOf(s[i]));
+					} else {
+						m++;
+					}
+				}
+				if (s.length > m) {
+					Message = "部分数据删除成功！部分警员数据已关联报备数据，不能删除！";
+				}else if(s.length==m){
+					Message = "删除失败！选择资源数据已关联报备数据，不能删除";
 				}
 				map.put("ids", ids);
 
 				policeService.deleteByIds(map);
 			}
-			return "{\"success\":true,\"Message\":\"删除成功,result is " + result
-					+ "\"}";
+			return "{\"success\":true,\"Message\":\"" + Message + "\"}";
 		} catch (Exception ex) {
 			return "{\"success\":false,\"Message\":\"删除失败，原因："
 					+ ex.getMessage() + "\"}";

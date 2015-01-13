@@ -85,7 +85,7 @@ $(function() {
 									width : 80
 								},
 								{
-									title : 'GPS名称',
+									title : 'GPS设备',
 									field : 'gps_name',
 									align : 'left',
 									width : 200,
@@ -95,7 +95,7 @@ $(function() {
 									}
 								},
 								{
-									title : '手机号',
+									title : '手机号码',
 									field : 'mobile',
 									align : 'left',
 									width : 100
@@ -336,7 +336,7 @@ function deletePolice(id) {
 			"id" : id
 		},
 		success : function(req) {
-			// $.messager.alert("消息提示", req.Message, "info");
+			$.messager.alert("消息提示", req.Message, "info");
 			btnSearchAction();
 		},
 		failer : function(a, b) {
@@ -347,11 +347,13 @@ function deletePolice(id) {
 		}
 	});
 }
-function btnCellClick(index) {
+function btnCellClick(index) { 
+	operationType = "edit";
 	var row = $("#dtPolice").datagrid('getData').rows[index];
 	editPoliceModel(row);
 }
 function dblClickRow(index, rowData) {
+	operationType = "edit";
 	editPoliceModel(rowData);
 }
 function editPoliceModel(rows) {
@@ -527,11 +529,12 @@ function savePoliceModel() {
 	if ($("#txtgroupno").combobox("getValue") > 0
 			&& $("#txtgroupno").combobox("getValue") != "") {
 		police.intercomGroup = $("#txtgroupno").combobox("getValue");
-	} else {
-		police.intercomGroup = 0;
-		// $.messager.alert("错误提示", "请选择GPS_ID", "error");
-		// return;
 	}
+//	else {
+//		police.intercomGroup = 0;
+//		// $.messager.alert("错误提示", "请选择GPS_ID", "error");
+//		// return;
+//	}
 	var intercomPerson = $.trim($("#txtpersonalno").val());
 	if (intercomPerson != "" && intercomPerson != undefined) {
 		if (operationType == "add") {

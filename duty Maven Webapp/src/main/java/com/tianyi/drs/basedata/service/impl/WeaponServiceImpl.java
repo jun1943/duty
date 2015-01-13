@@ -137,6 +137,13 @@ public class WeaponServiceImpl implements WeaponService {
 	public List<Weapon> findByNumber(String param) {
 		// TODO Auto-generated method stub
 		return weaponMapper.findByNumber(param);
+	}
+	/** (non-Javadoc)
+	 * @see com.tianyi.drs.basedata.service.WeaponService#findByIdAndDtyId(String)
+	 */
+	public List<Weapon> findByIdAndDtyId(String param) {
+		// TODO Auto-generated method stub
+		return weaponMapper.findByIdAndDtyId(param);
 	} 
 	
 }

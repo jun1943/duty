@@ -79,5 +79,11 @@ public interface VehicleMapper {
 	 * @return
 	 */
 	List<Vehicle> findByNumber(String param);
+	/**
+	 * 判断是否有车辆关联信息
+	 * @param param
+	 * @return
+	 */
+	List<Vehicle> findByIdAndDtyId(String param);
     
 }

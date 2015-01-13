@@ -280,6 +280,11 @@
        		select * from t_police where intercom_person = #{param}   
     	 </select>
     	 
+    	  <select id="findByIdAndDtyId" parameterType="String" resultType="com.tianyi.drs.duty.model.DutyItem">  
+       		select * from t_duty_item where item_type_id = 2 and item_id =  #{param}   
+    	 </select>
+    	 
+    	 
          <select id="findByname" parameterType="String" resultType="com.tianyi.drs.basedata.model.Police">  
        		select * from t_police where name = #{name}  
     	 </select> 

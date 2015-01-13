@@ -59,7 +59,7 @@
 										<td class="MySearchTDTitle">姓名:</td>
 										<td><input id="txtsearchName" type="text"  
 										class="easyui-validatebox policesearchinput"></td>
-										<td class="MySearchTDTitle">人员类别 :</td>
+										<td class="MySearchTDTitle">警员类别 :</td>
 										<td><input id="sltType" class="easyui-combobox policesearchinput" data-options="editable:false"  /></td>
 										<td><a id="btnSearchAction" href="javascript:void(0);"
 							class="easyui-linkbutton" iconcls="icon-tianyi-search"  
@@ -94,7 +94,7 @@
 					class="policewindowcenter">
 					<table class="policewindowtable">
 						<tr>
-							<td style="text-align: right;"><input type="hidden" id="policeId"><label>人员类别:　</label></td>
+							<td style="text-align: right;"><input type="hidden" id="policeId"><label>警员类别:　</label></td>
 							<td><input id="txttype" class="easyui-combobox"  data-options="editable:false,required:true"/><span style="color:red">*</span></td>
 						</tr>
 						<tr>

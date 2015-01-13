@@ -140,5 +140,11 @@ public interface PoliceMapper {
 	 * @return
 	 */
 	List<PoliceVM> loadVMListWithOrgId(Integer orgId);
+	/**
+	 * 判断警员是否有关联数据
+	 * @param pid
+	 * @return
+	 */ 
+	List<Police> findByIdAndDtyId(String param);
 	 
 }

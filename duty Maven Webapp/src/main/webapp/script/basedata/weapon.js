@@ -125,10 +125,12 @@ function btnAddWeapon(optType) {
 };
 
 function btnCellClick(index) {
+	operationType = "edit";
 	var row = $("#dtWeapon").datagrid('getData').rows[index];
 	editWeaponModel(row);
 }
 function dblClickRow(index, rowData) {
+	operationType = "edit";
 	editWeaponModel(rowData);
 }
 
@@ -227,7 +229,7 @@ function deleteWeapon(id) {
 			"id" : id
 		},
 		success : function(req) {
-			// $.messager.alert("消息提示", req.Message, "info");
+			$.messager.alert("消息提示", req.Message, "info");
 			btnSearchAction();
 		},
 		failer : function(a, b) {
