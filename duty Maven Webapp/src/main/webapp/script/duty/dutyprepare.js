@@ -2397,8 +2397,7 @@ function addItems(itemTypeId, grid) {
 			$.each(ps,
 					function(i, v) {
 						var exists = existsResource(shiftRowT, v);
-						var isMaxPolice = checkMaxPolice(dutyTypeRow,
-								shiftRowT, v);
+						var isMaxPolice = checkMaxPolice(dutyTypeRow,shiftRowT, v);
 						if (exists) {
 							errRow.push(v);
 						} else if (isMaxPolice) {
