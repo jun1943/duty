@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tianyi.drs.duty.dao.VehicleGroupMapper;
 import com.tianyi.drs.duty.dao.VehicleGroupMemberMapper;
 import com.tianyi.drs.duty.dao.VehicleGroupOrgMapper;  
+import com.tianyi.drs.duty.model.PoliceGroupMember;
 import com.tianyi.drs.duty.model.VehicleGroup;
 import com.tianyi.drs.duty.model.VehicleGroupMember;
 import com.tianyi.drs.duty.model.VehicleGroupOrg;
@@ -122,16 +123,20 @@ public class VehicleGroupServiceImpl implements VehicleGroupService {
 	 */
 	@Transactional
 	public void appendMemeber(List<VehicleGroupMember> ls) {
+		if (ls.size() > 0) {
+			VehicleGroupMember pgm = ls.get(0);
+			vehicleGroupMemberMapper.deleteByGroupId(pgm.getGroupId());
+		}
 		for(VehicleGroupMember pgm : ls){
 			Map<String,Object> m1=new HashMap<String,Object>();
 			m1.put("groupId", pgm.getGroupId());
 			m1.put("memberId", pgm.getVehicleId());
 			
-			Integer count=vehicleGroupMemberMapper.existsByMemberId(m1);
-			
-			if(count==0){
+//			Integer count=vehicleGroupMemberMapper.existsByMemberId(m1);
+//			
+//			if(count==0){
 				vehicleGroupMemberMapper.insert(pgm);
-			}
+//			}
 			
 		}
 		

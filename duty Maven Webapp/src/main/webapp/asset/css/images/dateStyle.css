@@ -210,6 +210,9 @@ img { border:0px;}
 .dtypretoptoolbar{height:40px;}
 .dtyprebtngroup{background: url(../images/dateMenuBg.png) repeat-x;width: 100%;line-height: 40px;overflow: hidden;height: 38px;}
 .dtyprebtnback{float:right;margin-right:20px;margin-top:8px;}
+.aaaa div{font-size:14px;color:blue;}
+
+
 
 /*****资源列表******/
 .dtypreresource{width:28%;height:100%;overflow:hidden;}

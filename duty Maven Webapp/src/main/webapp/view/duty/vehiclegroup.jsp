@@ -46,9 +46,9 @@
 				<div class="btn-group" >
 					<a id="btnAddVehicleGroup" href="javascript:void(0);" 
 						class="easyui-linkbutton icon-camera-retro groupfstbtn"  iconcls="icon-tianyi-add" 
-						onclick="addVehicleGroup()">创建</a> <a id="btnEditVehicleGroup"
+						onclick="addVehicleGroup('add')">创建</a> <a id="btnEditVehicleGroup"
 						href="javascript:void(0);" class="easyui-linkbutton"
-						iconcls="icon-tianyi-edit" onclick="editVehicleGroup()">修改</a>
+						iconcls="icon-tianyi-edit" onclick="editVehicleGroup('edit')">修改</a>
 					<a id="btnDelVehicleGroup" href="javascript:void(0);"
 						class="easyui-linkbutton" iconcls="icon-tianyi-delete" 
 						onclick="delVehicleGroup()">删除</a>

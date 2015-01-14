@@ -194,7 +194,7 @@ function editVehicleModel(rows) {
 	$("#txtgroupno").combobox("setValue",
 			rows.intercomGroup == 0 ? "" : rows.intercomGroup);
 	$("#txtpersonalno").val("");
-	$("#txtgpsid").combobox("setValue", rows.gpsId == 0 ? "" : rows.gpsId);
+	$("#txtgpsid").combobox("setValue", rows.gpsId);
 	$("#vehicleinfowindow").window("open");
 	$('#btnsaveVehicleCon').hide();
 }
@@ -359,7 +359,8 @@ function saveVehicleModel() {
 	// $.messager.alert("错误提示", "请输入车辆用途", "error");
 	// return;
 	// }
-	if ($.trim($("#txtpurpose").val()).length > 0 && $.trim($("#txtpurpose").val()).length > 50) {
+	if ($.trim($("#txtpurpose").val()).length > 0
+			&& $.trim($("#txtpurpose").val()).length > 50) {
 		$.messager.alert("错误提示", "车辆用途内容过长，限制长度为0--50！", "error");
 		isComplete = false;
 		return;
@@ -376,7 +377,8 @@ function saveVehicleModel() {
 		vehicle.gpsId = $("#txtgpsid").combobox("getValue");
 		vehicle.gpsName = $("#txtgpsid").combobox("getText");
 	}
-	if ($.trim($("#txtpersonalno").val()).length > 0 && $.trim($("#txtpersonalno").val()).length > 20) {
+	if ($.trim($("#txtpersonalno").val()).length > 0
+			&& $.trim($("#txtpersonalno").val()).length > 20) {
 		$.messager.alert("错误提示", "车辆个呼号内容过长，限制长度为0--20！", "error");
 		isComplete = false;
 		return;
@@ -391,15 +393,14 @@ function saveVehicleModel() {
 		data : vehicle,
 		success : function(req) {
 			isComplete = true;
-			clearForm();
-
+			clearForm(); 
 			btnSearchAction();
 		},
 		failer : function(a, b) {
-			$.messager.alert("消息提示", a, "info");
+			$.messager.alert("消息提示", "保存失败，数据传输错误", "warning");
 		},
 		error : function(a) {
-			$.messager.alert("消息提示", a, "error");
+			$.messager.alert("消息提示", "保存失败，数据移交到后台过程失败", "error");
 		}
 	});
 }

@@ -311,6 +311,7 @@ function delDutyType(){
 	                    async:false,
 	                    success: function (req) {
 	                        if (req.isSuccess) {//成功填充数据
+	                        	$.messager.alert("操作提示","删除成功！","info");
 	                        	$("#winDutyType").window("close");
 	                        	loadDutyType();
 	                        }

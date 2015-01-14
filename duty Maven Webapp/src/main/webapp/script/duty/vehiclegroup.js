@@ -1,4 +1,3 @@
- 
 /*
  * 车辆分组；
  * 
@@ -13,7 +12,9 @@ var m_vehicleGroup_Org = {};
 
 var m_vehicleGroup_Query = {};
 
-var m_member_Query ={groupId:-1};
+var m_member_Query = {
+	groupId : -1
+};
 
 $(document).ready(function() {
 	var args = getUrlArgs();
@@ -34,16 +35,28 @@ $(document).ready(function() {
 		resizable : true,
 		fitColumns : true,
 		width : 'auto',
-		onSelect:onSelectGroup,
-		columns : [ [ 
-		              {	title : 'Id',field : 'id',align : 'left',width : 10,hidden : true}, 
-		              {	title : '组名称',field : 'name',align : 'left',width : 150	}, 
-		              {	title : '共享类型',	field : 'shareTypeDesc',	align : 'left',width : 200} 
-		              ] ]
+		onSelect : onSelectGroup,
+		columns : [ [ {
+			title : 'Id',
+			field : 'id',
+			align : 'left',
+			width : 10,
+			hidden : true
+		}, {
+			title : '组名称',
+			field : 'name',
+			align : 'left',
+			width : 150
+		}, {
+			title : '共享类型',
+			field : 'shareTypeDesc',
+			align : 'left',
+			width : 200
+		} ] ]
 	});
-	//组成员的加载
+	// 组成员的加载
 	$('#dtGroupMember').datagrid({
-		url:'vehicleGroup/loadMemberByGroupId.do',
+		url : 'vehicleGroup/loadMemberByGroupId.do',
 		queryParams : {
 			'member_Query' : JSON.stringify(m_member_Query)
 		},
@@ -53,85 +66,114 @@ $(document).ready(function() {
 		resizable : true,
 		fitColumns : true,
 		width : 'auto',
-		columns : [ [ 
-		              {title : 'id',field : 'id',align : 'left',width : 0,hidden : true	}, 
-		              {	title : '所属单位',field : 'orgShortName',align : 'left',width : 110	}, 
-		              {	title : '车辆类型',	field : 'typeName',	align : 'left',width : 100	},
-		              {	title : '车牌号码',	field : 'number',	align : 'left',width : 100	},
-		              {	title : '车辆用途',	field : 'brand',	align : 'left',width : 100	},
-		] ]
+		columns : [ [ {
+			title : 'id',
+			field : 'id',
+			align : 'left',
+			width : 0,
+			hidden : true
+		}, {
+			title : '所属单位',
+			field : 'orgShortName',
+			align : 'left',
+			width : 110
+		}, {
+			title : '车辆类型',
+			field : 'typeName',
+			align : 'left',
+			width : 100
+		}, {
+			title : '车牌号码',
+			field : 'number',
+			align : 'left',
+			width : 100
+		}, {
+			title : '车辆用途',
+			field : 'brand',
+			align : 'left',
+			width : 100
+		}, ] ]
 	});
 
-	$('#treeOrg').tree(
-			{
-//				url : "org/list.do?orgCode=" + m_vehicleGroup_Org.code
-//						+ "&orgPath=" + m_vehicleGroup_Org.path,
-				checkbox : true,
-				cascadeCheck : false
-//				async : false
-//				loadFilter : function(data) {
-//					return buildOrgTree(data);
-//				}
-			});
+	$('#treeOrg').tree({
+		// url : "org/list.do?orgCode=" + m_vehicleGroup_Org.code
+		// + "&orgPath=" + m_vehicleGroup_Org.path,
+		checkbox : true,
+		cascadeCheck : false
+	// async : false
+	// loadFilter : function(data) {
+	// return buildOrgTree(data);
+	// }
+	});
 
-	$('#treeOrgWithVehicle').tree(
-			{
-				url : "org/listWithVehicle.do?rootId="+m_vehicleGroup_Org.id,
-				checkbox : false,
-				onDblClick : dbClickVehicle,
-				cascadeCheck : false
-			});
-	
+	$('#treeOrgWithVehicle').tree({
+		url : "org/listWithVehicle.do?rootId=" + m_vehicleGroup_Org.id,
+		checkbox : false,
+		onDblClick : dbClickVehicle,
+		cascadeCheck : false
+	});
+
 	$('#dtSelGroupMember').datagrid({
 		idField : 'id',
 		singleSelect : true,
 		resizable : true,
 		onDblClickRow : ondbClickRow,
 		fitColumns : true,
-		columns : [ [
-		            {title : 'id',field : 'id',align : 'left',width : 10,hidden : true}, 
-		            {title : '车辆类型',field : 'name',align : 'left',	width : 100}, 
-		            {title : '车牌号码',field : 'code',align : 'left',	width : 100} 
-		] ]
+		columns : [ [ {
+			title : 'id',
+			field : 'id',
+			align : 'left',
+			width : 10,
+			hidden : true
+		}, {
+			title : '车辆类型',
+			field : 'name',
+			align : 'left',
+			width : 100
+		}, {
+			title : '车牌号码',
+			field : 'code',
+			align : 'left',
+			width : 100
+		} ] ]
 	});
 	loadOrgs();
-	//forceSelTisOrg();
+	// forceSelTisOrg();
 });
 
+function onPoliceManGroup(name) {
+	parent.onDutyDataGroup(name);
+}
+function onVehicleGroup(name) {
+	parent.onDutyDataGroup(name);
+}
+function onWeaponGroup(name) {
+	parent.onDutyDataGroup(name);
+}
+function onGpsDeviceGroup(name) {
+	parent.onDutyDataGroup(name);
+}
+function loadOrgs() {
 
-function onPoliceManGroup(name){
-	parent.onDutyDataGroup(name);
-}
-function onVehicleGroup(name){
-	parent.onDutyDataGroup(name);
-}
-function onWeaponGroup(name){
-	parent.onDutyDataGroup(name);
-}
-function onGpsDeviceGroup(name){
-	parent.onDutyDataGroup(name);
-}
-function loadOrgs(){
-	
 	$.ajax({
 		url : "org/list.do",
 		type : "POST",
 		dataType : "json",
 		data : {
-			orgId:m_vehicleGroup_Org.id,
-			orgCode :m_vehicleGroup_Org.code,
-			orgPath: m_vehicleGroup_Org.path
+			orgId : m_vehicleGroup_Org.id,
+			orgCode : m_vehicleGroup_Org.code,
+			orgPath : m_vehicleGroup_Org.path
 		},
-		//async : false,
+		// async : false,
 		success : function(req) {
 			if (req.isSuccess) {
-				var nodes=buildOrgTree(req.rows);
-				$('#treeOrg').tree("loadData",nodes);
-//				var node =$('#treeOrg').tree('find',m_vehicleGroup_Org.id);
-//				$('#treeOrg').tree('check',node.target);
-//				node.target.attr("disabled", "disabled");
+				var nodes = buildOrgTree(req.rows);
+				$('#treeOrg').tree("loadData", nodes);
+				// var node =$('#treeOrg').tree('find',m_vehicleGroup_Org.id);
+				// $('#treeOrg').tree('check',node.target);
+				// node.target.attr("disabled", "disabled");
 			} else {
-				$.messager.alert('提示', req.msg,"warning");
+				$.messager.alert('提示', req.msg, "warning");
 			}
 		}
 	});
@@ -144,25 +186,25 @@ function pack_vehicleGroup_Query() {
 }
 
 function showVehicleGroupDlg() {
-	$('#winPG').window('open'); 
+	$('#winPG').window('open');
 }
-
-function addVehicleGroup() {
-
-	var pg={};
-	pg.shareOrgs=[];
-	pg.id=0;
-	pg.shareType=0;
-	var po={};
-	po.orgId=m_vehicleGroup_Org.id;
+var opteType = "";
+function addVehicleGroup(optType) {
+	opteType = optType;
+	var pg = {};
+	pg.shareOrgs = [];
+	pg.id = 0;
+	pg.shareType = 0;
+	var po = {};
+	po.orgId = m_vehicleGroup_Org.id;
 	pg.shareOrgs.push(po);
-	
 
 	displayVehicleGroup(pg);
 	showVehicleGroupDlg();
 }
 
-function editVehicleGroup() {
+function editVehicleGroup(optType) {
+	opteType = optType;
 	var row = $("#dtVehicleGroup").datagrid("getSelected");
 	if (row !== null) {
 		var id = row.id;
@@ -178,32 +220,31 @@ function saveVehicleGroup() {
 
 	pg.orgId = m_vehicleGroup_Org.id;
 	pg.id = $('#txtVehicleGroupId').val();
-	//pg.name = $('#txtVehicleGroupName').val();
+	// pg.name = $('#txtVehicleGroupName').val();
 	var groupName = $.trim($('#txtVehicleGroupName').val());
-	if(groupName==""&&groupName==undefined){
-		$.messager.alert("操作提示","请填写分组名称","error");
+	if (groupName == "" && groupName == undefined) {
+		$.messager.alert("操作提示", "请填写分组名称", "error");
 		$('#txtVehicleGroupName').focus();
 		return;
 	}
-
-	isExistGroup(groupName,m_vehicleGroup_Org.id);
-	if(!isExist){
-		$.messager.alert("错误提示","该分组名称已存在，请重新填写分组名称","error");
-		$('#txtVehicleGroupName').focus();
-		return;
+	if (opteType == "add") {
+		isExistGroup(groupName, m_vehicleGroup_Org.id);
+		if (!isExist) {
+			$.messager.alert("错误提示", "该分组名称已存在，请重新填写分组名称", "error");
+			$('#txtVehicleGroupName').focus();
+			return;
+		}
 	}
+	pg.name = groupName;
 
-	pg.name = groupName; 
-	
-	
 	pg.shareType = $('input:radio[name="shareType"]:checked').val();
 
 	/**
 	 * 强制选择根节点！
 	 */
-	var node =$('#treeOrg').tree('find',m_vehicleGroup_Org.id);
-	$('#treeOrg').tree('check',node.target);
-	
+	var node = $('#treeOrg').tree('find', m_vehicleGroup_Org.id);
+	$('#treeOrg').tree('check', node.target);
+
 	var nodes = $('#treeOrg').tree('getChecked');
 	var count = nodes.length;
 
@@ -211,7 +252,7 @@ function saveVehicleGroup() {
 		var n = nodes[i];
 		pg.shareOrgIds.push(n.id);
 	}
-	
+
 	$.ajax({
 		url : "vehicleGroup/saveVehicleGroup.do",
 		type : "POST",
@@ -223,8 +264,8 @@ function saveVehicleGroup() {
 		success : function(req) {
 			if (req.isSuccess) {
 				$('#dtVehicleGroup').datagrid('reload');
-				$('#txtVehicleGroupId').val(req.id);//回写保存后的id
-				$('#winPG').window('close'); 
+				$('#txtVehicleGroupId').val(req.id);// 回写保存后的id
+				$('#winPG').window('close');
 				$.messager.alert('提示', '保存成功!');
 			} else {
 				$.messager.alert('提示', req.msg, "warning");
@@ -239,33 +280,32 @@ function saveVehicleGroup() {
 function delVehicleGroup() {
 	var row = $("#dtVehicleGroup").datagrid("getSelected");
 	if (row !== null) {
-		$.messager.confirm('操作提示', "确定删除[ " + row.name + " ]?",
-				function(r) {
-					if (r) {
-						$.ajax({
-									url : "vehicleGroup/deleteVehicleGroup.do",
-									type : "POST",
-									dataType : "json",
-									data : {
-										"vehicleGroupId" :row.id
-									},
-									async : false,
-									success : function(req) {
-										if (req.isSuccess) {
-											$.messager.alert('提示', '删除成功!');
-											$('#dtVehicleGroup').datagrid('reload');
-										} else {
-											$.messager.alert('提示', req.msg,"warning");
-										}
-									}
-								});
+		$.messager.confirm('操作提示', "确定删除[ " + row.name + " ]?", function(r) {
+			if (r) {
+				$.ajax({
+					url : "vehicleGroup/deleteVehicleGroup.do",
+					type : "POST",
+					dataType : "json",
+					data : {
+						"vehicleGroupId" : row.id
+					},
+					async : false,
+					success : function(req) {
+						if (req.isSuccess) {
+							$.messager.alert('提示', '删除成功!');
+							$('#dtVehicleGroup').datagrid('reload');
+						} else {
+							$.messager.alert('提示', req.msg, "warning");
+						}
 					}
 				});
+			}
+		});
 	}
 }
 
 function closeWinPG() {
-	$('#winPG').window('close'); 
+	$('#winPG').window('close');
 }
 
 function cleanShareOrgs() {
@@ -275,8 +315,8 @@ function cleanShareOrgs() {
 
 	for ( var i = 0; i < count; i++) {
 		var n = nodes[i];
-		if(i==0)
-			$('#treeOrg').tree('check', n.target);//根节点强制选择
+		if (i == 0)
+			$('#treeOrg').tree('check', n.target);// 根节点强制选择
 		else
 			$('#treeOrg').tree('uncheck', n.target);
 	}
@@ -303,7 +343,7 @@ function loadVehicleGroup(id, callback) {
 		data : {
 			'vehicleGroupId' : id
 		},
-		//async : false,
+		// async : false,
 		success : function(req) {
 			callback(req);
 		}
@@ -321,7 +361,7 @@ function displayVehicleGroup(pg) {
 
 	if (pg.shareType == 0) {
 		$('#radioShare1').prop('checked', true);
-		
+
 		$('#divOrg').css('visibility', 'hidden');
 	} else {
 		$('#radioShare2').prop('checked', true);
@@ -336,37 +376,49 @@ function displayVehicleGroup(pg) {
 	}
 }
 
-function onSelectGroup(rowIndex,rowData){
-	m_member_Query.groupId=rowData.id;
-	$('#dtGroupMember').datagrid('reload',{ 'member_Query': JSON.stringify(m_member_Query) });
-	//var x=$('#dtGroupMember').datagrid('queryParams');
+function onSelectGroup(rowIndex, rowData) {
+	m_member_Query.groupId = rowData.id;
+	$('#dtGroupMember').datagrid('reload', {
+		'member_Query' : JSON.stringify(m_member_Query)
+	});
+	$("#treeOrgWithVehicle").tree("reload");
+	// var x=$('#dtGroupMember').datagrid('queryParams');
 }
 
 /**
- * 添加成员 -------------------------------------------------------------------------------------
+ * 添加成员
+ * -------------------------------------------------------------------------------------
  */
-function addVehicleGroupMember(){
-	var row=$('#dtVehicleGroup').datagrid("getSelected");
-	if(row!=null){
+function addVehicleGroupMember() {
+	var row = $('#dtVehicleGroup').datagrid("getSelected");
+	if (row != null) {
 		$('#txtVehicleGroupId').val(row.id);
 		showGroupMemberDlg();
-		$('#dtSelGroupMember').datagrid('loadData',{total:0,rows:[]});
+		$('#dtSelGroupMember').datagrid('loadData', {
+			total : 0,
+			rows : []
+		});
 		var existdata = $("#dtGroupMember").datagrid("getRows");
 		for ( var i = 0; i < existdata.length; i++) {
 			$('#dtSelGroupMember').datagrid('appendRow', {
-				id : existdata[i].id,
+				id : existdata[i].vehicleId,
 				name : existdata[i].typeName,
 				code : existdata[i].number
 			});
 		}
-	}else{
+		for ( var j = 0; j < existdata.length; j++) {
+			var s = null;
+			s = $("#treeOrgWithVehicle").tree("find","veh_" + existdata[j].vehicleId);
+			$("#treeOrgWithVehicle").tree("remove", s.target);
+		}
+	} else {
 		$.messager.alert('提示', '请先选择组!');
 	}
 }
 
-function delVehicleGroupMemeber(){
-	var row=$('#dtGroupMember').datagrid("getSelected");
-	if(row!=null){
+function delVehicleGroupMemeber() {
+	var row = $('#dtGroupMember').datagrid("getSelected");
+	if (row != null) {
 		$.ajax({
 			url : "vehicleGroup/delMemberById.do",
 			type : "POST",
@@ -378,61 +430,59 @@ function delVehicleGroupMemeber(){
 			success : function(req) {
 				if (req.isSuccess) {
 					$('#dtGroupMember').datagrid('reload');
-				} 
+				}
 			}
 		});
-	}else{
+	} else {
 		$.messager.alert('提示', '请先选择警员!!');
 	}
 }
 
-function cleanPGMember(){
-	
-	var row=$('#dtVehicleGroup').datagrid("getSelected");
-	
-	if(row!=null){
+function cleanPGMember() {
+
+	var row = $('#dtVehicleGroup').datagrid("getSelected");
+
+	if (row != null) {
 		$.messager.confirm('操作提示', "确定要清空[ " + row.name + " ]下面所有的成员?",
 				function(r) {
 					if (r) {
 						$.ajax({
-									url : "vehicleGroup/cleanMemberByGroupId.do",
-									type : "POST",
-									dataType : "json",
-									data : {
-										"vehicleGroupId" :row.id
-									},
-									async : false,
-									success : function(req) {
-										if (req.isSuccess) {
-											$('#dtGroupMember').datagrid('reload');
-										} 
-									}
-								});
+							url : "vehicleGroup/cleanMemberByGroupId.do",
+							type : "POST",
+							dataType : "json",
+							data : {
+								"vehicleGroupId" : row.id
+							},
+							async : false,
+							success : function(req) {
+								if (req.isSuccess) {
+									$('#dtGroupMember').datagrid('reload');
+								}
+							}
+						});
 					}
 				});
-	}else{
+	} else {
 		$.messager.alert('提示', '请先选择车辆组!!');
 	}
 }
 
+function appendMember() {
+	var members = [];
+	var groupid = $('#txtVehicleGroupId').val();
 
-function appendMember(){
-	var members=[];
-	var groupid=$('#txtVehicleGroupId').val();
+	var rows = $('#dtSelGroupMember').datagrid('getRows');
+	var count = rows.length;
 
-	
-	var rows=$('#dtSelGroupMember').datagrid('getRows');
-	var count=rows.length;
-	
-	for(var i=0;i<count;i++){
-		var row=rows[i];
-		var member ={};
-		member.id=0;
-		member.groupId=groupid;
-		member.vehicleId=row.id;
+	for ( var i = 0; i < count; i++) {
+		var row = rows[i];
+		var member = {};
+		member.id = 0;
+		member.groupId = groupid;
+		member.vehicleId = row.id;
 		members.push(member);
 	}
-	
+
 	$.ajax({
 		url : "vehicleGroup/appendMember.do",
 		type : "POST",
@@ -442,18 +492,18 @@ function appendMember(){
 		},
 		async : false,
 		success : function(req) {
-				if (req.isSuccess) {
-						$.messager.alert('提示', '保存成功!');
-							$('#dtGroupMember').datagrid('reload');
-							$('#winPGMember').window("close");
-						} else {
-							$.messager.alert('提示', req.msg,"warning");
-						}
+			if (req.isSuccess) {
+				$.messager.alert('提示', '保存成功!');
+				$('#dtGroupMember').datagrid('reload');
+				$('#winPGMember').window("close");
+			} else {
+				$.messager.alert('提示', req.msg, "warning");
+			}
 		}
 	});
 }
 
-function closeWinPGMember(){
+function closeWinPGMember() {
 	$('#winPGMember').window("close");
 }
 
@@ -464,30 +514,30 @@ function selectMember() {
 	var node = $('#treeOrgWithVehicle').tree('getSelected');
 	selectMemberModel(node);
 }
-function selectMemberModel(node){
-	 
-	if(node !=null && node.dataType==2){
-		
-		var datas=$('#dtSelGroupMember').datagrid('getData');
-		
-		var count=datas.rows.length;
-		
-		var exists=false;
-		
-		for(var i=0;i<count;i++){
-			var row=datas.rows[i];
-			if(row.id==node.rid){
-				exists=true;
+function selectMemberModel(node) {
+
+	if (node != null && node.dataType == 2) {
+
+		var datas = $('#dtSelGroupMember').datagrid('getData');
+
+		var count = datas.rows.length;
+
+		var exists = false;
+
+		for ( var i = 0; i < count; i++) {
+			var row = datas.rows[i];
+			if (row.id == node.rid) {
+				exists = true;
 				break;
 			}
 		}
-		
-		if(!exists){
-			$('#dtSelGroupMember').datagrid('appendRow',{
-				id:node.rid,
-				name: node.name,
-				code: node.code
-			}); 
+
+		if (!exists) {
+			$('#dtSelGroupMember').datagrid('appendRow', {
+				id : node.rid,
+				name : node.name,
+				code : node.code
+			});
 		}
 		var targets = node.target;
 		$('#treeOrgWithVehicle').tree('remove', targets);
@@ -513,24 +563,24 @@ function ondbClickRow(index, rowData) {
 		$('#dtSelGroupMember').datagrid('deleteRow', index);
 	}
 }
-function unselectMember(){
-	var row=$('#dtSelGroupMember').datagrid('getSelected');
-	
-	if(row !=null){
-		var index=$('#dtSelGroupMember').datagrid('getRowIndex',row);
-		$('#dtSelGroupMember').datagrid('deleteRow',index);
+function unselectMember() {
+	var row = $('#dtSelGroupMember').datagrid('getSelected');
+
+	if (row != null) {
+		var index = $('#dtSelGroupMember').datagrid('getRowIndex', row);
+		$('#dtSelGroupMember').datagrid('deleteRow', index);
 	}
 }
 
-function showGroupMemberDlg(){
-	
-	$('#winPGMember').window('open'); 
+function showGroupMemberDlg() {
+
+	$('#winPGMember').window('open');
 }
 
-function displayGroupMember(member){
-	
+function displayGroupMember(member) {
+
 }
-function isExistGroup(name,orgId){
+function isExistGroup(name, orgId) {
 	isExist = false;
 	$.ajax({
 		url : "vehicleGroup/isExistGroup.do",

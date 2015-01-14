@@ -53,7 +53,7 @@ $(document)
 					// 加载警员资源列表
 					$('#source_police').treegrid({
 						dnd : true,
-						fitColumns : true,
+						//fitColumns : true,
 						resizable : true,
 						idField : 'id',
 						treeField : 'name',
@@ -65,12 +65,6 @@ $(document)
 						frozenColumns : [ [ {
 							field : 'ck',
 							checkbox : true
-						}, {
-							title : '姓名',
-							field : 'name',
-							align : 'left',
-							width : 90,
-							sortable : true
 						} ] ],
 						columns : [ [ {
 							title : 'id',
@@ -78,6 +72,12 @@ $(document)
 							align : 'left',
 							width : 0,
 							hidden : true
+						}, {
+							title : '姓名',
+							field : 'name',
+							align : 'left',
+							width : 100,
+							sortable : true
 						}, {
 							title : '单位',
 							field : 'orgName',
@@ -112,7 +112,7 @@ $(document)
 						// +
 						// m_dutyprepare_Org.id+"&orgCode="+m_dutyprepare_Org.code+"&orgPath="+m_dutyprepare_Org.path
 						// + "&number=",
-						fitColumns : true,
+						//fitColumns : true,
 						dnd : true,
 						resizable : true,
 						idField : 'id',
@@ -125,12 +125,6 @@ $(document)
 						frozenColumns : [ [ {
 							field : 'ck',
 							checkbox : true
-						}, {
-							title : '车牌号码',
-							field : 'number',
-							align : 'left',
-							width : 110,
-							sortable : true
 						} ] ],
 						columns : [ [ {
 							title : 'id',
@@ -139,6 +133,12 @@ $(document)
 							width : 0,
 							hidden : true
 						}, {
+							title : '车牌号码',
+							field : 'number',
+							align : 'left',
+							width : 110,
+							sortable : true
+						},{
 							title : '车辆类型',
 							field : 'typeName',
 							align : 'left',
@@ -178,7 +178,7 @@ $(document)
 						// +
 						// m_dutyprepare_Org.id+"&orgCode="+m_dutyprepare_Org.code+"&orgPath="+m_dutyprepare_Org.path
 						// + "&gpsname=",
-						fitColumns : true,
+						//fitColumns : true,
 						dnd : true,
 						resizable : true,
 						idField : 'id',
@@ -191,12 +191,7 @@ $(document)
 						frozenColumns : [ [ {
 							field : 'ck',
 							checkbox : true
-						}, {
-							title : 'GPS类型',
-							field : 'typeName',
-							align : 'left',
-							width : 100
-						} ] ],
+						}] ],
 						columns : [ [ {
 							title : 'id',
 							field : 'id',
@@ -204,6 +199,11 @@ $(document)
 							width : 0,
 							hidden : true
 						}, {
+							title : 'GPS类型',
+							field : 'typeName',
+							align : 'left',
+							width : 100
+						} , {
 							title : 'GPS显示名称',
 							field : 'gpsName',
 							align : 'left',
@@ -235,7 +235,7 @@ $(document)
 						// url : "weapon/getweaponSource.do?orgId=" +
 						// m_dutyprepare_Org.id+"&orgCode="+m_dutyprepare_Org.code+"&orgPath="+m_dutyprepare_Org.path
 						// + "&number=",
-						fitColumns : true,
+						//fitColumns : true,
 						dnd : true,
 						resizable : true,
 						idField : 'id',
@@ -248,11 +248,6 @@ $(document)
 						frozenColumns : [ [ {
 							field : 'ck',
 							checkbox : true
-						}, {
-							title : '武器类型',
-							field : 'typeName',
-							align : 'left',
-							width : 120
 						} ] ],
 						columns : [ [ {
 							title : 'id',
@@ -260,6 +255,11 @@ $(document)
 							align : 'left',
 							width : 0,
 							hidden : true
+						}, {
+							title : '武器类型',
+							field : 'typeName',
+							align : 'left',
+							width : 120
 						}, {
 							title : '武器编号',
 							field : 'number',
@@ -603,7 +603,7 @@ $(document)
 					var title = m_dutyprepare_Org.name + '  ' + m_ymd.format();
 
 					$('#divMember').panel({
-						'title' : title
+						'title' : title 
 					});
 
 				});

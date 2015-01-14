@@ -126,7 +126,7 @@
 		</div>
 	</div>
 	<!-- 报备区域导航 -->
-	<div id="divMember" data-options="region:'center'" title="备勤">
+	<div id="divMember" data-options="region:'center',headerCls:'aaaa'" title="备勤">
 		<div class="easyui-layout" style="height:100%;width :100%">
 			<div data-options="region:'north'" class="dtypredutytoolbar">
 				<div class="btn-toolbar">
