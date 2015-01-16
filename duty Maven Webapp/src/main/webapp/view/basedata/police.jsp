@@ -137,7 +137,7 @@
 								class="easyui-validatebox"  data-options="validType:['length[1,20]']"></td>
 						</tr>
 						<tr>
-							<td style="text-align: right;"><label>GPS设备:　</label></td>
+							<td style="text-align: right;"><label>GPS显示名称:　</label></td>
 							<td><input id="txtgpsid" class="easyui-combobox" data-options="editable:false"/></td>
 						</tr>
 						<!-- <tr>

@@ -85,7 +85,7 @@ $(function() {
 									width : 80
 								},
 								{
-									title : 'GPS设备',
+									title : 'GPS显示名称',
 									field : 'gps_name',
 									align : 'left',
 									width : 200,
@@ -347,7 +347,7 @@ function deletePolice(id) {
 		}
 	});
 }
-function btnCellClick(index) { 
+function btnCellClick(index) {
 	operationType = "edit";
 	var row = $("#dtPolice").datagrid('getData').rows[index];
 	editPoliceModel(row);
@@ -450,10 +450,10 @@ function savePoliceModel() {
 			$.messager.alert("错误提示", "警员身份证号码长度出错，限制长度为15位或者18位！", "error");
 			isComplete = false;
 			return;
-		}	
+		}
 
-		var Regx =  /^[A-Za-z0-9]+$/;
-		if(!Regx.test(idcardno)){
+		var Regx = /^[A-Za-z0-9]+$/;
+		if (!Regx.test(idcardno)) {
 			$.messager.alert("错误提示", "警员身份证号码格式出错，只能是全部数字或者最后一位是字母！", "error");
 			isComplete = false;
 			return;
@@ -530,11 +530,11 @@ function savePoliceModel() {
 			&& $("#txtgroupno").combobox("getValue") != "") {
 		police.intercomGroup = $("#txtgroupno").combobox("getValue");
 	}
-//	else {
-//		police.intercomGroup = 0;
-//		// $.messager.alert("错误提示", "请选择GPS_ID", "error");
-//		// return;
-//	}
+	// else {
+	// police.intercomGroup = 0;
+	// // $.messager.alert("错误提示", "请选择GPS_ID", "error");
+	// // return;
+	// }
 	var intercomPerson = $.trim($("#txtpersonalno").val());
 	if (intercomPerson != "" && intercomPerson != undefined) {
 		if (operationType == "add") {
@@ -611,28 +611,32 @@ function isExistPolice(param, pType) {
 // 导出事件
 function btnExportAction() {
 	pack_police_Query();
-	$.ajax({
-		url : "police/exportDataToExcle.do",
-		type : "POST",
-		dataType : "json",
-		async : false,
-		timeout : 60000,
-		data : {
-			'police_Query' : JSON.stringify(m_police_Query)
-		},
-		success : function(req) {
-			if (req.isSuccess) {
-				var urlStr = req.Data.substring(1, req.Data.length);
-				window.location.href = urlStr;
-			}
-		},
-		failer : function(a, b) {
-			$.messager.alert("消息提示", a, "info");
-		},
-		error : function(XMLHttpRequest, textStatus, errorThrown) {
-			$.messager.alert("消息提示", errorThrown, "error");
-		}
-	});
+	$
+			.ajax({
+				url : "police/exportDataToExcle.do",
+				type : "POST",
+				dataType : "json",
+				async : false,
+				timeout : 60000,
+				data : {
+					'police_Query' : JSON.stringify(m_police_Query)
+				},
+				success : function(req) {
+					if (req.isSuccess) {
+						var urlStr = req.Data.substring(1, req.Data.length);
+						if (/msie/.test(navigator.userAgent.toLowerCase())) {
+							urlStr = "../../" + urlStr;
+						}
+						window.location.href = urlStr;
+					}
+				},
+				failer : function(a, b) {
+					$.messager.alert("消息提示", a, "info");
+				},
+				error : function(XMLHttpRequest, textStatus, errorThrown) {
+					$.messager.alert("消息提示", errorThrown, "error");
+				}
+			});
 }
 // 导入事件
 function btnInportAction() {

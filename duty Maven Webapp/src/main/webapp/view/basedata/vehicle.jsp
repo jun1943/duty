@@ -108,7 +108,7 @@
 							<td><input type="text" class="easyui-validatebox" id="txtpersonalno" data-options="validType:['length[0,20]']" ></td>
 						</tr>
 						<tr>
-							<td style="text-align: right;"><label>GPS设备:　</label></td>
+							<td style="text-align: right;"><label>GPS显示名称:　</label></td>
 							<td><input id="txtgpsid" class="easyui-combobox" ></td>
 						</tr>
 						<!-- <tr>

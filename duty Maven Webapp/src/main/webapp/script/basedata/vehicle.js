@@ -98,13 +98,14 @@ $(function() {
 									title : 'GPS设备ID',
 									field : 'gpsId',
 									align : 'center',
-									width : 80
+									width : 80,
+									hidden: true
 								},
 								{
-									title : 'GPS名称',
+									title : 'GPS显示名称',
 									field : 'gps_name',
 									align : 'center',
-									width : 80,
+									width : 150,
 									formatter : function(value, row, index) {
 										return row.gpsName;
 									},
@@ -114,13 +115,13 @@ $(function() {
 									title : '组呼号',
 									field : 'intercomGroup',
 									align : 'center',
-									width : 200
+									width : 80
 								},
 								{
 									title : '个呼号',
 									field : 'intercomPerson',
 									align : 'center',
-									width : 200
+									width : 100
 								},
 								{
 									title : '操作项',
@@ -446,6 +447,9 @@ function btnExportAction() {
 		success : function(req) {
 			if (req.isSuccess) {
 				var urlStr = req.Data.substring(1, req.Data.length);
+				if (/msie/.test(navigator.userAgent.toLowerCase())) {
+					urlStr = "../../" + urlStr;
+				}
 				window.location.href = urlStr;
 			}
 		},

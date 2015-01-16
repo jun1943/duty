@@ -84,7 +84,7 @@ $(function() {
 									width : 100
 								},
 								{
-									title : 'GPS设备编号',
+									title : 'GPS编号',
 									field : 'number',
 									align : 'center',
 									width : 100
@@ -451,6 +451,9 @@ function btnExportAction(){
 		success : function(req) {
 			if (req.isSuccess) {
 				var urlStr = req.Data.substring(1, req.Data.length);
+				if (/msie/.test(navigator.userAgent.toLowerCase())) {
+					urlStr = "../../" + urlStr;
+				}
 				window.location.href = urlStr;
 			}
 		},

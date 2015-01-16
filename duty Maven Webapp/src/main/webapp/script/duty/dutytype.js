@@ -72,7 +72,7 @@ function getDutyTypeDisplayType(value, rowData, index){
 		if(rowData.isShowname)
 			return "名称";
 		else
-			return "数量";
+			return "人数";
 	}
 }
 

@@ -82,7 +82,7 @@
 							<td rowspan="4"><img id="sltImage" class="gpswindowimage" src=""></td>
 						</tr>
 						<tr>
-							<td style="text-align: right;"><label>GPS名称:　</label></td>
+							<td style="text-align: right;"><label>GPS显示名称:　</label></td>
 							<td><input type="text" class="easyui-validatebox gpswindowinput" id="txtgpsname" data-options="required:true,validType:['length[1,20]']"><span style="color:red">*</span></td>
 							<td></td>
 						</tr>

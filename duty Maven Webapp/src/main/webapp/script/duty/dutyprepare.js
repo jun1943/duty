@@ -53,7 +53,7 @@ $(document)
 					// 加载警员资源列表
 					$('#source_police').treegrid({
 						dnd : true,
-						//fitColumns : true,
+						// fitColumns : true,
 						resizable : true,
 						idField : 'id',
 						treeField : 'name',
@@ -112,7 +112,7 @@ $(document)
 						// +
 						// m_dutyprepare_Org.id+"&orgCode="+m_dutyprepare_Org.code+"&orgPath="+m_dutyprepare_Org.path
 						// + "&number=",
-						//fitColumns : true,
+						// fitColumns : true,
 						dnd : true,
 						resizable : true,
 						idField : 'id',
@@ -138,7 +138,7 @@ $(document)
 							align : 'left',
 							width : 110,
 							sortable : true
-						},{
+						}, {
 							title : '车辆类型',
 							field : 'typeName',
 							align : 'left',
@@ -178,7 +178,7 @@ $(document)
 						// +
 						// m_dutyprepare_Org.id+"&orgCode="+m_dutyprepare_Org.code+"&orgPath="+m_dutyprepare_Org.path
 						// + "&gpsname=",
-						//fitColumns : true,
+						// fitColumns : true,
 						dnd : true,
 						resizable : true,
 						idField : 'id',
@@ -191,7 +191,7 @@ $(document)
 						frozenColumns : [ [ {
 							field : 'ck',
 							checkbox : true
-						}] ],
+						} ] ],
 						columns : [ [ {
 							title : 'id',
 							field : 'id',
@@ -203,7 +203,7 @@ $(document)
 							field : 'typeName',
 							align : 'left',
 							width : 100
-						} , {
+						}, {
 							title : 'GPS显示名称',
 							field : 'gpsName',
 							align : 'left',
@@ -235,7 +235,7 @@ $(document)
 						// url : "weapon/getweaponSource.do?orgId=" +
 						// m_dutyprepare_Org.id+"&orgCode="+m_dutyprepare_Org.code+"&orgPath="+m_dutyprepare_Org.path
 						// + "&number=",
-						//fitColumns : true,
+						// fitColumns : true,
 						dnd : true,
 						resizable : true,
 						idField : 'id',
@@ -603,7 +603,7 @@ $(document)
 					var title = m_dutyprepare_Org.name + '  ' + m_ymd.format();
 
 					$('#divMember').panel({
-						'title' : title 
+						'title' : title
 					});
 
 				});
@@ -854,8 +854,7 @@ function fmtShiftPeriod(value, row, index) {
 		var bstr = row.beginTime2.getMinutes();
 		var bs = parseInt(row.beginTime2.getMinutes());
 		if (bs < 10) {
-			result = row.beginTime2.getHours() + ":0"
-			+ bstr + "至";
+			result = row.beginTime2.getHours() + ":0" + bstr + "至";
 		} else {
 			result = row.beginTime2.getHours() + ":"
 					+ row.beginTime2.getMinutes() + "至";
@@ -2457,6 +2456,10 @@ function btnExportToExcelAction() {
 		},
 		success : function(req) {
 			var urlStr = req.Data.substring(1, req.Data.length);
+			if (/msie/.test(navigator.userAgent.toLowerCase())) {
+				urlStr = "../../" + urlStr;
+			}
+			// var urlStr = req.Data.substring(1, req.Data.length);
 			window.open(urlStr);
 		},
 		failer : function(a, b) {

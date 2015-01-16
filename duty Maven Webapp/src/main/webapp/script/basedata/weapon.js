@@ -356,6 +356,9 @@ function btnExportAction() {
 		success : function(req) {
 			if (req.isSuccess) {
 				var urlStr = req.Data.substring(1, req.Data.length);
+				if (/msie/.test(navigator.userAgent.toLowerCase())) {
+					urlStr = "../../" + urlStr;
+				}
 				window.location.href = urlStr;
 			}
 		},
