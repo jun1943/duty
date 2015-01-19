@@ -537,7 +537,7 @@ function selectMemberModel(node) {
 		if (!exists) {
 			$('#dtSelGroupMember').datagrid('appendRow', {
 				id : node.rid,
-				name : node.name,
+				name : node.typename,
 				code : node.code
 			});
 		}
@@ -556,9 +556,10 @@ function ondbClickRow(index, rowData) {
 			before : selected.target,
 			data : [ {
 				"rid" : row.id,
-				"name" : row.name,
+				"name" : row.code,
 				"code" : row.code,
-				"text" : row.name,
+				"text" : row.code,
+				"typename" : row.name,
 				"dataType" : 2
 			} ]
 		});

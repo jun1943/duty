@@ -462,7 +462,7 @@ function savePoliceModel() {
 		}
 		var subIdCard = idcardno.substring(0, idcardno.length - 1);
 		if (pattern.test(subIdCard)) {
-			$.messager.alert("错误提示", "警员身份证号码格式出错，请检查前面14位或者17位！", "error");
+			$.messager.alert("错误提示", "警员身份证号码格式出错  ！", "error");
 			isComplete = false;
 			return;
 		}

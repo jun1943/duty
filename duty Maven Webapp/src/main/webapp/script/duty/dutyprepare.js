@@ -1425,6 +1425,7 @@ function selectDutyTypeAction() {
 function addDutyTypeRow(value) {
 	var duty = {};
 	duty.maxPolice = value.maxPolice;
+	duty.taskType = value.assoTaskType;
 	var shift = {};
 	genDutyRow(value.id, value.name, 100, value.typeId, value.name, duty);
 	shift.getParent = function() {
@@ -2353,7 +2354,7 @@ function loadTaskTarget(taskType) {
 		async : false,
 		success : function(req) {
 			if (req.isSuccess) {// 成功填充数据
-				$('#dgtaskTarget').datagrid('loadData', req.rows);
+				$('#dgtaskTarget').datagrid('loadData', req);
 			} else {
 				alert("获取关联任务数据信息失败");
 			}
