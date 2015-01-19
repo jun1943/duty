@@ -33,6 +33,7 @@ $(function () {
         rownumbers: true,
         resizable: true,
         idField: 'id',
+        width:'100%',
         treeField: 'name',
         toolbar: '#tbDutyType',
         singleSelect: true,

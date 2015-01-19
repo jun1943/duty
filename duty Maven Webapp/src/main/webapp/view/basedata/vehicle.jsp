@@ -62,7 +62,7 @@
   			</div>  
   			<!-- 编辑窗体内容 -->
   <div id="vehicleinfowindow" class="easyui-window" title="新增/编辑车辆信息"
-			data-options="iconCls:'icon-tianyi-edit',modal:true" closed="true" 
+			data-options="iconCls:'icon-tianyi-edit',modal:true,headerCls:'bbbb'" closed="true" 
 			style="width: 400px; height: 500px; padding: 10px;color:white;"
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
 			 >

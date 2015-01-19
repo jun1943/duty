@@ -62,7 +62,7 @@
 	
 	<!-- 编辑窗体内容 -->
 	 <div id="weaponinfowindow" class="easyui-window" title="新增/编辑武器信息"
-			data-options="iconCls:'icon-tianyi-edit',modal:true" closed="true"
+			data-options="iconCls:'icon-tianyi-edit',modal:true,headerCls:'bbbb'" closed="true"
 			style="width: 400px; height: 240px; padding: 10px;" 
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
 			 >

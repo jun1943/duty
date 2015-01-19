@@ -48,6 +48,7 @@ $(function() {
 						fitColumns : true,
 						pageNumber : 1,
 						pageSize : 10,
+						width:'100%',
 						title : '定位设备列表',
 						onDblClickRow : dblClickRow,
 					    onClickRow: clickRow,

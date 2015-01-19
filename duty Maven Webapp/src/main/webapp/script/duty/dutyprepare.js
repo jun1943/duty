@@ -49,7 +49,7 @@ $(document)
 						$('#my-search-box').toggle();
 					});
 
-					// window.onbeforeunload = isChangeStates;
+					window.onbeforeunload = isChangeStates;
 					// 加载警员资源列表
 					$('#source_police').treegrid({
 						dnd : true,
@@ -1463,7 +1463,7 @@ function openSaveDutyTemplateWindow() {
 }
 
 /* 保存到后台 */
-function save(isTemplate, name) {
+function save(isTemplate, name) { 
 	var duty = {};
 	duty.id = m_duty.id;
 	duty.orgId = m_dutyprepare_Org.id;
@@ -1490,7 +1490,6 @@ function save(isTemplate, name) {
 			if (req.isSuccess) {// 成功填充数据
 				m_duty.id = req.id;
 
-				m_changestates = undefined;
 				$.messager.alert('提示', "保存成功!", "info");
 			} else {
 				$.messager.alert('提示', "保存失败!", "info");
@@ -1499,6 +1498,7 @@ function save(isTemplate, name) {
 	});
 
 	reCalcDuty();
+	m_changestates = "2";
 }
 
 function clearDuty() {
@@ -2537,8 +2537,8 @@ function btnBackToCalendarAction() {
 	}
 	parent.onDutycalendar(dateY, dateM);
 };
-// function isChangeStates (){
-// if(m_changestates=="0"&&m_changestates!=undefined){
-// return ("您的报备数据信息还没有保存，是否跳转到其他模块?");
-// }
-// };
+ function isChangeStates (){
+	 if(m_changestates=="0"){
+	 	return ("您的报备数据信息还没有保存，是否跳转到其他模块?");
+	 }
+ };

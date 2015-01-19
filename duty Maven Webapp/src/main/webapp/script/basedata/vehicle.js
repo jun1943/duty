@@ -40,6 +40,7 @@ $(function() {
 						fitColumns : true,
 						pageNumber : 1,
 						pageSize : 10,
+						width:'100%',
 						title : '车辆列表',
 						onDblClickRow : dblClickRow,
 						onClickRow : clickRow,

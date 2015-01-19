@@ -63,7 +63,7 @@
 	 
 	<!-- 编辑窗体内容 -->
 	 <div id="iconsinfowindow" class="easyui-window" title="新增/编辑图标信息"
-			data-options="iconCls:'icon-tianyi-edit',modal:true" closed="true" 
+			data-options="iconCls:'icon-tianyi-edit',modal:true,headerCls:'bbbb'" closed="true" 
 			style="width: 500px; height: 240px; padding: 10px;"
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" >
 			<div class="easyui-layout" data-options="fit:true">
@@ -88,7 +88,7 @@
 							</tr>
 							<tr>
 								<td class="iconswindowtabletd"><label class="iconswindowlabel">图标标题:　</label></td>
-								<td><input type="text" class="easyui-validatebox" id="txtname" data-options="required:true,validType:['length[0,50]']"></td>
+								<td><input type="text" class="easyui-validatebox" id="txtname" data-options="required:true,validType:['length[1,50]']"><span style="color:red">*</span></td>
 							</tr> 
 							<tr>
 								<td class="iconswindowtabletd"><label class="iconswindowlabel">图标选择:　</label>

@@ -41,6 +41,7 @@ $(function() {
 						fitColumns : true,
 						pageNumber : 1,
 						pageSize : 10,
+						width:'100%',
 						title : '武器列表',
 						onDblClickRow : dblClickRow,
 						onClickRow : clickRow,
