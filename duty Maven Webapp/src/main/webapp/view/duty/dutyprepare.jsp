@@ -56,8 +56,8 @@
 				</div>
 				<div id="tb_source_police">
 					<a id="showpoliceCondition" name="showpoliceCondition"
-						onclick="$('#policeConditionwindow').window('open');"
-						href="javascript:void(0);" class="easyui-linkbutton" plain="true">过滤条件</a>
+						onclick="$('#policeConditionwindow').window('open');" iconcls="icon-tianyi-sum"
+						href="javascript:void(0);" class="easyui-linkbutton" >过滤条件</a>
 
 					<input id="txtpname" class="dtypreresourceinput" type="text" /> <a
 						id="searchpoliceAction" name="searchpoliceAction"
@@ -77,8 +77,8 @@
 				</div>
 				<div id="tb_source_vehicle">
 					<a id="showvehicleCondition" name="showvehicleCondition"
-						onclick="$('#vehicleConditionwindow').window('open');"
-						href="javascript:void(0);" class="easyui-linkbutton" plain="true">过滤条件</a>
+						onclick="$('#vehicleConditionwindow').window('open');" iconcls="icon-tianyi-sum"
+						href="javascript:void(0);" class="easyui-linkbutton" >过滤条件</a>
 					<input id="txtvnumber" class="dtypreresourceinput" type="text" /> <a
 						id="searchvehicleAction" name="searchvehicleAction"
 						href="javascript:void(0);" class="easyui-linkbutton"
@@ -96,8 +96,8 @@
 				</div>
 				<div id="tb_source_gpsdevice">
 					<a id="showgpsCondition" name="showgpsCondition"
-						onclick="$('#gpsConditionwindow').window('open');"
-						href="javascript:void(0);" class="easyui-linkbutton" plain="true">过滤条件</a>
+						onclick="$('#gpsConditionwindow').window('open');" iconcls="icon-tianyi-sum"
+						href="javascript:void(0);" class="easyui-linkbutton" >过滤条件</a>
 					<input id="txtgname" class="dtypreresourceinput" type="text" /> <a
 						id="searchgpsdeviceAction" name="searchgpsdeviceAction"
 						href="javascript:void(0);" class="easyui-linkbutton"
@@ -115,8 +115,8 @@
 				</div>
 				<div id="tb_source_weapon">
 					<a id="showweaponCondition" name="showweaponCondition"
-						onclick="$('#weaponConditionwindow').window('open');"
-						href="javascript:void(0);" class="easyui-linkbutton" plain="true">过滤条件</a>
+						onclick="$('#weaponConditionwindow').window('open');" iconcls="icon-tianyi-sum"
+						href="javascript:void(0);" class="easyui-linkbutton"  >过滤条件</a>
 					<input id="txtwnumber" class="dtypreresourceinput" type="text" /> <a
 						id="searchweaponAction" name="searchweaponAction"
 						href="javascript:void(0);" class="easyui-linkbutton"

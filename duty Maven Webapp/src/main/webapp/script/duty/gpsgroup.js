@@ -529,7 +529,7 @@ function selectMemberModel(node) {
 		if (!exists) {
 			$('#dtSelGroupMember').datagrid('appendRow', {
 				id : node.rid,
-				name : node.name,
+				name : node.typename,
 				code : node.code
 			});
 		}

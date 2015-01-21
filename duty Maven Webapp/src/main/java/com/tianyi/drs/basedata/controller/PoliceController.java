@@ -253,7 +253,12 @@ public class PoliceController {
 					}
 				}
 				if (s.length > m) {
+					if(m==0){
+						Message = "删除成功！";
+					}
+					else{
 					Message = "部分数据删除成功！部分警员数据已关联报备数据，不能删除！";
+					}
 				}else if(s.length==m){
 					Message = "删除失败！选择资源数据已关联报备数据，不能删除";
 				}
