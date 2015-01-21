@@ -448,7 +448,15 @@
  				
   		</if> 
   		 union  
-  		 select distinct <include refid ="Base_Model_Column_List" />
+  		 select distinct p.id,p.isUsed as isused, p.type_id as typeId,pt.name as typeName, 
+
+p.name, p.org_id as orgId,(select orn.short_name from organ as orn where orn.id = ( select org_id from t_police as tp where tp.id = p.id)) as orgName,p.idcardno, p.number, p.title, 
+
+p.mobile, p.mobile_short as mobileShort, p.intercom_group as intercomGroup, 
+
+p.intercom_person, p.gps_id as gpsId, p.gps_name as gpsName,o.code as orgCode,
+
+o.path as orgPath,tg.icon_url as iconUrl,CONCAT(pt.name,":",p.name) as display_name 
  			from t_duty_police_group_member as m 
 
 			left join t_police p on m.police_id = p.id
@@ -478,7 +486,12 @@
    
   <select id="loadVMListWithGroupList" parameterType="java.util.Map" resultMap="BaseModelMap">
   		  
-  		 select distinct <include refid ="Base_Model_Column_List" />
+  		 select distinct p.id,p.isUsed as isused, p.type_id as typeId,pt.name as typeName, 
+p.name, p.org_id as orgId,(select orn.short_name from organ as orn where orn.id = ( select org_id from t_police as tp where tp.id = p.id)) as orgName,p.idcardno, p.number, 
+p.title, p.mobile, p.mobile_short as mobileShort, p.intercom_group as intercomGroup,
+ p.intercom_person, p.gps_id as gpsId, p.gps_name as gpsName,o.code as orgCode,
+o.path as orgPath,tg.icon_url as iconUrl,CONCAT(pt.name,":",p.name) as display_name 
+
  		   from t_duty_police_group_member as m 
 
 			left join t_police p on m.police_id = p.id

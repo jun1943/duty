@@ -288,7 +288,7 @@ public class GpsController {
 			List<GpsVM> list = new ArrayList<GpsVM>();
 			Map<String, Object> map = new HashMap<String, Object>();
 
-			map.put("pageStart", 1);
+			map.put("pageStart", 0);
 			map.put("pageSize", 65530);
 			map.put("orgId", orgId);
 			map.put("isSubOrg", isSubOrg);
@@ -380,7 +380,7 @@ public class GpsController {
 				cell_4.setCellValue("图片链接地址");
 				sheet.autoSizeColumn(3);
 
-				for (int rowNum = 2; rowNum <= list.size(); rowNum++) {
+				for (int rowNum = 2; rowNum <= list.size()+1; rowNum++) {
 					Row row = sheet.createRow(rowNum);
 					GpsVM gps = new GpsVM();
 					gps = list.get(rowNum - 2);

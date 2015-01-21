@@ -539,9 +539,12 @@ public class PoliceController {
 			int isSubOrg = Integer.parseInt(joQuery.getString("isSubOrg"));
 			String orgCode = joQuery.getString("orgCode");
 			String orgPath = joQuery.getString("orgPath");
+			String name = joQuery.getString("name");
+			int typeid = Integer.parseInt(joQuery.getString("typeid"));
+			int[] ids = new int[1];
 			Map<String, Object> map = new HashMap<String, Object>();
 
-			map.put("pageStart", 1);
+			map.put("pageStart", 0);
 			map.put("pageSize", 65530);
 			map.put("orgId", orgId);
 			map.put("isSubOrg", isSubOrg);
@@ -549,6 +552,11 @@ public class PoliceController {
 			map.put("orgPath", orgPath);
 			map.put("sort", "p.id");
 			map.put("order", "asc");
+			map.put("name", name);
+			if (typeid > 0) {
+				ids[0] = typeid;
+				map.put("ids", ids);
+			}
 			boolean isSuccess = false;
 			// 取服务器地址，默认指向bin目录
 			String realPath = getClass().getResource("/").getFile().toString();
@@ -664,7 +672,7 @@ public class PoliceController {
 				cell_t.setCellValue("个呼号");
 				sheet.autoSizeColumn(9);
 
-				for (int rowNum = 2; rowNum <= list.size(); rowNum++) {
+				for (int rowNum = 2; rowNum <= list.size()+1; rowNum++) {
 					Row row = sheet.createRow(rowNum);
 					PoliceVM police = new PoliceVM();
 					police = list.get(rowNum - 2);

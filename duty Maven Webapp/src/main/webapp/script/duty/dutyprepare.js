@@ -1417,6 +1417,7 @@ function addDutyTypeRow(value) {
 	var duty = {};
 	duty.maxPolice = value.maxPolice;
 	duty.taskType = value.assoTaskType;
+	duty.targets = [];
 	var shift = {};
 	genDutyRow(value.id, value.name, 100, value.typeId, value.name, duty);
 	shift.getParent = function() {
@@ -2288,23 +2289,25 @@ function taskConfirm() {
 
 function setCheckBoxOfTarget(item) {
 	var data = $('#dgtaskTarget').datagrid('getData');
-	$.each(item.targets, function(index, val) {
-		$.each(data.rows, function(index2, val2) {
-			if (val.targetId == val2.targetId) {
-				$('#dgtaskTarget').datagrid('checkRow', index2);
-				// val2.count = val.count;
-				// val2.stayTime = val.stayTime;
-				$('#dgtaskTarget').datagrid('updateRow', {
-					index : index2,
-					row : {
-						count : val.count,
-						stayTime : val.stayTime
-					}
-				});
-				return false;
-			}
+	if(item.targets!=undefined){
+		$.each(item.targets, function(index, val) {
+			$.each(data.rows, function(index2, val2) {
+				if (val.targetId == val2.targetId) {
+					$('#dgtaskTarget').datagrid('checkRow', index2);
+					// val2.count = val.count;
+					// val2.stayTime = val.stayTime;
+					$('#dgtaskTarget').datagrid('updateRow', {
+						index : index2,
+						row : {
+							count : val.count,
+							stayTime : val.stayTime
+						}
+					});
+					return false;
+				}
+			});
 		});
-	});
+	}
 }
 
 function getCheckBoxOfTarget(item) {

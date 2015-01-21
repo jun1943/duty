@@ -391,7 +391,10 @@ function deleteDutyConfirm(date, i, j) {
 	$.messager.confirm("系统提示", "确认删除    " + date + " 的报备数据吗？", function(r) {
 		if (r) {
 			dtime = null;
-			var dt = date.replace(/-/gm, '');
+			var dt = date.replace(/-/gm, ''); 
+			if (dt.length == 7) {
+				dt = dt.substr(0, 4) + "0" + dt.substr(4, 7);
+			}
 			dtime = dt;
 			deleteDutyAction(dtime, i, j);
 		}
