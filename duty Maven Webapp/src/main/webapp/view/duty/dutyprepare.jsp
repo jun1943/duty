@@ -360,13 +360,13 @@
 					<tr>
 						<td style="text-align:right"><label>开始时间:</label></td>
 						<td><input id="txtBeginTime" type="text"
-							class="easyui-timespinner"></input></td>
+							class="easyui-timespinner" required="required"  data-options="min:'00:00',showSeconds:false"></input></td>
 						<td></td>
 					</tr>
 					<tr>
 						<td style="text-align:right"><label>结束时间:</label></td>
 						<td><input id="txtEndTime" type="text"
-							class="easyui-timespinner"></input></td>
+							class="easyui-timespinner" required="required"  data-options="min:'00:00',showSeconds:false"></input></td>
 						<td><label>
 							<input type="checkbox" id="chkDayType"></input>第二天</label></td>
 					</tr>

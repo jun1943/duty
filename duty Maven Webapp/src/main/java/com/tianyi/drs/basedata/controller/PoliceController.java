@@ -202,14 +202,21 @@ public class PoliceController {
 	String savePolice(Police police) throws Exception {
 		try {
 			police.setPlatformId(1);
-			police.setIsused(true);
 			police.setSyncState(true);
 			int result = 0;
 			if (police.getId() > 0) {
 				int pid = police.getId();
+				Police pol = new Police();
+				pol= policeService.selectByPrimaryKey(pid);
+				if(pol!=null){
+					police.setIsused(pol.getIsused());
+				}else{
+					police.setIsused(true);
+				}
 				police.setId(pid);
 				result = policeService.updateByPrimaryKey(police);
 			} else {
+				police.setIsused(true);
 				result = policeService.insert(police);
 			}
 			return "{\"success\":true,\"Message\":\"保存成功,result is " + result

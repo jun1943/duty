@@ -39,8 +39,8 @@ $(function() {
 						fitColumns : true,
 						pageNumber : 1,
 						pageSize : 10,
-						width:'100%',
-						
+						width : '100%',
+
 						title : "人员列表",
 						onDblClickRow : dblClickRow,
 						// checkOnSelect: false,
@@ -135,7 +135,14 @@ $(function() {
 									title : '组呼号',
 									field : 'intercomGroup',
 									align : 'left',
-									width : 80
+									width : 80,
+									formatter : function(value, row, index) { 
+										if (value == 4 || value == "4") {
+											return 5;
+										}else{
+											return value;
+										}
+									}
 								},
 								{
 									title : '个呼号',
@@ -613,32 +620,31 @@ function isExistPolice(param, pType) {
 // 导出事件
 function btnExportAction() {
 	pack_police_Query();
-	$
-			.ajax({
-				url : "police/exportDataToExcle.do",
-				type : "POST",
-				dataType : "json",
-				async : false,
-				timeout : 60000,
-				data : {
-					'police_Query' : JSON.stringify(m_police_Query)
-				},
-				success : function(req) {
-					if (req.isSuccess) {
-						var urlStr = req.Data.substring(1, req.Data.length);
-						if (/msie/.test(navigator.userAgent.toLowerCase())) {
-							urlStr = "../../" + urlStr;
-						}
-						window.location.href = urlStr;
-					}
-				},
-				failer : function(a, b) {
-					$.messager.alert("消息提示", a, "info");
-				},
-				error : function(XMLHttpRequest, textStatus, errorThrown) {
-					$.messager.alert("消息提示", errorThrown, "error");
+	$.ajax({
+		url : "police/exportDataToExcle.do",
+		type : "POST",
+		dataType : "json",
+		async : false,
+		timeout : 60000,
+		data : {
+			'police_Query' : JSON.stringify(m_police_Query)
+		},
+		success : function(req) {
+			if (req.isSuccess) {
+				var urlStr = req.Data.substring(1, req.Data.length);
+				if (/msie/.test(navigator.userAgent.toLowerCase())) {
+					urlStr = "../../" + urlStr;
 				}
-			});
+				window.location.href = urlStr;
+			}
+		},
+		failer : function(a, b) {
+			$.messager.alert("消息提示", a, "info");
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			$.messager.alert("消息提示", errorThrown, "error");
+		}
+	});
 }
 // 导入事件
 function btnInportAction() {

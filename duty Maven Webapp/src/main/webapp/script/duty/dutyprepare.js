@@ -552,15 +552,6 @@ $(document)
 										}
 									});
 
-					$('#txtBeginTime').timespinner({
-						min : '00:00',
-						required : true
-					});
-
-					$('#txtEndTime').timespinner({
-						min : '00:00',
-						required : true
-					});
 
 					initResourceQueryTG();
 
@@ -1452,6 +1443,7 @@ function addDutyTypeRow(value) {
 /** *************主菜单功能-----开始***************** */
 
 function saveDuty() {
+	$("#divMember").mask('正在保存数据...');
 	save(false, null);
 }
 
@@ -1491,10 +1483,16 @@ function save(isTemplate, name) {
 			if (req.isSuccess) {// 成功填充数据
 				m_duty.id = req.id;
 
+				$("#divMember").unmask();
 				$.messager.alert('提示', "保存成功!", "info");
 			} else {
+				$("#divMember").unmask();
 				$.messager.alert('提示', "保存失败!", "info");
 			}
+		},
+		error:function(a){ 
+			$.messager.alert('提示', "保存失败!", "info");
+			$("#divMember").unmask();
 		}
 	});
 
@@ -1922,8 +1920,8 @@ function addShift() {
 	} else {
 		if (dutyItemRelate.check(row.itemTypeId, 101)) {
 			$('#txtShiftName').val('');
-			$('#txtBeginTime').timespinner('setValue', '09:00');
-			$('#txtEndTime').timespinner('setValue', '22:00');
+//			$('#txtBeginTime').timespinner('setValue', '09:00');
+//			$('#txtEndTime').timespinner('setValue', '22:00');
 			$('#chkDayType').val(false);
 			$('#shiftWindows').window('open');
 
@@ -2158,6 +2156,7 @@ var YMD = {
 };
 
 function templateNameConfirm() {
+	$("#divMember").mask('正在保存数据...');
 	var name = $('#txtTemplateName').val();
 
 	if (name == null || name.lenght == 0 || name == "" || name == undefined) {

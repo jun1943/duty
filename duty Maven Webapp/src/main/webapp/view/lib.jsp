@@ -19,7 +19,7 @@
   
 <link href='<%=basePath%>asset/css/easyui/icon.css'
 	media='all' rel='stylesheet' type='text/css' />
-<link href='<%=basePath%>asset/css/jquery.loadmask/jquery.loadmask.css'
+<link href='<%=basePath%>asset/css/jquery.loadmask.css'
 	media='all' rel='stylesheet' type='text/css' />
 <link href='<%=basePath%>asset/css/easyui/metro/easyui.css'
 	media='all' rel='stylesheet' type='text/css' />
@@ -42,7 +42,7 @@
  <script src='<%=basePath%>asset/script/easyui/jquery.easyui.1.4.min.js'	type='text/javascript'></script>
 <!--<script src='<%=basePath%>asset/script/easyui/jquery.1.3.2.easyui.min.js'	type='text/javascript'></script> -->
 <script
-	src='<%=basePath%>asset/script/jquery.loadmask/jquery.loadmask.min.js'	type='text/javascript'></script>
+	src='<%=basePath%>asset/script/jquery.loadmask.min.js'	type='text/javascript'></script>
 
 <script src='<%=basePath%>asset/script/json2.js' type='text/javascript'></script>
 <script src='<%=basePath%>asset/script/easyui/easyui-lang-zh_CN.js' type='text/javascript'></script>
