@@ -17,6 +17,8 @@ var m_duty = {};
 $(function() {
 	$("#dutyDetailsForDaywindow").window("close");
 
+	
+	
 	// 获取地址栏参数，获取组织结构信息；
 	var args = getUrlArgs();
 	m_dutyCalendar_Org.id = args["orgId"];
@@ -335,7 +337,7 @@ function mouseOverFunction(date) {
 }
 // 鼠标移开事件，清楚定时器；
 function mouseOutFunction() {
-	$("#dutyDetailsForDaywindow").window("close");
+	//$("#dutyDetailsForDaywindow").window("close");
 	window.clearTimeout(timeouts);
 }
 // 点击具体日期，加载详细信息对话框
@@ -365,7 +367,7 @@ function getDateInfo(date) {
 						} else {
 							$('.datagrid-body').html("");
 						}
-						$("#dutyDetailsForDaywindow").window("open");
+						$("#dutyDetailsForDaywindow").window("open"); 
 					} else {
 						alert("获取报备数据详细信息失败");
 					}
@@ -878,9 +880,11 @@ function findDutyTreeGrid(item, name) {
 	}
 }
 
+
+
 function mouseOut() {
 	$("#dutyDetailsForDaywindow").window("close");
 }
-function mousemove() {
-
+function mouseOver() {
+	$("#dutyDetailsForDaywindow").window("open");
 }

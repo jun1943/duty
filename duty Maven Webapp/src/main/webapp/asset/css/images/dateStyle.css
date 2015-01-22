@@ -207,7 +207,7 @@ img { border:0px;}
 /*******************************勤务报备页面css样式集***********************/
 /*********************************************************************/
 /*****导航条******/
-.dtypretoptoolbar{height:40px;}
+.dtypretoptoolbar{height:40px;overflow: hidden;}
 .dtyprebtngroup{background: url(../images/dateMenuBg.png) repeat-x;width: 100%;line-height: 40px;overflow: hidden;height: 38px;}
 .dtyprebtnback{float:right;margin-right:20px;margin-top:8px;}
 .aaaa div{font-size:14px;color:blue;}

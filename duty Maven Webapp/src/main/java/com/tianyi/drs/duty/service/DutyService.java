@@ -123,4 +123,17 @@ public interface DutyService {
 	 * @param dId
 	 */
 	void deleteByPrimaryKey(int dId);
+
+	/**
+	 * 根据模板id ，获取模板对象
+	 * @param temId
+	 * @return
+	 */
+	Duty loadTempById(Integer param);
+
+	/**
+	 * 根据模板id，删除模板对象
+	 * @param param
+	 */
+	void deleteTempById(Integer param);
 }
