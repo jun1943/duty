@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tianyi.drs.duty.dao.WeaponGroupMapper;
 import com.tianyi.drs.duty.dao.WeaponGroupMemberMapper;
 import com.tianyi.drs.duty.dao.WeaponGroupOrgMapper; 
+import com.tianyi.drs.duty.model.VehicleGroupMember;
 import com.tianyi.drs.duty.model.WeaponGroup;
 import com.tianyi.drs.duty.model.WeaponGroupMember;
 import com.tianyi.drs.duty.model.WeaponGroupOrg;
@@ -128,16 +129,20 @@ public class WeaponGroupServiceImpl implements WeaponGroupService  {
 	 */
 	@Transactional
 	public void appendMemeber(List<WeaponGroupMember> ls) {
+		if (ls.size() > 0) {
+			WeaponGroupMember pgm = ls.get(0);
+			weaponGroupMemberMapper.deleteByGroupId(pgm.getGroupId());
+		}
 		for(WeaponGroupMember pgm : ls){
 			Map<String,Object> m1=new HashMap<String,Object>();
 			m1.put("groupId", pgm.getGroupId());
 			m1.put("memberId", pgm.getWeaponId());
-			
-			Integer count=weaponGroupMemberMapper.existsByMemberId(m1);
-			
-			if(count==0){
+//			
+//			Integer count=weaponGroupMemberMapper.existsByMemberId(m1);
+//			
+//			if(count==0){
 				weaponGroupMemberMapper.insert(pgm);
-			}
+//			}
 			
 		}
 		

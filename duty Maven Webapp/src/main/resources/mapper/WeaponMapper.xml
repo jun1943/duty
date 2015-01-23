@@ -136,6 +136,12 @@
       platform_id = #{platformId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  	  <select id="findByIdAndDtyId" parameterType="String" resultType="com.tianyi.drs.duty.model.DutyItem">  
+       		select * from t_duty_item where item_type_id = 3 and item_id =  #{param}   
+    	 </select>
+  
+  
    <delete id="deleteByIds"  parameterType="java.util.Map" >  
        delete from t_weapon where id in 
        

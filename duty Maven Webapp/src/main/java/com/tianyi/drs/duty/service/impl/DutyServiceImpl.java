@@ -83,6 +83,14 @@ public class DutyServiceImpl implements DutyService {
 		return dvm;
 	}
 
+
+	/**
+	 * 根据id，获取勤务报备信息
+	 */
+	public Duty loadTempById(Integer param) { 
+		return dutyMapper.loadTempById(param);
+	}
+	
 	/**
 	 * 将报备数据明细构建为树状结构列表
 	 * @param dvms
@@ -283,5 +291,10 @@ public class DutyServiceImpl implements DutyService {
 	public void deleteByPrimaryKey(int dId) {
 		// TODO Auto-generated method stub
 		dutyMapper.deleteByPrimaryKey(dId);
+	}
+
+	public void deleteTempById(Integer param) {
+		dutyMapper.deleteTempById(param);
+		
 	}
 }

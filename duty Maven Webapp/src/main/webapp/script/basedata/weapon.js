@@ -41,6 +41,7 @@ $(function() {
 						fitColumns : true,
 						pageNumber : 1,
 						pageSize : 10,
+						width:'100%',
 						title : '武器列表',
 						onDblClickRow : dblClickRow,
 						onClickRow : clickRow,
@@ -125,10 +126,12 @@ function btnAddWeapon(optType) {
 };
 
 function btnCellClick(index) {
+	operationType = "edit";
 	var row = $("#dtWeapon").datagrid('getData').rows[index];
 	editWeaponModel(row);
 }
 function dblClickRow(index, rowData) {
+	operationType = "edit";
 	editWeaponModel(rowData);
 }
 
@@ -227,7 +230,7 @@ function deleteWeapon(id) {
 			"id" : id
 		},
 		success : function(req) {
-			// $.messager.alert("消息提示", req.Message, "info");
+			$.messager.alert("消息提示", req.Message, "info");
 			btnSearchAction();
 		},
 		failer : function(a, b) {
@@ -354,6 +357,9 @@ function btnExportAction() {
 		success : function(req) {
 			if (req.isSuccess) {
 				var urlStr = req.Data.substring(1, req.Data.length);
+				if (/msie/.test(navigator.userAgent.toLowerCase())) {
+					urlStr = "../../" + urlStr;
+				}
 				window.location.href = urlStr;
 			}
 		},

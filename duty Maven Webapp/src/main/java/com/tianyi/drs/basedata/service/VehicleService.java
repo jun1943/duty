@@ -88,4 +88,10 @@ public interface VehicleService {
 	 * @return
 	 */
 	public List<Vehicle> findByNumber(String param);
+	/**
+	 * 判断车辆资源是否存在关联数据
+	 * @param param
+	 * @return
+	 */
+	public List<Vehicle> findByIdAndDtyId(String param);
 }

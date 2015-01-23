@@ -48,6 +48,7 @@ $(function() {
 						fitColumns : true,
 						pageNumber : 1,
 						pageSize : 10,
+						width:'100%',
 						title : '定位设备列表',
 						onDblClickRow : dblClickRow,
 					    onClickRow: clickRow,
@@ -84,7 +85,7 @@ $(function() {
 									width : 100
 								},
 								{
-									title : 'GPS设备编号',
+									title : 'GPS编号',
 									field : 'number',
 									align : 'center',
 									width : 100
@@ -211,10 +212,12 @@ function btnAddGpsdevice(optType) {
 
 
 function btnCellClick(index) {
+	operationType = "edit";
 	var row = $("#dtGpsdevice").datagrid('getData').rows[index];
 	editGpsdeviceModel(row);
 }
 function dblClickRow(index,rowData){
+	operationType = "edit";
 	editGpsdeviceModel(rowData);
 }
 function editGpsdeviceModel(rows){
@@ -318,7 +321,7 @@ function deleteGpsdevice(id) {
 			"id" : id
 		},
 		success : function(req) {
-			// $.messager.alert("消息提示", req.Message, "info");
+			$.messager.alert("消息提示", req.Message, "info");
 			btnSearchAction();
 		},
 		failer : function(a, b) {
@@ -449,6 +452,9 @@ function btnExportAction(){
 		success : function(req) {
 			if (req.isSuccess) {
 				var urlStr = req.Data.substring(1, req.Data.length);
+				if (/msie/.test(navigator.userAgent.toLowerCase())) {
+					urlStr = "../../" + urlStr;
+				}
 				window.location.href = urlStr;
 			}
 		},

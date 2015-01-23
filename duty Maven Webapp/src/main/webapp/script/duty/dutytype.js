@@ -33,6 +33,7 @@ $(function () {
         rownumbers: true,
         resizable: true,
         idField: 'id',
+        width:'100%',
         treeField: 'name',
         toolbar: '#tbDutyType',
         singleSelect: true,
@@ -72,7 +73,7 @@ function getDutyTypeDisplayType(value, rowData, index){
 		if(rowData.isShowname)
 			return "名称";
 		else
-			return "数量";
+			return "人数";
 	}
 }
 
@@ -311,6 +312,7 @@ function delDutyType(){
 	                    async:false,
 	                    success: function (req) {
 	                        if (req.isSuccess) {//成功填充数据
+	                        	$.messager.alert("操作提示","删除成功！","info");
 	                        	$("#winDutyType").window("close");
 	                        	loadDutyType();
 	                        }

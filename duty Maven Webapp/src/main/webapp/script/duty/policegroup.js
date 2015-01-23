@@ -109,7 +109,7 @@ $(document).ready(function() {
 		url : "org/listWithPolice.do?rootId=" + m_policeGroup_Org.id,
 		checkbox : false,
 		onDblClick : dbClickPolice,
-		cascadeCheck : false
+		cascadeCheck : false 
 	});
 	// 组成员列表加载
 	$('#dtSelGroupMember').datagrid({
@@ -134,12 +134,18 @@ $(document).ready(function() {
 			field : 'code',
 			align : 'left',
 			width : 100
+		}, {
+			title : '上级节点',
+			field : 'parentId',
+			align : 'left',
+			width : 100,
+			hidden : true
 		} ] ]
 	});
 	loadOrgs();
 	// forceSelTisOrg();
 });
-
+ 
 function onPoliceManGroup(name) {
 	parent.onDutyDataGroup(name);
 }
@@ -188,9 +194,9 @@ function pack_policeGroup_Query() {
 function showPoliceGroupDlg() {
 	$('#winPG').window('open');
 }
-
-function addPoliceGroup() {
-
+var opteType = "";
+function addPoliceGroup(optType) {
+	opteType = optType;
 	var pg = {};
 	pg.shareOrgs = [];
 	pg.id = 0;
@@ -203,7 +209,8 @@ function addPoliceGroup() {
 	showPoliceGroupDlg();
 }
 
-function editPoliceGroup() {
+function editPoliceGroup(optType) {
+	opteType = optType;
 	var row = $("#dtPoliceGroup").datagrid("getSelected");
 	if (row !== null) {
 		var id = row.id;
@@ -227,13 +234,14 @@ function savePoliceGroup() {
 		return;
 	}
 
-	isExistGroup(groupName, m_policeGroup_Org.id);
-	if (!isExist) {
-		$.messager.alert("错误提示", "该分组名称已存在，请重新填写分组名称", "error");
-		$('#txtPoliceGroupName').focus();
-		return;
+	if (opteType == "add") {
+		isExistGroup(groupName, m_policeGroup_Org.id);
+		if (!isExist) {
+			$.messager.alert("错误提示", "该分组名称已存在，请重新填写分组名称", "error");
+			$('#txtPoliceGroupName').focus();
+			return;
+		}
 	}
-
 	pg.name = groupName;
 	pg.shareType = $('input:radio[name="shareType"]:checked').val();
 
@@ -380,6 +388,7 @@ function onSelectGroup(rowIndex, rowData) {
 	$('#dtGroupMember').datagrid('reload', {
 		'member_Query' : JSON.stringify(m_member_Query)
 	});
+	$("#treeOrgWithPolice").tree("reload");
 	// var x=$('#dtGroupMember').datagrid('queryParams');
 }
 
@@ -388,24 +397,32 @@ function onSelectGroup(rowIndex, rowData) {
  * -------------------------------------------------------------------------------------
  */
 function addPoliceGroupMember() {
+//	$("#treeOrgWithPolice").tree("reload");
 	var row = $('#dtPoliceGroup').datagrid("getSelected");
 	if (row != null) {
 		$('#txtPoliceGroupId').val(row.id);
-		showGroupMemberDlg();	
-		$('#dtSelGroupMember').datagrid('loadData',{total:0,rows:[]});
+		showGroupMemberDlg();
+		$('#dtSelGroupMember').datagrid('loadData', {
+			total : 0,
+			rows : []
+		});
 		var existdata = $("#dtGroupMember").datagrid("getRows");
 		for ( var i = 0; i < existdata.length; i++) {
 			$('#dtSelGroupMember').datagrid('appendRow', {
-				id : existdata[i].id,
+				id : existdata[i].policeId,
 				name : existdata[i].name,
 				code : existdata[i].number
-			}); 
+			});
+		}
+		for ( var j = 0; j < existdata.length; j++) {
+			var s = null;
+			s = $("#treeOrgWithPolice").tree("find","pol_" + existdata[j].policeId);
+			$("#treeOrgWithPolice").tree("remove", s.target);
 		}
 	} else {
 		$.messager.alert('提示', '请先选择组!');
 	}
 }
-
 function delPoliceGroupMemeber() {
 	var row = $('#dtGroupMember').datagrid("getSelected");
 	if (row != null) {
@@ -484,7 +501,7 @@ function appendMember() {
 		success : function(req) {
 			if (req.isSuccess) {
 				$.messager.alert('提示', '保存成功!');
-				$('#dtGroupMember').datagrid('reload');  
+				$('#dtGroupMember').datagrid('reload');
 				$('#winPGMember').window("close");
 			} else {
 				$.messager.alert('提示', req.msg, "warning");

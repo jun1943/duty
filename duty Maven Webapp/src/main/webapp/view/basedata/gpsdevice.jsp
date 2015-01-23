@@ -62,7 +62,7 @@
 	</div>   
 	<!-- 编辑窗体内容 -->
 	 <div id="gpsdeviceinfowindow" class="easyui-window" title="新增/编辑定位设备信息"
-			data-options="iconCls:'icon-tianyi-edit',modal:true" closed="true" 
+			data-options="iconCls:'icon-tianyi-edit',modal:true,headerCls:'bbbb'" closed="true" 
 			style="width: 400px; height: 240px; padding: 10px;"
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false">
 			<div class="easyui-layout" data-options="fit:true">
@@ -82,7 +82,7 @@
 							<td rowspan="4"><img id="sltImage" class="gpswindowimage" src=""></td>
 						</tr>
 						<tr>
-							<td style="text-align: right;"><label>GPS名称:　</label></td>
+							<td style="text-align: right;"><label>GPS显示名称:　</label></td>
 							<td><input type="text" class="easyui-validatebox gpswindowinput" id="txtgpsname" data-options="required:true,validType:['length[1,20]']"><span style="color:red">*</span></td>
 							<td></td>
 						</tr>

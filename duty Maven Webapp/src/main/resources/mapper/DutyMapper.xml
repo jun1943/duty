@@ -158,6 +158,16 @@
   	delete from t_duty where ymd=#{targetYmd,jdbcType=INTEGER}
   </delete>
   
+  
+    <delete id="deleteTempById" parameterType="java.lang.Integer">
+  	delete from t_duty where id = #{param} and is_template= 1
+  </delete>
+  
+   <select id="loadTempById" parameterType="Integer" resultType="com.tianyi.drs.duty.model.Duty">  
+       		select * from t_duty where id = #{param} and is_template= 1
+    	 </select>
+   
+  
    <select id="selectdutyProperty" resultType="com.tianyi.drs.duty.model.DutyProperty">  
        		 select * from t_duty_type_property order by id asc
     	 </select> 

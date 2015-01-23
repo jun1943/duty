@@ -12,7 +12,9 @@ var m_weaponGroup_Org = {};
 
 var m_weaponGroup_Query = {};
 
-var m_member_Query ={groupId:-1};
+var m_member_Query = {
+	groupId : -1
+};
 
 $(document).ready(function() {
 	var args = getUrlArgs();
@@ -33,16 +35,28 @@ $(document).ready(function() {
 		resizable : true,
 		fitColumns : true,
 		width : 'auto',
-		onSelect:onSelectGroup,
-		columns : [ [ 
-		              {	title : 'Id',field : 'id',align : 'left',width : 10,hidden : true}, 
-		              {	title : '组名称',field : 'name',align : 'left',width : 150	}, 
-		              {	title : '共享类型',	field : 'shareTypeDesc',	align : 'left',width : 200} 
-		              ] ]
+		onSelect : onSelectGroup,
+		columns : [ [ {
+			title : 'Id',
+			field : 'id',
+			align : 'left',
+			width : 10,
+			hidden : true
+		}, {
+			title : '组名称',
+			field : 'name',
+			align : 'left',
+			width : 150
+		}, {
+			title : '共享类型',
+			field : 'shareTypeDesc',
+			align : 'left',
+			width : 200
+		} ] ]
 	});
 
 	$('#dtGroupMember').datagrid({
-		url:'weaponGroup/loadMemberByGroupId.do',
+		url : 'weaponGroup/loadMemberByGroupId.do',
 		queryParams : {
 			'member_Query' : JSON.stringify(m_member_Query)
 		},
@@ -52,85 +66,114 @@ $(document).ready(function() {
 		resizable : true,
 		fitColumns : true,
 		width : 'auto',
-		columns : [ [ 
-		              {title : 'id',field : 'id',align : 'left',width : 0,hidden : true	}, 
-		              {	title : '所属单位',field : 'orgShortName',align : 'left',width : 110	}, 
-		              {	title : '武器类型',	field : 'typeName',	align : 'left',width : 100	},
-		              {	title : '武器编号',	field : 'number',	align : 'left',width : 100	},
-		              {	title : '子弹发数',	field : 'standard',	align : 'left',width : 100	},
-		] ]
+		columns : [ [ {
+			title : 'id',
+			field : 'id',
+			align : 'left',
+			width : 0,
+			hidden : true
+		}, {
+			title : '所属单位',
+			field : 'orgShortName',
+			align : 'left',
+			width : 110
+		}, {
+			title : '武器类型',
+			field : 'typeName',
+			align : 'left',
+			width : 100
+		}, {
+			title : '武器编号',
+			field : 'number',
+			align : 'left',
+			width : 100
+		}, {
+			title : '子弹发数',
+			field : 'standard',
+			align : 'left',
+			width : 100
+		}, ] ]
 	});
 
-	$('#treeOrg').tree(
-			{
-//				url : "org/list.do?orgCode=" + m_weaponGroup_Org.code
-//						+ "&orgPath=" + m_weaponGroup_Org.path,
-				checkbox : true,
-				cascadeCheck : false
-//				async : false
-//				loadFilter : function(data) {
-//					return buildOrgTree(data);
-//				}
-			});
+	$('#treeOrg').tree({
+		// url : "org/list.do?orgCode=" + m_weaponGroup_Org.code
+		// + "&orgPath=" + m_weaponGroup_Org.path,
+		checkbox : true,
+		cascadeCheck : false
+	// async : false
+	// loadFilter : function(data) {
+	// return buildOrgTree(data);
+	// }
+	});
 
-	$('#treeOrgWithWeapon').tree(
-			{
-				url : "org/listWithWeapon.do?rootId="+m_weaponGroup_Org.id,
-				checkbox : false,
-				onDblClick : dbClickWeapon,
-				cascadeCheck : false
-			});
-	//分组成员加载
+	$('#treeOrgWithWeapon').tree({
+		url : "org/listWithWeapon.do?rootId=" + m_weaponGroup_Org.id,
+		checkbox : false,
+		onDblClick : dbClickWeapon,
+		cascadeCheck : false
+	});
+	// 分组成员加载
 	$('#dtSelGroupMember').datagrid({
 		idField : 'id',
 		singleSelect : true,
 		resizable : true,
 		onDblClickRow : ondbClickRow,
 		fitColumns : true,
-		columns : [ [
-		            {title : 'id',field : 'id',align : 'left',width : 10,hidden : true}, 
-		            {title : '武器类型',field : 'name',align : 'left',	width : 100}, 
-		            {title : '武器编号',field : 'code',align : 'left',	width : 100} 
-		] ]
+		columns : [ [ {
+			title : 'id',
+			field : 'id',
+			align : 'left',
+			width : 10,
+			hidden : true
+		}, {
+			title : '武器类型',
+			field : 'name',
+			align : 'left',
+			width : 100
+		}, {
+			title : '武器编号',
+			field : 'code',
+			align : 'left',
+			width : 100
+		} ] ]
 	});
 	loadOrgs();
-	//forceSelTisOrg();
+	// forceSelTisOrg();
 });
 
+function onPoliceManGroup(name) {
+	parent.onDutyDataGroup(name);
+}
+function onVehicleGroup(name) {
+	parent.onDutyDataGroup(name);
+}
+function onWeaponGroup(name) {
+	parent.onDutyDataGroup(name);
+}
+function onGpsDeviceGroup(name) {
+	parent.onDutyDataGroup(name);
+}
+function loadOrgs() {
 
-function onPoliceManGroup(name){
-	parent.onDutyDataGroup(name);
-}
-function onVehicleGroup(name){
-	parent.onDutyDataGroup(name);
-}
-function onWeaponGroup(name){
-	parent.onDutyDataGroup(name);
-}
-function onGpsDeviceGroup(name){
-	parent.onDutyDataGroup(name);
-}
-function loadOrgs(){
-	
 	$.ajax({
 		url : "org/list.do",
 		type : "POST",
 		dataType : "json",
 		data : {
-			orgId:m_weaponGroup_Org.id,
-			orgCode :m_weaponGroup_Org.code,
-			orgPath: m_weaponGroup_Org.path
+			orgId : m_weaponGroup_Org.id,
+			orgCode : m_weaponGroup_Org.code,
+			orgPath : m_weaponGroup_Org.path
 		},
-		//async : false,
+		// async : false,
 		success : function(req) {
 			if (req.isSuccess) {
-				var nodes=buildOrgTree(req.rows);
-				$('#treeOrg').tree("loadData",nodes);
-//				var node =$('#treeOrg').tree('find',m_weaponGroup_Org.id);
-//				$('#treeOrg').tree('check',node.target);
-//				node.target.attr("disabled", "disabled");
+				var nodes = buildOrgTree(req.rows);
+				$('#treeOrg').tree("loadData", nodes);
+				// var node =$('#treeOrg').tree('find',m_weaponGroup_Org.id);
+				// $('#treeOrg').tree('check',node.target);
+				// node.target.attr("disabled", "disabled");
 			} else {
-				$.messager.alert('提示', req.msg,"warning");
+				$.messager.alert('提示', req.msg, "warning");
 			}
 		}
 	});
@@ -143,29 +186,29 @@ function pack_weaponGroup_Query() {
 }
 
 function showWeaponroupDlg() {
-	$('#winPG').window('open'); 
+	$('#winPG').window('open');
 }
 
-function addWeaponGroup() {
-
-	var pg={};
-	pg.shareOrgs=[];
-	pg.id=0;
-	pg.shareType=0;
-	var po={};
-	po.orgId=m_weaponGroup_Org.id;
+var opteType = "";
+function addWeaponGroup(optType) {
+	opteType = optType;
+	var pg = {};
+	pg.shareOrgs = [];
+	pg.id = 0;
+	pg.shareType = 0;
+	var po = {};
+	po.orgId = m_weaponGroup_Org.id;
 	pg.shareOrgs.push(po);
-	
 
 	displayWeaponGroup(pg);
 	showWeaponGroupDlg();
 }
 
-
 function showWeaponGroupDlg() {
-	$('#winPG').window('open'); 
+	$('#winPG').window('open');
 }
-function editWeaponGroup() {
+function editWeaponGroup(optType) {
+	opteType = optType;
 	var row = $("#dtWeaponGroup").datagrid("getSelected");
 	if (row !== null) {
 		var id = row.id;
@@ -182,27 +225,28 @@ function saveWeaponGroup() {
 	pg.orgId = m_weaponGroup_Org.id;
 	pg.id = $('#txtWeaponGroupId').val();
 	var groupName = $.trim($('#txtWeaponGroupName').val());
-	if(groupName==""&&groupName==undefined){
-		$.messager.alert("操作提示","请填写分组名称","error");
+	if (groupName == "" && groupName == undefined) {
+		$.messager.alert("操作提示", "请填写分组名称", "error");
 		$('#txtWeaponGroupName').focus();
 		return;
 	}
-	isExistGroup(groupName,m_weaponGroup_Org.id);
-	if(!isExist){
-		$.messager.alert("错误提示","该分组名称已存在，请重新填写分组名称","error");
-		$('#txtWeaponGroupName').focus();
-		return;
+	if (opteType == "add") {
+		isExistGroup(groupName, m_weaponGroup_Org.id);
+		if (!isExist) {
+			$.messager.alert("错误提示", "该分组名称已存在，请重新填写分组名称", "error");
+			$('#txtWeaponGroupName').focus();
+			return;
+		}
 	}
-
 	pg.name = groupName;
 	pg.shareType = $('input:radio[name="shareType"]:checked').val();
 
 	/**
 	 * 强制选择根节点！
 	 */
-	var node =$('#treeOrg').tree('find',m_weaponGroup_Org.id);
-	$('#treeOrg').tree('check',node.target);
-	
+	var node = $('#treeOrg').tree('find', m_weaponGroup_Org.id);
+	$('#treeOrg').tree('check', node.target);
+
 	var nodes = $('#treeOrg').tree('getChecked');
 	var count = nodes.length;
 
@@ -210,7 +254,7 @@ function saveWeaponGroup() {
 		var n = nodes[i];
 		pg.shareOrgIds.push(n.id);
 	}
-	
+
 	$.ajax({
 		url : "weaponGroup/saveWeaponGroup.do",
 		type : "POST",
@@ -222,8 +266,8 @@ function saveWeaponGroup() {
 		success : function(req) {
 			if (req.isSuccess) {
 				$('#dtWeaponGroup').datagrid('reload');
-				$('#txtWeaponGroupId').val(req.id);//回写保存后的id
-				$('#winPG').window('close'); 
+				$('#txtWeaponGroupId').val(req.id);// 回写保存后的id
+				$('#winPG').window('close');
 				$.messager.alert('提示', '保存成功!');
 			} else {
 				$.messager.alert('提示', req.msg, "warning");
@@ -238,33 +282,32 @@ function saveWeaponGroup() {
 function delWeaponGroup() {
 	var row = $("#dtWeaponGroup").datagrid("getSelected");
 	if (row !== null) {
-		$.messager.confirm('操作提示', "确定删除[ " + row.name + " ]?",
-				function(r) {
-					if (r) {
-						$.ajax({
-									url : "weaponGroup/deleteWeaponGroup.do",
-									type : "POST",
-									dataType : "json",
-									data : {
-										"weaponGroupId" :row.id
-									},
-									async : false,
-									success : function(req) {
-										if (req.isSuccess) {
-											$.messager.alert('提示', '删除成功!');
-											$('#dtWeaponGroup').datagrid('reload');
-										} else {
-											$.messager.alert('提示', req.msg,"warning");
-										}
-									}
-								});
+		$.messager.confirm('操作提示', "确定删除[ " + row.name + " ]?", function(r) {
+			if (r) {
+				$.ajax({
+					url : "weaponGroup/deleteWeaponGroup.do",
+					type : "POST",
+					dataType : "json",
+					data : {
+						"weaponGroupId" : row.id
+					},
+					async : false,
+					success : function(req) {
+						if (req.isSuccess) {
+							$.messager.alert('提示', '删除成功!');
+							$('#dtWeaponGroup').datagrid('reload');
+						} else {
+							$.messager.alert('提示', req.msg, "warning");
+						}
 					}
 				});
+			}
+		});
 	}
 }
 
 function closeWinPG() {
-	$('#winPG').window('close'); 
+	$('#winPG').window('close');
 }
 
 function cleanShareOrgs() {
@@ -274,8 +317,8 @@ function cleanShareOrgs() {
 
 	for ( var i = 0; i < count; i++) {
 		var n = nodes[i];
-		if(i==0)
-			$('#treeOrg').tree('check', n.target);//根节点强制选择
+		if (i == 0)
+			$('#treeOrg').tree('check', n.target);// 根节点强制选择
 		else
 			$('#treeOrg').tree('uncheck', n.target);
 	}
@@ -302,7 +345,7 @@ function loadWeaponGroup(id, callback) {
 		data : {
 			'weaponGroupId' : id
 		},
-		//async : false,
+		// async : false,
 		success : function(req) {
 			callback(req);
 		}
@@ -320,7 +363,7 @@ function displayWeaponGroup(pg) {
 
 	if (pg.shareType == 0) {
 		$('#radioShare1').prop('checked', true);
-		
+
 		$('#divOrg').css('visibility', 'hidden');
 	} else {
 		$('#radioShare2').prop('checked', true);
@@ -335,37 +378,49 @@ function displayWeaponGroup(pg) {
 	}
 }
 
-function onSelectGroup(rowIndex,rowData){
-	m_member_Query.groupId=rowData.id;
-	$('#dtGroupMember').datagrid('reload',{ 'member_Query': JSON.stringify(m_member_Query) });
-	//var x=$('#dtGroupMember').datagrid('queryParams');
+function onSelectGroup(rowIndex, rowData) {
+	m_member_Query.groupId = rowData.id;
+	$('#dtGroupMember').datagrid('reload', {
+		'member_Query' : JSON.stringify(m_member_Query)
+	});
+	$("#treeOrgWithWeapon").tree("reload");
+	// var x=$('#dtGroupMember').datagrid('queryParams');
 }
 
 /**
- * 添加成员 -------------------------------------------------------------------------------------
+ * 添加成员
+ * -------------------------------------------------------------------------------------
  */
-function addWeaponGroupMember(){
-	var row=$('#dtWeaponGroup').datagrid("getSelected");
-	if(row!=null){
+function addWeaponGroupMember() {
+	var row = $('#dtWeaponGroup').datagrid("getSelected");
+	if (row != null) {
 		$('#txtWeaponGroupId').val(row.id);
 		showGroupMemberDlg();
-		$('#dtSelGroupMember').datagrid('loadData',{total:0,rows:[]});
+		$('#dtSelGroupMember').datagrid('loadData', {
+			total : 0,
+			rows : []
+		});
 		var existdata = $("#dtGroupMember").datagrid("getRows");
 		for ( var i = 0; i < existdata.length; i++) {
 			$('#dtSelGroupMember').datagrid('appendRow', {
-				id : existdata[i].id,
+				id : existdata[i].weaponId,
 				name : existdata[i].typeName,
 				code : existdata[i].number
 			});
 		}
-	}else{
+		for ( var j = 0; j < existdata.length; j++) {
+			var s = null;
+			s = $("#treeOrgWithWeapon").tree("find","wea_" + existdata[j].weaponId);
+			$("#treeOrgWithWeapon").tree("remove", s.target);
+		}
+	} else {
 		$.messager.alert('提示', '请先选择组!');
 	}
 }
 
-function delWeaponGroupMemeber(){
-	var row=$('#dtGroupMember').datagrid("getSelected");
-	if(row!=null){
+function delWeaponGroupMemeber() {
+	var row = $('#dtGroupMember').datagrid("getSelected");
+	if (row != null) {
 		$.ajax({
 			url : "weaponGroup/delMemberById.do",
 			type : "POST",
@@ -377,61 +432,59 @@ function delWeaponGroupMemeber(){
 			success : function(req) {
 				if (req.isSuccess) {
 					$('#dtGroupMember').datagrid('reload');
-				} 
+				}
 			}
 		});
-	}else{
+	} else {
 		$.messager.alert('提示', '请先选择警员!!');
 	}
 }
 
-function cleanPGMember(){
-	
-	var row=$('#dtWeaponGroup').datagrid("getSelected");
-	
-	if(row!=null){
+function cleanPGMember() {
+
+	var row = $('#dtWeaponGroup').datagrid("getSelected");
+
+	if (row != null) {
 		$.messager.confirm('操作提示', "确定要清空[ " + row.name + " ]下面所有的成员?",
 				function(r) {
 					if (r) {
 						$.ajax({
-									url : "weaponGroup/cleanMemberByGroupId.do",
-									type : "POST",
-									dataType : "json",
-									data : {
-										"weaponGroupId" :row.id
-									},
-									async : false,
-									success : function(req) {
-										if (req.isSuccess) {
-											$('#dtGroupMember').datagrid('reload');
-										} 
-									}
-								});
+							url : "weaponGroup/cleanMemberByGroupId.do",
+							type : "POST",
+							dataType : "json",
+							data : {
+								"weaponGroupId" : row.id
+							},
+							async : false,
+							success : function(req) {
+								if (req.isSuccess) {
+									$('#dtGroupMember').datagrid('reload');
+								}
+							}
+						});
 					}
 				});
-	}else{
+	} else {
 		$.messager.alert('提示', '请先选择车辆组!!');
 	}
 }
 
+function appendMember() {
+	var members = [];
+	var groupid = $('#txtWeaponGroupId').val();
 
-function appendMember(){
-	var members=[];
-	var groupid=$('#txtWeaponGroupId').val();
+	var rows = $('#dtSelGroupMember').datagrid('getRows');
+	var count = rows.length;
 
-	
-	var rows=$('#dtSelGroupMember').datagrid('getRows');
-	var count=rows.length;
-	
-	for(var i=0;i<count;i++){
-		var row=rows[i];
-		var member ={};
-		member.id=0;
-		member.groupId=groupid;
-		member.weaponId=row.id;
+	for ( var i = 0; i < count; i++) {
+		var row = rows[i];
+		var member = {};
+		member.id = 0;
+		member.groupId = groupid;
+		member.weaponId = row.id;
 		members.push(member);
 	}
-	
+
 	$.ajax({
 		url : "weaponGroup/appendMember.do",
 		type : "POST",
@@ -441,18 +494,18 @@ function appendMember(){
 		},
 		async : false,
 		success : function(req) {
-				if (req.isSuccess) {
-						$.messager.alert('提示', '保存成功!');
-							$('#dtGroupMember').datagrid('reload');
-							$('#winPGMember').window("close");
-						} else {
-							$.messager.alert('提示', req.msg,"warning");
-						}
+			if (req.isSuccess) {
+				$.messager.alert('提示', '保存成功!');
+				$('#dtGroupMember').datagrid('reload');
+				$('#winPGMember').window("close");
+			} else {
+				$.messager.alert('提示', req.msg, "warning");
+			}
 		}
 	});
 }
 
-function closeWinPGMember(){
+function closeWinPGMember() {
 	$('#winPGMember').window("close");
 }
 
@@ -463,29 +516,29 @@ function selectMember() {
 	var node = $('#treeOrgWithWeapon').tree('getSelected');
 	selectMemberModel(node);
 }
-function selectMemberModel(node){
-	 
-	if(node !=null && node.dataType==2){
-		
-		var datas=$('#dtSelGroupMember').datagrid('getData');
-		
-		var count=datas.rows.length;
-		
-		var exists=false;
-		
-		for(var i=0;i<count;i++){
-			var row=datas.rows[i];
-			if(row.id==node.rid){
-				exists=true;
+function selectMemberModel(node) {
+
+	if (node != null && node.dataType == 2) {
+
+		var datas = $('#dtSelGroupMember').datagrid('getData');
+
+		var count = datas.rows.length;
+
+		var exists = false;
+
+		for ( var i = 0; i < count; i++) {
+			var row = datas.rows[i];
+			if (row.id == node.rid) {
+				exists = true;
 				break;
 			}
 		}
-		
-		if(!exists){
-			$('#dtSelGroupMember').datagrid('appendRow',{
-				id:node.rid,
-				name: node.name,
-				code: node.code
+
+		if (!exists) {
+			$('#dtSelGroupMember').datagrid('appendRow', {
+				id : node.rid,
+				name : node.typename,
+				code : node.code
 			});
 		}
 		var targets = node.target;
@@ -503,35 +556,35 @@ function ondbClickRow(index, rowData) {
 			before : selected.target,
 			data : [ {
 				"rid" : row.id,
-				"name" : row.name,
+				"name" : row.code,
 				"code" : row.code,
-				"text" : row.name,
+				"text" : row.code,
+				"typename" : row.name,
 				"dataType" : 2
 			} ]
 		});
 		$('#dtSelGroupMember').datagrid('deleteRow', index);
 	}
 }
-function unselectMember(){
-	var row=$('#dtSelGroupMember').datagrid('getSelected');
-	
-	if(row !=null){
-		var index=$('#dtSelGroupMember').datagrid('getRowIndex',row);
-		$('#dtSelGroupMember').datagrid('deleteRow',index);
+function unselectMember() {
+	var row = $('#dtSelGroupMember').datagrid('getSelected');
+
+	if (row != null) {
+		var index = $('#dtSelGroupMember').datagrid('getRowIndex', row);
+		$('#dtSelGroupMember').datagrid('deleteRow', index);
 	}
 }
 
-function showGroupMemberDlg(){
-	
-	$('#winPGMember').window('open'); 
+function showGroupMemberDlg() {
+
+	$('#winPGMember').window('open');
 }
 
-function displayGroupMember(member){
-	
+function displayGroupMember(member) {
+
 }
 
-
-function isExistGroup(name,orgId){
+function isExistGroup(name, orgId) {
 	isExist = false;
 	$.ajax({
 		url : "weaponGroup/isExistGroup.do",

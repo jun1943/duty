@@ -28,10 +28,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tianyi.drs.basedata.model.IntercomGroup; 
+import com.tianyi.drs.basedata.model.IntercomGroup;
 import com.tianyi.drs.basedata.model.Vehicle;
 import com.tianyi.drs.basedata.model.VehicleType;
-import com.tianyi.drs.basedata.service.VehicleService; 
+import com.tianyi.drs.basedata.service.VehicleService;
 import com.tianyi.drs.basedata.viewmodel.VehicleVM;
 import com.tianyi.drs.duty.util.ExcelPortUtil;
 import com.tianyi.drs.duty.viewmodel.ListResult;
@@ -55,11 +55,7 @@ public class VehicleController {
 	/*
 	 * 获取车辆列表信息
 	 * 
-	 * vehicle_Query：查询条件包
-	 * sort：排序列
-	 * order：排序方式
-	 * page：当前页
-	 * rows：每页条数
+	 * vehicle_Query：查询条件包 sort：排序列 order：排序方式 page：当前页 rows：每页条数
 	 */
 	@RequestMapping(value = "getVehicleList.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
@@ -119,7 +115,6 @@ public class VehicleController {
 	/*
 	 * 
 	 * 保存车辆信息；
-	 * 
 	 */
 	@RequestMapping(value = "saveVehicle.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
@@ -155,26 +150,37 @@ public class VehicleController {
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
 			int result = 0;
+			String Message = "";
 			if (id != null && id != "") {
 				String[] s = {};
 				s = id.split(",");
 				int[] ids = new int[s.length];
+				int m = 0;
 				for (int i = 0; i < s.length; i++) {
-					ids[i] = Integer.parseInt(String.valueOf(s[i]));
+					List<Vehicle> list = vehicleService.findByIdAndDtyId(s[i]);
+					if (list.size() == 0) {
+						ids[i] = Integer.parseInt(String.valueOf(s[i]));
+					}else{
+						m++;
+					}
+					// ids[i] = Integer.parseInt(String.valueOf(s[i]));
+				}
+				if (s.length > m) {
+					Message = "部分数据删除成功！部分车辆数据已关联报备数据，不能删除！";
+				}else if(s.length==m){
+					Message = "删除失败！选择资源数据已关联报备数据，不能删除";
 				}
 				map.put("ids", ids);
 
 				vehicleService.deleteByIds(map);
 			}
-			return "{\"success\":true,\"Message\":\"删除成功,result is " + result
-					+ "\"}";
+			return "{\"success\":true,\"Message\":\"" + Message + "\"}";
 		} catch (Exception ex) {
 			return "{\"success\":false,\"Message\":\"删除失败，原因："
 					+ ex.getMessage() + "\"}";
 		}
 	}
 
-	
 	/*
 	 * 
 	 * 获取车辆类型列表，以下拉框的形式展现；
@@ -191,7 +197,6 @@ public class VehicleController {
 		}
 	}
 
-	
 	/*
 	 * 
 	 * 获取车辆类型列表数据，以数据列表的形式展现
@@ -215,7 +220,6 @@ public class VehicleController {
 		}
 	}
 
-	
 	/*
 	 * 
 	 * 获取车辆对应的组呼号；
@@ -288,7 +292,7 @@ public class VehicleController {
 	}
 
 	/**
-	 * 判断是否有有车辆存在 
+	 * 判断是否有有车辆存在
 	 * 
 	 * 判断是否车牌号码重复；
 	 */
@@ -298,27 +302,28 @@ public class VehicleController {
 			@RequestParam(value = "param", required = false) String param)
 			throws Exception {
 		try {
-			 
-				if (!param.equals("")) {
-					List<Vehicle> vehicle = vehicleService.findByNumber(param);
-					if (vehicle.size()>0) {
-						return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
-					} else {
-						return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
-					}
+
+			if (!param.equals("")) {
+				List<Vehicle> vehicle = vehicleService.findByNumber(param);
+				if (vehicle.size() > 0) {
+					return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
 				} else {
 					return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
 				}
-			 
+			} else {
+				return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
+			}
+
 		} catch (Exception ex) {
 			return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
 		}
 	}
-	@RequestMapping(value="exportDataToExcle.do",produces="application/json;charset=UTF-8")
-	public @ResponseBody String exportDataToExcle(
+
+	@RequestMapping(value = "exportDataToExcle.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String exportDataToExcle(
 			@RequestParam(value = "vehicle_Query", required = false) String query,
-			HttpServletResponse response, HttpServletRequest request)
-	{
+			HttpServletResponse response, HttpServletRequest request) {
 		try {
 			JSONObject joQuery = JSONObject.fromObject(query);
 			int orgId = Integer.parseInt(joQuery.getString("orgId"));
@@ -330,8 +335,8 @@ public class VehicleController {
 
 			List<VehicleVM> list = new ArrayList<VehicleVM>();
 			Map<String, Object> map = new HashMap<String, Object>();
-			 
-			map.put("pageStart", 1);
+
+			map.put("pageStart", 0);
 			map.put("pageSize", 65530);
 			map.put("orgId", orgId);
 			map.put("isSubOrg", isSubOrg);
@@ -360,7 +365,7 @@ public class VehicleController {
 			String s = UUID.randomUUID().toString();
 			s = s.replace("-", "");
 			realPath += "/" + s + ".xls";
-			exlPath += "/" + s + ".xls"; 
+			exlPath += "/" + s + ".xls";
 			list = vehicleService.loadVMList(map);
 			if (list.size() > 0) {
 				isSuccess = initExcelData(list, realPath);
@@ -402,9 +407,9 @@ public class VehicleController {
 
 				cell_0.setCellValue(title);
 				sheet.addMergedRegion(new CellRangeAddress(0, 0, 8, 0));
-			 
+
 				Row row1 = sheet.createRow(1);
-				Cell cell_1 = row1.createCell(0, Cell.CELL_TYPE_STRING); 
+				Cell cell_1 = row1.createCell(0, Cell.CELL_TYPE_STRING);
 				cell_1.setCellStyle(style);
 				cell_1.setCellValue("车辆类型");
 				sheet.autoSizeColumn(0);
@@ -448,37 +453,44 @@ public class VehicleController {
 				cell_9.setCellStyle(style);
 				cell_9.setCellValue("个呼号");
 				sheet.autoSizeColumn(8);
- 
-				
-				for (int rowNum = 2; rowNum <= list.size(); rowNum++) {
+
+				for (int rowNum = 2; rowNum <= list.size()+1; rowNum++) {
 					Row row = sheet.createRow(rowNum);
 					VehicleVM vehicle = new VehicleVM();
 					vehicle = list.get(rowNum - 2);
 					Cell cella = row.createCell(0, Cell.CELL_TYPE_STRING);
-					cella.setCellValue(vehicle.getTypeName() == null ? "" : vehicle.getTypeName());
+					cella.setCellValue(vehicle.getTypeName() == null ? ""
+							: vehicle.getTypeName());
 					Cell cellb = row.createCell(1, Cell.CELL_TYPE_STRING);
-					cellb.setCellValue(vehicle.getNumber() == null ? "" : vehicle.getNumber());
+					cellb.setCellValue(vehicle.getNumber() == null ? ""
+							: vehicle.getNumber());
 					Cell cellc = row.createCell(2, Cell.CELL_TYPE_STRING);
-					cellc.setCellValue(vehicle.getPurpose()== null ? "" : vehicle.getPurpose());
+					cellc.setCellValue(vehicle.getPurpose() == null ? ""
+							: vehicle.getPurpose());
 					Cell celle = row.createCell(3, Cell.CELL_TYPE_STRING);
-					celle.setCellValue(vehicle.getBrand() == null ? ""  : vehicle.getBrand());
+					celle.setCellValue(vehicle.getBrand() == null ? ""
+							: vehicle.getBrand());
 					Cell celld = row.createCell(4, Cell.CELL_TYPE_STRING);
-					celld.setCellValue(vehicle.getSiteQty() == null ? "" : vehicle.getSiteQty());
+					celld.setCellValue(vehicle.getSiteQty() == null ? ""
+							: vehicle.getSiteQty());
 					Cell cellf = row.createCell(5, Cell.CELL_TYPE_STRING);
-					cellf.setCellValue(vehicle.getGpsNumber() ==null ? "": vehicle.getGpsNumber());
-					
+					cellf.setCellValue(vehicle.getGpsNumber() == null ? ""
+							: vehicle.getGpsNumber());
+
 					Cell cellg = row.createCell(6, Cell.CELL_TYPE_STRING);
-					cellg.setCellValue(vehicle.getGpsName() == null ? "" : vehicle.getGpsName());
+					cellg.setCellValue(vehicle.getGpsName() == null ? ""
+							: vehicle.getGpsName());
 					Cell cellh = row.createCell(7, Cell.CELL_TYPE_STRING);
-					cellh.setCellValue(vehicle.getIntercomGroup() == null ? "" : vehicle.getIntercomGroup());
+					cellh.setCellValue(vehicle.getIntercomGroup() == null ? ""
+							: vehicle.getIntercomGroup());
 					Cell celli = row.createCell(8, Cell.CELL_TYPE_STRING);
-					celli.setCellValue(vehicle.getIntercomPerson() == null ? "": vehicle.getIntercomPerson());
-					 
+					celli.setCellValue(vehicle.getIntercomPerson() == null ? ""
+							: vehicle.getIntercomPerson());
+
 				}
 			}
 			try {
-				FileOutputStream outputStream = new FileOutputStream(
-						realPath);
+				FileOutputStream outputStream = new FileOutputStream(realPath);
 				workbook.write(outputStream);
 				outputStream.flush();
 				outputStream.close();

@@ -7,7 +7,6 @@
  * 
  */
 
-
 var y;
 var m_date = null;
 var m;
@@ -17,8 +16,10 @@ var m_dutyCalendar_Org = {};
 var m_duty = {};
 $(function() {
 	$("#dutyDetailsForDaywindow").window("close");
+
 	
-	//获取地址栏参数，获取组织结构信息；
+	
+	// 获取地址栏参数，获取组织结构信息；
 	var args = getUrlArgs();
 	m_dutyCalendar_Org.id = args["orgId"];
 	m_dutyCalendar_Org.code = args["orgCode"];
@@ -32,9 +33,9 @@ $(function() {
 	// var date = new Date();
 	// y = date.getFullYear();
 	// m = date.getMonth() + 1;
-	
-	//初始化日历，若没有传入日期，则去当前系统时间；
-	
+
+	// 初始化日历，若没有传入日期，则去当前系统时间；
+
 	y = m_year;
 	m = m_month;
 	$("#sp_years").text(y);
@@ -307,7 +308,7 @@ function creatHtml(arr) {
 }
 
 var dtime = null;
-//点击日历号数，进入详细报备页面
+// 点击日历号数，进入详细报备页面
 function onClickData(date) {
 	dtime = null;
 	var dt = date.replace(/-/gm, '');
@@ -320,7 +321,7 @@ function onClickData(date) {
 var timeouts;
 var timer = 1500;
 
-//鼠标在进入有效日历号数表格内，且停留时间超过1.5S时，弹出报备明细；
+// 鼠标在进入有效日历号数表格内，且停留时间超过1.5S时，弹出报备明细；
 function mouseOverFunction(date) {
 	dtime = null;
 	var dt = date.replace(/-/gm, '');
@@ -334,9 +335,9 @@ function mouseOverFunction(date) {
 	// clearTimeout(timeouts);
 	// },2*1000);
 }
-//鼠标移开事件，清楚定时器；
+// 鼠标移开事件，清楚定时器；
 function mouseOutFunction() {
-	$("#dutyDetailsForDaywindow").window("close");
+	//$("#dutyDetailsForDaywindow").window("close");
 	window.clearTimeout(timeouts);
 }
 // 点击具体日期，加载详细信息对话框
@@ -366,7 +367,7 @@ function getDateInfo(date) {
 						} else {
 							$('.datagrid-body').html("");
 						}
-						$("#dutyDetailsForDaywindow").window("open");
+						$("#dutyDetailsForDaywindow").window("open"); 
 					} else {
 						alert("获取报备数据详细信息失败");
 					}
@@ -374,25 +375,28 @@ function getDateInfo(date) {
 			});
 	window.clearInterval(timeouts);
 }
-//鼠标移动到日历底部，显示删除、复制按钮
+// 鼠标移动到日历底部，显示删除、复制按钮
 function mouseOverOpratdiv(tags) {
 	$("#calendarOpratdiv_" + tags + " a[id='dellink_" + tags + "']").html("删除");
 	$("#calendarOpratdiv_" + tags + " a[id='copylink_" + tags + "']").html(
 			"　复制");
 }
-//鼠标移开日历底部，隐藏删除、复制按钮
+// 鼠标移开日历底部，隐藏删除、复制按钮
 function mouseOutOpratdiv(tags) {
 	$("#calendarOpratdiv_" + tags + " a[id='dellink_" + tags + "']")
 			.html("　　　");
 	$("#calendarOpratdiv_" + tags + " a[id='copylink_" + tags + "']").html(
 			"　　　");
 }
-//删除报备
+// 删除报备
 function deleteDutyConfirm(date, i, j) {
 	$.messager.confirm("系统提示", "确认删除    " + date + " 的报备数据吗？", function(r) {
 		if (r) {
 			dtime = null;
-			var dt = date.replace(/-/gm, '');
+			var dt = date.replace(/-/gm, ''); 
+			if (dt.length == 7) {
+				dt = dt.substr(0, 4) + "0" + dt.substr(4, 7);
+			}
 			dtime = dt;
 			deleteDutyAction(dtime, i, j);
 		}
@@ -500,7 +504,7 @@ function copyDutyByDays(date, i, j) {
 	// });
 
 }
-//计算浏览器高度，计算行高
+// 计算浏览器高度，计算行高
 function getPasteBtnBoxWidthHeight() {
 
 	var arr = new Array();
@@ -516,9 +520,16 @@ function getPasteBtnBoxWidthHeight() {
 	});
 	return arr;
 }
-//粘贴按钮事件
+// 粘贴按钮事件
 function selectPasteBox(date, i, j) {
 	var dt = date.replace(/-/gm, '');
+
+	if (dt.length == 7) {
+		dt = dt.substr(0, 4) + "0" + dt.substr(4, 7);
+	}
+	if (pasteDate.length == 7) {
+		pasteDate = pasteDate.substr(0, 4) + "0" + pasteDate.substr(4, 7);
+	}
 	var pars = {
 		orgId : m_dutyCalendar_Org.id,
 		ymd : pasteDate,
@@ -613,6 +624,7 @@ function genXId(itemTypeId, itemId) {
  * @param itemTypeId
  * @param iconUrl
  */
+var m_iconCls;
 function createIconStyle(row, itemTypeId, iconUrl) {
 	if (row != null) {
 		if (row.iconCls == undefined || row.iconCls == null) {
@@ -755,8 +767,7 @@ var YMD = {
 // createExcelApplication(obj);
 // };
 
-
-//导出具体日期的报备明细
+// 导出具体日期的报备明细
 function btnExportAction() {
 	$.ajax({
 		url : "dutyCalendar/exportDataToExcle.do",
@@ -771,6 +782,10 @@ function btnExportAction() {
 		success : function(req) {
 			if (req.isSuccess) {
 				var urlStr = req.Data.substring(1, req.Data.length);
+				if (/msie/.test(navigator.userAgent.toLowerCase())) {
+					urlStr = "../../" + urlStr;
+				}
+				//var urlStr = req.Data.substring(1, req.Data.length);
 				window.location.href = urlStr;
 			}
 		},
@@ -782,7 +797,7 @@ function btnExportAction() {
 		}
 	});
 };
-//清除当月所有报备数据
+// 清除当月所有报备数据
 function clearAlldutyData() {
 	$.messager.confirm("系统提示", "确认删除    " + y + "年" + m + "月" + " 的所有报备数据吗？",
 			function(r) {
@@ -812,7 +827,7 @@ function deleteAllDutyDataAction(year, month) {
 	});
 };
 
-//清除粘贴模板，清空剪切板
+// 清除粘贴模板，清空剪切板
 function clearClipbord() {
 	$('div[class=pasteBtnBox]').each(function() { // 开始遍历
 		$(this).hide();
@@ -823,7 +838,7 @@ function clearClipbord() {
 };
 function btnSearchAction() {
 	var name = $('#txttargetName').val();
-	if (name != "") { 
+	if (name != "") {
 		getDateInfo(m_dutyCalendar_Org.date);
 		var a = findDutyPoint(name);
 		$('#tgddutydetailsforday').treegrid("loadData", a);
@@ -865,9 +880,11 @@ function findDutyTreeGrid(item, name) {
 	}
 }
 
-function mouseOut(){
+
+
+function mouseOut() {
 	$("#dutyDetailsForDaywindow").window("close");
 }
-function mousemove(){
-	
+function mouseOver() {
+	$("#dutyDetailsForDaywindow").window("open");
 }

@@ -94,8 +94,18 @@ public class GpsServiceImpl implements GpsService{
 		// TODO Auto-generated method stub
 		gpsMapper.deleteByIds(map);
 	}
+	/** (non-Javadoc)
+	 * @see com.tianyi.drs.basedata.service.GpsService#findByNumber(String)
+	 */
 	public List<Gps> findByNumber(String param) {
 		// TODO Auto-generated method stub
 		return gpsMapper.findByNumber(param);
+	}
+	/** (non-Javadoc)
+	 * @see com.tianyi.drs.basedata.service.GpsService#findByIdAndDtyId(String)
+	 */
+	public List<Gps> findByIdAndDtyId(String param) {
+		// TODO Auto-generated method stub
+		return gpsMapper.findByIdAndDtyId(param);
 	}
 }

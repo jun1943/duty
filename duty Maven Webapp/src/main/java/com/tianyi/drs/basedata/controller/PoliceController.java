@@ -2,7 +2,7 @@ package com.tianyi.drs.basedata.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.ArrayList; 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -202,14 +202,21 @@ public class PoliceController {
 	String savePolice(Police police) throws Exception {
 		try {
 			police.setPlatformId(1);
-			police.setIsused(true);
 			police.setSyncState(true);
 			int result = 0;
 			if (police.getId() > 0) {
 				int pid = police.getId();
+				Police pol = new Police();
+				pol= policeService.selectByPrimaryKey(pid);
+				if(pol!=null){
+					police.setIsused(pol.getIsused());
+				}else{
+					police.setIsused(true);
+				}
 				police.setId(pid);
 				result = policeService.updateByPrimaryKey(police);
 			} else {
+				police.setIsused(true);
 				result = policeService.insert(police);
 			}
 			return "{\"success\":true,\"Message\":\"保存成功,result is " + result
@@ -231,19 +238,35 @@ public class PoliceController {
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
 			int result = 0;
+			String Message = "";
 			if (id != null && id != "") {
 				String[] s = {};
 				s = id.split(",");
 				int[] ids = new int[s.length];
+				int m = 0;
 				for (int i = 0; i < s.length; i++) {
-					ids[i] = Integer.parseInt(String.valueOf(s[i]));
+					List<Police> list = policeService.findByIdAndDtyId(s[i]);
+					if (list.size() == 0) {
+						ids[i] = Integer.parseInt(String.valueOf(s[i]));
+					} else {
+						m++;
+					}
+				}
+				if (s.length > m) {
+					if(m==0){
+						Message = "删除成功！";
+					}
+					else{
+					Message = "部分数据删除成功！部分警员数据已关联报备数据，不能删除！";
+					}
+				}else if(s.length==m){
+					Message = "删除失败！选择资源数据已关联报备数据，不能删除";
 				}
 				map.put("ids", ids);
 
 				policeService.deleteByIds(map);
 			}
-			return "{\"success\":true,\"Message\":\"删除成功,result is " + result
-					+ "\"}";
+			return "{\"success\":true,\"Message\":\"" + Message + "\"}";
 		} catch (Exception ex) {
 			return "{\"success\":false,\"Message\":\"删除失败，原因："
 					+ ex.getMessage() + "\"}";
@@ -516,9 +539,12 @@ public class PoliceController {
 			int isSubOrg = Integer.parseInt(joQuery.getString("isSubOrg"));
 			String orgCode = joQuery.getString("orgCode");
 			String orgPath = joQuery.getString("orgPath");
+			String name = joQuery.getString("name");
+			int typeid = Integer.parseInt(joQuery.getString("typeid"));
+			int[] ids = new int[1];
 			Map<String, Object> map = new HashMap<String, Object>();
 
-			map.put("pageStart", 1);
+			map.put("pageStart", 0);
 			map.put("pageSize", 65530);
 			map.put("orgId", orgId);
 			map.put("isSubOrg", isSubOrg);
@@ -526,6 +552,11 @@ public class PoliceController {
 			map.put("orgPath", orgPath);
 			map.put("sort", "p.id");
 			map.put("order", "asc");
+			map.put("name", name);
+			if (typeid > 0) {
+				ids[0] = typeid;
+				map.put("ids", ids);
+			}
 			boolean isSuccess = false;
 			// 取服务器地址，默认指向bin目录
 			String realPath = getClass().getResource("/").getFile().toString();
@@ -641,7 +672,7 @@ public class PoliceController {
 				cell_t.setCellValue("个呼号");
 				sheet.autoSizeColumn(9);
 
-				for (int rowNum = 2; rowNum <= list.size(); rowNum++) {
+				for (int rowNum = 2; rowNum <= list.size()+1; rowNum++) {
 					Row row = sheet.createRow(rowNum);
 					PoliceVM police = new PoliceVM();
 					police = list.get(rowNum - 2);

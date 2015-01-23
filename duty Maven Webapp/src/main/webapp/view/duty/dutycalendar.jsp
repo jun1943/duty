@@ -68,7 +68,8 @@
     	</div>
 	</div>
 	 <!-- 报备详细明细窗体内容 -->
- 	<div id="dutyDetailsForDaywindow"  title="警务报备情况" class="easyui-window clddtywindow" data-options="iconCls:'icon-tianyi-edit',modal:false" closed="true" 
+ 	<div id="dutyDetailsForDaywindow" onmouseout="mouseOut()" onmouseover="mouseOver()" title="警务报备情况" class="easyui-window" data-options="iconCls:'icon-tianyi-edit',modal:true,headerCls:'bbbb'" closed="true" 
+	 	style="width:654px; height:450px; padding: 10px;"
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false"  > 
 		    <div id="tbdutydetailsforday" class="tbdutydetailsfordays"> 
 		    <label>名称:</label><input id="txttargetName" type="text" class="easyui-validatebox">

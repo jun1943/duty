@@ -46,9 +46,9 @@
 				<div class="btn-group">
 					<a id="btnAddGpsGroup" href="javascript:void(0);" 
 						class="easyui-linkbutton icon-camera-retro groupfstbtn" iconcls="icon-tianyi-add" 
-						onclick="addGpsGroup()">创建</a> <a id="btnEditGpsGroup"
+						onclick="addGpsGroup('add')">创建</a> <a id="btnEditGpsGroup"
 						href="javascript:void(0);" class="easyui-linkbutton"
-						iconcls="icon-tianyi-edit"  onclick="editGpsGroup()">修改</a>
+						iconcls="icon-tianyi-edit"  onclick="editGpsGroup('edit')">修改</a>
 					<a id="btnDelGpsGroup" href="javascript:void(0);" iconcls="icon-tianyi-delete" 
 						class="easyui-linkbutton" 
 						onclick="delGpsGroup()">删除</a>

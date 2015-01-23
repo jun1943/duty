@@ -46,9 +46,9 @@
 				<div class="btn-group" >
 					<a id="btnAddWeaponGroup" href="javascript:void(0);" 
 						class="easyui-linkbutton icon-camera-retro groupfstbtn"   iconcls="icon-tianyi-add" 
-						onclick="addWeaponGroup()">创建</a> <a id="btnEditWeaponGroup"
+						onclick="addWeaponGroup('add')">创建</a> <a id="btnEditWeaponGroup"
 						href="javascript:void(0);" class="easyui-linkbutton"
-						iconcls="icon-tianyi-edit"  onclick="editWeaponGroup()">修改</a>
+						iconcls="icon-tianyi-edit"  onclick="editWeaponGroup('edit')">修改</a>
 					<a id="btnDelWeaponGroup" href="javascript:void(0);"
 						class="easyui-linkbutton" iconcls="icon-tianyi-delete" 
 						onclick="delWeaponGroup()">删除</a>

@@ -169,4 +169,10 @@ public interface PoliceService {
 	 * @return
 	 */
 	List<PoliceVM> loadVMListWithOrgId(Integer orgId);
+	/**
+	 * 判断资源元素是否有相关联数据
+	 * @param string
+	 * @return
+	 */
+	List<Police> findByIdAndDtyId(String string);
 }

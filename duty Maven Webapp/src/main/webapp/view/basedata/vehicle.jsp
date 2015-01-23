@@ -62,7 +62,7 @@
   			</div>  
   			<!-- 编辑窗体内容 -->
   <div id="vehicleinfowindow" class="easyui-window" title="新增/编辑车辆信息"
-			data-options="iconCls:'icon-tianyi-edit',modal:true" closed="true" 
+			data-options="iconCls:'icon-tianyi-edit',modal:true,headerCls:'bbbb'" closed="true" 
 			style="width: 400px; height: 500px; padding: 10px;color:white;"
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
 			 >
@@ -108,7 +108,7 @@
 							<td><input type="text" class="easyui-validatebox" id="txtpersonalno" data-options="validType:['length[0,20]']" ></td>
 						</tr>
 						<tr>
-							<td style="text-align: right;"><label>GPS设备:　</label></td>
+							<td style="text-align: right;"><label>GPS显示名称:　</label></td>
 							<td><input id="txtgpsid" class="easyui-combobox" ></td>
 						</tr>
 						<!-- <tr>

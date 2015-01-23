@@ -39,6 +39,8 @@ $(function() {
 						fitColumns : true,
 						pageNumber : 1,
 						pageSize : 10,
+						width : '100%',
+
 						title : "人员列表",
 						onDblClickRow : dblClickRow,
 						// checkOnSelect: false,
@@ -85,7 +87,7 @@ $(function() {
 									width : 80
 								},
 								{
-									title : 'GPS名称',
+									title : 'GPS显示名称',
 									field : 'gps_name',
 									align : 'left',
 									width : 200,
@@ -95,7 +97,7 @@ $(function() {
 									}
 								},
 								{
-									title : '手机号',
+									title : '手机号码',
 									field : 'mobile',
 									align : 'left',
 									width : 100
@@ -133,7 +135,14 @@ $(function() {
 									title : '组呼号',
 									field : 'intercomGroup',
 									align : 'left',
-									width : 80
+									width : 80,
+									formatter : function(value, row, index) { 
+										if (value == 4 || value == "4") {
+											return 5;
+										}else{
+											return value;
+										}
+									}
 								},
 								{
 									title : '个呼号',
@@ -336,7 +345,7 @@ function deletePolice(id) {
 			"id" : id
 		},
 		success : function(req) {
-			// $.messager.alert("消息提示", req.Message, "info");
+			$.messager.alert("消息提示", req.Message, "info");
 			btnSearchAction();
 		},
 		failer : function(a, b) {
@@ -348,10 +357,12 @@ function deletePolice(id) {
 	});
 }
 function btnCellClick(index) {
+	operationType = "edit";
 	var row = $("#dtPolice").datagrid('getData').rows[index];
 	editPoliceModel(row);
 }
 function dblClickRow(index, rowData) {
+	operationType = "edit";
 	editPoliceModel(rowData);
 }
 function editPoliceModel(rows) {
@@ -448,17 +459,17 @@ function savePoliceModel() {
 			$.messager.alert("错误提示", "警员身份证号码长度出错，限制长度为15位或者18位！", "error");
 			isComplete = false;
 			return;
-		}	
+		}
 
-		var Regx =  /^[A-Za-z0-9]+$/;
-		if(!Regx.test(idcardno)){
+		var Regx = /^[A-Za-z0-9]+$/;
+		if (!Regx.test(idcardno)) {
 			$.messager.alert("错误提示", "警员身份证号码格式出错，只能是全部数字或者最后一位是字母！", "error");
 			isComplete = false;
 			return;
 		}
 		var subIdCard = idcardno.substring(0, idcardno.length - 1);
 		if (pattern.test(subIdCard)) {
-			$.messager.alert("错误提示", "警员身份证号码格式出错，请检查前面14位或者17位！", "error");
+			$.messager.alert("错误提示", "警员身份证号码格式出错  ！", "error");
 			isComplete = false;
 			return;
 		}
@@ -527,11 +538,12 @@ function savePoliceModel() {
 	if ($("#txtgroupno").combobox("getValue") > 0
 			&& $("#txtgroupno").combobox("getValue") != "") {
 		police.intercomGroup = $("#txtgroupno").combobox("getValue");
-	} else {
-		police.intercomGroup = 0;
-		// $.messager.alert("错误提示", "请选择GPS_ID", "error");
-		// return;
 	}
+	// else {
+	// police.intercomGroup = 0;
+	// // $.messager.alert("错误提示", "请选择GPS_ID", "error");
+	// // return;
+	// }
 	var intercomPerson = $.trim($("#txtpersonalno").val());
 	if (intercomPerson != "" && intercomPerson != undefined) {
 		if (operationType == "add") {
@@ -620,6 +632,9 @@ function btnExportAction() {
 		success : function(req) {
 			if (req.isSuccess) {
 				var urlStr = req.Data.substring(1, req.Data.length);
+				if (/msie/.test(navigator.userAgent.toLowerCase())) {
+					urlStr = "../../" + urlStr;
+				}
 				window.location.href = urlStr;
 			}
 		},

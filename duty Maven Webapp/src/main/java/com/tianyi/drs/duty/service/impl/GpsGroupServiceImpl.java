@@ -15,6 +15,7 @@ import com.tianyi.drs.duty.dao.GpsGroupOrgMapper;
 import com.tianyi.drs.duty.model.GpsGroup;
 import com.tianyi.drs.duty.model.GpsGroupMember;
 import com.tianyi.drs.duty.model.GpsGroupOrg; 
+import com.tianyi.drs.duty.model.VehicleGroupMember;
 import com.tianyi.drs.duty.service.GpsGroupService;
 import com.tianyi.drs.duty.viewmodel.GpsGroupMemberVM;
 import com.tianyi.drs.duty.viewmodel.GpsGroupVM; 
@@ -121,16 +122,20 @@ public class GpsGroupServiceImpl implements GpsGroupService {
 	 */
 	@Transactional
 	public void appendMemeber(List<GpsGroupMember> ls) {
+		if (ls.size() > 0) {
+			GpsGroupMember pgm = ls.get(0);
+			gpsGroupMemberMapper.deleteByGroupId(pgm.getGroupId());
+		}
 		for(GpsGroupMember pgm : ls){
 			Map<String,Object> m1=new HashMap<String,Object>();
 			m1.put("groupId", pgm.getGroupId());
 			m1.put("memberId", pgm.getGpsId());
-			
-			Integer count=gpsGroupMemberMapper.existsByMemberId(m1);
-			
-			if(count==0){
+//			
+//			Integer count=gpsGroupMemberMapper.existsByMemberId(m1);
+//			
+//			if(count==0){
 				gpsGroupMemberMapper.insert(pgm);
-			}
+//			}
 			
 		}
 		

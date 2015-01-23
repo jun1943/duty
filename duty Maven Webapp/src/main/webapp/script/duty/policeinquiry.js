@@ -176,6 +176,7 @@ $(function() {
 	// getBaseDataCombobox("duty/getdutyProperty.do", "dutyProperty");
 
 	initCriteria();
+	//loadReport();
 });
 
 function fmtOrgCount(value, row, index) {
@@ -201,7 +202,7 @@ function loaddutyTypeComboTree() {
 				});
 				$('#cmbdutytype').combotree('loadData', ss);
 				$('#cmbdutytype').combotree('setValues', a);
-
+				loadReport();
 			} else {
 				alert("获取数据失败");
 			}
@@ -223,7 +224,12 @@ function btnExportDataAction() {
 		async : false,
 		timeout : 60000,
 		success : function(req) {
+			
 			var urlStr = req.Data.substring(1, req.Data.length);
+			if (/msie/.test(navigator.userAgent.toLowerCase())) {
+				urlStr = "../../" + urlStr;
+			}
+			//var urlStr = req.Data.substring(1, req.Data.length);
 			window.location.href = urlStr;
 		},
 		failer : function(a, b) {
@@ -275,7 +281,6 @@ function initCriteria() {
 	$('#ckArmamentType2').prop('checked', true);
 
 	$('#cmbdutytype').combotree('getChecked');
-
 }
 
 function loadReport() {

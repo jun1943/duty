@@ -29,11 +29,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianyi.drs.basedata.model.Gps;
-import com.tianyi.drs.basedata.model.GpsType;  
+import com.tianyi.drs.basedata.model.GpsType;
 import com.tianyi.drs.basedata.service.GpsService;
-import com.tianyi.drs.basedata.viewmodel.GpsVM; 
+import com.tianyi.drs.basedata.viewmodel.GpsVM;
 import com.tianyi.drs.duty.util.ExcelPortUtil;
-import com.tianyi.drs.duty.viewmodel.ListResult; 
+import com.tianyi.drs.duty.viewmodel.ListResult;
+
 /*
  * 定位设备控制器，mark by liqinag
  */
@@ -45,11 +46,7 @@ public class GpsController {
 	protected GpsService gpsService;
 
 	/*
-	 * 获取定位设备列表
-	 * 参数：
-	 * query：前台查询条件打包参数，包括组织机构信息，名称
-	 * page：当前页
-	 * rows：每页数据量
+	 * 获取定位设备列表 参数： query：前台查询条件打包参数，包括组织机构信息，名称 page：当前页 rows：每页数据量
 	 */
 	@RequestMapping(value = "getGpsdeviceList.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
@@ -62,7 +59,7 @@ public class GpsController {
 			JSONObject joQuery = JSONObject.fromObject(query);
 			int orgId = Integer.parseInt(joQuery.getString("orgId"));
 			int isSubOrg = Integer.parseInt(joQuery.getString("isSubOrg"));
-			String gpsname = joQuery.getString("gpsname");  
+			String gpsname = joQuery.getString("gpsname");
 
 			String orgCode = joQuery.getString("orgCode");
 			String orgPath = joQuery.getString("orgPath");
@@ -70,13 +67,13 @@ public class GpsController {
 			List<GpsVM> list = new ArrayList<GpsVM>();
 			Map<String, Object> map = new HashMap<String, Object>();
 			page = page == 0 ? 1 : page;
-			map.put("pageStart", (page - 1) * rows); 
+			map.put("pageStart", (page - 1) * rows);
 			map.put("pageSize", rows);
 			map.put("orgId", orgId);
 			map.put("isSubOrg", isSubOrg);
 			map.put("orgCode", orgCode);
 			map.put("orgPath", orgPath);
-			map.put("gpsname", gpsname);  
+			map.put("gpsname", gpsname);
 
 			int total = gpsService.loadVMCount(map);
 			list = gpsService.loadVMList(map);
@@ -90,33 +87,31 @@ public class GpsController {
 			return "{\"total\":0,\"rows\":[]}";
 		}
 	}
+
 	/*
-	 * 获取定位设备資源列表，用于报备页面显示；
-	 * 参数：
-	 * orgId、orgCode、orgPath ：前台查询条件打包参数，包括组织机构信息
-	 * typeId：类型集
-	 * groupId：所属群组集 
+	 * 获取定位设备資源列表，用于报备页面显示； 参数： orgId、orgCode、orgPath ：前台查询条件打包参数，包括组织机构信息
+	 * typeId：类型集 groupId：所属群组集
 	 */
 	@RequestMapping(value = "getGpsdeviceSource.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
-	String getGpsdeviceSource( 
+	String getGpsdeviceSource(
 			@RequestParam(value = "orgId", required = false) Integer orgId,
 			@RequestParam(value = "orgCode", required = false) String orgCode,
 			@RequestParam(value = "orgPath", required = false) String orgPath,
-			@RequestParam(value = "gpsname", required = false) String gpsname, 
-			@RequestParam(value = "typeId", required = false) String typeId,  
+			@RequestParam(value = "gpsname", required = false) String gpsname,
+			@RequestParam(value = "typeId", required = false) String typeId,
 			@RequestParam(value = "groupId", required = false) String groupId,
 			HttpServletRequest request) throws Exception {
 		try {
-			gpsname= gpsname.replace(",", "");
+			gpsname = gpsname.replace(",", "");
 			List<GpsVM> list = new ArrayList<GpsVM>();
 			Map<String, Object> map = new HashMap<String, Object>();
- 
+
 			map.put("orgId", orgId);
 			map.put("orgPath", orgPath);
 			map.put("orgCode", orgCode);
 			map.put("gpsname", gpsname);
-			//map.put("typeId", typeId);
+			// map.put("typeId", typeId);
 			if (groupId != null && groupId != "") {
 				String[] gs = {};
 				gs = groupId.split(",");
@@ -126,17 +121,17 @@ public class GpsController {
 				}
 				map.put("gids", gids);
 			}
-			if (typeId != null&& typeId !="") {
+			if (typeId != null && typeId != "") {
 				String[] s = {};
 				s = typeId.split(",");
 				int[] ids = new int[s.length];
-				for (int i = 0; i < s.length; i++) { 
+				for (int i = 0; i < s.length; i++) {
 					ids[i] = Integer.parseInt(String.valueOf(s[i]));
 				}
 				map.put("ids", ids);
 			}
 
-			//int total = gpsService.loadVMCount(map);
+			// int total = gpsService.loadVMCount(map);
 			list = gpsService.loadVMListWithGroup(map);
 			int total = list.size();
 			ListResult<GpsVM> rs = new ListResult<GpsVM>(total, list);
@@ -148,10 +143,9 @@ public class GpsController {
 			return "{\"total\":0,\"rows\":[]}";
 		}
 	}
+
 	/*
-	 * 保存定位设备列表
-	 * 参数：gps:传入后台保存对象
-	 *  
+	 * 保存定位设备列表 参数：gps:传入后台保存对象
 	 */
 	@RequestMapping(value = "saveGpsdevice.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
@@ -174,11 +168,9 @@ public class GpsController {
 					+ ex.getMessage() + "\"}";
 		}
 	}
-	
+
 	/*
-	 * 删除定位设备
-	 * 参数：
-	 * id:前台选择的数据id集
+	 * 删除定位设备 参数： id:前台选择的数据id集
 	 */
 	@RequestMapping(value = "deleteGpsdevice.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
@@ -186,48 +178,59 @@ public class GpsController {
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
 			int result = 0;
+			String Message = "";
 			if (id != null && id != "") {
 				String[] s = {};
 				s = id.split(",");
 				int[] ids = new int[s.length];
+				int m = 0;
 				for (int i = 0; i < s.length; i++) {
-					ids[i] = Integer.parseInt(String.valueOf(s[i]));
+					List<Gps> list = gpsService.findByIdAndDtyId(s[i]);
+					if (list.size() == 0) {
+						ids[i] = Integer.parseInt(String.valueOf(s[i]));
+					} else {
+						m++;
+					}
+					// ids[i] = Integer.parseInt(String.valueOf(s[i]));
+				}
+				if (s.length > m) {
+					Message = "部分数据删除成功！ 部分定位设备数据已关联报备数据，不能删除！";
+				}else if(s.length==m){
+					Message = "删除失败！ 选择资源数据已关联报备数据，不能删除";
 				}
 				map.put("ids", ids);
-			 
+
 				gpsService.deleteByIds(map);
-			} 
-			return "{\"success\":true,\"Message\":\"删除成功,result is " + result + "\"}";
+			}
+			return "{\"success\":true,\"Message\":\"" + Message + "\"}";
 		} catch (Exception ex) {
-			return "{\"success\":false,\"Message\":\"删除失败，原因：" + ex.getMessage() + "\"}";
+			return "{\"success\":false,\"Message\":\"删除失败，原因："
+					+ ex.getMessage() + "\"}";
 		}
 	}
+
 	/*
-	 * 获取定位设备类型
-	 * 参数：
-	 * id:前台选择的数据id集
+	 * 获取定位设备类型 参数： id:前台选择的数据id集
 	 */
-	@RequestMapping(value="getGpsType.do",produces="application/json;charset=UTF-8")
-	public @ResponseBody String getGpsType() throws Exception {
-		try
-		{ 
+	@RequestMapping(value = "getGpsType.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String getGpsType() throws Exception {
+		try {
 			List<GpsType> list = gpsService.selectGpsType();
 			JSONArray result = JSONArray.fromObject(list);
 			return result.toString();
-		}
-		catch(Exception ex){
+		} catch (Exception ex) {
 			return "";
 		}
 	}
+
 	/*
-	 * 获取定位设备类型，列表形式
-	 * 参数：
-	 * id:前台选择的数据id集
+	 * 获取定位设备类型，列表形式 参数： id:前台选择的数据id集
 	 */
-	@RequestMapping(value="getGpsTypelist.do",produces="application/json;charset=UTF-8")
-	public @ResponseBody String getGpsTypelist() throws Exception {
-		try
-		{ 
+	@RequestMapping(value = "getGpsTypelist.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String getGpsTypelist() throws Exception {
+		try {
 			List<GpsType> list = gpsService.selectGpsType();
 			int total = list.size();
 			ListResult<GpsType> rs = new ListResult<GpsType>(total, list);
@@ -239,9 +242,9 @@ public class GpsController {
 			return "{\"total\":0,\"rows\":[]}";
 		}
 	}
-	
+
 	/**
-	 * 判断是否有有车辆存在 
+	 * 判断是否有有车辆存在
 	 * 
 	 * 判断是否车牌号码重复；
 	 */
@@ -251,47 +254,47 @@ public class GpsController {
 			@RequestParam(value = "param", required = false) String param)
 			throws Exception {
 		try {
-			 
-				if (!param.equals("")) {
-					List<Gps> gps = gpsService.findByNumber(param);
-					if (gps.size()>0) {
-						return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
-					} else {
-						return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
-					}
+
+			if (!param.equals("")) {
+				List<Gps> gps = gpsService.findByNumber(param);
+				if (gps.size() > 0) {
+					return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
 				} else {
 					return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
 				}
-			 
+			} else {
+				return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
+			}
+
 		} catch (Exception ex) {
 			return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
 		}
 	}
-	
-	@RequestMapping(value="exportDataToExcle.do",produces="application/json;charset=UTF-8")
-	public @ResponseBody String exportDataToExcle(
+
+	@RequestMapping(value = "exportDataToExcle.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String exportDataToExcle(
 			@RequestParam(value = "gpsdevice_Query", required = false) String query,
-			HttpServletResponse response, HttpServletRequest request)
-	{
+			HttpServletResponse response, HttpServletRequest request) {
 		try {
 			JSONObject joQuery = JSONObject.fromObject(query);
 			int orgId = Integer.parseInt(joQuery.getString("orgId"));
 			int isSubOrg = Integer.parseInt(joQuery.getString("isSubOrg"));
-			String gpsname = joQuery.getString("gpsname");  
+			String gpsname = joQuery.getString("gpsname");
 
 			String orgCode = joQuery.getString("orgCode");
 			String orgPath = joQuery.getString("orgPath");
 
 			List<GpsVM> list = new ArrayList<GpsVM>();
 			Map<String, Object> map = new HashMap<String, Object>();
-		 
-			map.put("pageStart",1); 
+
+			map.put("pageStart", 0);
 			map.put("pageSize", 65530);
 			map.put("orgId", orgId);
 			map.put("isSubOrg", isSubOrg);
 			map.put("orgCode", orgCode);
 			map.put("orgPath", orgPath);
-			map.put("gpsname", gpsname);  
+			map.put("gpsname", gpsname);
 			boolean isSuccess = false;
 			// 取服务器地址，默认指向bin目录
 			String realPath = getClass().getResource("/").getFile().toString();
@@ -312,7 +315,7 @@ public class GpsController {
 			String s = UUID.randomUUID().toString();
 			s = s.replace("-", "");
 			realPath += "/" + s + ".xls";
-			exlPath += "/" + s + ".xls"; 
+			exlPath += "/" + s + ".xls";
 			list = gpsService.loadVMList(map);
 			if (list.size() > 0) {
 				isSuccess = initExcelData(list, realPath);
@@ -330,6 +333,7 @@ public class GpsController {
 					+ "\",\"Data\":\"\"}";
 		}
 	}
+
 	private boolean initExcelData(List<GpsVM> list, String realPath) {
 		File file = new File(realPath);
 		if (!file.exists()) {
@@ -353,10 +357,10 @@ public class GpsController {
 
 				cell_0.setCellValue(title);
 				sheet.addMergedRegion(new CellRangeAddress(0, 0, 2, 0));
-			 
+
 				Row row1 = sheet.createRow(1);
 
-				Cell cell_1 = row1.createCell(0, Cell.CELL_TYPE_STRING); 
+				Cell cell_1 = row1.createCell(0, Cell.CELL_TYPE_STRING);
 				cell_1.setCellStyle(style);
 				cell_1.setCellValue("定位设备类型");
 				sheet.autoSizeColumn(0);
@@ -375,24 +379,27 @@ public class GpsController {
 				cell_4.setCellStyle(style);
 				cell_4.setCellValue("图片链接地址");
 				sheet.autoSizeColumn(3);
- 
-				for (int rowNum = 2; rowNum <= list.size(); rowNum++) {
+
+				for (int rowNum = 2; rowNum <= list.size()+1; rowNum++) {
 					Row row = sheet.createRow(rowNum);
 					GpsVM gps = new GpsVM();
 					gps = list.get(rowNum - 2);
 					Cell cella = row.createCell(0, Cell.CELL_TYPE_STRING);
-					cella.setCellValue(gps.getTypeName() == null ? "" : gps.getTypeName());
+					cella.setCellValue(gps.getTypeName() == null ? "" : gps
+							.getTypeName());
 					Cell cellb = row.createCell(1, Cell.CELL_TYPE_STRING);
-					cellb.setCellValue(gps.getGpsName() == null ? "" : gps.getGpsName());
+					cellb.setCellValue(gps.getGpsName() == null ? "" : gps
+							.getGpsName());
 					Cell cellc = row.createCell(2, Cell.CELL_TYPE_STRING);
-					cellc.setCellValue(gps.getNumber() == null ? "" : gps.getNumber());
+					cellc.setCellValue(gps.getNumber() == null ? "" : gps
+							.getNumber());
 					Cell celle = row.createCell(3, Cell.CELL_TYPE_STRING);
-					celle.setCellValue(gps.getIconUrl() == null ? "" : gps.getIconUrl()); 
+					celle.setCellValue(gps.getIconUrl() == null ? "" : gps
+							.getIconUrl());
 				}
 			}
 			try {
-				FileOutputStream outputStream = new FileOutputStream(
-						realPath);
+				FileOutputStream outputStream = new FileOutputStream(realPath);
 				workbook.write(outputStream);
 				outputStream.flush();
 				outputStream.close();

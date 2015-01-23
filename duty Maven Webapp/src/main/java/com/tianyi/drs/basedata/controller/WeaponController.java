@@ -26,14 +26,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody; 
-       
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.tianyi.drs.basedata.model.Weapon;
 import com.tianyi.drs.basedata.model.WeaponType;
-import com.tianyi.drs.basedata.service.WeaponService; 
+import com.tianyi.drs.basedata.service.WeaponService;
 import com.tianyi.drs.basedata.viewmodel.WeaponVM;
 import com.tianyi.drs.duty.util.ExcelPortUtil;
-import com.tianyi.drs.duty.viewmodel.ListResult; 
+import com.tianyi.drs.duty.viewmodel.ListResult;
 
 /*
  * 
@@ -43,15 +43,14 @@ import com.tianyi.drs.duty.viewmodel.ListResult;
 @Controller
 @RequestMapping("/weapon")
 public class WeaponController {
-		
-	@Resource(name="weaponService")
+
+	@Resource(name = "weaponService")
 	protected WeaponService weaponService;
+
 	/*
 	 * 获取武器列表信息
 	 * 
-	 * weapon_Query：查询条件包 
-	 * page：当前页
-	 * rows：每页条数
+	 * weapon_Query：查询条件包 page：当前页 rows：每页条数
 	 */
 	@RequestMapping(value = "getWeaponList.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
@@ -65,7 +64,7 @@ public class WeaponController {
 			int orgId = Integer.parseInt(joQuery.getString("orgId"));
 			int isSubOrg = Integer.parseInt(joQuery.getString("isSubOrg"));
 			String number = joQuery.getString("number");
-			//int typeid = Integer.parseInt(joQuery.getString("typeid"));
+			// int typeid = Integer.parseInt(joQuery.getString("typeid"));
 
 			String orgCode = joQuery.getString("orgCode");
 			String orgPath = joQuery.getString("orgPath");
@@ -80,7 +79,7 @@ public class WeaponController {
 			map.put("orgCode", orgCode);
 			map.put("orgPath", orgPath);
 			map.put("number", number);
-			//map.put("typeid", typeid);
+			// map.put("typeid", typeid);
 
 			int total = weaponService.loadVMCount(map);
 			list = weaponService.loadVMList(map);
@@ -94,7 +93,7 @@ public class WeaponController {
 			return "{\"total\":0,\"rows\":[]}";
 		}
 	}
-	
+
 	/*
 	 * 
 	 * 获取武器资源列表，
@@ -103,24 +102,24 @@ public class WeaponController {
 	 */
 	@RequestMapping(value = "getweaponSource.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
-	String getweaponSource(  
+	String getweaponSource(
 			@RequestParam(value = "orgId", required = false) Integer orgId,
 			@RequestParam(value = "orgCode", required = false) String orgCode,
 			@RequestParam(value = "orgPath", required = false) String orgPath,
-			@RequestParam(value = "number", required = false) String number, 
-			@RequestParam(value = "typeId", required = false) String typeId, 
+			@RequestParam(value = "number", required = false) String number,
+			@RequestParam(value = "typeId", required = false) String typeId,
 			@RequestParam(value = "groupId", required = false) String groupId,
 			HttpServletRequest request) throws Exception {
-		try {  
+		try {
 			number = number.replace(",", "");
 			List<WeaponVM> list = new ArrayList<WeaponVM>();
 			Map<String, Object> map = new HashMap<String, Object>();
- 
-			map.put("orgId", orgId); 
+
+			map.put("orgId", orgId);
 			map.put("number", number);
 			map.put("orgPath", orgPath);
 			map.put("orgCode", orgCode);
-			//map.put("typeId", typeId);
+			// map.put("typeId", typeId);
 			if (groupId != null && groupId != "") {
 				String[] gs = {};
 				gs = groupId.split(",");
@@ -130,19 +129,18 @@ public class WeaponController {
 				}
 				map.put("gids", gids);
 			}
-			if (typeId != null&& typeId !="") {
+			if (typeId != null && typeId != "") {
 				String[] s = {};
 				s = typeId.split(",");
 				int[] ids = new int[s.length];
-				for (int i = 0; i < s.length; i++) { 
+				for (int i = 0; i < s.length; i++) {
 					ids[i] = Integer.parseInt(String.valueOf(s[i]));
 				}
 				map.put("ids", ids);
 			}
 
-
 			list = weaponService.loadVMListWithGroup(map);
-			int total =  list.size();
+			int total = list.size();
 
 			ListResult<WeaponVM> rs = new ListResult<WeaponVM>(total, list);
 
@@ -153,6 +151,7 @@ public class WeaponController {
 			return "{\"total\":0,\"rows\":[]}";
 		}
 	}
+
 	/*
 	 * 
 	 * 保存武器信息；
@@ -178,10 +177,9 @@ public class WeaponController {
 					+ ex.getMessage() + "\"}";
 		}
 	}
-	
+
 	/*
-	 * 删除武器信息
-	 * id：页面选择的武器id；
+	 * 删除武器信息 id：页面选择的武器id；
 	 */
 	@RequestMapping(value = "deleteWeapon.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
@@ -189,48 +187,64 @@ public class WeaponController {
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
 			int result = 0;
+			String Message = "";
 			if (id != null && id != "") {
 				String[] s = {};
 				s = id.split(",");
 				int[] ids = new int[s.length];
+				int m = 0;
 				for (int i = 0; i < s.length; i++) {
-					ids[i] = Integer.parseInt(String.valueOf(s[i]));
+					List<Weapon> list = weaponService.findByIdAndDtyId(s[i]);
+					if (list.size() == 0) {
+						ids[i] = Integer.parseInt(String.valueOf(s[i]));
+					}else
+					{
+						m++;
+					}
+					// ids[i] = Integer.parseInt(String.valueOf(s[i]));
+				}
+				if (s.length > m) {
+					Message = "部分数据删除成功！ 部分武器数据已关联报备数据，不能删除！";
+				}else if(s.length==m){
+					Message = "删除失败！ 选择资源数据已关联报备数据，不能删除";
 				}
 				map.put("ids", ids);
-			 
+
 				weaponService.deleteByIds(map);
 			}
-//			int result =0;
-//			if(id>0){
-//				result = weaponService.deleteByPrimaryKey(id);
-//			}
-			return "{\"success\":true,\"Message\":\"删除成功,result is " + result + "\"}";
+			// int result =0;
+			// if(id>0){
+			// result = weaponService.deleteByPrimaryKey(id);
+			// }
+			return "{\"success\":true,\"Message\":\"" + Message + "\"}";
 		} catch (Exception ex) {
-			return "{\"success\":false,\"Message\":\"删除失败，原因：" + ex.getMessage() + "\"}";
+			return "{\"success\":false,\"Message\":\"删除失败，原因："
+					+ ex.getMessage() + "\"}";
 		}
 	}
+
 	/*
 	 * 获取武器类型下拉列表；
 	 */
-	@RequestMapping(value="getWeaponType.do",produces="application/json;charset=UTF-8")
-	public @ResponseBody String getWeaponType() throws Exception {
-		try
-		{ 
+	@RequestMapping(value = "getWeaponType.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String getWeaponType() throws Exception {
+		try {
 			List<WeaponType> list = weaponService.selectWeaponType();
 			JSONArray result = JSONArray.fromObject(list);
 			return result.toString();
-		}
-		catch(Exception ex){
+		} catch (Exception ex) {
 			return "";
 		}
 	}
+
 	/*
 	 * 获取武器类型列表数据，
 	 */
-	@RequestMapping(value="getWeaponTypelist.do",produces="application/json;charset=UTF-8")
-	public @ResponseBody String getWeaponTypelist() throws Exception {
-		try
-		{ 
+	@RequestMapping(value = "getWeaponTypelist.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String getWeaponTypelist() throws Exception {
+		try {
 			List<WeaponType> list = weaponService.selectWeaponType();
 			int total = list.size();
 			ListResult<WeaponType> rs = new ListResult<WeaponType>(total, list);
@@ -242,8 +256,9 @@ public class WeaponController {
 			return "{\"total\":0,\"rows\":[]}";
 		}
 	}
+
 	/**
-	 * 判断是否有有车辆存在 
+	 * 判断是否有有车辆存在
 	 * 
 	 * 判断是否车牌号码重复；
 	 */
@@ -253,41 +268,42 @@ public class WeaponController {
 			@RequestParam(value = "param", required = false) String param)
 			throws Exception {
 		try {
-			 
-				if (!param.equals("")) {
-					List<Weapon> weapon = weaponService.findByNumber(param);
-					if (weapon.size()>0) {
-						return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
-					} else {
-						return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
-					}
+
+			if (!param.equals("")) {
+				List<Weapon> weapon = weaponService.findByNumber(param);
+				if (weapon.size() > 0) {
+					return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
 				} else {
 					return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
 				}
-			 
+			} else {
+				return "{\"isSuccess\":true,\"Message\":\"UnExits\"}";
+			}
+
 		} catch (Exception ex) {
 			return "{\"isSuccess\":false,\"Message\":\"Exits\"}";
 		}
 	}
-	@RequestMapping(value="exportDataToExcle.do",produces="application/json;charset=UTF-8")
-	public @ResponseBody String exportDataToExcle(
+
+	@RequestMapping(value = "exportDataToExcle.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String exportDataToExcle(
 			@RequestParam(value = "weapon_Query", required = false) String query,
-			HttpServletResponse response, HttpServletRequest request)
-	{
+			HttpServletResponse response, HttpServletRequest request) {
 		try {
 			JSONObject joQuery = JSONObject.fromObject(query);
 			int orgId = Integer.parseInt(joQuery.getString("orgId"));
 			int isSubOrg = Integer.parseInt(joQuery.getString("isSubOrg"));
 			String number = joQuery.getString("number");
-			//int typeid = Integer.parseInt(joQuery.getString("typeid"));
+			// int typeid = Integer.parseInt(joQuery.getString("typeid"));
 
 			String orgCode = joQuery.getString("orgCode");
 			String orgPath = joQuery.getString("orgPath");
 
 			List<WeaponVM> list = new ArrayList<WeaponVM>();
 			Map<String, Object> map = new HashMap<String, Object>();
-		 
-			map.put("pageStart", 1);
+
+			map.put("pageStart", 0);
 			map.put("pageSize", 65530);
 			map.put("orgId", orgId);
 			map.put("isSubOrg", isSubOrg);
@@ -314,7 +330,7 @@ public class WeaponController {
 			String s = UUID.randomUUID().toString();
 			s = s.replace("-", "");
 			realPath += "/" + s + ".xls";
-			exlPath += "/" + s + ".xls"; 
+			exlPath += "/" + s + ".xls";
 			list = weaponService.loadVMList(map);
 			if (list.size() > 0) {
 				isSuccess = initExcelData(list, realPath);
@@ -332,7 +348,6 @@ public class WeaponController {
 					+ "\",\"Data\":\"\"}";
 		}
 	}
- 
 
 	private boolean initExcelData(List<WeaponVM> list, String realPath) {
 		File file = new File(realPath);
@@ -357,10 +372,10 @@ public class WeaponController {
 
 				cell_0.setCellValue(title);
 				sheet.addMergedRegion(new CellRangeAddress(0, 0, 2, 0));
-			 
+
 				Row row1 = sheet.createRow(1);
 
-				Cell cell_1 = row1.createCell(0, Cell.CELL_TYPE_STRING); 
+				Cell cell_1 = row1.createCell(0, Cell.CELL_TYPE_STRING);
 				cell_1.setCellStyle(style);
 				cell_1.setCellValue("武器类型");
 				sheet.autoSizeColumn(0);
@@ -374,25 +389,25 @@ public class WeaponController {
 				cell_3.setCellStyle(style);
 				cell_3.setCellValue("规格标准");
 				sheet.autoSizeColumn(2);
- 
- 
-				
-				for (int rowNum = 2; rowNum <= list.size(); rowNum++) {
+
+				for (int rowNum = 2; rowNum <= list.size()+1; rowNum++) {
 					Row row = sheet.createRow(rowNum);
 					WeaponVM weapon = new WeaponVM();
 					weapon = list.get(rowNum - 2);
 					Cell cella = row.createCell(0, Cell.CELL_TYPE_STRING);
-					cella.setCellValue(weapon.getTypeName() == null ? "" : weapon.getTypeName());
+					cella.setCellValue(weapon.getTypeName() == null ? ""
+							: weapon.getTypeName());
 					Cell cellb = row.createCell(1, Cell.CELL_TYPE_STRING);
-					cellb.setCellValue(weapon.getNumber() == null ? "" : weapon.getNumber());
+					cellb.setCellValue(weapon.getNumber() == null ? "" : weapon
+							.getNumber());
 					Cell cellc = row.createCell(2, Cell.CELL_TYPE_STRING);
-					cellc.setCellValue(weapon.getStandard()== null ? "" : weapon.getStandard());
-				 
+					cellc.setCellValue(weapon.getStandard() == null ? ""
+							: weapon.getStandard());
+
 				}
 			}
 			try {
-				FileOutputStream outputStream = new FileOutputStream(
-						realPath);
+				FileOutputStream outputStream = new FileOutputStream(realPath);
 				workbook.write(outputStream);
 				outputStream.flush();
 				outputStream.close();

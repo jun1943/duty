@@ -56,8 +56,8 @@
 				</div>
 				<div id="tb_source_police">
 					<a id="showpoliceCondition" name="showpoliceCondition"
-						onclick="$('#policeConditionwindow').window('open');"
-						href="javascript:void(0);" class="easyui-linkbutton" plain="true">过滤条件</a>
+						onclick="$('#policeConditionwindow').window('open');" iconcls="icon-tianyi-sum"
+						href="javascript:void(0);" class="easyui-linkbutton" >过滤条件</a>
 
 					<input id="txtpname" class="dtypreresourceinput" type="text" /> <a
 						id="searchpoliceAction" name="searchpoliceAction"
@@ -77,8 +77,8 @@
 				</div>
 				<div id="tb_source_vehicle">
 					<a id="showvehicleCondition" name="showvehicleCondition"
-						onclick="$('#vehicleConditionwindow').window('open');"
-						href="javascript:void(0);" class="easyui-linkbutton" plain="true">过滤条件</a>
+						onclick="$('#vehicleConditionwindow').window('open');" iconcls="icon-tianyi-sum"
+						href="javascript:void(0);" class="easyui-linkbutton" >过滤条件</a>
 					<input id="txtvnumber" class="dtypreresourceinput" type="text" /> <a
 						id="searchvehicleAction" name="searchvehicleAction"
 						href="javascript:void(0);" class="easyui-linkbutton"
@@ -96,8 +96,8 @@
 				</div>
 				<div id="tb_source_gpsdevice">
 					<a id="showgpsCondition" name="showgpsCondition"
-						onclick="$('#gpsConditionwindow').window('open');"
-						href="javascript:void(0);" class="easyui-linkbutton" plain="true">过滤条件</a>
+						onclick="$('#gpsConditionwindow').window('open');" iconcls="icon-tianyi-sum"
+						href="javascript:void(0);" class="easyui-linkbutton" >过滤条件</a>
 					<input id="txtgname" class="dtypreresourceinput" type="text" /> <a
 						id="searchgpsdeviceAction" name="searchgpsdeviceAction"
 						href="javascript:void(0);" class="easyui-linkbutton"
@@ -115,8 +115,8 @@
 				</div>
 				<div id="tb_source_weapon">
 					<a id="showweaponCondition" name="showweaponCondition"
-						onclick="$('#weaponConditionwindow').window('open');"
-						href="javascript:void(0);" class="easyui-linkbutton" plain="true">过滤条件</a>
+						onclick="$('#weaponConditionwindow').window('open');" iconcls="icon-tianyi-sum"
+						href="javascript:void(0);" class="easyui-linkbutton"  >过滤条件</a>
 					<input id="txtwnumber" class="dtypreresourceinput" type="text" /> <a
 						id="searchweaponAction" name="searchweaponAction"
 						href="javascript:void(0);" class="easyui-linkbutton"
@@ -126,7 +126,7 @@
 		</div>
 	</div>
 	<!-- 报备区域导航 -->
-	<div id="divMember" data-options="region:'center'" title="备勤">
+	<div id="divMember" data-options="region:'center',headerCls:'aaaa'" title="备勤">
 		<div class="easyui-layout" style="height:100%;width :100%">
 			<div data-options="region:'north'" class="dtypredutytoolbar">
 				<div class="btn-toolbar">
@@ -134,11 +134,11 @@
 						<a href="javascript:void(0);" class="easyui-linkbutton"
 							iconcls="icon-tianyi-add" onclick="addShift()">添加班次</a> <a
 							href="javascript:void(0);" class="easyui-linkbutton"
-							iconcls="icon-tianyi-edit" onclick="setShift()">设置班次</a> <a
+							iconcls="icon-tianyi-edit" onclick="setShift()">修改班次</a> <a
 							href="javascript:void(0);" class="easyui-linkbutton"
 							iconcls="icon-tianyi-add" onclick="addUserNode()">添加编组</a> <a
 							href="javascript:void(0);" class="easyui-linkbutton"
-							iconcls="icon-tianyi-edit" onclick="setUserNode()">设置编组</a> <a
+							iconcls="icon-tianyi-edit" onclick="setUserNode()">修改编组</a> <a
 							href="javascript:void(0);" class="easyui-linkbutton"
 							iconcls="icon-tianyi-add" onclick="showTaskWindow()">关联任务</a> <a
 							href="javascript:void(0);" class="easyui-linkbutton"
@@ -169,8 +169,7 @@
 								</table>
 							</form>
 						</div>
-					</div>
-
+					</div> 
 				</div>
 				<!-- 报备详细列表树 -->
 				<div id="tdDuty"></div>
@@ -253,7 +252,7 @@
 	<!-- 勤务类型选择框 -->
 	<div id="dutyTypeSelectwindow" class="easyui-window" title="报备类型-选择"
 	style="width: 354px; height:500px; padding: 10px;"
-		data-options="iconCls:'icon-tianyi-edit'" closed="true" collapsible="false"
+		data-options="modal:true,iconCls:'icon-tianyi-edit'" closed="true" collapsible="false"
 		minimizable="false" maximizable="false" resizable="false"
 		shadow="false" >
 		<div class="easyui-layout" data-options="fit:true">
@@ -269,16 +268,21 @@
 	<!-- 模板选择框 -->
 	<div id="dutyTemplateSelectwindow" class="easyui-window"
 	style="width: 354px; height:400px; padding: 10px;"
-		title="备勤模板-选择" data-options="iconCls:'icon-tianyi-edit'" closed="true"
+		title="备勤模板-选择" data-options="modal:true,iconCls:'icon-tianyi-edit'" closed="true"
 		collapsible="false" minimizable="false" maximizable="false"
 		resizable="false" shadow="false" >
 		<div class="easyui-layout" data-options="fit:true">
+					<div data-options="region:'north',border:false" class="dtypreresourceQywindowbtn">
+				<a href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-tianyi-delete" 
+				  onclick="deleteDutyTemplateAction()"> 删除模板 </a>
+			</div>
 			<div data-options="region:'south',border:false" class="dtypreresourceQywindowbtn">
 				<a href="javascript:void(0);" class="easyui-linkbutton"
 					style="float:right" onclick="selectDutyTemplateAction()"> 确 定 </a>
 			</div>
 			<div data-options="region:'center',border:false" class="dtypredtempQywindowcontent">
 				<div id="dtDutyTemplate"></div>
+				
 			</div>
 		</div>
 	</div>
@@ -360,13 +364,13 @@
 					<tr>
 						<td style="text-align:right"><label>开始时间:</label></td>
 						<td><input id="txtBeginTime" type="text"
-							class="easyui-timespinner"></input></td>
+							class="easyui-timespinner" required="required"  data-options="min:'00:00',showSeconds:false"></input></td>
 						<td></td>
 					</tr>
 					<tr>
 						<td style="text-align:right"><label>结束时间:</label></td>
 						<td><input id="txtEndTime" type="text"
-							class="easyui-timespinner"></input></td>
+							class="easyui-timespinner" required="required"  data-options="min:'00:00',showSeconds:false"></input></td>
 						<td><label>
 							<input type="checkbox" id="chkDayType"></input>第二天</label></td>
 					</tr>

@@ -188,9 +188,9 @@ function pack_gpsGroup_Query() {
 function showGpsGroupDlg() {
 	$('#winPG').window('open');
 }
-
-function addGpsGroup() {
-
+var opteType = "";
+function addGpsGroup(optType) {
+	opteType = optType;
 	var pg = {};
 	pg.shareOrgs = [];
 	pg.id = 0;
@@ -203,7 +203,8 @@ function addGpsGroup() {
 	showGpsGroupDlg();
 }
 
-function editGpsGroup() {
+function editGpsGroup(optType) {
+	opteType = optType;
 	var row = $("#dtGpsGroup").datagrid("getSelected");
 	if (row !== null) {
 		var id = row.id;
@@ -226,14 +227,14 @@ function saveGpsGroup() {
 		$('#txtGpsGroupName').focus();
 		return;
 	}
-
-	isExistGroup(groupName, m_gpsGroup_Org.id);
-	if (!isExist) {
-		$.messager.alert("错误提示", "该分组名称已存在，请重新填写分组名称", "error");
-		$('#txtGpsGroupName').focus();
-		return;
+	if (opteType == "add") {
+		isExistGroup(groupName, m_gpsGroup_Org.id);
+		if (!isExist) {
+			$.messager.alert("错误提示", "该分组名称已存在，请重新填写分组名称", "error");
+			$('#txtGpsGroupName').focus();
+			return;
+		}
 	}
-
 	pg.name = groupName;
 
 	pg.shareType = $('input:radio[name="shareType"]:checked').val();
@@ -380,6 +381,7 @@ function onSelectGroup(rowIndex, rowData) {
 	$('#dtGroupMember').datagrid('reload', {
 		'member_Query' : JSON.stringify(m_member_Query)
 	});
+	 $('#treeOrgWithGps').tree('reload');
 	// var x=$('#dtGroupMember').datagrid('queryParams');
 }
 
@@ -399,10 +401,15 @@ function addGpsGroupMember() {
 		var existdata = $("#dtGroupMember").datagrid("getRows");
 		for ( var i = 0; i < existdata.length; i++) {
 			$('#dtSelGroupMember').datagrid('appendRow', {
-				id : existdata[i].id,
+				id : existdata[i].gpsId,
 				name : existdata[i].typeName,
 				code : existdata[i].number
-			}); 
+			});
+		}
+		for ( var j = 0; j < existdata.length; j++) {
+			var s = null;
+			s = $("#treeOrgWithGps").tree("find","gps_" + existdata[j].gpsId);
+			$("#treeOrgWithGps").tree("remove", s.target);
 		}
 	} else {
 		$.messager.alert('提示', '请先选择组!');
@@ -522,7 +529,7 @@ function selectMemberModel(node) {
 		if (!exists) {
 			$('#dtSelGroupMember').datagrid('appendRow', {
 				id : node.rid,
-				name : node.name,
+				name : node.typename,
 				code : node.code
 			});
 		}

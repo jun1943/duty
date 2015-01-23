@@ -59,7 +59,7 @@
 										<td class="MySearchTDTitle">姓名:</td>
 										<td><input id="txtsearchName" type="text"  
 										class="easyui-validatebox policesearchinput"></td>
-										<td class="MySearchTDTitle">人员类别 :</td>
+										<td class="MySearchTDTitle">警员类别 :</td>
 										<td><input id="sltType" class="easyui-combobox policesearchinput" data-options="editable:false"  /></td>
 										<td><a id="btnSearchAction" href="javascript:void(0);"
 							class="easyui-linkbutton" iconcls="icon-tianyi-search"  
@@ -76,7 +76,7 @@
 		</div>
 		<!-- 编辑窗体内容 -->
 		<div id="policeinfowindow" class="easyui-window " title="新增/编辑 警员信息"
-			data-options="iconCls:'icon-tianyi-edit',modal:true" closed="true" 
+			data-options="iconCls:'icon-tianyi-edit',modal:true,headerCls:'bbbb'" closed="true" 
 			style="width: 400px; height: 500px; padding: 10px;color:white;"
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" 
 		 >
@@ -94,7 +94,7 @@
 					class="policewindowcenter">
 					<table class="policewindowtable">
 						<tr>
-							<td style="text-align: right;"><input type="hidden" id="policeId"><label>人员类别:　</label></td>
+							<td style="text-align: right;"><input type="hidden" id="policeId"><label>警员类别:　</label></td>
 							<td><input id="txttype" class="easyui-combobox"  data-options="editable:false,required:true"/><span style="color:red">*</span></td>
 						</tr>
 						<tr>
@@ -137,7 +137,7 @@
 								class="easyui-validatebox"  data-options="validType:['length[1,20]']"></td>
 						</tr>
 						<tr>
-							<td style="text-align: right;"><label>GPS设备:　</label></td>
+							<td style="text-align: right;"><label>GPS显示名称:　</label></td>
 							<td><input id="txtgpsid" class="easyui-combobox" data-options="editable:false"/></td>
 						</tr>
 						<!-- <tr>

@@ -102,4 +102,17 @@ public interface DutyMapper {
 	 * @return
 	 */
 	List<Duty> loadVMListByOrgAndYmd(Map<String, Object> maps);
+
+	/**
+	 * 根据模板id，获取模板信息
+	 * @param id
+	 * @return
+	 */
+	Duty loadTempById(Integer param);
+
+	/**
+	 * 根据id，删除模板对象
+	 * @param param
+	 */
+	void deleteTempById(Integer param);
 }
