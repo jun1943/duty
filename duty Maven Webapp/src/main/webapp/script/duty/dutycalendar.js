@@ -860,23 +860,27 @@ function findDutyPoint(name) {
 	return a;
 }
 
-function findDutyTreeGrid(item, name) {
-	var ls = [];
-	if (item.children != null) {
-		$.each(item.children, function(index, value) {
-			var o = findDutyTreeGrid(value, name);
-			if (o != null) {
-				ls.push(o);
-			}
-		});
-	}
 
-	item.children = ls;
-
-	if (name = "" || item.name.indexOf(name) >= 0 || ls.length > 0) {
+function findDutyTreeGrid(item, xname) {
+	if (xname == "" || item.displayName.indexOf(xname) >= 0 ) {		
 		return item;
 	} else {
-		return null;
+		var ls = [];
+		if (item.children != null && item.children.length>0) {
+			$.each(item.children, function(index, value) {
+				var o = findDutyTreeGrid(value, xname);
+				if (o != null) {
+					ls.push(o);
+				}
+			});
+			item.children = ls;
+			if(ls.length>0)
+				return item;
+			else
+				return null;
+		}else{
+			return null;
+		}
 	}
 }
 
