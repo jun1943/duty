@@ -2549,9 +2549,7 @@ function btnSearchAction() {
 	if (name != "") {
 		var a = findDutyPoint(name);
 		$('#tdDuty').treegrid("loadData", a);
-		if (primId.length > 0) {
-			 
-		}
+		
 	}
 	// else {
 	// var pars = {
@@ -2574,34 +2572,28 @@ function findDutyPoint(name) {
 	}
 	return a;
 }
-var primId = [];
-function findDutyTreeGrid(item, name) {
-	var ls = [];
-	if (item.children != null) {
-		$.each(item.children, function(index, value) {
-			var o = findDutyTreeGrid(value, name);
-			if (o != null) {
-				ls.push(o);
-			}
-		});
-	}
-
-	item.children = ls;
-
-	if (name = "" || item.name.indexOf(name) >= 0 || ls.length > 0) {
-		if (item.itemTypeId == 1) {
-			if (item.weaponCount > 0 || item.policeCount > 0
-					|| item.gpsCount > 0) {
-				primId.push(item.xid);
-			}
-		} else if (item.itemTypeId == 2) {
-			if (item.weaponCount > 0 || item.gpsCount > 0) {
-				primId.push(item.xid);
-			}
-		}
+var primId = "";
+var lastObj = null;
+function findDutyTreeGrid(item, xname) {
+	if (xname == "" || item.displayName.indexOf(xname) >= 0 ) {		
 		return item;
 	} else {
-		return null;
+		var ls = [];
+		if (item.children != null && item.children.length>0) {
+			$.each(item.children, function(index, value) {
+				var o = findDutyTreeGrid(value, xname);
+				if (o != null) {
+					ls.push(o);
+				}
+			});
+			item.children = ls;
+			if(ls.length>0)
+				return item;
+			else
+				return null;
+		}else{
+			return null;
+		}
 	}
 } 
 function btnBackToCalendarAction() {
