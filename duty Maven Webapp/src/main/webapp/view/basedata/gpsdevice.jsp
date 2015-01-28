@@ -79,10 +79,10 @@
 				<br /><br /> 
 						&npbs;
 				 <a  href="javascript:void(0);" class="easyui-linkbutton"   iconcls="icon-tianyi-save"  
-						onclick="btnsaveGpsData()">确定</a>  
+						onclick="btnsaveGpsData()"> 确定  </a>  
 						&npbs; 
 					<a  href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-delete"  
-						onclick="btnCancelGpsDataAction()">　　取消　　</a> 
+						onclick="btnCancelGpsDataAction()"> 取消  </a> 
 	 		 </div> 
 	 	</div>
 	<!-- 编辑窗体内容 -->

@@ -491,7 +491,7 @@ function btnsaveGpsData() {
 		dataType : "json",
 		async : false, 
 		data : {
-			'orgid' : m_Weapon_OrgId,
+			'orgid' : m_Gpsdevice_OrgId,
 			'fileName' : urlStr,
 			'sourcetype':'GpsInfo'
 		},

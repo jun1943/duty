@@ -92,10 +92,10 @@
 				<br /><br /> 
 						&npbs;
 				 <a id="btnsavePoliceData" href="javascript:void(0);" class="easyui-linkbutton"   iconcls="icon-tianyi-save"  
-						onclick="btnsavePoliceData()">确定</a>  
+						onclick="btnsavePoliceData()"> 确定  </a>  
 						&npbs; 
 					<a  href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-delete"  
-						onclick="btnCancelPoliceDataAction()">　　取消　　</a> 
+						onclick="btnCancelPoliceDataAction()"> 取消  </a> 
 	 		 </div> 
 	 	</div>
 		<!-- 编辑窗体内容 -->

@@ -77,10 +77,10 @@
 				<br /><br /> 
 						&npbs;
 				 <a  href="javascript:void(0);" class="easyui-linkbutton"   iconcls="icon-tianyi-save"  
-						onclick="btnsaveWeaponData()">确定</a>  
+						onclick="btnsaveWeaponData()"> 确定  </a>  
 						&npbs; 
 					<a  href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-delete"  
-						onclick="btnCancelWeaponDataAction()">　　取消　　</a> 
+						onclick="btnCancelWeaponDataAction()"> 取消  </a> 
 	 		 </div> 
 	 	</div>	
 	<!-- 编辑窗体内容 -->

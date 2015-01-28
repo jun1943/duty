@@ -649,7 +649,7 @@ function btnExportAction() {
 }
 // 导入事件
 function btnInportAction() {
-	InitPoliceUploadFun();
+	InitEntityUploadFun();
 	$("#policeInfoinportwindow").window("open");
 }
 function btnCancelPoliceDataAction() {

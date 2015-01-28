@@ -80,10 +80,10 @@
 				<br /><br /> 
 						&npbs;
 				 <a  href="javascript:void(0);" class="easyui-linkbutton"   iconcls="icon-tianyi-save"  
-						onclick="btnsaveVehicleData()">确定</a>  
+						onclick="btnsaveVehicleData()"> 确定  </a>  
 						&npbs; 
 					<a  href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-delete"  
-						onclick="btnCancelVehicleDataAction()">　　取消　　</a> 
+						onclick="btnCancelVehicleDataAction()"> 取消  </a> 
 	 		 </div> 
 	 	</div>	
   			
