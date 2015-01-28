@@ -12,6 +12,7 @@ var operationType = "";
 $(function() {
 
 	$("#vehicleinfowindow").window("close");
+	$("#vehicleInfoinportwindow").window("close");
 
 	var args = getUrlArgs();
 	m_Vehicle_OrgId = args["orgId"];
@@ -461,4 +462,56 @@ function btnExportAction() {
 			$.messager.alert("消息提示", errorThrown, "error");
 		}
 	});
+}
+// 导入事件
+function btnInportAction() {
+	InitEntityUploadFun();
+	$("#vehicleInfoinportwindow").window("open");
+}
+function btnCancelVehicleDataAction() {
+	/**
+	 * do sth
+	 */
+	$("#vehicleInfoinportwindow").window("close");
+}
+
+function btnsaveVehicleData() {
+	var urlStr = $("#txtentityfilename").val();
+	if ($.trim(urlStr) == "") {
+		$.messager.alert("操作提示", "获取文件失败，请选择需要导入的文件", "warning");
+		return;
+	}
+	$.ajax({
+		url : "excelUpload/exportDataToDatabase.do",
+		type : "POST",
+		dataType : "json",
+		async : false, 
+		data : {
+			'orgid' : m_Vehicle_OrgId,
+			'fileName' : urlStr,
+			'sourcetype':'CarInfo'
+		},
+		success : function(req) {
+			if (req.isSuccess) {
+				$("#vehicleInfoinportwindow").window("close");
+				$.messager.alert("提示信息",req.Message,"info");
+				btnSearchAction();
+			}else{
+				$.messager.alert("提示信息",req.Message,"info");
+			}
+		},
+		failer : function(a, b) {
+			$.messager.alert("消息提示", "导入数据失败", "info");
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			$.messager.alert("错误提示", "导入数据失败", "error");
+		}
+	});
+}
+function btnDownLoadModel() {
+	var urlStr = "resource/ExelModel/CarInfo.xls";
+	if (/msie/.test(navigator.userAgent.toLowerCase())) {
+		urlStr = "../../" + urlStr;
+	}
+	window.location.href = urlStr;
 }

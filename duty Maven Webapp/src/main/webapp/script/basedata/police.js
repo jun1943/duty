@@ -16,6 +16,7 @@ var operationType = "";
 $(function() {
 
 	$("#policeinfowindow").window("close");
+	$("#policeInfoinportwindow").window("close");
 	// $('.panel-header').css({ "background-color": "#FFF000"
 	// }).css({"filter":"progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF000,endColorstr=#FFFFFF,GradientType=0)"});
 	var args = getUrlArgs();
@@ -136,10 +137,10 @@ $(function() {
 									field : 'intercomGroup',
 									align : 'left',
 									width : 80,
-									formatter : function(value, row, index) { 
+									formatter : function(value, row, index) {
 										if (value == 4 || value == "4") {
 											return 5;
-										}else{
+										} else {
 											return value;
 										}
 									}
@@ -648,5 +649,52 @@ function btnExportAction() {
 }
 // 导入事件
 function btnInportAction() {
-
+	InitPoliceUploadFun();
+	$("#policeInfoinportwindow").window("open");
+}
+function btnCancelPoliceDataAction() {
+	/**
+	 * do sth
+	 */
+	$("#policeInfoinportwindow").window("close");
+}
+function btnsavePoliceData() {
+	var urlStr = $("#txtpolicefilename").val();
+	if ($.trim(urlStr) == "") {
+		$.messager.alert("操作提示", "获取文件失败，请选择需要导入的文件", "warning");
+		return;
+	}
+	$.ajax({
+		url : "excelUpload/exportDataToDatabase.do",
+		type : "POST",
+		dataType : "json",
+		async : false, 
+		data : {
+			'orgid' : m_Police_OrgId,
+			'fileName' : urlStr,
+			'sourcetype':'PoliceInfo'
+		},
+		success : function(req) {
+			if (req.isSuccess) {
+				$("#policeInfoinportwindow").window("close");
+				$.messager.alert("提示信息",req.Message,"info");
+				btnSearchAction();
+			}else{
+				$.messager.alert("提示信息",req.Message,"info");
+			}
+		},
+		failer : function(a, b) {
+			$.messager.alert("消息提示", "导入数据失败", "info");
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			$.messager.alert("错误提示", "导入数据失败", "error");
+		}
+	});
+}
+function btnDownLoadModel() {
+	var urlStr = "resource/ExelModel/PoliceInfo.xls";
+	if (/msie/.test(navigator.userAgent.toLowerCase())) {
+		urlStr = "../../" + urlStr;
+	}
+	window.location.href = urlStr;
 }

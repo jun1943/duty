@@ -14,6 +14,7 @@ $(function() {
 
 	$("#weaponinfowindow").window("close");
 
+	$("#weaponInfoinportwindow").window("close");
 	var args = getUrlArgs();
 	m_Weapon_OrgId = args["orgId"];
 	m_Weapon_OrgCode = args["orgCode"];
@@ -370,4 +371,56 @@ function btnExportAction() {
 			$.messager.alert("消息提示", errorThrown, "error");
 		}
 	});
+}
+// 导入事件
+function btnInportAction() {
+	InitEntityUploadFun();
+	$("#weaponInfoinportwindow").window("open");
+}
+function btnCancelWeaponDataAction() {
+	/**
+	 * do sth
+	 */
+	$("#weaponInfoinportwindow").window("close");
+}
+
+function btnsaveWeaponData() {
+	var urlStr = $("#txtentityfilename").val();
+	if ($.trim(urlStr) == "") {
+		$.messager.alert("操作提示", "获取文件失败，请选择需要导入的文件", "warning");
+		return;
+	}
+	$.ajax({
+		url : "excelUpload/exportDataToDatabase.do",
+		type : "POST",
+		dataType : "json",
+		async : false, 
+		data : {
+			'orgid' : m_Weapon_OrgId,
+			'fileName' : urlStr,
+			'sourcetype':'WeaponInfo'
+		},
+		success : function(req) {
+			if (req.isSuccess) {
+				$("#weaponInfoinportwindow").window("close");
+				$.messager.alert("提示信息",req.Message,"info");
+				btnSearchAction();
+			}else{
+				$.messager.alert("提示信息",req.Message,"info");
+			}
+		},
+		failer : function(a, b) {
+			$.messager.alert("消息提示", "导入数据失败", "info");
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			$.messager.alert("错误提示", "导入数据失败", "error");
+		}
+	});
+}
+function btnDownLoadModel() {
+	var urlStr = "resource/ExelModel/WeaponInfo.xls";
+	if (/msie/.test(navigator.userAgent.toLowerCase())) {
+		urlStr = "../../" + urlStr;
+	}
+	window.location.href = urlStr;
 }

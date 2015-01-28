@@ -40,8 +40,16 @@ function InitUploadFun() {
 			this.enable();
 
 			// $.messager.alert('提示', response.split(";")[0]);
-			response = response.replace("<pre style=\"word-wrap: break-word; white-space: pre-wrap;\">","");
-			response = response.replace("</pre>","");
+			if (/msie/.test(navigator.userAgent.toLowerCase())) {
+				response = response.replace("<PRE>","");
+				response = response.replace("</PRE>","");
+			}else{
+				response = response.replace("<pre style=\"word-wrap: break-word; white-space: pre-wrap;\">","");
+				response = response.replace("</pre>","");
+				response = response.replace("<pre>","");
+			}
+			 
+			
 			$("#iconsId").val(response.split(";")[1]);
 			var urlStr = response.split(";")[2];
 			var srcUrl = "";

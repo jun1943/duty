@@ -12,6 +12,10 @@
 	<link rel="stylesheet" type="text/css" href="asset/css/images/dateStyle.css"/>
 <script src='<%=basePath%>script/basedata/vehicle.js'
 	type='text/javascript'></script>
+	<script src='<%=basePath%>script/ajaxupload.3.9.js'
+	type='text/javascript'></script>
+	<script src='<%=basePath%>script/basedata/uploadsource.js'
+	type='text/javascript'></script>
 <title>基础数据——车辆管理</title>
 
 
@@ -31,6 +35,8 @@
 	                	 
 	  					<a id="btnSearchVehicle" href="javascript:void(0);" class="easyui-linkbutton vehiclesearchbtn"  iconcls="icon-tianyi-search" >展开查询</a>
 	                	<a href="javascript:void(0);" class="easyui-linkbutton policeexportorinport"  iconcls="icon-tianyi-export"  onclick="btnExportAction()">导出数据</a>
+	                	
+						<a href="javascript:void(0);" class="easyui-linkbutton policeexportorinport"  iconcls="icon-tianyi-export"  onclick="btnInportAction()">导入数据</a>
 	                	<!-- a id="btnPrintList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-print" plain="true" onclick="btnPrintList()">打印</a>
 	                	<a id="btnExportList" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-export" plain="true" onclick="btnExportList()">导出</a> -->
 	               	</div>
@@ -61,6 +67,26 @@
   				</div> 
   			</div>  
   			<!-- 编辑窗体内容 -->
+  			
+  			<div id="vehicleInfoinportwindow" class="easyui-window" title="导入数据选项" data-options="modal:true,headerCls:'bbbb'" closed="true" 
+			style="width: 450px; height: 200px; padding: 10px;color:white;"
+	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" >
+	 		<div class="windowdiv">  
+	 			<input type="text" class="easyui-validatebox" readonly="readonly" id="txtentityfilename">
+	 			<a id="btnfindfile"  href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-add"   >选择文件</a> <a href="javascript:void(0);" onclick="btnDownLoadModel()">[点击下载excel模板]</a>  
+	 			<br /><br />
+				<label style="font-size:10px;color:blue">上传文件时，请先下载模板文件填写 ；</label><br />
+				<label style="font-size:10px;color:blue">文件对象为：97—03版本的excel文件，后缀格式为xls；</label>
+				<br /><br /> 
+						&npbs;
+				 <a  href="javascript:void(0);" class="easyui-linkbutton"   iconcls="icon-tianyi-save"  
+						onclick="btnsaveVehicleData()">确定</a>  
+						&npbs; 
+					<a  href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-delete"  
+						onclick="btnCancelVehicleDataAction()">　　取消　　</a> 
+	 		 </div> 
+	 	</div>	
+  			
   <div id="vehicleinfowindow" class="easyui-window" title="新增/编辑车辆信息"
 			data-options="iconCls:'icon-tianyi-edit',modal:true,headerCls:'bbbb'" closed="true" 
 			style="width: 400px; height: 500px; padding: 10px;color:white;"
