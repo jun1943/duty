@@ -41,7 +41,7 @@ $(function() {
 						fitColumns : true,
 						pageNumber : 1,
 						pageSize : 10,
-						width:'100%',
+						width : '100%',
 						title : '车辆列表',
 						onDblClickRow : dblClickRow,
 						onClickRow : clickRow,
@@ -101,7 +101,7 @@ $(function() {
 									field : 'gpsId',
 									align : 'center',
 									width : 80,
-									hidden: true
+									hidden : true
 								},
 								{
 									title : 'GPS显示名称',
@@ -396,7 +396,7 @@ function saveVehicleModel() {
 		data : vehicle,
 		success : function(req) {
 			isComplete = true;
-			clearForm(); 
+			clearForm();
 			btnSearchAction();
 		},
 		failer : function(a, b) {
@@ -466,7 +466,7 @@ function btnExportAction() {
 // 导入事件
 function btnInportAction() {
 	InitEntityUploadFun();
-	$("#vehicleInfoinportwindow").window("open");
+	$("#vehicleInfoinportwindow").window("open");  
 }
 function btnCancelVehicleDataAction() {
 	/**
@@ -480,30 +480,35 @@ function btnsaveVehicleData() {
 	if ($.trim(urlStr) == "") {
 		$.messager.alert("操作提示", "获取文件失败，请选择需要导入的文件", "warning");
 		return;
-	}
+	}  
+	$("#maskwindow").window("open");
 	$.ajax({
 		url : "excelUpload/exportDataToDatabase.do",
 		type : "POST",
 		dataType : "json",
-		async : false, 
+		async : false,
 		data : {
 			'orgid' : m_Vehicle_OrgId,
 			'fileName' : urlStr,
-			'sourcetype':'CarInfo'
+			'sourcetype' : 'CarInfo'
 		},
 		success : function(req) {
 			if (req.isSuccess) {
+				$("#maskwindow").window("close");
 				$("#vehicleInfoinportwindow").window("close");
-				$.messager.alert("提示信息",req.Message,"info");
+				$.messager.alert("提示信息", req.Message, "info");
 				btnSearchAction();
-			}else{
-				$.messager.alert("提示信息",req.Message,"info");
+			} else {
+				$("#maskwindow").window("close");
+				$.messager.alert("提示信息", req.Message, "info");
 			}
 		},
 		failer : function(a, b) {
+			$("#maskwindow").window("close");
 			$.messager.alert("消息提示", "导入数据失败", "info");
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			$("#maskwindow").window("close");
 			$.messager.alert("错误提示", "导入数据失败", "error");
 		}
 	});
