@@ -6,7 +6,6 @@
  *
  */
 
-
 var m_Gpsdevice_OrgId;
 var m_Gpsdevice_OrgCode;
 var m_Gpsdevice_OrgPath;
@@ -49,10 +48,10 @@ $(function() {
 						fitColumns : true,
 						pageNumber : 1,
 						pageSize : 10,
-						width:'100%',
+						width : '100%',
 						title : '定位设备列表',
 						onDblClickRow : dblClickRow,
-					    onClickRow: clickRow,
+						onClickRow : clickRow,
 						// singleSelect : true,
 						columns : [ [
 								{
@@ -121,27 +120,27 @@ $(function() {
 	InitData();
 });
 
-//取消点击行选中
+// 取消点击行选中
 function clickRow(index, data) {
-  $("#dtGpsdevice").datagrid("unselectRow", index);
+	$("#dtGpsdevice").datagrid("unselectRow", index);
 }
 function btnSearchAction() {
 	pack_Gpsdevice_Query();
 	$('#dtGpsdevice').datagrid("reload", {
 		'gpsdevice_Query' : JSON.stringify(m_Gpsdevice_Query)
 	});
-//	$("#isSubOrg").combobox("setValue", "");
-//	$("#txtsearchname").val("");
+	// $("#isSubOrg").combobox("setValue", "");
+	// $("#txtsearchname").val("");
 };
 function InitData() {
 	getGpsType();
 	getGpsIconList();
 };
-//获取GPS类型列表
+// 获取GPS类型列表
 function getGpsType() {
 	getBaseDataCombobox("gpsdevice/getGpsType.do", "txttype");
 };
-//获取相关上传图标列表，以下拉列表的形式
+// 获取相关上传图标列表，以下拉列表的形式
 function getGpsIconList() {
 	$("#txtgpsicon")
 			.combogrid(
@@ -206,22 +205,21 @@ function getGpsIconList() {
 function btnAddGpsdevice(optType) {
 	operationType = optType;
 	clearForm();
-	//$('#myModal').modal('show');
+	// $('#myModal').modal('show');
 	$("#gpsdeviceinfowindow").window("open");
 	$("#btnsaveDeviceCon").show();
 };
-
 
 function btnCellClick(index) {
 	operationType = "edit";
 	var row = $("#dtGpsdevice").datagrid('getData').rows[index];
 	editGpsdeviceModel(row);
 }
-function dblClickRow(index,rowData){
+function dblClickRow(index, rowData) {
 	operationType = "edit";
 	editGpsdeviceModel(rowData);
 }
-function editGpsdeviceModel(rows){
+function editGpsdeviceModel(rows) {
 	clearForm();
 	$("#gpsdeviceId").val(rows.id);
 	$("#txttype").combobox("setValue", rows.typeId);
@@ -229,8 +227,7 @@ function editGpsdeviceModel(rows){
 	$("#txtgpsicon").combogrid("setValue", rows.gpsName);
 	$("#txtgpsnumber").val(rows.number);
 	$("#txtIconUrl").val(rows.iconUrl);
-	$("#sltImage").attr("src",
-			rows.iconUrl.substring(1, rows.iconUrl.length));
+	$("#sltImage").attr("src", rows.iconUrl.substring(1, rows.iconUrl.length));
 	// $('#myModal').modal('show');
 	$("#gpsdeviceinfowindow").window("open");
 	$("#btnsaveDeviceCon").hide();
@@ -251,7 +248,7 @@ function btnEditGpsdevice(optType) {
 		$.messager.alert('操作提示', "只能选择单个操作项!", "warning");
 		return;
 	}
-	 
+
 	editGpsdeviceModel(rows[0]);
 	// $('#myModal').modal('show');
 };
@@ -311,7 +308,7 @@ function btnDelGpsdevice() {
 		}
 	});
 };
-//删除事件
+// 删除事件
 function deleteGpsdevice(id) {
 	$.ajax({
 		url : "gpsdevice/deleteGpsdevice.do",
@@ -337,7 +334,7 @@ var isComplete = true;
 function saveGpsdeviceAction() {
 	saveGpsModel();
 };
-//保存方法模块
+// 保存方法模块
 function saveGpsModel() {
 	var gpsdevice = {};
 	gpsdevice.id = $("#gpsdeviceId").val();
@@ -355,7 +352,7 @@ function saveGpsModel() {
 		isComplete = false;
 		return;
 	}
-	if ($.trim($("#txtgpsname").val()).length>20) {
+	if ($.trim($("#txtgpsname").val()).length > 20) {
 		$.messager.alert("错误提示", "GPS设备名称长度过长，限制长度1--20！", "error");
 		isComplete = false;
 		return;
@@ -366,7 +363,7 @@ function saveGpsModel() {
 		isComplete = false;
 		return;
 	}
-	if ($.trim($("#txtgpsnumber").val()).length>20) {
+	if ($.trim($("#txtgpsnumber").val()).length > 20) {
 		$.messager.alert("错误提示", "GPS设备编号长度过长，限制长度1--20！", "error");
 		isComplete = false;
 		return;
@@ -375,12 +372,13 @@ function saveGpsModel() {
 	if (operationType == "add") {
 		isExistGpsdevice(gpsnumber);
 		if (!isExist) {
-			$.messager.alert("错误提示", "编号为   "+gpsnumber+" 的定位设备已存在，请检查！", "error");
+			$.messager.alert("错误提示", "编号为   " + gpsnumber + " 的定位设备已存在，请检查！",
+					"error");
 			$("#txtgpsnumber").focus();
 			isComplete = false;
 			return;
 		}
-	}  
+	}
 	gpsdevice.number = gpsnumber;
 	gpsdevice.orgId = m_Gpsdevice_OrgId;
 	if ($("#txtIconUrl").val() == "") {
@@ -417,8 +415,7 @@ function saveGpsdeviceActionExit() {
 	}
 }
 
-
-//判断警员是否存在
+// 判断警员是否存在
 function isExistGpsdevice(param) {
 	isExist = false;
 	$.ajax({
@@ -439,7 +436,7 @@ function isExistGpsdevice(param) {
 /**
  * 导出数据
  */
-function btnExportAction(){
+function btnExportAction() {
 	pack_Gpsdevice_Query();
 	$.ajax({
 		url : "gpsdevice/exportDataToExcle.do",
@@ -470,7 +467,7 @@ function btnExportAction(){
 // 导入事件
 function btnInportAction() {
 	InitEntityUploadFun();
-	$("#gpsInfoinportwindow").window("open");
+	$("#gpsInfoinportwindow").window("open"); 
 }
 function btnCancelGpsDataAction() {
 	/**
@@ -484,30 +481,35 @@ function btnsaveGpsData() {
 	if ($.trim(urlStr) == "") {
 		$.messager.alert("操作提示", "获取文件失败，请选择需要导入的文件", "warning");
 		return;
-	}
+	} 
+	$("#maskwindow").window("open");
 	$.ajax({
 		url : "excelUpload/exportDataToDatabase.do",
 		type : "POST",
 		dataType : "json",
-		async : false, 
+		async : false,
 		data : {
-			'orgid' : m_Weapon_OrgId,
+			'orgid' : m_Gpsdevice_OrgId,
 			'fileName' : urlStr,
-			'sourcetype':'GpsInfo'
+			'sourcetype' : 'GpsInfo'
 		},
 		success : function(req) {
 			if (req.isSuccess) {
+				$("#maskwindow").window("close");
 				$("#gpsInfoinportwindow").window("close");
-				$.messager.alert("提示信息",req.Message,"info");
+				$.messager.alert("提示信息", req.Message, "info");
 				btnSearchAction();
-			}else{
-				$.messager.alert("提示信息",req.Message,"info");
+			} else {
+				$("#maskwindow").window("close");
+				$.messager.alert("提示信息", req.Message, "info");
 			}
 		},
 		failer : function(a, b) {
+			$("#maskwindow").window("close");
 			$.messager.alert("消息提示", "导入数据失败", "info");
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			$("#maskwindow").window("close");
 			$.messager.alert("错误提示", "导入数据失败", "error");
 		}
 	});

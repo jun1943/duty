@@ -176,6 +176,18 @@ public class ExcelUploadController {
 				for (int row = 2; row < datable.length; row++) {
 					Gps pol = new Gps();
 					String[] entity = datable[row].split("\\|");
+
+					pol.setId(0);
+					pol.setTypeId(getGpsTypeId(entity[1].trim()));
+					pol.setNumber(entity[3]);
+					pol.setGpsName(entity[2]);
+
+					pol.setIconUrl(null);
+					pol.setOrgId(orgId);
+					pol.setPlatformId(1);
+					pol.setSyncState(true);
+					gpslist.add(pol);
+
 				}
 			}
 		}
@@ -207,6 +219,24 @@ public class ExcelUploadController {
 				for (int row = 2; row < datable.length; row++) {
 					Weapon pol = new Weapon();
 					String[] entity = datable[row].split("\\|");
+
+					pol.setId(0);
+					pol.setTypeId(getWeaponTypeId(entity[2].trim()));
+					pol.setNumber(entity[1]);
+
+					String standard = entity[3].trim().equals("0.0") ? null
+							: entity[3].trim().contains(".0") == true ? entity[3]
+									.trim().substring(0,
+											entity[3].trim().length() - 2)
+									: entity[3].trim();
+
+					pol.setStandard(standard);
+
+					pol.setOrgId(orgId);
+					pol.setPlatformId(1);
+					pol.setSyncState(true);
+					weaponlist.add(pol);
+
 				}
 			}
 		}
@@ -238,6 +268,43 @@ public class ExcelUploadController {
 				for (int row = 2; row < datable.length; row++) {
 					Vehicle pol = new Vehicle();
 					String[] entity = datable[row].split("\\|");
+
+					pol.setId(0);
+					pol.setVehicleTypeId(getVehicleTypeId(entity[1].trim()));
+					pol.setNumber(entity[2].trim());
+					String purpose = entity[3].trim().equals("0.0") ? null
+							: entity[3].trim();
+					pol.setPurpose(purpose == null ? purpose : purpose
+							.contains(".0") == false ? purpose : purpose
+							.substring(0, purpose.length() - 2));
+					String brand = entity[4].trim().equals("0.0") ? null
+							: entity[4].trim();
+					pol.setBrand(brand == null ? brand
+							: brand.contains(".0") == false ? brand : brand
+									.substring(0, brand.length() - 2));
+					String siteQty = entity[5].trim().equals("0.0") ? null
+							: entity[5].trim();
+					pol.setSiteQty(siteQty == null ? siteQty : siteQty
+							.contains(".0") == false ? siteQty : siteQty
+							.substring(0, siteQty.length() - 2));
+					String intercomGroup = entity[6].trim().equals("0.0") ? null
+							: entity[6].trim();
+					pol.setIntercomGroup(intercomGroup == null ? intercomGroup
+							: intercomGroup.contains(".0") == false ? intercomGroup
+									: intercomGroup.substring(0,
+											intercomGroup.length() - 2));
+
+					String intercomPerson = entity[7].trim().equals("0.0") ? null
+							: entity[7].trim();
+					pol.setIntercomPerson(intercomPerson == null ? intercomPerson
+							: intercomPerson.contains(".0") == false ? intercomPerson
+									: intercomPerson.substring(0,
+											intercomPerson.length() - 2));
+
+					pol.setOrgId(orgId);
+					pol.setPlatformId(1);
+					pol.setSyncState(true);
+					vehiclelist.add(pol);
 				}
 			}
 		}
@@ -271,7 +338,7 @@ public class ExcelUploadController {
 					String[] entity = datable[row].split("\\|");
 					pol.setId(0);
 					pol.setName(entity[1].trim() == "" ? "" : entity[1].trim());
-					pol.setTypeId(getTypeId(entity[2].trim() == "" ? "民警"
+					pol.setTypeId(getPoliceTypeId(entity[2].trim() == "" ? "民警"
 							: entity[2]));
 					String number = entity[3].trim() == "0.0" ? "" : entity[3]
 							.trim().contains(".0") == true ? entity[3].trim()
@@ -358,13 +425,53 @@ public class ExcelUploadController {
 		return result;
 	}
 
-	private Integer getTypeId(String typename) {
-		int tId = 0;
+	private Integer getPoliceTypeId(String typename) {
+		int tId = 1;
 		if (typename.equals("民警") || typename.equals("1")) {
 			tId = 1;
 		} else if (typename.equals("交警") || typename.equals("2")) {
 			tId = 2;
 		} else if (typename.equals("特警") || typename.equals("3")) {
+			tId = 3;
+		}
+		return tId;
+	}
+
+	private Integer getGpsTypeId(String typename) {
+		int tId = 3;
+		if (typename.equals("800M") || typename.equals("800m")) {
+			tId = 1;
+		} else if (typename.equals("350M") || typename.equals("350m")) {
+			tId = 2;
+		} else if (typename.equals("Qchat")) {
+			tId = 3;
+		} else if (typename.equals("其他") || typename.equals("其它")) {
+			tId = 4;
+		}
+		return tId;
+	}
+
+	private Integer getWeaponTypeId(String typename) {
+		int tId = 1;
+		if (typename.equals("65式手枪") || typename.contains("65式")) {
+			tId = 1;
+		} else if (typename.equals("77式手枪") || typename.contains("77式")) {
+			tId = 2;
+		} else if (typename.equals("97式突击步枪") || typename.contains("97式")) {
+			tId = 3;
+		} else if (typename.equals("79式冲锋枪") || typename.contains("79式")) {
+			tId = 4;
+		}
+		return tId;
+	}
+
+	private int getVehicleTypeId(String typename) {
+		int tId = 1;
+		if (typename.equals("汽车") || typename.contains("汽")) {
+			tId = 1;
+		} else if (typename.equals("警摩") || typename.contains("摩")) {
+			tId = 2;
+		} else if (typename.equals("自行车") || typename.contains("电")) {
 			tId = 3;
 		}
 		return tId;

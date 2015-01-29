@@ -42,7 +42,7 @@ $(function() {
 						fitColumns : true,
 						pageNumber : 1,
 						pageSize : 10,
-						width:'100%',
+						width : '100%',
 						title : '武器列表',
 						onDblClickRow : dblClickRow,
 						onClickRow : clickRow,
@@ -288,7 +288,8 @@ function saveWeaponModel() {
 	// $.messager.alert("错误提示", "请输入武器规格型号", "error");
 	// return;
 	// }
-	if ($.trim($("#txtstandard").val()).length > 0 && $.trim($("#txtstandard").val()).length > 20) {
+	if ($.trim($("#txtstandard").val()).length > 0
+			&& $.trim($("#txtstandard").val()).length > 20) {
 		$.messager.alert("错误提示", "武器子弹数目信息长度过长，限制长度0--20！", "error");
 		isComplete = false;
 		return;
@@ -374,8 +375,8 @@ function btnExportAction() {
 }
 // 导入事件
 function btnInportAction() {
-	InitEntityUploadFun();
-	$("#weaponInfoinportwindow").window("open");
+	InitEntityUploadFun(); 
+	$("#weaponInfoinportwindow").window("open"); 
 }
 function btnCancelWeaponDataAction() {
 	/**
@@ -389,30 +390,35 @@ function btnsaveWeaponData() {
 	if ($.trim(urlStr) == "") {
 		$.messager.alert("操作提示", "获取文件失败，请选择需要导入的文件", "warning");
 		return;
-	}
+	} 
+	$("#maskwindow").window("open");
 	$.ajax({
 		url : "excelUpload/exportDataToDatabase.do",
 		type : "POST",
 		dataType : "json",
-		async : false, 
+		async : false,
 		data : {
 			'orgid' : m_Weapon_OrgId,
 			'fileName' : urlStr,
-			'sourcetype':'WeaponInfo'
+			'sourcetype' : 'WeaponInfo'
 		},
 		success : function(req) {
 			if (req.isSuccess) {
+				$("#maskwindow").window("close");
 				$("#weaponInfoinportwindow").window("close");
-				$.messager.alert("提示信息",req.Message,"info");
+				$.messager.alert("提示信息", req.Message, "info");
 				btnSearchAction();
-			}else{
-				$.messager.alert("提示信息",req.Message,"info");
+			} else {
+				$("#maskwindow").window("close");
+				$.messager.alert("提示信息", req.Message, "info");
 			}
 		},
 		failer : function(a, b) {
+			$("#maskwindow").window("close");
 			$.messager.alert("消息提示", "导入数据失败", "info");
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			$("#maskwindow").window("close");
 			$.messager.alert("错误提示", "导入数据失败", "error");
 		}
 	});

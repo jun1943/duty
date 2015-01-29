@@ -70,19 +70,25 @@
 	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" >
 	 		<div class="windowdiv">  
 	 			<input type="text" class="easyui-validatebox" readonly="readonly" id="txtentityfilename">
-	 			<a id="btnfindfile"  href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-add"   >选择文件</a> <a href="javascript:void(0);" onclick="btnDownLoadModel()">[点击下载excel模板]</a>  
+	 			<a id="btnfindfile"  href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-add"   >选择文件</a> <a href="javascript:void(0);" class="hiperlinka" onclick="btnDownLoadModel()">[点击下载excel模板]</a>  
 	 			<br /><br />
-				<label style="font-size:10px;color:blue">上传文件时，请先下载模板文件填写 ；</label><br />
-				<label style="font-size:10px;color:blue">文件对象为：97—03版本的excel文件，后缀格式为xls；</label>
+	 		
+				<label id="staticMessageo"  class="hiperlinka" >上传文件时，请先下载模板文件填写 ；</label><br />
+				<label id="staticMessaget"  class="hiperlinka" >文件对象为：97—03版本的excel文件，后缀格式为xls；</label> 
 				<br /><br /> 
 						&npbs;
 				 <a  href="javascript:void(0);" class="easyui-linkbutton"   iconcls="icon-tianyi-save"  
-						onclick="btnsaveWeaponData()">确定</a>  
+						onclick="btnsaveWeaponData()"> 确定  </a>  
 						&npbs; 
 					<a  href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-delete"  
-						onclick="btnCancelWeaponDataAction()">　　取消　　</a> 
+						onclick="btnCancelWeaponDataAction()"> 取消  </a> 
 	 		 </div> 
 	 	</div>	
+	 	<div id="maskwindow" class="easyui-window" title="导入数据选项" data-options="modal:true,headerCls:'bbbb'" closed="true" 
+			style="width: 500px; height: 80px; padding: 10px;color:white;"
+	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" >
+	 	<h2  class="hiperlinkb" >正在导入数据，请稍后……</h2>
+	 	</div>
 	<!-- 编辑窗体内容 -->
 	 <div id="weaponinfowindow" class="easyui-window" title="新增/编辑武器信息"
 			data-options="iconCls:'icon-tianyi-edit',modal:true,headerCls:'bbbb'" closed="true"

@@ -649,8 +649,8 @@ function btnExportAction() {
 }
 // 导入事件
 function btnInportAction() {
-	InitPoliceUploadFun();
-	$("#policeInfoinportwindow").window("open");
+	InitEntityUploadFun();
+	$("#policeInfoinportwindow").window("open");  
 }
 function btnCancelPoliceDataAction() {
 	/**
@@ -659,11 +659,12 @@ function btnCancelPoliceDataAction() {
 	$("#policeInfoinportwindow").window("close");
 }
 function btnsavePoliceData() {
-	var urlStr = $("#txtpolicefilename").val();
+	var urlStr = $("#txtentityfilename").val();
 	if ($.trim(urlStr) == "") {
 		$.messager.alert("操作提示", "获取文件失败，请选择需要导入的文件", "warning");
 		return;
-	}
+	}  
+	$("#maskwindow").window("open");
 	$.ajax({
 		url : "excelUpload/exportDataToDatabase.do",
 		type : "POST",
@@ -676,17 +677,21 @@ function btnsavePoliceData() {
 		},
 		success : function(req) {
 			if (req.isSuccess) {
+				$("#maskwindow").window("close");
 				$("#policeInfoinportwindow").window("close");
 				$.messager.alert("提示信息",req.Message,"info");
 				btnSearchAction();
 			}else{
+				$("#maskwindow").window("close");
 				$.messager.alert("提示信息",req.Message,"info");
 			}
 		},
 		failer : function(a, b) {
+			$("#maskwindow").window("close");
 			$.messager.alert("消息提示", "导入数据失败", "info");
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			$("#maskwindow").window("close");
 			$.messager.alert("错误提示", "导入数据失败", "error");
 		}
 	});
