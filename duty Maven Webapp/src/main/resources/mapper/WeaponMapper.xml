@@ -291,4 +291,14 @@
  				
   		</if> 
   </select>
+  
+  
+  
+  <select id="loadListByOrgId" resultType="com.tianyi.drs.basedata.model.Weapon" parameterType="java.util.Map"> 
+  	select 
+    	<include refid="Base_Column_List" />
+    from t_weapon
+    	where org_id = #{orgId,jdbcType=INTEGER}
+  
+  </select>
 </mapper>

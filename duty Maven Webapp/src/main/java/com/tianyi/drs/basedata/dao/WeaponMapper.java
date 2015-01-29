@@ -84,4 +84,5 @@ public interface WeaponMapper {
 	 * @return
 	 */
 	List<Weapon> findByIdAndDtyId(String param);
+	List<Weapon> loadListByOrgId(Map<String, Object> map);
 }

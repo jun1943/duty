@@ -136,6 +136,12 @@
   		</if>
   </select>
   
+  
+  <select id="loadIconsInfo" resultType="com.tianyi.drs.basedata.model.Icons" resultMap="java.util.Map">
+  		 select <include refid ="Base_Column_List" />
+  		 from t_icon c   
+  </select>
+  
   <select id ="loadCount" parameterType="java.util.Map" resultType="java.lang.Integer">
   	select 
   		count(c.id) 

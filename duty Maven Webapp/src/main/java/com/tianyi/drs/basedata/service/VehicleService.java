@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.tianyi.drs.basedata.model.IntercomGroup;
+import com.tianyi.drs.basedata.model.Police;
 import com.tianyi.drs.basedata.model.Vehicle;
 import com.tianyi.drs.basedata.model.VehicleType;
 import com.tianyi.drs.basedata.viewmodel.VehicleVM;
@@ -94,4 +95,7 @@ public interface VehicleService {
 	 * @return
 	 */
 	public List<Vehicle> findByIdAndDtyId(String param);
+	
+
+	List<Vehicle> loadListByOrgId(Map<String, Object> map);
 }

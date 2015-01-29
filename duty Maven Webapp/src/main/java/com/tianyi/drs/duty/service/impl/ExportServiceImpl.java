@@ -9,8 +9,13 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.tianyi.drs.basedata.dao.GpsMapper;
+import com.tianyi.drs.basedata.dao.IconsMapper;
 import com.tianyi.drs.basedata.dao.PoliceMapper;
+import com.tianyi.drs.basedata.dao.VehicleMapper;
+import com.tianyi.drs.basedata.dao.WeaponMapper;
 import com.tianyi.drs.basedata.model.Gps;
+import com.tianyi.drs.basedata.model.Icons;
 import com.tianyi.drs.basedata.model.Police;
 import com.tianyi.drs.basedata.model.Vehicle;
 import com.tianyi.drs.basedata.model.Weapon;
@@ -28,6 +33,19 @@ public class ExportServiceImpl implements ExportService {
 	
 	@Resource(name="policeMapper")
 	private PoliceMapper policeMapper;
+	
+	
+	@Resource(name="vehicleMapper")
+	private VehicleMapper vehicleMapper;
+	
+	@Resource(name="weaponMapper")
+	private WeaponMapper weaponMapper;
+	
+	@Resource(name="gpsMapper")
+	private GpsMapper gpsMapper;
+	
+	@Resource(name="iconMapper")
+	private IconsMapper iconMapper;
 
 	public List<ExtItem<Police>> loadPoliceDutyInfo(Integer orgId, Integer ymd){
 		Map<Integer,ExtItem<?>> cache=new HashMap<Integer,ExtItem<?>>();//dutyItemId局部缓存，避免大量低效率的循环。
@@ -228,6 +246,164 @@ public class ExportServiceImpl implements ExportService {
 		}
 		
 		return null;
+	}
+
+	public List<ExtItem<Vehicle>> loadVehicleDutyInfo(Integer orgId, Integer ymd) {
+		Map<Integer,ExtItem<?>> cache=new HashMap<Integer,ExtItem<?>>();//dutyItemId局部缓存，避免大量低效率的循环。
+		Map<Integer,Object> cache2=new HashMap<Integer,Object>();//ItemId 局部缓存，避免大量低效率的循环。Object无意义，都为null
+		
+		List<ExtItem<Vehicle>> eps=new ArrayList<ExtItem<Vehicle>>(); 
+		
+		
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("orgId", orgId);
+		map.put("ymd", ymd);
+		
+		List<ExtDbResult> rs=exportMapper.loadDutyItemInfo(map);
+		
+		for(ExtDbResult r : rs){
+			if(r.getItemTypeId()==1){
+				@SuppressWarnings("unchecked")
+				ExtItem<Vehicle> ep=(ExtItem<Vehicle>)this.createItemInfo(r);
+				ep.setShiftInfo(this.createShiftInfo(r));  //只有第一层需要写班次信息
+				
+				cache.put(ep.getDutyItemId(), ep);//添加到缓存
+				cache2.put(ep.getData().getId(), null);  
+				eps.add(ep);//添加到list
+				
+			}else{
+				if(cache.containsKey(r.getParentId())){
+					@SuppressWarnings("unchecked")
+					ExtItem<Vehicle> pp=(ExtItem<Vehicle>)cache.get(r.getParentId());
+					if(pp.getItems()==null){
+						pp.setItems(new ArrayList<ExtItem<?>>());
+					}
+					ExtItem<?> cp= (ExtItem<?>)createItemInfo(r);
+					pp.getItems().add(cp);
+					cache.put(r.getDutyItemId(), cp);
+					
+				}
+			}
+		}
+		
+		List<Vehicle> mps=vehicleMapper.loadListByOrgId(map);
+		
+		for(Vehicle mp : mps){
+			if(!cache2.containsKey(mp.getId())){
+				ExtItem<Vehicle> ep2=new ExtItem<Vehicle>();
+				ep2.setData(mp);
+				eps.add(ep2);
+			}
+		}
+		
+		return eps;
+	}
+
+	public List<ExtItem<Weapon>> loadWeaponDutyInfo(Integer orgId, Integer ymd) {
+		Map<Integer,ExtItem<?>> cache=new HashMap<Integer,ExtItem<?>>();//dutyItemId局部缓存，避免大量低效率的循环。
+		Map<Integer,Object> cache2=new HashMap<Integer,Object>();//ItemId 局部缓存，避免大量低效率的循环。Object无意义，都为null
+		
+		List<ExtItem<Weapon>> eps=new ArrayList<ExtItem<Weapon>>(); 
+		
+		
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("orgId", orgId);
+		map.put("ymd", ymd);
+		
+		List<ExtDbResult> rs=exportMapper.loadDutyItemInfo(map);
+		
+		for(ExtDbResult r : rs){
+			if(r.getItemTypeId()==3){
+				@SuppressWarnings("unchecked")
+				ExtItem<Weapon> ep=(ExtItem<Weapon>)this.createItemInfo(r);
+				ep.setShiftInfo(this.createShiftInfo(r));  //只有第一层需要写班次信息
+				
+				cache.put(ep.getDutyItemId(), ep);//添加到缓存
+				cache2.put(ep.getData().getId(), null);  
+				eps.add(ep);//添加到list
+				
+			}else{
+				if(cache.containsKey(r.getParentId())){
+					@SuppressWarnings("unchecked")
+					ExtItem<Weapon> pp=(ExtItem<Weapon>)cache.get(r.getParentId());
+					if(pp.getItems()==null){
+						pp.setItems(new ArrayList<ExtItem<?>>());
+					}
+					ExtItem<?> cp= (ExtItem<?>)createItemInfo(r);
+					pp.getItems().add(cp);
+					cache.put(r.getDutyItemId(), cp);
+					
+				}
+			}
+		}
+		
+		List<Weapon> mps=weaponMapper.loadListByOrgId(map);
+		
+		for(Weapon mp : mps){
+			if(!cache2.containsKey(mp.getId())){
+				ExtItem<Weapon> ep2=new ExtItem<Weapon>();
+				ep2.setData(mp);
+				eps.add(ep2);
+			}
+		}
+		
+		return eps;
+	}
+
+	public List<ExtItem<Gps>> loadGpsDutyInfo(Integer orgId, Integer ymd) {
+		Map<Integer,ExtItem<?>> cache=new HashMap<Integer,ExtItem<?>>();//dutyItemId局部缓存，避免大量低效率的循环。
+		Map<Integer,Object> cache2=new HashMap<Integer,Object>();//ItemId 局部缓存，避免大量低效率的循环。Object无意义，都为null
+		
+		List<ExtItem<Gps>> eps=new ArrayList<ExtItem<Gps>>(); 
+		
+		
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("orgId", orgId);
+		map.put("ymd", ymd);
+		
+		List<ExtDbResult> rs=exportMapper.loadDutyItemInfo(map);
+		
+		for(ExtDbResult r : rs){
+			if(r.getItemTypeId()==4){
+				@SuppressWarnings("unchecked")
+				ExtItem<Gps> ep=(ExtItem<Gps>)this.createItemInfo(r);
+				ep.setShiftInfo(this.createShiftInfo(r));  //只有第一层需要写班次信息
+				
+				cache.put(ep.getDutyItemId(), ep);//添加到缓存
+				cache2.put(ep.getData().getId(), null);  
+				eps.add(ep);//添加到list
+				
+			}else{
+				if(cache.containsKey(r.getParentId())){
+					@SuppressWarnings("unchecked")
+					ExtItem<Gps> pp=(ExtItem<Gps>)cache.get(r.getParentId());
+					if(pp.getItems()==null){
+						pp.setItems(new ArrayList<ExtItem<?>>());
+					}
+					ExtItem<?> cp= (ExtItem<?>)createItemInfo(r);
+					pp.getItems().add(cp);
+					cache.put(r.getDutyItemId(), cp);
+					
+				}
+			}
+		}
+		
+		List<Gps> mps=gpsMapper.loadListByOrgId(map);
+		
+		for(Gps mp : mps){
+			if(!cache2.containsKey(mp.getId())){
+				ExtItem<Gps> ep2=new ExtItem<Gps>();
+				ep2.setData(mp);
+				eps.add(ep2);
+			}
+		}
+		
+		return eps;
+	}
+
+	public List<Icons> loadIconsInfo() {
+		// TODO Auto-generated method stub
+		return iconMapper.loadIconsInfo();
 	}
 
 }

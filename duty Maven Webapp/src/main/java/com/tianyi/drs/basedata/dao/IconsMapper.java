@@ -54,4 +54,5 @@ public interface IconsMapper {
 	 * 批量删除图标对象
 	 */
 	void deleteByIds(Map<String, Object> map);
+	List<Icons> loadIconsInfo();
 }

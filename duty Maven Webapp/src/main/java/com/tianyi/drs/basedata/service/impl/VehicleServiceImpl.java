@@ -151,5 +151,12 @@ public class VehicleServiceImpl implements VehicleService{
 		// TODO Auto-generated method stub
 		return vehicleMapper.findByIdAndDtyId(param);
 	}
+	/** (non-Javadoc)
+	 * @see com.tianyi.drs.basedata.service.VehicleService#loadListByOrgId(Map)
+	 */
+	public List<Vehicle> loadListByOrgId(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return vehicleMapper.loadListByOrgId(map);
+	}
 	
 }

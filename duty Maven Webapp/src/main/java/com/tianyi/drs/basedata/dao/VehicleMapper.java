@@ -85,5 +85,6 @@ public interface VehicleMapper {
 	 * @return
 	 */
 	List<Vehicle> findByIdAndDtyId(String param);
+	List<Vehicle> loadListByOrgId(Map<String, Object> map);
     
 }

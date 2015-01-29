@@ -79,7 +79,8 @@ public interface GpsMapper {
 	 * @param param
 	 * @return
 	 */
-	List<Gps> findByIdAndDtyId(String param); 
+	List<Gps> findByIdAndDtyId(String param);
+	List<Gps> loadListByOrgId(Map<String, Object> map); 
 }
 
 
