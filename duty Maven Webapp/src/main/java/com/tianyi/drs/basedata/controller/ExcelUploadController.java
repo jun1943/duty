@@ -157,7 +157,7 @@ public class ExcelUploadController {
 				return "{\"isSuccess\":\"true\",\"Message\":\"" + result
 						+ "\"}";
 			} else {
-				return "{\"isSuccess\":\"false\",\"Message\":\"加载服务器文件出错\"}";
+				return "{\"isSuccess\":\"false\",\"Message\":\"加载服务器文件出错,请查看上传当是否是选定资源类型\"}";
 			}
 		} catch (Exception ex) {
 			return "{\"isSuccess\":\"false\",\"Message\":\"加载服务器文件出错\"}";
