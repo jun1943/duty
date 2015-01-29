@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianyi.drs.duty.dao.ExportMapper" >
+	<resultMap id="ExtDbResultMap" type="com.tianyi.drs.duty.exportmodel.ExtDbResult" >
+    <id column="duty_item_id" property="dutyItemId" jdbcType="INTEGER" />
+    <result column="duty_id" property="dutyId" jdbcType="INTEGER" />
+    <result column="org_id" property="orgId" jdbcType="INTEGER" />
+    <result column="ymd" property="ymd" jdbcType="INTEGER" />
+    <result column="item_type_id" property="itemTypeId" jdbcType="INTEGER" />
+    <result column="item_id" property="itemId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="full_id_path" property="fullIdPath" jdbcType="VARCHAR" />
+    <result column="duty_type_id" property="dutyTypeId" jdbcType="INTEGER" />
+    <result column="duty_type_name" property="dutyTypeName" jdbcType="VARCHAR" />
+    <result column="begin_time" property="beginTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    
+    <result column="vehicle_id" property="vehicleId" jdbcType="INTEGER" />
+    <result column="vehicle_brand" property="vehicleBrand" jdbcType="VARCHAR" />
+    <result column="vehicle_gps_id" property="vehicleGpsId" jdbcType="INTEGER" />
+    <result column="vehicle_gps_name" property="vehicleGpsName" jdbcType="VARCHAR" />
+    <result column="vehicle_intercom_group" property="vehicleIntercomGroup" jdbcType="VARCHAR" />
+    <result column="vehicle_intercom_person" property="vehicleIntercomPerson" jdbcType="VARCHAR" />
+    <result column="vehicle_number" property="vehicleNumber" jdbcType="VARCHAR" />
+    <result column="vehicle_org_id" property="vehicleOrgId" jdbcType="INTEGER" />
+    <result column="vehicle_purpose" property="vehiclePurpose" jdbcType="VARCHAR" />
+    <result column="vehicle_site_qty" property="vehicleSiteQty" jdbcType="VARCHAR" />
+    <result column="vehicle_type_id" property="vehicleTypeId" jdbcType="INTEGER" />
+    
+    <result column="police_id" property="policeId" jdbcType="INTEGER" />
+    <result column="police_gps_id" property="policeGpsId" jdbcType="INTEGER" />
+    <result column="police_gps_name" property="policeGpsName" jdbcType="VARCHAR" />
+    <result column="police_idcardno" property="policeIdcardno" jdbcType="VARCHAR" />
+    <result column="police_intercom_group" property="policeIntercomGroup" jdbcType="VARCHAR" />
+    <result column="police_intercom_person" property="policeIntercomPerson" jdbcType="VARCHAR" />
+    <result column="police_mobile" property="policeMobile" jdbcType="VARCHAR" />
+    <result column="police_mobile_short" property="policeMobileShort" jdbcType="VARCHAR" />
+    <result column="police_name" property="policeName" jdbcType="VARCHAR" />
+    <result column="police_number" property="policeNumber" jdbcType="VARCHAR" />
+    <result column="police_org_id" property="policeOrgId" jdbcType="INTEGER" />
+    <result column="police_title" property="policeTitle" jdbcType="VARCHAR" />
+    <result column="police_type_id" property="policeTypeId" jdbcType="INTEGER" />
+    
+    <result column="weapon_id" property="weaponId" jdbcType="INTEGER" />
+    <result column="weapon_number" property="weaponNumber" jdbcType="VARCHAR" />
+    <result column="weapon_org_id" property="weaponOrgId" jdbcType="INTEGER" />
+    <result column="weapon_standard" property="weaponStandard" jdbcType="INTEGER" />
+    <result column="weapon_type_id" property="weaponTypeId" jdbcType="INTEGER" />
+    
+    <result column="gps_id" property="gpsId" jdbcType="INTEGER" />
+    <result column="gps_name" property="gpsName" jdbcType="VARCHAR" />
+    <result column="gps_icon_url" property="gpsIconUrl" jdbcType="VARCHAR" />
+    <result column="gps_number" property="gpsNumber" jdbcType="VARCHAR" />
+    <result column="gps_org_id" property="gpsOrgId" jdbcType="INTEGER" />
+    <result column="gps_type_id" property="gpsTypeId" jdbcType="INTEGER" />
+  </resultMap>
+
+	<select id="loadDutyItemInfo"  parameterType="java.util.Map" resultMap="ExtDbResultMap">
+		select 
+			di.id					as	duty_item_id,
+			d.id 					as 	duty_id,
+			d.org_id				as 	org_id,
+			d.ymd					as 	ymd,
+			di.item_type_id			as 	item_type_id,
+			di.item_id				as 	item_id,
+			di.name					as 	name,
+			di.level				as 	level,
+			di.full_id_path			as	full_id_path,
+			di.duty_type_id			as	duty_type_id,
+			dt.name					as 	duty_type_name,
+			di.begin_time			as	begin_time,
+			di.end_time				as	end_time,
+			di.parent_id			as	parent_id,
+			v.id					as	vehicle_id,
+			v.brand					as 	vehicle_brand,
+			v.gps_id				as	vehicle_gps_id,
+			v.gps_name				as	vehicle_gps_name,
+			v.intercom_group		as	vehicle_intercom_group,
+			v.intercom_person		as	vehicle_intercom_person,
+			v.number				as	vehicle_number,
+			v.org_id				as 	vehicle_org_id,
+			v.purpose				as 	vehicle_purpose,
+			v.site_qty				as 	vehicle_site_qty,
+			v.vehicle_type_id		as  vehicle_type_id,
+			p.id					as	police_id,
+			p.gps_id				as	police_gps_id,
+			p.gps_name				as	police_gps_name,
+			p.idcardNo				as	police_idcardno,
+			p.intercom_group		as	police_intercom_group,
+			p.intercom_person		as	police_intercom_person,
+			p.mobile				as	police_mobile,
+			p.mobile_short			as	police_mobile_short,
+			p.name					as	police_name,
+			p.number				as	police_number,
+			p.org_id				as	police_org_id,
+			p.title					as	police_title,
+			p.type_id				as	police_type_id,
+			w.id					as	weapon_id,
+			w.number				as	weapon_number,
+			w.org_id				as	weapon_org_id,
+			w.standard				as	weapon_standard,
+			w.type_id				as	weapon_type_id,
+			g.id					as	gps_id,
+			g.gps_name				as	gps_name,
+			g.icon_url				as	gps_icon_url,
+			g.number				as	gps_number,
+			g.org_id				as	gps_org_id,
+			g.type_id				as	gps_type_id
+		from t_duty_item as di
+			left join t_duty 		as 	d  	on 	d.id= di.duty_id
+			left join t_duty_type 	as 	dt 	on 	di.item_type_id	=100 	and di.duty_type_id = dt.id
+			left join t_vehicle 	as 	v 	on 	di.item_type_id=1 		and di.item_id =v.id
+			left join t_police 		as 	p  	on 	di.item_type_id=2 		and di.item_id=p.id
+			left join t_weapon 		as 	w 	on 	di.item_type_id=3		and di.item_id=w.id
+			left join t_gps 		as 	g 	on 	di.item_type_id =4 		and di.item_id=g.id
+		where
+			d.org_id=#{orgId,jdbcType=INTEGER}	and
+			d.ymd=#{ymd,jdbcType=INTEGER}
+		order by di.full_id_path
+	</select>
+
+</mapper>
