@@ -84,12 +84,7 @@
 					<a  href="javascript:void(0);" class="easyui-linkbutton"  iconcls="icon-tianyi-delete"  
 						onclick="btnCancelGpsDataAction()"> 取消  </a> 
 	 		 </div> 
-	 	</div>
-	 	<div id="maskwindow" class="easyui-window" title="导入数据选项" data-options="modal:true,headerCls:'bbbb'" closed="true" 
-			style="width: 500px; height: 80px; padding: 10px;color:white;"
-	 	collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false" >
-	 	<h2  class="hiperlinkb" >正在导入数据，请稍后……</h2>
-	 	</div>
+	 	</div> 
 	<!-- 编辑窗体内容 -->
 	 <div id="gpsdeviceinfowindow" class="easyui-window" title="新增/编辑定位设备信息"
 			data-options="iconCls:'icon-tianyi-edit',modal:true,headerCls:'bbbb'" closed="true" 
