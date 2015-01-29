@@ -543,7 +543,13 @@ o.path as orgPath,tg.icon_url as iconUrl,CONCAT(pt.name,":",p.name) as display_n
    </select> 
   
   
+  <select id="loadListByOrgId" resultType="com.tianyi.drs.basedata.model.Police" parameterType="java.util.Map"> 
+  	select 
+    	<include refid="Base_Column_List" />
+    from t_police
+    	where org_id = #{orgId,jdbcType=INTEGER}
   
+  </select>
   
   
 </mapper>

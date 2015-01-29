@@ -18,12 +18,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tianyi.drs.basedata.model.Police;
+import com.tianyi.drs.duty.exportmodel.ExtItem;
 import com.tianyi.drs.duty.model.Duty;
 import com.tianyi.drs.duty.model.DutyProperty;
 import com.tianyi.drs.duty.model.Org;
 import com.tianyi.drs.duty.model.PoliceTarget;
 import com.tianyi.drs.duty.service.DutyService;
 import com.tianyi.drs.duty.service.DutyTaskService;
+import com.tianyi.drs.duty.service.ExportService;
 import com.tianyi.drs.duty.viewmodel.DutyItemVM;
 import com.tianyi.drs.duty.viewmodel.DutyVM;
 import com.tianyi.drs.duty.viewmodel.ListResult;
@@ -49,6 +52,9 @@ public class DutyController {
 	@Resource(name = "dutyTaskService")
 	protected DutyTaskService dutyTaskService;
 
+	@Resource(name = "exportService")
+	protected ExportService exportService;
+	
 	/**
 	 * 根据组织机构id和日期，获取详细的报备数据，以树形结构显示
 	 * 
@@ -86,6 +92,10 @@ public class DutyController {
 			@RequestParam(value = "ymd", required = false) Integer ymd,
 			@RequestParam(value = "id", required = false) Integer id,
 			HttpServletRequest request) {
+		
+		//test!
+		test1();
+		
 		DutyVM dvm = null;
 
 		if (id == null) {
@@ -228,6 +238,10 @@ public class DutyController {
 		} catch (Exception ex) {
 			return "";
 		}
+	}
+	
+	private void test1(){
+		List<ExtItem<Police>> ls=exportService.loadPoliceDutyInfo(15, 20141209);
 	}
 
 }

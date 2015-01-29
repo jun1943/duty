@@ -146,5 +146,8 @@ public interface PoliceMapper {
 	 * @return
 	 */ 
 	List<Police> findByIdAndDtyId(String param);
+	
+	
+	List<Police> loadListByOrgId(Map<String, Object> map);
 	 
 }
