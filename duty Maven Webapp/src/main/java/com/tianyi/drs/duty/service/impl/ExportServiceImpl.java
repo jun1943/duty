@@ -44,8 +44,8 @@ public class ExportServiceImpl implements ExportService {
 	@Resource(name="gpsMapper")
 	private GpsMapper gpsMapper;
 	
-	@Resource(name="iconMapper")
-	private IconsMapper iconMapper;
+	@Resource(name="iconsMapper")
+	private IconsMapper iconsMapper;
 
 	public List<ExtItem<Police>> loadPoliceDutyInfo(Integer orgId, Integer ymd){
 		Map<Integer,ExtItem<?>> cache=new HashMap<Integer,ExtItem<?>>();//dutyItemId局部缓存，避免大量低效率的循环。
@@ -403,7 +403,7 @@ public class ExportServiceImpl implements ExportService {
 
 	public List<Icons> loadIconsInfo() {
 		// TODO Auto-generated method stub
-		return iconMapper.loadIconsInfo();
+		return iconsMapper.loadIconsInfo();
 	}
 
 }
