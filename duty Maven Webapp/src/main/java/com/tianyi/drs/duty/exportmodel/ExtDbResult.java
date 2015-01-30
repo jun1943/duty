@@ -127,7 +127,7 @@ public class ExtDbResult {
     /***********************************************
      * 警员
      */
-	/*
+	/**
 	 * 警员主键值id
 	 */
     private Integer policeId;
