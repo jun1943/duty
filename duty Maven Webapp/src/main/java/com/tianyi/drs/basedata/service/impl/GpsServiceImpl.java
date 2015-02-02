@@ -108,4 +108,8 @@ public class GpsServiceImpl implements GpsService{
 		// TODO Auto-generated method stub
 		return gpsMapper.findByIdAndDtyId(param);
 	}
+	public List<Gps> loadListByOrgId(Integer orgId) {
+		// TODO Auto-generated method stub
+		return gpsMapper.loadListByOrgId(orgId);
+	}
 }

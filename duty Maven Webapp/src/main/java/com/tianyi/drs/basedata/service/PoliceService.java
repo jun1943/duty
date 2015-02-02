@@ -175,4 +175,11 @@ public interface PoliceService {
 	 * @return
 	 */
 	List<Police> findByIdAndDtyId(String string);
+	
+	/**
+	 * 根据组织机构id，获取所有成员列表
+	 * @param orgId
+	 * @return
+	 */
+	List<Police> loadListByOrgId(Integer orgId);
 }

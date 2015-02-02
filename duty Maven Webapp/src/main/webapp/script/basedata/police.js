@@ -693,6 +693,9 @@ function btnsavePoliceData() {
 }
 function btnDownLoadModel() {
 	var urlStr = "resource/ExelModel/PoliceInfo.xls";
+	
+	var s = navigator.appVersion.indexOf("msie");
+	alert(s);
 	if (/msie/.test(navigator.userAgent.toLowerCase())) {
 		urlStr = "../../" + urlStr;
 	}

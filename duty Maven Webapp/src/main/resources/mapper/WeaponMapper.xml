@@ -158,6 +158,14 @@
        		select * from t_weapon where number = #{param}  
     	 </select>
    
+    
+  <select id="loadListByOrgId"  parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+    	 <include refid="Base_Column_List" />
+    from t_weapon
+    	where org_id = #{orgId,jdbcType=INTEGER}
+  
+  </select>
  
   <sql id="Where_example">
     <where>
@@ -291,14 +299,5 @@
  				
   		</if> 
   </select>
-  
-  
-  
-  <select id="loadListByOrgId" resultType="com.tianyi.drs.basedata.model.Weapon" parameterType="java.util.Map"> 
-  	select 
-    	<include refid="Base_Column_List" />
-    from t_weapon
-    	where org_id = #{orgId,jdbcType=INTEGER}
-  
-  </select>
+   
 </mapper>

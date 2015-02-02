@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.tianyi.drs.basedata.model.Gps;
 import com.tianyi.drs.basedata.model.GpsType;
+import com.tianyi.drs.basedata.model.Police;
 import com.tianyi.drs.basedata.viewmodel.GpsVM;
 import com.tianyi.util.PaginationData;
 /**
@@ -86,4 +87,11 @@ public interface GpsService {
 	 */
 	
 	public List<Gps> findByIdAndDtyId(String param);
+	
+	/**
+	 * 根据组织机构id，获取所有有成员列表
+	 * @param orgId
+	 * @return
+	 */
+	List<Gps> loadListByOrgId(Integer orgId);
 }

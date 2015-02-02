@@ -356,6 +356,16 @@
     </where>
   </sql> 
   
+  
+  <select id="loadListByOrgId"  parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+    	 <include refid="Base_Column_List" />
+    from t_police
+    	where org_id = #{orgId,jdbcType=INTEGER}
+  
+  </select>
+  
+  
   <select id="loadVMList" parameterType="java.util.Map" resultMap="BaseModelMap">
   		 select <include refid ="Base_Model_Column_List" />
   		 from t_police p 
@@ -423,6 +433,7 @@
   		 
   	 
   </select>
+  
   
   <select id="loadVMListWithGroup" parameterType="java.util.Map" resultMap="BaseModelMap">
   		 select distinct <include refid ="Base_Model_Column_List" />
@@ -541,15 +552,6 @@ o.path as orgPath,tg.icon_url as iconUrl,CONCAT(pt.name,":",p.name) as display_n
 		
 		 limit 0,1;
    </select> 
-  
-  
-  <select id="loadListByOrgId" resultType="com.tianyi.drs.basedata.model.Police" parameterType="java.util.Map"> 
-  	select 
-    	<include refid="Base_Column_List" />
-    from t_police
-    	where org_id = #{orgId,jdbcType=INTEGER}
-  
-  </select>
   
   
 </mapper>

@@ -84,5 +84,10 @@ public interface WeaponMapper {
 	 * @return
 	 */
 	List<Weapon> findByIdAndDtyId(String param);
-	List<Weapon> loadListByOrgId(Map<String, Object> map);
+	/**
+	 * 根据组织机构id，获取所有成员列表
+	 * @param orgId
+	 * @return
+	 */
+	List<Weapon> loadListByOrgId(Integer orgId);
 }

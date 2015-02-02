@@ -321,6 +321,13 @@
 	  		</if>
   </select>
   
+  <select id="loadListByOrgId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+     <include refid="Base_Column_List" />
+    from t_vehicle
+    	where org_id = #{orgId,jdbcType=INTEGER}
+  
+  </select>
   <select id ="loadVMCount" parameterType="java.util.Map" resultType="java.lang.Integer">
   	select 
   		count(*) 
@@ -411,13 +418,4 @@
   		</if> 
   </select>
   
-  
-  
-  <select id="loadListByOrgId" resultType="com.tianyi.drs.basedata.model.Vehicle" parameterType="java.util.Map"> 
-  	select 
-    	<include refid="Base_Column_List" />
-    from t_vehicle
-    	where org_id = #{orgId,jdbcType=INTEGER}
-  
-  </select>
 </mapper>

@@ -164,6 +164,13 @@
        		 select * from t_gpstype order by id asc
     	 </select> 
   
+  <select id="loadListByOrgId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+    	 <include refid="Base_Column_List" />
+    from t_gps
+    	where org_id = #{orgId,jdbcType=INTEGER}
+  
+  </select>
   <select id="loadVMList" parameterType="java.util.Map" resultMap="ViewResultMap">
   		select 
   			g.id, 
@@ -288,15 +295,6 @@
  				
   		</if> 
   </select>
+   
   
-  
-  
-  
-  <select id="loadListByOrgId" resultType="com.tianyi.drs.basedata.model.Gps" parameterType="java.util.Map"> 
-  	select 
-    	<include refid="Base_Column_List" />
-    from t_gps
-    	where org_id = #{orgId,jdbcType=INTEGER}
-  
-  </select>
 </mapper>

@@ -243,14 +243,14 @@ public class DutyController {
 		}
 	}
 	
-	//private void test1(){
-		//List<ExtItem<Police>> ls=exportService.loadPoliceDutyInfo(15, 20141209);
-		//List<ExtItem<Vehicle>> ls=exportService.loadVehicleDutyInfo(15, 20141209);
-		//List<ExtItem<Weapon>> ls=exportService.loadWeaponDutyInfo(15, 20141209);
-		//List<ExtItem<Gps>> ls=exportService.loadGpsDutyInfo(15, 20141209);
-		//if(ls.size()>0){
-		//	int s = ls.size();
-		//}
-	//}
+//	private void test1(){
+//		List<ExtItem<Police>> ls=exportService.loadPoliceDutyInfo(15, 20141209);
+////		List<ExtItem<Vehicle>> ls=exportService.loadVehicleDutyInfo(15, 20141209);
+////		List<ExtItem<Weapon>> ls=exportService.loadWeaponDutyInfo(15, 20141209);
+////		List<ExtItem<Gps>> ls=exportService.loadGpsDutyInfo(15, 20141209);
+////		if(ls.size()>0){
+////			int s = ls.size();
+////		}
+//	}
 
 }
