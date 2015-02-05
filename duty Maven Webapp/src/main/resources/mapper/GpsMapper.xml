@@ -194,7 +194,7 @@
   		  or 
   			org.code =#{orgCode,jdbcType=VARCHAR}
   	
-  			<if test ="inSubOrg ==1">
+  			<if test ="isSubOrg ==1">
   				or org.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
   			</if>
   			)
@@ -228,7 +228,7 @@
   		 or
   		org.code =#{orgCode,jdbcType=VARCHAR}
   	
-  		<if test ="inSubOrg ==1">
+  		<if test ="isSubOrg ==1">
   			or org.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
   		</if>
   		)

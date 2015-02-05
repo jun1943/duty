@@ -430,7 +430,9 @@ function packCriteria() {
 	criteria.policeTypeIds = [];
 	var pt = $("#cmbpoliceType").combobox('getValues');
 	$.each(pt, function(i, v) {
-		criteria.policeTypeIds.push(v);
+		if(v!=-1||v!="-1"){
+			criteria.policeTypeIds.push(v);
+		}
 	});
 
 	criteria.armamentTypeIds = [];
