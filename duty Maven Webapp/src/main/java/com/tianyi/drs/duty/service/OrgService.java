@@ -51,4 +51,6 @@ public interface OrgService {
 	 * @return
 	 */
 	List<OrgWithGpsVM> loadOrgWithGpsVMList(Integer id);
+
+	Org selectByPrimaryKey(Integer qid);
 }

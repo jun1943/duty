@@ -53,4 +53,6 @@ public interface OrgMapper {
 	 * @return
 	 */
 	List<OrgWithGpsVM> loadOrgWithGpsVMList(Integer id);
+
+	Org selectByPrimaryKey(Integer qid);
 }

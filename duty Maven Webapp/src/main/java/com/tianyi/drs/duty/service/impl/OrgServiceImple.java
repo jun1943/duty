@@ -74,6 +74,11 @@ public class OrgServiceImple implements OrgService {
 		return ls;
 	}
 
+	public Org selectByPrimaryKey(Integer qid) {
+		// TODO Auto-generated method stub
+		return orgMapper.selectByPrimaryKey(qid);
+	}
+
 
 
 }

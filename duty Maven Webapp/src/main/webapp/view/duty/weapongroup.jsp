@@ -128,6 +128,7 @@
 					<td class="groupmemberwindowtdf">
 						
 						<div class="groupmemberwindowdiv">
+						<label id="treetitle"></label>
 							<ul id="treeOrgWithWeapon" class="easyui-tree"
 								style="overflow:auto"></ul>
 						</div>

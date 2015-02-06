@@ -22,6 +22,7 @@ $(document).ready(function() {
 	m_gpsGroup_Org.code = args["orgCode"];
 	m_gpsGroup_Org.path = args["orgPath"];
 	m_gpsGroup_Org.userId = args["userId"];
+	m_gpsGroup_Org.name = decodeURI(args["orgName"]);
 
 	pack_gpsGroup_Query();
 	$('#dtGpsGroup').datagrid({
@@ -586,7 +587,7 @@ function unselectMember() {
 }
 
 function showGroupMemberDlg() {
-
+	$("#treetitle").html(m_gpsGroup_Org.name+"  gps资源树");
 	$('#winPGMember').window('open');
 }
 

@@ -120,20 +120,24 @@ public class OrgController {
 			){
 
 		Integer qid=null;
-		
+		boolean isSubNode = false;
 		if(hybrid_id!=null && hybrid_id!=""){
 			if(hybrid_id.indexOf("org")>=0){
 				qid=new Integer(hybrid_id.split("_")[1]);
+				isSubNode = true;
 			}
 		}else{
 			qid=rootId;
 		}
 		
-		if(qid!=null){
+		if(qid!=null){ 
 			List<OrgWithVehicleVM> ls=orgService.loadOrgWithVehicleVMList(qid);
-			JSONArray rs=JSONArray.fromObject(ls);
+			JSONArray rs=JSONArray.fromObject(ls); 
 			
-			return rs.toString();
+			String result = rs.toString();
+			
+		 
+			return result;
 		}else{
 			return null;
 		}		

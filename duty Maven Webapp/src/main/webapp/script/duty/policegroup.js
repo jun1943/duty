@@ -22,6 +22,7 @@ $(document).ready(function() {
 	m_policeGroup_Org.code = args["orgCode"];
 	m_policeGroup_Org.path = args["orgPath"];
 	m_policeGroup_Org.userId = args["userId"];
+	m_policeGroup_Org.name = decodeURI(args["orgName"]);
 	pack_policeGroup_Query();
 	$('#dtPoliceGroup').datagrid({
 		url : 'policeGroup/list.do',
@@ -589,7 +590,7 @@ function unselectMember() {
 }
 
 function showGroupMemberDlg() {
-
+	$("#treetitle").html(m_policeGroup_Org.name+"  警力资源树");
 	$('#winPGMember').window('open');
 }
 

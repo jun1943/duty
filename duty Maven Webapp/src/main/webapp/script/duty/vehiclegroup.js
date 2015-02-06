@@ -22,6 +22,7 @@ $(document).ready(function() {
 	m_vehicleGroup_Org.code = args["orgCode"];
 	m_vehicleGroup_Org.path = args["orgPath"];
 	m_vehicleGroup_Org.userId = args["userId"];
+	m_vehicleGroup_Org.name = decodeURI(args["orgName"]);
 
 	pack_vehicleGroup_Query();
 	$('#dtVehicleGroup').datagrid({
@@ -586,7 +587,7 @@ function unselectMember() {
 }
 
 function showGroupMemberDlg() {
-
+	$("#treetitle").html(m_vehicleGroup_Org.name+"  车辆资源树");
 	$('#winPGMember').window('open');
 }
 

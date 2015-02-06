@@ -22,6 +22,7 @@ $(document).ready(function() {
 	m_weaponGroup_Org.code = args["orgCode"];
 	m_weaponGroup_Org.path = args["orgPath"];
 	m_weaponGroup_Org.userId = args["userId"];
+	m_weaponGroup_Org.name = decodeURI(args["orgName"]);
 
 	pack_weaponGroup_Query();
 	$('#dtWeaponGroup').datagrid({
@@ -590,6 +591,7 @@ function unselectMember() {
 
 function showGroupMemberDlg() {
 
+	$("#treetitle").html(m_weaponGroup_Org.name+"  武器资源树");
 	$('#winPGMember').window('open');
 }
 

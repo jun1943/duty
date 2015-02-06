@@ -120,7 +120,7 @@
 		</div>
 
 	<div id="winPGMember" class="easyui-window" title="组成员选择" 
-	style="width:450px;height:400px;"
+	style="width:650px;height:400px;"
         data-options="iconCls:'icon-save',modal:true" closed="true" 
         collapsible="false" minimizable="false" maximizable="false" resizable="false" shadow="false">    
    	 		 
@@ -130,6 +130,7 @@
 					<td class="groupmemberwindowtdf">
 						
 						<div class="groupmemberwindowdiv" >
+						<label id="treetitle"></label>
 							<ul id="treeOrgWithPolice" class="easyui-tree"
 								style="overflow:auto"></ul>
 						</div>
