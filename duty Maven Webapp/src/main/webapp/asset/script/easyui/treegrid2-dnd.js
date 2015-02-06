@@ -159,7 +159,9 @@
 						}
 						var st=$(source).prop('treegrid');/*获取源treegrid owen 2014-11-02*/
 						var sopts=$(source).prop('opts'); /* 从源中获取sRow owen 2014-11-02*/
-						var sRow=$(source).prop('row'); /* 从源中获取sRow owen 2014-11-02*/
+						var ssRow=$(source).prop('row'); /* 从源中获取sRow owen 2014-11-02*/
+						var sRow=clone(ssRow);
+						
 						var dRow = getRow(this);
 						//var sRow = getRow(source);  bug:不支持多个treegrid之间拖动! 
 						if (opts.onBeforeDrop.call(target, dRow, sRow, point) == false){
@@ -170,7 +172,31 @@
 						tr.removeClass('treegrid-row-append treegrid-row-top treegrid-row-bottom');
 					}
 				});
-								
+				
+				 function clone(obj) {
+					 var o;
+				     if (typeof obj == "object") {
+				         if (obj === null) {
+				        	 o = null;
+				         } else {
+				             if (obj instanceof Array) {
+				                 o = [];
+				                 for (var i = 0, len = obj.length; i < len; i++) {
+				                     o.push(clone(obj[i]));
+				                 }
+				             } else {
+				                 o = {};
+				                 for (var j in obj) {
+				                     o[j] = clone(obj[j]);
+				                 }
+				             }
+				         }
+				     } else {
+				         o = obj;
+				     }
+				     return o;
+				 }
+
 				function allowDrop(source, allowed){
 					var icon = $(source).draggable('proxy').find('span.tree-dnd-icon');
 					icon.removeClass('tree-dnd-yes tree-dnd-no').addClass(allowed ? 'tree-dnd-yes' : 'tree-dnd-no');
@@ -188,11 +214,13 @@
 					
 					function doAppend(){
 						var data = st.treegrid('pop', sRow[sopts.idField]);
+						var data2=clone(data);
+						
 						dt.treegrid('append', {
 							parent: dRow[opts.idField],
-							data: [data]
+							data: [data2]
 						});
-						opts.onDrop.call(target, dRow, data, 'append');
+						opts.onDrop.call(target, dRow, data2, 'append');
 					}
 				}
 				function insert(st,dt,sopts,dopts,sRow, dRow,point){
@@ -204,11 +232,12 @@
 					}
 					
 					var data = st.treegrid('pop', sRow[sopts.idField]);
-					param.data = data;
+					var data2=clone(data);
+					param.data = data2;
 					dt.treegrid('insert', param);
-					opts.onDrop.call(target, dRow, data, point);
+					opts.onDrop.call(target, dRow, data2, point);
 				}
-			});
+			});		
 		}
 	});
 })(jQuery);
