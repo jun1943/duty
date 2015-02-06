@@ -239,6 +239,12 @@ function savePoliceGroup() {
 		$('#txtPoliceGroupName').focus();
 		return;
 	}
+	var myReg = /^[^|"'<>]*$/;
+	if(!myReg.test(groupName)){
+		$.messager.alert("错误提示", "分组名称含有非法字符！", "error");
+		$('#txtPoliceGroupName').focus();
+		return;
+	}
 	if (opteType == "add") {
 		isExistGroup(groupName, m_policeGroup_Org.id);
 		if (!isExist) {

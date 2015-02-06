@@ -234,6 +234,12 @@ function saveGpsGroup() {
 		$('#txtGpsGroupName').focus();
 		return;
 	}
+	var myReg = /^[^|"'<>]*$/;
+	if(!myReg.test(groupName)){
+		$.messager.alert("错误提示", "分组名称含有非法字符！", "error");
+		$('#txtGpsGroupName').focus();
+		return;
+	}
 	if (opteType == "add") {
 		isExistGroup(groupName, m_gpsGroup_Org.id);
 		if (!isExist) {

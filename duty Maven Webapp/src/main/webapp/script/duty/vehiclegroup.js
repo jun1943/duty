@@ -233,6 +233,12 @@ function saveVehicleGroup() {
 		$('#txtVehicleGroupName').focus();
 		return;
 	}
+	var myReg = /^[^|"'<>]*$/;
+	if(!myReg.test(groupName)){
+		$.messager.alert("错误提示", "分组名称含有非法字符！", "error");
+		$('#txtVehicleGroupName').focus();
+		return;
+	}
 	if (opteType == "add") {
 		isExistGroup(groupName, m_vehicleGroup_Org.id);
 		if (!isExist) {

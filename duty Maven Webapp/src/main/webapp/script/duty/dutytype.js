@@ -466,7 +466,13 @@ function saveDutyType() {
 		$.messager.alert("错误提示", "勤务类型名称长度过长，限制长度为20！", "error");
 		return;
 	}
-	dt.name = $('#txtDutyTypeName').val();
+	var myReg = /^[^|"'<>]*$/;
+	if(!myReg.test($.trim(dname))){
+		$.messager.alert("错误提示", "勤务类型名称含有非法字符！", "error");
+		$('#txtDutyTypeName').focus();
+		return;
+	}
+	dt.name = $.trim(dname);
 
 	var personcount = $('#txtMaxPolice').val();
 	

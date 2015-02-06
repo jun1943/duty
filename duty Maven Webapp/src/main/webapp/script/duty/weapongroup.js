@@ -237,8 +237,8 @@ function saveWeaponGroup() {
 		return;
 	}
 	
-	var myReg = /^[^@\/\'\\\"#$%&\^\*]+$/; 
-	if(myReg.test(groupName)){
+	var myReg = /^[^|"'<>]*$/;
+	if(!myReg.test(groupName)){
 		$.messager.alert("错误提示", "分组名称含有非法字符！", "error");
 		$('#txtWeaponGroupName').focus();
 		return;
