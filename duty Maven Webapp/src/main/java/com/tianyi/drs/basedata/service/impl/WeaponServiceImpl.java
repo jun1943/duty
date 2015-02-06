@@ -144,6 +144,10 @@ public class WeaponServiceImpl implements WeaponService {
 	public List<Weapon> findByIdAndDtyId(String param) {
 		// TODO Auto-generated method stub
 		return weaponMapper.findByIdAndDtyId(param);
+	}
+	public List<Weapon> loadListByOrgId(Integer orgId) {
+		// TODO Auto-generated method stub
+		return weaponMapper.loadListByOrgId(orgId);
 	} 
 	
 }

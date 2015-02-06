@@ -299,7 +299,7 @@
   		  or 
   			org.code =#{orgCode,jdbcType=VARCHAR}
   	
-  			<if test ="inSubOrg ==1">
+  			<if test ="isSubOrg ==1">
   				or org.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
   			</if>
   			)
@@ -321,6 +321,13 @@
 	  		</if>
   </select>
   
+  <select id="loadListByOrgId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+     <include refid="Base_Column_List" />
+    from t_vehicle
+    	where org_id = #{orgId,jdbcType=INTEGER}
+  
+  </select>
   <select id ="loadVMCount" parameterType="java.util.Map" resultType="java.lang.Integer">
   	select 
   		count(*) 
@@ -333,7 +340,7 @@
   		 or
   		org.code =#{orgCode,jdbcType=VARCHAR}
   	
-  		<if test ="inSubOrg ==1">
+  		<if test ="isSubOrg ==1">
   			or org.path like CONCAT(#{orgPath,jdbcType=VARCHAR},"/",#{orgCode,jdbcType=VARCHAR},"%")
   		</if>
   		)
@@ -411,13 +418,4 @@
   		</if> 
   </select>
   
-  
-  
-  <select id="loadListByOrgId" resultType="com.tianyi.drs.basedata.model.Vehicle" parameterType="java.util.Map"> 
-  	select 
-    	<include refid="Base_Column_List" />
-    from t_vehicle
-    	where org_id = #{orgId,jdbcType=INTEGER}
-  
-  </select>
 </mapper>

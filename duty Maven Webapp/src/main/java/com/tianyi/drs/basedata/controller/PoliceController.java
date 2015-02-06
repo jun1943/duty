@@ -35,6 +35,8 @@ import com.tianyi.drs.basedata.model.PoliceType;
 import com.tianyi.drs.basedata.service.PoliceService;
 import com.tianyi.drs.basedata.viewmodel.GpsBaseVM;
 import com.tianyi.drs.basedata.viewmodel.PoliceVM;
+import com.tianyi.drs.duty.exportmodel.ExtItem;
+import com.tianyi.drs.duty.service.ExportService;
 import com.tianyi.drs.duty.util.ExcelPortUtil;
 import com.tianyi.drs.duty.viewmodel.ListResult;
 import com.tianyi.drs.duty.viewmodel.ObjResult;
@@ -55,6 +57,9 @@ public class PoliceController {
 	protected PoliceService policeService;// =
 											// ServiceFactory.getPoliceServiceInit();
 
+	@Resource(name="exportService")
+	protected ExportService exportService;
+	
 	@RequestMapping("index")
 	public String index() {
 		return "index";
@@ -505,6 +510,9 @@ public class PoliceController {
 			}
 			map.put("userName", userName);
 			map.put("password", password);
+			
+			//List<ExtItem<Police>>  s = exportService.loadPoliceDutyInfo(15, 20141201);
+			
 			uvm = policeService.getUserAuthorization(map);
 			Date date = new Date();
 			// Calendar canlandar = Calendar.getInstance();
@@ -515,12 +523,14 @@ public class PoliceController {
 			
 			uvm.setServerYears(years);
 			uvm.setServerMonth(month);
+			
 			ObjResult<UserObjectVM> rs = new ObjResult<UserObjectVM>(true,
 					null, uvm == null ? 0 : uvm.getId(), uvm);
 
 			String s = rs.toJson();
 
 			return s;
+			
 
 		} catch (Exception ex) {
 			return "{\"isSuccess\":false,\"Data\":null}";

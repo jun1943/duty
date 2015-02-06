@@ -102,5 +102,9 @@ public interface DutyTypeMapper {
 	 * @return
 	 */
 	List<DutyItemCountVM> loadDutyItemCount(Map<String, Object> map);
+
+	DutyType loadDutyTypeById(Integer did);
+
+	int updateDutyType(DutyType dutytype);
  
 }

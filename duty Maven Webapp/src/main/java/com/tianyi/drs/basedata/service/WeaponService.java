@@ -3,6 +3,7 @@ package com.tianyi.drs.basedata.service;
 import java.util.List; 
 import java.util.Map;
 
+import com.tianyi.drs.basedata.model.Police;
 import com.tianyi.drs.basedata.model.Weapon;
 import com.tianyi.drs.basedata.model.WeaponType;
 import com.tianyi.drs.basedata.viewmodel.WeaponVM;
@@ -109,4 +110,11 @@ public interface WeaponService {
 	 * @return
 	 */
 	List<Weapon> findByIdAndDtyId(String param); 
+	
+	/**
+	 * 根据组织机构id，获取所有成员列表
+	 * @param orgId
+	 * @return
+	 */
+	List<Weapon> loadListByOrgId(Integer orgId);
 }

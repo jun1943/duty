@@ -39,6 +39,7 @@
     	<id column="id" property="id" jdbcType="VARCHAR" />
     	<result column="data_type" property="dataType" jdbcType="INTEGER" />
     	<result column="name" property="name" jdbcType="VARCHAR" />
+    	<result column="typename" property="typename" jdbcType="VARCHAR" />
     	<result column="code" property="code" jdbcType="VARCHAR" />
   </resultMap>
    
@@ -101,13 +102,13 @@
   
   
     <select id="loadOrgWithGpsVMList" parameterType="java.util.Map" resultMap="OrgWithGpsResultMap">
-	select      rid,     name,     data_type,id,code     
+	select      rid,  typename,   name,     data_type,id,code     
 	from 
 	 (    
-		select    id as rid,short_name as name,  1 as data_type,CONCAT("org_",id) as id,code  from organ as org    where     org.parent_id= #{id,jdbcType=INTEGER}  
+		select    org.id as rid,"" as typename,short_name as name,  1 as data_type,CONCAT("org_",org.id) as id,code  from organ as org    where     org.parent_id= #{id,jdbcType=INTEGER}  
 		union    
-		select     id as rid,gps_name as name , 2 as data_type,CONCAT("gps_",id) as id,number as code    from t_gps as p  
-		
+		select     p.id as rid,gt.name as typename,number as name , 2 as data_type,CONCAT("gps_",p.id) as id,number as code    from t_gps as p  
+			left join t_gpstype as gt on gt.id = p.type_id
 		
 		  where p.org_id=#{id,jdbcType=INTEGER}  
 	 ) as t    

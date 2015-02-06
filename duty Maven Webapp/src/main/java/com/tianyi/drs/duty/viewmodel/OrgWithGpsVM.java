@@ -19,6 +19,10 @@ public class OrgWithGpsVM {
 	 */
 	private String name;
 	/**
+	 * 类型名称
+	 */
+	private String typename;
+	/**
 	 * 数据类型
 	 */
 	private int dataType;
@@ -69,6 +73,12 @@ public class OrgWithGpsVM {
 	}
 	public void setCode(String code) {
 		this.code = code;
+	}
+	public String getTypename() {
+		return typename;
+	}
+	public void setTypename(String typename) {
+		this.typename = typename;
 	}
 	
 }

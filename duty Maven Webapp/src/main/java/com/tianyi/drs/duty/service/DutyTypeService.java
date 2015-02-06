@@ -3,6 +3,7 @@ package com.tianyi.drs.duty.service;
 import java.util.List;
 import java.util.Map;
 
+import com.tianyi.drs.basedata.model.Police;
 import com.tianyi.drs.duty.model.DutyType;
 import com.tianyi.drs.duty.util.ResultMsg;
 import com.tianyi.drs.duty.viewmodel.DutyItemCountVM;
@@ -21,8 +22,21 @@ public interface DutyTypeService {
 	 * @return
 	 */
 	List<DutyTypePropertyVM>  loadProperties();
+    /**
+     * 根据id获取勤务类型对象
+     * @param code
+     * @return
+     */
+	DutyType selectByPrimaryKey(Integer did);
+	/**
+     * 更新对象
+     * @param dutytype
+     * @return
+     */
+     int updateByPrimaryKey(DutyType dutytype);
 	
 	/**
+	 * 
 	 * 获取启用状态下的勤务类型数据
 	 * @param isUsed
 	 * @return

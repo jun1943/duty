@@ -168,6 +168,16 @@ public class DutyTypeServiceImpl implements DutyTypeService {
 		// TODO Auto-generated method stub
 		return dutyTypeMapper.loadDutyItemCount(map);
 	}
+
+	public DutyType selectByPrimaryKey(Integer did) {
+		// TODO Auto-generated method stub
+		return dutyTypeMapper.selectByPrimaryKey(did);
+	}
+
+	public int updateByPrimaryKey(DutyType dutytype) {
+		// TODO Auto-generated method stub
+		return dutyTypeMapper.updateByPrimaryKey(dutytype);
+	}
  
 	
 }

@@ -50,8 +50,10 @@ public class DutyReportServiceImpl implements DutyReportService{
 		if(criteria.getAttireTypeIds().size()>0){
 			map.put("attireTypeIds", criteria.getAttireTypeIds());
 		}
-		if(criteria.getPoliceTypeIds().size()>0){
+		if(criteria.getPoliceTypeIds().size()>0){ 
+			 
 			map.put("policeTypeIds", criteria.getPoliceTypeIds());
+			 
 		}
 		if(criteria.getArmamentTypeIds().size()>0){
 			map.put("armamentTypeIds", criteria.getArmamentTypeIds());

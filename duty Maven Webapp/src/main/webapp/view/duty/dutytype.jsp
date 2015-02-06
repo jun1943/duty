@@ -58,7 +58,7 @@
 				<tr>
 					<td style="text-align:right"><label>名称:</label></td>
 					<td><input id="txtDutyTypeName" type="text"
-						class="easyui-validatebox prop_val" ></input></td>
+						class="easyui-validatebox prop_val"  data-options="required:true,validType:['length[1,20]']" ></input></td>
 				</tr>
 				<tr>
 					<td style="text-align:right"><label>人数上限:</label></td>
@@ -78,13 +78,13 @@
 				<tr>
 					<td style="text-align:right"><label>属性:</label></td>
 					<td>
-						<input id="cmbProperty"  class="easyui-combobox prop_val"  />
+						<input id="cmbProperty"  class="easyui-combobox prop_val"  data-options="editable:false"  />
 					</td>
 				</tr>
 				<tr>
 					<td style="text-align:right"><label>关联任务:</label></td>
 					<td>
-						<input id="cmbTaskType"  class="easyui-combobox prop_val"  />
+						<input id="cmbTaskType"  class="easyui-combobox prop_val"  data-options="editable:false"  />
 					</td>
 				</tr>
 				

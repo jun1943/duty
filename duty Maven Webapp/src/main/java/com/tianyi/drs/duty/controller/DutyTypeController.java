@@ -1,12 +1,13 @@
 package com.tianyi.drs.duty.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
- 
+
 import net.sf.json.JSONObject;
 
 import org.springframework.context.annotation.Scope;
@@ -15,25 +16,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tianyi.drs.basedata.service.PoliceService; 
-import com.tianyi.drs.duty.service.DutyTypeService; 
+import com.tianyi.drs.basedata.service.PoliceService;
+import com.tianyi.drs.duty.model.DutyType;
+import com.tianyi.drs.duty.service.DutyTypeService;
 import com.tianyi.drs.duty.service.PoliceGroupService;
 import com.tianyi.drs.duty.util.ResultMsg;
 import com.tianyi.drs.duty.viewmodel.DutyTypePropertyVM;
 import com.tianyi.drs.duty.viewmodel.DutyTypeVM;
 import com.tianyi.drs.duty.viewmodel.ListResult;
-import com.tianyi.drs.duty.viewmodel.ObjResult; 
+import com.tianyi.drs.duty.viewmodel.ObjResult;
 
 /**
  * 勤务类型管理逻辑控制器
+ * 
  * @author lq
- *
+ * 
  */
 @Scope("prototype")
 @Controller
 @RequestMapping("/dutyType")
 public class DutyTypeController {
-	
+
 	/**
 	 * 初始化服务层接口
 	 */
@@ -45,9 +48,10 @@ public class DutyTypeController {
 
 	@Resource(name = "policeGroupService")
 	protected PoliceGroupService policeGroupService;
-	
+
 	/**
 	 * 获取勤务类型列表，非模板，并且是启用状态的模板
+	 * 
 	 * @param isUsed
 	 * @param request
 	 * @return
@@ -64,7 +68,8 @@ public class DutyTypeController {
 
 		String result = rs.toJson();
 		return result;
-	} 
+	}
+
 	@RequestMapping(value = "loadProperties.do")
 	public @ResponseBody
 	String loadProperties(HttpServletRequest request) {
@@ -80,6 +85,7 @@ public class DutyTypeController {
 
 	/**
 	 * 保存勤务类型；
+	 * 
 	 * @param dutyType
 	 * @param request
 	 * @return
@@ -105,8 +111,10 @@ public class DutyTypeController {
 		String result = rs.toJson();
 		return result;
 	}
+
 	/**
 	 * 修改勤务类型的启用与锁定状态
+	 * 
 	 * @param id
 	 * @param isUsed
 	 * @param request
@@ -130,8 +138,10 @@ public class DutyTypeController {
 		String result = rs.toJson();
 		return result;
 	}
+
 	/**
 	 * 删除勤务类型
+	 * 
 	 * @param id
 	 * @param request
 	 * @return
@@ -140,14 +150,28 @@ public class DutyTypeController {
 	public @ResponseBody
 	String deleteDutyType(
 			@RequestParam(value = "id", required = false) String id,
+			@RequestParam(value = "parentid", required = false) Integer pid,
+			@RequestParam(value = "isleaf", required = false) Integer isleaf,
 			HttpServletRequest request) {
 
 		Integer did = Integer.valueOf(id);
 		ResultMsg rm = dutyTypeService.deleteNode(did);
-		ObjResult<DutyTypeVM> rs = new ObjResult<DutyTypeVM>(rm.getIsSuccess(), rm.getMessage(), 0,null);
+
+		if (pid > 0) { 
+			if (isleaf == 1) {
+				DutyType dt = new DutyType();
+				dt = dutyTypeService.selectByPrimaryKey(pid);
+				if (dt != null) {
+					dt.setIsLeaf(true);
+					dutyTypeService.updateByPrimaryKey(dt);
+				}
+			}
+		}
+
+		ObjResult<DutyTypeVM> rs = new ObjResult<DutyTypeVM>(rm.getIsSuccess(),
+				rm.getMessage(), 0, null);
 
 		String result = rs.toJson();
 		return result;
 	}
 }
-

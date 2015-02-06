@@ -85,6 +85,11 @@ public interface VehicleMapper {
 	 * @return
 	 */
 	List<Vehicle> findByIdAndDtyId(String param);
-	List<Vehicle> loadListByOrgId(Map<String, Object> map);
+	/**
+	 * 根据组织机构id，获取所有成员列表
+	 * @param orgId
+	 * @return
+	 */
+	List<Vehicle> loadListByOrgId(Integer orgId);
     
 }

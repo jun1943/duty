@@ -80,7 +80,12 @@ public interface GpsMapper {
 	 * @return
 	 */
 	List<Gps> findByIdAndDtyId(String param);
-	List<Gps> loadListByOrgId(Map<String, Object> map); 
+	/**
+	 * 根据组织机构id，获取所有成员列表
+	 * @param orgId
+	 * @return
+	 */
+	List<Gps> loadListByOrgId(Integer orgId); 
 }
 
 

@@ -148,6 +148,11 @@ public interface PoliceMapper {
 	List<Police> findByIdAndDtyId(String param);
 	
 	
-	List<Police> loadListByOrgId(Map<String, Object> map);
+	/**
+	 * 根据组织机构id，获取所有成员列表
+	 * @param orgId
+	 * @return
+	 */
+	List<Police> loadListByOrgId(Integer orgId);
 	 
 }
