@@ -86,7 +86,7 @@
 				<tr>
 					<td style="text-align:right"><lable>组名称:</lable></td>
 					<td><input id="txtWeaponGroupName" type="text"
-						class="easyui-validatebox"></input></td>
+						class="easyui-validatebox"  data-options="required:true,validType:['length[1,20]']"></input></td>
 				</tr>
 				<tr>
 					<td style="text-align:right"><lable>共享类型:</lable></td>
