@@ -500,6 +500,8 @@ public class PoliceController {
 			@RequestParam(value = "password", required = false) String password)
 			throws Exception {
 		try {
+
+			
 			UserObjectVM uvm = new UserObjectVM();
 			Map<String, Object> map = new HashMap<String, Object>();
 			userName = new String(new BASE64Decoder().decodeBuffer(userName));
@@ -515,8 +517,10 @@ public class PoliceController {
 			Date date = new Date();
 			// Calendar canlandar = Calendar.getInstance();
 			// canlandar.setTime(date);
+			
 			int years = date.getYear() + 1900;
 			int month = date.getMonth() + 1;
+			
 			uvm.setServerYears(years);
 			uvm.setServerMonth(month);
 			
