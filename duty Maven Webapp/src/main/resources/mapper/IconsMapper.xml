@@ -137,7 +137,7 @@
   </select>
   
   
-  <select id="loadIconsInfo" resultType="com.tianyi.drs.basedata.model.Icons" resultMap="java.util.Map">
+  <select id="loadIconsInfo" resultType="com.tianyi.drs.basedata.model.Icons" >
   		 select <include refid ="Base_Column_List" />
   		 from t_icon c   
   </select>
