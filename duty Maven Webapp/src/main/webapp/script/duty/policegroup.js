@@ -234,6 +234,11 @@ function savePoliceGroup() {
 		return;
 	}
 
+	if(groupName.length>20){
+		$.messager.alert("错误提示", "分组名称长度过长，限制长度1-20！", "error");
+		$('#txtPoliceGroupName').focus();
+		return;
+	}
 	if (opteType == "add") {
 		isExistGroup(groupName, m_policeGroup_Org.id);
 		if (!isExist) {

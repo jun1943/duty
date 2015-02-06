@@ -89,7 +89,7 @@ $(document).ready(function() {
 			width : 100
 		}, {
 			title : '车辆用途',
-			field : 'brand',
+			field : 'purpose',
 			align : 'left',
 			width : 100
 		}, ] ]
@@ -224,6 +224,12 @@ function saveVehicleGroup() {
 	var groupName = $.trim($('#txtVehicleGroupName').val());
 	if (groupName == "" && groupName == undefined) {
 		$.messager.alert("操作提示", "请填写分组名称", "error");
+		$('#txtVehicleGroupName').focus();
+		return;
+	}
+
+	if(groupName.length>20){
+		$.messager.alert("错误提示", "分组名称长度过长，限制长度1-20！", "error");
 		$('#txtVehicleGroupName').focus();
 		return;
 	}

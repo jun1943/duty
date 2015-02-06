@@ -111,10 +111,12 @@ $(function() {
 });
 // 设置人数上限；
 function changeUnMax() {
-	if ($('#chkUnMax').prop("checked")) {
+	if ($('#chkUnMax').prop("checked")) { 
+		$('#chkUnMax').attr("checked", true);
 		$('#txtMaxPolice').val("");
 		$('#txtMaxPolice').attr("disabled", "disabled");
 	} else {
+		$('#chkUnMax').attr("checked", false);
 		$('#txtMaxPolice').val("");
 		$('#txtMaxPolice').removeAttr("disabled");
 	}
@@ -466,18 +468,27 @@ function saveDutyType() {
 	}
 	dt.name = $('#txtDutyTypeName').val();
 
-	if ($('chkUnMax').attr("checked")) {
+	var personcount = $('#txtMaxPolice').val();
+	
+	if(!personcount||personcount==undefined){
 		dt.maxPolice = 0;
-	} else {
+	}else {
 		var r = /^[0-9]*[1-9][0-9]*$/;
-		var value = $.trim($('#txtMaxPolice').val());
+		var value = $.trim(personcount);
 		if (!r.test(value)) {
 			$.messager.alert("错误提示", "人数必须为正整数！", "error");
 			return;
 		} else {
-			dt.maxPolice = $('#txtMaxPolice').val();
+			dt.maxPolice = value;
 		}
 	}
+	
+	
+//	if ($('#chkUnMax').attr("checked")=="checked") {
+//		dt.maxPolice = 0;
+//	} else {
+//		
+//	}
 	dt.isShowname = $('input:radio[name="displayType"]:checked').val();
 	var ps = $('#cmbProperty').combobox('getValues');
 	var count = ps.length;
