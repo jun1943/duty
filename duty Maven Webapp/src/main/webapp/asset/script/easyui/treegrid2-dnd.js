@@ -231,6 +231,7 @@
 						param.after = dRow[dopts.idField];
 					}
 					
+					
 					var data = st.treegrid('pop', sRow[sopts.idField]);
 					var data2=clone(data);
 					param.data = data2;
