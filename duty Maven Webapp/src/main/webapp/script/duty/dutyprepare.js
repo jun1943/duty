@@ -1420,11 +1420,16 @@ function InitDutyTypeTreeGrid() {
 function selectDutyTypeAction() {
 	var rows = $('#dtDutyType').treegrid('getSelections');
 	var hasrows = $('#tdDuty').treegrid('getRoots');
-	 
-	for(var m = 0;m<rows.length;m++){
-		for(var n = 0;n<hasrows.length;n++){
-			if(rows[m].id == hasrows[n].dutyTypeId){
-				rows.splice(m,1);
+	if(rows.length==0){
+		$.messager.alert("操作提示","请选择需要报备的勤务类型","info");
+		return;
+	}
+	if(hasrows&&hasrows.length>0){
+		for(var m = 0;m<rows.length;m++){
+			for(var n = 0;n<hasrows.length;n++){
+				if(rows[m].id == hasrows[n].dutyTypeId){
+					rows.splice(m,1);
+				}
 			}
 		}
 	}
