@@ -51,7 +51,7 @@ $(document)
 					m_ymd = YMD.createNew((args["ymd"]));
 					m_date = args["ymd"];
 					$("#btnSearchExpendbody").bind("click", function() {
-						$('#my-search-box').toggle(); 
+						$('#my-search-box').toggle();
 					});
 
 					window.onbeforeunload = isChangeStates;
@@ -458,7 +458,7 @@ $(document)
 										},
 										onBeforeDrop : doBeforeDrop,
 										onDrop : doDrop
-									}); 
+									});
 					// 加载关联任务，若相关任务节点，则选中；
 					$('#dgtaskTarget')
 							.datagrid(
@@ -1981,8 +1981,8 @@ function addShift() {
 	} else {
 		if (dutyItemRelate.check(row.itemTypeId, 101)) {
 			$('#txtShiftName').val('');
-			// $('#txtBeginTime').timespinner('setValue', '09:00');
-			// $('#txtEndTime').timespinner('setValue', '22:00');
+			$('#txtBeginTime').timespinner('setValue', '09:00');
+			$('#txtEndTime').timespinner('setValue', '22:00');
 			$('#chkDayType').val(false);
 			$('#shiftWindows').window('open');
 
@@ -2034,6 +2034,8 @@ function deleteNode() {
 			$("#tdDuty").treegrid("remove", row.xid);
 			reCalcDuty();
 		}
+	} else {
+		$.messager.alert("提示", "请选择要操作的数据！", "warning");
 	}
 }
 function deleteThisNode(xid, name, typeId) {
@@ -2220,6 +2222,17 @@ function templateNameConfirm() {
 	$("#divMember").mask('正在保存数据...');
 	var name = $('#txtTemplateName').val();
 
+	var myReg = /^[^|"'<>]*$/;
+	if (!myReg.test($.trim(name))) {
+		$.messager.alert("错误提示", "模板名称含有非法字符！", "error");
+		$('#txtTemplateName').focus();
+		return;
+	}
+	if (name.length > 20) {
+		$.messager.alert("错误提示", "模板名称长度过长，限制长度1-20！", "error");
+		$('#txtTemplateName').focus();
+		return;
+	}
 	if (name == null || name.lenght == 0 || name == "" || name == undefined) {
 		$.messager.alert('提示', "请输入模板名称!", "warning");
 		return;
@@ -2339,6 +2352,8 @@ function showTaskWindow() {
 		} else {
 			$.messager.alert('提示', "只能在警员上设置关联任务!", "warning");
 		}
+	} else {
+		$.messager.alert("提示", "没有可操作数据，只能在警员上设置关联任务", "warning");
 	}
 }
 
@@ -2463,7 +2478,8 @@ function addItems(itemTypeId, grid) {
 			$.each(ps,
 					function(i, v) {
 						var exists = existsResource(shiftRowT, v);
-						var isMaxPolice = checkMaxPolice(dutyTypeRow,shiftRowT, v);
+						var isMaxPolice = checkMaxPolice(dutyTypeRow,
+								shiftRowT, v);
 						if (exists) {
 							errRow.push(v);
 						} else if (isMaxPolice) {
@@ -2548,7 +2564,7 @@ function btnSearchAction() {
 	if (name != "") {
 		var a = findDutyPoint(name);
 		$('#tdDuty').treegrid("loadData", a);
-		
+
 	}
 	// else {
 	// var pars = {
@@ -2574,11 +2590,11 @@ function findDutyPoint(name) {
 var primId = "";
 var lastObj = null;
 function findDutyTreeGrid(item, xname) {
-	if (xname == "" || item.displayName.indexOf(xname) >= 0 ) {		
+	if (xname == "" || item.displayName.indexOf(xname) >= 0) {
 		return item;
 	} else {
 		var ls = [];
-		if (item.children != null && item.children.length>0) {
+		if (item.children != null && item.children.length > 0) {
 			$.each(item.children, function(index, value) {
 				var o = findDutyTreeGrid(value, xname);
 				if (o != null) {
@@ -2586,15 +2602,15 @@ function findDutyTreeGrid(item, xname) {
 				}
 			});
 			item.children = ls;
-			if(ls.length>0)
+			if (ls.length > 0)
 				return item;
 			else
 				return null;
-		}else{
+		} else {
 			return null;
 		}
 	}
-} 
+}
 function btnBackToCalendarAction() {
 	var dateY = m_date.substring(0, 4);
 	var dateM = "";

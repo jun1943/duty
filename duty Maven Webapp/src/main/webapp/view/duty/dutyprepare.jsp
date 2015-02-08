@@ -398,7 +398,7 @@
 					<tr>
 						<td style="text-align:right"><label>模板名称:</label></td>
 						<td><input id="txtTemplateName" type="text"
-							class="easyui-validatebox"></input></td>
+							class="easyui-validatebox"  data-options="required:true,validType:['length[1,20]']" ></input></td>
 					</tr>
 				</table>
 			</div>
