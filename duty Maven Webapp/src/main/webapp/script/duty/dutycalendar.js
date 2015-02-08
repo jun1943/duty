@@ -17,8 +17,6 @@ var m_duty = {};
 $(function() {
 	$("#dutyDetailsForDaywindow").window("close");
 
-	
-	
 	// 获取地址栏参数，获取组织结构信息；
 	var args = getUrlArgs();
 	m_dutyCalendar_Org.id = args["orgId"];
@@ -337,7 +335,7 @@ function mouseOverFunction(date) {
 }
 // 鼠标移开事件，清楚定时器；
 function mouseOutFunction() {
-	//$("#dutyDetailsForDaywindow").window("close");
+	// $("#dutyDetailsForDaywindow").window("close");
 	window.clearTimeout(timeouts);
 }
 // 点击具体日期，加载详细信息对话框
@@ -367,7 +365,7 @@ function getDateInfo(date) {
 						} else {
 							$('.datagrid-body').html("");
 						}
-						$("#dutyDetailsForDaywindow").window("open"); 
+						$("#dutyDetailsForDaywindow").window("open");
 					} else {
 						alert("获取报备数据详细信息失败");
 					}
@@ -393,7 +391,7 @@ function deleteDutyConfirm(date, i, j) {
 	$.messager.confirm("系统提示", "确认删除    " + date + " 的报备数据吗？", function(r) {
 		if (r) {
 			dtime = null;
-			var dt = date.replace(/-/gm, ''); 
+			var dt = date.replace(/-/gm, '');
 			if (dt.length == 7) {
 				dt = dt.substr(0, 4) + "0" + dt.substr(4, 7);
 			}
@@ -783,9 +781,12 @@ function btnExportAction() {
 			if (req.isSuccess) {
 				var urlStr = req.Data.substring(1, req.Data.length);
 				if (/msie/.test(navigator.userAgent.toLowerCase())) {
-					urlStr = "../../" + urlStr;
+					if (b_version.indexOf("MSIE 8.0", 0) > -1
+							|| b_version.indexOf("MSIE 9.0", 0) > -1) {
+						urlStr = "../../" + urlStr;
+					}
 				}
-				//var urlStr = req.Data.substring(1, req.Data.length);
+				// var urlStr = req.Data.substring(1, req.Data.length);
 				window.location.href = urlStr;
 			}
 		},
@@ -817,6 +818,8 @@ function deleteAllDutyDataAction(year, month) {
 			month : month
 		},
 		success : function(req) {
+			var date = year + "-" + month + "-" + 1;
+			getDateData(date);
 		},
 		failer : function(a, b) {
 			$.messager.alert("消息提示", a, "info");
@@ -860,13 +863,12 @@ function findDutyPoint(name) {
 	return a;
 }
 
-
 function findDutyTreeGrid(item, xname) {
-	if (xname == "" || item.displayName.indexOf(xname) >= 0 ) {		
+	if (xname == "" || item.displayName.indexOf(xname) >= 0) {
 		return item;
 	} else {
 		var ls = [];
-		if (item.children != null && item.children.length>0) {
+		if (item.children != null && item.children.length > 0) {
 			$.each(item.children, function(index, value) {
 				var o = findDutyTreeGrid(value, xname);
 				if (o != null) {
@@ -874,17 +876,15 @@ function findDutyTreeGrid(item, xname) {
 				}
 			});
 			item.children = ls;
-			if(ls.length>0)
+			if (ls.length > 0)
 				return item;
 			else
 				return null;
-		}else{
+		} else {
 			return null;
 		}
 	}
 }
-
-
 
 function mouseOut() {
 	$("#dutyDetailsForDaywindow").window("close");

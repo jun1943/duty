@@ -634,7 +634,10 @@ function btnExportAction() {
 			if (req.isSuccess) {
 				var urlStr = req.Data.substring(1, req.Data.length);
 				if (/msie/.test(navigator.userAgent.toLowerCase())) {
-					urlStr = "../../" + urlStr;
+					if (b_version.indexOf("MSIE 8.0", 0) > -1
+							|| b_version.indexOf("MSIE 9.0", 0) > -1) {
+						urlStr = "../../" + urlStr;
+					}
 				}
 				window.location.href = urlStr;
 			}
@@ -650,7 +653,7 @@ function btnExportAction() {
 // 导入事件
 function btnInportAction() {
 	InitEntityUploadFun();
-	$("#policeInfoinportwindow").window("open");  
+	$("#policeInfoinportwindow").window("open");
 }
 function btnCancelPoliceDataAction() {
 	/**
@@ -663,41 +666,43 @@ function btnsavePoliceData() {
 	if ($.trim(urlStr) == "") {
 		$.messager.alert("操作提示", "获取文件失败，请选择需要导入的文件", "warning");
 		return;
-	}   
+	}
 	$.ajax({
 		url : "excelUpload/exportDataToDatabase.do",
 		type : "POST",
 		dataType : "json",
-		async : false, 
+		async : false,
 		data : {
 			'orgid' : m_Police_OrgId,
 			'fileName' : urlStr,
-			'sourcetype':'PoliceInfo'
+			'sourcetype' : 'PoliceInfo'
 		},
 		success : function(req) {
-			if (req.isSuccess) { 
+			if (req.isSuccess) {
 				$("#policeInfoinportwindow").window("close");
-				$.messager.alert("提示信息",req.Message,"info");
+				$.messager.alert("提示信息", req.Message, "info");
 				btnSearchAction();
-			}else{ 
-				$.messager.alert("提示信息",req.Message,"info");
+			} else {
+				$.messager.alert("提示信息", req.Message, "info");
 			}
 		},
-		failer : function(a, b) { 
+		failer : function(a, b) {
 			$.messager.alert("消息提示", "导入数据失败", "info");
 		},
-		error : function(XMLHttpRequest, textStatus, errorThrown) { 
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
 			$.messager.alert("错误提示", "导入数据失败", "error");
 		}
 	});
 }
 function btnDownLoadModel() {
 	var urlStr = "resource/ExelModel/PoliceInfo.xls";
-	
-	var s = navigator.appVersion.indexOf("msie");
-	alert(s);
+
+	var b_version = navigator.appVersion;
 	if (/msie/.test(navigator.userAgent.toLowerCase())) {
-		urlStr = "../../" + urlStr;
+		if (b_version.indexOf("MSIE 8.0", 0) > -1
+				|| b_version.indexOf("MSIE 9.0", 0) > -1) {
+			urlStr = "../../" + urlStr;
+		}
 	}
 	window.location.href = urlStr;
 }

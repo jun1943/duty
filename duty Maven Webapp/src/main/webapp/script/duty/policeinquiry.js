@@ -3,7 +3,6 @@
  * 警务综合查询，查询显示时间范围内的报备统计以及明细
  */
 
-
 var m_policeQuery_Org = {};
 var m_report_sum = {};
 
@@ -176,7 +175,7 @@ $(function() {
 	// getBaseDataCombobox("duty/getdutyProperty.do", "dutyProperty");
 
 	initCriteria();
-	//loadReport();
+	// loadReport();
 });
 
 function fmtOrgCount(value, row, index) {
@@ -191,7 +190,7 @@ function loaddutyTypeComboTree() {
 		data : {
 			isUsed : true
 		},
-		//async : false,
+		// async : false,
 		success : function(req) {
 			if (req.isSuccess) {// 成功填充数据
 				var ss = buildDutyTypeTree(req.rows);
@@ -224,12 +223,15 @@ function btnExportDataAction() {
 		async : false,
 		timeout : 60000,
 		success : function(req) {
-			
+
 			var urlStr = req.Data.substring(1, req.Data.length);
 			if (/msie/.test(navigator.userAgent.toLowerCase())) {
-				urlStr = "../../" + urlStr;
+				if (b_version.indexOf("MSIE 8.0", 0) > -1
+						|| b_version.indexOf("MSIE 9.0", 0) > -1) {
+					urlStr = "../../" + urlStr;
+				}
 			}
-			//var urlStr = req.Data.substring(1, req.Data.length);
+			// var urlStr = req.Data.substring(1, req.Data.length);
 			window.location.href = urlStr;
 		},
 		failer : function(a, b) {
@@ -251,7 +253,7 @@ function loadBaseDataForCombox(url, cmb) {
 		url : url,
 		type : "POST",
 		dataType : "json",
-		//async : false,
+		// async : false,
 		success : function(req) {
 			cmb.combobox('loadData', req);
 		}
@@ -430,7 +432,7 @@ function packCriteria() {
 	criteria.policeTypeIds = [];
 	var pt = $("#cmbpoliceType").combobox('getValues');
 	$.each(pt, function(i, v) {
-		if(v!=-1||v!="-1"){
+		if (v != -1 || v != "-1") {
 			criteria.policeTypeIds.push(v);
 		}
 	});

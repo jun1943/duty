@@ -20,6 +20,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.tianyi.drs.duty.model.VehicleGroupOrg" >
+        <selectKey resultType="INTEGER" keyProperty="id">  
+  SELECT LAST_INSERT_ID()  
+  </selectKey> 
     insert into t_duty_vehicle_group_org (id, vehicle_group_id, org_id
       )
     values (#{id,jdbcType=INTEGER}, #{vehicleGroupId,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}

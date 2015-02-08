@@ -172,8 +172,8 @@ select distinct	g.id,
   		org.name			as	orgname,
 		org.code 			as 	orgcode,
 		org.path 			as 	orgPath
- 		from t_duty_police_group_org  pgo
-			left join t_duty_police_group g on g.id = pgo.police_group_id 
+ 		from t_duty_police_group g 
+			left join t_duty_police_group_org  pgo on g.id = pgo.police_group_id 
 			left join organ org on g.org_id = org.id
   	where
 		pgo.org_id=#{orgId,jdbcType=INTEGER}

@@ -37,6 +37,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.tianyi.drs.duty.model.VehicleGroup" >
+      <selectKey resultType="INTEGER" keyProperty="id">  
+  SELECT LAST_INSERT_ID()  
+  </selectKey> 
     insert into t_duty_vehicle_group (id, org_id, name, 
       share_type, sync_state, platform_id
       )
@@ -173,8 +176,8 @@ select distinct	g.id,
   		org.name			as	orgname,
 		org.code 			as 	orgcode,
 		org.path 			as 	orgPath
- 		from t_duty_vehicle_group_org  pgo
-			left join t_duty_vehicle_group g on g.id = pgo.vehicle_group_id 
+ 		from t_duty_vehicle_group g 
+			left join t_duty_vehicle_group_org  pgo on g.id = pgo.vehicle_group_id 
 			left join organ org on g.org_id = org.id
   	where
 		pgo.org_id=#{orgId,jdbcType=INTEGER}

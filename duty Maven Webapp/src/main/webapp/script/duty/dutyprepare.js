@@ -1419,7 +1419,16 @@ function InitDutyTypeTreeGrid() {
 // 根据选择的勤务类型，加载according标签
 function selectDutyTypeAction() {
 	var rows = $('#dtDutyType').treegrid('getSelections');
-
+	var hasrows = $('#tdDuty').treegrid('getRoots');
+	 
+	for(var m = 0;m<rows.length;m++){
+		for(var n = 0;n<hasrows.length;n++){
+			if(rows[m].id == hasrows[n].dutyTypeId){
+				rows.splice(m,1);
+			}
+		}
+	}
+	
 	if (rows.length > 0) {
 		$.each(rows, function(i, row) {
 			if (row.children == null || row.children.length == 0) {
@@ -1594,6 +1603,7 @@ function doBeforeDrop(tRow, sRow, point) {
 	var isSuccess = dutyItemRelate.check(pTypeId, sRow.itemTypeId);
 
 	if (!isSuccess) {
+		$.messager.alert("操作提示", "资源载入类型不符合规则，请按规则添加资源", "error");
 		return false;
 	} else {
 		var shiftRowT = null;
@@ -2353,7 +2363,7 @@ function showTaskWindow() {
 			$.messager.alert('提示', "只能在警员上设置关联任务!", "warning");
 		}
 	} else {
-		$.messager.alert("提示", "没有可操作数据，只能在警员上设置关联任务", "warning");
+		$.messager.alert("提示", "请选择操作数据，只能在警员上设置关联任务", "warning");
 	}
 }
 
@@ -2539,7 +2549,10 @@ function btnExportToExcelAction() {
 		success : function(req) {
 			var urlStr = req.Data.substring(1, req.Data.length);
 			if (/msie/.test(navigator.userAgent.toLowerCase())) {
-				urlStr = "../../" + urlStr;
+				if (b_version.indexOf("MSIE 8.0", 0) > -1
+						|| b_version.indexOf("MSIE 9.0", 0) > -1) {
+					urlStr = "../../" + urlStr;
+				}
 			}
 			// var urlStr = req.Data.substring(1, req.Data.length);
 			window.open(urlStr);
@@ -2624,7 +2637,16 @@ function btnBackToCalendarAction() {
 	parent.onDutycalendar(dateY, dateM);
 };
 function isChangeStates() {
-	if (m_changestates == "0") {
-		return ("您的报备数据信息还没有保存，是否跳转到其他模块?");
+	if (/msie/.test(navigator.userAgent.toLowerCase())) {
+		if (b_version.indexOf("MSIE 8.0", 0) == -1
+				|| b_version.indexOf("MSIE 9.0", 0) == -1) {
+			if (m_changestates == "0") {
+				return ("您的报备数据信息还没有保存，是否跳转到其他模块?");
+			}
+		}
+	} else {
+		if (m_changestates == "0") {
+			return ("您的报备数据信息还没有保存，是否跳转到其他模块?");
+		}
 	}
 };

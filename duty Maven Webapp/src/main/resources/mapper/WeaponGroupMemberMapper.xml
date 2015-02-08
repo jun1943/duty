@@ -36,6 +36,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.tianyi.drs.duty.model.WeaponGroupMember" >
+        <selectKey resultType="INTEGER" keyProperty="id">  
+  SELECT LAST_INSERT_ID()  
+  </selectKey> 
     insert into t_duty_weapon_group_member (id, group_id, weapon_id, 
       sync_state, platform_id)
     values (#{id,jdbcType=INTEGER}, #{groupId,jdbcType=INTEGER}, #{weaponId,jdbcType=INTEGER}, 
