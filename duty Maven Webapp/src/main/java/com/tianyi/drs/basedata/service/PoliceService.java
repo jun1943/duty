@@ -8,6 +8,7 @@ import com.tianyi.drs.basedata.model.Police;
 import com.tianyi.drs.basedata.model.PoliceType;
 import com.tianyi.drs.basedata.viewmodel.GpsBaseVM;
 import com.tianyi.drs.basedata.viewmodel.PoliceVM;
+import com.tianyi.drs.duty.exportmodel.ExtItem;
 import com.tianyi.drs.duty.viewmodel.UserObjectVM;
 import com.tianyi.util.PaginationData;
 /**
@@ -182,4 +183,25 @@ public interface PoliceService {
 	 * @return
 	 */
 	List<Police> loadListByOrgId(Integer orgId);
+	
+	
+	
+	
+	
+
+	/**
+	 * 读取警员备勤信息及基础信息
+	 * @param orgId
+	 * @param ymd
+	 * @return
+	 */
+	List<ExtItem<Police>> loadPoliceDutyInfo(Integer orgId, Integer ymd);
+	
+	
+	
+	
+	
+	
+	
+	
 }

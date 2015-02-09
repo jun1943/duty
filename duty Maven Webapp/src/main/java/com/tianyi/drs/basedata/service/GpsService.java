@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.tianyi.drs.basedata.model.Gps;
-import com.tianyi.drs.basedata.model.GpsType;
-import com.tianyi.drs.basedata.model.Police;
+import com.tianyi.drs.basedata.model.GpsType; 
 import com.tianyi.drs.basedata.viewmodel.GpsVM;
+import com.tianyi.drs.duty.exportmodel.ExtItem;
 import com.tianyi.util.PaginationData;
 /**
  * 定位设备后台逻辑服务层
@@ -94,4 +94,13 @@ public interface GpsService {
 	 * @return
 	 */
 	List<Gps> loadListByOrgId(Integer orgId);
+	
+
+	/**
+	 * 读取定位设备备勤信息及基础信息
+	 * @param orgId
+	 * @param ymd
+	 * @return
+	 */
+	List<ExtItem<Gps>> loadGpsDutyInfo(Integer orgId, Integer ymd);
 }

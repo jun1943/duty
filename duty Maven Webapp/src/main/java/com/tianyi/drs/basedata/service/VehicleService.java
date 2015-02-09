@@ -3,11 +3,11 @@ package com.tianyi.drs.basedata.service;
 import java.util.List;
 import java.util.Map;
 
-import com.tianyi.drs.basedata.model.IntercomGroup;
-import com.tianyi.drs.basedata.model.Police;
+import com.tianyi.drs.basedata.model.IntercomGroup; 
 import com.tianyi.drs.basedata.model.Vehicle;
 import com.tianyi.drs.basedata.model.VehicleType;
 import com.tianyi.drs.basedata.viewmodel.VehicleVM;
+import com.tianyi.drs.duty.exportmodel.ExtItem;
 import com.tianyi.util.PaginationData;
 /**
  * 车辆后台逻辑服务层
@@ -103,4 +103,14 @@ public interface VehicleService {
 	 * @return
 	 */
 	List<Vehicle> loadListByOrgId(Integer orgId);
+	
+	/**
+	 * 读取车辆备勤信息及基础信息
+	 * @param orgId
+	 * @param ymd
+	 * @return
+	 */
+	List<ExtItem<Vehicle>> loadVehicleDutyInfo(Integer orgId, Integer ymd);
+	
+	
 }

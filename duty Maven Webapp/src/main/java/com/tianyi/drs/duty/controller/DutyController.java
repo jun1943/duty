@@ -17,11 +17,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.tianyi.drs.basedata.model.Gps;
-import com.tianyi.drs.basedata.model.Police;
-import com.tianyi.drs.basedata.model.Vehicle;
-import com.tianyi.drs.basedata.model.Weapon;
+ 
+import com.tianyi.drs.basedata.model.Police; 
+import com.tianyi.drs.basedata.service.PoliceService;
 import com.tianyi.drs.duty.exportmodel.ExtItem;
 import com.tianyi.drs.duty.model.Duty;
 import com.tianyi.drs.duty.model.DutyProperty;
@@ -55,8 +53,8 @@ public class DutyController {
 	@Resource(name = "dutyTaskService")
 	protected DutyTaskService dutyTaskService;
 
-	@Resource(name = "exportService")
-	protected ExportService exportService;
+	@Resource(name = "policeService")
+	protected PoliceService policeService;
 	
 	/**
 	 * 根据组织机构id和日期，获取详细的报备数据，以树形结构显示
@@ -95,10 +93,7 @@ public class DutyController {
 			@RequestParam(value = "ymd", required = false) Integer ymd,
 			@RequestParam(value = "id", required = false) Integer id,
 			HttpServletRequest request) {
-		
-		//test!
-		//test1();
-		
+		 
 		DutyVM dvm = null;
 
 		if (id == null) {
@@ -244,7 +239,7 @@ public class DutyController {
 	}
 	
 //	private void test1(){
-//		List<ExtItem<Police>> ls=exportService.loadPoliceDutyInfo(15, 20141209);
+//		List<ExtItem<Police>> ls=policeService.loadPoliceDutyInfo(15, null);
 ////		List<ExtItem<Vehicle>> ls=exportService.loadVehicleDutyInfo(15, 20141209);
 ////		List<ExtItem<Weapon>> ls=exportService.loadWeaponDutyInfo(15, 20141209);
 ////		List<ExtItem<Gps>> ls=exportService.loadGpsDutyInfo(15, 20141209);

@@ -3,6 +3,7 @@ package com.tianyi.drs.basedata.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -514,12 +515,14 @@ public class PoliceController {
 			//List<ExtItem<Police>>  s = exportService.loadPoliceDutyInfo(15, 20141201);
 			
 			uvm = policeService.getUserAuthorization(map);
-			Date date = new Date();
+			//Date date = new Date();
 			// Calendar canlandar = Calendar.getInstance();
 			// canlandar.setTime(date);
-			
-			int years = date.getYear() + 1900;
-			int month = date.getMonth() + 1;
+			Calendar c = Calendar.getInstance();
+			int years = c.get(Calendar.YEAR);
+			int month = c.get(Calendar.MONTH)+1;
+//			int years = date.getYear() + 1900;
+//			int month = date.getMonth() + 1;
 			
 			uvm.setServerYears(years);
 			uvm.setServerMonth(month);

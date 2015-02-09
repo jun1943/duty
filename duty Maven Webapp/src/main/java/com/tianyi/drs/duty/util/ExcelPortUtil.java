@@ -5,6 +5,14 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Workbook;
 
+import com.tianyi.drs.basedata.model.Gps;
+import com.tianyi.drs.basedata.model.Police;
+import com.tianyi.drs.basedata.model.Vehicle;
+import com.tianyi.drs.basedata.model.Weapon;
+import com.tianyi.drs.duty.exportmodel.ExtDbResult;
+import com.tianyi.drs.duty.exportmodel.ExtItem;
+import com.tianyi.drs.duty.exportmodel.ExtShiftInfo;
+
 public class ExcelPortUtil {
  
 	public static CellStyle getStyle(Workbook workbook) {
@@ -27,4 +35,6 @@ public class ExcelPortUtil {
 		style.setWrapText(true);
 		return style;
 	}
+	 
+	
 }

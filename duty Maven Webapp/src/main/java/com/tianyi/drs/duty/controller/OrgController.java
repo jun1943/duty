@@ -120,11 +120,11 @@ public class OrgController {
 			){
 
 		Integer qid=null;
-		boolean isSubNode = false;
+		 
 		if(hybrid_id!=null && hybrid_id!=""){
 			if(hybrid_id.indexOf("org")>=0){
 				qid=new Integer(hybrid_id.split("_")[1]);
-				isSubNode = true;
+				 
 			}
 		}else{
 			qid=rootId;

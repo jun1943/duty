@@ -2,11 +2,11 @@ package com.tianyi.drs.basedata.service;
 
 import java.util.List; 
 import java.util.Map;
-
-import com.tianyi.drs.basedata.model.Police;
+ 
 import com.tianyi.drs.basedata.model.Weapon;
 import com.tianyi.drs.basedata.model.WeaponType;
 import com.tianyi.drs.basedata.viewmodel.WeaponVM;
+import com.tianyi.drs.duty.exportmodel.ExtItem;
 import com.tianyi.util.PaginationData;
  
 /**
@@ -117,4 +117,14 @@ public interface WeaponService {
 	 * @return
 	 */
 	List<Weapon> loadListByOrgId(Integer orgId);
+	
+	
+	/**
+	 * 读取武器备勤信息及基础信息
+	 * @param orgId
+	 * @param ymd
+	 * @return
+	 */
+	List<ExtItem<Weapon>> loadWeaponDutyInfo(Integer orgId, Integer ymd);
+	
 }

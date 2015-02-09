@@ -52,4 +52,10 @@ public interface IconsService {
 	 */
 	void deleteByIds(Map<String, Object> map);
 
+	/**
+	 * 读取图标基础信息
+	 * @return
+	 */
+	List<Icons> loadIconsInfo();
+	
 }
