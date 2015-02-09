@@ -190,6 +190,7 @@ public class DutyServiceImpl implements DutyService {
 		if (ivm.getItemTypeId() == 2) {
 			if (ivm.getTargets() != null) {
 				for (PoliceTarget pt : ivm.getTargets()) {
+					pt.setId(0);
 					pt.setDutyId(vm.getId());
 					pt.setDutyItemId(ivm.getId());
 					policeTargetMapper.insert(pt);

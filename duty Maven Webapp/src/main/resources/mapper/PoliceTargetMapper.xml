@@ -28,6 +28,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.tianyi.drs.duty.model.PoliceTarget" >
+    
+        <selectKey resultType="INTEGER" keyProperty="id">  
+  SELECT LAST_INSERT_ID()  
+  </selectKey> 
     insert into t_duty_police_target (id, duty_id,duty_item_id, police_id, 
       task_type_id, target_id, pass_count,stay_time,is_pass, 
       sync_state, platform_id)

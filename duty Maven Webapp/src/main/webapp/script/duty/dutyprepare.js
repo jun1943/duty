@@ -899,7 +899,7 @@ function loadSourcePolice(par) {
 			if (req.isSuccess) {// 成功填充数据
 				if (req.rows != null && req.rows.length > 0) {
 					$.each(req.rows, function(index, value) {
-						var iconUrl = value.iconUrl.substring(1, value.length);
+						var iconUrl = value.iconUrl;//.substring(1, value.length);
 						itemiconCls = createIconStyle(value, value.itemTypeId,
 								iconUrl);
 					});
@@ -925,7 +925,7 @@ function loadSourceVehicle(par) {
 			if (req.isSuccess) {// 成功填充数据
 				if (req.rows != null && req.rows.length > 0) {
 					$.each(req.rows, function(index, value) {
-						var iconUrl = value.iconUrl.substring(1, value.length);
+						var iconUrl = value.iconUrl;//.substring(1, value.length);
 						itemiconCls = createIconStyle(value, value.itemTypeId,
 								iconUrl);
 					});
@@ -951,7 +951,7 @@ function loadSourceGpsDevice(par) {
 			if (req.isSuccess) {// 成功填充数据
 				if (req.rows != null && req.rows.length > 0) {
 					$.each(req.rows, function(index, value) {
-						var iconUrl = value.iconUrl.substring(1, value.length);
+						var iconUrl = value.iconUrl;//.substring(1, value.length);
 						itemiconCls = createIconStyle(value, value.itemTypeId,
 								iconUrl);
 					});
@@ -2265,14 +2265,14 @@ function templateNameConfirm() {
  */
 function createIconStyle(row, itemTypeId, iconUrl) {
 	if (row != null) {
-		if (row.iconCls == undefined || row.iconCls == null) {
+		//if (row.iconCls == undefined || row.iconCls == null) {
 			if (row.iconUrl != null && row.iconUrl.length > 0) {
 				var classId = "icon_" + itemTypeId + "_" + row.id;
 				var classId2 = m_iconCls[classId];
 				if (classId2 == undefined || classId2 == null) {
 					var style = "."
 							+ classId
-							+ "{	background:url('"
+							+ "{	background:url('/duty"
 							+ iconUrl
 							+ "');background-size:contain; width:16px; height:16px}";
 					createStyle(style);
@@ -2304,7 +2304,7 @@ function createIconStyle(row, itemTypeId, iconUrl) {
 					break;
 				}
 			}
-		}
+		//}
 	}
 }
 
