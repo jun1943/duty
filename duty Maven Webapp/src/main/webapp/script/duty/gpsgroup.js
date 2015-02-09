@@ -587,7 +587,7 @@ function unselectMember() {
 }
 
 function showGroupMemberDlg() {
-	$("#treetitle").html(m_gpsGroup_Org.name+"  gps资源树");
+	$("#treetitle").html(m_gpsGroup_Org.name);
 	$('#winPGMember').window('open');
 }
 

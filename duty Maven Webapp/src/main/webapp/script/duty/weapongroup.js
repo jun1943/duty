@@ -591,7 +591,7 @@ function unselectMember() {
 
 function showGroupMemberDlg() {
 
-	$("#treetitle").html(m_weaponGroup_Org.name+"  武器资源树");
+	$("#treetitle").html(m_weaponGroup_Org.name);
 	$('#winPGMember').window('open');
 }
 

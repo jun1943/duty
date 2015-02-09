@@ -590,7 +590,7 @@ function unselectMember() {
 }
 
 function showGroupMemberDlg() {
-	$("#treetitle").html(m_policeGroup_Org.name+"  警力资源树");
+	$("#treetitle").html(m_policeGroup_Org.name);
 	$('#winPGMember').window('open');
 }
 

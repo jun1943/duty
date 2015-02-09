@@ -130,7 +130,7 @@
 					<td class="groupmemberwindowtdf">
 						
 						<div class="groupmemberwindowdiv" >
-						<label id="treetitle"></label>
+						<label id="treetitle" class="treetitle"></label>
 							<ul id="treeOrgWithPolice" class="easyui-tree"
 								style="overflow:auto"></ul>
 						</div>

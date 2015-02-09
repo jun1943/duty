@@ -587,7 +587,7 @@ function unselectMember() {
 }
 
 function showGroupMemberDlg() {
-	$("#treetitle").html(m_vehicleGroup_Org.name+"  车辆资源树");
+	$("#treetitle").html(m_vehicleGroup_Org.name);
 	$('#winPGMember').window('open');
 }
 
