@@ -6,7 +6,6 @@
  * 图片的上传；
  */
 
-
 var m_Icons_OrgId;
 var m_Icons_OrgCode;
 var m_Icons_OrgPath;
@@ -42,10 +41,10 @@ $(function() {
 						fitColumns : true,
 						pageNumber : 1,
 						pageSize : 10,
-						width:'100%',
+						width : '100%',
 						title : '图标列表',
-						onDblClickRow :  dblClickRow,
-					    onClickRow: clickRow,
+						onDblClickRow : dblClickRow,
+						onClickRow : clickRow,
 						// singleSelect: true,
 						columns : [ [
 								{
@@ -99,10 +98,10 @@ $(function() {
 		$('#my-search-box').toggle();
 	});
 	InitUploadFun();
-});//取消点击行选中
+});// 取消点击行选中
 function clickRow(index, data) {
-	  $("#dtIcons").datagrid("unselectRow", index);
-	}
+	$("#dtIcons").datagrid("unselectRow", index);
+}
 // 打包查询条件
 function pack_Icons_Query() {
 	m_Icons_Query.name = $("#txtsearchName").val();
@@ -120,9 +119,9 @@ function btnSearchAction() {
 	$('#dtIcons').datagrid("reload", {
 		'icons_Query' : JSON.stringify(m_Icons_Query)
 	});
-//	$("#isSubOrg").combobox("setValue", 0);
-//	$("#txtsearchName").val("");
-//	$("#sltType").combobox("setValue", 0);
+	// $("#isSubOrg").combobox("setValue", 0);
+	// $("#txtsearchName").val("");
+	// $("#sltType").combobox("setValue", 0);
 };
 // 新增开始
 function btnAddIcons() {
@@ -132,22 +131,20 @@ function btnAddIcons() {
 	$("#btnsaveIconsCon").show();
 };
 
-
 function btnCellClick(index) {
 	var row = $("#dtIcons").datagrid('getData').rows[index];
 	editIconsModel(row);
 }
-function dblClickRow(index,rowData){
+function dblClickRow(index, rowData) {
 	editIconsModel(rowData);
 }
-function editIconsModel(rows){
+function editIconsModel(rows) {
 	clearForm();
 	$("#iconsId").val(rows.id);
 	$("#txttype").combobox("setValue", rows.typeId);
 	$("#txtname").val(rows.name);
 	$("#txtfilename").val(rows.iconUrl.substring(1, rows.iconUrl.length));
-	$("#sltImage").attr("src",
-			rows.iconUrl.substring(1, rows.iconUrl.length));
+	$("#sltImage").attr("src", rows.iconUrl.substring(1, rows.iconUrl.length));
 	$("#iconsinfowindow").window("open");
 	$("#btnsaveIconsCon").hide();
 }
@@ -203,7 +200,7 @@ function btnDelIcons() {
 	});
 }
 
-//删除事件
+// 删除事件
 function deleteIcons(id) {
 	$.ajax({
 		url : "icons/deleteIcons.do",
@@ -234,23 +231,73 @@ function clearForm() {
 	$("#sltImage").attr("src", "");
 };
 function saveIconsAction() {
-	if($("#txtfilename").val()==""||$("#txtfilename").val()==undefined){
-		$.messager.alert("操作提示","请选择图标之后保存","error");
+	if ($("#txtfilename").val() == "" || $("#txtfilename").val() == undefined) {
+		$.messager.alert("操作提示", "请选择图标之后保存", "error");
 		return;
 	}
-	$("#iconsId").val(0);
-	$("#txttype").combobox("setValue", 0);
-	$("#txtname").val("");
-	$("#txtfilename").val("");
-}
-function saveIconsActionExit() {
-	if($("#txtfilename").val()==""||$("#txtfilename").val()==undefined){
-		$.messager.alert("操作提示","请选择图标之后保存","error");
-		return;
-	}
+
 	$("#iconsId").val(0);
 	$("#txttype").combobox("setValue", 0);
 	$("#txtname").val("");
 	$("#txtfilename").val("");
 	$("#iconsinfowindow").window("close");
+	
+
+}
+function saveIconsActionExit() {
+	if ($("#txtfilename").val() == "" || $("#txtfilename").val() == undefined) {
+		$.messager.alert("操作提示", "请选择图标之后保存", "error");
+		return;
+	}
+	
+	var iconId = $("#iconsId").val();
+	if (iconId == undefined || iconId == "") {
+		$.messager.alert("操作提示", "获取图标主键信息失败，请刷新页面", "error");
+		return;
+	}
+	if ($("#txttype").combobox("getValue") == 0
+			|| $("#txttype").combobox("getValue") == "") {
+		$.messager.alert("错误提示", "请选择图标类别", "error");
+		return null;
+	}
+	var typeId = $("#txttype").combobox("getValue");
+	var name = $.trim($("#txtname").val());
+	if (name == "" || name == undefined) {
+		$.messager.alert("错误提示", "请输入图片标题", "error");
+		return null;
+	}
+	if ($.trim($("#txtname").val()).length > 50) {
+		$.messager.alert("错误提示", "图片标题长度过长，限制长度为0--50！", "error");
+		return null;
+	}
+	$.ajax({
+		url : "icons/saveIconBaseInfo.do",
+		type : "POST",
+		dataType : "json",
+		data : {
+			"id" : iconId,
+			"typeId" : typeId,
+			"name" : name
+		},
+		success : function(req) {
+			if (req.isSuccess) {
+				// $.messager.alert("消息提示", req.Message, "info");
+				btnSearchAction();
+				$("#iconsId").val(0);
+				$("#txttype").combobox("setValue", 0);
+				$("#txtname").val("");
+				$("#txtfilename").val("");
+				$("#iconsinfowindow").window("close");
+			} else {
+				 $.messager.alert("消息提示", req.Message, "info");
+			}
+		},
+		failer : function(a, b) {
+			$.messager.alert("消息提示", a, "info");
+		},
+		error : function(a) {
+			$.messager.alert("消息提示", a, "error");
+		}
+	});
+	
 }

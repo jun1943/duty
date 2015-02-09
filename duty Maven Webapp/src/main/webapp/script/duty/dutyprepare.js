@@ -1720,7 +1720,7 @@ function doDrop(tRow, sRow, point) {
 		/* 从资源拖动过来 */
 		/* itemId,name,typeId,innerTypeId,innerTypeName,dutyRow */
 		var name = sRow.itemTypeId == 2 ? sRow.name : sRow.number;
-		sRow.iconUrl = tRow.iconUrl == undefined ? null : tRow.iconUrl;
+		//sRow.iconUrl = tRow.iconUrl == undefined ? null : tRow.iconUrl;
 
 		switch (sRow.itemTypeId) {
 		case 1:

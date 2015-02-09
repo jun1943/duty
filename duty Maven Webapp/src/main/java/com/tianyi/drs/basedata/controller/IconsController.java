@@ -1,32 +1,31 @@
 package com.tianyi.drs.basedata.controller;
 
-import java.awt.image.BufferedImage; 
-import java.io.File;  
-import java.io.InputStream; 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap; 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.imageio.ImageIO; 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
- import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
- import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.tianyi.drs.basedata.model.Icons;
 import com.tianyi.drs.basedata.service.IconsService;
 import com.tianyi.drs.duty.viewmodel.ListResult;
- 
 
 /*'
  *图标管理逻辑控制器
@@ -44,14 +43,13 @@ public class IconsController extends CommonsMultipartResolver {
 	public IconsController() {
 		super();
 	}
-	
+
 	/*
 	 * 获取图标列表信息
 	 * 
 	 * param：query查询条件包
 	 * 
-	 * page：当前页
-	 * rows：每页条数
+	 * page：当前页 rows：每页条数
 	 */
 	@RequestMapping(value = "getIconsList.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
@@ -88,8 +86,45 @@ public class IconsController extends CommonsMultipartResolver {
 	}
 
 	/*
+	 * 获取图标列表信息
+	 * 
+	 * param：query查询条件包
+	 * 
+	 * page：当前页 rows：每页条数
+	 */
+	@RequestMapping(value = "saveIconBaseInfo.do", produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String saveIconBaseInfo(
+			@RequestParam(value = "id", required = false) Integer id,
+			@RequestParam(value = "typeId", required = false) Integer typeId,
+			@RequestParam(value = "name", required = false) String name,
+			HttpServletRequest request) throws Exception {
+		try {
+
+			if (id > 0) {
+				Icons icons = new Icons();
+				icons = iconsService.loadById(id);
+				if(icons!=null){
+					icons.setTypeId(typeId);
+					icons.setName(name);
+					iconsService.updateByPrimaryKey(icons);
+					return "{\"isSuccess\":true,\"Message\":\"修改图标信息成功!\"}";
+				}else{
+					return "{\"isSuccess\":false,\"Message\":\"修改图标信息失败，获取对象信息失败!\"}";
+				}
+			} else {
+				return "{\"isSuccess\":true,\"Message\":\"修改图标信息失败，传入后台主键值为空!\"}";
+			}
+			
+			 
+		} catch (Exception ex) {
+			return "{\"isSuccess\":false,\"Message\":\"修改图标信息失败!\"}";
+		}
+	}
+
+	/*
 	 * 删除图标信息
-	 *  
+	 * 
 	 * id：删除对象的id
 	 */
 	@RequestMapping(value = "deleteIcons.do", produces = "application/json;charset=UTF-8")
@@ -100,7 +135,7 @@ public class IconsController extends CommonsMultipartResolver {
 			String realPath = getClass().getResource("/").getFile().toString();
 			realPath = realPath.substring(0, (realPath.length() - 17));
 			Map<String, Object> map = new HashMap<String, Object>();
-			 
+
 			if (id != null && id != "") {
 				String[] s = {};
 				s = id.split(",");
@@ -119,22 +154,22 @@ public class IconsController extends CommonsMultipartResolver {
 					}
 				}
 				map.put("ids", ids);
-			 
+
 				iconsService.deleteByIds(map);
 			}
-//			if (id > 0) {
-//				Icons icon = new Icons();
-//				icon = iconsService.loadById(id);
-//				if (icon != null) {
-//					String iconUrl = realPath + icon.getIconUrl();
-//					File pc = new File(iconUrl);
-//
-//					if (pc.exists()) {
-//						pc.delete();
-//					}
-//				}
-//				result = iconsService.deleteByPrimaryKey(id);
-//			}
+			// if (id > 0) {
+			// Icons icon = new Icons();
+			// icon = iconsService.loadById(id);
+			// if (icon != null) {
+			// String iconUrl = realPath + icon.getIconUrl();
+			// File pc = new File(iconUrl);
+			//
+			// if (pc.exists()) {
+			// pc.delete();
+			// }
+			// }
+			// result = iconsService.deleteByPrimaryKey(id);
+			// }
 			return "{\"success\":true,\"Message\":\"删除成功,result is " + result
 					+ "\"}";
 		} catch (Exception ex) {
@@ -144,8 +179,7 @@ public class IconsController extends CommonsMultipartResolver {
 	}
 
 	/*
-	 * 上传控件后台接受地址
-	 * file：上传控件的输入流数据
+	 * 上传控件后台接受地址 file：上传控件的输入流数据
 	 */
 	@RequestMapping(value = "uploadIcon.do", produces = "text/plain;charset=UTF-8")
 	public @ResponseBody
@@ -218,7 +252,7 @@ public class IconsController extends CommonsMultipartResolver {
 
 				if (iconId == 0) {
 					iconsService.insert(iconObj);
-					iconId = iconObj.getId(); 
+					iconId = iconObj.getId();
 					String dirUrl = realPath + iconId;
 					picPath += iconId + "/";
 					File filedir = new File(dirUrl);
