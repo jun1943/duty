@@ -628,13 +628,13 @@ function createIconStyle(row, itemTypeId, iconUrl) {
 		if (row.iconCls == undefined || row.iconCls == null) {
 			if (row.iconUrl != null && row.iconUrl.length > 0) {
 				var classId = "icon_" + itemTypeId + "_" + row.id;
-				var classId2 = m_iconCls[classId];
-				if (classId2 == undefined || classId2 == null) {
-					var style = "." + classId + "{	background:url('" + iconUrl
-							+ "');}";
+//				var classId2 = m_iconCls[classId];
+//				if (classId2 == undefined || classId2 == null) {
+					var style = "." + classId + "{	background:url('/duty" + iconUrl
+							+ "');background-size:contain; width:16px; height:16px}";
 					createStyle(style);
-					m_iconCls[classId] = classId;
-				}
+//					m_iconCls[classId] = classId;
+//				}
 				row.iconCls = classId;
 			} else {/* 获取默认图标 */
 				switch (row.itemTypeId) {
