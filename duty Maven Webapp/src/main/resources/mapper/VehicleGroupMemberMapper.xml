@@ -19,6 +19,7 @@
     <result column="p_typename" jdbcType="VARCHAR" property="typeName" />
     <result column="p_number" jdbcType="VARCHAR" property="number" />
     <result column="p_brand" jdbcType="VARCHAR" property="brand" />
+    <result column="p_purpose" jdbcType="VARCHAR" property="purpose" />
   </resultMap>
   
   <sql id="Base_Column_List" >
@@ -125,7 +126,8 @@
     	org.short_name as org_short_name,
     	t.name as p_typename,
     	p.number as p_number,
-    	p.brand as p_brand
+    	p.brand as p_brand,
+    	p.purpose as p_purpose
     from t_duty_vehicle_group_member as m
     left join t_vehicle as p on m.vehicle_id=p.id
     left join t_vehicletype t on p.vehicle_type_id = t.id 

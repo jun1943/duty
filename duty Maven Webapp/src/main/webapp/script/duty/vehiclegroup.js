@@ -93,7 +93,7 @@ $(document).ready(function() {
 			field : 'purpose',
 			align : 'left',
 			width : 100
-		}, ] ]
+		}, ] ] 
 	});
 
 	$('#treeOrg').tree({
