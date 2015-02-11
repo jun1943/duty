@@ -637,7 +637,7 @@ function createIconStyle(row, itemTypeId, iconUrl) {
 //				}
 				row.iconCls = classId;
 			} else {/* 获取默认图标 */
-				switch (row.itemTypeId) {
+				switch (itemTypeId) {
 				case 1:
 					row.iconCls = 'icon_default_vehicle';
 					break;

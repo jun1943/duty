@@ -899,9 +899,9 @@ function loadSourcePolice(par) {
 			if (req.isSuccess) {// 成功填充数据
 				if (req.rows != null && req.rows.length > 0) {
 					$.each(req.rows, function(index, value) {
-						var iconUrl = value.iconUrl;//.substring(1, value.length);
-						itemiconCls = createIconStyle(value, value.itemTypeId,
-								iconUrl);
+						var iconUrl = value.iconUrl;// .substring(1,
+						// value.length);
+						itemiconCls = createIconStyle(value, 2, iconUrl);
 					});
 				}
 				m_policesourceData = req.rows;
@@ -925,9 +925,9 @@ function loadSourceVehicle(par) {
 			if (req.isSuccess) {// 成功填充数据
 				if (req.rows != null && req.rows.length > 0) {
 					$.each(req.rows, function(index, value) {
-						var iconUrl = value.iconUrl;//.substring(1, value.length);
-						itemiconCls = createIconStyle(value, value.itemTypeId,
-								iconUrl);
+						var iconUrl = value.iconUrl;// .substring(1,
+						// value.length);
+						itemiconCls = createIconStyle(value, 1, iconUrl);
 					});
 				}
 				m_vehiclesourceData = req.rows;
@@ -951,9 +951,9 @@ function loadSourceGpsDevice(par) {
 			if (req.isSuccess) {// 成功填充数据
 				if (req.rows != null && req.rows.length > 0) {
 					$.each(req.rows, function(index, value) {
-						var iconUrl = value.iconUrl;//.substring(1, value.length);
-						itemiconCls = createIconStyle(value, value.itemTypeId,
-								iconUrl);
+						var iconUrl = value.iconUrl;// .substring(1,
+						// value.length);
+						itemiconCls = createIconStyle(value, 3, iconUrl);
 					});
 				}
 				m_gpssourceData = req.rows;
@@ -1007,7 +1007,7 @@ function loadDutyType() {
 				if (roots.length > 0) {
 					for ( var i = 0; i < roots.length; i++) {
 						$('#dtDutyType')
-								.treegrid("select", roots[i].dutyTypeId);
+								.treegrid("select", roots[i].id);
 					}
 				}
 			} else {
@@ -1420,20 +1420,20 @@ function InitDutyTypeTreeGrid() {
 function selectDutyTypeAction() {
 	var rows = $('#dtDutyType').treegrid('getSelections');
 	var hasrows = $('#tdDuty').treegrid('getRoots');
-	if(rows.length==0){
-		$.messager.alert("操作提示","请选择需要报备的勤务类型","info");
+	if (rows.length == 0) {
+		$.messager.alert("操作提示", "请选择需要报备的勤务类型", "info");
 		return;
 	}
-	if(hasrows&&hasrows.length>0){
-		for(var m = 0;m<rows.length;m++){
-			for(var n = 0;n<hasrows.length;n++){
-				if(rows[m].id == hasrows[n].dutyTypeId){
-					rows.splice(m,1);
+	if (hasrows && hasrows.length > 0) {
+		for ( var m = 0; m < rows.length; m++) {
+			for ( var n = 0; n < hasrows.length; n++) {
+				if (rows[m].id == hasrows[n].itemId) {
+					rows.splice(m, 1);
 				}
 			}
 		}
 	}
-	
+
 	if (rows.length > 0) {
 		$.each(rows, function(i, row) {
 			if (row.children == null || row.children.length == 0) {
@@ -1720,7 +1720,7 @@ function doDrop(tRow, sRow, point) {
 		/* 从资源拖动过来 */
 		/* itemId,name,typeId,innerTypeId,innerTypeName,dutyRow */
 		var name = sRow.itemTypeId == 2 ? sRow.name : sRow.number;
-		//sRow.iconUrl = tRow.iconUrl == undefined ? null : tRow.iconUrl;
+		// sRow.iconUrl = tRow.iconUrl == undefined ? null : tRow.iconUrl;
 
 		switch (sRow.itemTypeId) {
 		case 1:
@@ -1742,6 +1742,13 @@ function doDrop(tRow, sRow, point) {
 		if (sRow.itemTypeId == 1) {
 			$('#source_vehicle').treegrid('loadData', m_vehiclesourceData);
 		} else if (sRow.itemTypeId == 2) {
+			if (m_policesourceData != null && m_policesourceData.length > 0) {
+				$.each(m_policesourceData, function(index, value) {
+					var iconUrl = value.iconUrl;// .substring(1,
+					// value.length);
+					itemiconCls = createIconStyle(value, 2, iconUrl);
+				});
+			}
 			$('#source_police').treegrid('loadData', m_policesourceData);
 		} else if (sRow.itemTypeId == 3) {
 			$('#source_weapon').treegrid('loadData', m_weaponsourceData);
@@ -2265,46 +2272,46 @@ function templateNameConfirm() {
  */
 function createIconStyle(row, itemTypeId, iconUrl) {
 	if (row != null) {
-		//if (row.iconCls == undefined || row.iconCls == null) {
-			if (row.iconUrl != null && row.iconUrl.length > 0) {
-				var classId = "icon_" + itemTypeId + "_" + row.id;
-				var classId2 = m_iconCls[classId];
-				if (classId2 == undefined || classId2 == null) {
-					var style = "."
-							+ classId
-							+ "{	background:url('/duty"
-							+ iconUrl
-							+ "');background-size:contain; width:16px; height:16px}";
-					createStyle(style);
-					m_iconCls[classId] = classId;
-				}
-				row.iconCls = classId;
-			} else {/* 获取默认图标 */
-				switch (row.itemTypeId) {
-				case 1:
-					row.iconCls = 'icon_default_vehicle';
-					break;
-				case 2:
-					row.iconCls = 'icon_default_police';
-					break;
-				case 3:
-					row.iconCls = 'icon_default_weapon';
-					break;
-				case 4:
-					row.iconCls = 'icon_default_gps';
-					break;
-				case 100:
-					row.iconCls = 'icon_default_dutytype';
-					break;
-				case 101:
-					row.iconCls = 'icon_default_shift';
-					break;
-				case 999:
-					row.iconCls = 'icon_default_usernode';
-					break;
-				}
+		// if (row.iconCls == undefined || row.iconCls == null) {
+		if (row.iconUrl != null && row.iconUrl.length > 0) {
+			var classId = "icon_" + itemTypeId + "_" + row.id;
+//			var classId2 = m_iconCls[classId];
+//			if (classId2 == undefined || classId2 == null) {
+				var style = "."
+						+ classId
+						+ "{	background:url('/duty"
+						+ iconUrl
+						+ "');background-size:contain; width:16px; height:16px}";
+				createStyle(style);
+//				m_iconCls[classId] = classId;
+//			}
+			row.iconCls = classId;
+		} else {/* 获取默认图标 */
+			switch (itemTypeId) {
+			case 1:
+				row.iconCls = 'icon_default_vehicle';
+				break;
+			case 2:
+				row.iconCls = 'icon_default_police';
+				break;
+			case 3:
+				row.iconCls = 'icon_default_weapon';
+				break;
+			case 4:
+				row.iconCls = 'icon_default_gps';
+				break;
+			case 100:
+				row.iconCls = 'icon_default_dutytype';
+				break;
+			case 101:
+				row.iconCls = 'icon_default_shift';
+				break;
+			case 999:
+				row.iconCls = 'icon_default_usernode';
+				break;
 			}
-		//}
+		}
+		// }
 	}
 }
 
@@ -2643,10 +2650,15 @@ function btnBackToCalendarAction() {
 };
 function isChangeStates() {
 	if (/msie/.test(navigator.userAgent.toLowerCase())) {
-		if (b_version.indexOf("MSIE 8.0", 0) == -1
-				|| b_version.indexOf("MSIE 9.0", 0) == -1) {
-			if (m_changestates == "0") {
-				return ("您的报备数据信息还没有保存，是否跳转到其他模块?");
+		var b_version = navigator.appVersion;
+		if (b_version.length > 0) {
+			var s = b_version.split(';');
+			if (s.length > 1) {
+				if ($.trim(s[1]) != "MSIE 8.0" && $.trim(s[1]) != "MSIE 9.0") {
+					if (m_changestates == "0") {
+						return ("您的报备数据信息还没有保存，是否跳转到其他模块?");
+					}
+				}
 			}
 		}
 	} else {
