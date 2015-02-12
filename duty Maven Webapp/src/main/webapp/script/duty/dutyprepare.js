@@ -1006,8 +1006,7 @@ function loadDutyType() {
 				var roots = $('#tdDuty').treegrid("getRoots");
 				if (roots.length > 0) {
 					for ( var i = 0; i < roots.length; i++) {
-						$('#dtDutyType')
-								.treegrid("select", roots[i].id);
+						$('#dtDutyType').treegrid("select", roots[i].id);
 					}
 				}
 			} else {
@@ -2275,16 +2274,13 @@ function createIconStyle(row, itemTypeId, iconUrl) {
 		// if (row.iconCls == undefined || row.iconCls == null) {
 		if (row.iconUrl != null && row.iconUrl.length > 0) {
 			var classId = "icon_" + itemTypeId + "_" + row.id;
-//			var classId2 = m_iconCls[classId];
-//			if (classId2 == undefined || classId2 == null) {
-				var style = "."
-						+ classId
-						+ "{	background:url('/duty"
-						+ iconUrl
-						+ "');background-size:contain; width:16px; height:16px}";
-				createStyle(style);
-//				m_iconCls[classId] = classId;
-//			}
+			// var classId2 = m_iconCls[classId];
+			// if (classId2 == undefined || classId2 == null) {
+			var style = "." + classId + "{	background:url('/duty" + iconUrl
+					+ "');background-size:contain; width:16px; height:16px}";
+			createStyle(style);
+			// m_iconCls[classId] = classId;
+			// }
 			row.iconCls = classId;
 		} else {/* 获取默认图标 */
 			switch (itemTypeId) {
@@ -2472,6 +2468,13 @@ function addSelVehicles() {
 
 function addSelPolices() {
 	addItems(2, $('#source_police'));
+	if (m_policesourceData != null && m_policesourceData.length > 0) {
+		$.each(m_policesourceData, function(index, value) {
+			var iconUrl = value.iconUrl;// .substring(1,
+			// value.length);
+			itemiconCls = createIconStyle(value, 2, iconUrl);
+		});
+	}
 	$('#source_police').treegrid('loadData', m_policesourceData);
 }
 
@@ -2496,9 +2499,12 @@ function addItems(itemTypeId, grid) {
 			var ps = grid.treegrid('getSelections');
 			var shiftRowT = findShiftRow(row);
 			var dutyTypeRow = findDutyTypeRow(row);
-
-			$.each(ps,
-					function(i, v) {
+			if (grid.selector == "#source_police") {
+				if (ps.length > dutyTypeRow.maxPolice) {
+					$.messager.alert('提示', '勤务类型: ' + dutyTypeRow.name
+							+ ' 警察数量上限是:' + dutyTypeRow.maxPolice, "warning");
+				} else {
+					$.each(ps, function(i, v) {
 						var exists = existsResource(shiftRowT, v);
 						var isMaxPolice = checkMaxPolice(dutyTypeRow,
 								shiftRowT, v);
@@ -2514,6 +2520,25 @@ function addItems(itemTypeId, grid) {
 						}
 					});
 
+				}
+			} else {
+				$.each(ps,
+						function(i, v) {
+							var exists = existsResource(shiftRowT, v);
+							var isMaxPolice = checkMaxPolice(dutyTypeRow,
+									shiftRowT, v);
+							if (exists) {
+								errRow.push(v);
+							} else if (isMaxPolice) {
+								errRow2.push(v);
+							} else {
+								var name = itemTypeId == 2 ? v.name : v.number;
+								genDutyRow(v.id, name, itemTypeId, v.typeId,
+										v.typeName, v);
+								datas.push(v);
+							}
+						});
+			}
 			if (datas.length > 0) {
 				$("#tdDuty").treegrid('append', {
 					parent : row.xid,
@@ -2561,9 +2586,15 @@ function btnExportToExcelAction() {
 		success : function(req) {
 			var urlStr = req.Data.substring(1, req.Data.length);
 			if (/msie/.test(navigator.userAgent.toLowerCase())) {
-				if (b_version.indexOf("MSIE 8.0", 0) > -1
-						|| b_version.indexOf("MSIE 9.0", 0) > -1) {
-					urlStr = "../../" + urlStr;
+				var b_version = navigator.appVersion;
+				if (b_version.length > 0) {
+					var s = b_version.split(';');
+					if (s.length > 1) {
+						if ($.trim(s[1]) == "MSIE 8.0"
+								|| $.trim(s[1]) == "MSIE 9.0") {
+							urlStr = "../../" + urlStr;
+						}
+					}
 				}
 			}
 			// var urlStr = req.Data.substring(1, req.Data.length);

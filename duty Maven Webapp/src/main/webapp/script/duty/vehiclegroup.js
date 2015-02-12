@@ -579,9 +579,22 @@ function ondbClickRow(index, rowData) {
 }
 function unselectMember() {
 	var row = $('#dtSelGroupMember').datagrid('getSelected');
-
 	if (row != null) {
 		var index = $('#dtSelGroupMember').datagrid('getRowIndex', row);
+		var selected = $('#treeOrgWithVehicle').tree('getRoot');
+
+		// $('#treeOrgWithVehicle').tree('getChildren',selected.target);
+		$('#treeOrgWithVehicle').tree('insert', {
+			before : selected.target,
+			data : [ {
+				"rid" : row.id,
+				"name" : row.code,
+				"code" : row.code,
+				"text" : row.code,
+				"typename" : row.name,
+				"dataType" : 2
+			} ]
+		});
 		$('#dtSelGroupMember').datagrid('deleteRow', index);
 	}
 }

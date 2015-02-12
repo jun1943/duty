@@ -226,9 +226,14 @@ function btnExportDataAction() {
 
 			var urlStr = req.Data.substring(1, req.Data.length);
 			if (/msie/.test(navigator.userAgent.toLowerCase())) {
-				if (b_version.indexOf("MSIE 8.0", 0) > -1
-						|| b_version.indexOf("MSIE 9.0", 0) > -1) {
-					urlStr = "../../" + urlStr;
+				var b_version = navigator.appVersion;
+				if (b_version.length > 0) {
+					var s = b_version.split(';');
+					if (s.length > 1) {
+						if ($.trim(s[1]) != "MSIE 8.0" && $.trim(s[1]) != "MSIE 9.0") {
+								urlStr = "../../" + urlStr;
+						}
+					}
 				}
 			}
 			// var urlStr = req.Data.substring(1, req.Data.length);

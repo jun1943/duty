@@ -37,7 +37,7 @@ $(function() {
 		resizable : true,
 		idField : 'id',
 		width : '100%',
-		height: 600,
+		height : 600,
 		treeField : 'name',
 		toolbar : '#tbDutyType',
 		singleSelect : true,
@@ -111,7 +111,7 @@ $(function() {
 });
 // 设置人数上限；
 function changeUnMax() {
-	if ($('#chkUnMax').prop("checked")) { 
+	if ($('#chkUnMax').prop("checked")) {
 		$('#chkUnMax').attr("checked", true);
 		$('#txtMaxPolice').val("");
 		$('#txtMaxPolice').attr("disabled", "disabled");
@@ -310,13 +310,34 @@ function editDutyType() {
 		$('#txtDutyTypeName').val(row.name);
 
 		if (row.maxPolice == null || row.maxPolice == 0) {
-			$('#chkUnMax').attr("checked", "checked");
-			$('#txtMaxPolice').val('');
-			$('#txtMaxPolice').attr("disabled","disabled");
+			if (/msie/.test(navigator.userAgent.toLowerCase())) {
+				var b_version = navigator.appVersion;
+				if (b_version.length > 0) {
+					var s = b_version.split(';');
+					if (s.length > 1) {
+						if ($.trim(s[1]) == "MSIE 8.0"
+								|| $.trim(s[1]) == "MSIE 9.0"
+								|| $.trim(s[1]) == "MSIE 10.0") {
+							$('#chkUnMax').attr("checked", "checked");
+							$('#txtMaxPolice').val('');
+							$('#txtMaxPolice').attr("disabled", "disabled");
+						} else {
+
+							$('#chkUnMax').attr("checked", true);
+							$('#txtMaxPolice').val('');
+							$('#txtMaxPolice').attr("disabled", false);
+						}
+					}
+				}
+			} else {
+				$('#chkUnMax').attr("checked", "checked");
+				$('#txtMaxPolice').val('');
+				$('#txtMaxPolice').attr("disabled", "disabled");
+			}
 		} else {
 			$('#chkUnMax').attr("checked", false);
 			$('#txtMaxPolice').val(row.maxPolice);
-			$('#txtMaxPolice').attr("disabled",false);
+			$('#txtMaxPolice').attr("disabled", false);
 		}
 
 		if (row.isShowname) {
@@ -467,7 +488,7 @@ function saveDutyType() {
 		return;
 	}
 	var myReg = /^[^|"'<>]*$/;
-	if(!myReg.test($.trim(dname))){
+	if (!myReg.test($.trim(dname))) {
 		$.messager.alert("错误提示", "勤务类型名称含有非法字符！", "error");
 		$('#txtDutyTypeName').focus();
 		return;
@@ -475,10 +496,10 @@ function saveDutyType() {
 	dt.name = $.trim(dname);
 
 	var personcount = $('#txtMaxPolice').val();
-	
-	if(!personcount||personcount==undefined){
+
+	if (!personcount || personcount == undefined) {
 		dt.maxPolice = 0;
-	}else {
+	} else {
 		var r = /^[0-9]*[1-9][0-9]*$/;
 		var value = $.trim(personcount);
 		if (!r.test(value)) {
@@ -488,13 +509,12 @@ function saveDutyType() {
 			dt.maxPolice = value;
 		}
 	}
-	
-	
-//	if ($('#chkUnMax').attr("checked")=="checked") {
-//		dt.maxPolice = 0;
-//	} else {
-//		
-//	}
+
+	// if ($('#chkUnMax').attr("checked")=="checked") {
+	// dt.maxPolice = 0;
+	// } else {
+	//		
+	// }
 	dt.isShowname = $('input:radio[name="displayType"]:checked').val();
 	var ps = $('#cmbProperty').combobox('getValues');
 	var count = ps.length;

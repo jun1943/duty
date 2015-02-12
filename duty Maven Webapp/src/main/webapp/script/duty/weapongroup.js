@@ -585,6 +585,20 @@ function unselectMember() {
 
 	if (row != null) {
 		var index = $('#dtSelGroupMember').datagrid('getRowIndex', row);
+		var selected = $('#treeOrgWithWeapon').tree('getRoot');
+
+		// $('#treeOrgWithWeapon').tree('getChildren',selected.target);
+		$('#treeOrgWithWeapon').tree('insert', {
+			before : selected.target,
+			data : [ {
+				"rid" : row.id,
+				"name" : row.code,
+				"code" : row.code,
+				"text" : row.code,
+				"typename" : row.name,
+				"dataType" : 2
+			} ]
+		});
 		$('#dtSelGroupMember').datagrid('deleteRow', index);
 	}
 }
