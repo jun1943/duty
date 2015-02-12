@@ -454,11 +454,22 @@ function btnExportAction() {
 					if (b_version.length > 0) {
 						var s = b_version.split(';');
 						if (s.length > 1) {
-							if ($.trim(s[1]) == "MSIE 8.0" || $.trim(s[1]) == "MSIE 9.0") {
+							if ($.trim(s[1]) == "MSIE 8.0"
+									|| $.trim(s[1]) == "MSIE 9.0"
+									|| $.trim(s[1]) == "MSIE 10.0") {
 								urlStr = "../../" + urlStr;
 							}
 						}
 					}
+				} else {
+					var b_version = navigator.appVersion;
+					if (b_version.length > 2) {
+						var s = b_version.split(';');
+						if (s.length > 2) {
+							urlStr = "../../" + urlStr;
+						}
+					}
+
 				}
 				window.location.href = urlStr;
 			}
@@ -518,11 +529,26 @@ function btnsaveVehicleData() {
 }
 function btnDownLoadModel() {
 	var urlStr = "resource/ExelModel/CarInfo.xls";
+	var b_version = navigator.appVersion;
 	if (/msie/.test(navigator.userAgent.toLowerCase())) {
-		if (b_version.indexOf("MSIE 8.0", 0) > -1
-				|| b_version.indexOf("MSIE 9.0", 0) > -1) {
-			urlStr = "../../" + urlStr;
+		if (b_version.length > 0) {
+			var s = b_version.split(';');
+			if (s.length > 1) {
+				if ($.trim(s[1]) == "MSIE 8.0" || $.trim(s[1]) == "MSIE 9.0"
+						|| $.trim(s[1]) == "MSIE 10.0") {
+					urlStr = "../../" + urlStr;
+				}
+			}
 		}
+	} else {
+		var b_version = navigator.appVersion;
+		if (b_version.length > 2) {
+			var s = b_version.split(';');
+			if (s.length > 2) {
+				urlStr = "../../" + urlStr;
+			}
+		}
+
 	}
 	window.location.href = urlStr;
 }

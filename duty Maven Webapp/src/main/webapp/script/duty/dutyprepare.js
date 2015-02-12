@@ -2462,30 +2462,50 @@ function loadTaskTarget(taskType) {
  */
 
 function addSelVehicles() {
-	addItems(1, $('#source_vehicle'));
-	$('#source_vehicle').treegrid('loadData', m_vehiclesourceData);
+	var ps = $('#source_vehicle').treegrid('getSelections');
+	if (ps.length > 0) {
+		addItems(1, $('#source_vehicle'));
+		$('#source_vehicle').treegrid('loadData', m_vehiclesourceData);
+	} else {
+		$.messager.alert("操作提示", "请选择要添加的资源数据", "info");
+	}
 }
 
 function addSelPolices() {
-	addItems(2, $('#source_police'));
-	if (m_policesourceData != null && m_policesourceData.length > 0) {
-		$.each(m_policesourceData, function(index, value) {
-			var iconUrl = value.iconUrl;// .substring(1,
-			// value.length);
-			itemiconCls = createIconStyle(value, 2, iconUrl);
-		});
+	var ps = $('#source_police').treegrid('getSelections');
+	if (ps.length > 0) {
+		addItems(2, $('#source_police'));
+		if (m_policesourceData != null && m_policesourceData.length > 0) {
+			$.each(m_policesourceData, function(index, value) {
+				var iconUrl = value.iconUrl;// .substring(1,
+				// value.length);
+				itemiconCls = createIconStyle(value, 2, iconUrl);
+			});
+		}
+		$('#source_police').treegrid('loadData', m_policesourceData);
+	} else {
+		$.messager.alert("操作提示", "请选择要添加的资源数据", "info");
 	}
-	$('#source_police').treegrid('loadData', m_policesourceData);
 }
 
 function addSelWeapons() {
-	addItems(3, $('#source_weapon'));
-	$('#source_weapon').treegrid('loadData', m_weaponsourceData);
+	var ps = $('#source_weapon').treegrid('getSelections');
+	if (ps.length > 0) {
+		addItems(3, $('#source_weapon'));
+		$('#source_weapon').treegrid('loadData', m_weaponsourceData);
+	} else {
+		$.messager.alert("操作提示", "请选择要添加的资源数据", "info");
+	}
 }
 
 function addSelgps() {
-	addItems(4, $('#source_gpsdevice'));
-	$('#source_gpsdevice').treegrid('loadData', m_gpssourceData);
+	var ps = $('#source_gpsdevice').treegrid('getSelections');
+	if (ps.length > 0) {
+		addItems(4, $('#source_gpsdevice'));
+		$('#source_gpsdevice').treegrid('loadData', m_gpssourceData);
+	} else {
+		$.messager.alert("操作提示", "请选择要添加的资源数据", "info");
+	}
 }
 
 function addItems(itemTypeId, grid) {
@@ -2500,9 +2520,12 @@ function addItems(itemTypeId, grid) {
 			var shiftRowT = findShiftRow(row);
 			var dutyTypeRow = findDutyTypeRow(row);
 			if (grid.selector == "#source_police") {
-				if (ps.length > dutyTypeRow.maxPolice) {
-					$.messager.alert('提示', '勤务类型: ' + dutyTypeRow.name
-							+ ' 警察数量上限是:' + dutyTypeRow.maxPolice, "warning");
+				if (dutyTypeRow.maxPolice > 0) {
+					if (ps.length > dutyTypeRow.maxPolice) {
+						$.messager.alert('提示', '勤务类型: ' + dutyTypeRow.name
+								+ ' 警察数量上限是:' + dutyTypeRow.maxPolice,
+								"warning");
+					}
 				} else {
 					$.each(ps, function(i, v) {
 						var exists = existsResource(shiftRowT, v);
@@ -2591,12 +2614,23 @@ function btnExportToExcelAction() {
 					var s = b_version.split(';');
 					if (s.length > 1) {
 						if ($.trim(s[1]) == "MSIE 8.0"
-								|| $.trim(s[1]) == "MSIE 9.0") {
+								|| $.trim(s[1]) == "MSIE 9.0"
+								|| $.trim(s[1]) == "MSIE 10.0") {
 							urlStr = "../../" + urlStr;
 						}
 					}
 				}
+			} else {
+				var b_version = navigator.appVersion;
+				if (b_version.length > 2) {
+					var s = b_version.split(';');
+					if (s.length > 2) {
+						urlStr = "../../" + urlStr;
+					}
+				}
+
 			}
+			//window.location.href = urlStr;
 			// var urlStr = req.Data.substring(1, req.Data.length);
 			window.open(urlStr);
 		},
