@@ -117,15 +117,15 @@ public class GpsServiceImpl implements GpsService{
 		// TODO Auto-generated method stub
 		return gpsMapper.findByIdAndDtyId(param);
 	}
-	public List<Gps> loadListByOrgId(Integer orgId) {
+	public List<Gps> getGPSInfo(Integer orgId) {
 		// TODO Auto-generated method stub
-		return gpsMapper.loadListByOrgId(orgId);
+		return gpsMapper.getGPSInfo(orgId);
 	}
 	
 	
 	
 
-	public List<ExtItem<Gps>> loadGpsDutyInfo(Integer orgId, Integer ymd) {
+	public List<ExtItem<Gps>> getGpsDutyInfo(Integer orgId, Integer ymd) {
 		Map<Integer, ExtItem<?>> cache = new HashMap<Integer, ExtItem<?>>();// dutyItemId局部缓存，避免大量低效率的循环。
 		Map<Integer, Object> cache2 = new HashMap<Integer, Object>();// ItemId
 																		// 局部缓存，避免大量低效率的循环。Object无意义，都为null
@@ -163,7 +163,7 @@ public class GpsServiceImpl implements GpsService{
 			}
 		}
 
-		List<Gps> mps = gpsMapper.loadListByOrgId(orgId);
+		List<Gps> mps = gpsMapper.getGPSInfo(orgId);
 
 		for (Gps mp : mps) {
 			if (!cache2.containsKey(mp.getId())) {

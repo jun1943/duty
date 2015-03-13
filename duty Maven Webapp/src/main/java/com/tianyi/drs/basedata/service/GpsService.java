@@ -93,7 +93,7 @@ public interface GpsService {
 	 * @param orgId
 	 * @return
 	 */
-	List<Gps> loadListByOrgId(Integer orgId);
+	List<Gps> getGPSInfo(Integer orgId);
 	
 
 	/**
@@ -102,5 +102,5 @@ public interface GpsService {
 	 * @param ymd
 	 * @return
 	 */
-	List<ExtItem<Gps>> loadGpsDutyInfo(Integer orgId, Integer ymd);
+	List<ExtItem<Gps>> getGpsDutyInfo(Integer orgId, Integer ymd);
 }

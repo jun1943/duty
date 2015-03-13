@@ -8,6 +8,9 @@ import com.tianyi.drs.basedata.model.Vehicle;
 import com.tianyi.drs.basedata.model.VehicleType;
 import com.tianyi.drs.basedata.viewmodel.VehicleVM;
 import com.tianyi.drs.duty.exportmodel.ExtItem;
+import com.tianyi.drs.duty.exportmodel.PoliceInfo;
+import com.tianyi.drs.duty.exportmodel.VehicleExtItem;
+import com.tianyi.drs.duty.exportmodel.VehicleInfo;
 import com.tianyi.util.PaginationData;
 /**
  * 车辆后台逻辑服务层
@@ -102,7 +105,7 @@ public interface VehicleService {
 	 * @param orgId
 	 * @return
 	 */
-	List<Vehicle> loadListByOrgId(Integer orgId);
+	List<Vehicle> getVehicleInfo(Integer orgId);
 	
 	/**
 	 * 读取车辆备勤信息及基础信息
@@ -110,7 +113,7 @@ public interface VehicleService {
 	 * @param ymd
 	 * @return
 	 */
-	List<ExtItem<Vehicle>> loadVehicleDutyInfo(Integer orgId, Integer ymd);
-	
+	//List<ExtItem<Vehicle>> loadVehicleDutyInfo(Integer orgId, Integer ymd);
+	List<VehicleExtItem> getVehicleDutyInfo(Integer orgId, Integer ymd);
 	
 }

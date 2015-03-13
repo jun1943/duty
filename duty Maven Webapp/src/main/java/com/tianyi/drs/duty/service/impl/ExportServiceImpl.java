@@ -95,7 +95,7 @@ public class ExportServiceImpl implements ExportService {
 			}
 		}
 
-		List<Police> mps = policeMapper.loadListByOrgId(orgId);
+		List<Police> mps = policeMapper.getPoliceInfo(orgId);
 
 		for (Police mp : mps) {
 			if (!cache2.containsKey(mp.getId())) {
@@ -310,7 +310,7 @@ public class ExportServiceImpl implements ExportService {
 			}
 		}
 
-		List<Vehicle> mps = vehicleMapper.loadListByOrgId(orgId);
+		List<Vehicle> mps = vehicleMapper.getVehicleInfo(orgId);
 
 		for (Vehicle mp : mps) {
 			if (!cache2.containsKey(mp.getId())) {
@@ -370,7 +370,7 @@ public class ExportServiceImpl implements ExportService {
 			}
 		}
 
-		List<Weapon> mps = weaponMapper.loadListByOrgId(orgId);
+		List<Weapon> mps = weaponMapper.getWeaponInfo(orgId);
 
 		for (Weapon mp : mps) {
 			if (!cache2.containsKey(mp.getId())) {
@@ -421,7 +421,7 @@ public class ExportServiceImpl implements ExportService {
 			}
 		}
 
-		List<Gps> mps = gpsMapper.loadListByOrgId(orgId);
+		List<Gps> mps = gpsMapper.getGPSInfo(orgId);
 
 		for (Gps mp : mps) {
 			if (!cache2.containsKey(mp.getId())) {
@@ -436,7 +436,7 @@ public class ExportServiceImpl implements ExportService {
 
 	public List<Icons> loadIconsInfo() {
 		// TODO Auto-generated method stub
-		return iconsMapper.loadIconsInfo();
+		return iconsMapper.getIconsInfo();
 	}
 
 }

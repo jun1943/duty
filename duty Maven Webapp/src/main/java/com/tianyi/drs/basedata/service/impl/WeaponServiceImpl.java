@@ -155,12 +155,12 @@ public class WeaponServiceImpl implements WeaponService {
 		// TODO Auto-generated method stub
 		return weaponMapper.findByIdAndDtyId(param);
 	}
-	public List<Weapon> loadListByOrgId(Integer orgId) {
+	public List<Weapon> getWeaponInfo(Integer orgId) {
 		// TODO Auto-generated method stub
-		return weaponMapper.loadListByOrgId(orgId);
+		return weaponMapper.getWeaponInfo(orgId);
 	} 
 
-	public List<ExtItem<Weapon>> loadWeaponDutyInfo(Integer orgId, Integer ymd) {
+	public List<ExtItem<Weapon>> getWeaponDutyInfo(Integer orgId, Integer ymd) {
 		Map<Integer, ExtItem<?>> cache = new HashMap<Integer, ExtItem<?>>();// dutyItemId局部缓存，避免大量低效率的循环。
 		Map<Integer, Object> cache2 = new HashMap<Integer, Object>();// ItemId
 																		// 局部缓存，避免大量低效率的循环。Object无意义，都为null
@@ -207,7 +207,7 @@ public class WeaponServiceImpl implements WeaponService {
 			}
 		}
 
-		List<Weapon> mps = weaponMapper.loadListByOrgId(orgId);
+		List<Weapon> mps = weaponMapper.getWeaponInfo(orgId);
 
 		for (Weapon mp : mps) {
 			if (!cache2.containsKey(mp.getId())) {

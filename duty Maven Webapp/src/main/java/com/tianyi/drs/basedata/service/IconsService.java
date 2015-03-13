@@ -56,6 +56,6 @@ public interface IconsService {
 	 * 读取图标基础信息
 	 * @return
 	 */
-	List<Icons> loadIconsInfo();
+	List<Icons> getIconsInfo();
 	
 }

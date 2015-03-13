@@ -153,6 +153,6 @@ public interface PoliceMapper {
 	 * @param orgId
 	 * @return
 	 */
-	List<Police> loadListByOrgId(Integer orgId);
+	List<Police> getPoliceInfo(Integer orgId);
 	 
 }

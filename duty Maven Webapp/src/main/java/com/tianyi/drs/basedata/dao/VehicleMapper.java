@@ -90,6 +90,6 @@ public interface VehicleMapper {
 	 * @param orgId
 	 * @return
 	 */
-	List<Vehicle> loadListByOrgId(Integer orgId);
+	List<Vehicle> getVehicleInfo(Integer orgId);
     
 }

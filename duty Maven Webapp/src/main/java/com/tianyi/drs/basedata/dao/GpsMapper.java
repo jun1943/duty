@@ -85,7 +85,7 @@ public interface GpsMapper {
 	 * @param orgId
 	 * @return
 	 */
-	List<Gps> loadListByOrgId(Integer orgId); 
+	List<Gps> getGPSInfo(Integer orgId); 
 }
 
 

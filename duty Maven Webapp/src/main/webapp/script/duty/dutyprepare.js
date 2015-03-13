@@ -2619,7 +2619,7 @@ function btnExportToExcelAction() {
 							urlStr = "../../" + urlStr;
 						}
 					}
-				}
+				}0.
 			} else {
 				var b_version = navigator.appVersion;
 				if (b_version.length > 2) {

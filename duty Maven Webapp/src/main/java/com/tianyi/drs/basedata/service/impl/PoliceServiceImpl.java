@@ -11,17 +11,23 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.tianyi.drs.basedata.dao.PoliceMapper; 
+import com.tianyi.drs.basedata.dao.PoliceMapper;
+import com.tianyi.drs.basedata.model.Gps;
 import com.tianyi.drs.basedata.model.IntercomGroup;
 import com.tianyi.drs.basedata.model.Police;
-import com.tianyi.drs.basedata.model.PoliceType; 
+import com.tianyi.drs.basedata.model.PoliceType;
+import com.tianyi.drs.basedata.model.Weapon;
 import com.tianyi.drs.basedata.service.PoliceService;
 import com.tianyi.drs.basedata.viewmodel.GpsBaseVM;
 import com.tianyi.drs.basedata.viewmodel.PoliceVM;
 import com.tianyi.drs.duty.dao.ExportMapper;
 import com.tianyi.drs.duty.exportmodel.ExtDbResult;
-import com.tianyi.drs.duty.exportmodel.ExtItem;
 import com.tianyi.drs.duty.exportmodel.ExtShiftInfo;
+import com.tianyi.drs.duty.exportmodel.GpsInfo;
+import com.tianyi.drs.duty.exportmodel.ItemInfo; 
+import com.tianyi.drs.duty.exportmodel.PoliceExtItem;
+import com.tianyi.drs.duty.exportmodel.PoliceInfo; 
+import com.tianyi.drs.duty.exportmodel.WeaponInfo;
 import com.tianyi.drs.duty.viewmodel.UserObjectVM;
 import com.tianyi.util.PaginationData;
 
@@ -334,17 +340,20 @@ public class PoliceServiceImpl implements PoliceService {
 	 * 
 	 * @see com.tianyi.drs.basedata.service.PoliceService#loadListByOrgId(Map)
 	 */
-	public List<Police> loadListByOrgId(Integer orgId) {
+	public List<Police> getPoliceInfo(Integer orgId) {
 		// TODO Auto-generated method stub
-		return policeMapper.loadListByOrgId(orgId);
+		return policeMapper.getPoliceInfo(orgId);
 	}
 
-	public List<ExtItem<Police>> loadPoliceDutyInfo(Integer orgId, Integer ymd) {
-		Map<Integer, ExtItem<?>> cache = new HashMap<Integer, ExtItem<?>>();// dutyItemId局部缓存，避免大量低效率的循环。
-		Map<Integer, Object> cache2 = new HashMap<Integer, Object>();// ItemId
-																		// 局部缓存，避免大量低效率的循环。Object无意义，都为null
+	public List<PoliceExtItem> getPoliceDutyInfo(Integer orgId, Integer ymd) {
 
-		List<ExtItem<Police>> eps = new ArrayList<ExtItem<Police>>();
+		Map<Integer, ItemInfo<?>> cache = new HashMap<Integer, ItemInfo<?>>();// dutyItemId局部缓存，避免大量低效率的循环。
+		Map<Integer, Object> cache2 = new HashMap<Integer, Object>();// ItemId
+																		// //
+		List<PoliceExtItem> pels = new ArrayList<PoliceExtItem>();
+		// 局部缓存，避免大量低效率的循环。Object无意义，都为null
+
+		List<PoliceInfo> ps = new ArrayList<PoliceInfo>();
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("orgId", orgId);
@@ -362,54 +371,132 @@ public class PoliceServiceImpl implements PoliceService {
 
 		for (ExtDbResult r : rs) {
 			if (r.getItemTypeId() == 2) {
-				@SuppressWarnings("unchecked")
-				ExtItem<Police> ep = (ExtItem<Police>) createItemInfo(r);
-				ep.setShiftInfo(createShiftInfo(r)); // 只有第一层需要写班次信息
+				PoliceInfo p = this.createPoliceInfo(r);
+				p.setShiftInfo(this.createShiftInfo(r)); // 只有第一层需要写班次信息
 
-				cache.put(ep.getDutyItemId(), ep);// 添加到缓存
-				cache2.put(ep.getData().getId(), null);
-				eps.add(ep);// 添加到list
+				cache.put(p.getDutyItemId(), p);// 添加到缓存
+				cache2.put(p.getData().getId(), null);
+				ps.add(p);// 添加到list
 
 			} else {
 				if (cache.containsKey(r.getParentId())) {
-					@SuppressWarnings("unchecked")
-					ExtItem<Police> pp = (ExtItem<Police>) cache.get(r
-							.getParentId());
-					if (pp.getItems() == null) {
-						pp.setItems(new ArrayList<ExtItem<?>>());
-					}
-					ExtItem<?> cp = (ExtItem<?>) createItemInfo(r);
-					pp.getItems().add(cp);
-					cache.put(r.getDutyItemId(), cp);
+					PoliceInfo pp = (PoliceInfo) cache.get(r.getParentId());
 
+					switch (r.getItemTypeId()) {
+					case 3:// weapon
+						if (pp.getWeaponItems() == null) {
+							pp.setWeaponItems(new ArrayList<WeaponInfo>());
+						}
+						WeaponInfo w = createWeaponInfo(r);
+						pp.getWeaponItems().add(w);
+						cache.put(r.getDutyItemId(), w);
+						break;
+					case 4: // gps
+						if (pp.getGpsItems() == null) {
+							pp.setGpsItems(new ArrayList<GpsInfo>());
+						}
+						GpsInfo g = createGpsInfo(r);
+						pp.getGpsItems().add(g);
+						cache.put(r.getDutyItemId(), g);
+						break;
+					}
 				}
 			}
 		}
 
-		List<Police> mps = policeMapper.loadListByOrgId(orgId);
+		List<Police> mps = policeMapper.getPoliceInfo(orgId);
 
 		for (Police mp : mps) {
 			if (!cache2.containsKey(mp.getId())) {
-				ExtItem<Police> ep2 = new ExtItem<Police>();
+				PoliceInfo ep2 = new PoliceInfo();
 				ep2.setData(mp);
-				eps.add(ep2);
+				ps.add(ep2);
 			}
 		}
-
-		return eps;
-
+		pels = CreatePoliceExtItem(ps);
+		return pels;
 	}
 
-	private Object createItemInfo(ExtDbResult result) {
-		ExtItem<Object> item = new ExtItem<Object>();
-		Object data = null;
+	private List<PoliceExtItem> CreatePoliceExtItem(List<PoliceInfo> eps) {
+		// TODO Auto-generated method stub
+		List<PoliceExtItem> pets = new ArrayList<PoliceExtItem>();
+		for (PoliceInfo rs : eps) {
+			PoliceExtItem pei = new PoliceExtItem();
 
-		data = this.createPolice(result);
+			pei.setData(rs.getData());
+			pei.setDutyItemId(rs.getDutyItemId());
+			pei.setItemTypeId(rs.getItemTypeId());
+			pei.setShiftInfo(rs.getShiftInfo());
+			if (rs.getGpsItems() != null) {
+				if (rs.getGpsItems().size() > 0) {
+					for (int i = 0; i < rs.getGpsItems().size(); i++) {
+						GpsInfo ep = rs.getGpsItems().get(i);
+						List<Integer> gpsid = new ArrayList<Integer>();
+						if (ep.getData() != null) {
+							Gps g = (Gps) ep.getData();
+							gpsid.add(g.getId());
+							if (pei.getGpsItems() == null) {
+								pei.setGpsItems(gpsid);
+							} else {
+								pei.getGpsItems().add(g.getId());
+							}
+						}
 
+					}
+				}
+			}
+			if (rs.getWeaponItems() != null) {
+				if (rs.getWeaponItems().size() > 0) {
+					for (int i = 0; i < rs.getWeaponItems().size(); i++) {
+						WeaponInfo wp = rs.getWeaponItems().get(i);
+						List<Integer> wid = new ArrayList<Integer>();
+						if (wp.getData() != null) {
+							Weapon w = (Weapon) wp.getData();
+							wid.add(w.getId());
+							if (pei.getWeaponItems() == null) {
+								pei.setWeaponItems(wid);
+							} else {
+								pei.getWeaponItems().add(w.getId());
+							}
+						}
+
+					}
+				}
+			}
+			pets.add(pei);
+		}
+		return pets;
+	}
+
+	private PoliceInfo createPoliceInfo(ExtDbResult result) {
+		PoliceInfo item = new PoliceInfo();
+		Police data = this.createPolice(result);
 		item.setDutyItemId(result.getDutyItemId());
 		item.setData(data);
 		item.setItemTypeId(result.getItemTypeId());
-		item.setLevel(result.getLevel());
+		// item.setLevel(result.getLevel());
+
+		return item;
+	}
+
+	private GpsInfo createGpsInfo(ExtDbResult result) {
+		GpsInfo item = new GpsInfo();
+		Gps data = this.createGsp(result);
+		item.setDutyItemId(result.getDutyItemId());
+		item.setData(data);
+		item.setItemTypeId(result.getItemTypeId());
+		// item.setLevel(result.getLevel());
+
+		return item;
+	}
+
+	private WeaponInfo createWeaponInfo(ExtDbResult result) {
+		WeaponInfo item = new WeaponInfo();
+		Weapon data = this.createWeapon(result);
+		item.setDutyItemId(result.getDutyItemId());
+		item.setData(data);
+		item.setItemTypeId(result.getItemTypeId());
+		// item.setLevel(result.getLevel());
 
 		return item;
 	}
@@ -425,7 +512,6 @@ public class PoliceServiceImpl implements PoliceService {
 
 		return info;
 	}
- 
 
 	private Police createPolice(ExtDbResult result) {
 		Police p = new Police();
@@ -443,6 +529,26 @@ public class PoliceServiceImpl implements PoliceService {
 
 		return p;
 	}
- 
+
+	private Weapon createWeapon(ExtDbResult result) {
+		Weapon w = new Weapon();
+		w.setId(result.getWeaponId());
+		w.setNumber(result.getWeaponNumber());
+		w.setOrgId(result.getWeaponOrgId());
+		w.setStandard(result.getWeaponStandard());
+		w.setTypeId(result.getWeaponTypeId());
+		return w;
+	}
+
+	private Gps createGsp(ExtDbResult result) {
+		Gps g = new Gps();
+		g.setGpsName(result.getGpsName());
+		g.setIconUrl(result.getGpsIconUrl());
+		g.setId(result.getGpsId());
+		g.setNumber(result.getGpsNumber());
+		g.setOrgId(result.getGpsOrgId());
+		g.setTypeId(result.getGpsTypeId());
+		return g;
+	}
 
 }

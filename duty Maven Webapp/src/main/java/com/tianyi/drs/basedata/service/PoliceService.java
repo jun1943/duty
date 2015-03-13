@@ -9,6 +9,8 @@ import com.tianyi.drs.basedata.model.PoliceType;
 import com.tianyi.drs.basedata.viewmodel.GpsBaseVM;
 import com.tianyi.drs.basedata.viewmodel.PoliceVM;
 import com.tianyi.drs.duty.exportmodel.ExtItem;
+import com.tianyi.drs.duty.exportmodel.PoliceExtItem;
+import com.tianyi.drs.duty.exportmodel.PoliceInfo;
 import com.tianyi.drs.duty.viewmodel.UserObjectVM;
 import com.tianyi.util.PaginationData;
 /**
@@ -182,7 +184,7 @@ public interface PoliceService {
 	 * @param orgId
 	 * @return
 	 */
-	List<Police> loadListByOrgId(Integer orgId);
+	List<Police> getPoliceInfo(Integer orgId);
 	
 	
 	
@@ -195,13 +197,9 @@ public interface PoliceService {
 	 * @param ymd
 	 * @return
 	 */
-	List<ExtItem<Police>> loadPoliceDutyInfo(Integer orgId, Integer ymd);
+	List<PoliceExtItem> getPoliceDutyInfo(Integer orgId, Integer ymd);
 	
 	
-	
-	
-	
-	
-	
+	 
 	
 }

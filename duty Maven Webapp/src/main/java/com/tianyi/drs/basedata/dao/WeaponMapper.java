@@ -89,5 +89,5 @@ public interface WeaponMapper {
 	 * @param orgId
 	 * @return
 	 */
-	List<Weapon> loadListByOrgId(Integer orgId);
+	List<Weapon> getWeaponInfo(Integer orgId);
 }

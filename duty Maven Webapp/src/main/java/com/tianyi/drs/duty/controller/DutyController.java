@@ -17,17 +17,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
- 
-import com.tianyi.drs.basedata.model.Police; 
+
 import com.tianyi.drs.basedata.service.PoliceService;
-import com.tianyi.drs.duty.exportmodel.ExtItem;
+import com.tianyi.drs.basedata.service.VehicleService; 
 import com.tianyi.drs.duty.model.Duty;
 import com.tianyi.drs.duty.model.DutyProperty;
 import com.tianyi.drs.duty.model.Org;
 import com.tianyi.drs.duty.model.PoliceTarget;
 import com.tianyi.drs.duty.service.DutyService;
 import com.tianyi.drs.duty.service.DutyTaskService;
-import com.tianyi.drs.duty.service.ExportService;
 import com.tianyi.drs.duty.viewmodel.DutyItemVM;
 import com.tianyi.drs.duty.viewmodel.DutyVM;
 import com.tianyi.drs.duty.viewmodel.ListResult;
@@ -55,7 +53,10 @@ public class DutyController {
 
 	@Resource(name = "policeService")
 	protected PoliceService policeService;
-	
+
+	@Resource(name = "vehicleService")
+	protected VehicleService vehicleService;
+
 	/**
 	 * 根据组织机构id和日期，获取详细的报备数据，以树形结构显示
 	 * 
@@ -93,9 +94,8 @@ public class DutyController {
 			@RequestParam(value = "ymd", required = false) Integer ymd,
 			@RequestParam(value = "id", required = false) Integer id,
 			HttpServletRequest request) {
-		 
-		DutyVM dvm = null;
 
+		DutyVM dvm = null; 
 		if (id == null) {
 			dvm = dutyService.loadVMByOrgIdAndYmd(orgId, ymd);
 		} else {
@@ -172,16 +172,16 @@ public class DutyController {
 	public @ResponseBody
 	String deleteDutyTemplateAction(
 			@RequestParam(value = "temId", required = false) Integer param,
-			HttpServletRequest request) { 
+			HttpServletRequest request) {
 		try {
 			Duty duty = new Duty();
 			duty = dutyService.loadTempById(param);
-			if(duty!=null){
+			if (duty != null) {
 				int dutyId = duty.getId();
 				dutyService.deleteByDutyId(dutyId);
 				dutyService.deleteTempById(param);
 			}
-			 return "{\"isSuccess\":true,\"Message\":\"模板删除成功\"}";
+			return "{\"isSuccess\":true,\"Message\":\"模板删除成功\"}";
 		} catch (Exception ex) {
 			return "{\"isSuccess\":false,\"Message\":\"删除失败，原因："
 					+ ex.getMessage() + "\"}";
@@ -237,15 +237,6 @@ public class DutyController {
 			return "";
 		}
 	}
-	
-//	private void test1(){
-//		List<ExtItem<Police>> ls=policeService.loadPoliceDutyInfo(15, null);
-////		List<ExtItem<Vehicle>> ls=exportService.loadVehicleDutyInfo(15, 20141209);
-////		List<ExtItem<Weapon>> ls=exportService.loadWeaponDutyInfo(15, 20141209);
-////		List<ExtItem<Gps>> ls=exportService.loadGpsDutyInfo(15, 20141209);
-////		if(ls.size()>0){
-////			int s = ls.size();
-////		}
-//	}
+ 
 
 }

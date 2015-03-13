@@ -69,8 +69,8 @@ public class IconsServiceImpl implements IconsService  {
 		// TODO Auto-generated method stub
 		iconsMapper.deleteByIds(map);
 	}
-	public List<Icons> loadIconsInfo() {
+	public List<Icons> getIconsInfo() {
 		// TODO Auto-generated method stub
-		return iconsMapper.loadIconsInfo();
+		return iconsMapper.getIconsInfo();
 	}
 }

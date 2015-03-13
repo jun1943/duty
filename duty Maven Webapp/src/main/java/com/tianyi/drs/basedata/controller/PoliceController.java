@@ -159,11 +159,8 @@ public class PoliceController {
 			map.put("orgId", orgId);
 			map.put("orgPath", orgPath);
 			map.put("orgCode", orgCode);
-			map.put("name", name);
-
-			// map.put("typeId", typeId);
-			// map.put("groupId", groupId);
-
+			map.put("name", name); 
+			
 			if (typeId != null && typeId != "") {
 				String[] s = {};
 				s = typeId.split(",");

@@ -116,7 +116,7 @@ public interface WeaponService {
 	 * @param orgId
 	 * @return
 	 */
-	List<Weapon> loadListByOrgId(Integer orgId);
+	List<Weapon> getWeaponInfo(Integer orgId);
 	
 	
 	/**
@@ -125,6 +125,6 @@ public interface WeaponService {
 	 * @param ymd
 	 * @return
 	 */
-	List<ExtItem<Weapon>> loadWeaponDutyInfo(Integer orgId, Integer ymd);
+	List<ExtItem<Weapon>> getWeaponDutyInfo(Integer orgId, Integer ymd);
 	
 }
