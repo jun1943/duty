@@ -543,7 +543,7 @@ public class PoliceServiceImpl implements PoliceService {
 	private Gps createGsp(ExtDbResult result) {
 		Gps g = new Gps();
 		g.setGpsName(result.getGpsName());
-		g.setIconUrl(result.getGpsIconUrl());
+		g.setIconId(null);
 		g.setId(result.getGpsId());
 		g.setNumber(result.getGpsNumber());
 		g.setOrgId(result.getGpsOrgId());

@@ -104,7 +104,7 @@
 			w.type_id				as	weapon_type_id,
 			g.id					as	gps_id,
 			g.gps_name				as	gps_name,
-			g.icon_url				as	gps_icon_url,
+			ico.icon_url	    	as	gps_icon_url,
 			g.number				as	gps_number,
 			g.org_id				as	gps_org_id,
 			g.type_id				as	gps_type_id
@@ -115,6 +115,7 @@
 			left join t_police 		as 	p  	on 	di.item_type_id=2 		and di.item_id=p.id
 			left join t_weapon 		as 	w 	on 	di.item_type_id=3		and di.item_id=w.id
 			left join t_gps 		as 	g 	on 	di.item_type_id =4 		and di.item_id=g.id
+			left join t_icon 		as 	ico 	on 	g.icon_id = ico.id
 		where
 			d.org_id=#{orgId,jdbcType=INTEGER}	and
 			d.ymd=#{ymd,jdbcType=INTEGER}

@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianyi.drs.basedata.service.PoliceService;
 import com.tianyi.drs.basedata.service.VehicleService; 
+import com.tianyi.drs.duty.exportmodel.PoliceExtItem;
+import com.tianyi.drs.duty.exportmodel.VehicleExtItem;
 import com.tianyi.drs.duty.model.Duty;
 import com.tianyi.drs.duty.model.DutyProperty;
 import com.tianyi.drs.duty.model.Org;
@@ -101,6 +103,7 @@ public class DutyController {
 		} else {
 			dvm = dutyService.loadById(id);
 		}
+		test();
 
 		ObjResult<DutyVM> rs = new ObjResult<DutyVM>(true, null,
 				dvm == null ? 0 : dvm.getId(), dvm);
@@ -108,6 +111,13 @@ public class DutyController {
 		String s = rs.toJson();
 
 		return s;
+	}
+
+	private void test() {
+		// TODO Auto-generated method stub
+		List<VehicleExtItem> ls = vehicleService.getVehicleDutyInfo(15, 20150301);
+//		String s =JSONObject.fromObject(ls).toString();
+		int sw = ls.size();
 	}
 
 	/**

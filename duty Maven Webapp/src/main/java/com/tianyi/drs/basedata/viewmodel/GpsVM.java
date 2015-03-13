@@ -23,6 +23,10 @@ public class GpsVM extends Gps {
 	 * 组织机构路径
 	 */
 	private String orgPath; 
+	/**
+	 * 组织机构路径
+	 */
+	private String iconUrl; 
 	
 	public String getOrgName() {
 		return orgName;
@@ -54,6 +58,14 @@ public class GpsVM extends Gps {
 
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
+	}
+
+	public String getIconUrl() {
+		return iconUrl;
+	}
+
+	public void setIconUrl(String iconUrl) {
+		this.iconUrl = iconUrl;
 	}
 
 }

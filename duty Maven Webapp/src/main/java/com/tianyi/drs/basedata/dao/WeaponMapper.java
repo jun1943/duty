@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.tianyi.drs.basedata.model.Weapon;
 import com.tianyi.drs.basedata.model.WeaponType;
+import com.tianyi.drs.basedata.viewmodel.WeaponItemVM;
 import com.tianyi.drs.basedata.viewmodel.WeaponVM;
 import com.tianyi.drs.duty.dao.core.MyBatisRepository;
 /*
@@ -89,5 +90,5 @@ public interface WeaponMapper {
 	 * @param orgId
 	 * @return
 	 */
-	List<Weapon> getWeaponInfo(Integer orgId);
+	List<WeaponItemVM> getWeaponInfo(Integer orgId);
 }

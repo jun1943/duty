@@ -21,6 +21,7 @@ import com.tianyi.drs.basedata.model.Icons;
 import com.tianyi.drs.basedata.model.Police;
 import com.tianyi.drs.basedata.model.Vehicle;
 import com.tianyi.drs.basedata.model.Weapon;
+import com.tianyi.drs.basedata.viewmodel.WeaponItemVM;
 import com.tianyi.drs.duty.dao.ExportMapper;
 import com.tianyi.drs.duty.exportmodel.ExtDbResult;
 import com.tianyi.drs.duty.exportmodel.ExtItem;
@@ -213,7 +214,7 @@ public class ExportServiceImpl implements ExportService {
 	private Gps createGsp(ExtDbResult result) {
 		Gps g = new Gps();
 		g.setGpsName(result.getGpsName());
-		g.setIconUrl(result.getGpsIconUrl());
+		g.setIconId(null);
 		g.setId(result.getGpsId());
 		g.setNumber(result.getGpsNumber());
 		g.setOrgId(result.getGpsOrgId());
@@ -370,7 +371,7 @@ public class ExportServiceImpl implements ExportService {
 			}
 		}
 
-		List<Weapon> mps = weaponMapper.getWeaponInfo(orgId);
+		List<WeaponItemVM> mps = weaponMapper.getWeaponInfo(orgId);
 
 		for (Weapon mp : mps) {
 			if (!cache2.containsKey(mp.getId())) {

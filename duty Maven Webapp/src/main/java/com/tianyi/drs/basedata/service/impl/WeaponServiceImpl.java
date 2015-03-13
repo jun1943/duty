@@ -15,6 +15,7 @@ import com.tianyi.drs.basedata.dao.WeaponMapper;
 import com.tianyi.drs.basedata.model.Weapon;
 import com.tianyi.drs.basedata.model.WeaponType;
 import com.tianyi.drs.basedata.service.WeaponService; 
+import com.tianyi.drs.basedata.viewmodel.WeaponItemVM;
 import com.tianyi.drs.basedata.viewmodel.WeaponVM;
 import com.tianyi.drs.duty.dao.ExportMapper;
 import com.tianyi.drs.duty.exportmodel.ExtDbResult;
@@ -155,7 +156,7 @@ public class WeaponServiceImpl implements WeaponService {
 		// TODO Auto-generated method stub
 		return weaponMapper.findByIdAndDtyId(param);
 	}
-	public List<Weapon> getWeaponInfo(Integer orgId) {
+	public List<WeaponItemVM> getWeaponInfo(Integer orgId) {
 		// TODO Auto-generated method stub
 		return weaponMapper.getWeaponInfo(orgId);
 	} 
@@ -207,7 +208,7 @@ public class WeaponServiceImpl implements WeaponService {
 			}
 		}
 
-		List<Weapon> mps = weaponMapper.getWeaponInfo(orgId);
+		List<WeaponItemVM> mps = weaponMapper.getWeaponInfo(orgId);
 
 		for (Weapon mp : mps) {
 			if (!cache2.containsKey(mp.getId())) {

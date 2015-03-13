@@ -287,12 +287,13 @@
 			org.path 				as 	orgPath,
 			gps.number 				as 	gpsnumber,
 			vt.name 				as 	typename ,
-			tg.icon_url             as  iconUrl
+			ico.icon_url             as  iconUrl
 		from t_vehicle as v
 			left join organ as org on v.org_id=org.id 
 			left join t_gps as gps on v.gps_id=gps.id 
 			left join t_vehicletype as vt on v.vehicle_type_id=vt.id
   			left join t_gps tg on v.gps_id = tg.id
+  			left join t_icon ico on tg.icon_id = ico.id
 		where 
   			(
   		 org.id = #{orgId,jdbcType=INTEGER}
@@ -321,7 +322,7 @@
 	  		</if>
   </select>
   
-  <select id="loadListByOrgId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="getVehicleInfo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
   	select 
      <include refid="Base_Column_List" />
     from t_vehicle
@@ -380,13 +381,14 @@
     		o.code as orgCode,
     		o.path as orgPath,
     		tg.number as gpsNumber,
-    		tg.icon_url as iconUrl
+    		ico.icon_url as iconUrl
     		
     		
   		 from t_vehicle v 
   		 left join t_vehicletype vt on vt.id = v.vehicle_type_id
   		 left join organ o on o.id  = v.org_id
   		 	left join t_gps tg  on v.gps_id = tg.id
+  			left join t_icon ico on tg.icon_id = ico.id
   		 <if test ="gids !=null">
   		 	left join t_duty_vehicle_group_member gm on gm.vehicle_id = v.id
   		 	left join t_duty_vehicle_group pg on pg.id = gm.group_id

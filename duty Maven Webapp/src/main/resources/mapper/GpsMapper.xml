@@ -9,7 +9,7 @@
     <result column="gps_name" jdbcType="VARCHAR" property="gpsName" />
     <result column="sync_state" jdbcType="BIT" property="syncState" />
     <result column="platform_id" jdbcType="INTEGER" property="platformId" />
-    <result column="icon_url" jdbcType="VARCHAR" property="iconUrl" />
+    <result column="icon_id" jdbcType="INTEGER" property="iconId" />
   </resultMap> 
   <resultMap id="ViewResultMap" type="com.tianyi.drs.basedata.viewmodel.GpsVM">
     <id column="id" jdbcType="INTEGER" property="id" />
@@ -19,14 +19,14 @@
     <result column="gps_name" jdbcType="VARCHAR" property="gpsName" />
     <result column="sync_state" jdbcType="BIT" property="syncState" />
     <result column="platform_id" jdbcType="INTEGER" property="platformId" />
-    <result column="icon_url" jdbcType="VARCHAR" property="iconUrl" />
+    <result column="iconUrl" jdbcType="INTEGER" property="iconUrl" />
     <result column="orgName" jdbcType="VARCHAR" property="orgName" />
     <result column="orgcode" jdbcType="VARCHAR" property="orgCode" />
     <result column="orgpath" jdbcType="VARCHAR" property="orgPath" />
     <result column="typeName" jdbcType="VARCHAR" property="typeName" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, type_id, org_id, number, gps_name, sync_state, platform_id, icon_url
+    id, type_id, org_id, number, gps_name, sync_state, platform_id, icon_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -44,10 +44,10 @@
   </selectKey> 
     insert into t_gps (id, type_id, org_id, 
       number, gps_name, sync_state, 
-      platform_id, icon_url)
+      platform_id, icon_id)
     values (#{id,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, 
       #{number,jdbcType=VARCHAR}, #{gpsName,jdbcType=VARCHAR}, #{syncState,jdbcType=BIT}, 
-      #{platformId,jdbcType=INTEGER}, #{iconUrl,jdbcType=VARCHAR})
+      #{platformId,jdbcType=INTEGER}, #{iconId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.tianyi.drs.basedata.model.Gps">
     insert into t_gps
@@ -73,8 +73,8 @@
       <if test="platformId != null">
         platform_id,
       </if>
-      <if test="iconUrl != null">
-        icon_url,
+      <if test="iconId != null">
+        icon_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -99,8 +99,8 @@
       <if test="platformId != null">
         #{platformId,jdbcType=INTEGER},
       </if>
-      <if test="iconUrl != null">
-        #{iconUrl,jdbcType=VARCHAR},
+      <if test="iconId != null">
+        #{iconId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -125,8 +125,8 @@
       <if test="platformId != null">
         platform_id = #{platformId,jdbcType=INTEGER},
       </if>
-      <if test="iconUrl != null">
-        icon_url = #{iconUrl,jdbcType=VARCHAR},
+      <if test="iconId != null">
+        icon_id = #{iconId,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -139,7 +139,7 @@
       gps_name = #{gpsName,jdbcType=VARCHAR},
       sync_state = #{syncState,jdbcType=BIT},
       platform_id = #{platformId,jdbcType=INTEGER},
-      icon_url = #{iconUrl,jdbcType=VARCHAR}
+      icon_Id = #{iconId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   
@@ -164,7 +164,7 @@
        		 select * from t_gpstype order by id asc
     	 </select> 
   
-  <select id="loadListByOrgId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="getGPSInfo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
   	select 
     	 <include refid="Base_Column_List" />
     from t_gps
@@ -183,11 +183,12 @@
 			org.name				as	orgName,
 			org.code 				as 	orgCode,
 			org.path 				as 	orgPath,
-			g.icon_url              as  iconUrl,
+			c.icon_url              as  iconUrl,
 			gt.name 				as 	typeName 
 		from t_gps as g
 			left join organ as org on g.org_id=org.id  
 			left join t_gpstype as gt on g.type_id=gt.id
+			left join t_icon as c on c.id = g.icon_id
 		where 
   			(
   		 org.id = #{orgId,jdbcType=INTEGER}
@@ -257,7 +258,7 @@
 			g.gps_name as gpsName,
 			g.sync_state as syncState,
 			g.platform_id as platformId,
-			g.icon_url    as iconUrl,
+			c.icon_url    as iconUrl,
 			o.short_name  as orgName,
 			o.code        as orgCode,
 			o.path        as orgPath,
@@ -265,6 +266,7 @@
   		 from t_gps g 
   		 left join t_gpstype gt on gt.id = g.type_id
   		 left join organ o on o.id  = g.org_id 
+			left join t_icon as c on c.id = g.icon_id
   		 <if test ="gids !=null">
   		 	left join t_duty_gps_group_member gm on gm.gps_id = g.id
   		 	left join t_duty_gps_group pg on pg.id = gm.group_id

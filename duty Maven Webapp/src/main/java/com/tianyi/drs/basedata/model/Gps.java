@@ -34,9 +34,17 @@ public class Gps {
     /*
 	 * 对应图标地址
 	 */
-    private String iconUrl;
+    private Integer iconId;
 
-    public Integer getId() {
+    public Integer getIconId() {
+		return iconId;
+	}
+
+	public void setIconId(Integer iconId) {
+		this.iconId = iconId;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -91,12 +99,5 @@ public class Gps {
     public void setPlatformId(Integer platformId) {
         this.platformId = platformId;
     }
-
-    public String getIconUrl() {
-        return iconUrl;
-    }
-
-    public void setIconUrl(String iconUrl) {
-        this.iconUrl = iconUrl;
-    }
+ 
 }

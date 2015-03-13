@@ -182,7 +182,7 @@ public class ExcelUploadController {
 					pol.setNumber(entity[3]);
 					pol.setGpsName(entity[2]);
 
-					pol.setIconUrl(null);
+					pol.setIconId(null);
 					pol.setOrgId(orgId);
 					pol.setPlatformId(1);
 					pol.setSyncState(true);

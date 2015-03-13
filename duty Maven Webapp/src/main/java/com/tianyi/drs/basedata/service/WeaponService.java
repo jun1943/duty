@@ -5,6 +5,7 @@ import java.util.Map;
  
 import com.tianyi.drs.basedata.model.Weapon;
 import com.tianyi.drs.basedata.model.WeaponType;
+import com.tianyi.drs.basedata.viewmodel.WeaponItemVM;
 import com.tianyi.drs.basedata.viewmodel.WeaponVM;
 import com.tianyi.drs.duty.exportmodel.ExtItem;
 import com.tianyi.util.PaginationData;
@@ -116,7 +117,7 @@ public interface WeaponService {
 	 * @param orgId
 	 * @return
 	 */
-	List<Weapon> getWeaponInfo(Integer orgId);
+	List<WeaponItemVM> getWeaponInfo(Integer orgId);
 	
 	
 	/**
